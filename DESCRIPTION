@@ -26,12 +26,14 @@ Authors@R: c(
     )
   )
 Description: Methods for QAQC and exploratory analysis of surface water 
-quality data collected by watershed associations and citizen science 
-groups in Massachusetts, USA.  Functions are developed to facilitate 
-data formatting for the Water Quality Exchange Network and reporting 
-of data quality objectives to state agencies.
+  quality data collected by watershed associations and citizen science 
+  groups in Massachusetts, USA.  Functions are developed to facilitate 
+  data formatting for the Water Quality Exchange Network and reporting 
+  of data quality objectives to state agencies.
 Depends: 
   R (>= 3.5)
+Imports:
+  readxl
 License: CC0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
