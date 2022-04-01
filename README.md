@@ -1,5 +1,7 @@
 # MassWateR
 
+[![R-CMD-check](https://github.com/massbays-tech/MassWateR/workflows/R-CMD-check/badge.svg)](https://github.com/massbays-tech/MassWateR/actions)
+
 R package for working with Massachusetts surface water quality data, created in partnership by the [Mass Bays National Estuary Partnership](https://www.mass.gov/orgs/massachusetts-bays-national-estuary-partnership).
 
 ## Installation
