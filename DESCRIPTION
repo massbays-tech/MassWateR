@@ -1,12 +1,42 @@
 Package: MassWateR
-Title: What the Package Does (One Line, Title Case)
+Title: Tools for QAQC and Exploratory Analysis of Massachusetts Surface Water Quality Data
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Authors@R: c(
+    person(given = "Marcus",
+      family = "Beck",
+      role = c("aut", "cre"),
+      email = "mbeck@tbep.org",
+      comment = c(ORCID = "0000-0002-4996-0059")
+    ),
+    person(given = "Jill",
+      family = "Carr",
+      role = c("aut"),
+      email = "jill.carr@state.ma.us"
+    ),
+    person(given = "Ben",
+      family = "Wetherill",
+      role = c("aut"),
+      email = "bwetherill@acasak.com",
+      comment = c(ORCID = "0000-0002-8791-4256")
+    ),
+    person(given = "Pam",
+      family = "DiBona",
+      role = c("aut"),
+      email = "pamela.dibona@state.ma.us"
+    )
+  )
+Description: Methods for QAQC and exploratory analysis of surface water 
+quality data collected by watershed associations and citizen science 
+groups in Massachusetts, USA.  Functions are developed to facilitate 
+data formatting for the Water Quality Exchange Network and reporting 
+of data quality objectives to state agencies.
+Depends: 
+  R (>= 3.5)
+License: CC0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+URL: https://github.com/massbays-tech/MassWateR
+BugReports: https://github.com/massbays-tech/MassWateR/issues
+LazyData: true
+LazyDataCompression: xz
