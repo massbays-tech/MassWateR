@@ -8,6 +8,8 @@ form_results(dat, tzone = "America/Jamaica")
 }
 \arguments{
 \item{dat}{input data frame}
+
+\item{tzone}{character string for time zone}
 }
 \description{
 Format water quality monitoring results

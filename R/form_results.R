@@ -1,6 +1,7 @@
 #' Format water quality monitoring results
 #'
 #' @param dat input data frame
+#' @param tzone character string for time zone
 #'
 #' @details This function is used internally within \code{\link{read_results}} to format the input data for downstream analysis.  The formatting includes:
 #' 

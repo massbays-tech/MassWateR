@@ -1,5 +1,5 @@
 test_that("Checking column name spelling", {
-  chk <- dat
+  chk <- resdat
   names(chk)[c(1, 3)] <- c('Result', 'Date')
   expect_error(check_results(chk))
 })

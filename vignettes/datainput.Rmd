@@ -58,19 +58,19 @@ The example files for the package can be viewed by navigating to their location 
 
 The surface water quality results files: 
 
-```{r}
+```{r, eval = F}
 system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
 ```
 
 The data quality objectives file (note that this file has two worksheets, one for accuracy objective and one for completeness objectives): 
 
-```{r}
+```{r, eval = F}
 system.file('extdata/ExampleDQO_final.xlsx', package = 'MassWateR')
 ```
 
 The site metadata file:
 
-```{r}
+```{r, eval = F}
 system.file('extdata/ExampleSites_final.xlsx', package = 'MassWateR')
 ```
 
@@ -111,7 +111,7 @@ The MassWateR package is developed for quality control and exploratory analysis 
 First, the surface water quality results can be imported with the `read_results()` function.  This is designed to important an Excel file external to R, run checks on the data, and provide some minor formatting for downstream quality control of exploratory analysis.  In this example, the system file `ExampleResults_final.xlsx` is imported.  In practice, the `pth` argument will point to an alternative external file in the WQX format. 
 
 ```{r}
-pth <- system.file('extdata/ExamplesResults_final.xlsx', package = 'MassWateR')
+pth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
 resdat <- read_results(pth, runchk = TRUE)
 head(resdat)
 ```
@@ -135,7 +135,7 @@ An informative error is returned if the input data fail any of the checks.  The 
 Here is an example of an error that might be returned for an incorrect data entry (using the `check_results()` function, which is used inside of `read_results()`). To remedy the issue, change row 4 and 135 in the Activity Type column to Sample-Routine and Field Msr/Obs, respectively.  This must be done in the original Excel file.  Import the data again in R to verify the data are corrected.
 
 ```{r, eval = F}
-pth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
+pth <- 'ExampleResults_final.xlsx'
 dat <- readxl::read_excel(pth)
 chk <- dat
 chk[4, 2] <- 'Sample'
