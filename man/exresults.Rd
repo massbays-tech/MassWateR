@@ -20,7 +20,10 @@ An example of water quality data formatted for input in the QAQC or exploratory 
 \dontrun{
 library(readxl)
 
-exresults <- read_excel('inst/extdata/ExampleResults_final.xlsx')
+exresults <- read_excel('inst/extdata/ExampleResults_final.xlsx', 
+  col_types = c('text', 'text', 'date', 'date', 'text', 'text', 'text', 'text', 'text', 'text',
+    'text', 'text', 'text', 'text')
+  )
 
 save(exresults, file = 'data/exresults.RData', compress = 'xz')
 }

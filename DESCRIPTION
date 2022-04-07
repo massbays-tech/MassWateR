@@ -1,6 +1,6 @@
 Package: MassWateR
 Title: Tools for QAQC and Exploratory Analysis of Massachusetts Surface Water Quality Data
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: c(
     person(given = "Marcus",
       family = "Beck",
@@ -33,7 +33,10 @@ Description: Methods for QAQC and exploratory analysis of surface water
 Depends: 
   R (>= 3.5)
 Imports:
-  readxl
+  dplyr, 
+  lubridate, 
+  readxl,
+  tidyr
 License: CC0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -42,3 +45,6 @@ URL: https://github.com/massbays-tech/MassWateR
 BugReports: https://github.com/massbays-tech/MassWateR/issues
 LazyData: true
 LazyDataCompression: xz
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
