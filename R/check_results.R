@@ -6,14 +6,14 @@
 #' 
 #' The following checks are made: 
 #' \itemize{
-#'  \item{Column name spelling}{Should be the following: Monitoring Location ID, Activity Type, Activity Start Date, Activity Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit, Relative Depth Category, Characteristic Name, Result Value, Result Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier, Result Attribute.}
-#'  \item{Columns present}{All columns from the previous should be present, Result Attribute is optional}
-#'  \item{Activity Type}{Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike}
-#'  \item{Date formats}{Should be mm/dd/yyyy and parsed correctly on import}
-#'  \item{Time formats}{Should be HH:MM and parsed correctly on import}
-#'  \item{Relative Depth Category}{Should be either Surface, Bottom, < 1m / 3.3ft or blank}
-#'  \item{Characteristic Name}{Should be one of air temperature, water temperature, TP, TSS, DO % saturation, DO concentration, flow, gage, pH, sp conductivity, NH3, NO3, orthoP, E coli, or chlorophyll a}, 
-#'  \item{Result Value}{Should be a numeric value or a text value as AQL or BDL}
+#'  \item{Column name spelling: }{Should be the following: Monitoring Location ID, Activity Type, Activity Start Date, Activity Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit, Relative Depth Category, Characteristic Name, Result Value, Result Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier, Result Attribute.}
+#'  \item{Columns present: }{All columns from the previous should be present, Result Attribute is optional}
+#'  \item{Activity Type: }{Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike}
+#'  \item{Date formats: }{Should be mm/dd/yyyy and parsed correctly on import}
+#'  \item{Time formats: }{Should be HH:MM and parsed correctly on import}
+#'  \item{Relative Depth Category: }{Should be either Surface, Bottom, < 1m / 3.3ft or blank}
+#'  \item{Characteristic Name: }{Should be one of air temperature, water temperature, TP, TSS, DO % saturation, DO concentration, flow, gage, pH, sp conductivity, NH3, NO3, orthoP, E coli, or chlorophyll a}, 
+#'  \item{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
 #' }
 #' 
 #' @return \code{dat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. 

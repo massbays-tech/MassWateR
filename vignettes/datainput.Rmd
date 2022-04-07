@@ -1,0 +1,142 @@
+---
+title: "MassWateR data input and checks"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{MassWateR data input and checks}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(MassWateR)
+```
+
+## Overview 
+
+The MassWateR R package is designed to work with surface water monitoring data collected by watershed associations and citizen science groups in Massachusetts.  The package is created in collaboration with the Massachusetts Bays Estuary Partnership with funding from an EPA Exchange Network Grant. 
+
+The objective of the package is to automate and facilitate quality control and exploratory analysis of data intended for upload to the Water Quality Exchange Network (WQX).  The functions are provided to provide a streamlined and repeatable means of 1) screening data for quality control, 2) interpreting data, and 3) creating graphics for analysis and reports to stakeholders.  The vignettes are organized around these topics. 
+
+Three types of data can be used with the package: 
+
+1. Water quality \emph{results} organized by sample location and date
+2. Summary of data quality objectives that describe quality control \emph{accuracy} and \emph{completeness} measures for data in the results file
+3. An optional file of station metadata, including location names, latitude, longitude, and additional grouping factor for sites. 
+
+The input data should follow standard formats for the WQX network. Example files, described below, are provided with the package to demonstrate the appropriate formats. 
+
+## Installation and data import
+
+Install the package as follows:
+
+```r
+# Enable universe(s) by massbays-tech
+options(repos = c(
+  massbaystech = 'https://massbays-tech.r-universe.dev',
+  CRAN = 'https://cloud.r-project.org'))
+
+# Install the package
+install.packages('MassWateR')
+```
+
+Load the package in an R session after installation:
+
+```r
+library(MassWateR)
+```
+
+The example files for the package can be viewed by navigating to their location in the package installation. These are available as Excel files. 
+
+The surface water quality results files: 
+
+```{r}
+system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
+```
+
+The data quality objectives file (note that this file has two worksheets, one for accuracy objective and one for completeness objectives): 
+
+```{r}
+system.file('extdata/ExampleDQO_final.xlsx', package = 'MassWateR')
+```
+
+The site metadata file:
+
+```{r}
+system.file('extdata/ExampleSites_final.xlsx', package = 'MassWateR')
+```
+
+Each of these files are available as binary RData files that can be viewed directly in R.
+
+The surface water quality results: 
+
+```{r}
+head(exresults)
+```
+
+The data quality objectives for accuracy: 
+
+```{r}
+head(exdqoacc)
+```
+
+The data quality objectives for completeness: 
+
+```{r}
+head(exdqocom)
+```
+
+The site metadata:
+
+```{r}
+head(exsites)
+```
+
+The example files are provided to demonstrate how the functions in MassWateR are used.  In practice, alternative data files that follow the same format as the examples can be used with the functions.  There are several checks included in the data import functions to ensure the files are formatted correclty for downstream use.  These checks are described in the next section. 
+
+## Data import and checks
+
+The MassWateR package is developed for quality control and exploratory analysis of surface water quality data.  Before these analyses can occur, the data must be formatted correctly.  This section describes how to import data and the expectations that are checked automatically by the functions.  
+
+### Surface water quality results
+
+First, the surface water quality results can be imported with the `read_results()` function.  This is designed to important an Excel file external to R, run checks on the data, and provide some minor formatting for downstream quality control of exploratory analysis.  In this example, the system file `ExampleResults_final.xlsx` is imported.  In practice, the `pth` argument will point to an alternative external file in the WQX format. 
+
+```{r}
+pth <- system.file('extdata/ExamplesResults_final.xlsx', package = 'MassWater')
+resdat <- read_results(pth, runchk = TRUE)
+head(resdat)
+```
+
+Several checks are run automatically when the data are imported.  These checks are as follows (also vieweable from the help file for `check_results()`: 
+
+\itemize{
+  \item{Column name spelling: }{Should be the following: Monitoring Location ID, Activity Type, Activity Start Date, Activity Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit, Relative Depth Category, Characteristic Name, Result Value, Result Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier, Result Attribute.}
+  \item{Columns present: }{All columns from the previous should be present, Result Attribute is optional}
+  \item{Activity Type: }{Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike}
+  \item{Date formats: }{Should be mm/dd/yyyy and parsed correctly on import}
+  \item{Time formats: }{Should be HH:MM and parsed correctly on import}
+  \item{Relative Depth Category: }{Should be either Surface, Bottom, < 1m / 3.3ft or blank}
+  \item{Characteristic Name: }{Should be one of air temperature, water temperature, TP, TSS, DO % saturation, DO concentration, flow, gage, pH, sp conductivity, NH3, NO3, orthoP, E coli, or chlorophyll a},
+  \item{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
+}
+
+An informative error is returned if the input data fail any of the checks.  The input data should be corrected by hand, by altering the appropriate rows or column names in the Excel file that are indicated in the error.  
+
+Here is an example of an error that might be returned for an incorrect data entry (using the `check_results()` function, which is used inside of `read_results()`). To remedy the issue, change row 4 and 135 in the Activity Type column to Sample-Routine and Field Msr/Obs, respectively.  This must be done in the original Excel file.  Import the data again in R to verify the data are corrected.
+
+```{r}
+pth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
+dat <- readxl::read_excel(pth)
+chk <- dat
+chk[4, 2] <- 'Sample'
+chk[135, 2] <- 'Field'
+check_results(chk)
+```
+
