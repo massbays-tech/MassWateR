@@ -10,7 +10,9 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>", 
+  warning = F, 
+  message = F
 )
 ```
 
@@ -48,7 +50,7 @@ install.packages('MassWateR')
 
 Load the package in an R session after installation:
 
-```r
+```{r}
 library(MassWateR)
 ```
 
@@ -109,7 +111,7 @@ The MassWateR package is developed for quality control and exploratory analysis 
 First, the surface water quality results can be imported with the `read_results()` function.  This is designed to important an Excel file external to R, run checks on the data, and provide some minor formatting for downstream quality control of exploratory analysis.  In this example, the system file `ExampleResults_final.xlsx` is imported.  In practice, the `pth` argument will point to an alternative external file in the WQX format. 
 
 ```{r}
-pth <- system.file('extdata/ExamplesResults_final.xlsx', package = 'MassWater')
+pth <- system.file('extdata/ExamplesResults_final.xlsx', package = 'MassWateR')
 resdat <- read_results(pth, runchk = TRUE)
 head(resdat)
 ```
