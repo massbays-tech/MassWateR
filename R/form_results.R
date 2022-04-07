@@ -7,6 +7,7 @@
 #' \itemize{
 #'   \item{Fix date and time inputs: }{Activty Start Date is converted to YYYY-MM-DD as a date object, Actvity Start Time is convered to HH:MM as a character to fix artifacts from Excel import},
 #'   \item{Create duplicate rows for entries in QC Reference Value: }{This is done if a value is found in the QC Reference Value column by creating a “new” row with the same location, date, time, etc as the original but with an appropriate quality control entry for the Activity Type}
+#'   \item{Remove non-text or math symbols from Result Unit: }{Values are stripped, e.g., the degree symbols for degrees C}
 #' }
 #' 
 #' @import dplyr
@@ -54,6 +55,13 @@ form_results <- function(dat, tzone = 'America/Jamaica'){
       `QC Reference Value` = NA_character_
     ) %>% 
     bind_rows(qrws) 
+  
+  # remove weird symbols from Result Unit and strip trailing/leading white space
+  out <- out %>% 
+    mutate(
+      `Result Unit` = gsub('\\p{So}', '', `Result Unit`, perl = TRUE), 
+      `Result Unit` = trimws(`Result Unit`)
+    )
   
   # replace values in Result Value if AQL or BDL w/ appropriate values from dqo files
   # change value in QC Reference Value to indicate the same

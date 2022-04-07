@@ -28,6 +28,7 @@ The following checks are made:
 \item{Relative Depth Category: }{Should be either Surface, Bottom, < 1m / 3.3ft or blank}
 \item{Characteristic Name: }{Should be one of air temperature, water temperature, TP, TSS, DO \% saturation, DO concentration, flow, gage, pH, sp conductivity, NH3, NO3, orthoP, E coli, or chlorophyll a},
 \item{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
+\item{QC Reference Value: }{Should be a numeric value or a text value as AQL or BDL}
 }
 }
 \examples{

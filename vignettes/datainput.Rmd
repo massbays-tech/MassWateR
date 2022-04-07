@@ -148,3 +148,10 @@ check_results(chk)
 #>   	Incorrect Activity Type found: Sample, Field in row(s) 4, 135
 ```
 
+Data imported with `read_results()` are also formatted to take care of a few minor issues for downstream analysis.  This formatting includes: 
+
+\itemize{
+ \item{Fix date and time inputs: }{Activty Start Date is converted to YYYY-MM-DD as a date object, Actvity Start Time is convered to HH:MM as a character to fix artifacts from Excel import},
+ \item{Create duplicate rows for entries in QC Reference Value: }{This is done if a value is found in the QC Reference Value column by creating a “new” row with the same location, date, time, etc as the original but with an appropriate quality control entry for the Activity Type}
+ \item{Remove non-text or math symbols from Result Unit: }{Values are stripped, e.g., the degree symbols for degrees C}
+}

@@ -4,18 +4,23 @@
 \alias{read_results}
 \title{Read water quality monitoring results from an external file}
 \usage{
-read_results(pth, runchk = TRUE)
+read_results(pth, runchk = TRUE, tzone = "America/Jamaica")
 }
 \arguments{
 \item{pth}{character string of path to the file}
 
 \item{runchk}{logical to run data checks with \code{\link{check_results}}}
+
+\item{tzone}{character string for time zone, passed to \code{\link{form_results}}}
 }
 \value{
 A formatted water quality monitoring results data frame that can be used for downstream analysis
 }
 \description{
 Read water quality monitoring results from an external file
+}
+\details{
+Date are imported with \code{\link[readxl]{read_excel}}, checked with \code{\link{check_results}}, and formatted with \code{\link{form_results}}.
 }
 \examples{
 pth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
