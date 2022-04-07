@@ -14,6 +14,7 @@
 #'  \item{Relative Depth Category: }{Should be either Surface, Bottom, < 1m / 3.3ft or blank}
 #'  \item{Characteristic Name: }{Should be one of air temperature, water temperature, TP, TSS, DO % saturation, DO concentration, flow, gage, pH, sp conductivity, NH3, NO3, orthoP, E coli, or chlorophyll a}, 
 #'  \item{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
+#'  \item{QC Reference Value: }{Should be a numeric value or a text value as AQL or BDL}
 #' }
 #' 
 #' @return \code{dat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. 
@@ -114,13 +115,23 @@ check_results <- function(dat){
   message('\tChecking Result Values...')
   typ <- dat$`Result Value`
   chk <- paste(paste0('^', restyp, '$'), collapse = '|')
-  chk <- !is.na(suppressWarnings(as.numeric(dat$`Result Value`))) | grepl(chk, dat$`Result Value`)
+  chk <- !is.na(suppressWarnings(as.numeric(typ))) | grepl(chk, typ) | is.na(typ)
   if(any(!chk)){
     rws <- which(!chk)
     tochk <- unique(typ[!chk])
     stop('\tIncorrect entries in Result Value found: ', paste(tochk, collapse = ', '), ' in rows ', paste(rws, collapse = ', '))
   }
-  
+
+  # check QC Reference Values 
+  typ <- dat$`QC Reference Value`
+  chk <- paste(paste0('^', restyp, '$'), collapse = '|')
+  chk <- !is.na(suppressWarnings(as.numeric(typ))) | grepl(chk, typ) | is.na(typ)
+  if(any(!chk)){
+    rws <- which(!chk)
+    tochk <- unique(typ[!chk])
+    stop('\tIncorrect entries in QC Reference Value found: ', paste(tochk, collapse = ', '), ' in rows ', paste(rws, collapse = ', '))
+  }
+    
   message('\nAll checks passed!')
   
   return(dat)

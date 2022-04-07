@@ -125,18 +125,26 @@ Several checks are run automatically when the data are imported.  These checks a
   \item{Relative Depth Category: }{Should be either Surface, Bottom, < 1m / 3.3ft or blank}
   \item{Characteristic Name: }{Should be one of air temperature, water temperature, TP, TSS, DO % saturation, DO concentration, flow, gage, pH, sp conductivity, NH3, NO3, orthoP, E coli, or chlorophyll a},
   \item{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
+  \item{QC Reference Value: }{Any entered values should be numeric}
 }
 
 An informative error is returned if the input data fail any of the checks.  The input data should be corrected by hand, by altering the appropriate rows or column names in the Excel file that are indicated in the error.  
 
 Here is an example of an error that might be returned for an incorrect data entry (using the `check_results()` function, which is used inside of `read_results()`). To remedy the issue, change row 4 and 135 in the Activity Type column to Sample-Routine and Field Msr/Obs, respectively.  This must be done in the original Excel file.  Import the data again in R to verify the data are corrected.
 
-```{r}
+```{r, eval = F}
 pth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
 dat <- readxl::read_excel(pth)
 chk <- dat
 chk[4, 2] <- 'Sample'
 chk[135, 2] <- 'Field'
 check_results(chk)
+#> Running checks on results data...
+#> 
+#> 	  Checking column names...
+#> 	  Checking all required columns are present...
+#> 	  Checking valid Activity Types...
+#> Error in check_results(chk) : 
+#>   	Incorrect Activity Type found: Sample, Field in row(s) 4, 135
 ```
 
