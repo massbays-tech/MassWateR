@@ -1,8 +1,9 @@
 pandoc: 2.7.3
 pkgdown: 2.0.2
 pkgdown_sha: ~
-articles: {}
-last_built: 2022-04-07T17:44Z
+articles:
+  datainput: datainput.html
+last_built: 2022-04-07T21:06Z
 urls:
   reference: https://massbays-tech.github.io/MassWateR/reference
   article: https://massbays-tech.github.io/MassWateR/articles

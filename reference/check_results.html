@@ -21,6 +21,12 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/datainput.html">MassWateR data input and checks</a>
+  </div>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -63,14 +69,15 @@
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This function is used internally within <code><a href="read_results.html">read_results</a></code> to run several checks on the input data for completeness and conformance to WQX requirements</p>
-<p>The following checks are made:</p><ul><li><p>Column name spellingShould be the following: Monitoring Location ID, Activity Type, Activity Start Date, Activity Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit, Relative Depth Category, Characteristic Name, Result Value, Result Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier, Result Attribute.</p></li>
-<li><p>Columns presentAll columns from the previous should be present, Result Attribute is optional</p></li>
-<li><p>Activity TypeShould be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike</p></li>
-<li><p>Date formatsShould be mm/dd/yyyy and parsed correctly on import</p></li>
-<li><p>Time formatsShould be HH:MM and parsed correctly on import</p></li>
-<li><p>Relative Depth CategoryShould be either Surface, Bottom, &lt; 1m / 3.3ft or blank</p></li>
-<li><p>Characteristic NameShould be one of air temperature, water temperature, TP, TSS, DO % saturation, DO concentration, flow, gage, pH, sp conductivity, NH3, NO3, orthoP, E coli, or chlorophyll a,</p></li>
-<li><p>Result ValueShould be a numeric value or a text value as AQL or BDL</p></li>
+<p>The following checks are made:</p><ul><li><p>Column name spelling: Should be the following: Monitoring Location ID, Activity Type, Activity Start Date, Activity Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit, Relative Depth Category, Characteristic Name, Result Value, Result Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier, Result Attribute.</p></li>
+<li><p>Columns present: All columns from the previous should be present, Result Attribute is optional</p></li>
+<li><p>Activity Type: Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike</p></li>
+<li><p>Date formats: Should be mm/dd/yyyy and parsed correctly on import</p></li>
+<li><p>Time formats: Should be HH:MM and parsed correctly on import</p></li>
+<li><p>Relative Depth Category: Should be either Surface, Bottom, &lt; 1m / 3.3ft or blank</p></li>
+<li><p>Characteristic Name: Should be one of air temperature, water temperature, TP, TSS, DO % saturation, DO concentration, flow, gage, pH, sp conductivity, NH3, NO3, orthoP, E coli, or chlorophyll a,</p></li>
+<li><p>Result Value: Should be a numeric value or a text value as AQL or BDL</p></li>
+<li><p>QC Reference Value: Should be a numeric value or a text value as AQL or BDL</p></li>
 </ul></div>
 
     <div class="section level2">

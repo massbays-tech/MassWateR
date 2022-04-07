@@ -13,6 +13,12 @@
     <loc>https://massbays-tech.github.io/MassWateR/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://massbays-tech.github.io/MassWateR/articles/datainput.html</loc>
+  </url>
+  <url>
+    <loc>https://massbays-tech.github.io/MassWateR/articles/index.html</loc>
+  </url>
+  <url>
     <loc>https://massbays-tech.github.io/MassWateR/authors.html</loc>
   </url>
   <url>
@@ -32,6 +38,9 @@
   </url>
   <url>
     <loc>https://massbays-tech.github.io/MassWateR/reference/exsites.html</loc>
+  </url>
+  <url>
+    <loc>https://massbays-tech.github.io/MassWateR/reference/form_results.html</loc>
   </url>
   <url>
     <loc>https://massbays-tech.github.io/MassWateR/reference/index.html</loc>
