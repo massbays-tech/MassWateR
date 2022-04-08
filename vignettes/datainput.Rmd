@@ -16,15 +16,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(MassWateR)
-```
-
 ## Overview 
 
 The MassWateR R package is designed to work with surface water monitoring data collected by watershed associations and citizen science groups in Massachusetts.  The package is created in collaboration with the Massachusetts Bays Estuary Partnership with funding from an EPA Exchange Network Grant. 
 
-The objective of the package is to automate and facilitate quality control and exploratory analysis of data intended for upload to the Water Quality Exchange Network (WQX).  The functions are provided to provide a streamlined and repeatable means of 1) screening data for quality control, 2) interpreting data, and 3) creating graphics for analysis and reports to stakeholders.  The vignettes are organized around these topics. 
+The objective of the package is to automate and facilitate quality control and exploratory analysis of data intended for upload to the Water Quality Exchange Network (WQX).  The functions provide a streamlined and repeatable means of 1) screening data for quality control, 2) interpreting data, and 3) creating graphics for analysis and reports to stakeholders.  The vignettes are organized around these topics. 
 
 Three types of data can be used with the package: 
 
@@ -38,7 +34,7 @@ The input data should follow standard formats for the WQX network. Example files
 
 Install the package as follows:
 
-```r
+```{r, eval = F}
 # Enable universe(s) by massbays-tech
 options(repos = c(
   massbaystech = 'https://massbays-tech.r-universe.dev',
@@ -110,7 +106,7 @@ The MassWateR package is developed for quality control and exploratory analysis 
 
 First, the surface water quality results can be imported with the `read_results()` function.  This is designed to important an Excel file external to R, run checks on the data, and provide some minor formatting for downstream quality control of exploratory analysis.  In this example, the system file `ExampleResults_final.xlsx` is imported.  In practice, the `pth` argument will point to an alternative external file in the WQX format. 
 
-```{r}
+```{r, message = T}
 pth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
 resdat <- read_results(pth, runchk = TRUE)
 head(resdat)
@@ -118,17 +114,15 @@ head(resdat)
 
 Several checks are run automatically when the data are imported.  These checks are as follows (also vieweable from the help file for `check_results()`: 
 
-\itemize{
-  \item{Column name spelling: }{Should be the following: Monitoring Location ID, Activity Type, Activity Start Date, Activity Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit, Relative Depth Category, Characteristic Name, Result Value, Result Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier, Result Attribute.}
-  \item{Columns present: }{All columns from the previous should be present, Result Attribute is optional}
-  \item{Activity Type: }{Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike}
-  \item{Date formats: }{Should be mm/dd/yyyy and parsed correctly on import}
-  \item{Time formats: }{Should be HH:MM and parsed correctly on import}
-  \item{Relative Depth Category: }{Should be either Surface, Bottom, < 1m / 3.3ft or blank}
-  \item{Characteristic Name: }{Should be one of air temperature, water temperature, TP, TSS, DO % saturation, DO concentration, flow, gage, pH, sp conductivity, NH3, NO3, orthoP, E coli, or chlorophyll a},
-  \item{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
-  \item{QC Reference Value: }{Any entered values should be numeric}
-}
+* __Column name spelling__: Should be the following: Monitoring Location ID, Activity Type, Activity Start Date, Activity Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit, Relative Depth Category, Characteristic Name, Result Value, Result Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier, Result Attribute.
+* __Columns present__: All columns from the previous should be present, Result Attribute is optional
+* __Activity Type__: Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike
+* __Date formats__: Should be mm/dd/yyyy and parsed correctly on import
+* __Time formats__: Should be HH:MM and parsed correctly on import
+* __Relative Depth Category__: Should be either Surface, Bottom, < 1m / 3.3ft or blank
+* __Characteristic Name__: Should be one of air temperature, water temperature, TP, TSS, DO % saturation, DO concentration, flow, gage, pH, sp conductivity, NH3, NO3, orthoP, E coli, or chlorophyll a
+* __Result Value__: Should be a numeric value or a text value as AQL or BDL
+* __QC Reference Value__: Any entered values should be numeric
 
 An informative error is returned if the input data fail any of the checks.  The input data should be corrected by hand, by altering the appropriate rows or column names in the Excel file that are indicated in the error.  
 
@@ -152,8 +146,6 @@ check_results(chk)
 
 Data imported with `read_results()` are also formatted to take care of a few minor issues for downstream analysis.  This formatting includes: 
 
-\itemize{
- \item{Fix date and time inputs: }{Activty Start Date is converted to YYYY-MM-DD as a date object, Actvity Start Time is convered to HH:MM as a character to fix artifacts from Excel import},
- \item{Create duplicate rows for entries in QC Reference Value: }{This is done if a value is found in the QC Reference Value column by creating a “new” row with the same location, date, time, etc as the original but with an appropriate quality control entry for the Activity Type}
- \item{Remove non-text or math symbols from Result Unit: }{Values are stripped, e.g., the degree symbols for degrees C}
-}
+* Fix date and time inputs: Activty Start Date is converted to YYYY-MM-DD as a date object, Actvity Start Time is convered to HH:MM as a character to fix artifacts from Excel import
+* Create duplicate rows for entries in QC Reference Value: This is done if a value is found in the QC Reference Value column by creating a “new” row with the same location, date, time, etc as the original but with an appropriate quality control entry for the Activity Type
+* Remove non-text or math symbols from Result Unit: Values are stripped, e.g., the degree symbols for degrees C
