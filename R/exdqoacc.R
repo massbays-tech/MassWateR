@@ -10,7 +10,7 @@
 #' \dontrun{
 #' library(readxl)
 #' 
-#' exdqoacc <- read_excel('inst/extdata/ExampleDQOAccuracy_final.xlsx', sheet = 'Accuracy')
+#' exdqoacc <- read_excel('inst/extdata/ExampleDQOAccuracy_final.xlsx', sheet = 'Accuracy', na = 'na')
 #' 
 #' save(exdqoacc, file = 'data/exdqoacc.RData', compress = 'xz')
 #' }

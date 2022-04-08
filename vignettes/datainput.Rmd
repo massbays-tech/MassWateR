@@ -152,6 +152,6 @@ check_results(chk)
 
 Data imported with `read_results()` are also formatted to take care of a few minor issues for downstream analysis.  This formatting includes: 
 
-* Fix date and time inputs: Activty Start Date is converted to YYYY-MM-DD as a date object, Actvity Start Time is convered to HH:MM as a character to fix artifacts from Excel import
-* Create duplicate rows for entries in QC Reference Value: This is done if a value is found in the QC Reference Value column by creating a “new” row with the same location, date, time, etc as the original but with an appropriate quality control entry for the Activity Type
-* Remove non-text or math symbols from Result Unit: Values are stripped, e.g., the degree symbols for degrees C
+* __Fix date and time inputs__: Activity Start Date is converted to YYYY-MM-DD as a date object, Activity Start Time is convered to HH:MM as a character to fix artifacts from Excel import
+* __Create duplicate rows for entries in QC Reference Value__: This is done if a value is found in the QC Reference Value column by creating a “new” row with the same location, date, time, etc as the original but with an appropriate quality control entry for the Activity Type
+* __Remove non-text or math symbols from Result Unit__: Values are stripped, e.g., the degree symbols for degrees C
