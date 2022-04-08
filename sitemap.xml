@@ -25,6 +25,9 @@
     <loc>https://massbays-tech.github.io/MassWateR/index.html</loc>
   </url>
   <url>
+    <loc>https://massbays-tech.github.io/MassWateR/reference/check_dqocompleteness.html</loc>
+  </url>
+  <url>
     <loc>https://massbays-tech.github.io/MassWateR/reference/check_results.html</loc>
   </url>
   <url>
@@ -44,6 +47,9 @@
   </url>
   <url>
     <loc>https://massbays-tech.github.io/MassWateR/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://massbays-tech.github.io/MassWateR/reference/read_dqocompleteness.html</loc>
   </url>
   <url>
     <loc>https://massbays-tech.github.io/MassWateR/reference/read_results.html</loc>

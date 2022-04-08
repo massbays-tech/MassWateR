@@ -3,7 +3,7 @@ pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
   datainput: datainput.html
-last_built: 2022-04-08T20:51Z
+last_built: 2022-04-08T22:42Z
 urls:
   reference: https://massbays-tech.github.io/MassWateR/reference
   article: https://massbays-tech.github.io/MassWateR/articles
