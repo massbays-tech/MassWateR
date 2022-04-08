@@ -76,13 +76,11 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/massbays-tech/MassWateR" class="external-link">MassWateR</a></span><span class="op">)</span></code></pre></div>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
 <p>The MassWateR R package is designed to work with surface water monitoring data collected by watershed associations and citizen science groups in Massachusetts. The package is created in collaboration with the Massachusetts Bays Estuary Partnership with funding from an EPA Exchange Network Grant.</p>
-<p>The objective of the package is to automate and facilitate quality control and exploratory analysis of data intended for upload to the Water Quality Exchange Network (WQX). The functions are provided to provide a streamlined and repeatable means of 1) screening data for quality control, 2) interpreting data, and 3) creating graphics for analysis and reports to stakeholders. The vignettes are organized around these topics.</p>
+<p>The objective of the package is to automate and facilitate quality control and exploratory analysis of data intended for upload to the Water Quality Exchange Network (WQX). The functions provide a streamlined and repeatable means of 1) screening data for quality control, 2) interpreting data, and 3) creating graphics for analysis and reports to stakeholders. The vignettes are organized around these topics.</p>
 <p>Three types of data can be used with the package:</p>
 <ol style="list-style-type: decimal">
 <li>Water quality  organized by sample location and date</li>
@@ -95,7 +93,7 @@
 <h2 id="installation-and-data-import">Installation and data import<a class="anchor" aria-label="anchor" href="#installation-and-data-import"></a>
 </h2>
 <p>Install the package as follows:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Enable universe(s) by massbays-tech</span>
 <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>
   massbaystech <span class="op">=</span> <span class="st">'https://massbays-tech.r-universe.dev'</span>,
@@ -104,21 +102,21 @@
 <span class="co"># Install the package</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'MassWateR'</span><span class="op">)</span></code></pre></div>
 <p>Load the package in an R session after installation:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/massbays-tech/MassWateR" class="external-link">MassWateR</a></span><span class="op">)</span></code></pre></div>
 <p>The example files for the package can be viewed by navigating to their location in the package installation. These are available as Excel files.</p>
 <p>The surface water quality results files:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleResults_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></code></pre></div>
 <p>The data quality objectives file (note that this file has two worksheets, one for accuracy objective and one for completeness objectives):</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQO_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></code></pre></div>
 <p>The site metadata file:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleSites_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></code></pre></div>
 <p>Each of these files are available as binary RData files that can be viewed directly in R.</p>
 <p>The surface water quality results:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">exresults</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 14</span></span>
 <span class="co">#&gt;   `Monitoring Location…` `Activity Type` `Activity Start D…` `Activity Start T…`</span>
@@ -135,7 +133,7 @@
 <span class="co">#&gt; <span style="color: #949494;">#   `Quantitation Limit` &lt;chr&gt;, `QC Reference Value` &lt;chr&gt;,</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   `Result Measure Qualifier` &lt;chr&gt;, `Result Attribute` &lt;chr&gt;</span></span></code></pre></div>
 <p>The data quality objectives for accuracy:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">exdqoacc</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 10</span></span>
 <span class="co">#&gt;   Parameter    uom   MDL     UQL `Value Range` `Field Duplicate` `Lab Duplicate`</span>
@@ -149,7 +147,7 @@
 <span class="co">#&gt; <span style="color: #949494;"># … with 3 more variables: `Field Blank` &lt;chr&gt;, `Lab Blank` &lt;chr&gt;,</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   `Spike/Check Accuracy` &lt;chr&gt;</span></span></code></pre></div>
 <p>The data quality objectives for completeness:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">exdqocom</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span>
 <span class="co">#&gt;   Parameter    `Field Duplicate` `Lab Duplicate` `Field Blank` `Lab Blank`</span>
@@ -162,7 +160,7 @@
 <span class="co">#&gt; <span style="color: #BCBCBC;">6</span> TP                          10               5 10            5          </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 2 more variables: `Spike/Check Accuracy` &lt;chr&gt;, `% Completeness` &lt;dbl&gt;</span></span></code></pre></div>
 <p>The site metadata:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">exsites</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span>
 <span class="co">#&gt;   `Monitoring Location ID` `Monitoring Locat…` `Monitoring Lo…` `Monitoring Lo…`</span>
@@ -184,9 +182,20 @@
 <h3 id="surface-water-quality-results">Surface water quality results<a class="anchor" aria-label="anchor" href="#surface-water-quality-results"></a>
 </h3>
 <p>First, the surface water quality results can be imported with the <code><a href="../reference/read_results.html">read_results()</a></code> function. This is designed to important an Excel file external to R, run checks on the data, and provide some minor formatting for downstream quality control of exploratory analysis. In this example, the system file <code>ExampleResults_final.xlsx</code> is imported. In practice, the <code>pth</code> argument will point to an alternative external file in the WQX format.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleResults_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
 <span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_results.html">read_results</a></span><span class="op">(</span><span class="va">pth</span>, runchk <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; Running checks on results data...</span>
+<span class="co">#&gt;  Checking column names...</span>
+<span class="co">#&gt;  Checking all required columns are present...</span>
+<span class="co">#&gt;  Checking valid Activity Types...</span>
+<span class="co">#&gt;  Checking Activity Start Date formats...</span>
+<span class="co">#&gt;  Checking Activity Start Time formats...</span>
+<span class="co">#&gt;  Checking Relative Depth Category formats...</span>
+<span class="co">#&gt;  Checking Characteristic Name formats...</span>
+<span class="co">#&gt;  Checking Result Values...</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; All checks passed!</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">resdat</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 14</span></span>
 <span class="co">#&gt;   `Monitoring Location ID` `Activity Type` `Activity Start Da…` `Activity Star…`</span>
@@ -203,28 +212,29 @@
 <span class="co">#&gt; <span style="color: #949494;">#   `Quantitation Limit` &lt;chr&gt;, `QC Reference Value` &lt;chr&gt;,</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   `Result Measure Qualifier` &lt;chr&gt;, `Result Attribute` &lt;chr&gt;</span></span></code></pre></div>
 <p>Several checks are run automatically when the data are imported. These checks are as follows (also vieweable from the help file for <code><a href="../reference/check_results.html">check_results()</a></code>:</p>
-\itemize{
-
-{Column name spelling: }{Should be the following: Monitoring Location ID, Activity Type, Activity Start Date, Activity Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit, Relative Depth Category, Characteristic Name, Result Value, Result Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier, Result Attribute.}
-
-{Columns present: }{All columns from the previous should be present, Result Attribute is optional}
-
-{Activity Type: }{Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike}
-
-{Date formats: }{Should be mm/dd/yyyy and parsed correctly on import}
-
-{Time formats: }{Should be HH:MM and parsed correctly on import}
-
-{Relative Depth Category: }{Should be either Surface, Bottom, &lt; 1m / 3.3ft or blank}
-
-{Characteristic Name: }{Should be one of air temperature, water temperature, TP, TSS, DO % saturation, DO concentration, flow, gage, pH, sp conductivity, NH3, NO3, orthoP, E coli, or chlorophyll a},
-
-{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
-
-<p>{QC Reference Value: }{Any entered values should be numeric} }</p>
+<ul>
+<li>
+<strong>Column name spelling</strong>: Should be the following: Monitoring Location ID, Activity Type, Activity Start Date, Activity Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit, Relative Depth Category, Characteristic Name, Result Value, Result Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier, Result Attribute.</li>
+<li>
+<strong>Columns present</strong>: All columns from the previous should be present, Result Attribute is optional</li>
+<li>
+<strong>Activity Type</strong>: Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike</li>
+<li>
+<strong>Date formats</strong>: Should be mm/dd/yyyy and parsed correctly on import</li>
+<li>
+<strong>Time formats</strong>: Should be HH:MM and parsed correctly on import</li>
+<li>
+<strong>Relative Depth Category</strong>: Should be either Surface, Bottom, &lt; 1m / 3.3ft or blank</li>
+<li>
+<strong>Characteristic Name</strong>: Should be one of air temperature, water temperature, TP, TSS, DO % saturation, DO concentration, flow, gage, pH, sp conductivity, NH3, NO3, orthoP, E coli, or chlorophyll a</li>
+<li>
+<strong>Result Value</strong>: Should be a numeric value or a text value as AQL or BDL</li>
+<li>
+<strong>QC Reference Value</strong>: Any entered values should be numeric</li>
+</ul>
 <p>An informative error is returned if the input data fail any of the checks. The input data should be corrected by hand, by altering the appropriate rows or column names in the Excel file that are indicated in the error.</p>
 <p>Here is an example of an error that might be returned for an incorrect data entry (using the <code><a href="../reference/check_results.html">check_results()</a></code> function, which is used inside of <code><a href="../reference/read_results.html">read_results()</a></code>). To remedy the issue, change row 4 and 135 in the Activity Type column to Sample-Routine and Field Msr/Obs, respectively. This must be done in the original Excel file. Import the data again in R to verify the data are corrected.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pth</span> <span class="op">&lt;-</span> <span class="st">'ExampleResults_final.xlsx'</span>
 <span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_excel</a></span><span class="op">(</span><span class="va">pth</span><span class="op">)</span>
 <span class="va">chk</span> <span class="op">&lt;-</span> <span class="va">dat</span>
@@ -239,7 +249,11 @@
 <span class="co">#&gt; Error in check_results(chk) : </span>
 <span class="co">#&gt;      Incorrect Activity Type found: Sample, Field in row(s) 4, 135</span></code></pre></div>
 <p>Data imported with <code><a href="../reference/read_results.html">read_results()</a></code> are also formatted to take care of a few minor issues for downstream analysis. This formatting includes:</p>
-
+<ul>
+<li>Fix date and time inputs: Activty Start Date is converted to YYYY-MM-DD as a date object, Actvity Start Time is convered to HH:MM as a character to fix artifacts from Excel import</li>
+<li>Create duplicate rows for entries in QC Reference Value: This is done if a value is found in the QC Reference Value column by creating a “new” row with the same location, date, time, etc as the original but with an appropriate quality control entry for the Activity Type</li>
+<li>Remove non-text or math symbols from Result Unit: Values are stripped, e.g., the degree symbols for degrees C</li>
+</ul>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
