@@ -58,10 +58,16 @@ The surface water quality results files:
 system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
 ```
 
-The data quality objectives file (note that this file has two worksheets, one for accuracy objective and one for completeness objectives): 
+The data quality objectives file for accuracy: 
 
 ```{r, eval = F}
-system.file('extdata/ExampleDQO_final.xlsx', package = 'MassWateR')
+system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
+```
+
+The data quality objectives file for completeness: 
+
+```{r, eval = F}
+system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
 ```
 
 The site metadata file:

@@ -20,7 +20,7 @@ An example of data quality objectives for accuracy formatted for comparison with
 \dontrun{
 library(readxl)
 
-exdqoacc <- read_excel('inst/extdata/ExampleDQO_final.xlsx', sheet = 'Accuracy')
+exdqoacc <- read_excel('inst/extdata/ExampleDQOAccuracy_final.xlsx', sheet = 'Accuracy')
 
 save(exdqoacc, file = 'data/exdqoacc.RData', compress = 'xz')
 }
