@@ -16,10 +16,10 @@
 #' head(results)
 read_dqocompleteness <- function(pth, runchk = TRUE){
   
-  dat <- readxl::read_excel('inst/extdata/ExampleDQOCompleteness_final.xlsx', 
+  dat <- suppressMessages(readxl::read_excel('inst/extdata/ExampleDQOCompleteness_final.xlsx', 
       skip = 1, na = 'na', 
       col_types = c('text', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric')
-    ) %>% 
+    )) %>% 
     rename(`% Completeness` = `...7`)
   
   # run checks

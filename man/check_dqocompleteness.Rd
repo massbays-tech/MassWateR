@@ -22,16 +22,18 @@ The following checks are made:
 \itemize{
 \item{Column name spelling: }{Should be the following: Parameter, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy, \% Completeness}
 \item{Non-numeric values: }{Values entered in columns other than the first should be numeric}
-\item{Values between 0 - 100: }{Values entered in columns other than the first should be between 0 and 100}
+\item{Values outside of 0 - 100: }{Values entered in columns other than the first should not be outside of 0 and 100}
 }
 }
 \examples{
+library(dplyr)
+
 pth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
 
-dat <- readxl::read_excel(pth, 
+dat <- suppressMessages(readxl::read_excel(pth, 
       skip = 1, na = 'na', 
       col_types = c('text', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric')
-    ) \%>\% 
+    )) \%>\% 
     rename(`\% Completeness` = `...7`)
     
 check_dqocompleteness(dat)

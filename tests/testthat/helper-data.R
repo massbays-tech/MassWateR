@@ -9,10 +9,10 @@ resdat <- read_excel(respth,
                                            'text', 'text', 'text', 'text'))
 # dqo completeness data
 dqocompth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
-dqocomdat <- read_excel(dqocompth, 
+dqocomdat <- suppressMessages(read_excel(dqocompth, 
                           skip = 1, na = 'na', 
                           col_types = c('text', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric')
-) %>% 
+)) %>% 
   rename(`% Completeness` = `...7`)
 
 # dqo accuracy data
