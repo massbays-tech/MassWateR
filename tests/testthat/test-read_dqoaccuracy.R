@@ -1,4 +1,3 @@
-test_that("Checking dqo accuracy output format", {
-  result <- read_results(dqoaccpth)
-  expect_type(result, 'list')
+test_that("multiplication works", {
+  expect_equal(2 * 2, 4)
 })

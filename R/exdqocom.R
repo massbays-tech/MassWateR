@@ -11,7 +11,8 @@
 #' library(readxl)
 #' library(dplyr)
 #' 
-#' exdqocom <- read_excel('inst/extdata/ExampleDQOCompleteness_final.xlsx', sheet = 'Completeness', skip = 1, na = 'na') %>% 
+#' exdqocom <- read_excel('inst/extdata/ExampleDQOCompleteness_final.xlsx', 
+#'     sheet = 'Completeness', skip = 1, na = 'na') %>% 
 #'   rename(`% Completeness` = `...7`)
 #' 
 #' save(exdqocom, file = 'data/exdqocom.RData', compress = 'xz')
