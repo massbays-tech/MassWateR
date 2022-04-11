@@ -13,10 +13,10 @@
 #' pth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
 #' 
 #' dqocomplete <- read_dqocompleteness(pth)
-#' head(results)
+#' head(dqocomplete)
 read_dqocompleteness <- function(pth, runchk = TRUE){
   
-  dat <- suppressMessages(readxl::read_excel('inst/extdata/ExampleDQOCompleteness_final.xlsx', 
+  dat <- suppressMessages(readxl::read_excel(pth, 
       skip = 1, na = 'na', 
       col_types = c('text', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric')
     )) %>% 

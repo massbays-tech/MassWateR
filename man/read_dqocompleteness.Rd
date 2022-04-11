@@ -24,5 +24,5 @@ Data are imported with \code{\link[readxl]{read_excel}} and checked with \code{\
 pth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
 
 dqocomplete <- read_dqocompleteness(pth)
-head(results)
+head(dqocomplete)
 }
