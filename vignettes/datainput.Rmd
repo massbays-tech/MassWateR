@@ -155,3 +155,37 @@ Data imported with `read_results()` are also formatted to take care of a few min
 * __Fix date and time inputs__: Activity Start Date is converted to YYYY-MM-DD as a date object, Activity Start Time is convered to HH:MM as a character to fix artifacts from Excel import
 * __Create duplicate rows for entries in QC Reference Value__: This is done if a value is found in the QC Reference Value column by creating a “new” row with the same location, date, time, etc as the original but with an appropriate quality control entry for the Activity Type
 * __Remove non-text or math symbols from Result Unit__: Values are stripped, e.g., the degree symbols for degrees C
+
+### Data quality objectives
+
+To use the quality control functions in MassWateR, Excel files that describe the data quality objectives for accuracy and completeness must be provided.  The system files included with the package, describe above, demonstrate the required information and format for these files.  They can be imported into R using the `read_dqoaccuracy()` and `read_dqocompleteness()` functions. The `pth` argument will point to the location of the external files on your computer.  As above, the system file included with the package is used for the example. 
+
+```{r, message = T}
+# import data quality objectives for accuracy
+pth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
+dqoaccuracy <- read_dqoaccuracy(pth)
+head(dqoaccuracy)
+```
+
+```{r, message = T}
+# import data quality objectives for completeness
+pth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
+dqocomplete <- read_dqocompleteness(pth)
+head(dqocomplete)
+```
+
+Both the `read_dqoaccuracy()` and `read_dqocompleteness()` functions will run a series of checks to ensure the imported data are formatted correctly. The `check_dqoaccuracy()` and `check_dqocompletness()` functions run these checks when the `read_dqoaccuracy()` and `read_dqocompleteness()` functions are executed, respectively. The checks for each are as follows. 
+
+Checks for accuracy: 
+
+* __Column name spelling__: Should be the following: Parameter, uom, MDL, UQL, Value Range, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy
+* __Non-numeric values in MDL, UQL__: Values entered in columns MDL and UQL should be numeric
+* __Unrecognized characters__: Fields describing accuracy checks should not include symbols or text other than <=, <, >=, >, ±, %, BDL, AQL, log, or all
+
+
+Checks for completeness:
+
+* __Column name spelling__: Should be the following: Parameter, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy, % Completeness
+* __Non-numeric values__: Values entered in columns other than the first should be numeric
+* __Values outside of 0 - 100__: Values entered in columns other than the first should not be outside of 0 and 100
+

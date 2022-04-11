@@ -31,7 +31,7 @@ library(dplyr)
 pth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
 
 dat <- suppressMessages(readxl::read_excel(pth, 
-      skip = 1, na = 'na', 
+      skip = 1, na = c('na', ''), 
       col_types = c('text', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric')
     )) \%>\% 
     rename(`\% Completeness` = `...7`)
