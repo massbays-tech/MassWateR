@@ -261,6 +261,73 @@
 <strong>Remove non-text or math symbols from Result Unit</strong>: Values are stripped, e.g., the degree symbols for degrees C</li>
 </ul>
 </div>
+<div class="section level3">
+<h3 id="data-quality-objectives">Data quality objectives<a class="anchor" aria-label="anchor" href="#data-quality-objectives"></a>
+</h3>
+<p>To use the quality control functions in MassWateR, Excel files that describe the data quality objectives for accuracy and completeness must be provided. The system files included with the package, describe above, demonstrate the required information and format for these files. They can be imported into R using the <code><a href="../reference/read_dqoaccuracy.html">read_dqoaccuracy()</a></code> and <code><a href="../reference/read_dqocompleteness.html">read_dqocompleteness()</a></code> functions. The <code>pth</code> argument will point to the location of the external files on your computer. As above, the system file included with the package is used for the example.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># import data quality objectives for accuracy</span>
+<span class="va">pth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOAccuracy_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
+<span class="va">dqoaccuracy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_dqoaccuracy.html">read_dqoaccuracy</a></span><span class="op">(</span><span class="va">pth</span><span class="op">)</span>
+<span class="co">#&gt; Running checks on data quality objectives for accuracy...</span>
+<span class="co">#&gt;  Checking column names...</span>
+<span class="co">#&gt;  Checking for non-numeric values in MDL, UQL...</span>
+<span class="co">#&gt;  Checking for text other than &lt;=, &lt;, &gt;=, &gt;, ±, %, AQL, BQL, log, or all...</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; All checks passed!</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dqoaccuracy</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 10</span></span>
+<span class="co">#&gt;   Parameter     uom     MDL   UQL `Value Range` `Field Duplica…` `Lab Duplicate`</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> water temper… C      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> all           &lt;= 10%           &lt;= 10%         </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pH            S.U.   <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> all           ± 0.5            ± 0.5          </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> DO concentra… mg/L    0.1    <span style="color: #BB0000;">NA</span> &lt; 4           &lt;= 20%           &lt;= 20%         </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> DO concentra… mg/L    0.1    <span style="color: #BB0000;">NA</span> &gt;= 4          &lt;= 10%           &lt;= 10%         </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> sp conductiv… µS/cm   1      <span style="color: #BB0000;">NA</span> &lt; 250         &lt;= 30%           &lt;= 20%         </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> sp conductiv… µS/cm   1      <span style="color: #BB0000;">NA</span> &gt;= 250        &lt;= 20%           &lt;= 10%         </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 3 more variables: `Field Blank` &lt;chr&gt;, `Lab Blank` &lt;chr&gt;,</span></span>
+<span class="co">#&gt; <span style="color: #949494;">#   `Spike/Check Accuracy` &lt;chr&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># import data quality objectives for completeness</span>
+<span class="va">pth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOCompleteness_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
+<span class="va">dqocomplete</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_dqocompleteness.html">read_dqocompleteness</a></span><span class="op">(</span><span class="va">pth</span><span class="op">)</span>
+<span class="co">#&gt; Running checks on data quality objectives for completeness...</span>
+<span class="co">#&gt;  Checking column names...</span>
+<span class="co">#&gt;  Checking for non-numeric values...</span>
+<span class="co">#&gt;  Checking for values outside of 0 and 100...</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; All checks passed!</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dqocomplete</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span>
+<span class="co">#&gt;   Parameter         `Field Duplicate` `Lab Duplicate` `Field Blank` `Lab Blank`</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> water temperature                10              10            <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pH                               10              10            <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> DO concentration                 10              10            <span style="color: #BB0000;">NA</span>          10</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> sp conductivity                  10              10            <span style="color: #BB0000;">NA</span>          10</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> TSS                              10               5            10           5</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> TP                               10               5            10           5</span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 2 more variables: `Spike/Check Accuracy` &lt;dbl&gt;, `% Completeness` &lt;dbl&gt;</span></span></code></pre></div>
+<p>Both the <code><a href="../reference/read_dqoaccuracy.html">read_dqoaccuracy()</a></code> and <code><a href="../reference/read_dqocompleteness.html">read_dqocompleteness()</a></code> functions will run a series of checks to ensure the imported data are formatted correctly. The <code><a href="../reference/check_dqoaccuracy.html">check_dqoaccuracy()</a></code> and <code>check_dqocompletness()</code> functions run these checks when the <code><a href="../reference/read_dqoaccuracy.html">read_dqoaccuracy()</a></code> and <code><a href="../reference/read_dqocompleteness.html">read_dqocompleteness()</a></code> functions are executed, respectively. The checks for each are as follows.</p>
+<p>Checks for accuracy:</p>
+<ul>
+<li>
+<strong>Column name spelling</strong>: Should be the following: Parameter, uom, MDL, UQL, Value Range, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy</li>
+<li>
+<strong>Non-numeric values in MDL, UQL</strong>: Values entered in columns MDL and UQL should be numeric</li>
+<li>
+<strong>Unrecognized characters</strong>: Fields describing accuracy checks should not include symbols or text other than &lt;=, &lt;, &gt;=, &gt;, ±, %, BDL, AQL, log, or all</li>
+</ul>
+<p>Checks for completeness:</p>
+<ul>
+<li>
+<strong>Column name spelling</strong>: Should be the following: Parameter, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy, % Completeness</li>
+<li>
+<strong>Non-numeric values</strong>: Values entered in columns other than the first should be numeric</li>
+<li>
+<strong>Values outside of 0 - 100</strong>: Values entered in columns other than the first should not be outside of 0 and 100</li>
+</ul>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
