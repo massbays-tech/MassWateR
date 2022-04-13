@@ -10,9 +10,11 @@
 #'  \item{Non-numeric values in MDL, UQL: }{Values entered in columns MDL and UQL should be numeric}
 #'  \item{Unrecognized characters: }{Fields describing accuracy checks should not include symbols or text other than <=, <, >=, >, ±, %, BDL, AQL, log, or all}
 #' }
-#' 
+#'
 #' @return \code{dat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. 
 #' 
+#' @encoding UTF-8
+#'
 #' @export
 #'
 #' @examples
@@ -28,7 +30,7 @@ check_dqoaccuracy <- function(dat){
   # globals
   colnms <- c("Parameter", "uom", "MDL", "UQL", "Value Range", "Field Duplicate", 
               "Lab Duplicate", "Field Blank", "Lab Blank", "Spike/Check Accuracy")
-  colsym <- c('<=', '<', '>=', '>', '±', '%', 'AQL', 'BDL', 'log', 'all')
+  colsym <- c('<=', '<', '>=', '>', '\u00b1', '%', 'AQL', 'BDL', 'log', 'all')
   
   # check field names
   message('\tChecking column names...')
@@ -52,7 +54,7 @@ check_dqoaccuracy <- function(dat){
   }
 
   # check for symbols other than <=, <, >=, >, ±, or %
-  message('\tChecking for text other than <=, <, >=, >, ±, %, AQL, BQL, log, or all...')
+  message('\tChecking for text other than <=, <, >=, >, \u00b1, %, AQL, BQL, log, or all...')
   typ <- dat %>% 
     dplyr::select(-Parameter, -uom, -MDL, -UQL) %>%
     lapply(function(x) gsub(paste(colsym, collapse = '|'), '', x)) %>% 

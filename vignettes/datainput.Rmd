@@ -174,14 +174,13 @@ dqocomplete <- read_dqocompleteness(pth)
 head(dqocomplete)
 ```
 
-Both the `read_dqoaccuracy()` and `read_dqocompleteness()` functions will run a series of checks to ensure the imported data are formatted correctly. The `check_dqoaccuracy()` and `check_dqocompletness()` functions run these checks when the `read_dqoaccuracy()` and `read_dqocompleteness()` functions are executed, respectively. The checks for each are as follows. 
+Both the `read_dqoaccuracy()` and `read_dqocompleteness()` functions will run a series of checks to ensure the imported data are formatted correctly. The `check_dqoaccuracy()` and `check_dqocompleteness()` functions run these checks when the `read_dqoaccuracy()` and `read_dqocompleteness()` functions are executed, respectively. The checks for each are as follows. 
 
 Checks for accuracy: 
 
 * __Column name spelling__: Should be the following: Parameter, uom, MDL, UQL, Value Range, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy
 * __Non-numeric values in MDL, UQL__: Values entered in columns MDL and UQL should be numeric
 * __Unrecognized characters__: Fields describing accuracy checks should not include symbols or text other than <=, <, >=, >, ±, %, BDL, AQL, log, or all
-
 
 Checks for completeness:
 
