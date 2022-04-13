@@ -24,9 +24,9 @@ The objective of the package is to automate and facilitate quality control and e
 
 Three types of data can be used with the package: 
 
-1. Water quality \emph{results} organized by sample location and date
-2. Summary of data quality objectives that describe quality control \emph{accuracy} and \emph{completeness} measures for data in the results file
-3. An optional file of station metadata, including location names, latitude, longitude, and additional grouping factor for sites. 
+1. Water quality __results__ organized by sample location and date
+2. Summary of data quality objectives that describe quality control __accuracy__ and __completeness__ measures for data in the results file
+3. An optional file of __site metadata__, including location names, latitude, longitude, and additional grouping factor for sites. 
 
 The input data should follow standard formats for the WQX network. Example files, described below, are provided with the package to demonstrate the appropriate formats. 
 

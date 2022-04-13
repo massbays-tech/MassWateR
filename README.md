@@ -23,6 +23,11 @@ options(repos = c(
 # Install the package
 install.packages('MassWateR')
 ```
+## Using the package
+
+Please see the vignette articles for an overview of how to use functions in the MassWateR package.  The vignettes are organized topically as follows: 
+
+* [MassWateR data input and checks](https://masswaters-tech.github.io/MassWateR/articles/datainput.html): Information on datasets required to use the package, the required formats and how to import them into R, and the checks that are run when the data are imported.
 
 ## Issues and suggestions 
 
