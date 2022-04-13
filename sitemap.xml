@@ -34,6 +34,9 @@
     <loc>https://massbays-tech.github.io/MassWateR/reference/check_results.html</loc>
   </url>
   <url>
+    <loc>https://massbays-tech.github.io/MassWateR/reference/check_sites.html</loc>
+  </url>
+  <url>
     <loc>https://massbays-tech.github.io/MassWateR/reference/exdqoacc.html</loc>
   </url>
   <url>
@@ -59,5 +62,8 @@
   </url>
   <url>
     <loc>https://massbays-tech.github.io/MassWateR/reference/read_results.html</loc>
+  </url>
+  <url>
+    <loc>https://massbays-tech.github.io/MassWateR/reference/read_sites.html</loc>
   </url>
 </urlset>

@@ -90,7 +90,7 @@
 <p>The input data should follow standard formats for the WQX network. Example files, described below, are provided with the package to demonstrate the appropriate formats.</p>
 </div>
 <div class="section level2">
-<h2 id="installation-and-data-import">Installation and data import<a class="anchor" aria-label="anchor" href="#installation-and-data-import"></a>
+<h2 id="installation-and-example-data-files">Installation and example data files<a class="anchor" aria-label="anchor" href="#installation-and-example-data-files"></a>
 </h2>
 <p>Install the package as follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -264,7 +264,7 @@
 <div class="section level3">
 <h3 id="data-quality-objectives">Data quality objectives<a class="anchor" aria-label="anchor" href="#data-quality-objectives"></a>
 </h3>
-<p>To use the quality control functions in MassWateR, Excel files that describe the data quality objectives for accuracy and completeness must be provided. The system files included with the package, describe above, demonstrate the required information and format for these files. They can be imported into R using the <code><a href="../reference/read_dqoaccuracy.html">read_dqoaccuracy()</a></code> and <code><a href="../reference/read_dqocompleteness.html">read_dqocompleteness()</a></code> functions. The <code>pth</code> argument will point to the location of the external files on your computer. As above, the system file included with the package is used for the example.</p>
+<p>To use the quality control functions in MassWateR, Excel files that describe the data quality objectives for accuracy and completeness must be provided. The system files included with the package, described above, demonstrate the required information and format for these files. They can be imported into R using the <code><a href="../reference/read_dqoaccuracy.html">read_dqoaccuracy()</a></code> and <code><a href="../reference/read_dqocompleteness.html">read_dqocompleteness()</a></code> functions. The <code>pth</code> argument will point to the location of the external files on your computer. As above, the system file included with the package is used for the example.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># import data quality objectives for accuracy</span>
 <span class="va">pth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOAccuracy_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
@@ -326,6 +326,50 @@
 <strong>Non-numeric values</strong>: Values entered in columns other than the first should be numeric</li>
 <li>
 <strong>Values outside of 0 - 100</strong>: Values entered in columns other than the first should not be outside of 0 and 100</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="site-metadata">Site metadata<a class="anchor" aria-label="anchor" href="#site-metadata"></a>
+</h3>
+<p>An Excel file for site metadata that describes spatial location and any other grouping factors for the sites in the results file can be imported using <code><a href="../reference/read_sites.html">read_sites()</a></code>. The system file included with the package, described above, demonstrates the required information and format for the file. The <code>pth</code> argument will point to the location of the external file on your computer. As above, the system file included with the package is used for the example.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># import site metadata</span>
+<span class="va">pth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleSites_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
+<span class="va">sitdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_sites.html">read_sites</a></span><span class="op">(</span><span class="va">pth</span><span class="op">)</span>
+<span class="co">#&gt; Running checks on site metadata...</span>
+<span class="co">#&gt;  Checking column names...</span>
+<span class="co">#&gt;  Checking for missing latitude or longitude values...</span>
+<span class="co">#&gt;  Checking for non-numeric values in latitude...</span>
+<span class="co">#&gt;  Checking for non-numeric values in longitude...</span>
+<span class="co">#&gt;  Checking for positive values in longitude...</span>
+<span class="co">#&gt;  Checking for missing entries for Monitoring Location ID...</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; All checks passed!</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sitdat</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span>
+<span class="co">#&gt;   `Monitoring Location ID` `Monitoring Locat…` `Monitoring Lo…` `Monitoring Lo…`</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ABT-010                  477 Lowell Rd, Con…             42.5            -<span style="color: #BB0000;">71.4</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ABT-026                  Rte 2, Concord                  42.5            -<span style="color: #BB0000;">71.4</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ABT-033                  Rte 62, W Concord               42.5            -<span style="color: #BB0000;">71.4</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ABT-044                  Rte 62 (Damonmill)…             42.5            -<span style="color: #BB0000;">71.4</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> ABT-047                  Damonmill dam                   42.5            -<span style="color: #BB0000;">71.4</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ABT-062                  Rte 62, Acton                   42.4            -<span style="color: #BB0000;">71.4</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 1 more variable: `Location Group` &lt;chr&gt;</span></span></code></pre></div>
+<p>The <code><a href="../reference/read_sites.html">read_sites()</a></code> functions runs several checks on the file using the <code><a href="../reference/check_sites.html">check_sites()</a></code> function. Most of the checks are to ensure the latitude and longitude data are present and properly formatted. It is assumed that latitude and longitude data are entered in decimal degrees. Details on the checks are as follows:</p>
+<ul>
+<li>
+<strong>Column name spelling</strong>: Should be the following: Monitoring Location ID, Monitoring Location Name, Monitoring Location Latitude, Monitoring Location Longitude, Location Group</li>
+<li>
+<strong>Missing longitude or latitude</strong>: No missing entries in Monitoring Location Latitude or Monitoring Location Longitude</li>
+<li>
+<strong>Non-numeric latitude values</strong>: Values entered in Monitoring Location Latitude must be numeric</li>
+<li>
+<strong>Non-numeric longitude values</strong>: Values entered in Monitoring Location Longitude must be numeric</li>
+<li>
+<strong>Positive longitude values</strong>: Values in Monitoring Location Longitude must be negative</li>
+<li>
+<strong>Missing Location ID</strong>: No missing entries for Monitoring Location ID</li>
 </ul>
 </div>
 </div>
