@@ -30,7 +30,7 @@ Three types of data can be used with the package:
 
 The input data should follow standard formats for the WQX network. Example files, described below, are provided with the package to demonstrate the appropriate formats. 
 
-## Installation and data import
+## Installation and example data files
 
 Install the package as follows:
 
@@ -158,7 +158,7 @@ Data imported with `read_results()` are also formatted to take care of a few min
 
 ### Data quality objectives
 
-To use the quality control functions in MassWateR, Excel files that describe the data quality objectives for accuracy and completeness must be provided.  The system files included with the package, describe above, demonstrate the required information and format for these files.  They can be imported into R using the `read_dqoaccuracy()` and `read_dqocompleteness()` functions. The `pth` argument will point to the location of the external files on your computer.  As above, the system file included with the package is used for the example. 
+To use the quality control functions in MassWateR, Excel files that describe the data quality objectives for accuracy and completeness must be provided.  The system files included with the package, described above, demonstrate the required information and format for these files.  They can be imported into R using the `read_dqoaccuracy()` and `read_dqocompleteness()` functions. The `pth` argument will point to the location of the external files on your computer.  As above, the system file included with the package is used for the example. 
 
 ```{r, message = T}
 # import data quality objectives for accuracy
@@ -188,3 +188,22 @@ Checks for completeness:
 * __Non-numeric values__: Values entered in columns other than the first should be numeric
 * __Values outside of 0 - 100__: Values entered in columns other than the first should not be outside of 0 and 100
 
+### Site metadata
+
+An Excel file for site metadata that describes spatial location and any other grouping factors for the sites in the results file can be imported using `read_sites()`.  The system file included with the package, described above, demonstrates the required information and format for the file.  The `pth` argument will point to the location of the external file on your computer.  As above, the system file included with the package is used for the example. 
+
+```{r, message = T}
+# import site metadata
+pth <- system.file('extdata/ExampleSites_final.xlsx', package = 'MassWateR')
+sitdat <- read_sites(pth)
+head(sitdat)
+```
+
+The `read_sites()` functions runs several checks on the file using the `check_sites()` function.  Most of the checks are to ensure the latitude and longitude data are present and properly formatted. It is assumed that latitude and longitude data are entered in decimal degrees. Details on the checks are as follows:
+
+* __Column name spelling__: Should be the following: Monitoring Location ID, Monitoring Location Name, Monitoring Location Latitude, Monitoring Location Longitude, Location Group
+* __Missing longitude or latitude__: No missing entries in Monitoring Location Latitude or Monitoring Location Longitude
+* __Non-numeric latitude values__: Values entered in Monitoring Location Latitude must be numeric
+* __Non-numeric longitude values__: Values entered in Monitoring Location Longitude must be numeric
+* __Positive longitude values__: Values in Monitoring Location Longitude must be negative
+* __Missing Location ID__: No missing entries for Monitoring Location ID
