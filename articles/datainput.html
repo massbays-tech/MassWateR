@@ -123,64 +123,6 @@ Functions in MassWateR are organized around these topics.
 <p>The site metadata file:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleSites_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></code></pre></div>
-<p>Each of these files are available as binary RData files that can be viewed directly in R after loading the package.</p>
-<p>The surface water quality results:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">exresults</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 14</span></span>
-<span class="co">#&gt;   `Monitoring Location…` `Activity Type` `Activity Start D…` `Activity Start T…`</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>             </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> HBS-016                Field Msr/Obs   2021-01-14 <span style="color: #949494;">00:00:00</span> 1899-12-31 <span style="color: #949494;">09:22:00</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> HBS-057                Field Msr/Obs   2021-01-14 <span style="color: #949494;">00:00:00</span> 1899-12-31 <span style="color: #949494;">10:30:00</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> HBS-016                Sample-Routine  2021-01-14 <span style="color: #949494;">00:00:00</span> 1899-12-31 <span style="color: #949494;">09:22:00</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> HBS-016                Sample-Routine  2021-01-14 <span style="color: #949494;">00:00:00</span> 1899-12-31 <span style="color: #949494;">09:22:00</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> LND-007                Field Msr/Obs   2021-01-14 <span style="color: #949494;">00:00:00</span> 1899-12-31 <span style="color: #949494;">09:50:00</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> HBS-076                Field Msr/Obs   2021-01-14 <span style="color: #949494;">00:00:00</span> 1899-12-31 <span style="color: #949494;">11:58:00</span></span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 10 more variables: `Activity Depth/Height Measure` &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   `Activity Depth/Height Unit` &lt;chr&gt;, `Relative Depth Category` &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   `Characteristic Name` &lt;chr&gt;, `Result Value` &lt;chr&gt;, `Result Unit` &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   `Quantitation Limit` &lt;chr&gt;, `QC Reference Value` &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   `Result Measure Qualifier` &lt;chr&gt;, `Result Attribute` &lt;chr&gt;</span></span></code></pre></div>
-<p>The data quality objectives for accuracy:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">exdqoacc</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 10</span></span>
-<span class="co">#&gt;   Parameter     uom     MDL   UQL `Value Range` `Field Duplica…` `Lab Duplicate`</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> water temper… C      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> all           &lt;= 10%           &lt;= 10%         </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pH            S.U.   <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> all           ± 0.5            ± 0.5          </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> DO concentra… mg/L    0.1    <span style="color: #BB0000;">NA</span> &lt; 4           &lt;= 20%           &lt;= 20%         </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> DO concentra… mg/L    0.1    <span style="color: #BB0000;">NA</span> &gt;= 4          &lt;= 10%           &lt;= 10%         </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> sp conductiv… µS/cm   1      <span style="color: #BB0000;">NA</span> &lt; 250         &lt;= 30%           &lt;= 20%         </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> sp conductiv… µS/cm   1      <span style="color: #BB0000;">NA</span> &gt;= 250        &lt;= 20%           &lt;= 10%         </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 3 more variables: `Field Blank` &lt;chr&gt;, `Lab Blank` &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   `Spike/Check Accuracy` &lt;chr&gt;</span></span></code></pre></div>
-<p>The data quality objectives for completeness:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">exdqocom</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span>
-<span class="co">#&gt;   Parameter         `Field Duplicate` `Lab Duplicate` `Field Blank` `Lab Blank`</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> water temperature                10              10            <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pH                               10              10            <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> DO concentration                 10              10            <span style="color: #BB0000;">NA</span>          10</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> sp conductivity                  10              10            <span style="color: #BB0000;">NA</span>          10</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> TSS                              10               5            10           5</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> TP                               10               5            10           5</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 2 more variables: `Spike/Check Accuracy` &lt;dbl&gt;, `% Completeness` &lt;dbl&gt;</span></span></code></pre></div>
-<p>The site metadata:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">exsites</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span>
-<span class="co">#&gt;   `Monitoring Location ID` `Monitoring Locat…` `Monitoring Lo…` `Monitoring Lo…`</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ABT-010                  477 Lowell Rd, Con…             42.5            -<span style="color: #BB0000;">71.4</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ABT-026                  Rte 2, Concord                  42.5            -<span style="color: #BB0000;">71.4</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ABT-033                  Rte 62, W Concord               42.5            -<span style="color: #BB0000;">71.4</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ABT-044                  Rte 62 (Damonmill)…             42.5            -<span style="color: #BB0000;">71.4</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> ABT-047                  Damonmill dam                   42.5            -<span style="color: #BB0000;">71.4</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ABT-062                  Rte 62, Acton                   42.4            -<span style="color: #BB0000;">71.4</span></span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 1 more variable: `Location Group` &lt;chr&gt;</span></span></code></pre></div>
 <p>The example files are provided to demonstrate how the functions in MassWateR are used. In practice, alternative data files that follow the same format as the examples can be used with the functions. There are several checks included in the data import functions to ensure the files are formatted correctly for downstream use. If any of the checks fail, an error message will be returned that prompts the necessary changes that must be made to the Excel file before the data can be used. The checks can be suppressed by setting <code>runchk = FALSE</code> in the import functions. These checks are described in the next section.</p>
 </div>
 <div class="section level2">
@@ -191,7 +133,7 @@ Functions in MassWateR are organized around these topics.
 <h3 id="surface-water-quality-results">Surface water quality results<a class="anchor" aria-label="anchor" href="#surface-water-quality-results"></a>
 </h3>
 <p>First, the surface water quality results can be imported with the <code><a href="../reference/read_results.html">read_results()</a></code> function. This is designed to import an Excel file external to R, run checks on the data, and provide some minor formatting for downstream quality control or exploratory analysis. In this example, the system file <code>ExampleResults_final.xlsx</code> is imported. In practice, the <code>pth</code> argument will point to an alternative external file in the WQX format. Note that <code>runchk = TRUE</code> is set to run the checks on data import. This is the default setting and it is not necessary to explicitly set this argument on import.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleResults_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
 <span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_results.html">read_results</a></span><span class="op">(</span><span class="va">respth</span>, runchk <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; Running checks on results data...</span>
@@ -243,7 +185,7 @@ Functions in MassWateR are organized around these topics.
 </ul>
 <p>An informative error is returned if the input data fail any of the checks. The input data should be corrected by hand in the Excel file by altering the appropriate rows or column names indicated in the error.</p>
 <p>Here is an example of an error that might be returned for an incorrect data entry (using the <code><a href="../reference/check_results.html">check_results()</a></code> function, which is used inside of <code><a href="../reference/read_results.html">read_results()</a></code>). To remedy the issue, change the entries in row 4 and 135 in the Activity Type column to Sample-Routine and Field Msr/Obs, respectively. This must be done in the original Excel file. Import the data again in R to verify the data are corrected.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleResults_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
 <span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_excel</a></span><span class="op">(</span><span class="va">respth</span><span class="op">)</span>
 <span class="va">chk</span> <span class="op">&lt;-</span> <span class="va">resdat</span>
@@ -271,7 +213,7 @@ Functions in MassWateR are organized around these topics.
 <h3 id="data-quality-objectives">Data quality objectives<a class="anchor" aria-label="anchor" href="#data-quality-objectives"></a>
 </h3>
 <p>To use the quality control functions in MassWateR, Excel files that describe the data quality objectives for accuracy and completeness must be provided. The system files included with the package, described above, demonstrate the required information and format for these files. They can be imported into R using the <code><a href="../reference/read_dqoaccuracy.html">read_dqoaccuracy()</a></code> and <code><a href="../reference/read_dqocompleteness.html">read_dqocompleteness()</a></code> functions for the accuracy and completeness files, respectively. The <code>pth</code> argument will point to the location of the external files on your computer. As above, the system files included with the package are used for the examples.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># import data quality objectives for accuracy</span>
 <span class="va">dqoaccpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOAccuracy_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
 <span class="va">dqoaccdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_dqoaccuracy.html">read_dqoaccuracy</a></span><span class="op">(</span><span class="va">dqoaccpth</span><span class="op">)</span>
@@ -294,7 +236,7 @@ Functions in MassWateR are organized around these topics.
 <span class="co">#&gt; <span style="color: #BCBCBC;">6</span> sp conductiv… µS/cm   1      <span style="color: #BB0000;">NA</span> &gt;= 250        &lt;= 20%           &lt;= 10%         </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 3 more variables: `Field Blank` &lt;chr&gt;, `Lab Blank` &lt;chr&gt;,</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   `Spike/Check Accuracy` &lt;chr&gt;</span></span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># import data quality objectives for completeness</span>
 <span class="va">dqocompth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOCompleteness_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
 <span class="va">dqocomdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_dqocompleteness.html">read_dqocompleteness</a></span><span class="op">(</span><span class="va">dqocompth</span><span class="op">)</span>
@@ -344,7 +286,7 @@ Functions in MassWateR are organized around these topics.
 <h3 id="site-metadata">Site metadata<a class="anchor" aria-label="anchor" href="#site-metadata"></a>
 </h3>
 <p>An Excel file for site metadata that describes spatial location and any other grouping factors for the sites in the results file can be imported using <code><a href="../reference/read_sites.html">read_sites()</a></code>. The system file included with the package, described above, demonstrates the required information and format for the file. The <code>pth</code> argument will point to the location of the external file on your computer. As above, the system file included with the package is used for the example.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># import site metadata</span>
 <span class="va">sitpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleSites_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
 <span class="va">sitdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_sites.html">read_sites</a></span><span class="op">(</span><span class="va">sitpth</span><span class="op">)</span>
