@@ -78,7 +78,67 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">##</span></span>
+<span class="r-in"><span class="co"># using file paths</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># results path</span></span>
+<span class="r-in"><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleResults_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># completeness path</span></span>
+<span class="r-in"><span class="va">dqocompth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOCompleteness_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="fu">qc_completeness</span><span class="op">(</span>res <span class="op">=</span> <span class="va">respth</span>, dqocom <span class="op">=</span> <span class="va">dqocompth</span><span class="op">)</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on results data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking valid Activity Types...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Start Date formats...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Start Time formats...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Relative Depth Category formats...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Characteristic Name formats...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Result Values...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on data quality objectives for completeness...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for values outside of 0 and 100...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co">##</span></span>
+<span class="r-in"><span class="co"># using data frames</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># results data</span></span>
+<span class="r-in"><span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_results.html">read_results</a></span><span class="op">(</span><span class="va">respth</span><span class="op">)</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on results data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking valid Activity Types...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Start Date formats...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Start Time formats...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Relative Depth Category formats...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Characteristic Name formats...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Result Values...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># completeness data</span></span>
+<span class="r-in"><span class="va">dqocomdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_dqocompleteness.html">read_dqocompleteness</a></span><span class="op">(</span><span class="va">dqocompth</span><span class="op">)</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on data quality objectives for completeness...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for values outside of 0 and 100...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="fu">qc_completeness</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, dqocom <span class="op">=</span> <span class="va">dqocomdat</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-in"></span>
+</code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
