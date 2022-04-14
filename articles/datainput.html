@@ -192,8 +192,8 @@ Functions in MassWateR are organized around these topics.
 </h3>
 <p>First, the surface water quality results can be imported with the <code><a href="../reference/read_results.html">read_results()</a></code> function. This is designed to import an Excel file external to R, run checks on the data, and provide some minor formatting for downstream quality control or exploratory analysis. In this example, the system file <code>ExampleResults_final.xlsx</code> is imported. In practice, the <code>pth</code> argument will point to an alternative external file in the WQX format. Note that <code>runchk = TRUE</code> is set to run the checks on data import. This is the default setting and it is not necessary to explicitly set this argument on import.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleResults_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
-<span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_results.html">read_results</a></span><span class="op">(</span><span class="va">pth</span>, runchk <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleResults_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
+<span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_results.html">read_results</a></span><span class="op">(</span><span class="va">respth</span>, runchk <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co">#&gt; Running checks on results data...</span>
 <span class="co">#&gt;  Checking column names...</span>
 <span class="co">#&gt;  Checking all required columns are present...</span>
@@ -244,9 +244,9 @@ Functions in MassWateR are organized around these topics.
 <p>An informative error is returned if the input data fail any of the checks. The input data should be corrected by hand in the Excel file by altering the appropriate rows or column names indicated in the error.</p>
 <p>Here is an example of an error that might be returned for an incorrect data entry (using the <code><a href="../reference/check_results.html">check_results()</a></code> function, which is used inside of <code><a href="../reference/read_results.html">read_results()</a></code>). To remedy the issue, change the entries in row 4 and 135 in the Activity Type column to Sample-Routine and Field Msr/Obs, respectively. This must be done in the original Excel file. Import the data again in R to verify the data are corrected.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pth</span> <span class="op">&lt;-</span> <span class="st">'ExampleResults_final.xlsx'</span>
-<span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_excel</a></span><span class="op">(</span><span class="va">pth</span><span class="op">)</span>
-<span class="va">chk</span> <span class="op">&lt;-</span> <span class="va">dat</span>
+<code class="sourceCode R"><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleResults_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
+<span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_excel</a></span><span class="op">(</span><span class="va">respth</span><span class="op">)</span>
+<span class="va">chk</span> <span class="op">&lt;-</span> <span class="va">resdat</span>
 <span class="va">chk</span><span class="op">[</span><span class="fl">4</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">'Sample'</span>
 <span class="va">chk</span><span class="op">[</span><span class="fl">135</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">'Field'</span>
 <span class="fu"><a href="../reference/check_results.html">check_results</a></span><span class="op">(</span><span class="va">chk</span><span class="op">)</span>
@@ -273,8 +273,8 @@ Functions in MassWateR are organized around these topics.
 <p>To use the quality control functions in MassWateR, Excel files that describe the data quality objectives for accuracy and completeness must be provided. The system files included with the package, described above, demonstrate the required information and format for these files. They can be imported into R using the <code><a href="../reference/read_dqoaccuracy.html">read_dqoaccuracy()</a></code> and <code><a href="../reference/read_dqocompleteness.html">read_dqocompleteness()</a></code> functions for the accuracy and completeness files, respectively. The <code>pth</code> argument will point to the location of the external files on your computer. As above, the system files included with the package are used for the examples.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># import data quality objectives for accuracy</span>
-<span class="va">pth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOAccuracy_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
-<span class="va">dqoaccuracy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_dqoaccuracy.html">read_dqoaccuracy</a></span><span class="op">(</span><span class="va">pth</span><span class="op">)</span>
+<span class="va">dqoaccpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOAccuracy_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
+<span class="va">dqoaccdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_dqoaccuracy.html">read_dqoaccuracy</a></span><span class="op">(</span><span class="va">dqoaccpth</span><span class="op">)</span>
 <span class="co">#&gt; Running checks on data quality objectives for accuracy...</span>
 <span class="co">#&gt;  Checking column names...</span>
 <span class="co">#&gt;  Checking all required columns are present...</span>
@@ -282,7 +282,7 @@ Functions in MassWateR are organized around these topics.
 <span class="co">#&gt;  Checking for text other than &lt;=, &lt;, &gt;=, &gt;, ±, %, AQL, BQL, log, or all...</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; All checks passed!</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dqoaccuracy</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dqoaccdat</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 10</span></span>
 <span class="co">#&gt;   Parameter     uom     MDL   UQL `Value Range` `Field Duplica…` `Lab Duplicate`</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
@@ -296,8 +296,8 @@ Functions in MassWateR are organized around these topics.
 <span class="co">#&gt; <span style="color: #949494;">#   `Spike/Check Accuracy` &lt;chr&gt;</span></span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># import data quality objectives for completeness</span>
-<span class="va">pth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOCompleteness_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
-<span class="va">dqocomplete</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_dqocompleteness.html">read_dqocompleteness</a></span><span class="op">(</span><span class="va">pth</span><span class="op">)</span>
+<span class="va">dqocompth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOCompleteness_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
+<span class="va">dqocomdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_dqocompleteness.html">read_dqocompleteness</a></span><span class="op">(</span><span class="va">dqocompth</span><span class="op">)</span>
 <span class="co">#&gt; Running checks on data quality objectives for completeness...</span>
 <span class="co">#&gt;  Checking column names...</span>
 <span class="co">#&gt;  Checking all required columns are present...</span>
@@ -305,7 +305,7 @@ Functions in MassWateR are organized around these topics.
 <span class="co">#&gt;  Checking for values outside of 0 and 100...</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; All checks passed!</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dqocomplete</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dqocomdat</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span>
 <span class="co">#&gt;   Parameter         `Field Duplicate` `Lab Duplicate` `Field Blank` `Lab Blank`</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -346,8 +346,8 @@ Functions in MassWateR are organized around these topics.
 <p>An Excel file for site metadata that describes spatial location and any other grouping factors for the sites in the results file can be imported using <code><a href="../reference/read_sites.html">read_sites()</a></code>. The system file included with the package, described above, demonstrates the required information and format for the file. The <code>pth</code> argument will point to the location of the external file on your computer. As above, the system file included with the package is used for the example.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># import site metadata</span>
-<span class="va">pth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleSites_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
-<span class="va">sitdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_sites.html">read_sites</a></span><span class="op">(</span><span class="va">pth</span><span class="op">)</span>
+<span class="va">sitpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleSites_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
+<span class="va">sitdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_sites.html">read_sites</a></span><span class="op">(</span><span class="va">sitpth</span><span class="op">)</span>
 <span class="co">#&gt; Running checks on site metadata...</span>
 <span class="co">#&gt;  Checking column names...</span>
 <span class="co">#&gt;  Checking all required columns are present...</span>

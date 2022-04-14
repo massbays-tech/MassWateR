@@ -55,13 +55,13 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_dqoaccuracy</span><span class="op">(</span><span class="va">pth</span>, runchk <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">read_dqoaccuracy</span><span class="op">(</span><span class="va">dqoaccpth</span>, runchk <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>pth</dt>
-<dd><p>character string of path to the file</p></dd>
+    <dl><dt>dqoaccpth</dt>
+<dd><p>character string of path to the data quality objectives file for accuracy</p></dd>
 <dt>runchk</dt>
 <dd><p>logical to run data checks with <code><a href="check_dqoaccuracy.html">check_dqoaccuracy</a></code></p></dd>
 </dl></div>
@@ -76,9 +76,9 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">pth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOAccuracy_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">dqoaccpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOAccuracy_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="va">dqoaccuracy</span> <span class="op">&lt;-</span> <span class="fu">read_dqoaccuracy</span><span class="op">(</span><span class="va">pth</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">dqoaccdat</span> <span class="op">&lt;-</span> <span class="fu">read_dqoaccuracy</span><span class="op">(</span><span class="va">dqoaccpth</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on data quality objectives for accuracy...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present...</span>
@@ -86,7 +86,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for text other than &lt;=, &lt;, &gt;=, &gt;, ±, %, AQL, BQL, log, or all...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dqoaccuracy</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dqoaccdat</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 10</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Parameter     uom     MDL   UQL `Value Range` `Field Duplica…` `Lab Duplicate`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
