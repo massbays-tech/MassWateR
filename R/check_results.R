@@ -1,6 +1,6 @@
 #' Check water quality monitoring results
 #'
-#' @param dat input data frame
+#' @param resdat input data frame for results
 #'
 #' @details This function is used internally within \code{\link{read_results}} to run several checks on the input data for completeness and conformance to WQX requirements
 #' 
@@ -17,18 +17,19 @@
 #'  \item{QC Reference Value: }{Should be a numeric value or a text value as AQL or BDL}
 #' }
 #' 
-#' @return \code{dat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. 
+#' @return \code{resdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. 
 #' 
 #' @export
 #'
 #' @examples
-#' pth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
+#' respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
 #' 
-#' dat <- readxl::read_excel(pth, 
+#' resdat <- readxl::read_excel(respth, 
 #'   col_types = c('text', 'text', 'date', 'date', 'text', 'text', 'text', 'text', 'text', 'text', 
 #'              'text', 'text', 'text', 'text'))
-#' check_results(dat)
-check_results <- function(dat){
+#'              
+#' check_results(resdat)
+check_results <- function(resdat){
   
   message('Running checks on results data...\n')
   
@@ -49,7 +50,7 @@ check_results <- function(dat){
 
   # check field names
   message('\tChecking column names...')
-  nms <- names(dat) 
+  nms <- names(resdat) 
   chk <- nms %in% colnms
   if(any(!chk)){
     tochk <- nms[!chk]
@@ -58,7 +59,7 @@ check_results <- function(dat){
   
   # check all fields are present, Result Attribute optional
   message('\tChecking all required columns are present...')
-  nms <- names(dat)
+  nms <- names(resdat)
   chk <- colnms[-14] %in% nms
   if(any(!chk)){
     tochk <- colnms[!chk]
@@ -67,7 +68,7 @@ check_results <- function(dat){
   
   # check activity types
   message('\tChecking valid Activity Types...')
-  typ <- dat$`Activity Type`
+  typ <- resdat$`Activity Type`
   chk <- typ %in% acttyp
   if(any(!chk)){
     rws <- which(!chk)
@@ -77,7 +78,7 @@ check_results <- function(dat){
   
   # check date parsing
   message('\tChecking Activity Start Date formats...')
-  dts <- dat$`Activity Start Date`
+  dts <- resdat$`Activity Start Date`
   if(anyNA(dts)){
     rws <- which(is.na(dts))
     stop('Check date on row(s) ', paste(rws, collapse = ', '))
@@ -85,7 +86,7 @@ check_results <- function(dat){
   
   # check time formats
   message('\tChecking Activity Start Time formats...')
-  tms <- dat$`Activity Start Time`
+  tms <- resdat$`Activity Start Time`
   if(anyNA(tms)){
     rws <- which(is.na(tms))
     stop('Check time on row(s) ', paste(rws, collapse = ', '))
@@ -93,7 +94,7 @@ check_results <- function(dat){
   
   # check depth categories
   message('\tChecking Relative Depth Category formats...')
-  dps <- dat$`Relative Depth Category`
+  dps <- resdat$`Relative Depth Category`
   chk <- dps %in% dpstyp
   if(any(!chk)){
     rws <- which(!dps %in% dpstyp)
@@ -103,7 +104,7 @@ check_results <- function(dat){
   
   # check characteristic names
   message('\tChecking Characteristic Name formats...')
-  typ <- dat$`Characteristic Name`
+  typ <- resdat$`Characteristic Name`
   chk <- typ %in% chntyp
   if(any(!chk)){
     rws <- which(!chk)
@@ -113,7 +114,7 @@ check_results <- function(dat){
   
   # check result values 
   message('\tChecking Result Values...')
-  typ <- dat$`Result Value`
+  typ <- resdat$`Result Value`
   chk <- paste(paste0('^', restyp, '$'), collapse = '|')
   chk <- !is.na(suppressWarnings(as.numeric(typ))) | grepl(chk, typ) | is.na(typ)
   if(any(!chk)){
@@ -123,7 +124,7 @@ check_results <- function(dat){
   }
 
   # check QC Reference Values 
-  typ <- dat$`QC Reference Value`
+  typ <- resdat$`QC Reference Value`
   chk <- paste(paste0('^', restyp, '$'), collapse = '|')
   chk <- !is.na(suppressWarnings(as.numeric(typ))) | grepl(chk, typ) | is.na(typ)
   if(any(!chk)){
@@ -134,6 +135,6 @@ check_results <- function(dat){
     
   message('\nAll checks passed!')
   
-  return(dat)
+  return(resdat)
   
 }

@@ -22,18 +22,18 @@ The quality control functions in MassWateR can be used once the required data ar
 library(MassWateR)
 
 # import results data
-pth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
-resdat <- read_results(pth)
+respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
+resdat <- read_results(respth)
 
 # import data quality objectives for accuracy
-pth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
-dqoaccuracy <- read_dqoaccuracy(pth)
+dqoaccpth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
+dqoaccdat <- read_dqoaccuracy(dqoaccpth)
 
 # import data quality objectives for completeness
-pth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
-dqocomplete <- read_dqocompleteness(pth)
+dqocompth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
+dqocomdat <- read_dqocompleteness(dqocompth)
 ```
 
-## Quality control for completeness
-
 ## Quality control for accuracy
+
+## Quality control for completeness

@@ -4,13 +4,13 @@
 \alias{check_sites}
 \title{Check site metadata file}
 \usage{
-check_sites(dat)
+check_sites(sitdat)
 }
 \arguments{
-\item{dat}{input data frame}
+\item{sitdat}{input data frame}
 }
 \value{
-\code{dat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding.
+\code{sitdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding.
 }
 \description{
 Check site metadata file
@@ -32,9 +32,9 @@ The following checks are made:
 \examples{
 library(dplyr)
 
-pth <- system.file('extdata/ExampleSites_final.xlsx', package = 'MassWateR')
+sitpth <- system.file('extdata/ExampleSites_final.xlsx', package = 'MassWateR')
 
-dat <- readxl::read_excel(pth, na = c('na', ''))
+sitdat <- readxl::read_excel(sitpth, na = c('na', ''))
     
-check_sites(dat)
+check_sites(sitdat)
 }

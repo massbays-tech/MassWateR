@@ -1,6 +1,6 @@
 #' Check data quality objective completeness data
 #'
-#' @param dat input data frame
+#' @param dqocomdat input data frame
 #'
 #' @details This function is used internally within \code{\link{read_dqocompleteness}} to run several checks on the input data for completeness and conformance to WQX requirements
 #' 
@@ -12,23 +12,23 @@
 #'  \item{Values outside of 0 - 100: }{Values entered in columns other than the first should not be outside of 0 and 100}
 #' }
 #' 
-#' @return \code{dat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. 
+#' @return \code{dqocomdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. 
 #' 
 #' @export
 #'
 #' @examples
 #' library(dplyr)
 #' 
-#' pth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
+#' dqocompth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
 #' 
-#' dat <- suppressMessages(readxl::read_excel(pth, 
+#' dqocomdat <- suppressMessages(readxl::read_excel(dqocompth, 
 #'       skip = 1, na = c('na', ''), 
 #'       col_types = c('text', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric')
 #'     )) %>% 
 #'     rename(`% Completeness` = `...7`)
 #'     
-#' check_dqocompleteness(dat)
-check_dqocompleteness <- function(dat){
+#' check_dqocompleteness(dqocomdat)
+check_dqocompleteness <- function(dqocomdat){
   
   message('Running checks on data quality objectives for completeness...\n')
   
@@ -38,7 +38,7 @@ check_dqocompleteness <- function(dat){
   
   # check field names
   message('\tChecking column names...')
-  nms <- names(dat) 
+  nms <- names(dqocomdat) 
   chk <- nms %in% colnms
   if(any(!chk)){
     tochk <- nms[!chk]
@@ -47,7 +47,7 @@ check_dqocompleteness <- function(dat){
 
   # check all fields are present
   message('\tChecking all required columns are present...')
-  nms <- names(dat)
+  nms <- names(dqocomdat)
   chk <- colnms %in% nms
   if(any(!chk)){
     tochk <- colnms[!chk]
@@ -56,7 +56,7 @@ check_dqocompleteness <- function(dat){
   
   # check for any non-numeric columns
   message('\tChecking for non-numeric values...')
-  typ <- dat %>% 
+  typ <- dqocomdat %>% 
     dplyr::select(-Parameter) %>% 
     lapply(class) %>% 
     unlist
@@ -68,7 +68,7 @@ check_dqocompleteness <- function(dat){
 
   # check for values not between 0 and 100
   message('\tChecking for values outside of 0 and 100...')
-  typ <- dat %>% 
+  typ <- dqocomdat %>% 
     dplyr::select(-Parameter) %>% 
     lapply(range, na.rm = TRUE)
   chk <- lapply(typ, function(x) x < 0 | x > 100) %>%
@@ -81,6 +81,6 @@ check_dqocompleteness <- function(dat){
   
   message('\nAll checks passed!')
   
-  return(dat)
+  return(dqocomdat)
   
 }

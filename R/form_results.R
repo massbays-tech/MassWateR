@@ -1,6 +1,6 @@
 #' Format water quality monitoring results
 #'
-#' @param dat input data frame
+#' @param resdat input data frame for results
 #' @param tzone character string for time zone
 #'
 #' @details This function is used internally within \code{\link{read_results}} to format the input data for downstream analysis.  The formatting includes:
@@ -17,16 +17,16 @@
 #' @export
 #'
 #' @examples
-#' pth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
+#' respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
 #' 
-#' dat <- readxl::read_excel(pth, 
+#' resdat <- readxl::read_excel(respth, 
 #'   col_types = c('text', 'text', 'date', 'date', 'text', 'text', 'text', 'text', 'text', 'text', 
 #'              'text', 'text', 'text', 'text'))
-#' form_results(dat)
-form_results <- function(dat, tzone = 'America/Jamaica'){
+#' form_results(resdat)
+form_results <- function(resdat, tzone = 'America/Jamaica'){
   
   # format input
-  out <- dat %>% 
+  out <- resdat %>% 
     mutate(
       `Activity Start Date` = lubridate::force_tz(`Activity Start Date`, tzone = tzone), 
       `Activity Start Date` = lubridate::ymd(`Activity Start Date`),
@@ -63,10 +63,6 @@ form_results <- function(dat, tzone = 'America/Jamaica'){
       `Result Unit` = gsub('\\p{So}', '', `Result Unit`, perl = TRUE), 
       `Result Unit` = trimws(`Result Unit`)
     )
-  
-  # replace values in Result Value if AQL or BDL w/ appropriate values from dqo files
-  # change value in QC Reference Value to indicate the same
-  # ....
   
   return(out)
   

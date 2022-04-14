@@ -5,13 +5,13 @@
 \alias{check_dqoaccuracy}
 \title{Check data quality objective accuracy data}
 \usage{
-check_dqoaccuracy(dat)
+check_dqoaccuracy(dqoaccdat)
 }
 \arguments{
-\item{dat}{input data frame}
+\item{dqoaccdat}{input data frame}
 }
 \value{
-\code{dat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding.
+\code{dqoaccdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding.
 }
 \description{
 Check data quality objective accuracy data
@@ -28,9 +28,9 @@ The following checks are made:
 }
 }
 \examples{
-pth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
+dqoaccpth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
 
-dat <- readxl::read_excel(pth, na = c('na', '')) 
+dqoaccdat <- readxl::read_excel(dqoaccpth, na = c('na', '')) 
       
-check_dqoaccuracy(dat)
+check_dqoaccuracy(dqoaccdat)
 }

@@ -4,10 +4,10 @@
 \alias{form_results}
 \title{Format water quality monitoring results}
 \usage{
-form_results(dat, tzone = "America/Jamaica")
+form_results(resdat, tzone = "America/Jamaica")
 }
 \arguments{
-\item{dat}{input data frame}
+\item{resdat}{input data frame for results}
 
 \item{tzone}{character string for time zone}
 }
@@ -24,10 +24,10 @@ This function is used internally within \code{\link{read_results}} to format the
 }
 }
 \examples{
-pth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
+respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
 
-dat <- readxl::read_excel(pth, 
+resdat <- readxl::read_excel(respth, 
   col_types = c('text', 'text', 'date', 'date', 'text', 'text', 'text', 'text', 'text', 'text', 
              'text', 'text', 'text', 'text'))
-form_results(dat)
+form_results(resdat)
 }

@@ -4,13 +4,13 @@
 \alias{check_results}
 \title{Check water quality monitoring results}
 \usage{
-check_results(dat)
+check_results(resdat)
 }
 \arguments{
-\item{dat}{input data frame}
+\item{resdat}{input data frame for results}
 }
 \value{
-\code{dat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding.
+\code{resdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding.
 }
 \description{
 Check water quality monitoring results
@@ -32,10 +32,11 @@ The following checks are made:
 }
 }
 \examples{
-pth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
+respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
 
-dat <- readxl::read_excel(pth, 
+resdat <- readxl::read_excel(respth, 
   col_types = c('text', 'text', 'date', 'date', 'text', 'text', 'text', 'text', 'text', 'text', 
              'text', 'text', 'text', 'text'))
-check_results(dat)
+             
+check_results(resdat)
 }

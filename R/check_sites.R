@@ -1,6 +1,6 @@
 #' Check site metadata file
 #'
-#' @param dat input data frame
+#' @param sitdat input data frame
 #'
 #' @details This function is used internally within \code{\link{read_sites}} to run several checks on the input data for completeness and conformance to WQX requirements
 #' 
@@ -15,19 +15,19 @@
 #'  \item{Missing Location ID: }{No missing entries for Monitoring Location ID}
 #' }
 #' 
-#' @return \code{dat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. 
+#' @return \code{sitdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. 
 #' 
 #' @export
 #'
 #' @examples
 #' library(dplyr)
 #' 
-#' pth <- system.file('extdata/ExampleSites_final.xlsx', package = 'MassWateR')
+#' sitpth <- system.file('extdata/ExampleSites_final.xlsx', package = 'MassWateR')
 #' 
-#' dat <- readxl::read_excel(pth, na = c('na', ''))
+#' sitdat <- readxl::read_excel(sitpth, na = c('na', ''))
 #'     
-#' check_sites(dat)
-check_sites <- function(dat){
+#' check_sites(sitdat)
+check_sites <- function(sitdat){
   
   message('Running checks on site metadata...\n')
 
@@ -37,7 +37,7 @@ check_sites <- function(dat){
   
   # check field names
   message('\tChecking column names...')
-  nms <- names(dat) 
+  nms <- names(sitdat) 
   chk <- nms %in% colnms
   if(any(!chk)){
     tochk <- nms[!chk]
@@ -46,7 +46,7 @@ check_sites <- function(dat){
 
   # check all fields are present
   message('\tChecking all required columns are present...')
-  nms <- names(dat)
+  nms <- names(sitdat)
   chk <- colnms %in% nms
   if(any(!chk)){
     tochk <- colnms[!chk]
@@ -55,7 +55,7 @@ check_sites <- function(dat){
   
   # checking for missing lat/lon
   message('\tChecking for missing latitude or longitude values...')
-  chk <- dat %>% 
+  chk <- sitdat %>% 
     dplyr::select(`Monitoring Location Latitude`, `Monitoring Location Longitude`) %>% 
     apply(1, function(x) !anyNA(x))
   if(any(!chk)){
@@ -65,7 +65,7 @@ check_sites <- function(dat){
   
   # check for non-numeric latitude
   message('\tChecking for non-numeric values in latitude...')
-  typ <- dat$`Monitoring Location Latitude`
+  typ <- sitdat$`Monitoring Location Latitude`
   chk <- !is.na(suppressWarnings(as.numeric(typ)))
   if(any(!chk)){
     rws <- which(!chk)
@@ -75,7 +75,7 @@ check_sites <- function(dat){
   
   # check for non-numeric longitude
   message('\tChecking for non-numeric values in longitude...')
-  typ <- dat$`Monitoring Location Longitude`
+  typ <- sitdat$`Monitoring Location Longitude`
   chk <- !is.na(suppressWarnings(as.numeric(typ)))
   if(any(!chk)){
     rws <- which(!chk)
@@ -85,7 +85,7 @@ check_sites <- function(dat){
   
   # positive values in lon
   message('\tChecking for positive values in longitude...')
-  typ <- dat$`Monitoring Location Longitude`
+  typ <- sitdat$`Monitoring Location Longitude`
   chk <- typ <= 0
   if(any(!chk)){
     rws <- which(!chk)
@@ -95,7 +95,7 @@ check_sites <- function(dat){
   
   # missing location id
   message('\tChecking for missing entries for Monitoring Location ID...')
-  chk <- dat$`Monitoring Location ID`
+  chk <- sitdat$`Monitoring Location ID`
   chk <- !is.na(chk)
   if(any(!chk)){
     rws <- which(!chk)
@@ -104,6 +104,6 @@ check_sites <- function(dat){
   
   message('\nAll checks passed!')
   
-  return(dat)
+  return(sitdat)
   
 }

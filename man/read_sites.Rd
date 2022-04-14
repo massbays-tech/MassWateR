@@ -4,10 +4,10 @@
 \alias{read_sites}
 \title{Read site metadata from an external file}
 \usage{
-read_sites(pth, runchk = TRUE)
+read_sites(sitpth, runchk = TRUE)
 }
 \arguments{
-\item{pth}{character string of path to the file}
+\item{sitpth}{character string of path to the site metadata file}
 
 \item{runchk}{logical to run data checks with \code{\link{check_sites}}}
 }
@@ -21,8 +21,8 @@ Read site metadata from an external file
 Data are imported with \code{\link[readxl]{read_excel}} and checked with \code{\link{check_sites}}.
 }
 \examples{
-pth <- system.file('extdata/ExampleSites_final.xlsx', package = 'MassWateR')
+sitpth <- system.file('extdata/ExampleSites_final.xlsx', package = 'MassWateR')
 
-sites <- read_sites(pth)
-head(sites)
+sitdat <- read_sites(sitpth)
+head(sitdat)
 }

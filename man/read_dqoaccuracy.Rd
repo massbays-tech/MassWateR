@@ -4,10 +4,10 @@
 \alias{read_dqoaccuracy}
 \title{Read data quality objectives for accuracy from an external file}
 \usage{
-read_dqoaccuracy(pth, runchk = TRUE)
+read_dqoaccuracy(dqoaccpth, runchk = TRUE)
 }
 \arguments{
-\item{pth}{character string of path to the file}
+\item{dqoaccpth}{character string of path to the data quality objectives file for accuracy}
 
 \item{runchk}{logical to run data checks with \code{\link{check_dqoaccuracy}}}
 }
@@ -21,8 +21,8 @@ Read data quality objectives for accuracy from an external file
 Data are imported with \code{\link[readxl]{read_excel}} and checked with \code{\link{check_dqoaccuracy}}.
 }
 \examples{
-pth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
+dqoaccpth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
 
-dqoaccuracy <- read_dqoaccuracy(pth)
-head(dqoaccuracy)
+dqoaccdat <- read_dqoaccuracy(dqoaccpth)
+head(dqoaccdat)
 }

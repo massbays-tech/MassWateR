@@ -4,12 +4,12 @@
 \alias{read_dqocompleteness}
 \title{Read data quality objectives for completeness from an external file}
 \usage{
-read_dqocompleteness(pth, runchk = TRUE)
+read_dqocompleteness(dqocompth, runchk = TRUE)
 }
 \arguments{
-\item{pth}{character string of path to the file}
-
 \item{runchk}{logical to run data checks with \code{\link{check_dqocompleteness}}}
+
+\item{pth}{character string of path to the data quality objectives file for completeness}
 }
 \value{
 A formatted data frame of data quality objectives for completeness that can be used for downstream analysis
@@ -21,8 +21,8 @@ Read data quality objectives for completeness from an external file
 Data are imported with \code{\link[readxl]{read_excel}} and checked with \code{\link{check_dqocompleteness}}.
 }
 \examples{
-pth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
+dqocompth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
 
-dqocomplete <- read_dqocompleteness(pth)
-head(dqocomplete)
+dqocomdat <- read_dqocompleteness(dqocompth)
+head(dqocomdat)
 }

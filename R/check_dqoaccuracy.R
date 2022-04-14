@@ -1,6 +1,6 @@
 #' Check data quality objective accuracy data
 #'
-#' @param dat input data frame
+#' @param dqoaccdat input data frame
 #'
 #' @details This function is used internally within \code{\link{read_dqoaccuracy}} to run several checks on the input data for completeness and conformance to WQX requirements
 #' 
@@ -12,19 +12,19 @@
 #'  \item{Unrecognized characters: }{Fields describing accuracy checks should not include symbols or text other than <=, <, >=, >, ±, %, BDL, AQL, log, or all}
 #' }
 #'
-#' @return \code{dat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. 
+#' @return \code{dqoaccdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. 
 #' 
 #' @encoding UTF-8
 #'
 #' @export
 #'
 #' @examples
-#' pth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
+#' dqoaccpth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
 #' 
-#' dat <- readxl::read_excel(pth, na = c('na', '')) 
+#' dqoaccdat <- readxl::read_excel(dqoaccpth, na = c('na', '')) 
 #'       
-#' check_dqoaccuracy(dat)
-check_dqoaccuracy <- function(dat){
+#' check_dqoaccuracy(dqoaccdat)
+check_dqoaccuracy <- function(dqoaccdat){
   
   message('Running checks on data quality objectives for accuracy...\n')
   
@@ -35,7 +35,7 @@ check_dqoaccuracy <- function(dat){
   
   # check field names
   message('\tChecking column names...')
-  nms <- names(dat) 
+  nms <- names(dqoaccdat) 
   chk <- nms %in% colnms
   if(any(!chk)){
     tochk <- nms[!chk]
@@ -44,7 +44,7 @@ check_dqoaccuracy <- function(dat){
 
   # check all fields are present
   message('\tChecking all required columns are present...')
-  nms <- names(dat)
+  nms <- names(dqoaccdat)
   chk <- colnms %in% nms
   if(any(!chk)){
     tochk <- colnms[!chk]
@@ -53,7 +53,7 @@ check_dqoaccuracy <- function(dat){
   
   # check for any non-numeric values in MDL, UQL 
   message('\tChecking for non-numeric values in MDL, UQL...')
-  typ <- dat %>% 
+  typ <- dqoaccdat %>% 
     dplyr::select(MDL, UQL) %>% 
     lapply(class) %>% 
     unlist
@@ -65,7 +65,7 @@ check_dqoaccuracy <- function(dat){
 
   # check for symbols other than <=, <, >=, >, ±, or %
   message('\tChecking for text other than <=, <, >=, >, \u00b1, %, AQL, BQL, log, or all...')
-  typ <- dat %>% 
+  typ <- dqoaccdat %>% 
     dplyr::select(-Parameter, -uom, -MDL, -UQL) %>%
     lapply(function(x) gsub(paste(colsym, collapse = '|'), '', x)) %>% 
     lapply(function(x) tryCatch(as.numeric(x),error=function(e) e, warning=function(w) w)) %>% 
@@ -79,6 +79,6 @@ check_dqoaccuracy <- function(dat){
   
   message('\nAll checks passed!')
   
-  return(dat)
+  return(dqoaccdat)
   
 }

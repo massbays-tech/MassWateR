@@ -4,13 +4,13 @@
 \alias{check_dqocompleteness}
 \title{Check data quality objective completeness data}
 \usage{
-check_dqocompleteness(dat)
+check_dqocompleteness(dqocomdat)
 }
 \arguments{
-\item{dat}{input data frame}
+\item{dqocomdat}{input data frame}
 }
 \value{
-\code{dat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding.
+\code{dqocomdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding.
 }
 \description{
 Check data quality objective completeness data
@@ -29,13 +29,13 @@ The following checks are made:
 \examples{
 library(dplyr)
 
-pth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
+dqocompth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
 
-dat <- suppressMessages(readxl::read_excel(pth, 
+dqocomdat <- suppressMessages(readxl::read_excel(dqocompth, 
       skip = 1, na = c('na', ''), 
       col_types = c('text', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric')
     )) \%>\% 
     rename(`\% Completeness` = `...7`)
     
-check_dqocompleteness(dat)
+check_dqocompleteness(dqocomdat)
 }

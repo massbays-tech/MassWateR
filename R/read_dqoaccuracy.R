@@ -1,6 +1,6 @@
 #' Read data quality objectives for accuracy from an external file
 #'
-#' @param pth character string of path to the file
+#' @param dqoaccpth character string of path to the data quality objectives file for accuracy
 #' @param runchk logical to run data checks with \code{\link{check_dqoaccuracy}}
 #'
 #' @return A formatted data frame of data quality objectives for completeness that can be used for downstream analysis
@@ -10,19 +10,19 @@
 #' @export
 #'
 #' @examples
-#' pth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
+#' dqoaccpth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
 #' 
-#' dqoaccuracy <- read_dqoaccuracy(pth)
-#' head(dqoaccuracy)
-read_dqoaccuracy <- function(pth, runchk = TRUE){
+#' dqoaccdat <- read_dqoaccuracy(dqoaccpth)
+#' head(dqoaccdat)
+read_dqoaccuracy <- function(dqoaccpth, runchk = TRUE){
   
-  dat <- readxl::read_excel(pth, na = c('na', ''))
+  dqoaccdat <- readxl::read_excel(dqoaccpth, na = c('na', ''))
   
   # run checks
   if(runchk)
-    dat <- check_dqoaccuracy(dat)
+    dqoaccdat <- check_dqoaccuracy(dqoaccdat)
   
-  out <- dat
+  out <- dqoaccdat
   
   return(out)
   

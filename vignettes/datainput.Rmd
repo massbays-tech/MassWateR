@@ -118,8 +118,8 @@ The MassWateR package is developed for quality control and exploratory analysis 
 First, the surface water quality results can be imported with the `read_results()` function. This is designed to import an Excel file external to R, run checks on the data, and provide some minor formatting for downstream quality control or exploratory analysis. In this example, the system file `ExampleResults_final.xlsx` is imported. In practice, the `pth` argument will point to an alternative external file in the WQX format.  Note that `runchk = TRUE` is set to run the checks on data import.  This is the default setting and it is not necessary to explicitly set this argument on import.
 
 ```{r, message = T}
-pth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
-resdat <- read_results(pth, runchk = TRUE)
+respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
+resdat <- read_results(respth, runchk = TRUE)
 head(resdat)
 ```
 
@@ -140,9 +140,9 @@ An informative error is returned if the input data fail any of the checks. The i
 Here is an example of an error that might be returned for an incorrect data entry (using the `check_results()` function, which is used inside of `read_results()`). To remedy the issue, change the entries in row 4 and 135 in the Activity Type column to Sample-Routine and Field Msr/Obs, respectively. This must be done in the original Excel file. Import the data again in R to verify the data are corrected.
 
 ```{r, eval = F}
-pth <- 'ExampleResults_final.xlsx'
-dat <- readxl::read_excel(pth)
-chk <- dat
+respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
+resdat <- readxl::read_excel(respth)
+chk <- resdat
 chk[4, 2] <- 'Sample'
 chk[135, 2] <- 'Field'
 check_results(chk)
@@ -167,16 +167,16 @@ To use the quality control functions in MassWateR, Excel files that describe the
 
 ```{r, message = T}
 # import data quality objectives for accuracy
-pth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
-dqoaccuracy <- read_dqoaccuracy(pth)
-head(dqoaccuracy)
+dqoaccpth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
+dqoaccdat <- read_dqoaccuracy(dqoaccpth)
+head(dqoaccdat)
 ```
 
 ```{r, message = T}
 # import data quality objectives for completeness
-pth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
-dqocomplete <- read_dqocompleteness(pth)
-head(dqocomplete)
+dqocompth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
+dqocomdat <- read_dqocompleteness(dqocompth)
+head(dqocomdat)
 ```
 
 Both the `read_dqoaccuracy()` and `read_dqocompleteness()` functions will run a series of checks to ensure the imported data are formatted correctly. The `check_dqoaccuracy()` and `check_dqocompleteness()` functions run these checks when the `read_dqoaccuracy()` and `read_dqocompleteness()` functions are executed, respectively. The checks for each are as follows.
@@ -201,8 +201,8 @@ An Excel file for site metadata that describes spatial location and any other gr
 
 ```{r, message = T}
 # import site metadata
-pth <- system.file('extdata/ExampleSites_final.xlsx', package = 'MassWateR')
-sitdat <- read_sites(pth)
+sitpth <- system.file('extdata/ExampleSites_final.xlsx', package = 'MassWateR')
+sitdat <- read_sites(sitpth)
 head(sitdat)
 ```
 

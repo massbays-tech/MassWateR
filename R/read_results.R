@@ -1,6 +1,6 @@
 #' Read water quality monitoring results from an external file
 #'
-#' @param pth character string of path to the file
+#' @param respth character string of path to the results file
 #' @param runchk logical to run data checks with \code{\link{check_results}}
 #' @param tzone character string for time zone, passed to \code{\link{form_results}}
 #'
@@ -11,22 +11,22 @@
 #' @export
 #'
 #' @examples
-#' pth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
+#' respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
 #' 
-#' results <- read_results(pth)
-#' head(results)
-read_results <- function(pth, runchk = TRUE, tzone = 'America/Jamaica'){
+#' resdat <- read_results(respth)
+#' head(resdat)
+read_results <- function(respth, runchk = TRUE, tzone = 'America/Jamaica'){
   
-  dat <- readxl::read_excel(pth, 
+  resdat <- readxl::read_excel(respth, na = c('na', ''), 
     col_types = c('text', 'text', 'date', 'date', 'text', 'text', 'text', 'text', 'text', 'text', 
                   'text', 'text', 'text', 'text'))
   
   # run checks
   if(runchk)
-    dat <- check_results(dat)
+    resdat <- check_results(resdat)
   
   # format results
-  out <- form_results(dat, tzone)
+  out <- form_results(resdat, tzone)
   
   return(out)
   

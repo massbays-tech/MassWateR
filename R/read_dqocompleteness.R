@@ -1,6 +1,6 @@
 #' Read data quality objectives for completeness from an external file
 #'
-#' @param pth character string of path to the file
+#' @param pth character string of path to the data quality objectives file for completeness
 #' @param runchk logical to run data checks with \code{\link{check_dqocompleteness}}
 #'
 #' @return A formatted data frame of data quality objectives for completeness that can be used for downstream analysis
@@ -10,13 +10,13 @@
 #' @export
 #'
 #' @examples
-#' pth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
+#' dqocompth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
 #' 
-#' dqocomplete <- read_dqocompleteness(pth)
-#' head(dqocomplete)
-read_dqocompleteness <- function(pth, runchk = TRUE){
+#' dqocomdat <- read_dqocompleteness(dqocompth)
+#' head(dqocomdat)
+read_dqocompleteness <- function(dqocompth, runchk = TRUE){
   
-  dat <- suppressMessages(readxl::read_excel(pth, 
+  dqocomdat <- suppressMessages(readxl::read_excel(dqocompth, 
       skip = 1, na = c('na', ''), 
       col_types = c('text', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric')
     )) %>% 
@@ -24,9 +24,9 @@ read_dqocompleteness <- function(pth, runchk = TRUE){
   
   # run checks
   if(runchk)
-    dat <- check_dqocompleteness(dat)
+    dqocomdat <- check_dqocompleteness(dqocomdat)
   
-  out <- dat
+  out <- dqocomdat
   
   return(out)
   
