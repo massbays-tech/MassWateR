@@ -1,6 +1,6 @@
 #' Read data quality objectives for completeness from an external file
 #'
-#' @param pth character string of path to the data quality objectives file for completeness
+#' @param dqocompth character string of path to the data quality objectives file for completeness
 #' @param runchk logical to run data checks with \code{\link{check_dqocompleteness}}
 #'
 #' @return A formatted data frame of data quality objectives for completeness that can be used for downstream analysis

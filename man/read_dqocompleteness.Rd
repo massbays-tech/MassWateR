@@ -7,9 +7,9 @@
 read_dqocompleteness(dqocompth, runchk = TRUE)
 }
 \arguments{
-\item{runchk}{logical to run data checks with \code{\link{check_dqocompleteness}}}
+\item{dqocompth}{character string of path to the data quality objectives file for completeness}
 
-\item{pth}{character string of path to the data quality objectives file for completeness}
+\item{runchk}{logical to run data checks with \code{\link{check_dqocompleteness}}}
 }
 \value{
 A formatted data frame of data quality objectives for completeness that can be used for downstream analysis
