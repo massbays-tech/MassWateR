@@ -30,12 +30,19 @@ The function can be used with inputs as file paths to the relevant files or as d
 respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
 
 # completeness path
-dqocompth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR'
+dqocompth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
 
-qc_completeness(res = respth, dqocom = dqopth)
+qc_completeness(res = respth, dqocom = dqocompth)
 
 ##
 # using data frames
 
+# results data
+resdat <- read_results(respth)
+
+# completeness data
+dqocomdat <- read_dqocompleteness(dqocompth)
+
+qc_completeness(res = resdat, dqocom = dqocomdat)
 
 }

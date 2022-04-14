@@ -17,13 +17,20 @@
 #' respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
 #' 
 #' # completeness path
-#' dqocompth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR'
+#' dqocompth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
 #' 
-#' qc_completeness(res = respth, dqocom = dqopth)
+#' qc_completeness(res = respth, dqocom = dqocompth)
 #' 
 #' ##
 #' # using data frames
 #' 
+#' # results data
+#' resdat <- read_results(respth)
+#' 
+#' # completeness data
+#' dqocomdat <- read_dqocompleteness(dqocompth)
+#' 
+#' qc_completeness(res = resdat, dqocom = dqocomdat)
 #' 
 qc_completeness <- function(res, dqocom, runchk = TRUE){
   
@@ -61,7 +68,7 @@ qc_completeness <- function(res, dqocom, runchk = TRUE){
     if(!chk)
       stop('File specified with dqocom argument not found')
     
-    dqocomdat <- read_results(dqocompth, runchk = runchk)
+    dqocomdat <- read_dqocompleteness(dqocompth, runchk = runchk)
     
   }
   
