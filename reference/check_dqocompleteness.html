@@ -71,6 +71,7 @@
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This function is used internally within <code><a href="read_dqocompleteness.html">read_dqocompleteness</a></code> to run several checks on the input data for completeness and conformance to WQX requirements</p>
 <p>The following checks are made:</p><ul><li><p>Column name spelling: Should be the following: Parameter, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy, % Completeness</p></li>
+<li><p>Columns present: All columns from the previous check should be present</p></li>
 <li><p>Non-numeric values: Values entered in columns other than the first should be numeric</p></li>
 <li><p>Values outside of 0 - 100: Values entered in columns other than the first should not be outside of 0 and 100</p></li>
 </ul></div>
@@ -98,6 +99,7 @@
 <span class="r-in"><span class="fu">check_dqocompleteness</span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on data quality objectives for completeness...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for values outside of 0 and 100...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>

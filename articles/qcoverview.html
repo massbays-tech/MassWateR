@@ -77,11 +77,11 @@
 
     
     
+<p>The quality control functions in MassWateR can be used once the required data are successfully imported into R (see the <a href="https://massbays-tech.github.io/MassWateR/articles/datainput.html">previous vignette</a> for an overview). The required data includes the results data file that describe the monitoring data and the data quality objective files for completeness and accuracy. The example data files included with the package are imported here to demonstrate how to use the quality control functions:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/massbays-tech/MassWateR" class="external-link">MassWateR</a></span><span class="op">)</span></code></pre></div>
-<p>The quality control functions in MassWateR can be used once the required data are successfully imported into R (see the <a href="https://masswaters-tech.github.io/MassWateR/articles/datainput.html" class="external-link">previous vignette</a> for an overview). The required data includes the results data file that describe the monitoring data and the data quality objective files for completeness and accuracy. The example data files included with the package are imported here to demonstrate how to use the quality control functions:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># import results data</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/massbays-tech/MassWateR" class="external-link">MassWateR</a></span><span class="op">)</span>
+
+<span class="co"># import results data</span>
 <span class="va">pth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleResults_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
 <span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_results.html">read_results</a></span><span class="op">(</span><span class="va">pth</span><span class="op">)</span>
 <span class="co">#&gt; Running checks on results data...</span>
@@ -101,6 +101,7 @@
 <span class="va">dqoaccuracy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_dqoaccuracy.html">read_dqoaccuracy</a></span><span class="op">(</span><span class="va">pth</span><span class="op">)</span>
 <span class="co">#&gt; Running checks on data quality objectives for accuracy...</span>
 <span class="co">#&gt;  Checking column names...</span>
+<span class="co">#&gt;  Checking all required columns are present...</span>
 <span class="co">#&gt;  Checking for non-numeric values in MDL, UQL...</span>
 <span class="co">#&gt;  Checking for text other than &lt;=, &lt;, &gt;=, &gt;, ±, %, AQL, BQL, log, or all...</span>
 <span class="co">#&gt; </span>
@@ -111,6 +112,7 @@
 <span class="va">dqocomplete</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_dqocompleteness.html">read_dqocompleteness</a></span><span class="op">(</span><span class="va">pth</span><span class="op">)</span>
 <span class="co">#&gt; Running checks on data quality objectives for completeness...</span>
 <span class="co">#&gt;  Checking column names...</span>
+<span class="co">#&gt;  Checking all required columns are present...</span>
 <span class="co">#&gt;  Checking for non-numeric values...</span>
 <span class="co">#&gt;  Checking for values outside of 0 and 100...</span>
 <span class="co">#&gt; </span>
