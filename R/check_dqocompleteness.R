@@ -7,6 +7,7 @@
 #' The following checks are made: 
 #' \itemize{
 #'  \item{Column name spelling: }{Should be the following: Parameter, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy, % Completeness}
+#'  \item{Columns present: }{All columns from the previous check should be present}
 #'  \item{Non-numeric values: }{Values entered in columns other than the first should be numeric}
 #'  \item{Values outside of 0 - 100: }{Values entered in columns other than the first should not be outside of 0 and 100}
 #' }
@@ -41,9 +42,18 @@ check_dqocompleteness <- function(dat){
   chk <- nms %in% colnms
   if(any(!chk)){
     tochk <- nms[!chk]
-    stop('Please correct the column names: ', paste(tochk, collapse = ', '))
+    stop('Please correct the column names or remove: ', paste(tochk, collapse = ', '))
   }
 
+  # check all fields are present
+  message('\tChecking all required columns are present...')
+  nms <- names(dat)
+  chk <- colnms %in% nms
+  if(any(!chk)){
+    tochk <- colnms[!chk]
+    stop('Missing the following columns: ', paste(tochk, collapse = ', '))
+  }
+  
   # check for any non-numeric columns
   message('\tChecking for non-numeric values...')
   typ <- dat %>% 

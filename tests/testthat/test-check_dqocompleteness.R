@@ -4,6 +4,12 @@ test_that("Checking column name spelling", {
   expect_error(check_dqocompleteness(chk))
 })
 
+test_that("Checking required column names are present", {
+  chk <- dqocomdat
+  chk <- chk[, -7]
+  expect_error(check_dqocompleteness(chk))
+})
+
 test_that("Checking non-numeric values", {
   chk <- dqocomdat
   chk$`Lab Duplicate` <- as.character(chk$`Lab Duplicate`)

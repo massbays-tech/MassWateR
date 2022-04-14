@@ -7,6 +7,7 @@
 #' The following checks are made: 
 #' \itemize{
 #'  \item{Column name spelling: }{Should be the following: Parameter, uom, MDL, UQL, Value Range, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy}
+#'  \item{Columns present: }{All columns from the previous check should be present}
 #'  \item{Non-numeric values in MDL, UQL: }{Values entered in columns MDL and UQL should be numeric}
 #'  \item{Unrecognized characters: }{Fields describing accuracy checks should not include symbols or text other than <=, <, >=, >, ±, %, BDL, AQL, log, or all}
 #' }
@@ -38,9 +39,18 @@ check_dqoaccuracy <- function(dat){
   chk <- nms %in% colnms
   if(any(!chk)){
     tochk <- nms[!chk]
-    stop('Please correct the column names: ', paste(tochk, collapse = ', '))
+    stop('Please correct the column names or remove: ', paste(tochk, collapse = ', '))
   }
 
+  # check all fields are present
+  message('\tChecking all required columns are present...')
+  nms <- names(dat)
+  chk <- colnms %in% nms
+  if(any(!chk)){
+    tochk <- colnms[!chk]
+    stop('Missing the following columns: ', paste(tochk, collapse = ', '))
+  }
+  
   # check for any non-numeric values in MDL, UQL 
   message('\tChecking for non-numeric values in MDL, UQL...')
   typ <- dat %>% 

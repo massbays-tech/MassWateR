@@ -4,6 +4,12 @@ test_that("Checking column name spelling", {
   expect_error(check_sites(chk))
 })
 
+test_that("Checking required column names are present", {
+  chk <- sitdat
+  chk <- chk[, -5]
+  expect_error(check_sites(chk))
+})
+
 test_that("Checking missing latitude or longitude", {
   chk <- sitdat
   chk$`Monitoring Location Longitude`[5] <- NA

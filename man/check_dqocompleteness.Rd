@@ -21,6 +21,7 @@ This function is used internally within \code{\link{read_dqocompleteness}} to ru
 The following checks are made:
 \itemize{
 \item{Column name spelling: }{Should be the following: Parameter, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy, \% Completeness}
+\item{Columns present: }{All columns from the previous check should be present}
 \item{Non-numeric values: }{Values entered in columns other than the first should be numeric}
 \item{Values outside of 0 - 100: }{Values entered in columns other than the first should not be outside of 0 and 100}
 }

@@ -4,6 +4,12 @@ test_that("Checking column name spelling", {
   expect_error(check_dqoaccuracy(chk))
 })
 
+test_that("Checking required column names are present", {
+  chk <- dqoaccdat
+  chk <- chk[, -10]
+  expect_error(check_dqoaccuracy(chk))
+})
+
 test_that("Checking non-numeric values in MDL, UQL", {
   chk <- dqoaccdat
   chk$`MDL` <- as.character(chk$`MDL`)

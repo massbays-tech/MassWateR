@@ -7,6 +7,7 @@
 #' The following checks are made: 
 #' \itemize{
 #'  \item{Column name spelling: }{Should be the following: Monitoring Location ID, Monitoring Location Name, Monitoring Location Latitude, Monitoring Location Longitude, Location Group}
+#'  \item{Columns present: }{All columns from the previous check should be present}
 #'  \item{Missing longitude or latitude: }{No missing entries in Monitoring Location Latitude or Monitoring Location Longitude}
 #'  \item{Non-numeric latitude values: }{Values entered in Monitoring Location Latitude must be numeric}
 #'  \item{Non-numeric longitude values: }{Values entered in Monitoring Location Longitude must be numeric}
@@ -40,9 +41,18 @@ check_sites <- function(dat){
   chk <- nms %in% colnms
   if(any(!chk)){
     tochk <- nms[!chk]
-    stop('Please correct the column names: ', paste(tochk, collapse = ', '))
+    stop('Please correct the column names or remove: ', paste(tochk, collapse = ', '))
   }
 
+  # check all fields are present
+  message('\tChecking all required columns are present...')
+  nms <- names(dat)
+  chk <- colnms %in% nms
+  if(any(!chk)){
+    tochk <- colnms[!chk]
+    stop('Missing the following columns: ', paste(tochk, collapse = ', '))
+  }
+  
   # checking for missing lat/lon
   message('\tChecking for missing latitude or longitude values...')
   chk <- dat %>% 

@@ -7,7 +7,7 @@
 #' The following checks are made: 
 #' \itemize{
 #'  \item{Column name spelling: }{Should be the following: Monitoring Location ID, Activity Type, Activity Start Date, Activity Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit, Relative Depth Category, Characteristic Name, Result Value, Result Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier, Result Attribute.}
-#'  \item{Columns present: }{All columns from the previous should be present, Result Attribute is optional}
+#'  \item{Columns present: }{All columns from the previous check should be present, Result Attribute is optional}
 #'  \item{Activity Type: }{Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike}
 #'  \item{Date formats: }{Should be mm/dd/yyyy and parsed correctly on import}
 #'  \item{Time formats: }{Should be HH:MM and parsed correctly on import}
@@ -53,7 +53,7 @@ check_results <- function(dat){
   chk <- nms %in% colnms
   if(any(!chk)){
     tochk <- nms[!chk]
-    stop('Please correct the column names: ', paste(tochk, collapse = ', '))
+    stop('Please correct the column names or remove: ', paste(tochk, collapse = ', '))
   }
   
   # check all fields are present, Result Attribute optional

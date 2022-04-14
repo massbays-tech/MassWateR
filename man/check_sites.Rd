@@ -21,6 +21,7 @@ This function is used internally within \code{\link{read_sites}} to run several 
 The following checks are made:
 \itemize{
 \item{Column name spelling: }{Should be the following: Monitoring Location ID, Monitoring Location Name, Monitoring Location Latitude, Monitoring Location Longitude, Location Group}
+\item{Columns present: }{All columns from the previous check should be present}
 \item{Missing longitude or latitude: }{No missing entries in Monitoring Location Latitude or Monitoring Location Longitude}
 \item{Non-numeric latitude values: }{Values entered in Monitoring Location Latitude must be numeric}
 \item{Non-numeric longitude values: }{Values entered in Monitoring Location Longitude must be numeric}

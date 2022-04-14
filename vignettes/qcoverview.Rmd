@@ -16,13 +16,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(MassWateR)
-```
-
-The quality control functions in MassWateR can be used once the required data are successfully imported into R (see the [previous vignette](https://masswaters-tech.github.io/MassWateR/articles/datainput.html) for an overview).  The required data includes the results data file that describe the monitoring data and the data quality objective files for completeness and accuracy.  The example data files included with the package are imported here to demonstrate how to use the quality control functions:
+The quality control functions in MassWateR can be used once the required data are successfully imported into R (see the [previous vignette](https://massbays-tech.github.io/MassWateR/articles/datainput.html) for an overview).  The required data includes the results data file that describe the monitoring data and the data quality objective files for completeness and accuracy.  The example data files included with the package are imported here to demonstrate how to use the quality control functions:
 
 ```{r, message = T}
+library(MassWateR)
+
 # import results data
 pth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
 resdat <- read_results(pth)
