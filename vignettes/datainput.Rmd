@@ -81,32 +81,6 @@ The site metadata file:
 system.file('extdata/ExampleSites_final.xlsx', package = 'MassWateR')
 ```
 
-Each of these files are available as binary RData files that can be viewed directly in R after loading the package.
-
-The surface water quality results:
-
-```{r}
-head(exresults)
-```
-
-The data quality objectives for accuracy:
-
-```{r}
-head(exdqoacc)
-```
-
-The data quality objectives for completeness:
-
-```{r}
-head(exdqocom)
-```
-
-The site metadata:
-
-```{r}
-head(exsites)
-```
-
 The example files are provided to demonstrate how the functions in MassWateR are used. In practice, alternative data files that follow the same format as the examples can be used with the functions. There are several checks included in the data import functions to ensure the files are formatted correctly for downstream use. If any of the checks fail, an error message will be returned that prompts the necessary changes that must be made to the Excel file before the data can be used.  The checks can be suppressed by setting `runchk = FALSE` in the import functions.  These checks are described in the next section.
 
 ## Data import and checks
