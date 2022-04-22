@@ -199,7 +199,12 @@ Functions in MassWateR are organized around these topics.
 <span class="va">chk</span> <span class="op">&lt;-</span> <span class="va">resdat</span>
 <span class="va">chk</span><span class="op">[</span><span class="fl">4</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">'Sample'</span>
 <span class="va">chk</span><span class="op">[</span><span class="fl">135</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">'Field'</span>
-<span class="fu"><a href="../reference/check_results.html">check_results</a></span><span class="op">(</span><span class="va">chk</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/check_results.html">check_results</a></span><span class="op">(</span><span class="va">chk</span><span class="op">)</span>
+<span class="co">#&gt; Running checks on results data...</span>
+<span class="co">#&gt;  Checking column names... OK</span>
+<span class="co">#&gt;  Checking all required columns are present... OK</span>
+<span class="co">#&gt; Error:   Checking valid Activity Types...</span>
+<span class="co">#&gt;  Incorrect Activity Type found: Sample, Field in row(s) 4, 135</span></code></pre></div>
 <p>Data imported with <code><a href="../reference/read_results.html">read_results()</a></code> are also formatted to take care of a few minor issues for downstream analysis. This formatting includes:</p>
 <ul>
 <li>
