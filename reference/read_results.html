@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">MassWateR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9002</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,17 +82,113 @@
 <span class="r-in"></span>
 <span class="r-in"><span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu">read_results</span><span class="op">(</span><span class="va">respth</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on results data...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: check_results(resdat)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: msg &lt;- "\tChecking column names..."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: nms &lt;- names(resdat)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: chk &lt;- nms %in% colnms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: if (any(!chk)) {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     tochk &lt;- nms[!chk]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     stop(msg, "\n\tPlease correct the column names or remove: ", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         paste(tochk, collapse = ", "), call. = FALSE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: message(paste(msg, "OK"))</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: msg &lt;- "\tChecking all required columns are present..."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: nms &lt;- names(resdat)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: chk &lt;- colnms[-14] %in% nms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: if (any(!chk)) {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     tochk &lt;- colnms[!chk]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     stop(msg, "\n\tMissing the following columns: ", paste(tochk, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         collapse = ", "), call. = FALSE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: message(paste(msg, "OK"))</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: msg &lt;- "\tChecking valid Activity Types..."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: typ &lt;- resdat$`Activity Type`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: chk &lt;- typ %in% acttyp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: if (any(!chk)) {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     rws &lt;- which(!chk)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     tochk &lt;- unique(typ[!chk])</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     stop(msg, "\n\tIncorrect Activity Type found: ", paste(tochk, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         collapse = ", "), " in row(s) ", paste(rws, collapse = ", "), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         call. = FALSE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: message(paste(msg, "OK"))</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking valid Activity Types... OK</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: msg &lt;- "\tChecking Activity Start Date formats..."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: dts &lt;- resdat$`Activity Start Date`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: if (anyNA(dts)) {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     rws &lt;- which(is.na(dts))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     stop(msg, "\n\tCheck date on row(s) ", paste(rws, collapse = ", "), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         call. = FALSE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: message(paste(msg, "OK"))</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Start Date formats... OK</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: msg &lt;- "\tChecking Activity Start Time formats..."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: tms &lt;- resdat$`Activity Start Time`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: if (anyNA(tms)) {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     rws &lt;- which(is.na(tms))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     stop(msg, "\n\tCheck time on row(s) ", paste(rws, collapse = ", "), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         call. = FALSE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: message(paste(msg, "OK"))</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Start Time formats... OK</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: msg &lt;- "\tChecking Relative Depth Category formats..."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: dps &lt;- resdat$`Relative Depth Category`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: chk &lt;- dps %in% dpstyp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: if (any(!chk)) {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     rws &lt;- which(!dps %in% dpstyp)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     tochk &lt;- unique(dps[!chk])</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     stop(msg, "\n\tIncorrect Relative Depth Category format found: ", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         paste(tochk, collapse = ", "), " on row(s)", paste(rws, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             collapse = ", "), call. = FALSE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: message(paste(msg, "OK"))</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Relative Depth Category formats... OK</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: msg &lt;- "\tChecking Characteristic Name formats..."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: typ &lt;- resdat$`Characteristic Name`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: chk &lt;- typ %in% chntyp</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: if (any(!chk)) {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     rws &lt;- which(!chk)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     tochk &lt;- unique(typ[!chk])</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     stop(msg, "\n\tIncorrect Characteristic Name found: ", paste(tochk, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         collapse = ", "), " in row(s) ", paste(rws, collapse = ", "), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         call. = FALSE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: message(paste(msg, "OK"))</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Characteristic Name formats... OK</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: msg &lt;- "\tChecking Result Values..."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: typ &lt;- resdat$`Result Value`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: chk &lt;- paste(paste0("^", restyp, "$"), collapse = "|")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: chk &lt;- !is.na(suppressWarnings(as.numeric(typ))) | grepl(chk, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     typ) | is.na(typ)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: if (any(!chk)) {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     rws &lt;- which(!chk)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     tochk &lt;- unique(typ[!chk])</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     stop(msg, "\n\tIncorrect entries in Result Value found: ", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         paste(tochk, collapse = ", "), " in rows ", paste(rws, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             collapse = ", "), call. = FALSE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: message(paste(msg, "OK"))</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Result Values... OK</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: msg &lt;- "\tChecking QC Reference Values..."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: typ &lt;- resdat$`QC Reference Value`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: chk &lt;- paste(paste0("^", restyp, "$"), collapse = "|")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: chk &lt;- !is.na(suppressWarnings(as.numeric(typ))) | grepl(chk, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     typ) | is.na(typ)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: if (any(!chk)) {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     rws &lt;- which(!chk)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     tochk &lt;- unique(typ[!chk])</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     stop(msg, "\n\tIncorrect entries in QC Reference Value found: ", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         paste(tochk, collapse = ", "), " in rows ", paste(rws, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             collapse = ", "), call. = FALSE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: message(paste(msg, "OK"))</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking QC Reference Values... OK</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: message("\nAll checks passed!")</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: return(resdat)</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">resdat</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 14</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   `Monitoring Location ID` `Activity Type` `Activity Start Da…` `Activity Star…`</span>
