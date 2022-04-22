@@ -113,7 +113,7 @@ An informative error is returned if the input data fail any of the checks. The i
 
 Here is an example of an error that might be returned for an incorrect data entry (using the `check_results()` function, which is used inside of `read_results()`). To remedy the issue, change the entries in row 4 and 135 in the Activity Type column to Sample-Routine and Field Msr/Obs, respectively. This must be done in the original Excel file. Import the data again in R to verify the data are corrected.
 
-```{r, eval = F, error = T}
+```{r, error = T, message = T}
 respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
 resdat <- readxl::read_excel(respth)
 chk <- resdat
