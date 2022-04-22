@@ -5,7 +5,7 @@
 #' @param runchk  logical to run data checks with \code{\link{check_results}} and \code{\link{check_dqocompleteness}}, applies only if \code{res} or \code{dqocom} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
-#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{read_results}} and \code{\link{read_dqocompleteness}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if date are not correctly.
+#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{read_results}} and \code{\link{read_dqocompleteness}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly.
 #' 
 #' Note that completeness is only evaluated on parameters in the \code{Parameter} column in the data quality objectives completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.
 #' 
@@ -145,15 +145,15 @@ qc_completeness <- function(res, dqocom, runchk = TRUE, warn = TRUE){
 
   # dqocomdat long format
   dqocomdat <- dqocomdat %>% 
-    tidyr::pivot_longer(cols = -dplyr::matches('Parameter'), values_to = 'standard')
+    tidyr::pivot_longer(cols = -dplyr::matches('Parameter'), names_to = 'check', values_to = 'standard')
   
   # summary results long format
   resall <- resall %>% 
-    tidyr::pivot_longer(cols = -dplyr::matches('^Parameter$|^obs$'), values_to = 'count')
+    tidyr::pivot_longer(cols = -dplyr::matches('^Parameter$|^obs$'), names_to = 'check', values_to = 'count')
   
   # combine and create summaries
   out <- resall %>% 
-    dplyr::full_join(dqocomdat, by = c('Parameter', 'name')) %>% 
+    dplyr::full_join(dqocomdat, by = c('Parameter', 'check')) %>% 
     dplyr::mutate(
       percent = 100 * count / obs,
       met = percent >= standard
