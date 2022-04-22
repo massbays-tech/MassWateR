@@ -47,7 +47,7 @@ check_results <- function(resdat){
               "DO concentration", "flow", "gage", "pH", "sp conductivity", 
               "NH3", "NO3", "orthoP", "E coli", "chlorophyll a")
   restyp <- c('AQL', 'BDL')
-
+browser()
   # check field names
   msg <- '\tChecking column names...'
   nms <- names(resdat) 

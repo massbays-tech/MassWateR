@@ -4,7 +4,7 @@
 \alias{qc_completeness}
 \title{Run quality control completeness checks for water quality monitoring results}
 \usage{
-qc_completeness(res, dqocom, runchk = TRUE)
+qc_completeness(res, dqocom, runchk = TRUE, warn = TRUE)
 }
 \arguments{
 \item{res}{character string of path to eresults file or \code{data.frame} for results returned by \code{\link{read_results}}}
@@ -12,6 +12,8 @@ qc_completeness(res, dqocom, runchk = TRUE)
 \item{dqocom}{character string of path to the data quality objectives file for completeness or \code{data.frame} returned by \code{\link{read_dqocompleteness}}}
 
 \item{runchk}{logical to run data checks with \code{\link{check_results}} and \code{\link{check_dqocompleteness}}, applies only if \code{res} or \code{dqocom} are file paths}
+
+\item{warn}{logical to return warnings to the console (default)}
 }
 \value{
 A summarized \code{data.frame} of completeness results for quality control
@@ -20,7 +22,9 @@ A summarized \code{data.frame} of completeness results for quality control
 Run quality control completeness checks for water quality monitoring results
 }
 \details{
-The function can be used with inputs as file paths to the relevant files or as data frames returned by \code{\link{read_results}} and \code{\link{read_dqocompleteness}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default).
+The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{read_results}} and \code{\link{read_dqocompleteness}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if date are not correctly.
+
+Note that completeness is only evaluated on parameters in the \code{Parameter} column in the data quality objectives completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.
 }
 \examples{
 ##

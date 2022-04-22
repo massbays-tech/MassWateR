@@ -15,3 +15,12 @@ test_that("Checking missing file for path for res", {
 test_that("Checking missing file for path for dqocom", {
   expect_error(qc_completeness(respth, '~/test'))
 })
+
+test_that("Checking warning if parameters from dqocom missing in res", {
+  expect_warning(qc_completeness(respth, dqocompth, runchk = F))
+})
+
+test_that("Checking output format", {
+  result <- qc_completeness(respth, dqocompth, runchk = F, warn = F)
+  expect_type(result, 'list')
+})

@@ -3,8 +3,11 @@
 #' @param res character string of path to eresults file or \code{data.frame} for results returned by \code{\link{read_results}}
 #' @param dqocom character string of path to the data quality objectives file for completeness or \code{data.frame} returned by \code{\link{read_dqocompleteness}}
 #' @param runchk  logical to run data checks with \code{\link{check_results}} and \code{\link{check_dqocompleteness}}, applies only if \code{res} or \code{dqocom} are file paths
+#' @param warn logical to return warnings to the console (default)
 #'
-#' @details The function can be used with inputs as file paths to the relevant files or as data frames returned by \code{\link{read_results}} and \code{\link{read_dqocompleteness}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default).
+#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{read_results}} and \code{\link{read_dqocompleteness}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if date are not correctly.
+#' 
+#' Note that completeness is only evaluated on parameters in the \code{Parameter} column in the data quality objectives completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.
 #' 
 #' @return A summarized \code{data.frame} of completeness results for quality control
 #' @export
@@ -32,7 +35,7 @@
 #' 
 #' qc_completeness(res = resdat, dqocom = dqocomdat)
 #' 
-qc_completeness <- function(res, dqocom, runchk = TRUE){
+qc_completeness <- function(res, dqocom, runchk = TRUE, warn = TRUE){
   
   ##
   # results input
@@ -58,7 +61,7 @@ qc_completeness <- function(res, dqocom, runchk = TRUE){
   
   # data frame
   if(inherits(dqocom, 'data.frame'))
-    dqocomdatdat <- dqocom
+    dqocomdat <- dqocom
   
   # import from path
   if(inherits(dqocom, 'character')){
@@ -72,8 +75,90 @@ qc_completeness <- function(res, dqocom, runchk = TRUE){
     
   }
   
+  ##
   # check parameters in completeness can be found in results
+  dqocomprm <- sort(unique(dqocomdat$Parameter))
+  resdatprm <- sort(unique(resdat$`Characteristic Name`))
+  chk <- dqocomprm %in% resdatprm
+  if(any(!chk) & warn){
+    tochk <- dqocomprm[!chk]
+    warning('Parameters in quality control objectives for completeness not found in results data: ', paste(tochk, collapse = ', '))
+  }
   
-  return()
+  # parameters for completeness checks
+  prms <- dqocomprm[chk]
+  
+  resall <- NULL
+  
+  # run completeness checks
+  for(prm in prms){
+    
+    # subset dqo data
+    dqocomdattmp <- dqocomdat %>% 
+      dplyr::filter(Parameter == prm)
+    
+    # subset results data
+    resdattmp <- resdat %>% 
+      dplyr::filter(`Characteristic Name` == prm)
+   
+    # total obs
+    ntot <- nrow(resdattmp)
+    
+    # field duplicates
+    acts <- c('Quality Control Sample-Field Replicate', 'Quality Control Field Replicate Msr/Obs')
+    fielddup <- sum(resdattmp$`Activity Type` %in% acts)
+      
+    # lab duplicates
+    acts <- 'Quality Control Sample-Lab Duplicate'
+    labdup <- sum(resdattmp$`Activity Type` %in% acts)
+      
+    # field blank
+    acts <- 'Quality Control Sample-Field Blank'
+    fieldblnk <- sum(resdattmp$`Activity Type` %in% acts)
+      
+    # lab blank
+    acts <- 'Quality Control Sample-Lab Blank'
+    labblnk <- sum(resdattmp$`Activity Type` %in% acts)
+    
+    # spikes/checks
+    acts <- 'Quality Control Sample-Lab Spike'
+    spikes <- sum(resdattmp$`Activity Type` %in% acts)
+    
+    # completeness
+    complt <- ntot - (fielddup + labdup + fieldblnk + labblnk + spikes)
+    
+    # compile results
+    res <- tibble::tibble(
+      Parameter = prm, 
+      obs = ntot,
+      `Field Duplicate` = fielddup, 
+      `Lab Duplicate` = labdup, 
+      `Field Blank` = fieldblnk,
+      `Lab Blank` = labblnk,
+      `Spike/Check Accuracy` = spikes,
+      `% Completeness` = complt
+    )
+    
+    resall <- dplyr::bind_rows(resall, res)
+    
+  }
+
+  # dqocomdat long format
+  dqocomdat <- dqocomdat %>% 
+    tidyr::pivot_longer(cols = -dplyr::matches('Parameter'), values_to = 'standard')
+  
+  # summary results long format
+  resall <- resall %>% 
+    tidyr::pivot_longer(cols = -dplyr::matches('^Parameter$|^obs$'), values_to = 'count')
+  
+  # combine and create summaries
+  out <- resall %>% 
+    dplyr::full_join(dqocomdat, by = c('Parameter', 'name')) %>% 
+    dplyr::mutate(
+      percent = 100 * count / obs,
+      met = percent >= standard
+    )
+  
+  return(out)
   
 }
