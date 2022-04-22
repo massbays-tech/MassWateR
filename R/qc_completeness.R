@@ -9,7 +9,8 @@
 #' 
 #' Note that completeness is only evaluated on parameters in the \code{Parameter} column in the data quality objectives completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.
 #' 
-#' @return A summarized \code{data.frame} of completeness results for quality control
+#' @return A summarized \code{data.frame} of completeness results for quality control in long format.  Each row applies to a specific completeness check for a parameter. The total observations (\code{obs}) for each parameter are also shown, which is repeated for a parameter across the rows to calculate percentages.  The \code{check} column shows the relevant activity type that is assessed for completeness, the \code{count} columns shows the number of observations that apply to the check, the \code{standard} shows the relevant percentage required for quality control check from the quality control objectives file, the \code{percent} column shows the calculated percent taken from the input data, and the \code{met} column shows if the standard was met by comparing if \code{percent} is greater than or equal to \code{standard}.
+#' 
 #' @export
 #'
 #' @examples
