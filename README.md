@@ -8,8 +8,6 @@
 
 R package for working with Massachusetts surface water quality data, created in partnership by the [Mass Bays National Estuary Partnership](https://www.mass.gov/orgs/massachusetts-bays-national-estuary-partnership).
 
-<img src="man/figures/MassWateR.png" align="center" width="125"/>
-
 ## Installation
 
 The package can be installed as follows:

@@ -113,20 +113,13 @@ An informative error is returned if the input data fail any of the checks. The i
 
 Here is an example of an error that might be returned for an incorrect data entry (using the `check_results()` function, which is used inside of `read_results()`). To remedy the issue, change the entries in row 4 and 135 in the Activity Type column to Sample-Routine and Field Msr/Obs, respectively. This must be done in the original Excel file. Import the data again in R to verify the data are corrected.
 
-```{r, eval = F}
+```{r, eval = F, error = T}
 respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
 resdat <- readxl::read_excel(respth)
 chk <- resdat
 chk[4, 2] <- 'Sample'
 chk[135, 2] <- 'Field'
 check_results(chk)
-#> Running checks on results data...
-#> 
-#> 	  Checking column names...
-#> 	  Checking all required columns are present...
-#> 	  Checking valid Activity Types...
-#> Error in check_results(chk) : 
-#>   	Incorrect Activity Type found: Sample, Field in row(s) 4, 135
 ```
 
 Data imported with `read_results()` are also formatted to take care of a few minor issues for downstream analysis. This formatting includes:
