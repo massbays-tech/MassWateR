@@ -49,90 +49,100 @@ check_results <- function(resdat){
   restyp <- c('AQL', 'BDL')
 
   # check field names
-  message('\tChecking column names...')
+  msg <- '\tChecking column names...'
   nms <- names(resdat) 
   chk <- nms %in% colnms
   if(any(!chk)){
     tochk <- nms[!chk]
-    stop('Please correct the column names or remove: ', paste(tochk, collapse = ', '))
+    stop(msg, '\n\tPlease correct the column names or remove: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
+  message(paste(msg, 'OK'))
   
   # check all fields are present, Result Attribute optional
-  message('\tChecking all required columns are present...')
+  msg <- '\tChecking all required columns are present...'
   nms <- names(resdat)
   chk <- colnms[-14] %in% nms
   if(any(!chk)){
     tochk <- colnms[!chk]
-    stop('Missing the following columns: ', paste(tochk, collapse = ', '))
+    stop(msg, '\n\tMissing the following columns: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
+  message(paste(msg, 'OK'))
   
   # check activity types
-  message('\tChecking valid Activity Types...')
+  msg <- '\tChecking valid Activity Types...'
   typ <- resdat$`Activity Type`
   chk <- typ %in% acttyp
   if(any(!chk)){
     rws <- which(!chk)
     tochk <- unique(typ[!chk])
-    stop('\tIncorrect Activity Type found: ', paste(tochk, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '))
+    stop(msg, '\n\tIncorrect Activity Type found: ', paste(tochk, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
+  message(paste(msg, 'OK'))
   
   # check date parsing
-  message('\tChecking Activity Start Date formats...')
+  msg <- '\tChecking Activity Start Date formats...'
   dts <- resdat$`Activity Start Date`
   if(anyNA(dts)){
     rws <- which(is.na(dts))
-    stop('Check date on row(s) ', paste(rws, collapse = ', '))
+    stop(msg, '\n\tCheck date on row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
+  message(paste(msg, 'OK'))
   
   # check time formats
-  message('\tChecking Activity Start Time formats...')
+  msg <- '\tChecking Activity Start Time formats...'
   tms <- resdat$`Activity Start Time`
   if(anyNA(tms)){
     rws <- which(is.na(tms))
-    stop('Check time on row(s) ', paste(rws, collapse = ', '))
+    stop(msg, '\n\tCheck time on row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
+  message(paste(msg, 'OK'))
   
   # check depth categories
-  message('\tChecking Relative Depth Category formats...')
+  msg <- '\tChecking Relative Depth Category formats...'
   dps <- resdat$`Relative Depth Category`
   chk <- dps %in% dpstyp
   if(any(!chk)){
     rws <- which(!dps %in% dpstyp)
     tochk <- unique(dps[!chk])
-    stop('Incorrect Relative Depth Category format found: ', paste(tochk, collapse = ', '), ' on row(s)', paste(rws, collapse = ', '))
+    stop(msg, '\n\tIncorrect Relative Depth Category format found: ', paste(tochk, collapse = ', '), ' on row(s)', paste(rws, collapse = ', '), call. = FALSE)
   }
+  message(paste(msg, 'OK'))
   
   # check characteristic names
-  message('\tChecking Characteristic Name formats...')
+  msg <- '\tChecking Characteristic Name formats...'
   typ <- resdat$`Characteristic Name`
   chk <- typ %in% chntyp
   if(any(!chk)){
     rws <- which(!chk)
     tochk <- unique(typ[!chk])
-    stop('\tIncorrect Characteristic Name found: ', paste(tochk, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '))
+    stop(msg, '\n\tIncorrect Characteristic Name found: ', paste(tochk, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
+  message(paste(msg, 'OK'))
   
   # check result values 
-  message('\tChecking Result Values...')
+  msg <- '\tChecking Result Values...'
   typ <- resdat$`Result Value`
   chk <- paste(paste0('^', restyp, '$'), collapse = '|')
   chk <- !is.na(suppressWarnings(as.numeric(typ))) | grepl(chk, typ) | is.na(typ)
   if(any(!chk)){
     rws <- which(!chk)
     tochk <- unique(typ[!chk])
-    stop('\tIncorrect entries in Result Value found: ', paste(tochk, collapse = ', '), ' in rows ', paste(rws, collapse = ', '))
+    stop(msg, '\n\tIncorrect entries in Result Value found: ', paste(tochk, collapse = ', '), ' in rows ', paste(rws, collapse = ', '), call. = FALSE)
   }
-
+  message(paste(msg, 'OK'))
+  
   # check QC Reference Values 
+  msg <- '\tChecking QC Reference Values...'
   typ <- resdat$`QC Reference Value`
   chk <- paste(paste0('^', restyp, '$'), collapse = '|')
   chk <- !is.na(suppressWarnings(as.numeric(typ))) | grepl(chk, typ) | is.na(typ)
   if(any(!chk)){
     rws <- which(!chk)
     tochk <- unique(typ[!chk])
-    stop('\tIncorrect entries in QC Reference Value found: ', paste(tochk, collapse = ', '), ' in rows ', paste(rws, collapse = ', '))
+    stop(msg, '\n\tIncorrect entries in QC Reference Value found: ', paste(tochk, collapse = ', '), ' in rows ', paste(rws, collapse = ', '), call. = FALSE)
   }
-    
+  message(paste(msg, 'OK'))
+  
   message('\nAll checks passed!')
   
   return(resdat)

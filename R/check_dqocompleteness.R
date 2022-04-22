@@ -37,25 +37,28 @@ check_dqocompleteness <- function(dqocomdat){
               "Lab Blank", "Spike/Check Accuracy", "% Completeness")
   
   # check field names
-  message('\tChecking column names...')
+  msg <- '\tChecking column names...'
   nms <- names(dqocomdat) 
   chk <- nms %in% colnms
   if(any(!chk)){
     tochk <- nms[!chk]
-    stop('Please correct the column names or remove: ', paste(tochk, collapse = ', '))
+    stop(msg, '\n\tPlease correct the column names or remove: ', paste(tochk, collapse = ', '), call. = FALSE)
+    
   }
+  message(paste(msg, 'OK'))
 
   # check all fields are present
-  message('\tChecking all required columns are present...')
+  msg <- '\tChecking all required columns are present...'
   nms <- names(dqocomdat)
   chk <- colnms %in% nms
   if(any(!chk)){
     tochk <- colnms[!chk]
-    stop('Missing the following columns: ', paste(tochk, collapse = ', '))
+    stop(msg, '\n\tMissing the following columns: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
+  message(paste(msg, 'OK'))
   
   # check for any non-numeric columns
-  message('\tChecking for non-numeric values...')
+  msg <- '\tChecking for non-numeric values...'
   typ <- dqocomdat %>% 
     dplyr::select(-Parameter) %>% 
     lapply(class) %>% 
@@ -63,11 +66,12 @@ check_dqocompleteness <- function(dqocomdat){
   chk <- typ %in% 'numeric'
   if(any(!chk)){
     tochk <- names(typ)[!chk]
-    stop('Non-numeric values found in columns: ', paste(tochk, collapse = ', '))
+    stop(msg, '\n\tNon-numeric values found in columns: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
-
+  message(paste(msg, 'OK'))
+  
   # check for values not between 0 and 100
-  message('\tChecking for values outside of 0 and 100...')
+  msg <- '\tChecking for values outside of 0 and 100...'
   typ <- dqocomdat %>% 
     dplyr::select(-Parameter) %>% 
     lapply(range, na.rm = TRUE)
@@ -76,8 +80,9 @@ check_dqocompleteness <- function(dqocomdat){
     unlist
   if(any(chk)){
     tochk <- names(chk)[chk]
-    stop('Values less than 0 or greater than 100 found in columns: ', paste(tochk, collapse = ', '))
+    stop(msg, '\n\tValues less than 0 or greater than 100 found in columns: ', paste(tochk, collapse = ', ', call. = FALSE))
   }
+  message(paste(msg, 'OK'))
   
   message('\nAll checks passed!')
   

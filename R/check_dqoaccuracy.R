@@ -34,25 +34,27 @@ check_dqoaccuracy <- function(dqoaccdat){
   colsym <- c('<=', '<', '>=', '>', '\u00b1', '%', 'AQL', 'BDL', 'log', 'all')
   
   # check field names
-  message('\tChecking column names...')
+  msg <- '\tChecking column names...'
   nms <- names(dqoaccdat) 
   chk <- nms %in% colnms
   if(any(!chk)){
     tochk <- nms[!chk]
-    stop('Please correct the column names or remove: ', paste(tochk, collapse = ', '))
+    stop(msg, '\n\tPlease correct the column names or remove: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
+  message(paste(msg, 'OK'))
 
   # check all fields are present
-  message('\tChecking all required columns are present...')
+  msg <- '\tChecking all required columns are present...'
   nms <- names(dqoaccdat)
   chk <- colnms %in% nms
   if(any(!chk)){
     tochk <- colnms[!chk]
-    stop('Missing the following columns: ', paste(tochk, collapse = ', '))
+    stop(msg, '\n\tMissing the following columns: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
+  message(paste(msg, 'OK'))
   
   # check for any non-numeric values in MDL, UQL 
-  message('\tChecking for non-numeric values in MDL, UQL...')
+  msg <- '\tChecking for non-numeric values in MDL, UQL...'
   typ <- dqoaccdat %>% 
     dplyr::select(MDL, UQL) %>% 
     lapply(class) %>% 
@@ -60,11 +62,12 @@ check_dqoaccuracy <- function(dqoaccdat){
   chk <- typ %in% 'numeric'
   if(any(!chk)){
     tochk <- names(typ)[!chk]
-    stop('Non-numeric values found in columns: ', paste(tochk, collapse = ', '))
+    stop(msg, '\n\tNon-numeric values found in columns: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
-
+  message(paste(msg, 'OK'))
+  
   # check for symbols other than <=, <, >=, >, ±, or %
-  message('\tChecking for text other than <=, <, >=, >, \u00b1, %, AQL, BQL, log, or all...')
+  msg <- '\tChecking for text other than <=, <, >=, >, \u00b1, %, AQL, BQL, log, or all...'
   typ <- dqoaccdat %>% 
     dplyr::select(-Parameter, -uom, -MDL, -UQL) %>%
     lapply(function(x) gsub(paste(colsym, collapse = '|'), '', x)) %>% 
@@ -74,8 +77,9 @@ check_dqoaccuracy <- function(dqoaccdat){
   chk <- !typ
   if(any(!chk)){
     tochk <- names(typ[!chk])
-    stop('Unrecognized text in columns: ', paste0(tochk, collapse = ', '))
+    stop(msg, '\n\tUnrecognized text in columns: ', paste0(tochk, collapse = ', '), call. = FALSE)
   }
+  message(paste(msg, 'OK'))
   
   message('\nAll checks passed!')
   

@@ -36,71 +36,78 @@ check_sites <- function(sitdat){
               "Monitoring Location Longitude", "Location Group")
   
   # check field names
-  message('\tChecking column names...')
+  msg <- '\tChecking column names...'
   nms <- names(sitdat) 
   chk <- nms %in% colnms
   if(any(!chk)){
     tochk <- nms[!chk]
-    stop('Please correct the column names or remove: ', paste(tochk, collapse = ', '))
+    stop(msg, '\n\tPlease correct the column names or remove: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
-
+  message(paste(msg, 'OK'))
+  
   # check all fields are present
-  message('\tChecking all required columns are present...')
+  msg <- '\tChecking all required columns are present...'
   nms <- names(sitdat)
   chk <- colnms %in% nms
   if(any(!chk)){
     tochk <- colnms[!chk]
-    stop('Missing the following columns: ', paste(tochk, collapse = ', '))
+    stop(msg, '\n\tMissing the following columns: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
+  message(paste(msg, 'OK'))
   
   # checking for missing lat/lon
-  message('\tChecking for missing latitude or longitude values...')
+  msg <- '\tChecking for missing latitude or longitude values...'
   chk <- sitdat %>% 
     dplyr::select(`Monitoring Location Latitude`, `Monitoring Location Longitude`) %>% 
     apply(1, function(x) !anyNA(x))
   if(any(!chk)){
     rws <- which(!chk)
-    stop('\tMissing latitude or longitude in rows ', paste(rws, collapse = ', '))
+    stop(msg, '\n\tMissing latitude or longitude in rows ', paste(rws, collapse = ', '), call. = FALSE)
   }
+  message(paste(msg, 'OK'))
   
   # check for non-numeric latitude
-  message('\tChecking for non-numeric values in latitude...')
+  msg <- '\tChecking for non-numeric values in latitude...'
   typ <- sitdat$`Monitoring Location Latitude`
   chk <- !is.na(suppressWarnings(as.numeric(typ)))
   if(any(!chk)){
     rws <- which(!chk)
     tochk <- unique(typ[!chk])
-    stop('\tNon-numeric entries in Monitoring Location Latitude found: ', paste(tochk, collapse = ', '), ' in rows ', paste(rws, collapse = ', '))
+    stop(msg, '\n\tNon-numeric entries in Monitoring Location Latitude found: ', paste(tochk, collapse = ', '), ' in rows ', paste(rws, collapse = ', '), call. = FALSE)
   }
+  message(paste(msg, 'OK'))
   
   # check for non-numeric longitude
-  message('\tChecking for non-numeric values in longitude...')
+  msg <- '\tChecking for non-numeric values in longitude...'
   typ <- sitdat$`Monitoring Location Longitude`
   chk <- !is.na(suppressWarnings(as.numeric(typ)))
   if(any(!chk)){
     rws <- which(!chk)
     tochk <- unique(typ[!chk])
-    stop('\tNon-numeric entries in Monitoring Location Longitude found: ', paste(tochk, collapse = ', '), ' in rows ', paste(rws, collapse = ', '))
+    stop(msg, '\n\tNon-numeric entries in Monitoring Location Longitude found: ', paste(tochk, collapse = ', '), ' in rows ', paste(rws, collapse = ', '), call. = FALSE)
   }
+  message(paste(msg, 'OK'))
   
   # positive values in lon
-  message('\tChecking for positive values in longitude...')
+  msg <- '\tChecking for positive values in longitude...'
   typ <- sitdat$`Monitoring Location Longitude`
   chk <- typ <= 0
   if(any(!chk)){
     rws <- which(!chk)
     tochk <- unique(typ[!chk])
-    stop('\tPositive Monitoring Location Longitude found in rows ', paste(rws, collapse = ', '))
+    stop(msg, '\n\tPositive Monitoring Location Longitude found in rows ', paste(rws, collapse = ', '), call. = FALSE)
   }
+  message(paste(msg, 'OK'))
   
   # missing location id
-  message('\tChecking for missing entries for Monitoring Location ID...')
+  msg <- '\tChecking for missing entries for Monitoring Location ID...'
   chk <- sitdat$`Monitoring Location ID`
   chk <- !is.na(chk)
   if(any(!chk)){
     rws <- which(!chk)
-    stop('\tMissing Monitoring Location ID in rows ', paste(rws, collapse = ', '))
+    stop(msg, '\n\tMissing Monitoring Location ID in rows ', paste(rws, collapse = ', '), call. = FALSE)
   }
+  message(paste(msg, 'OK'))
   
   message('\nAll checks passed!')
   
