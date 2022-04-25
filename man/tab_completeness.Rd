@@ -42,6 +42,12 @@ A \code{\link{flextable}} object with formatted results showing summary counts i
 Create a formatted table of quality control completeness checks
 }
 \details{
+The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{read_results}} and \code{\link{read_dqocompleteness}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly.  Also note that completeness is only evaluated on parameters in the \code{Parameter} column in the data quality objectives completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.  This warning can be suppressed by setting \code{warn = FALSE}.
+
+A summary table showing the total number of records, the total number of qualified records (those collected for data quality objective checks), and percent completeness (the difference between the two) can be created by setting \code{type = 'summary'}.  The \code{\% Completeness} column shows cells as green or red if the required percentage of observations for completeness are present as specified in the data quality objectives file. Note that a warning message is returned for parameters that are found in the data quality objectives file, but are not found in the results data. Completeness checks are done only on parameters that are shared between the two.
+
+A second table showing the percentage of observations in the results file that satisfy the checks (e.g., percent field duplicates, etc.) can be created by setting \code{type = 'percent'}.  As in the previous table, cells are are shown in green or red if the required percentage of observations are present for each check as specified in the data quality objectives file.
+
 Inputs for the results and data quality objectives for completeness are processed internally with \code{\link{qc_completeness}} and the same arguments are accepted for this function, in addition to others listed above.
 }
 \examples{
