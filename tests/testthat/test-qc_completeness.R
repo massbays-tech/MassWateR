@@ -22,5 +22,5 @@ test_that("Checking warning if parameters from dqocom missing in res", {
 
 test_that("Checking output format", {
   result <- qc_completeness(respth, dqocompth, runchk = F, warn = F)
-  expect_type(result, 'list')
+  expect_s3_class(result, 'tbl_df')
 })

@@ -1,6 +1,6 @@
 test_that("Checking read_results output format", {
   result <- read_results(respth)
-  expect_type(result, 'list')
+  expect_s3_class(result, 'tbl_df')
 })
 
 test_that("Checking row length from read_results", {

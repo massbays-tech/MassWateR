@@ -88,7 +88,7 @@ qc_completeness <- function(res, dqocom, runchk = TRUE, warn = TRUE){
   
   # parameters for completeness checks
   prms <- dqocomprm[chk]
-  
+
   resall <- NULL
   
   # run completeness checks
@@ -154,9 +154,12 @@ qc_completeness <- function(res, dqocom, runchk = TRUE, warn = TRUE){
   
   # combine and create summaries
   out <- resall %>% 
-    dplyr::full_join(dqocomdat, by = c('Parameter', 'check')) %>% 
+    dplyr::left_join(dqocomdat, by = c('Parameter', 'check')) %>% 
     dplyr::mutate(
-      percent = 100 * count / obs,
+      percent = dplyr::case_when(
+        !is.na(standard) ~ 100 * count / obs,
+        T ~ NA_real_
+      ),
       met = percent >= standard
     )
   
