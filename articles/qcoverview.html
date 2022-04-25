@@ -73,7 +73,8 @@
 
 
 
-<script src="qcoverview_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+<script src="qcoverview_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="qcoverview_files/tabwid-1.0.0/tabwid.css" rel="stylesheet">
+<div class="row">
   <main id="main"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>MassWateR quality control functions</h1>
             
@@ -132,11 +133,298 @@
 <div class="section level2">
 <h2 id="quality-control-for-completeness">Quality control for completeness<a class="anchor" aria-label="anchor" href="#quality-control-for-completeness"></a>
 </h2>
-<p>The quality control checks for completeness are used to verify an appropriate number of quality control samples have been collected or analyzed for each parameter. These are checks on the quantity of samples and not the values, as for the accuracy checks.</p>
-<p>The completeness checks require results data (as in <code>resdat</code> above) and a data quality objectives file for completeness (as in <code>dqocomdat</code>). The core function that assesses completeness is <code><a href="../reference/qc_completeness.html">qc_completeness()</a></code>. This function creates the raw summaries of completeness from the input data. Output from this function is used to create the formatted tables for reporting. Typically, <code><a href="../reference/qc_completeness.html">qc_completeness()</a></code> is not used by itself because it is used internally in other functions to create the tables. It is explained here to demonstrate the raw summaries that can be obtained, if desired.</p>
-<p>The <code><a href="../reference/qc_completeness.html">qc_completeness()</a></code> function can be used with inputs as paths to the relevant files or as data frames returned by <code><a href="../reference/read_results.html">read_results()</a></code> and <code><a href="../reference/read_dqocompleteness.html">read_dqocompleteness()</a></code>. For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>, as explained in the <a href="https://massbays-tech.github.io/MassWateR/articles/datainput.html">data inputs and checks vignette</a>. In the latter case, downstream analyses may not work if data are formatted incorrectly. Also note that completeness is only evaluated on parameters in the <code>Parameter</code> column in the data quality objectives completeness file. A warning is returned if there are parameters in that column that are not found in the results file. This warning can be suppressed by setting <code>warn = FALSE</code> in <code><a href="../reference/qc_completeness.html">qc_completeness()</a></code>.</p>
-<p>Below, the <code><a href="../reference/qc_completeness.html">qc_completeness()</a></code> function is executed with the data frames for the results and quality objectives file for completeness. Note that a warning message is returned indicating that the parameter <code>Chloride</code> was found in the data quality objectives file, but was not found in the results data. Completeness checks are done only on parameters that are shared between the two.</p>
+<p>The quality control checks for completeness are used to verify an appropriate number of quality control samples have been collected or analyzed for each parameter. These are checks on the quantity of samples and not the values, as for the accuracy checks. The completeness checks require results data (as in <code>resdat</code> above) and a data quality objectives file for completeness (as in <code>dqocomdat</code>). The core function that assesses completeness is <code><a href="../reference/tab_completeness.html">tab_completeness()</a></code> and can be used to create two different summary tables.</p>
+<p>The <code><a href="../reference/tab_completeness.html">tab_completeness()</a></code> function can be used with inputs as paths to the relevant files or as data frames returned by <code><a href="../reference/read_results.html">read_results()</a></code> and <code><a href="../reference/read_dqocompleteness.html">read_dqocompleteness()</a></code>. For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>, as explained in the <a href="https://massbays-tech.github.io/MassWateR/articles/datainput.html">data inputs and checks vignette</a>. In the latter case, downstream analyses may not work if data are formatted incorrectly. Also note that completeness is only evaluated on parameters in the <code>Parameter</code> column in the data quality objectives completeness file. A warning is returned if there are parameters in that column that are not found in the results file. This warning can be suppressed by setting <code>warn = FALSE</code>.</p>
+<p>A summary table showing the total number of records, the total number of qualified records (those collected for data quality objective checks), and percent completeness (the difference between the two) can be created with <code><a href="../reference/tab_completeness.html">tab_completeness()</a></code> by setting <code>type = 'summary'</code>. The <code>% Completeness</code> column shows cells as green or red if the required percentage of observations for completeness are present as specified in the data quality objectives file. Note that a warning message is returned indicating that the parameter <code>Chloride</code> was found in the data quality objectives file, but was not found in the results data. Completeness checks are done only on parameters that are shared between the two. The function is also executed with the data frames from above, since they have already passed the internal checks.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/tab_completeness.html">tab_completeness</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, dqocom <span class="op">=</span> <span class="va">dqocomdat</span>, type <span class="op">=</span> <span class="st">'summary'</span><span class="op">)</span>
+<span class="co">#&gt; Warning in qc_completeness(res = res, dqocom = dqocom, runchk = runchk, :</span>
+<span class="co">#&gt; Parameters in quality control objectives for completeness not found in results</span>
+<span class="co">#&gt; data: Chloride</span></code></pre></div>
+<template id="e159773f-fcec-4c82-ad0d-8d779c070ed7"><style>
+.tabwid table{
+  border-spacing:0px !important;
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  display: table;
+  margin-top: 1.275em;
+  margin-bottom: 1.275em;
+  border-color: transparent;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+</style>
+<div class="tabwid">
+<style>.cl-8912e428{}.cl-8909b272{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-8909d108{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-890a2bb2{width:216pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2bbc{width:112.7pt;background-color:rgba(0, 255, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2bc6{width:124.8pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2bc7{width:156.5pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2bc8{width:179.4pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2bd0{width:216pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2bd1{width:179.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2bda{width:124.8pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2bdb{width:112.7pt;background-color:rgba(0, 255, 0, 1.00);vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2bdc{width:156.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2be4{width:112.7pt;background-color:rgba(0, 255, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2be5{width:216pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2bee{width:156.5pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2bf8{width:124.8pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2bf9{width:179.4pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2bfa{width:112.7pt;background-color:rgba(0, 255, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2c02{width:156.5pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2c03{width:179.4pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2c0c{width:216pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2c0d{width:124.8pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2c3e{width:112.7pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2c3f{width:156.5pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2c48{width:216pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2c49{width:112.7pt;background-color:rgba(0, 255, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2c4a{width:124.8pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2c52{width:179.4pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2c5c{width:156.5pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2c5d{width:112.7pt;background-color:rgba(0, 255, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2c5e{width:179.4pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2c66{width:216pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2c67{width:124.8pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2c68{width:124.8pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2c70{width:216pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2c71{width:112.7pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2c72{width:179.4pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-890a2c7a{width:156.5pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<table class="table cl-8912e428">
+<thead><tr style="overflow-wrap:break-word;">
+<td class="cl-890a2c68"><p class="cl-8909d108"><span class="cl-8909b272">Parameter</span></p></td>
+<td class="cl-890a2c7a"><p class="cl-8909d108"><span class="cl-8909b272">Number of Data Records</span></p></td>
+<td class="cl-890a2c72"><p class="cl-8909d108"><span class="cl-8909b272">Number of Qualified Records</span></p></td>
+<td class="cl-890a2c71"><p class="cl-8909d108"><span class="cl-8909b272">% Completeness</span></p></td>
+<td class="cl-890a2c70"><p class="cl-8909d108"><span class="cl-8909b272">Notes</span></p></td>
+</tr></thead>
+<tbody>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-890a2bc6"><p class="cl-8909d108"><span class="cl-8909b272">chlorophyll a</span></p></td>
+<td class="cl-890a2bc7"><p class="cl-8909d108"><span class="cl-8909b272">18</span></p></td>
+<td class="cl-890a2bc8"><p class="cl-8909d108"><span class="cl-8909b272">0</span></p></td>
+<td class="cl-890a2bbc"><p class="cl-8909d108"><span class="cl-8909b272">100%</span></p></td>
+<td class="cl-890a2bb2"><p class="cl-8909d108"><span class="cl-8909b272"></span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-890a2bf8"><p class="cl-8909d108"><span class="cl-8909b272">DO concentration</span></p></td>
+<td class="cl-890a2bee"><p class="cl-8909d108"><span class="cl-8909b272">199</span></p></td>
+<td class="cl-890a2bf9"><p class="cl-8909d108"><span class="cl-8909b272">0</span></p></td>
+<td class="cl-890a2be4"><p class="cl-8909d108"><span class="cl-8909b272">100%</span></p></td>
+<td class="cl-890a2be5"><p class="cl-8909d108"><span class="cl-8909b272"></span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-890a2c0d"><p class="cl-8909d108"><span class="cl-8909b272">NH3</span></p></td>
+<td class="cl-890a2c02"><p class="cl-8909d108"><span class="cl-8909b272">152</span></p></td>
+<td class="cl-890a2c03"><p class="cl-8909d108"><span class="cl-8909b272">14</span></p></td>
+<td class="cl-890a2bfa"><p class="cl-8909d108"><span class="cl-8909b272">91%</span></p></td>
+<td class="cl-890a2c0c"><p class="cl-8909d108"><span class="cl-8909b272"></span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-890a2c0d"><p class="cl-8909d108"><span class="cl-8909b272">NO3</span></p></td>
+<td class="cl-890a2c02"><p class="cl-8909d108"><span class="cl-8909b272">132</span></p></td>
+<td class="cl-890a2c03"><p class="cl-8909d108"><span class="cl-8909b272">30</span></p></td>
+<td class="cl-890a2c3e"><p class="cl-8909d108"><span class="cl-8909b272">77%</span></p></td>
+<td class="cl-890a2c0c"><p class="cl-8909d108"><span class="cl-8909b272"></span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-890a2bf8"><p class="cl-8909d108"><span class="cl-8909b272">orthoP</span></p></td>
+<td class="cl-890a2bee"><p class="cl-8909d108"><span class="cl-8909b272">175</span></p></td>
+<td class="cl-890a2bf9"><p class="cl-8909d108"><span class="cl-8909b272">0</span></p></td>
+<td class="cl-890a2be4"><p class="cl-8909d108"><span class="cl-8909b272">100%</span></p></td>
+<td class="cl-890a2be5"><p class="cl-8909d108"><span class="cl-8909b272"></span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-890a2c4a"><p class="cl-8909d108"><span class="cl-8909b272">pH</span></p></td>
+<td class="cl-890a2c3f"><p class="cl-8909d108"><span class="cl-8909b272">213</span></p></td>
+<td class="cl-890a2c52"><p class="cl-8909d108"><span class="cl-8909b272">7</span></p></td>
+<td class="cl-890a2c49"><p class="cl-8909d108"><span class="cl-8909b272">97%</span></p></td>
+<td class="cl-890a2c48"><p class="cl-8909d108"><span class="cl-8909b272"></span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-890a2c67"><p class="cl-8909d108"><span class="cl-8909b272">sp conductivity</span></p></td>
+<td class="cl-890a2c5c"><p class="cl-8909d108"><span class="cl-8909b272">217</span></p></td>
+<td class="cl-890a2c5e"><p class="cl-8909d108"><span class="cl-8909b272">9</span></p></td>
+<td class="cl-890a2c5d"><p class="cl-8909d108"><span class="cl-8909b272">96%</span></p></td>
+<td class="cl-890a2c66"><p class="cl-8909d108"><span class="cl-8909b272"></span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-890a2c0d"><p class="cl-8909d108"><span class="cl-8909b272">TP</span></p></td>
+<td class="cl-890a2c02"><p class="cl-8909d108"><span class="cl-8909b272">253</span></p></td>
+<td class="cl-890a2c03"><p class="cl-8909d108"><span class="cl-8909b272">45</span></p></td>
+<td class="cl-890a2c3e"><p class="cl-8909d108"><span class="cl-8909b272">82%</span></p></td>
+<td class="cl-890a2c0c"><p class="cl-8909d108"><span class="cl-8909b272"></span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-890a2c0d"><p class="cl-8909d108"><span class="cl-8909b272">TSS</span></p></td>
+<td class="cl-890a2c02"><p class="cl-8909d108"><span class="cl-8909b272">202</span></p></td>
+<td class="cl-890a2c03"><p class="cl-8909d108"><span class="cl-8909b272">0</span></p></td>
+<td class="cl-890a2bfa"><p class="cl-8909d108"><span class="cl-8909b272">100%</span></p></td>
+<td class="cl-890a2c0c"><p class="cl-8909d108"><span class="cl-8909b272"></span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-890a2bda"><p class="cl-8909d108"><span class="cl-8909b272">water temperature</span></p></td>
+<td class="cl-890a2bdc"><p class="cl-8909d108"><span class="cl-8909b272">382</span></p></td>
+<td class="cl-890a2bd1"><p class="cl-8909d108"><span class="cl-8909b272">0</span></p></td>
+<td class="cl-890a2bdb"><p class="cl-8909d108"><span class="cl-8909b272">100%</span></p></td>
+<td class="cl-890a2bd0"><p class="cl-8909d108"><span class="cl-8909b272"></span></p></td>
+</tr>
+</tbody>
+</table>
+</div></template><div class="flextable-shadow-host" id="a3e825b3-e3b9-4433-a80f-3331e5a1c520"></div>
+<script>
+var dest = document.getElementById("a3e825b3-e3b9-4433-a80f-3331e5a1c520");
+var template = document.getElementById("e159773f-fcec-4c82-ad0d-8d779c070ed7");
+var caption = template.content.querySelector("caption");
+if(caption) {
+  caption.style.cssText = "display:block;text-align:center;";
+  var newcapt = document.createElement("p");
+  newcapt.appendChild(caption)
+  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
+}
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script><p>A second table showing the percentage of observations in the results file that satisfy the checks (e.g., percent field duplicates, etc.) can be created with <code><a href="../reference/tab_completeness.html">tab_completeness()</a></code> by setting <code>type = 'percent'</code>. As in the previous table, cells are are shown in green or red if the required percentage of observations are present for each check as specified in the data quality objectives file.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/tab_completeness.html">tab_completeness</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, dqocom <span class="op">=</span> <span class="va">dqocomdat</span>, type <span class="op">=</span> <span class="st">'percent'</span><span class="op">)</span>
+<span class="co">#&gt; Warning in qc_completeness(res = res, dqocom = dqocom, runchk = runchk, :</span>
+<span class="co">#&gt; Parameters in quality control objectives for completeness not found in results</span>
+<span class="co">#&gt; data: Chloride</span></code></pre></div>
+<template id="1fd1bfb2-3cbb-4a05-b1bd-141d938879fa"><style>
+.tabwid table{
+  border-spacing:0px !important;
+  border-collapse:collapse;
+  line-height:1;
+  margin-left:auto;
+  margin-right:auto;
+  border-width: 0;
+  display: table;
+  margin-top: 1.275em;
+  margin-bottom: 1.275em;
+  border-color: transparent;
+}
+.tabwid_left table{
+  margin-left:0;
+}
+.tabwid_right table{
+  margin-right:0;
+}
+.tabwid td {
+    padding: 0;
+}
+.tabwid a {
+  text-decoration: none;
+}
+.tabwid thead {
+    background-color: transparent;
+}
+.tabwid tfoot {
+    background-color: transparent;
+}
+.tabwid table tr {
+background-color: transparent;
+}
+</style>
+<div class="tabwid">
+<style>.cl-895c4898{}.cl-895469fc{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-89547ce4{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-89547cee{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-8954c58c{width:96.3pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c596{width:80.9pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c5a0{width:74.6pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c5aa{width:124.8pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c5ab{width:102.6pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c5b4{width:142.1pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c5be{width:74.6pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c5bf{width:102.6pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c604{width:80.9pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c60e{width:96.3pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c60f{width:142.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c610{width:124.8pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c618{width:80.9pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c619{width:96.3pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c61a{width:124.8pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c622{width:102.6pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c623{width:74.6pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c624{width:142.1pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c62c{width:102.6pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c62d{width:142.1pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c62e{width:80.9pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c636{width:96.3pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c637{width:124.8pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c638{width:74.6pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c640{width:96.3pt;background-color:rgba(0, 255, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c641{width:80.9pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c64a{width:102.6pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c64b{width:142.1pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c64c{width:124.8pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c654{width:96.3pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c655{width:80.9pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c656{width:74.6pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c65e{width:74.6pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c65f{width:102.6pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c660{width:124.8pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c668{width:80.9pt;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c669{width:142.1pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c672{width:96.3pt;background-color:rgba(255, 0, 0, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c673{width:80.9pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c674{width:124.8pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c67c{width:142.1pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c67d{width:96.3pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c67e{width:74.6pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-8954c686{width:102.6pt;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 2pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<table class="table cl-895c4898">
+<thead><tr style="overflow-wrap:break-word;">
+<td class="cl-8954c674"><p class="cl-89547ce4"><span class="cl-895469fc">Parameter</span></p></td>
+<td class="cl-8954c686"><p class="cl-89547cee"><span class="cl-895469fc">Field Duplicate</span></p></td>
+<td class="cl-8954c67d"><p class="cl-89547cee"><span class="cl-895469fc">Lab Duplicate</span></p></td>
+<td class="cl-8954c673"><p class="cl-89547cee"><span class="cl-895469fc">Field Blank</span></p></td>
+<td class="cl-8954c67e"><p class="cl-89547cee"><span class="cl-895469fc">Lab Blank</span></p></td>
+<td class="cl-8954c67c"><p class="cl-89547cee"><span class="cl-895469fc">Spike/Check Accuracy</span></p></td>
+</tr></thead>
+<tbody>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-8954c5aa"><p class="cl-89547ce4"><span class="cl-895469fc">chlorophyll a</span></p></td>
+<td class="cl-8954c5ab"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c58c"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c596"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c5a0"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c5b4"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-8954c61a"><p class="cl-89547ce4"><span class="cl-895469fc">DO concentration</span></p></td>
+<td class="cl-8954c622"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c619"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c618"><p class="cl-89547cee"><span class="cl-895469fc">-</span></p></td>
+<td class="cl-8954c623"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c624"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-8954c637"><p class="cl-89547ce4"><span class="cl-895469fc">NH3</span></p></td>
+<td class="cl-8954c62c"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c636"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c62e"><p class="cl-89547cee"><span class="cl-895469fc">5%</span></p></td>
+<td class="cl-8954c638"><p class="cl-89547cee"><span class="cl-895469fc">5%</span></p></td>
+<td class="cl-8954c62d"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-8954c637"><p class="cl-89547ce4"><span class="cl-895469fc">NO3</span></p></td>
+<td class="cl-8954c62c"><p class="cl-89547cee"><span class="cl-895469fc">6%</span></p></td>
+<td class="cl-8954c640"><p class="cl-89547cee"><span class="cl-895469fc">12%</span></p></td>
+<td class="cl-8954c62e"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c638"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c62d"><p class="cl-89547cee"><span class="cl-895469fc">5%</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-8954c61a"><p class="cl-89547ce4"><span class="cl-895469fc">orthoP</span></p></td>
+<td class="cl-8954c622"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c619"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c641"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c623"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c624"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-8954c64c"><p class="cl-89547ce4"><span class="cl-895469fc">pH</span></p></td>
+<td class="cl-8954c64a"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c654"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c655"><p class="cl-89547cee"><span class="cl-895469fc">-</span></p></td>
+<td class="cl-8954c656"><p class="cl-89547cee"><span class="cl-895469fc">-</span></p></td>
+<td class="cl-8954c64b"><p class="cl-89547cee"><span class="cl-895469fc">3%</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-8954c660"><p class="cl-89547ce4"><span class="cl-895469fc">sp conductivity</span></p></td>
+<td class="cl-8954c65f"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c672"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c668"><p class="cl-89547cee"><span class="cl-895469fc">-</span></p></td>
+<td class="cl-8954c65e"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c669"><p class="cl-89547cee"><span class="cl-895469fc">4%</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-8954c637"><p class="cl-89547ce4"><span class="cl-895469fc">TP</span></p></td>
+<td class="cl-8954c62c"><p class="cl-89547cee"><span class="cl-895469fc">3%</span></p></td>
+<td class="cl-8954c640"><p class="cl-89547cee"><span class="cl-895469fc">6%</span></p></td>
+<td class="cl-8954c62e"><p class="cl-89547cee"><span class="cl-895469fc">3%</span></p></td>
+<td class="cl-8954c638"><p class="cl-89547cee"><span class="cl-895469fc">3%</span></p></td>
+<td class="cl-8954c62d"><p class="cl-89547cee"><span class="cl-895469fc">2%</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-8954c637"><p class="cl-89547ce4"><span class="cl-895469fc">TSS</span></p></td>
+<td class="cl-8954c62c"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c636"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c62e"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c638"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c62d"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+</tr>
+<tr style="overflow-wrap:break-word;">
+<td class="cl-8954c610"><p class="cl-89547ce4"><span class="cl-895469fc">water temperature</span></p></td>
+<td class="cl-8954c5bf"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c60e"><p class="cl-89547cee"><span class="cl-895469fc">0%</span></p></td>
+<td class="cl-8954c604"><p class="cl-89547cee"><span class="cl-895469fc">-</span></p></td>
+<td class="cl-8954c5be"><p class="cl-89547cee"><span class="cl-895469fc">-</span></p></td>
+<td class="cl-8954c60f"><p class="cl-89547cee"><span class="cl-895469fc">-</span></p></td>
+</tr>
+</tbody>
+</table>
+</div></template><div class="flextable-shadow-host" id="227e4db1-3b8f-486f-bf37-074e43e1d86e"></div>
+<script>
+var dest = document.getElementById("227e4db1-3b8f-486f-bf37-074e43e1d86e");
+var template = document.getElementById("1fd1bfb2-3cbb-4a05-b1bd-141d938879fa");
+var caption = template.content.querySelector("caption");
+if(caption) {
+  caption.style.cssText = "display:block;text-align:center;";
+  var newcapt = document.createElement("p");
+  newcapt.appendChild(caption)
+  dest.parentNode.insertBefore(newcapt, dest.previousSibling);
+}
+var fantome = dest.attachShadow({mode: 'open'});
+var templateContent = template.content;
+fantome.appendChild(templateContent);
+</script><p>The <code><a href="../reference/tab_completeness.html">tab_completeness()</a></code> function uses the <code><a href="../reference/qc_completeness.html">qc_completeness()</a></code> function internally to create the required tables. This function creates the raw summaries of completeness from the input data. Typically, <code><a href="../reference/qc_completeness.html">qc_completeness()</a></code> is not used by itself because it is used internally by <code><a href="../reference/tab_completeness.html">tab_completeness()</a></code>. It is explained here to demonstrate how the raw summaries can be obtained, if desired.</p>
+<p>Below, the <code><a href="../reference/qc_completeness.html">qc_completeness()</a></code> function is executed with the data frames for the results and quality objectives file for completeness. The warnings and checks are supressed.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/qc_completeness.html">qc_completeness</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, dqocom <span class="op">=</span> <span class="va">dqocomdat</span><span class="op">)</span>
 <span class="co">#&gt; Warning in qc_completeness(res = resdat, dqocom = dqocomdat): Parameters in</span>
 <span class="co">#&gt; quality control objectives for completeness not found in results data: Chloride</span>

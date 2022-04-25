@@ -95,7 +95,10 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Inputs for the results and data quality objectives for completeness are processed internally with <code><a href="qc_completeness.html">qc_completeness</a></code> and the same arguments are accepted for this function, in addition to others listed above.</p>
+    <p>The function can be used with inputs as paths to the relevant files or as data frames returned by <code><a href="read_results.html">read_results</a></code> and <code><a href="read_dqocompleteness.html">read_dqocompleteness</a></code>.  For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly.  Also note that completeness is only evaluated on parameters in the <code>Parameter</code> column in the data quality objectives completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.  This warning can be suppressed by setting <code>warn = FALSE</code>.</p>
+<p>A summary table showing the total number of records, the total number of qualified records (those collected for data quality objective checks), and percent completeness (the difference between the two) can be created by setting <code>type = 'summary'</code>.  The <code>% Completeness</code> column shows cells as green or red if the required percentage of observations for completeness are present as specified in the data quality objectives file. Note that a warning message is returned for parameters that are found in the data quality objectives file, but are not found in the results data. Completeness checks are done only on parameters that are shared between the two.</p>
+<p>A second table showing the percentage of observations in the results file that satisfy the checks (e.g., percent field duplicates, etc.) can be created by setting <code>type = 'percent'</code>.  As in the previous table, cells are are shown in green or red if the required percentage of observations are present for each check as specified in the data quality objectives file.</p>
+<p>Inputs for the results and data quality objectives for completeness are processed internally with <code><a href="qc_completeness.html">qc_completeness</a></code> and the same arguments are accepted for this function, in addition to others listed above.</p>
     </div>
 
     <div class="section level2">
@@ -173,7 +176,29 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for completeness not found in results data: Chloride</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(as.call(f[[2]]), envir = data):</span> object '% Completeness_met' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Field Duplicate`, `Lab Duplicate`, `Field Blank`, `Lab Blank`, `Spike/Check Accuracy` </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> body has 10 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Parameter Field Duplicate Field Duplicate_met Lab Duplicate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 DO concentration        0.000000                   0      0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2              NH3        0.000000                   0      0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3              NO3        6.060606                   0     12.121212</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4               TP        3.162055                   0      6.324111</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5              TSS        0.000000                   0      0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Lab Duplicate_met Field Blank Field Blank_met Lab Blank Lab Blank_met</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                 0          NA              NA  0.000000             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                 0    4.605263               0  4.605263             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                 1    0.000000               0  0.000000             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                 1    3.162055               0  3.162055             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                 0    0.000000               0  0.000000             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Spike/Check Accuracy Spike/Check Accuracy_met</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1             0.000000                        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2             0.000000                        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3             4.545455                        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4             1.976285                        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5             0.000000                        0</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
