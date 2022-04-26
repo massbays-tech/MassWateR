@@ -16,7 +16,7 @@
 #' head(sitdat)
 read_sites <- function(sitpth, runchk = TRUE){
   
-  sitdat <- readxl::read_excel(sitpth, na = c('na', ''))
+  sitdat <- readxl::read_excel(sitpth, na = c('NA', 'na', ''))
   
   # run checks
   if(runchk)

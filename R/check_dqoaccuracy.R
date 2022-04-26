@@ -21,7 +21,7 @@
 #' @examples
 #' dqoaccpth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
 #' 
-#' dqoaccdat <- readxl::read_excel(dqoaccpth, na = c('na', '')) 
+#' dqoaccdat <- readxl::read_excel(dqoaccpth, na = c('NA', 'na', '')) 
 #'       
 #' check_dqoaccuracy(dqoaccdat)
 check_dqoaccuracy <- function(dqoaccdat){

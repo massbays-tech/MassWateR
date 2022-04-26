@@ -17,7 +17,7 @@
 read_dqocompleteness <- function(dqocompth, runchk = TRUE){
   
   dqocomdat <- suppressMessages(readxl::read_excel(dqocompth, 
-      skip = 1, na = c('na', ''), 
+      skip = 1, na = c('NA', 'na', ''), 
       col_types = c('text', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric')
     )) %>% 
     rename(`% Completeness` = `...7`)

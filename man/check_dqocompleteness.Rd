@@ -32,7 +32,7 @@ library(dplyr)
 dqocompth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
 
 dqocomdat <- suppressMessages(readxl::read_excel(dqocompth, 
-      skip = 1, na = c('na', ''), 
+      skip = 1, na = c('NA', 'na', ''), 
       col_types = c('text', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric')
     )) \%>\% 
     rename(`\% Completeness` = `...7`)

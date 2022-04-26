@@ -17,7 +17,7 @@
 #' head(resdat)
 read_results <- function(respth, runchk = TRUE, tzone = 'America/Jamaica'){
   
-  resdat <- readxl::read_excel(respth, na = c('na', ''), 
+  resdat <- readxl::read_excel(respth, na = c('NA', 'na', ''), 
     col_types = c('text', 'text', 'date', 'date', 'text', 'text', 'text', 'text', 'text', 'text', 
                   'text', 'text', 'text', 'text'))
   

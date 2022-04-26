@@ -34,7 +34,7 @@ library(dplyr)
 
 sitpth <- system.file('extdata/ExampleSites_final.xlsx', package = 'MassWateR')
 
-sitdat <- readxl::read_excel(sitpth, na = c('na', ''))
+sitdat <- readxl::read_excel(sitpth, na = c('NA', 'na', ''))
     
 check_sites(sitdat)
 }

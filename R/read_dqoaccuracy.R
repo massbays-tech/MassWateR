@@ -16,7 +16,7 @@
 #' head(dqoaccdat)
 read_dqoaccuracy <- function(dqoaccpth, runchk = TRUE){
   
-  dqoaccdat <- readxl::read_excel(dqoaccpth, na = c('na', ''))
+  dqoaccdat <- readxl::read_excel(dqoaccpth, na = c('NA', 'na', ''))
   
   # run checks
   if(runchk)
