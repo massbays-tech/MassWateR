@@ -153,7 +153,7 @@ Checks for accuracy:
 -   **Column name spelling**: Should be the following: Parameter, uom, MDL, UQL, Value Range, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy
 -   **Columns present**: All columns from the previous check should be present
 -   **Non-numeric values in MDL, UQL**: Values entered in columns MDL and UQL should be numeric
--   **Unrecognized characters**: Fields describing accuracy checks should not include symbols or text other than \<=, \<, \>=, \>, ±, %, BDL, AQL, log, or all
+-   **Unrecognized characters**: Fields describing accuracy checks should not include symbols or text other than \<=, ≤, \<, \>=, ≥, \>, ±, %, BDL, AQL, log, or all
 
 Checks for completeness:
 
