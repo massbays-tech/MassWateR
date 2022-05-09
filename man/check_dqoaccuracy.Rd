@@ -24,7 +24,7 @@ The following checks are made:
 \item{Column name spelling: }{Should be the following: Parameter, uom, MDL, UQL, Value Range, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy}
 \item{Columns present: }{All columns from the previous check should be present}
 \item{Non-numeric values in MDL, UQL: }{Values entered in columns MDL and UQL should be numeric}
-\item{Unrecognized characters: }{Fields describing accuracy checks should not include symbols or text other than $<=$, $\leq$, $<$, $>=$, $\geq$, $>$, $\pm$, \%, BDL, AQL, log, or all}
+\item{Unrecognized characters: }{Fields describing accuracy checks should not include symbols or text other than \eqn{<=}, \eqn{\leq}, \eqn{<}, \eqn{>=}, \eqn{\geq}, \eqn{>}, \eqn{\pm}, \%, BDL, AQL, log, or all}
 }
 }
 \examples{
