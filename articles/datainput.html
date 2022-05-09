@@ -180,7 +180,7 @@ Functions in MassWateR are organized around these topics.
 <li><p><strong>Date formats</strong>: Should be mm/dd/yyyy and parsed correctly on import</p></li>
 <li><p><strong>Time formats</strong>: Should be HH:MM and parsed correctly on import</p></li>
 <li><p><strong>Relative Depth Category</strong>: Should be either Surface, Bottom, &lt; 1m / 3.3ft or blank</p></li>
-<li><p><strong>Characteristic Name</strong>: Should match parameter names in the <code>Simple Parameter</code> column of the <code><a href="../reference/params.html">params()</a></code> data, specifically <code>`params %&gt;% pull(`Simple Parameter`) %&gt;% sort %&gt;% paste(collapse = ', ')`</code></p></li>
+<li><p><strong>Characteristic Name</strong>: Should match parameter names in the <code>Simple Parameter</code> column of the <code><a href="../reference/params.html">params()</a></code> data, specifically Air Temp, Ammonia, Ammonium, Chl a, Chl a (probe), Chloride, Conductivity, Cyanobacteria (lab), Cyanobacteria (probe), Depth, DO, DO saturation, E.coli, Enterococcus, Fecal Coliform, Flow, Gage, Metals, Microcystins, Nitrate, Nitrate + Nitrite, Nitrite, Ortho P, pH, Pheophytin, Phosphate, PON, POP, Salinity, Secchi Depth, Silicate, Sp Conductance, Sulfate, Surfactants, TDS, TKN, TN, TP, TSS, Turbidity, or Water Temp</p></li>
 <li><p><strong>Result Value</strong>: Should be a numeric value or a text value as AQL or BDL</p></li>
 <li><p><strong>QC Reference Value</strong>: Any entered values should be numeric</p></li>
 <li><p><strong>Result Unit</strong>: No missing entries in <code>Result Unit</code>, except pH which can be blank</p></li>
@@ -189,8 +189,8 @@ Functions in MassWateR are organized around these topics.
 <p><strong>Correct Result Unit</strong>: Each unique parameter in <code>Characteristic Name</code> should have an entry in <code>Result Unit</code> that matches one of the acceptable values in the <code>Units of measure</code> column of the <code><a href="../reference/params.html">params()</a></code> data, as below:</p>
 <table class="table">
 <thead><tr class="header">
-<th align="left">Simple Parameter</th>
-<th align="left">Units of measure</th>
+<th align="left">Characteristic Name</th>
+<th align="left">Acceptable Result Units</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
