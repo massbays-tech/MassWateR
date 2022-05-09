@@ -105,7 +105,7 @@ Several checks are run automatically when the data are imported. These checks ar
 -   **Date formats**: Should be mm/dd/yyyy and parsed correctly on import
 -   **Time formats**: Should be HH:MM and parsed correctly on import
 -   **Relative Depth Category**: Should be either Surface, Bottom, \< 1m / 3.3ft or blank
--   **Characteristic Name**: Should be one of air temperature, water temperature, TP, TSS, DO % saturation, DO concentration, flow, gage, pH, sp conductivity, NH3, NO3, orthoP, E coli, or chlorophyll a
+-   **Characteristic Name**: Should match parameter names in the `Simple Parameter` column of the `params()` data, specifically Air Temp, Ammonia, Ammonium, Chl a, Chl a (probe), Chloride, Conductivity, Cyanobacteria (lab), Cyanobacteria (probe), Depth, DO, DO saturation, E.coli, Enterococcus, Fecal Coliform, Flow, Gage, Metals, Microcystins, Nitrate, Nitrate + Nitrite, Nitrite, Ortho P, pH, Pheophytin, Phosphate, PON, POP, Salinity, Secchi Depth, Silicate, Sp Conductance, Sulfate, Surfactants, TDS, TKN, TN, TP, TSS, Turbidity, or Water Temp
 -   **Result Value**: Should be a numeric value or a text value as AQL or BDL
 -   **QC Reference Value**: Any entered values should be numeric
 

@@ -12,7 +12,7 @@
 #'  \item{Date formats: }{Should be mm/dd/yyyy and parsed correctly on import}
 #'  \item{Time formats: }{Should be HH:MM and parsed correctly on import}
 #'  \item{Relative Depth Category: }{Should be either Surface, Bottom, < 1m / 3.3ft or blank}
-#'  \item{Characteristic Name: }{Should be one of air temperature, water temperature, TP, TSS, DO % saturation, DO concentration, flow, gage, pH, sp conductivity, NH3, NO3, orthoP, E coli, or chlorophyll a}, 
+#'  \item{Characteristic Name: }{Should match parameter names in the \code{Simple Parameter} column of the \code{\link{params}} data, specifically Air Temp, Ammonia, Ammonium, Chl a, Chl a (probe), Chloride, Conductivity, Cyanobacteria (lab), Cyanobacteria (probe), Depth, DO, DO saturation, E.coli, Enterococcus, Fecal Coliform, Flow, Gage, Metals, Microcystins, Nitrate, Nitrate + Nitrite, Nitrite, Ortho P, pH, Pheophytin, Phosphate, PON, POP, Salinity, Secchi Depth, Silicate, Sp Conductance, Sulfate, Surfactants, TDS, TKN, TN, TP, TSS, Turbidity, or Water Temp}, 
 #'  \item{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
 #'  \item{QC Reference Value: }{Should be a numeric value or a text value as AQL or BDL}
 #' }
@@ -43,9 +43,7 @@ check_results <- function(resdat){
               "Quality Control Sample-Lab Blank", "Quality Control Sample-Lab Duplicate", 
               "Quality Control Sample-Lab Spike")
   dpstyp <- c('Surface', 'Bottom', '< 1m / 3.3ft', NA)
-  chntyp <- c("air temperature", "water temperature", "TP", "TSS", "DO % saturation", 
-              "DO concentration", "flow", "gage", "pH", "sp conductivity", 
-              "NH3", "NO3", "orthoP", "E coli", "chlorophyll a")
+  chntyp <- sort(params$`Simple Parameter`)
   restyp <- c('AQL', 'BDL')
 
   # check field names
