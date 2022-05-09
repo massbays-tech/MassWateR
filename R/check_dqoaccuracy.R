@@ -68,7 +68,7 @@ check_dqoaccuracy <- function(dqoaccdat){
   message(paste(msg, 'OK'))
   
   # check for symbols other than <=, <, >=, >, ±, or %
-  msg <- '\tChecking for text other than <=, <, >=, >, \u00b1, %, AQL, BQL, log, or all...'
+  msg <- '\tChecking for text other than <=, \u2264, <, >=, \u2265, >, \u00b1, %, AQL, BQL, log, or all...'
   typ <- dqoaccdat %>% 
     dplyr::select(-Parameter, -uom, -MDL, -UQL) %>%
     lapply(function(x) gsub(paste(colsym, collapse = '|'), '', x)) %>% 
