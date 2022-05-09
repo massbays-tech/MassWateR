@@ -116,7 +116,7 @@ Several checks are run automatically when the data are imported. These checks ar
      ```{r, echo = F}
 params %>% 
   select(`Characteristic Name` = `Simple Parameter`, `Acceptable Result Units` = `Units of measure`) %>% 
-  arrange(`Simple Parameter`) %>% 
+  arrange(`Characteristic Name`) %>% 
   knitr::kable(.)
      ```
 
