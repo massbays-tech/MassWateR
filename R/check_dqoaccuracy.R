@@ -9,7 +9,7 @@
 #'  \item{Column name spelling: }{Should be the following: Parameter, uom, MDL, UQL, Value Range, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy}
 #'  \item{Columns present: }{All columns from the previous check should be present}
 #'  \item{Non-numeric values in MDL, UQL: }{Values entered in columns MDL and UQL should be numeric}
-#'  \item{Unrecognized characters: }{Fields describing accuracy checks should not include symbols or text other than <=, ≤, <, >=, ≥, >, ±, %, BDL, AQL, log, or all}
+#'  \item{Unrecognized characters: }{Fields describing accuracy checks should not include symbols or text other than $<=$, $\leq$, $<$, $>=$, $\geq$, $>$, $\pm$, %, BDL, AQL, log, or all}
 #' }
 #'
 #' @return \code{dqoaccdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. 

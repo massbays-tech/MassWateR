@@ -17,7 +17,7 @@ test_that("Checking non-numeric values in MDL, UQL", {
   expect_error(check_dqoaccuracy(chk))
 })
 
-test_that("Checking for text other than <=, <, >=, >, ±, %, AQL, BQL, log, or all", {
+test_that("Checking for text other than <=, \u2264, <, >=, \u2265, >, \u00b1, %, AQL, BQL, log, or all", {
   chk <- dqoaccdat
   chk$`Value Range`[4] <- '+'
   chk$`Field Duplicate` <- 'alll'
