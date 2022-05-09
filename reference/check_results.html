@@ -79,6 +79,9 @@
 <li><p>Characteristic Name: Should match parameter names in the <code>Simple Parameter</code> column of the <code><a href="params.html">params</a></code> data, specifically Air Temp, Ammonia, Ammonium, Chl a, Chl a (probe), Chloride, Conductivity, Cyanobacteria (lab), Cyanobacteria (probe), Depth, DO, DO saturation, E.coli, Enterococcus, Fecal Coliform, Flow, Gage, Metals, Microcystins, Nitrate, Nitrate + Nitrite, Nitrite, Ortho P, pH, Pheophytin, Phosphate, PON, POP, Salinity, Secchi Depth, Silicate, Sp Conductance, Sulfate, Surfactants, TDS, TKN, TN, TP, TSS, Turbidity, or Water Temp,</p></li>
 <li><p>Result Value: Should be a numeric value or a text value as AQL or BDL</p></li>
 <li><p>QC Reference Value: Should be a numeric value or a text value as AQL or BDL</p></li>
+<li><p>Result Unit: No missing entries in <code>Result Unit</code>, except pH which can be blank</p></li>
+<li><p>Single Result Unit: Each unique parameter in <code>Characteristic Name</code> should have only one entry in <code>Result Unit</code></p></li>
+<li><p>Correct Result Unit: Each unique parameter in <code>Characteristic Name</code> should have an entry in <code>Result Unit</code> that matches one of the acceptable values in the <code>Units of measure</code> column of the <code><a href="params.html">params</a></code> data</p></li>
 </ul></div>
 
     <div class="section level2">
@@ -100,6 +103,8 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Characteristic Name formats... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Result Values... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking QC Reference Values... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for Result Unit... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit per Characteristic Name... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2,586 × 14</span></span>
