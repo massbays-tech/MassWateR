@@ -107,7 +107,7 @@ Several checks are run automatically when the data are imported. These checks ar
 -   **Date formats**: Should be mm/dd/yyyy and parsed correctly on import
 -   **Time formats**: Should be HH:MM and parsed correctly on import
 -   **Relative Depth Category**: Should be either Surface, Bottom, \< 1m / 3.3ft or blank
--   **Characteristic Name**: Should match parameter names in the `Simple Parameter` column of the `params()` data, specifically `` `params %>% pull(`Simple Parameter`) %>% sort %>% paste(collapse = ', ')` ``
+-   **Characteristic Name**: Should match parameter names in the `Simple Parameter` column of the `params()` data, specifically Air Temp, Ammonia, Ammonium, Chl a, Chl a (probe), Chloride, Conductivity, Cyanobacteria (lab), Cyanobacteria (probe), Depth, DO, DO saturation, E.coli, Enterococcus, Fecal Coliform, Flow, Gage, Metals, Microcystins, Nitrate, Nitrate + Nitrite, Nitrite, Ortho P, pH, Pheophytin, Phosphate, PON, POP, Salinity, Secchi Depth, Silicate, Sp Conductance, Sulfate, Surfactants, TDS, TKN, TN, TP, TSS, Turbidity, or Water Temp
 -   **Result Value**: Should be a numeric value or a text value as AQL or BDL
 -   **QC Reference Value**: Any entered values should be numeric
 -   **Result Unit**: No missing entries in `Result Unit`, except pH which can be blank
@@ -115,7 +115,7 @@ Several checks are run automatically when the data are imported. These checks ar
 -   **Correct Result Unit**: Each unique parameter in `Characteristic Name` should have an entry in `Result Unit` that matches one of the acceptable values in the `Units of measure` column of the `params()` data, as below: 
      ```{r, echo = F}
 params %>% 
-  select(`Simple Parameter`, `Units of measure`) %>% 
+  select(`Characteristic Name` = `Simple Parameter`, `Acceptable Result Units` = `Units of measure`) %>% 
   arrange(`Simple Parameter`) %>% 
   knitr::kable(.)
      ```
