@@ -29,6 +29,9 @@ The following checks are made:
 \item{Characteristic Name: }{Should match parameter names in the \code{Simple Parameter} column of the \code{\link{params}} data, specifically Air Temp, Ammonia, Ammonium, Chl a, Chl a (probe), Chloride, Conductivity, Cyanobacteria (lab), Cyanobacteria (probe), Depth, DO, DO saturation, E.coli, Enterococcus, Fecal Coliform, Flow, Gage, Metals, Microcystins, Nitrate, Nitrate + Nitrite, Nitrite, Ortho P, pH, Pheophytin, Phosphate, PON, POP, Salinity, Secchi Depth, Silicate, Sp Conductance, Sulfate, Surfactants, TDS, TKN, TN, TP, TSS, Turbidity, or Water Temp},
 \item{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
 \item{QC Reference Value: }{Should be a numeric value or a text value as AQL or BDL}
+\item{Result Unit: }{No missing entries in \code{Result Unit}, except pH which can be blank}
+\item{Single Result Unit: }{Each unique parameter in \code{Characteristic Name} should have only one entry in \code{Result Unit}}
+\item{Correct Result Unit: }{Each unique parameter in \code{Characteristic Name} should have an entry in \code{Result Unit} that matches one of the acceptable values in the \code{Units of measure} column of the \code{\link{params}} data}
 }
 }
 \examples{

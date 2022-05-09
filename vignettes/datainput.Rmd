@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r, include = FALSE, message = F, warning = F}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>", 
@@ -15,6 +15,8 @@ knitr::opts_chunk$set(
   message = F, 
   fig.align = 'center'
 )
+
+library(dplyr)
 ```
 
 ## Overview
@@ -105,9 +107,18 @@ Several checks are run automatically when the data are imported. These checks ar
 -   **Date formats**: Should be mm/dd/yyyy and parsed correctly on import
 -   **Time formats**: Should be HH:MM and parsed correctly on import
 -   **Relative Depth Category**: Should be either Surface, Bottom, \< 1m / 3.3ft or blank
--   **Characteristic Name**: Should match parameter names in the `Simple Parameter` column of the `params()` data, specifically Air Temp, Ammonia, Ammonium, Chl a, Chl a (probe), Chloride, Conductivity, Cyanobacteria (lab), Cyanobacteria (probe), Depth, DO, DO saturation, E.coli, Enterococcus, Fecal Coliform, Flow, Gage, Metals, Microcystins, Nitrate, Nitrate + Nitrite, Nitrite, Ortho P, pH, Pheophytin, Phosphate, PON, POP, Salinity, Secchi Depth, Silicate, Sp Conductance, Sulfate, Surfactants, TDS, TKN, TN, TP, TSS, Turbidity, or Water Temp
+-   **Characteristic Name**: Should match parameter names in the `Simple Parameter` column of the `params()` data, specifically `` `params %>% pull(`Simple Parameter`) %>% sort %>% paste(collapse = ', ')` ``
 -   **Result Value**: Should be a numeric value or a text value as AQL or BDL
 -   **QC Reference Value**: Any entered values should be numeric
+-   **Result Unit**: No missing entries in `Result Unit`, except pH which can be blank
+-   **Single Result Unit**: Each unique parameter in `Characteristic Name` should have only one entry in `Result Unit`
+-   **Correct Result Unit**: Each unique parameter in `Characteristic Name` should have an entry in `Result Unit` that matches one of the acceptable values in the `Units of measure` column of the `params()` data, as below: 
+     ```{r, echo = F}
+params %>% 
+  select(`Simple Parameter`, `Units of measure`) %>% 
+  arrange(`Simple Parameter`) %>% 
+  knitr::kable(.)
+     ```
 
 An informative error is returned if the input data fail any of the checks. The input data should be corrected by hand in the Excel file by altering the appropriate rows or column names indicated in the error.
 
@@ -126,7 +137,7 @@ Data imported with `read_results()` are also formatted to take care of a few min
 
 -   **Fix date and time inputs**: Activity Start Date is converted to YYYY-MM-DD as a date object, Activity Start Time is converted to HH:MM as a character to fix artifacts from Excel import.
 -   **Create duplicate rows for entries in QC Reference Value**: This is done if a value is found in the QC Reference Value column by creating a "new" row with the same location, date, time, etc as the original but with an appropriate quality control entry for the Activity Type.
--   **Remove non-text or math symbols from Result Unit**: Values are stripped, e.g., the degree symbols for degrees C
+-  **Remove non-text or math symbols and other minor formatting for Result Unit**: For conformance to WQX, e.g., the degree symbols for degrees C/F is changed to "deg", ppt is changed to ppth, s.u. is changed to NA. 
 
 ### Data quality objectives
 

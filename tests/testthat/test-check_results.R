@@ -63,4 +63,26 @@ test_that("Checking entries in QC Reference Value", {
   expect_error(check_results(chk))
 })
 
+test_that("Checking missing entries in Result Unit", {
+  chk <- resdat
+  chk[25, 10] <- NA
+  chk[1244, 10] <- NA
+  chk[75, 9] <- NA # pH, will not trigger
+  expect_error(check_results(chk))
+})
+
+test_that("Checking more than one unit type per parameter in Characteristic Name", {
+  chk <- resdat
+  chk[13, 'Result Unit'] <- 'F'
+  expect_error(check_results(chk))
+})
+
+test_that("Checking incorrect unit type per parameter in Characteristic Name", {
+  chk <- resdat
+  chk[chk$`Characteristic Name` == 'Chl a', 10] <- 'micrograms/L'
+  chk[chk$`Characteristic Name` == 'TP', 10] <- 'mg/L'
+  expect_error(check_results(chk))
+})
+
+
 

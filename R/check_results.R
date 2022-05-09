@@ -15,6 +15,9 @@
 #'  \item{Characteristic Name: }{Should match parameter names in the \code{Simple Parameter} column of the \code{\link{params}} data, specifically Air Temp, Ammonia, Ammonium, Chl a, Chl a (probe), Chloride, Conductivity, Cyanobacteria (lab), Cyanobacteria (probe), Depth, DO, DO saturation, E.coli, Enterococcus, Fecal Coliform, Flow, Gage, Metals, Microcystins, Nitrate, Nitrate + Nitrite, Nitrite, Ortho P, pH, Pheophytin, Phosphate, PON, POP, Salinity, Secchi Depth, Silicate, Sp Conductance, Sulfate, Surfactants, TDS, TKN, TN, TP, TSS, Turbidity, or Water Temp}, 
 #'  \item{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
 #'  \item{QC Reference Value: }{Should be a numeric value or a text value as AQL or BDL}
+#'  \item{Result Unit: }{No missing entries in \code{Result Unit}, except pH which can be blank}
+#'  \item{Single Result Unit: }{Each unique parameter in \code{Characteristic Name} should have only one entry in \code{Result Unit}}
+#'  \item{Correct Result Unit: }{Each unique parameter in \code{Characteristic Name} should have an entry in \code{Result Unit} that matches one of the acceptable values in the \code{Units of measure} column of the \code{\link{params}} data}
 #' }
 #' 
 #' @return \code{resdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. 
@@ -140,9 +143,56 @@ check_results <- function(resdat){
     stop(msg, '\n\tIncorrect entries in QC Reference Value found: ', paste(tochk, collapse = ', '), ' in rows ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
+
+  # check no missing entries in result unit, except pH
+  msg <- '\tChecking for missing entries for Result Unit...'
+  chk <- resdat[, c('Characteristic Name', 'Result Unit')]
+  chk <- is.na(chk$`Result Unit`) & !chk$`Characteristic Name` %in% 'pH'
+  chk <- !chk
+  if(any(!chk)){
+    rws <- which(!chk)
+    stop(msg, '\n\tMissing Result Unit in rows ', paste(rws, collapse = ', '), call. = FALSE)
+  }
+  message(paste(msg, 'OK'))
+  
+  # check different units for each parameter
+  msg <- '\tChecking if more than one unit per Characteristic Name...'
+  typ <- resdat[, c('Characteristic Name', 'Result Unit')]
+  typ <- unique(typ)
+  chk <- !duplicated(typ$`Characteristic Name`)
+  if(any(!chk)){
+    tochk <- typ[!chk, 'Characteristic Name', drop = TRUE]
+    tochk <- typ[typ$`Characteristic Name` %in% tochk, ]
+    tochk <- dplyr::group_by(tochk, `Characteristic Name`)
+    tochk <- tidyr::nest(tochk)
+    tochk$data <- lapply(tochk$data, function(x) paste(x[[1]], collapse = ', '))
+    tochk <- tidyr::unnest(tochk, cols = 'data')
+    tochk <- tidyr::unite(tochk, 'res', sep = ': ')[[1]]
+    stop(msg, '\n\tMore than one Result Unit found for Characteristic Names: ', paste(tochk, collapse = ', '), call. = FALSE)
+  }
+  message(paste(msg, 'OK'))
+
+  # check acceptable units for each parameter
+  msg <- '\tChecking acceptable units for each entry in Characteristic Name...'
+  typ <- resdat[, c('Characteristic Name', 'Result Unit')]
+  typ <- unique(typ)
+  typ$`Result Unit` <- gsub('\\p{So}', 'deg', typ$`Result Unit`, perl = TRUE)
+  typ$`Result Unit`[is.na(typ$`Result Unit`) & typ$`Characteristic Name` == 'pH'] <- 'NA'
+  tojn <- params[, c('Simple Parameter', 'Units of measure')]
+  tojn <- dplyr::rename(tojn, `Characteristic Name` = `Simple Parameter`)
+  typ <- dplyr::left_join(typ, tojn, by = 'Characteristic Name')
+  chk <- dplyr::rowwise(typ)
+  chk <- dplyr::mutate(chk, 
+    fnd = grepl(`Result Unit`, `Units of measure`, fixed = TRUE)
+  )
+  if(any(!chk$fnd)){
+    tochk <- chk[!chk$fnd, c('Characteristic Name', 'Result Unit')]
+    tochk <- tidyr::unite(tochk, 'res', sep = ': ')[[1]]
+    stop(msg, '\n\tIncorrect Result Unit found for Characteristic Names: ', paste(tochk, collapse = ', '), call. = FALSE)
+  }
   
   message('\nAll checks passed!')
-  
+
   return(resdat)
   
 }

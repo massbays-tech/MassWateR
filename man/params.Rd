@@ -21,7 +21,7 @@ This information is used to verify the correct format of input results data in \
 library(readxl)
 library(dplyr)
 
-params <- read_excel('inst/extdata/Parameter.Mapping_4-29-22.xlsx') \%>\% 
+params <- read_excel('inst/extdata/Parameter.Mapping.xlsx') \%>\% 
   rename(Note = `...5`)
 
 save(params, file = 'data/params.RData', compress = 'xz')
