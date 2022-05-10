@@ -23,3 +23,25 @@ test_that("Checking for text other than <=, \u2264, <, >=, \u2265, >, \u00b1, %,
   chk$`Field Duplicate` <- 'alll'
   expect_error(check_dqoaccuracy(chk))
 })
+
+test_that("Checking missing entries in uom", {
+  chk <- dqoaccdat
+  chk[5, 2] <- NA
+  chk[21, 2] <- NA
+  chk[2, 2] <- NA # pH, will not trigger
+  expect_error(check_dqoaccuracy(chk))
+})
+
+test_that("Checking more than one unit type per parameter", {
+  chk <- dqoaccdat
+  chk[4, 2] <- 'ug/l'
+  expect_error(check_dqoaccuracy(chk))
+})
+
+test_that("Checking incorrect unit type per parameter", {
+  chk <- dqoaccdat
+  chk[chk$`Parameter` == 'Chl a', 2] <- 'micrograms/L'
+  chk[chk$`Parameter` == 'TP', 2] <- 'mg/L'
+  expect_error(check_dqoaccuracy(chk))
+})
+

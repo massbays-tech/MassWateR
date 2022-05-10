@@ -165,6 +165,9 @@ Checks for accuracy:
 -   **Columns present**: All columns from the previous check should be present
 -   **Non-numeric values in MDL, UQL**: Values entered in columns MDL and UQL should be numeric
 -   **Unrecognized characters**: Fields describing accuracy checks should not include symbols or text other than $<=$, $\leq$, $<$, $>=$, $\geq$, $>$, $\pm$ \%, BDL, AQL, log, or all
+-   **Units**: No missing entries in units (`uom`), except pH which can be blank
+-   **Single unit**: Each unique `Parameter` should have only one type for the units (`uom`)
+-   **Correct units**: Each unique `Parameter` should have an entry in the units (`uom`) that matches one of the acceptable values in the `Units of measure` column of the `params()` data
 
 Checks for completeness:
 
