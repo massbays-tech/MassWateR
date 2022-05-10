@@ -382,7 +382,7 @@ Functions in MassWateR are organized around these topics.
 <li>
 <strong>Create duplicate rows for entries in QC Reference Value</strong>: This is done if a value is found in the QC Reference Value column by creating a “new” row with the same location, date, time, etc as the original but with an appropriate quality control entry for the Activity Type.</li>
 <li>
-<strong>Remove non-text or math symbols and other minor formatting for Result Unit</strong>: For conformance to WQX, e.g., the degree symbols for degrees C/F is changed to “deg”, ppt is changed to ppth, s.u. is changed to NA.</li>
+<strong>Minor formatting for Result Unit</strong>: For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to <code>NA</code>.</li>
 </ul>
 </div>
 <div class="section level3">
@@ -407,7 +407,7 @@ Functions in MassWateR are organized around these topics.
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 10</span></span>
 <span class="co">#&gt;   Parameter    uom     MDL   UQL `Value Range` `Field Duplicate` `Lab Duplicate`</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Water Temp   C      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> all           &lt;= 10%            &lt;= 10%         </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Water Temp   deg C  <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> all           &lt;= 10%            &lt;= 10%         </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pH           s.u.   <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> all           0.5               0.5            </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">3</span> DO           mg/l    0.1    <span style="color: #BB0000;">NA</span> &lt; 4           &lt;= 20%            &lt;= 20%         </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">4</span> DO           mg/l    0.1    <span style="color: #BB0000;">NA</span> &gt;= 4          &lt;= 10%            &lt;= 10%         </span>
