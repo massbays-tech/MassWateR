@@ -117,7 +117,6 @@ check_dqoaccuracy <- function(dqoaccdat){
   msg <- '\tChecking acceptable units (uom) for each entry in Parameter...'
   typ <- dqoaccdat[, c('Parameter', 'uom')]
   typ <- unique(typ)
-  typ$`uom` <- gsub('\\p{So}', 'deg', typ$`uom`, perl = TRUE)
   typ$`uom`[is.na(typ$`uom`) & typ$`Parameter` == 'pH'] <- 'NA'
   tojn <- params[, c('Simple Parameter', 'Units of measure')]
   tojn <- dplyr::rename(tojn, `Parameter` = `Simple Parameter`)

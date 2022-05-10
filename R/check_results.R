@@ -176,7 +176,6 @@ check_results <- function(resdat){
   msg <- '\tChecking acceptable units for each entry in Characteristic Name...'
   typ <- resdat[, c('Characteristic Name', 'Result Unit')]
   typ <- unique(typ)
-  typ$`Result Unit` <- gsub('\\p{So}', 'deg', typ$`Result Unit`, perl = TRUE)
   typ$`Result Unit`[is.na(typ$`Result Unit`) & typ$`Characteristic Name` == 'pH'] <- 'NA'
   tojn <- params[, c('Simple Parameter', 'Units of measure')]
   tojn <- dplyr::rename(tojn, `Characteristic Name` = `Simple Parameter`)
