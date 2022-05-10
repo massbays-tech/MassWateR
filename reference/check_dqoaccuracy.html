@@ -74,6 +74,7 @@
 <li><p>Columns present: All columns from the previous check should be present</p></li>
 <li><p>Non-numeric values in MDL, UQL: Values entered in columns MDL and UQL should be numeric</p></li>
 <li><p>Unrecognized characters: Fields describing accuracy checks should not include symbols or text other than \(&lt;=\), \(\leq\), \(&lt;\), \(&gt;=\), \(\geq\), \(&gt;\), \(\pm\), %, BDL, AQL, log, or all</p></li>
+<li><p>Parameter: Should match parameter names in the <code>Simple Parameter</code> or <code>WQX Parameter</code> columns of the <code><a href="params.html">params</a></code> data</p></li>
 <li><p>Units: No missing entries in units (<code>uom</code>), except pH which can be blank</p></li>
 <li><p>Single unit: Each unique <code>Parameter</code> should have only one type for the units (<code>uom</code>)</p></li>
 <li><p>Correct units: Each unique <code>Parameter</code> should have an entry in the units (<code>uom</code>) that matches one of the acceptable values in the <code>Units of measure</code> column of the <code><a href="params.html">params</a></code> data</p></li>
@@ -91,6 +92,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in MDL, UQL... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for text other than &lt;=, ≤, &lt;, &gt;=, ≥, &gt;, ±, %, AQL, BQL, log, or all... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Parameter formats... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for unit (uom)... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit (uom) per Parameter... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking acceptable units (uom) for each entry in Parameter... OK</span>
