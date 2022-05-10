@@ -26,7 +26,7 @@ The following checks are made:
 \item{Date formats: }{Should be mm/dd/yyyy and parsed correctly on import}
 \item{Time formats: }{Should be HH:MM and parsed correctly on import}
 \item{Relative Depth Category: }{Should be either Surface, Bottom, < 1m / 3.3ft or blank}
-\item{Characteristic Name: }{Should match parameter names in the \code{Simple Parameter} column of the \code{\link{params}} data, specifically Air Temp, Ammonia, Ammonium, Chl a, Chl a (probe), Chloride, Conductivity, Cyanobacteria (lab), Cyanobacteria (probe), Depth, DO, DO saturation, E.coli, Enterococcus, Fecal Coliform, Flow, Gage, Metals, Microcystins, Nitrate, Nitrate + Nitrite, Nitrite, Ortho P, pH, Pheophytin, Phosphate, PON, POP, Salinity, Secchi Depth, Silicate, Sp Conductance, Sulfate, Surfactants, TDS, TKN, TN, TP, TSS, Turbidity, or Water Temp},
+\item{Characteristic Name: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{params}} data}
 \item{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
 \item{QC Reference Value: }{Should be a numeric value or a text value as AQL or BDL}
 \item{Result Unit: }{No missing entries in \code{Result Unit}, except pH which can be blank}

@@ -10,6 +10,7 @@
 #'  \item{Columns present: }{All columns from the previous check should be present}
 #'  \item{Non-numeric values in MDL, UQL: }{Values entered in columns MDL and UQL should be numeric}
 #'  \item{Unrecognized characters: }{Fields describing accuracy checks should not include symbols or text other than \eqn{<=}, \eqn{\leq}, \eqn{<}, \eqn{>=}, \eqn{\geq}, \eqn{>}, \eqn{\pm}, %, BDL, AQL, log, or all}
+#'  \item{Parameter: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{params}} data}
 #'  \item{Units: }{No missing entries in units (\code{uom}), except pH which can be blank}
 #'  \item{Single unit: }{Each unique \code{Parameter} should have only one type for the units (\code{uom})}
 #'  \item{Correct units: }{Each unique \code{Parameter} should have an entry in the units (\code{uom}) that matches one of the acceptable values in the \code{Units of measure} column of the \code{\link{params}} data}
@@ -36,6 +37,7 @@ check_dqoaccuracy <- function(dqoaccdat){
               "Lab Duplicate", "Field Blank", "Lab Blank", "Spike/Check Accuracy")
   # 00b1 is plus/minus, 2265 is greater than or equal to, 2264 is less than or equal to 
   colsym <- c('<=', '<', '>=', '>', '\u00b1', '\u2265', '\u2264', '%', 'AQL', 'BDL', 'log', 'all')
+  chntyp <- sort(unique(c(params$`Simple Parameter`, params$`WQX Parameter`)))
   
   # check field names
   msg <- '\tChecking column names...'
@@ -85,6 +87,17 @@ check_dqoaccuracy <- function(dqoaccdat){
   }
   message(paste(msg, 'OK'))
   
+  # check parameter names
+  msg <- '\tChecking Parameter formats...'
+  typ <- dqoaccdat$`Parameter`
+  chk <- typ %in% chntyp
+  if(any(!chk)){
+    rws <- which(!chk)
+    tochk <- unique(typ[!chk])
+    stop(msg, '\n\tIncorrect Parameter found: ', paste(tochk, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
+  }
+  message(paste(msg, 'OK'))
+  
   # check no missing entries in uom, except pH
   msg <- '\tChecking for missing entries for unit (uom)...'
   chk <- dqoaccdat[, c('Parameter', 'uom')]
@@ -112,6 +125,8 @@ check_dqoaccuracy <- function(dqoaccdat){
     stop(msg, '\n\tMore than one unit (uom) found for Parameter: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
+  
+  # convert all Parameters to simple so that units can be verified
   
   # check acceptable units for each parameter
   msg <- '\tChecking acceptable units (uom) for each entry in Parameter...'

@@ -10,6 +10,7 @@
 #'  \item{Columns present: }{All columns from the previous check should be present}
 #'  \item{Non-numeric values: }{Values entered in columns other than the first should be numeric}
 #'  \item{Values outside of 0 - 100: }{Values entered in columns other than the first should not be outside of 0 and 100}
+#'  \item{Parameter: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{params}} data}
 #' }
 #' 
 #' @return \code{dqocomdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. 
@@ -35,6 +36,7 @@ check_dqocompleteness <- function(dqocomdat){
   # globals
   colnms <- c("Parameter", "Field Duplicate", "Lab Duplicate", "Field Blank", 
               "Lab Blank", "Spike/Check Accuracy", "% Completeness")
+  chntyp <- sort(unique(c(params$`Simple Parameter`, params$`WQX Parameter`)))
   
   # check field names
   msg <- '\tChecking column names...'
@@ -81,6 +83,17 @@ check_dqocompleteness <- function(dqocomdat){
   if(any(chk)){
     tochk <- names(chk)[chk]
     stop(msg, '\n\tValues less than 0 or greater than 100 found in columns: ', paste(tochk, collapse = ', ', call. = FALSE))
+  }
+  message(paste(msg, 'OK'))
+  
+  # check parameter names
+  msg <- '\tChecking Parameter formats...'
+  typ <- dqocomdat$`Parameter`
+  chk <- typ %in% chntyp
+  if(any(!chk)){
+    rws <- which(!chk)
+    tochk <- unique(typ[!chk])
+    stop(msg, '\n\tIncorrect Parameter found: ', paste(tochk, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
   

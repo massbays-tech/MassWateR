@@ -38,6 +38,13 @@ test_that("Checking more than one unit type per parameter", {
   expect_error(check_dqoaccuracy(chk))
 })
 
+test_that("Checking correct Parameters", {
+  chk <- dqoaccdat
+  chk[7, 1] <- 'tss'
+  chk[5, 1] <- 'sp-conductivity'
+  expect_error(check_dqoaccuracy(chk))
+})
+
 test_that("Checking incorrect unit type per parameter", {
   chk <- dqoaccdat
   chk[chk$`Parameter` == 'Chl a', 2] <- 'micrograms/L'
