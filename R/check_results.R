@@ -190,6 +190,7 @@ check_results <- function(resdat){
     tochk <- tidyr::unite(tochk, 'res', sep = ': ')[[1]]
     stop(msg, '\n\tIncorrect Result Unit found for Characteristic Names: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
+  message(paste(msg, 'OK'))
   
   message('\nAll checks passed!')
 
