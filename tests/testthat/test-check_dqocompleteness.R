@@ -23,3 +23,10 @@ test_that("Checking values outside of 0 - 100", {
   chk[2, 6] <- 101
   expect_error(check_dqocompleteness(chk))
 })
+
+test_that("Checking correct Parameters", {
+  chk <- dqocomdat
+  chk[11, 1] <- 'chla'
+  chk[7, 1] <- 'ortho-p'
+  expect_error(check_dqocompleteness(chk))
+})

@@ -25,6 +25,10 @@ The following checks are made:
 \item{Columns present: }{All columns from the previous check should be present}
 \item{Non-numeric values in MDL, UQL: }{Values entered in columns MDL and UQL should be numeric}
 \item{Unrecognized characters: }{Fields describing accuracy checks should not include symbols or text other than \eqn{<=}, \eqn{\leq}, \eqn{<}, \eqn{>=}, \eqn{\geq}, \eqn{>}, \eqn{\pm}, \%, BDL, AQL, log, or all}
+\item{Parameter: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{params}} data}
+\item{Units: }{No missing entries in units (\code{uom}), except pH which can be blank}
+\item{Single unit: }{Each unique \code{Parameter} should have only one type for the units (\code{uom})}
+\item{Correct units: }{Each unique \code{Parameter} should have an entry in the units (\code{uom}) that matches one of the acceptable values in the \code{Units of measure} column of the \code{\link{params}} data}
 }
 }
 \examples{

@@ -67,13 +67,13 @@ test_that("Checking missing entries in Result Unit", {
   chk <- resdat
   chk[25, 10] <- NA
   chk[1244, 10] <- NA
-  chk[75, 9] <- NA # pH, will not trigger
+  chk[78, 10] <- NA # pH, will not trigger
   expect_error(check_results(chk))
 })
 
 test_that("Checking more than one unit type per parameter in Characteristic Name", {
   chk <- resdat
-  chk[13, 'Result Unit'] <- 'F'
+  chk[13, 10] <- 'F'
   expect_error(check_results(chk))
 })
 

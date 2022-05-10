@@ -12,7 +12,7 @@
 #'  \item{Date formats: }{Should be mm/dd/yyyy and parsed correctly on import}
 #'  \item{Time formats: }{Should be HH:MM and parsed correctly on import}
 #'  \item{Relative Depth Category: }{Should be either Surface, Bottom, < 1m / 3.3ft or blank}
-#'  \item{Characteristic Name: }{Should match parameter names in the \code{Simple Parameter} column of the \code{\link{params}} data, specifically Air Temp, Ammonia, Ammonium, Chl a, Chl a (probe), Chloride, Conductivity, Cyanobacteria (lab), Cyanobacteria (probe), Depth, DO, DO saturation, E.coli, Enterococcus, Fecal Coliform, Flow, Gage, Metals, Microcystins, Nitrate, Nitrate + Nitrite, Nitrite, Ortho P, pH, Pheophytin, Phosphate, PON, POP, Salinity, Secchi Depth, Silicate, Sp Conductance, Sulfate, Surfactants, TDS, TKN, TN, TP, TSS, Turbidity, or Water Temp}, 
+#'  \item{Characteristic Name: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{params}} data}
 #'  \item{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
 #'  \item{QC Reference Value: }{Should be a numeric value or a text value as AQL or BDL}
 #'  \item{Result Unit: }{No missing entries in \code{Result Unit}, except pH which can be blank}
@@ -46,7 +46,7 @@ check_results <- function(resdat){
               "Quality Control Sample-Lab Blank", "Quality Control Sample-Lab Duplicate", 
               "Quality Control Sample-Lab Spike")
   dpstyp <- c('Surface', 'Bottom', '< 1m / 3.3ft', NA)
-  chntyp <- sort(params$`Simple Parameter`)
+  chntyp <- sort(unique(c(params$`Simple Parameter`, params$`WQX Parameter`)))
   restyp <- c('AQL', 'BDL')
 
   # check field names
@@ -108,7 +108,7 @@ check_results <- function(resdat){
     stop(msg, '\n\tIncorrect Relative Depth Category format found: ', paste(tochk, collapse = ', '), ' on row(s)', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
-  
+
   # check characteristic names
   msg <- '\tChecking Characteristic Name formats...'
   typ <- resdat$`Characteristic Name`
@@ -172,11 +172,12 @@ check_results <- function(resdat){
   }
   message(paste(msg, 'OK'))
 
+  # convert all Characteristic Names to simple so that units can be verified
+
   # check acceptable units for each parameter
   msg <- '\tChecking acceptable units for each entry in Characteristic Name...'
   typ <- resdat[, c('Characteristic Name', 'Result Unit')]
   typ <- unique(typ)
-  typ$`Result Unit` <- gsub('\\p{So}', 'deg', typ$`Result Unit`, perl = TRUE)
   typ$`Result Unit`[is.na(typ$`Result Unit`) & typ$`Characteristic Name` == 'pH'] <- 'NA'
   tojn <- params[, c('Simple Parameter', 'Units of measure')]
   tojn <- dplyr::rename(tojn, `Characteristic Name` = `Simple Parameter`)

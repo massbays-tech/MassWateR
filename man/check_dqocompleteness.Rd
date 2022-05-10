@@ -24,6 +24,7 @@ The following checks are made:
 \item{Columns present: }{All columns from the previous check should be present}
 \item{Non-numeric values: }{Values entered in columns other than the first should be numeric}
 \item{Values outside of 0 - 100: }{Values entered in columns other than the first should not be outside of 0 and 100}
+\item{Parameter: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{params}} data}
 }
 }
 \examples{

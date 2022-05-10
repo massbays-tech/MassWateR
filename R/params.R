@@ -11,7 +11,7 @@
 #' library(readxl)
 #' library(dplyr)
 #' 
-#' params <- read_excel('inst/extdata/Parameter.Mapping.xlsx') %>% 
+#' params <- read_excel('inst/extdata/ParameterMapping_final.xlsx') %>% 
 #'   rename(Note = `...5`)
 #' 
 #' save(params, file = 'data/params.RData', compress = 'xz')

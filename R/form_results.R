@@ -6,9 +6,9 @@
 #' @details This function is used internally within \code{\link{read_results}} to format the input data for downstream analysis.  The formatting includes:
 #' 
 #' \itemize{
-#'   \item{Fix date and time inputs: }{Activty Start Date is converted to YYYY-MM-DD as a date object, Actvity Start Time is convered to HH:MM as a character to fix artifacts from Excel import},
+#'   \item{Fix date and time inputs: }{Activity Start Date is converted to YYYY-MM-DD as a date object, Actvity Start Time is convered to HH:MM as a character to fix artifacts from Excel import},
 #'   \item{Create duplicate rows for entries in QC Reference Value: }{This is done if a value is found in the QC Reference Value column by creating a "new" row with the same location, date, time, etc as the original but with an appropriate quality control entry for the Activity Type}
-#'   \item{Remove non-text or math symbols and other minor formatting for Result Unit: }{For conformance to WQX, e.g., the degree symbols for degrees C/F is changed to "deg", ppt is changed to ppth, s.u. is changed to NA}
+#'   \item{Minor formatting for Result Unit: }{For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to NA}
 #' }
 #' 
 #' @import dplyr
@@ -57,12 +57,11 @@ form_results <- function(resdat, tzone = 'America/Jamaica'){
     ) %>% 
     bind_rows(qrws) 
   
-  # remove weird symbols from Result Unit and strip trailing/leading white space
+  # convert ph s.u. to NA, salinity ppt to ppth 
   out <- out %>% 
     mutate(
-      `Result Unit` = gsub('\\p{So}', 'deg', `Result Unit`, perl = TRUE), 
       `Result Unit` = trimws(`Result Unit`),
-      `Result Unit` = gsub('^ppt$', 'ppt', `Result Unit`) ,
+      `Result Unit` = gsub('^ppt$', 'ppth', `Result Unit`) ,
       `Result Unit` = case_when(
         `Characteristic Name` == 'pH' & `Result Unit` == 's.u.' ~ NA_character_, 
         T ~ `Result Unit`
