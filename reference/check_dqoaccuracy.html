@@ -74,6 +74,9 @@
 <li><p>Columns present: All columns from the previous check should be present</p></li>
 <li><p>Non-numeric values in MDL, UQL: Values entered in columns MDL and UQL should be numeric</p></li>
 <li><p>Unrecognized characters: Fields describing accuracy checks should not include symbols or text other than \(&lt;=\), \(\leq\), \(&lt;\), \(&gt;=\), \(\geq\), \(&gt;\), \(\pm\), %, BDL, AQL, log, or all</p></li>
+<li><p>Units: No missing entries in units (<code>uom</code>), except pH which can be blank</p></li>
+<li><p>Single unit: Each unique <code>Parameter</code> should have only one type for the units (<code>uom</code>)</p></li>
+<li><p>Correct units: Each unique <code>Parameter</code> should have an entry in the units (<code>uom</code>) that matches one of the acceptable values in the <code>Units of measure</code> column of the <code><a href="params.html">params</a></code> data</p></li>
 </ul></div>
 
     <div class="section level2">
@@ -88,21 +91,24 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in MDL, UQL... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for text other than &lt;=, ≤, &lt;, &gt;=, ≥, &gt;, ±, %, AQL, BQL, log, or all... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for unit (uom)... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit (uom) per Parameter... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking acceptable units (uom) for each entry in Parameter... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 21 × 10</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter    uom     MDL   UQL `Value Range` `Field Duplica…` `Lab Duplicate`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Water Temp   C     <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span> all           &lt;= 10%           &lt;= 10%         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> pH           S.U.  <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span> all           0.5              0.5            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> DO           mg/L   0.1     <span style="color: #BB0000;">NA</span> &lt; 4           &lt;= 20%           &lt;= 20%         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> DO           mg/L   0.1     <span style="color: #BB0000;">NA</span> &gt;= 4          &lt;= 10%           &lt;= 10%         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Conductivity µS/cm  1       <span style="color: #BB0000;">NA</span> &lt; 250         &lt;= 30%           &lt;= 20%         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Conductivity µS/cm  1       <span style="color: #BB0000;">NA</span> &gt;= 250        &lt;= 20%           &lt;= 10%         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> TSS          mg/L   1       <span style="color: #BB0000;">NA</span> &lt; 3           1                &lt;= 20%         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> TSS          mg/L   1       <span style="color: #BB0000;">NA</span> &gt;= 3          &lt;= 30%           &lt;= 20%         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> TP           mg/L   0.01    <span style="color: #BB0000;">NA</span> &lt; 0.05        0.02             0.01           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> TP           mg/L   0.01    <span style="color: #BB0000;">NA</span> &gt;= 0.05       &lt;= 30%           &lt;= 20%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> pH           s.u.  <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span> all           0.5              0.5            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> DO           mg/l   0.1     <span style="color: #BB0000;">NA</span> &lt; 4           &lt;= 20%           &lt;= 20%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> DO           mg/l   0.1     <span style="color: #BB0000;">NA</span> &gt;= 4          &lt;= 10%           &lt;= 10%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Conductivity uS/cm  1       <span style="color: #BB0000;">NA</span> &lt; 250         &lt;= 30%           &lt;= 20%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Conductivity uS/cm  1       <span style="color: #BB0000;">NA</span> &gt;= 250        &lt;= 20%           &lt;= 10%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> TSS          mg/l   1       <span style="color: #BB0000;">NA</span> &lt; 3           1                &lt;= 20%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> TSS          mg/l   1       <span style="color: #BB0000;">NA</span> &gt;= 3          &lt;= 30%           &lt;= 20%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> TP           mg/l   0.01    <span style="color: #BB0000;">NA</span> &lt; 0.05        0.02             0.01           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> TP           mg/l   0.01    <span style="color: #BB0000;">NA</span> &gt;= 0.05       &lt;= 30%           &lt;= 20%         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 11 more rows, and 3 more variables: `Field Blank` &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Lab Blank` &lt;chr&gt;, `Spike/Check Accuracy` &lt;dbl&gt;</span></span>
 </code></pre></div>

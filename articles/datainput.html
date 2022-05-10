@@ -398,6 +398,9 @@ Functions in MassWateR are organized around these topics.
 <span class="co">#&gt;  Checking all required columns are present... OK</span>
 <span class="co">#&gt;  Checking for non-numeric values in MDL, UQL... OK</span>
 <span class="co">#&gt;  Checking for text other than &lt;=, ≤, &lt;, &gt;=, ≥, &gt;, ±, %, AQL, BQL, log, or all... OK</span>
+<span class="co">#&gt;  Checking for missing entries for unit (uom)... OK</span>
+<span class="co">#&gt;  Checking if more than one unit (uom) per Parameter... OK</span>
+<span class="co">#&gt;  Checking acceptable units (uom) for each entry in Parameter... OK</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; All checks passed!</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dqoaccdat</span><span class="op">)</span>
@@ -405,11 +408,11 @@ Functions in MassWateR are organized around these topics.
 <span class="co">#&gt;   Parameter    uom     MDL   UQL `Value Range` `Field Duplicate` `Lab Duplicate`</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Water Temp   C      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> all           &lt;= 10%            &lt;= 10%         </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pH           S.U.   <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> all           0.5               0.5            </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> DO           mg/L    0.1    <span style="color: #BB0000;">NA</span> &lt; 4           &lt;= 20%            &lt;= 20%         </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> DO           mg/L    0.1    <span style="color: #BB0000;">NA</span> &gt;= 4          &lt;= 10%            &lt;= 10%         </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Conductivity µS/cm   1      <span style="color: #BB0000;">NA</span> &lt; 250         &lt;= 30%            &lt;= 20%         </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Conductivity µS/cm   1      <span style="color: #BB0000;">NA</span> &gt;= 250        &lt;= 20%            &lt;= 10%         </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pH           s.u.   <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> all           0.5               0.5            </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> DO           mg/l    0.1    <span style="color: #BB0000;">NA</span> &lt; 4           &lt;= 20%            &lt;= 20%         </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> DO           mg/l    0.1    <span style="color: #BB0000;">NA</span> &gt;= 4          &lt;= 10%            &lt;= 10%         </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Conductivity uS/cm   1      <span style="color: #BB0000;">NA</span> &lt; 250         &lt;= 30%            &lt;= 20%         </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Conductivity uS/cm   1      <span style="color: #BB0000;">NA</span> &gt;= 250        &lt;= 20%            &lt;= 10%         </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 3 more variables: `Field Blank` &lt;chr&gt;, `Lab Blank` &lt;chr&gt;,</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   `Spike/Check Accuracy` &lt;dbl&gt;</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -445,6 +448,12 @@ Functions in MassWateR are organized around these topics.
 <strong>Non-numeric values in MDL, UQL</strong>: Values entered in columns MDL and UQL should be numeric</li>
 <li>
 <strong>Unrecognized characters</strong>: Fields describing accuracy checks should not include symbols or text other than <span class="math inline">\(&lt;=\)</span>, <span class="math inline">\(\leq\)</span>, <span class="math inline">\(&lt;\)</span>, <span class="math inline">\(&gt;=\)</span>, <span class="math inline">\(\geq\)</span>, <span class="math inline">\(&gt;\)</span>, <span class="math inline">\(\pm\)</span> %, BDL, AQL, log, or all</li>
+<li>
+<strong>Units</strong>: No missing entries in units (<code>uom</code>), except pH which can be blank</li>
+<li>
+<strong>Single unit</strong>: Each unique <code>Parameter</code> should have only one type for the units (<code>uom</code>)</li>
+<li>
+<strong>Correct units</strong>: Each unique <code>Parameter</code> should have an entry in the units (<code>uom</code>) that matches one of the acceptable values in the <code>Units of measure</code> column of the <code><a href="../reference/params.html">params()</a></code> data</li>
 </ul>
 <p>Checks for completeness:</p>
 <ul>
