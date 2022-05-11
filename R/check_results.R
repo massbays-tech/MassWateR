@@ -6,7 +6,7 @@
 #' 
 #' The following checks are made: 
 #' \itemize{
-#'  \item{Column name spelling: }{Should be the following: Monitoring Location ID, Activity Type, Activity Start Date, Activity Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit, Relative Depth Category, Characteristic Name, Result Value, Result Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier, Result Attribute.}
+#'  \item{Column name spelling: }{Should be the following: Monitoring Location ID, Activity Type, Activity Start Date, Activity Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit, Activity Relative Depth Name, Characteristic Name, Result Value, Result Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier, Result Attribute.}
 #'  \item{Columns present: }{All columns from the previous check should be present, Result Attribute is optional}
 #'  \item{Activity Type: }{Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike}
 #'  \item{Date formats: }{Should be mm/dd/yyyy and parsed correctly on import}
@@ -39,7 +39,7 @@ check_results <- function(resdat){
   # globals
   colnms <- c("Monitoring Location ID", "Activity Type", "Activity Start Date", 
               "Activity Start Time", "Activity Depth/Height Measure", "Activity Depth/Height Unit", 
-              "Relative Depth Category", "Characteristic Name", "Result Value", 
+              "Activity Relative Depth Name", "Characteristic Name", "Result Value", 
               "Result Unit", "Quantitation Limit", "QC Reference Value", "Result Measure Qualifier", 
               "Result Attribute")
   acttyp <- c("Field Msr/Obs", "Sample-Routine", "Quality Control Sample-Field Blank", 
