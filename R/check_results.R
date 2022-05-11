@@ -11,7 +11,7 @@
 #'  \item{Activity Type: }{Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike}
 #'  \item{Date formats: }{Should be mm/dd/yyyy and parsed correctly on import}
 #'  \item{Time formats: }{Should be HH:MM and parsed correctly on import}
-#'  \item{Relative Depth Category: }{Should be either Surface, Bottom, < 1m / 3.3ft or blank}
+#'  \item{Activity Relative Depth Name: }{Should be either Surface, Bottom, < 1m / 3.3ft or blank}
 #'  \item{Characteristic Name: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{params}} data}
 #'  \item{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
 #'  \item{QC Reference Value: }{Should be a numeric value or a text value as AQL or BDL}
@@ -99,13 +99,13 @@ check_results <- function(resdat){
   message(paste(msg, 'OK'))
   
   # check depth categories
-  msg <- '\tChecking Relative Depth Category formats...'
-  dps <- resdat$`Relative Depth Category`
+  msg <- '\tChecking Activity Relative Depth Name formats...'
+  dps <- resdat$`Activity Relative Depth Name`
   chk <- dps %in% dpstyp
   if(any(!chk)){
     rws <- which(!dps %in% dpstyp)
     tochk <- unique(dps[!chk])
-    stop(msg, '\n\tIncorrect Relative Depth Category format found: ', paste(tochk, collapse = ', '), ' on row(s)', paste(rws, collapse = ', '), call. = FALSE)
+    stop(msg, '\n\tIncorrect Activity Relative Depth Name format found: ', paste(tochk, collapse = ', '), ' on row(s)', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
 
@@ -173,7 +173,7 @@ check_results <- function(resdat){
   message(paste(msg, 'OK'))
 
   # convert all Characteristic Names to simple so that units can be verified
-
+  # browser()
   # check acceptable units for each parameter
   msg <- '\tChecking acceptable units for each entry in Characteristic Name...'
   typ <- resdat[, c('Characteristic Name', 'Result Unit')]
