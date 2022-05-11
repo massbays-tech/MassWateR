@@ -137,8 +137,8 @@ check_dqoaccuracy <- function(dqoaccdat){
   tojn <- dplyr::rename(tojn, `Parameter` = `Simple Parameter`)
   typ <- dplyr::left_join(typ, tojn, by = 'Parameter')
   tojn <- params[, c('WQX Parameter', 'Units of measure')] # repeat for wqx parameter names
-  tojn <- dplyr::rename(tojn, `Characteristic Name` = `WQX Parameter`)
-  typ <- dplyr::left_join(typ, tojn, by = 'Characteristic Name')
+  tojn <- dplyr::rename(tojn, `Parameter` = `WQX Parameter`)
+  typ <- dplyr::left_join(typ, tojn, by = 'Parameter')
   typ <- tidyr::unite(typ, 'Units of measure', `Units of measure.x`, `Units of measure.y`, na.rm = TRUE)
   chk <- dplyr::rowwise(typ)
   chk <- dplyr::mutate(chk, 
