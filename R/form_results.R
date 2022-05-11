@@ -68,6 +68,14 @@ form_results <- function(resdat, tzone = 'America/Jamaica'){
       )
     )
   
+  # convert all characteristic names to simple
+  out <- dplyr::mutate(out, # match any entries in Characteristic Name that are WQX Parameter to Simple Parameter
+    `Characteristic Name` = dplyr::case_when(
+      `Characteristic Name` %in% params$`WQX Parameter` ~ params$`Simple Parameter`[match(`Characteristic Name`, params$`WQX Parameter`)], 
+      T ~ `Characteristic Name`
+      )
+    )
+  
   return(out)
   
 }

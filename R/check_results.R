@@ -2,7 +2,7 @@
 #'
 #' @param resdat input data frame for results
 #'
-#' @details This function is used internally within \code{\link{read_results}} to run several checks on the input data for completeness and conformance to WQX requirements
+#' @details This function is used internally within \code{\link{read_results}} to run several checks on the input data for completeness and conformance to WQX requirements.
 #' 
 #' The following checks are made: 
 #' \itemize{
@@ -172,9 +172,7 @@ check_results <- function(resdat){
   }
   message(paste(msg, 'OK'))
 
-  # convert all Characteristic Names to simple so that units can be verified
-  # browser()
-  # check acceptable units for each parameter
+  # check acceptable units for each parameter, must check all parameter names simple or wqx in params
   msg <- '\tChecking acceptable units for each entry in Characteristic Name...'
   typ <- resdat[, c('Characteristic Name', 'Result Unit')]
   typ <- unique(typ)
@@ -182,6 +180,10 @@ check_results <- function(resdat){
   tojn <- params[, c('Simple Parameter', 'Units of measure')]
   tojn <- dplyr::rename(tojn, `Characteristic Name` = `Simple Parameter`)
   typ <- dplyr::left_join(typ, tojn, by = 'Characteristic Name')
+  tojn <- params[, c('WQX Parameter', 'Units of measure')] # repeat for wqx parameter names
+  tojn <- dplyr::rename(tojn, `Characteristic Name` = `WQX Parameter`)
+  typ <- dplyr::left_join(typ, tojn, by = 'Characteristic Name')
+  typ <- tidyr::unite(typ, 'Units of measure', `Units of measure.x`, `Units of measure.y`, na.rm = TRUE)
   chk <- dplyr::rowwise(typ)
   chk <- dplyr::mutate(chk, 
     fnd = grepl(`Result Unit`, `Units of measure`, fixed = TRUE)

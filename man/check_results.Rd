@@ -16,7 +16,7 @@ check_results(resdat)
 Check water quality monitoring results
 }
 \details{
-This function is used internally within \code{\link{read_results}} to run several checks on the input data for completeness and conformance to WQX requirements
+This function is used internally within \code{\link{read_results}} to run several checks on the input data for completeness and conformance to WQX requirements.
 
 The following checks are made:
 \itemize{

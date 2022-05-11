@@ -128,7 +128,7 @@ check_dqoaccuracy <- function(dqoaccdat){
   
   # convert all Parameters to simple so that units can be verified
   
-  # check acceptable units for each parameter
+  # check acceptable units for each parameter, must check all parameter names simple or wqx in params
   msg <- '\tChecking acceptable units (uom) for each entry in Parameter...'
   typ <- dqoaccdat[, c('Parameter', 'uom')]
   typ <- unique(typ)
@@ -136,6 +136,10 @@ check_dqoaccuracy <- function(dqoaccdat){
   tojn <- params[, c('Simple Parameter', 'Units of measure')]
   tojn <- dplyr::rename(tojn, `Parameter` = `Simple Parameter`)
   typ <- dplyr::left_join(typ, tojn, by = 'Parameter')
+  tojn <- params[, c('WQX Parameter', 'Units of measure')] # repeat for wqx parameter names
+  tojn <- dplyr::rename(tojn, `Characteristic Name` = `WQX Parameter`)
+  typ <- dplyr::left_join(typ, tojn, by = 'Characteristic Name')
+  typ <- tidyr::unite(typ, 'Units of measure', `Units of measure.x`, `Units of measure.y`, na.rm = TRUE)
   chk <- dplyr::rowwise(typ)
   chk <- dplyr::mutate(chk, 
                        fnd = grepl(`uom`, `Units of measure`, fixed = TRUE)
