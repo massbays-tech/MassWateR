@@ -26,7 +26,8 @@ read_dqocompleteness <- function(dqocompth, runchk = TRUE){
   if(runchk)
     dqocomdat <- check_dqocompleteness(dqocomdat)
   
-  out <- dqocomdat
+  # format dqocompleteness
+  out <- form_dqocompleteness(dqocomdat)
   
   return(out)
   

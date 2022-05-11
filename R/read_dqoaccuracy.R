@@ -22,7 +22,8 @@ read_dqoaccuracy <- function(dqoaccpth, runchk = TRUE){
   if(runchk)
     dqoaccdat <- check_dqoaccuracy(dqoaccdat)
   
-  out <- dqoaccdat
+  # format dqoaccuracy
+  out <- form_dqoaccuracy(dqoaccdat)
   
   return(out)
   

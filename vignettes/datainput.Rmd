@@ -89,11 +89,11 @@ The example files are provided to demonstrate how the functions in MassWateR are
 
 The MassWateR package is developed for quality control and exploratory analysis of surface water quality data. Before these analyses can occur, the data must be formatted correctly. This section describes how to import data and the expectations that are checked automatically by the functions.
 
-For many of the checks, parameter names and units need to match the following columns in the `params()` file included with the package.  Specifically parameter names (either `Characteristic Name` in the results file, or `Parameter` in the data quality objectives files) can be the simple or WQX format as below.  The units can be any that apply for a given parameter. All entries are case-sensitive. 
+For many of the checks, parameter names and units need to match the following columns in the `params()` file included with the package.  Specifically parameter names (either `Characteristic Name` in the results file, or `Parameter` in the data quality objectives files) can be the simple or WQX format as below.  The units can be any that apply for a given parameter, although only one is allowed per parameter. All entries are case-sensitive. 
 
 ```{r, echo = F}
 params %>% 
-  select(`Simple Parameter`, `WQX Parameter`, `Acceptable Units` = `Units of measure`) %>% 
+  select(`Simple Parameter`, `WQX Parameter`, `Units of measure`) %>% 
   arrange(`Simple Parameter`) %>% 
   knitr::kable(.)
 ```
@@ -141,6 +141,7 @@ Data imported with `read_results()` are also formatted to take care of a few min
 -   **Fix date and time inputs**: Activity Start Date is converted to YYYY-MM-DD as a date object, Activity Start Time is converted to HH:MM as a character to fix artifacts from Excel import.
 -   **Create duplicate rows for entries in QC Reference Value**: This is done if a value is found in the QC Reference Value column by creating a "new" row with the same location, date, time, etc as the original but with an appropriate quality control entry for the Activity Type.
 -   **Minor formatting for Result Unit**: For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to `NA`. 
+-   **Convert characteristic Names**: All parameters in `Characteristic Name` are converted to `Simple Parameter` in `params()` as needed.
 
 ### Data quality objectives
 
@@ -180,6 +181,8 @@ Checks for completeness:
 -   **Non-numeric values**: Values entered in columns other than the first should be numeric
 -   **Values outside of 0 - 100**: Values entered in columns other than the first should not be outside of 0 and 100
 -   **Parameter**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` columns of the `params()` data
+
+For both the accuracy and completeness files,  all parameters in the `Parameter` column are converted to `Simple Parameter` in `params()` as needed.  This is done automatically using `form_dqoaccuracy()` and `form_dqocompleteness()` within the import functions.
 
 ### Site metadata
 
