@@ -136,7 +136,7 @@ Functions in MassWateR are organized around these topics.
 <h2 id="data-import-and-checks">Data import and checks<a class="anchor" aria-label="anchor" href="#data-import-and-checks"></a>
 </h2>
 <p>The MassWateR package is developed for quality control and exploratory analysis of surface water quality data. Before these analyses can occur, the data must be formatted correctly. This section describes how to import data and the expectations that are checked automatically by the functions.</p>
-<p>For many of the checks, parameter names and units need to match the following columns in the <code><a href="../reference/params.html">params()</a></code> file included with the package. Specifically parameter names (either <code>Characteristic Name</code> in the results file, or <code>Parameter</code> in the data quality objectives files) can be the simple or WQX format as below. The units can be any that apply for a given parameter. All entries are case-sensitive.</p>
+<p>For many of the checks, parameter names and units need to match the following columns in the <code><a href="../reference/params.html">params()</a></code> file included with the package. Specifically parameter names (either <code>Characteristic Name</code> in the results file, or <code>Parameter</code> in the data quality objectives files) can be the simple or WQX format as below. The units can be any that apply for a given parameter, although only one is allowed per parameter. All entries are case-sensitive.</p>
 <table class="table">
 <colgroup>
 <col width="15%">
@@ -146,7 +146,7 @@ Functions in MassWateR are organized around these topics.
 <thead><tr class="header">
 <th align="left">Simple Parameter</th>
 <th align="left">WQX Parameter</th>
-<th align="left">Acceptable Units</th>
+<th align="left">Units of measure</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -443,6 +443,8 @@ Functions in MassWateR are organized around these topics.
 <strong>Create duplicate rows for entries in QC Reference Value</strong>: This is done if a value is found in the QC Reference Value column by creating a “new” row with the same location, date, time, etc as the original but with an appropriate quality control entry for the Activity Type.</li>
 <li>
 <strong>Minor formatting for Result Unit</strong>: For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to <code>NA</code>.</li>
+<li>
+<strong>Convert characteristic Names</strong>: All parameters in <code>Characteristic Name</code> are converted to <code>Simple Parameter</code> in <code><a href="../reference/params.html">params()</a></code> as needed.</li>
 </ul>
 </div>
 <div class="section level3">
@@ -532,6 +534,7 @@ Functions in MassWateR are organized around these topics.
 <li>
 <strong>Parameter</strong>: Should match parameter names in the <code>Simple Parameter</code> or <code>WQX Parameter</code> columns of the <code><a href="../reference/params.html">params()</a></code> data</li>
 </ul>
+<p>For both the accuracy and completeness files, all parameters in the <code>Parameter</code> column are converted to <code>Simple Parameter</code> in <code><a href="../reference/params.html">params()</a></code> as needed. This is done automatically using <code><a href="../reference/form_dqoaccuracy.html">form_dqoaccuracy()</a></code> and <code><a href="../reference/form_dqocompleteness.html">form_dqocompleteness()</a></code> within the import functions.</p>
 </div>
 <div class="section level3">
 <h3 id="site-metadata">Site metadata<a class="anchor" aria-label="anchor" href="#site-metadata"></a>
