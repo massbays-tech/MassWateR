@@ -448,7 +448,7 @@ Functions in MassWateR are organized around these topics.
 <div class="section level3">
 <h3 id="data-quality-objectives">Data quality objectives<a class="anchor" aria-label="anchor" href="#data-quality-objectives"></a>
 </h3>
-<p>To use the quality control functions in MassWateR, Excel files that describe the data quality objectives for accuracy and completeness must be provided. The system files included with the package, described above, demonstrate the required information and format for these files. They can be imported into R using the <code><a href="../reference/read_acc.html">read_acc()</a></code> and <code><a href="../reference/read_frecom.html">read_frecom()</a></code> functions for the accuracy and completeness files, respectively. The <code>pth</code> argument will point to the location of the external files on your computer. As above, the system files included with the package are used for the examples.</p>
+<p>To use the quality control functions in MassWateR, Excel files that describe the data quality objectives for accuracy, frequency, and completeness must be provided. The system files included with the package, described above, demonstrate the required information and format for these files. They can be imported into R using the <code><a href="../reference/read_acc.html">read_acc()</a></code> and <code><a href="../reference/read_frecom.html">read_frecom()</a></code> functions for the accuracy, frequency, and completeness files. The <code>pth</code> argument will point to the location of the external files on your computer. As above, the system files included with the package are used for the examples.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># import data quality objectives for accuracy</span>
 <span class="va">accpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOAccuracy_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
@@ -477,10 +477,10 @@ Functions in MassWateR are organized around these topics.
 <span class="co">#&gt; <span style="color: #949494;"># … with 3 more variables: `Field Blank` &lt;chr&gt;, `Lab Blank` &lt;chr&gt;,</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   `Spike/Check Accuracy` &lt;dbl&gt;</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># import data quality objectives for completeness</span>
+<code class="sourceCode R"><span class="co"># import data quality objectives for frequency and completeness</span>
 <span class="va">frecompth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOFrequencyCompleteness_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
 <span class="va">frecomdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_frecom.html">read_frecom</a></span><span class="op">(</span><span class="va">frecompth</span><span class="op">)</span>
-<span class="co">#&gt; Running checks on data quality objectives for completeness...</span>
+<span class="co">#&gt; Running checks on data quality objectives for frequency and completeness...</span>
 <span class="co">#&gt;  Checking column names... OK</span>
 <span class="co">#&gt;  Checking all required columns are present... OK</span>
 <span class="co">#&gt;  Checking for non-numeric values... OK</span>
@@ -532,7 +532,7 @@ Functions in MassWateR are organized around these topics.
 <li>
 <strong>Parameter</strong>: Should match parameter names in the <code>Simple Parameter</code> or <code>WQX Parameter</code> columns of the <code><a href="../reference/params.html">params()</a></code> data</li>
 </ul>
-<p>For both the accuracy and completeness files, all parameters in the <code>Parameter</code> column are converted to <code>Simple Parameter</code> in <code><a href="../reference/params.html">params()</a></code> as needed. This is done automatically using <code><a href="../reference/form_acc.html">form_acc()</a></code> and <code><a href="../reference/form_frecom.html">form_frecom()</a></code> within the import functions.</p>
+<p>For all files, all parameters in the <code>Parameter</code> column are converted to <code>Simple Parameter</code> in <code><a href="../reference/params.html">params()</a></code> as needed. This is done automatically using <code><a href="../reference/form_acc.html">form_acc()</a></code> and <code><a href="../reference/form_frecom.html">form_frecom()</a></code> within the import functions.</p>
 </div>
 <div class="section level3">
 <h3 id="site-metadata">Site metadata<a class="anchor" aria-label="anchor" href="#site-metadata"></a>
