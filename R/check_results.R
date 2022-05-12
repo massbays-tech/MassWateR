@@ -11,7 +11,7 @@
 #'  \item{Activity Type: }{Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike}
 #'  \item{Date formats: }{Should be mm/dd/yyyy and parsed correctly on import}
 #'  \item{Time formats: }{Should be HH:MM and parsed correctly on import}
-#'  \item{Activity Relative Depth Name: }{Should be either Surface, Bottom, < 1m / 3.3ft or blank}
+#'  \item{Activity Relative Depth Name: }{Should be either Surface, Bottom, Midwater, Near Bottom, or blank}
 #'  \item{Characteristic Name: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{params}} data}
 #'  \item{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
 #'  \item{QC Reference Value: }{Should be a numeric value or a text value as AQL or BDL}
@@ -45,7 +45,7 @@ check_results <- function(resdat){
   acttyp <- c("Field Msr/Obs", "Sample-Routine", "Quality Control Sample-Field Blank", 
               "Quality Control Sample-Lab Blank", "Quality Control Sample-Lab Duplicate", 
               "Quality Control Sample-Lab Spike")
-  dpstyp <- c('Surface', 'Bottom', '< 1m / 3.3ft', NA)
+  dpstyp <- c('Surface', 'Bottom', 'Midwater', 'Bottom', NA)
   chntyp <- sort(unique(c(params$`Simple Parameter`, params$`WQX Parameter`)))
   restyp <- c('AQL', 'BDL')
 
