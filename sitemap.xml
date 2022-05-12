@@ -28,10 +28,10 @@
     <loc>https://massbays-tech.github.io/MassWateR/index.html</loc>
   </url>
   <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/check_dqoaccuracy.html</loc>
+    <loc>https://massbays-tech.github.io/MassWateR/reference/check_acc.html</loc>
   </url>
   <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/check_dqocompleteness.html</loc>
+    <loc>https://massbays-tech.github.io/MassWateR/reference/check_frecom.html</loc>
   </url>
   <url>
     <loc>https://massbays-tech.github.io/MassWateR/reference/check_results.html</loc>
@@ -40,10 +40,10 @@
     <loc>https://massbays-tech.github.io/MassWateR/reference/check_sites.html</loc>
   </url>
   <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/form_dqoaccuracy.html</loc>
+    <loc>https://massbays-tech.github.io/MassWateR/reference/form_acc.html</loc>
   </url>
   <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/form_dqocompleteness.html</loc>
+    <loc>https://massbays-tech.github.io/MassWateR/reference/form_frecom.html</loc>
   </url>
   <url>
     <loc>https://massbays-tech.github.io/MassWateR/reference/form_results.html</loc>
@@ -58,10 +58,10 @@
     <loc>https://massbays-tech.github.io/MassWateR/reference/qc_completeness.html</loc>
   </url>
   <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/read_dqoaccuracy.html</loc>
+    <loc>https://massbays-tech.github.io/MassWateR/reference/read_acc.html</loc>
   </url>
   <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/read_dqocompleteness.html</loc>
+    <loc>https://massbays-tech.github.io/MassWateR/reference/read_frecom.html</loc>
   </url>
   <url>
     <loc>https://massbays-tech.github.io/MassWateR/reference/read_results.html</loc>

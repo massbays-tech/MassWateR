@@ -97,7 +97,7 @@ Functions in MassWateR are organized around these topics.
 <p>Three types of data are used with the package. All types should be provided to make best use of the functions:</p>
 <ol style="list-style-type: decimal">
 <li>Water quality <strong>results</strong> organized by sample location and date.</li>
-<li>Summary of data quality objectives that describe quality control <strong>accuracy</strong> and <strong>completeness</strong> measures for data in the results file.</li>
+<li>Summary of data quality objectives that describe quality control <strong>accuracy</strong>, <strong>frequency</strong>, and <strong>completeness</strong> measures for data in the results file.</li>
 <li>A <strong>site metadata</strong> file, including location names, latitude, longitude, and additional grouping factors for sites.</li>
 </ol>
 <p>The input data should follow standard formats for the WQX network. Example files, described below, are provided with the package to demonstrate the appropriate formats.</p>
@@ -126,7 +126,7 @@ Functions in MassWateR are organized around these topics.
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOAccuracy_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></code></pre></div>
 <p>The data quality objectives file for completeness:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOCompleteness_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOFrequencyCompleteness_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></code></pre></div>
 <p>The site metadata file:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleSites_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></code></pre></div>
@@ -393,7 +393,7 @@ Functions in MassWateR are organized around these topics.
 <span class="co">#&gt; <span style="color: #949494;">#   `Characteristic Name` &lt;chr&gt;, `Result Value` &lt;chr&gt;, `Result Unit` &lt;chr&gt;,</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   `Quantitation Limit` &lt;chr&gt;, `QC Reference Value` &lt;chr&gt;,</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   `Result Measure Qualifier` &lt;chr&gt;, `Result Attribute` &lt;chr&gt;</span></span></code></pre></div>
-<p>Several checks are run automatically when the data are imported. These checks are as follows (also viewed from the help file for <code><a href="../reference/check_results.html">check_results()</a></code>:</p>
+<p>Several checks are run automatically when the data are imported. These file checks are as follows (also viewed from the help file for <code><a href="../reference/check_results.html">check_results()</a></code>:</p>
 <ul>
 <li>
 <strong>Column name spelling</strong>: Should be the following: Monitoring Location ID, Activity Type, Activity Start Date, Activity Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit, Activity Relative Depth Name, Characteristic Name, Result Value, Result Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier, Result Attribute.</li>
@@ -448,11 +448,11 @@ Functions in MassWateR are organized around these topics.
 <div class="section level3">
 <h3 id="data-quality-objectives">Data quality objectives<a class="anchor" aria-label="anchor" href="#data-quality-objectives"></a>
 </h3>
-<p>To use the quality control functions in MassWateR, Excel files that describe the data quality objectives for accuracy and completeness must be provided. The system files included with the package, described above, demonstrate the required information and format for these files. They can be imported into R using the <code><a href="../reference/read_dqoaccuracy.html">read_dqoaccuracy()</a></code> and <code><a href="../reference/read_dqocompleteness.html">read_dqocompleteness()</a></code> functions for the accuracy and completeness files, respectively. The <code>pth</code> argument will point to the location of the external files on your computer. As above, the system files included with the package are used for the examples.</p>
+<p>To use the quality control functions in MassWateR, Excel files that describe the data quality objectives for accuracy and completeness must be provided. The system files included with the package, described above, demonstrate the required information and format for these files. They can be imported into R using the <code><a href="../reference/read_acc.html">read_acc()</a></code> and <code><a href="../reference/read_frecom.html">read_frecom()</a></code> functions for the accuracy and completeness files, respectively. The <code>pth</code> argument will point to the location of the external files on your computer. As above, the system files included with the package are used for the examples.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># import data quality objectives for accuracy</span>
-<span class="va">dqoaccpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOAccuracy_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
-<span class="va">dqoaccdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_dqoaccuracy.html">read_dqoaccuracy</a></span><span class="op">(</span><span class="va">dqoaccpth</span><span class="op">)</span>
+<span class="va">accpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOAccuracy_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
+<span class="va">accdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_acc.html">read_acc</a></span><span class="op">(</span><span class="va">accpth</span><span class="op">)</span>
 <span class="co">#&gt; Running checks on data quality objectives for accuracy...</span>
 <span class="co">#&gt;  Checking column names... OK</span>
 <span class="co">#&gt;  Checking all required columns are present... OK</span>
@@ -464,7 +464,7 @@ Functions in MassWateR are organized around these topics.
 <span class="co">#&gt;  Checking acceptable units (uom) for each entry in Parameter... OK</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; All checks passed!</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dqoaccdat</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">accdat</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 10</span></span>
 <span class="co">#&gt;   Parameter    uom     MDL   UQL `Value Range` `Field Duplicate` `Lab Duplicate`</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
@@ -478,8 +478,8 @@ Functions in MassWateR are organized around these topics.
 <span class="co">#&gt; <span style="color: #949494;">#   `Spike/Check Accuracy` &lt;dbl&gt;</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># import data quality objectives for completeness</span>
-<span class="va">dqocompth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOCompleteness_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
-<span class="va">dqocomdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_dqocompleteness.html">read_dqocompleteness</a></span><span class="op">(</span><span class="va">dqocompth</span><span class="op">)</span>
+<span class="va">frecompth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOFrequencyCompleteness_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
+<span class="va">frecomdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_frecom.html">read_frecom</a></span><span class="op">(</span><span class="va">frecompth</span><span class="op">)</span>
 <span class="co">#&gt; Running checks on data quality objectives for completeness...</span>
 <span class="co">#&gt;  Checking column names... OK</span>
 <span class="co">#&gt;  Checking all required columns are present... OK</span>
@@ -488,7 +488,7 @@ Functions in MassWateR are organized around these topics.
 <span class="co">#&gt;  Checking Parameter formats... OK</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; All checks passed!</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dqocomdat</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">frecomdat</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span>
 <span class="co">#&gt;   Parameter    `Field Duplicate` `Lab Duplicate` `Field Blank` `Lab Blank`</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -499,8 +499,8 @@ Functions in MassWateR are organized around these topics.
 <span class="co">#&gt; <span style="color: #BCBCBC;">5</span> TSS                         10               5            10           5</span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">6</span> TP                          10               5            10           5</span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 2 more variables: `Spike/Check Accuracy` &lt;dbl&gt;, `% Completeness` &lt;dbl&gt;</span></span></code></pre></div>
-<p>Both the <code><a href="../reference/read_dqoaccuracy.html">read_dqoaccuracy()</a></code> and <code><a href="../reference/read_dqocompleteness.html">read_dqocompleteness()</a></code> functions will run a series of checks to ensure the imported data are formatted correctly. The <code><a href="../reference/check_dqoaccuracy.html">check_dqoaccuracy()</a></code> and <code><a href="../reference/check_dqocompleteness.html">check_dqocompleteness()</a></code> functions run these checks when the <code><a href="../reference/read_dqoaccuracy.html">read_dqoaccuracy()</a></code> and <code><a href="../reference/read_dqocompleteness.html">read_dqocompleteness()</a></code> functions are executed, respectively. The checks for each are as follows.</p>
-<p>Checks for accuracy:</p>
+<p>Both the <code><a href="../reference/read_acc.html">read_acc()</a></code> and <code><a href="../reference/read_frecom.html">read_frecom()</a></code> functions will run a series of checks to ensure the imported data are formatted correctly. The <code><a href="../reference/check_acc.html">check_acc()</a></code> and <code><a href="../reference/check_frecom.html">check_frecom()</a></code> functions run these checks when the <code><a href="../reference/read_acc.html">read_acc()</a></code> and <code><a href="../reference/read_frecom.html">read_frecom()</a></code> functions are executed, respectively. The checks for each are as follows.</p>
+<p>File checks for accuracy:</p>
 <ul>
 <li>
 <strong>Column name spelling</strong>: Should be the following: Parameter, uom, MDL, UQL, Value Range, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy</li>
@@ -519,7 +519,7 @@ Functions in MassWateR are organized around these topics.
 <li>
 <strong>Correct units</strong>: Each unique <code>Parameter</code> should have an entry in the units (<code>uom</code>) that matches one of the acceptable values in the <code>Units of measure</code> column of the <code><a href="../reference/params.html">params()</a></code> data, see the table above.</li>
 </ul>
-<p>Checks for completeness:</p>
+<p>File checks for frequency and completeness:</p>
 <ul>
 <li>
 <strong>Column name spelling</strong>: Should be the following: Parameter, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy, % Completeness</li>
@@ -532,7 +532,7 @@ Functions in MassWateR are organized around these topics.
 <li>
 <strong>Parameter</strong>: Should match parameter names in the <code>Simple Parameter</code> or <code>WQX Parameter</code> columns of the <code><a href="../reference/params.html">params()</a></code> data</li>
 </ul>
-<p>For both the accuracy and completeness files, all parameters in the <code>Parameter</code> column are converted to <code>Simple Parameter</code> in <code><a href="../reference/params.html">params()</a></code> as needed. This is done automatically using <code><a href="../reference/form_dqoaccuracy.html">form_dqoaccuracy()</a></code> and <code><a href="../reference/form_dqocompleteness.html">form_dqocompleteness()</a></code> within the import functions.</p>
+<p>For both the accuracy and completeness files, all parameters in the <code>Parameter</code> column are converted to <code>Simple Parameter</code> in <code><a href="../reference/params.html">params()</a></code> as needed. This is done automatically using <code><a href="../reference/form_acc.html">form_acc()</a></code> and <code><a href="../reference/form_frecom.html">form_frecom()</a></code> within the import functions.</p>
 </div>
 <div class="section level3">
 <h3 id="site-metadata">Site metadata<a class="anchor" aria-label="anchor" href="#site-metadata"></a>
@@ -563,7 +563,7 @@ Functions in MassWateR are organized around these topics.
 <span class="co">#&gt; <span style="color: #BCBCBC;">5</span> ABT-047                  Damonmill dam                   42.5            -<span style="color: #BB0000;">71.4</span></span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ABT-062                  Rte 62, Acton                   42.4            -<span style="color: #BB0000;">71.4</span></span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 1 more variable: `Location Group` &lt;chr&gt;</span></span></code></pre></div>
-<p>The <code><a href="../reference/read_sites.html">read_sites()</a></code> functions runs several checks on the file using the <code><a href="../reference/check_sites.html">check_sites()</a></code> function. Most of the checks are to ensure the latitude and longitude data are present and properly formatted. It is assumed that latitude and longitude data are entered in decimal degrees. The projection can be entered in other functions used in exploratory analysis. Details on the checks are as follows:</p>
+<p>The <code><a href="../reference/read_sites.html">read_sites()</a></code> functions runs several checks on the file using the <code><a href="../reference/check_sites.html">check_sites()</a></code> function. Most of the checks are to ensure the latitude and longitude data are present and properly formatted. It is assumed that latitude and longitude data are entered in decimal degrees. The projection can be entered in other functions used in exploratory analysis. Details on the file checks are as follows:</p>
 <ul>
 <li>
 <strong>Column name spelling</strong>: Should be the following: Monitoring Location ID, Monitoring Location Name, Monitoring Location Latitude, Monitoring Location Longitude, Location Group</li>
