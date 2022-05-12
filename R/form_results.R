@@ -7,7 +7,6 @@
 #' 
 #' \itemize{
 #'   \item{Fix date and time inputs: }{Activity Start Date is converted to YYYY-MM-DD as a date object, Actvity Start Time is convered to HH:MM as a character to fix artifacts from Excel import},
-#'   \item{Create duplicate rows for entries in QC Reference Value: }{This is done if a value is found in the QC Reference Value column by creating a "new" row with the same location, date, time, etc as the original but with an appropriate quality control entry for the Activity Type}
 #'   \item{Minor formatting for Result Unit: }{For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to NA}
 #'   \item{Convert characteristic names: }{All parameters in \code{Characteristic Name} are converted to \code{Simple Parameter} in \code{\link{params}} as needed}
 #' }
@@ -35,28 +34,28 @@ form_results <- function(resdat, tzone = 'America/Jamaica'){
       `Activity Start Time` = gsub(':00$', '', `Activity Start Time`)
     )
 
-  # create quality control rows found in QC Reference Value
-  qrws <- out %>% 
-    filter(!is.na(`QC Reference Value`)) %>% 
-    mutate(
-      `Result Value` = `QC Reference Value`, 
-      `Activity Type` = case_when(
-        `Activity Type` == 'Field Msr/Obs' ~ 'Quality Control Field Replicate Msr/Obs', 
-        `Activity Type` == 'Sample-Routine' ~ 'Quality Control Sample-Field Replicate', 
-        `Activity Type` == 'Quality Control Sample-Field Blank' ~ NA_character_, 
-        `Activity Type` == 'Quality Control Sample-Lab Duplicate' ~ 'Quality Control Sample-Lab Duplicate', 
-        `Activity Type` == 'Quality Control Sample-Lab Blank' ~ NA_character_, 
-        `Activity Type` == 'Quality Control Sample-Lab Spike' ~ 'Quality Control Sample-Reference Sample' 
-      ),
-      `QC Reference Value` = gsub('[[:digit:]]+', NA_character_, `QC Reference Value`)
-    )
-  
-  # append new quality control rows, remove values in QC Reference Value
-  out <- out %>% 
-    mutate(
-      `QC Reference Value` = NA_character_
-    ) %>% 
-    bind_rows(qrws) 
+  # # create quality control rows found in QC Reference Value
+  # qrws <- out %>% 
+  #   filter(!is.na(`QC Reference Value`)) %>% 
+  #   mutate(
+  #     `Result Value` = `QC Reference Value`, 
+  #     `Activity Type` = case_when(
+  #       `Activity Type` == 'Field Msr/Obs' ~ 'Quality Control Field Replicate Msr/Obs', 
+  #       `Activity Type` == 'Sample-Routine' ~ 'Quality Control Sample-Field Replicate', 
+  #       `Activity Type` == 'Quality Control Sample-Field Blank' ~ NA_character_, 
+  #       `Activity Type` == 'Quality Control Sample-Lab Duplicate' ~ 'Quality Control Sample-Lab Duplicate', 
+  #       `Activity Type` == 'Quality Control Sample-Lab Blank' ~ NA_character_, 
+  #       `Activity Type` == 'Quality Control Sample-Lab Spike' ~ 'Quality Control Sample-Reference Sample' 
+  #     ),
+  #     `QC Reference Value` = gsub('[[:digit:]]+', NA_character_, `QC Reference Value`)
+  #   )
+  # 
+  # # append new quality control rows, remove values in QC Reference Value
+  # out <- out %>% 
+  #   mutate(
+  #     `QC Reference Value` = NA_character_
+  #   ) %>% 
+  #   bind_rows(qrws) 
   
   # convert ph s.u. to NA, salinity ppt to ppth 
   out <- out %>% 

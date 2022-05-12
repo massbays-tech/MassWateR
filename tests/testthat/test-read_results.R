@@ -7,5 +7,5 @@ test_that("Checking row length from read_results", {
   
   # form_results adds extra rows if values in QC Reference Value 
   result <- nrow(read_results(respth))
-  expect_equal(result, 2653)
+  expect_equal(result, 2586)
 })

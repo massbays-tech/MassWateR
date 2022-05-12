@@ -139,7 +139,6 @@ check_results(chk)
 Data imported with `read_results()` are also formatted to take care of a few minor issues for downstream analysis. This formatting includes:
 
 -   **Fix date and time inputs**: Activity Start Date is converted to YYYY-MM-DD as a date object, Activity Start Time is converted to HH:MM as a character to fix artifacts from Excel import.
--   **Create duplicate rows for entries in QC Reference Value**: This is done if a value is found in the QC Reference Value column by creating a "new" row with the same location, date, time, etc as the original but with an appropriate quality control entry for the Activity Type.
 -   **Minor formatting for Result Unit**: For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to `NA`. 
 -   **Convert characteristic Names**: All parameters in `Characteristic Name` are converted to `Simple Parameter` in `params()` as needed.
 

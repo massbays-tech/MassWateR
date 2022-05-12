@@ -54,7 +54,6 @@ A second table showing the percentage of observations in the results file that s
 tab_completeness(res = resdat, dqocom = dqocomdat, type = 'percent')
 ```
 
-
 The `tab_completeness()` function uses the `qc_completeness()` function internally to create the required tables.  This function creates the raw summaries of completeness from the input data.  Typically, `qc_completeness()` is not used by itself because it is used internally by `tab_completeness()`.  It is explained here to demonstrate how the raw summaries can be obtained, if desired. 
 
 Below, the `qc_completeness()` function is executed with the data frames for the results and quality objectives file for completeness.  The warnings and checks are supressed. 
