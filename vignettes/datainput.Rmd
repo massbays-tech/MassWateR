@@ -23,17 +23,17 @@ library(dplyr)
 
 The MassWateR R package is developed to work with surface water monitoring data collected by watershed associations and citizen science groups in Massachusetts. The package is created in collaboration with the [Massachusetts Bays National Estuary Partnership](https://www.mass.gov/orgs/massachusetts-bays-national-estuary-partnership) with funding from an EPA Exchange Network Grant.
 
-The objective of the package is to automate and facilitate quality control and exploratory analysis of data intended for upload to the EPA [Water Quality Exchange](https://www.epa.gov/waterdata/water-quality-data) (WQX). The functions provide a streamlined and repeatable means of 1) screening data for quality control, 2) interpreting data, and 3) creating graphics for analysis and reports to stakeholders. Miscellaneous formatting tools are also available to facilitate data upload to WQZ. The functions are organized around these topics, shown below.
+The objective of the package is to automate and facilitate quality control and exploratory analysis of data intended for upload to the EPA [Water Quality Exchange](https://www.epa.gov/waterdata/water-quality-data) (WQX). The functions provide a streamlined and repeatable means of 1) screening data for quality control, 2) interpreting data, and 3) creating graphics for analysis and reports to stakeholders. Miscellaneous formatting tools are also available to facilitate data upload to WQX. The functions are organized around these topics, shown below.
 
 ```{r workflow, out.width = '100%', echo = F, fig.cap = 'Functions in MassWateR are organized around these topics.'}
 knitr::include_graphics('workflow.PNG')
 ```
 
-Three types of data can be used with the package. All types should be provided to make best use of the functions, although not all are required.
+Three types of data are used with the package. All types should be provided to make best use of the functions:
 
 1.  Water quality **results** organized by sample location and date.
 2.  Summary of data quality objectives that describe quality control **accuracy** and **completeness** measures for data in the results file.
-3.  An optional file of **site metadata**, including location names, latitude, longitude, and additional grouping factors for sites.
+3.  A **site metadata** file, including location names, latitude, longitude, and additional grouping factors for sites.
 
 The input data should follow standard formats for the WQX network. Example files, described below, are provided with the package to demonstrate the appropriate formats.
 
@@ -83,7 +83,7 @@ The site metadata file:
 system.file('extdata/ExampleSites_final.xlsx', package = 'MassWateR')
 ```
 
-The example files are provided to demonstrate how the functions in MassWateR are used. In practice, alternative data files that follow the same format as the examples can be used with the functions. There are several checks included in the data import functions to ensure the files are formatted correctly for downstream use. If any of the checks fail, an error message will be returned that prompts the necessary changes that must be made to the Excel file before the data can be used.  The checks can be suppressed by setting `runchk = FALSE` in the import functions.  These checks are described in the next section.
+The example files are provided to demonstrate how the functions in MassWateR are used. In practice, alternative data files that follow the same format as the examples will be used with the functions. There are several checks included in the data import functions to ensure the files are formatted correctly for downstream use. If any of the checks fail, an error message will be returned that prompts the necessary changes that must be made to the Excel file before the data can be used.  The checks can be suppressed by setting `runchk = FALSE` in the import functions.  These checks are described in the next section.
 
 ## Data import and checks
 
@@ -100,7 +100,7 @@ params %>%
 
 ### Surface water quality results
 
-First, the surface water quality results can be imported with the `read_results()` function. This is designed to import an Excel file external to R, run checks on the data, and provide some minor formatting for downstream quality control or exploratory analysis. In this example, the system file `ExampleResults_final.xlsx` is imported. In practice, the `pth` argument will point to an alternative external file in the WQX format.  Note that `runchk = TRUE` is set to run the checks on data import.  This is the default setting and it is not necessary to explicitly set this argument on import.
+First, the surface water quality results can be imported with the `read_results()` function. This is designed to import an Excel file external to R, run checks on the data, and provide some minor formatting for downstream quality control or exploratory analysis. In this example, the system file `ExampleResults_final.xlsx` is imported. In practice, the `pth` argument will point to an external file in the WQX format.  Note that `runchk = TRUE` is set to run the checks on data import.  This is the default setting and it is not necessary to explicitly set this argument on import.
 
 ```{r, message = T}
 respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
