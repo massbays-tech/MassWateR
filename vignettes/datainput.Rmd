@@ -144,7 +144,7 @@ Data imported with `read_results()` are also formatted to take care of a few min
 
 ### Data quality objectives
 
-To use the quality control functions in MassWateR, Excel files that describe the data quality objectives for accuracy and completeness must be provided. The system files included with the package, described above, demonstrate the required information and format for these files. They can be imported into R using the `read_acc()` and `read_frecom()` functions for the accuracy and completeness files, respectively. The `pth` argument will point to the location of the external files on your computer. As above, the system files included with the package are used for the examples.
+To use the quality control functions in MassWateR, Excel files that describe the data quality objectives for accuracy, frequency, and completeness must be provided. The system files included with the package, described above, demonstrate the required information and format for these files. They can be imported into R using the `read_acc()` and `read_frecom()` functions for the accuracy, frequency, and completeness files. The `pth` argument will point to the location of the external files on your computer. As above, the system files included with the package are used for the examples.
 
 ```{r, message = T}
 # import data quality objectives for accuracy
@@ -154,7 +154,7 @@ head(accdat)
 ```
 
 ```{r, message = T}
-# import data quality objectives for completeness
+# import data quality objectives for frequency and completeness
 frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness_final.xlsx', package = 'MassWateR')
 frecomdat <- read_frecom(frecompth)
 head(frecomdat)
@@ -181,7 +181,7 @@ File checks for frequency and completeness:
 -   **Values outside of 0 - 100**: Values entered in columns other than the first should not be outside of 0 and 100
 -   **Parameter**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` columns of the `params()` data
 
-For both the accuracy and completeness files,  all parameters in the `Parameter` column are converted to `Simple Parameter` in `params()` as needed.  This is done automatically using `form_acc()` and `form_frecom()` within the import functions.
+For all files,  all parameters in the `Parameter` column are converted to `Simple Parameter` in `params()` as needed.  This is done automatically using `form_acc()` and `form_frecom()` within the import functions.
 
 ### Site metadata
 

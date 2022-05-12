@@ -1,6 +1,6 @@
-#' Format data quality objective completeness data
+#' Format data quality objective frequency and completeness data
 #'
-#' @param frecomdat input data fram
+#' @param frecomdat input data frame
 #'
 #' @details This function is used internally within \code{\link{read_frecom}} to format the input data for downstream analysis.  The formatting includes:
 #' 

@@ -1,8 +1,8 @@
-#' Check data quality objective completeness data
+#' Check data quality objective frequency and completeness data
 #'
 #' @param frecomdat input data frame
 #'
-#' @details This function is used internally within \code{\link{read_frecom}} to run several checks on the input data for completeness and conformance to WQX requirements
+#' @details This function is used internally within \code{\link{read_frecom}} to run several checks on the input data for frequency and completeness and conformance to WQX requirements
 #' 
 #' The following checks are made: 
 #' \itemize{
@@ -32,7 +32,7 @@
 #' check_frecom(frecomdat)
 check_frecom <- function(frecomdat){
   
-  message('Running checks on data quality objectives for completeness...\n')
+  message('Running checks on data quality objectives for frequency and completeness...\n')
   
   # globals
   colnms <- c("Parameter", "Field Duplicate", "Lab Duplicate", "Field Blank", 

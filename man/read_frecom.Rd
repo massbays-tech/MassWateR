@@ -2,20 +2,20 @@
 % Please edit documentation in R/read_frecom.R
 \name{read_frecom}
 \alias{read_frecom}
-\title{Read data quality objectives for completeness from an external file}
+\title{Read data quality objectives for frequency and completeness from an external file}
 \usage{
 read_frecom(frecompth, runchk = TRUE)
 }
 \arguments{
-\item{frecompth}{character string of path to the data quality objectives file for completeness}
+\item{frecompth}{character string of path to the data quality objectives file for frequency and completeness}
 
 \item{runchk}{logical to run data checks with \code{\link{check_frecom}}}
 }
 \value{
-A formatted data frame of data quality objectives for completeness that can be used for downstream analysis
+A formatted data frame of data quality objectives for frequency and completeness that can be used for downstream analysis
 }
 \description{
-Read data quality objectives for completeness from an external file
+Read data quality objectives for frequency and completeness from an external file
 }
 \details{
 Data are imported with \code{\link[readxl]{read_excel}} and checked with \code{\link{check_frecom}}.

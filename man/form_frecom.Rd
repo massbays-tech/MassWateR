@@ -2,15 +2,15 @@
 % Please edit documentation in R/form_frecom.R
 \name{form_frecom}
 \alias{form_frecom}
-\title{Format data quality objective completeness data}
+\title{Format data quality objective frequency and completeness data}
 \usage{
 form_frecom(frecomdat)
 }
 \arguments{
-\item{frecomdat}{input data fram}
+\item{frecomdat}{input data frame}
 }
 \description{
-Format data quality objective completeness data
+Format data quality objective frequency and completeness data
 }
 \details{
 This function is used internally within \code{\link{read_frecom}} to format the input data for downstream analysis.  The formatting includes:

@@ -2,7 +2,7 @@
 % Please edit documentation in R/check_frecom.R
 \name{check_frecom}
 \alias{check_frecom}
-\title{Check data quality objective completeness data}
+\title{Check data quality objective frequency and completeness data}
 \usage{
 check_frecom(frecomdat)
 }
@@ -13,10 +13,10 @@ check_frecom(frecomdat)
 \code{frecomdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding.
 }
 \description{
-Check data quality objective completeness data
+Check data quality objective frequency and completeness data
 }
 \details{
-This function is used internally within \code{\link{read_frecom}} to run several checks on the input data for completeness and conformance to WQX requirements
+This function is used internally within \code{\link{read_frecom}} to run several checks on the input data for frequency and completeness and conformance to WQX requirements
 
 The following checks are made:
 \itemize{

@@ -1,9 +1,9 @@
-#' Read data quality objectives for completeness from an external file
+#' Read data quality objectives for frequency and completeness from an external file
 #'
-#' @param frecompth character string of path to the data quality objectives file for completeness
+#' @param frecompth character string of path to the data quality objectives file for frequency and completeness
 #' @param runchk logical to run data checks with \code{\link{check_frecom}}
 #'
-#' @return A formatted data frame of data quality objectives for completeness that can be used for downstream analysis
+#' @return A formatted data frame of data quality objectives for frequency and completeness that can be used for downstream analysis
 #' 
 #' @details Data are imported with \code{\link[readxl]{read_excel}} and checked with \code{\link{check_frecom}}.
 #' 
