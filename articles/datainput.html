@@ -88,17 +88,17 @@
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
 <p>The MassWateR R package is developed to work with surface water monitoring data collected by watershed associations and citizen science groups in Massachusetts. The package is created in collaboration with the <a href="https://www.mass.gov/orgs/massachusetts-bays-national-estuary-partnership" class="external-link">Massachusetts Bays National Estuary Partnership</a> with funding from an EPA Exchange Network Grant.</p>
-<p>The objective of the package is to automate and facilitate quality control and exploratory analysis of data intended for upload to the EPA <a href="https://www.epa.gov/waterdata/water-quality-data" class="external-link">Water Quality Exchange</a> (WQX). The functions provide a streamlined and repeatable means of 1) screening data for quality control, 2) interpreting data, and 3) creating graphics for analysis and reports to stakeholders. Miscellaneous formatting tools are also available to facilitate data upload to WQZ. The functions are organized around these topics, shown below.</p>
+<p>The objective of the package is to automate and facilitate quality control and exploratory analysis of data intended for upload to the EPA <a href="https://www.epa.gov/waterdata/water-quality-data" class="external-link">Water Quality Exchange</a> (WQX). The functions provide a streamlined and repeatable means of 1) screening data for quality control, 2) interpreting data, and 3) creating graphics for analysis and reports to stakeholders. Miscellaneous formatting tools are also available to facilitate data upload to WQX. The functions are organized around these topics, shown below.</p>
 <div class="figure" style="text-align: center">
 <img src="workflow.PNG" alt="Functions in MassWateR are organized around these topics." width="100%"><p class="caption">
 Functions in MassWateR are organized around these topics.
 </p>
 </div>
-<p>Three types of data can be used with the package. All types should be provided to make best use of the functions, although not all are required.</p>
+<p>Three types of data are used with the package. All types should be provided to make best use of the functions:</p>
 <ol style="list-style-type: decimal">
 <li>Water quality <strong>results</strong> organized by sample location and date.</li>
 <li>Summary of data quality objectives that describe quality control <strong>accuracy</strong> and <strong>completeness</strong> measures for data in the results file.</li>
-<li>An optional file of <strong>site metadata</strong>, including location names, latitude, longitude, and additional grouping factors for sites.</li>
+<li>A <strong>site metadata</strong> file, including location names, latitude, longitude, and additional grouping factors for sites.</li>
 </ol>
 <p>The input data should follow standard formats for the WQX network. Example files, described below, are provided with the package to demonstrate the appropriate formats.</p>
 </div>
@@ -130,7 +130,7 @@ Functions in MassWateR are organized around these topics.
 <p>The site metadata file:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleSites_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></code></pre></div>
-<p>The example files are provided to demonstrate how the functions in MassWateR are used. In practice, alternative data files that follow the same format as the examples can be used with the functions. There are several checks included in the data import functions to ensure the files are formatted correctly for downstream use. If any of the checks fail, an error message will be returned that prompts the necessary changes that must be made to the Excel file before the data can be used. The checks can be suppressed by setting <code>runchk = FALSE</code> in the import functions. These checks are described in the next section.</p>
+<p>The example files are provided to demonstrate how the functions in MassWateR are used. In practice, alternative data files that follow the same format as the examples will be used with the functions. There are several checks included in the data import functions to ensure the files are formatted correctly for downstream use. If any of the checks fail, an error message will be returned that prompts the necessary changes that must be made to the Excel file before the data can be used. The checks can be suppressed by setting <code>runchk = FALSE</code> in the import functions. These checks are described in the next section.</p>
 </div>
 <div class="section level2">
 <h2 id="data-import-and-checks">Data import and checks<a class="anchor" aria-label="anchor" href="#data-import-and-checks"></a>
@@ -359,7 +359,7 @@ Functions in MassWateR are organized around these topics.
 <div class="section level3">
 <h3 id="surface-water-quality-results">Surface water quality results<a class="anchor" aria-label="anchor" href="#surface-water-quality-results"></a>
 </h3>
-<p>First, the surface water quality results can be imported with the <code><a href="../reference/read_results.html">read_results()</a></code> function. This is designed to import an Excel file external to R, run checks on the data, and provide some minor formatting for downstream quality control or exploratory analysis. In this example, the system file <code>ExampleResults_final.xlsx</code> is imported. In practice, the <code>pth</code> argument will point to an alternative external file in the WQX format. Note that <code>runchk = TRUE</code> is set to run the checks on data import. This is the default setting and it is not necessary to explicitly set this argument on import.</p>
+<p>First, the surface water quality results can be imported with the <code><a href="../reference/read_results.html">read_results()</a></code> function. This is designed to import an Excel file external to R, run checks on the data, and provide some minor formatting for downstream quality control or exploratory analysis. In this example, the system file <code>ExampleResults_final.xlsx</code> is imported. In practice, the <code>pth</code> argument will point to an external file in the WQX format. Note that <code>runchk = TRUE</code> is set to run the checks on data import. This is the default setting and it is not necessary to explicitly set this argument on import.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleResults_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
 <span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_results.html">read_results</a></span><span class="op">(</span><span class="va">respth</span>, runchk <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
