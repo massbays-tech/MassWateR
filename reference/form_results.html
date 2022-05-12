@@ -69,7 +69,6 @@
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This function is used internally within <code><a href="read_results.html">read_results</a></code> to format the input data for downstream analysis.  The formatting includes:</p>
 <ul><li><p>Fix date and time inputs: Activity Start Date is converted to YYYY-MM-DD as a date object, Actvity Start Time is convered to HH:MM as a character to fix artifacts from Excel import,</p></li>
-<li><p>Create duplicate rows for entries in QC Reference Value: This is done if a value is found in the QC Reference Value column by creating a "new" row with the same location, date, time, etc as the original but with an appropriate quality control entry for the Activity Type</p></li>
 <li><p>Minor formatting for Result Unit: For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to NA</p></li>
 <li><p>Convert characteristic names: All parameters in <code>Characteristic Name</code> are converted to <code>Simple Parameter</code> in <code><a href="params.html">params</a></code> as needed</p></li>
 </ul></div>
@@ -82,7 +81,7 @@
 <span class="r-in">  col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'text'</span>, <span class="st">'text'</span>, <span class="st">'date'</span>, <span class="st">'date'</span>, <span class="st">'text'</span>, <span class="st">'text'</span>, <span class="st">'text'</span>, <span class="st">'text'</span>, <span class="st">'text'</span>, <span class="st">'text'</span>, </span>
 <span class="r-in">             <span class="st">'text'</span>, <span class="st">'text'</span>, <span class="st">'text'</span>, <span class="st">'text'</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">form_results</span><span class="op">(</span><span class="va">resdat</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2,653 × 14</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2,586 × 14</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    `Monitoring Location ID` `Activity Type` `Activity Start D…` `Activity Star…`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> HBS-016                  Field Msr/Obs   2021-01-14          09:22           </span>
@@ -95,7 +94,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> LND-007                  Sample-Routine  2021-01-14          09:50           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> HBS-031                  Field Msr/Obs   2021-01-14          10:05           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> LND-007                  Field Msr/Obs   2021-02-15          09:16           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 2,643 more rows, and 10 more variables:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 2,576 more rows, and 10 more variables:</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Activity Depth/Height Measure` &lt;chr&gt;, `Activity Depth/Height Unit` &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Activity Relative Depth Name` &lt;chr&gt;, `Characteristic Name` &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Value` &lt;chr&gt;, `Result Unit` &lt;chr&gt;, `Quantitation Limit` &lt;chr&gt;,</span></span>
