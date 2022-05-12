@@ -1,11 +1,11 @@
 #' Run quality control completeness checks for water quality monitoring results
 #'
 #' @param res character string of path to eresults file or \code{data.frame} for results returned by \code{\link{read_results}}
-#' @param dqocom character string of path to the data quality objectives file for completeness or \code{data.frame} returned by \code{\link{read_dqocompleteness}}
-#' @param runchk  logical to run data checks with \code{\link{check_results}} and \code{\link{check_dqocompleteness}}, applies only if \code{res} or \code{dqocom} are file paths
+#' @param frecom character string of path to the data quality objectives file for completeness or \code{data.frame} returned by \code{\link{read_frecom}}
+#' @param runchk  logical to run data checks with \code{\link{check_results}} and \code{\link{check_frecom}}, applies only if \code{res} or \code{frecom} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
-#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{read_results}} and \code{\link{read_dqocompleteness}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly.
+#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{read_results}} and \code{\link{read_frecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly.
 #' 
 #' Note that completeness is only evaluated on parameters in the \code{Parameter} column in the data quality objectives completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.
 #' 
@@ -21,9 +21,10 @@
 #' respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
 #' 
 #' # completeness path
-#' dqocompth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
+#' frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness_final.xlsx', 
+#'      package = 'MassWateR')
 #' 
-#' qc_completeness(res = respth, dqocom = dqocompth)
+#' qc_completeness(res = respth, frecom = frecompth)
 #' 
 #' ##
 #' # using data frames
@@ -32,11 +33,11 @@
 #' resdat <- read_results(respth)
 #' 
 #' # completeness data
-#' dqocomdat <- read_dqocompleteness(dqocompth)
+#' frecomdat <- read_frecom(frecompth)
 #' 
-#' qc_completeness(res = resdat, dqocom = dqocomdat)
+#' qc_completeness(res = resdat, frecom = frecomdat)
 #' 
-qc_completeness <- function(res, dqocom, runchk = TRUE, warn = TRUE){
+qc_completeness <- function(res, frecom, runchk = TRUE, warn = TRUE){
   
   ##
   # results input
@@ -61,33 +62,33 @@ qc_completeness <- function(res, dqocom, runchk = TRUE, warn = TRUE){
   # dqo completeness input
   
   # data frame
-  if(inherits(dqocom, 'data.frame'))
-    dqocomdat <- dqocom
+  if(inherits(frecom, 'data.frame'))
+    frecomdat <- frecom
   
   # import from path
-  if(inherits(dqocom, 'character')){
+  if(inherits(frecom, 'character')){
     
-    dqocompth <- dqocom
-    chk <- file.exists(dqocompth)
+    frecompth <- frecom
+    chk <- file.exists(frecompth)
     if(!chk)
-      stop('File specified with dqocom argument not found')
+      stop('File specified with frecom argument not found')
     
-    dqocomdat <- read_dqocompleteness(dqocompth, runchk = runchk)
+    frecomdat <- read_frecom(frecompth, runchk = runchk)
     
   }
   
   ##
   # check parameters in completeness can be found in results
-  dqocomprm <- sort(unique(dqocomdat$Parameter))
+  frecomprm <- sort(unique(frecomdat$Parameter))
   resdatprm <- sort(unique(resdat$`Characteristic Name`))
-  chk <- dqocomprm %in% resdatprm
+  chk <- frecomprm %in% resdatprm
   if(any(!chk) & warn){
-    tochk <- dqocomprm[!chk]
+    tochk <- frecomprm[!chk]
     warning('Parameters in quality control objectives for completeness not found in results data: ', paste(tochk, collapse = ', '))
   }
   
   # parameters for completeness checks
-  prms <- dqocomprm[chk]
+  prms <- frecomprm[chk]
 
   resall <- NULL
   
@@ -95,7 +96,7 @@ qc_completeness <- function(res, dqocom, runchk = TRUE, warn = TRUE){
   for(prm in prms){
     
     # subset dqo data
-    dqocomdattmp <- dqocomdat %>% 
+    frecomdattmp <- frecomdat %>% 
       dplyr::filter(Parameter == prm)
     
     # subset results data
@@ -144,8 +145,8 @@ qc_completeness <- function(res, dqocom, runchk = TRUE, warn = TRUE){
     
   }
 
-  # dqocomdat long format
-  dqocomdat <- dqocomdat %>% 
+  # frecomdat long format
+  frecomdat <- frecomdat %>% 
     tidyr::pivot_longer(cols = -dplyr::matches('Parameter'), names_to = 'check', values_to = 'standard')
   
   # summary results long format
@@ -154,7 +155,7 @@ qc_completeness <- function(res, dqocom, runchk = TRUE, warn = TRUE){
   
   # combine and create summaries
   out <- resall %>% 
-    dplyr::left_join(dqocomdat, by = c('Parameter', 'check')) %>% 
+    dplyr::left_join(frecomdat, by = c('Parameter', 'check')) %>% 
     dplyr::mutate(
       percent = dplyr::case_when(
         !is.na(standard) ~ 100 * count / obs,

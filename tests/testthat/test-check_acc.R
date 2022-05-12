@@ -1,54 +1,54 @@
 test_that("Checking column name spelling", {
-  chk <- dqoaccdat
+  chk <- accdat
   names(chk)[c(1, 4)] <- c('Variables', 'AQL')
-  expect_error(check_dqoaccuracy(chk))
+  expect_error(check_acc(chk))
 })
 
 test_that("Checking required column names are present", {
-  chk <- dqoaccdat
+  chk <- accdat
   chk <- chk[, -10]
-  expect_error(check_dqoaccuracy(chk))
+  expect_error(check_acc(chk))
 })
 
 test_that("Checking non-numeric values in MDL, UQL", {
-  chk <- dqoaccdat
+  chk <- accdat
   chk$`MDL` <- as.character(chk$`MDL`)
   chk$`UQL`[5] <- 'a'
-  expect_error(check_dqoaccuracy(chk))
+  expect_error(check_acc(chk))
 })
 
 test_that("Checking for text other than <=, \u2264, <, >=, \u2265, >, \u00b1, %, AQL, BQL, log, or all", {
-  chk <- dqoaccdat
+  chk <- accdat
   chk$`Value Range`[4] <- '+'
   chk$`Field Duplicate` <- 'alll'
-  expect_error(check_dqoaccuracy(chk))
+  expect_error(check_acc(chk))
 })
 
 test_that("Checking missing entries in uom", {
-  chk <- dqoaccdat
+  chk <- accdat
   chk[5, 2] <- NA
   chk[21, 2] <- NA
   chk[2, 2] <- NA # pH, will not trigger
-  expect_error(check_dqoaccuracy(chk))
+  expect_error(check_acc(chk))
 })
 
 test_that("Checking more than one unit type per parameter", {
-  chk <- dqoaccdat
+  chk <- accdat
   chk[4, 2] <- 'ug/l'
-  expect_error(check_dqoaccuracy(chk))
+  expect_error(check_acc(chk))
 })
 
 test_that("Checking correct Parameters", {
-  chk <- dqoaccdat
+  chk <- accdat
   chk[7, 1] <- 'tss'
   chk[5, 1] <- 'sp-conductivity'
-  expect_error(check_dqoaccuracy(chk))
+  expect_error(check_acc(chk))
 })
 
 test_that("Checking incorrect unit type per parameter", {
-  chk <- dqoaccdat
+  chk <- accdat
   chk[chk$`Parameter` == 'Chl a', 2] <- 'micrograms/L'
   chk[chk$`Parameter` == 'TP', 2] <- 'mg/L'
-  expect_error(check_dqoaccuracy(chk))
+  expect_error(check_acc(chk))
 })
 

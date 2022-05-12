@@ -1,8 +1,8 @@
 #' Check data quality objective completeness data
 #'
-#' @param dqocomdat input data frame
+#' @param frecomdat input data frame
 #'
-#' @details This function is used internally within \code{\link{read_dqocompleteness}} to run several checks on the input data for completeness and conformance to WQX requirements
+#' @details This function is used internally within \code{\link{read_frecom}} to run several checks on the input data for completeness and conformance to WQX requirements
 #' 
 #' The following checks are made: 
 #' \itemize{
@@ -13,23 +13,24 @@
 #'  \item{Parameter: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{params}} data}
 #' }
 #' 
-#' @return \code{dqocomdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. 
+#' @return \code{frecomdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. 
 #' 
 #' @export
 #'
 #' @examples
 #' library(dplyr)
 #' 
-#' dqocompth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
+#' frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness_final.xlsx', 
+#'      package = 'MassWateR')
 #' 
-#' dqocomdat <- suppressMessages(readxl::read_excel(dqocompth, 
+#' frecomdat <- suppressMessages(readxl::read_excel(frecompth, 
 #'       skip = 1, na = c('NA', 'na', ''), 
 #'       col_types = c('text', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric')
 #'     )) %>% 
 #'     rename(`% Completeness` = `...7`)
 #'     
-#' check_dqocompleteness(dqocomdat)
-check_dqocompleteness <- function(dqocomdat){
+#' check_frecom(frecomdat)
+check_frecom <- function(frecomdat){
   
   message('Running checks on data quality objectives for completeness...\n')
   
@@ -40,7 +41,7 @@ check_dqocompleteness <- function(dqocomdat){
   
   # check field names
   msg <- '\tChecking column names...'
-  nms <- names(dqocomdat) 
+  nms <- names(frecomdat) 
   chk <- nms %in% colnms
   if(any(!chk)){
     tochk <- nms[!chk]
@@ -51,7 +52,7 @@ check_dqocompleteness <- function(dqocomdat){
 
   # check all fields are present
   msg <- '\tChecking all required columns are present...'
-  nms <- names(dqocomdat)
+  nms <- names(frecomdat)
   chk <- colnms %in% nms
   if(any(!chk)){
     tochk <- colnms[!chk]
@@ -61,7 +62,7 @@ check_dqocompleteness <- function(dqocomdat){
   
   # check for any non-numeric columns
   msg <- '\tChecking for non-numeric values...'
-  typ <- dqocomdat %>% 
+  typ <- frecomdat %>% 
     dplyr::select(-Parameter) %>% 
     lapply(class) %>% 
     unlist
@@ -74,7 +75,7 @@ check_dqocompleteness <- function(dqocomdat){
   
   # check for values not between 0 and 100
   msg <- '\tChecking for values outside of 0 and 100...'
-  typ <- dqocomdat %>% 
+  typ <- frecomdat %>% 
     dplyr::select(-Parameter) %>% 
     lapply(range, na.rm = TRUE)
   chk <- lapply(typ, function(x) x < 0 | x > 100) %>%
@@ -88,7 +89,7 @@ check_dqocompleteness <- function(dqocomdat){
   
   # check parameter names
   msg <- '\tChecking Parameter formats...'
-  typ <- dqocomdat$`Parameter`
+  typ <- frecomdat$`Parameter`
   chk <- typ %in% chntyp
   if(any(!chk)){
     rws <- which(!chk)
@@ -99,6 +100,6 @@ check_dqocompleteness <- function(dqocomdat){
   
   message('\nAll checks passed!')
   
-  return(dqocomdat)
+  return(frecomdat)
   
 }

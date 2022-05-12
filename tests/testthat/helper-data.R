@@ -9,12 +9,12 @@ resdat <- read_excel(respth, na = c('NA', 'na', ''),
                                            'text', 'text', 'text', 'text'))
 
 # dqo accuracy data
-dqoaccpth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
-dqoaccdat <- read_excel(dqoaccpth, na = c('NA', 'na', ''))
+accpth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
+accdat <- read_excel(accpth, na = c('NA', 'na', ''))
 
 # dqo completeness data
-dqocompth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
-dqocomdat <- suppressMessages(read_excel(dqocompth, 
+frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness_final.xlsx', package = 'MassWateR')
+frecomdat <- suppressMessages(read_excel(frecompth, 
                           skip = 1, na = c('NA', 'na', ''), 
                           col_types = c('text', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric')
 )) %>% 

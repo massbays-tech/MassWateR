@@ -9,7 +9,7 @@
 #'
 #' @return A \code{\link{flextable}} object with formatted results showing summary counts if \code{type = 'summary'} or percentage observations if \code{type = 'percent'} for all completeness checks for each parameter.
 #' 
-#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{read_results}} and \code{\link{read_dqocompleteness}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly.  Also note that completeness is only evaluated on parameters in the \code{Parameter} column in the data quality objectives completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.  This warning can be suppressed by setting \code{warn = FALSE}. 
+#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{read_results}} and \code{\link{read_frecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly.  Also note that completeness is only evaluated on parameters in the \code{Parameter} column in the data quality objectives completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.  This warning can be suppressed by setting \code{warn = FALSE}. 
 #' 
 #' A summary table showing the total number of records, the total number of qualified records (those collected for data quality objective checks), and percent completeness (the difference between the two) can be created by setting \code{type = 'summary'}.  The \code{% Completeness} column shows cells as green or red if the required percentage of observations for completeness are present as specified in the data quality objectives file. Note that a warning message is returned for parameters that are found in the data quality objectives file, but are not found in the results data. Completeness checks are done only on parameters that are shared between the two.
 #' 
@@ -25,19 +25,20 @@
 #' respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
 #' 
 #' # completeness path
-#' dqocompth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
+#' frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness_final.xlsx', 
+#'      package = 'MassWateR')
 #' 
 #' ## 
 #' # summary table 
 #' 
-#' tab_completeness(res = respth, dqocom = dqocompth, type = 'summary')
+#' tab_completeness(res = respth, frecom = frecompth, type = 'summary')
 #' 
 #' ## 
 #' # percent table 
 #' 
-#' tab_completeness(res = respth, dqocom = dqocompth, type = 'percent')
+#' tab_completeness(res = respth, frecom = frecompth, type = 'percent')
 #' 
-tab_completeness <- function(res, dqocom, runchk = TRUE, warn = TRUE, type = c('summary', 'percent'), pass_col = 'green', fail_col = 'red', digits = 0, suffix = '%'){
+tab_completeness <- function(res, frecom, runchk = TRUE, warn = TRUE, type = c('summary', 'percent'), pass_col = 'green', fail_col = 'red', digits = 0, suffix = '%'){
   
   type <- match.arg(type)
   
@@ -49,7 +50,7 @@ tab_completeness <- function(res, dqocom, runchk = TRUE, warn = TRUE, type = c('
   }
   
   # get completeness summary
-  res <- qc_completeness(res = res, dqocom = dqocom, runchk = runchk, warn = warn)
+  res <- qc_completeness(res = res, frecom = frecom, runchk = runchk, warn = warn)
   
   # get summary table
   if(type == 'summary'){

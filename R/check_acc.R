@@ -1,8 +1,8 @@
 #' Check data quality objective accuracy data
 #'
-#' @param dqoaccdat input data frame
+#' @param accdat input data frame
 #'
-#' @details This function is used internally within \code{\link{read_dqoaccuracy}} to run several checks on the input data for completeness and conformance to WQX requirements
+#' @details This function is used internally within \code{\link{read_acc}} to run several checks on the input data for completeness and conformance to WQX requirements
 #' 
 #' The following checks are made: 
 #' \itemize{
@@ -16,19 +16,19 @@
 #'  \item{Correct units: }{Each unique \code{Parameter} should have an entry in the units (\code{uom}) that matches one of the acceptable values in the \code{Units of measure} column of the \code{\link{params}} data}
 #' }
 #'
-#' @return \code{dqoaccdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. 
+#' @return \code{accdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. 
 #' 
 #' @encoding UTF-8
 #'
 #' @export
 #'
 #' @examples
-#' dqoaccpth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
+#' accpth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
 #' 
-#' dqoaccdat <- readxl::read_excel(dqoaccpth, na = c('NA', 'na', '')) 
+#' accdat <- readxl::read_excel(accpth, na = c('NA', 'na', '')) 
 #'       
-#' check_dqoaccuracy(dqoaccdat)
-check_dqoaccuracy <- function(dqoaccdat){
+#' check_acc(accdat)
+check_acc <- function(accdat){
   
   message('Running checks on data quality objectives for accuracy...\n')
   
@@ -41,7 +41,7 @@ check_dqoaccuracy <- function(dqoaccdat){
   
   # check field names
   msg <- '\tChecking column names...'
-  nms <- names(dqoaccdat) 
+  nms <- names(accdat) 
   chk <- nms %in% colnms
   if(any(!chk)){
     tochk <- nms[!chk]
@@ -51,7 +51,7 @@ check_dqoaccuracy <- function(dqoaccdat){
 
   # check all fields are present
   msg <- '\tChecking all required columns are present...'
-  nms <- names(dqoaccdat)
+  nms <- names(accdat)
   chk <- colnms %in% nms
   if(any(!chk)){
     tochk <- colnms[!chk]
@@ -61,7 +61,7 @@ check_dqoaccuracy <- function(dqoaccdat){
   
   # check for any non-numeric values in MDL, UQL 
   msg <- '\tChecking for non-numeric values in MDL, UQL...'
-  typ <- dqoaccdat %>% 
+  typ <- accdat %>% 
     dplyr::select(MDL, UQL) %>% 
     lapply(class) %>% 
     unlist
@@ -74,7 +74,7 @@ check_dqoaccuracy <- function(dqoaccdat){
   
   # check for symbols other than <=, <, >=, >, ±, or %
   msg <- '\tChecking for text other than <=, \u2264, <, >=, \u2265, >, \u00b1, %, AQL, BQL, log, or all...'
-  typ <- dqoaccdat %>% 
+  typ <- accdat %>% 
     dplyr::select(-Parameter, -uom, -MDL, -UQL) %>%
     lapply(function(x) gsub(paste(colsym, collapse = '|'), '', x)) %>% 
     lapply(function(x) tryCatch(as.numeric(x),error=function(e) e, warning=function(w) w)) %>% 
@@ -89,7 +89,7 @@ check_dqoaccuracy <- function(dqoaccdat){
   
   # check parameter names
   msg <- '\tChecking Parameter formats...'
-  typ <- dqoaccdat$`Parameter`
+  typ <- accdat$`Parameter`
   chk <- typ %in% chntyp
   if(any(!chk)){
     rws <- which(!chk)
@@ -100,7 +100,7 @@ check_dqoaccuracy <- function(dqoaccdat){
   
   # check no missing entries in uom, except pH
   msg <- '\tChecking for missing entries for unit (uom)...'
-  chk <- dqoaccdat[, c('Parameter', 'uom')]
+  chk <- accdat[, c('Parameter', 'uom')]
   chk <- is.na(chk$`uom`) & !chk$`Parameter` %in% 'pH'
   chk <- !chk
   if(any(!chk)){
@@ -111,7 +111,7 @@ check_dqoaccuracy <- function(dqoaccdat){
   
   # check different units for each parameter
   msg <- '\tChecking if more than one unit (uom) per Parameter...'
-  typ <- dqoaccdat[, c('Parameter', 'uom')]
+  typ <- accdat[, c('Parameter', 'uom')]
   typ <- unique(typ)
   chk <- !duplicated(typ$`Parameter`)
   if(any(!chk)){
@@ -130,7 +130,7 @@ check_dqoaccuracy <- function(dqoaccdat){
   
   # check acceptable units for each parameter, must check all parameter names simple or wqx in params
   msg <- '\tChecking acceptable units (uom) for each entry in Parameter...'
-  typ <- dqoaccdat[, c('Parameter', 'uom')]
+  typ <- accdat[, c('Parameter', 'uom')]
   typ <- unique(typ)
   typ$`uom`[is.na(typ$`uom`) & typ$`Parameter` == 'pH'] <- 'NA'
   tojn <- params[, c('Simple Parameter', 'Units of measure')]
@@ -153,6 +153,6 @@ check_dqoaccuracy <- function(dqoaccdat){
   
   message('\nAll checks passed!')
   
-  return(dqoaccdat)
+  return(accdat)
   
 }

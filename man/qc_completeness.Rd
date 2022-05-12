@@ -4,14 +4,14 @@
 \alias{qc_completeness}
 \title{Run quality control completeness checks for water quality monitoring results}
 \usage{
-qc_completeness(res, dqocom, runchk = TRUE, warn = TRUE)
+qc_completeness(res, frecom, runchk = TRUE, warn = TRUE)
 }
 \arguments{
 \item{res}{character string of path to eresults file or \code{data.frame} for results returned by \code{\link{read_results}}}
 
-\item{dqocom}{character string of path to the data quality objectives file for completeness or \code{data.frame} returned by \code{\link{read_dqocompleteness}}}
+\item{frecom}{character string of path to the data quality objectives file for completeness or \code{data.frame} returned by \code{\link{read_frecom}}}
 
-\item{runchk}{logical to run data checks with \code{\link{check_results}} and \code{\link{check_dqocompleteness}}, applies only if \code{res} or \code{dqocom} are file paths}
+\item{runchk}{logical to run data checks with \code{\link{check_results}} and \code{\link{check_frecom}}, applies only if \code{res} or \code{frecom} are file paths}
 
 \item{warn}{logical to return warnings to the console (default)}
 }
@@ -22,7 +22,7 @@ A summarized \code{data.frame} of completeness results for quality control in lo
 Run quality control completeness checks for water quality monitoring results
 }
 \details{
-The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{read_results}} and \code{\link{read_dqocompleteness}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly.
+The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{read_results}} and \code{\link{read_frecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly.
 
 Note that completeness is only evaluated on parameters in the \code{Parameter} column in the data quality objectives completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.
 }
@@ -34,9 +34,10 @@ Note that completeness is only evaluated on parameters in the \code{Parameter} c
 respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
 
 # completeness path
-dqocompth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
+frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness_final.xlsx', 
+     package = 'MassWateR')
 
-qc_completeness(res = respth, dqocom = dqocompth)
+qc_completeness(res = respth, frecom = frecompth)
 
 ##
 # using data frames
@@ -45,8 +46,8 @@ qc_completeness(res = respth, dqocom = dqocompth)
 resdat <- read_results(respth)
 
 # completeness data
-dqocomdat <- read_dqocompleteness(dqocompth)
+frecomdat <- read_frecom(frecompth)
 
-qc_completeness(res = resdat, dqocom = dqocomdat)
+qc_completeness(res = resdat, frecom = frecomdat)
 
 }

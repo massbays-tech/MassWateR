@@ -32,7 +32,7 @@ knitr::include_graphics('workflow.PNG')
 Three types of data are used with the package. All types should be provided to make best use of the functions:
 
 1.  Water quality **results** organized by sample location and date.
-2.  Summary of data quality objectives that describe quality control **accuracy** and **completeness** measures for data in the results file.
+2.  Summary of data quality objectives that describe quality control **accuracy**, **frequency**, and **completeness** measures for data in the results file.
 3.  A **site metadata** file, including location names, latitude, longitude, and additional grouping factors for sites.
 
 The input data should follow standard formats for the WQX network. Example files, described below, are provided with the package to demonstrate the appropriate formats.
@@ -74,7 +74,7 @@ system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
 The data quality objectives file for completeness:
 
 ```{r, eval = F}
-system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
+system.file('extdata/ExampleDQOFrequencyCompleteness_final.xlsx', package = 'MassWateR')
 ```
 
 The site metadata file:
@@ -108,7 +108,7 @@ resdat <- read_results(respth, runchk = TRUE)
 head(resdat)
 ```
 
-Several checks are run automatically when the data are imported. These checks are as follows (also viewed from the help file for `check_results()`:
+Several checks are run automatically when the data are imported. These file checks are as follows (also viewed from the help file for `check_results()`:
 
 -   **Column name spelling**: Should be the following: Monitoring Location ID, Activity Type, Activity Start Date, Activity Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit, Activity Relative Depth Name, Characteristic Name, Result Value, Result Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier, Result Attribute.
 -   **Columns present**: All columns from the previous should be present, Result Attribute is optional
@@ -144,25 +144,25 @@ Data imported with `read_results()` are also formatted to take care of a few min
 
 ### Data quality objectives
 
-To use the quality control functions in MassWateR, Excel files that describe the data quality objectives for accuracy and completeness must be provided. The system files included with the package, described above, demonstrate the required information and format for these files. They can be imported into R using the `read_dqoaccuracy()` and `read_dqocompleteness()` functions for the accuracy and completeness files, respectively. The `pth` argument will point to the location of the external files on your computer. As above, the system files included with the package are used for the examples.
+To use the quality control functions in MassWateR, Excel files that describe the data quality objectives for accuracy and completeness must be provided. The system files included with the package, described above, demonstrate the required information and format for these files. They can be imported into R using the `read_acc()` and `read_frecom()` functions for the accuracy and completeness files, respectively. The `pth` argument will point to the location of the external files on your computer. As above, the system files included with the package are used for the examples.
 
 ```{r, message = T}
 # import data quality objectives for accuracy
-dqoaccpth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
-dqoaccdat <- read_dqoaccuracy(dqoaccpth)
-head(dqoaccdat)
+accpth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
+accdat <- read_acc(accpth)
+head(accdat)
 ```
 
 ```{r, message = T}
 # import data quality objectives for completeness
-dqocompth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
-dqocomdat <- read_dqocompleteness(dqocompth)
-head(dqocomdat)
+frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness_final.xlsx', package = 'MassWateR')
+frecomdat <- read_frecom(frecompth)
+head(frecomdat)
 ```
 
-Both the `read_dqoaccuracy()` and `read_dqocompleteness()` functions will run a series of checks to ensure the imported data are formatted correctly. The `check_dqoaccuracy()` and `check_dqocompleteness()` functions run these checks when the `read_dqoaccuracy()` and `read_dqocompleteness()` functions are executed, respectively. The checks for each are as follows.
+Both the `read_acc()` and `read_frecom()` functions will run a series of checks to ensure the imported data are formatted correctly. The `check_acc()` and `check_frecom()` functions run these checks when the `read_acc()` and `read_frecom()` functions are executed, respectively. The checks for each are as follows.
 
-Checks for accuracy:
+File checks for accuracy:
 
 -   **Column name spelling**: Should be the following: Parameter, uom, MDL, UQL, Value Range, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy
 -   **Columns present**: All columns from the previous check should be present
@@ -173,7 +173,7 @@ Checks for accuracy:
 -   **Single unit**: Each unique `Parameter` should have only one type for the units (`uom`)
 -   **Correct units**: Each unique `Parameter` should have an entry in the units (`uom`) that matches one of the acceptable values in the `Units of measure` column of the `params()` data, see the table above.
 
-Checks for completeness:
+File checks for frequency and completeness:
 
 -   **Column name spelling**: Should be the following: Parameter, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy, % Completeness
 -   **Columns present**: All columns from the previous check should be present
@@ -181,7 +181,7 @@ Checks for completeness:
 -   **Values outside of 0 - 100**: Values entered in columns other than the first should not be outside of 0 and 100
 -   **Parameter**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` columns of the `params()` data
 
-For both the accuracy and completeness files,  all parameters in the `Parameter` column are converted to `Simple Parameter` in `params()` as needed.  This is done automatically using `form_dqoaccuracy()` and `form_dqocompleteness()` within the import functions.
+For both the accuracy and completeness files,  all parameters in the `Parameter` column are converted to `Simple Parameter` in `params()` as needed.  This is done automatically using `form_acc()` and `form_frecom()` within the import functions.
 
 ### Site metadata
 
@@ -194,7 +194,7 @@ sitdat <- read_sites(sitpth)
 head(sitdat)
 ```
 
-The `read_sites()` functions runs several checks on the file using the `check_sites()` function. Most of the checks are to ensure the latitude and longitude data are present and properly formatted. It is assumed that latitude and longitude data are entered in decimal degrees.  The projection can be entered in other functions used in exploratory analysis. Details on the checks are as follows:
+The `read_sites()` functions runs several checks on the file using the `check_sites()` function. Most of the checks are to ensure the latitude and longitude data are present and properly formatted. It is assumed that latitude and longitude data are entered in decimal degrees.  The projection can be entered in other functions used in exploratory analysis. Details on the file checks are as follows:
 
 -   **Column name spelling**: Should be the following: Monitoring Location ID, Monitoring Location Name, Monitoring Location Latitude, Monitoring Location Longitude, Location Group
 -   **Columns present**: All columns from the previous check should be present

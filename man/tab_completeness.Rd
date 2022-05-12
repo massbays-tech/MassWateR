@@ -6,7 +6,7 @@
 \usage{
 tab_completeness(
   res,
-  dqocom,
+  frecom,
   runchk = TRUE,
   warn = TRUE,
   type = c("summary", "percent"),
@@ -19,9 +19,9 @@ tab_completeness(
 \arguments{
 \item{res}{character string of path to eresults file or \code{data.frame} for results returned by \code{\link{read_results}}}
 
-\item{dqocom}{character string of path to the data quality objectives file for completeness or \code{data.frame} returned by \code{\link{read_dqocompleteness}}}
+\item{frecom}{character string of path to the data quality objectives file for completeness or \code{data.frame} returned by \code{\link{read_frecom}}}
 
-\item{runchk}{logical to run data checks with \code{\link{check_results}} and \code{\link{check_dqocompleteness}}, applies only if \code{res} or \code{dqocom} are file paths}
+\item{runchk}{logical to run data checks with \code{\link{check_results}} and \code{\link{check_frecom}}, applies only if \code{res} or \code{frecom} are file paths}
 
 \item{warn}{logical to return warnings to the console (default)}
 
@@ -42,7 +42,7 @@ A \code{\link{flextable}} object with formatted results showing summary counts i
 Create a formatted table of quality control completeness checks
 }
 \details{
-The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{read_results}} and \code{\link{read_dqocompleteness}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly.  Also note that completeness is only evaluated on parameters in the \code{Parameter} column in the data quality objectives completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.  This warning can be suppressed by setting \code{warn = FALSE}.
+The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{read_results}} and \code{\link{read_frecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly.  Also note that completeness is only evaluated on parameters in the \code{Parameter} column in the data quality objectives completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.  This warning can be suppressed by setting \code{warn = FALSE}.
 
 A summary table showing the total number of records, the total number of qualified records (those collected for data quality objective checks), and percent completeness (the difference between the two) can be created by setting \code{type = 'summary'}.  The \code{\% Completeness} column shows cells as green or red if the required percentage of observations for completeness are present as specified in the data quality objectives file. Note that a warning message is returned for parameters that are found in the data quality objectives file, but are not found in the results data. Completeness checks are done only on parameters that are shared between the two.
 
@@ -56,16 +56,17 @@ Inputs for the results and data quality objectives for completeness are processe
 respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
 
 # completeness path
-dqocompth <- system.file('extdata/ExampleDQOCompleteness_final.xlsx', package = 'MassWateR')
+frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness_final.xlsx', 
+     package = 'MassWateR')
 
 ## 
 # summary table 
 
-tab_completeness(res = respth, dqocom = dqocompth, type = 'summary')
+tab_completeness(res = respth, frecom = frecompth, type = 'summary')
 
 ## 
 # percent table 
 
-tab_completeness(res = respth, dqocom = dqocompth, type = 'percent')
+tab_completeness(res = respth, frecom = frecompth, type = 'percent')
 
 }
