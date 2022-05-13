@@ -1,6 +1,6 @@
 #' Run quality control completeness checks for water quality monitoring results
 #'
-#' @param res character string of path to eresults file or \code{data.frame} for results returned by \code{\link{read_results}}
+#' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{read_results}}
 #' @param frecom character string of path to the data quality objectives file for completeness or \code{data.frame} returned by \code{\link{read_frecom}}
 #' @param runchk  logical to run data checks with \code{\link{check_results}} and \code{\link{check_frecom}}, applies only if \code{res} or \code{frecom} are file paths
 #' @param warn logical to return warnings to the console (default)
@@ -9,7 +9,7 @@
 #' 
 #' Note that completeness is only evaluated on parameters in the \code{Parameter} column in the data quality objectives completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.
 #' 
-#' @return A summarized \code{data.frame} of completeness results for quality control in long format.  Each row applies to a specific completeness check for a parameter. The total observations (\code{obs}) for each parameter are also shown, which is repeated for a parameter across the rows to calculate percentages.  The \code{check} column shows the relevant activity type that is assessed for completeness, the \code{count} columns shows the number of observations that apply to the check, the \code{standard} shows the relevant percentage required for quality control check from the quality control objectives file, the \code{percent} column shows the calculated percent taken from the input data, and the \code{met} column shows if the standard was met by comparing if \code{percent} is greater than or equal to \code{standard}.
+#' @return The output shows the completeness checks from the combined files.  Each row applies to a completeness check for a parameter. The \code{datarec} and \code{qualrec} columns show the number of data records and qualified records, respectively. The \code{standard} column shows the relevant percentage required for the quality control check from the quality control objectives file, the \code{complete} column shows the calculated completeness taken from the input data, and the \code{met} column shows if the standard was met by comparing if \code{complete} is greater than or equal to \code{standard}.
 #' 
 #' @export
 #'
@@ -95,50 +95,21 @@ qc_completeness <- function(res, frecom, runchk = TRUE, warn = TRUE){
   # run completeness checks
   for(prm in prms){
     
-    # subset dqo data
-    frecomdattmp <- frecomdat %>% 
-      dplyr::filter(Parameter == prm)
-    
     # subset results data
     resdattmp <- resdat %>% 
       dplyr::filter(`Characteristic Name` == prm)
-   
-    # total obs
-    ntot <- nrow(resdattmp)
     
-    # field duplicates
-    acts <- c('Quality Control Sample-Field Replicate', 'Quality Control Field Replicate Msr/Obs')
-    fielddup <- sum(resdattmp$`Activity Type` %in% acts)
-      
-    # lab duplicates
-    acts <- 'Quality Control Sample-Lab Duplicate'
-    labdup <- sum(resdattmp$`Activity Type` %in% acts)
-      
-    # field blank
-    acts <- 'Quality Control Sample-Field Blank'
-    fieldblnk <- sum(resdattmp$`Activity Type` %in% acts)
-      
-    # lab blank
-    acts <- 'Quality Control Sample-Lab Blank'
-    labblnk <- sum(resdattmp$`Activity Type` %in% acts)
+    # number of qualified records
+    qualrec <- sum(resdattmp$`Result Measure Qualifier` == 'Q', na.rm = TRUE)
     
-    # spikes/checks
-    acts <- 'Quality Control Sample-Lab Spike'
-    spikes <- sum(resdattmp$`Activity Type` %in% acts)
-    
-    # completeness
-    complt <- ntot - (fielddup + labdup + fieldblnk + labblnk + spikes)
+    # number of data records
+    datarec <- sum(resdattmp$`Activity Type` %in% c("Field Msr/Obs", "Sample-Routine"), na.rm = T)
     
     # compile results
     res <- tibble::tibble(
       Parameter = prm, 
-      obs = ntot,
-      `Field Duplicate` = fielddup, 
-      `Lab Duplicate` = labdup, 
-      `Field Blank` = fieldblnk,
-      `Lab Blank` = labblnk,
-      `Spike/Check Accuracy` = spikes,
-      `% Completeness` = complt
+      datarec = datarec,
+      qualrec = qualrec
     )
     
     resall <- dplyr::bind_rows(resall, res)
@@ -147,21 +118,17 @@ qc_completeness <- function(res, frecom, runchk = TRUE, warn = TRUE){
 
   # frecomdat long format
   frecomdat <- frecomdat %>% 
-    tidyr::pivot_longer(cols = -dplyr::matches('Parameter'), names_to = 'check', values_to = 'standard')
-  
-  # summary results long format
-  resall <- resall %>% 
-    tidyr::pivot_longer(cols = -dplyr::matches('^Parameter$|^obs$'), names_to = 'check', values_to = 'count')
-  
+    dplyr::select(Parameter, standard = `% Completeness`)
+
   # combine and create summaries
   out <- resall %>% 
-    dplyr::left_join(frecomdat, by = c('Parameter', 'check')) %>% 
+    dplyr::left_join(frecomdat, by = 'Parameter') %>% 
     dplyr::mutate(
-      percent = dplyr::case_when(
-        !is.na(standard) ~ 100 * count / obs,
+      complete = dplyr::case_when(
+        !is.na(standard) ~ 100 * (datarec - qualrec) / (datarec),
         T ~ NA_real_
       ),
-      met = percent >= standard
+      met = complete >= standard
     )
   
   return(out)

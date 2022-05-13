@@ -7,7 +7,7 @@
 qc_completeness(res, frecom, runchk = TRUE, warn = TRUE)
 }
 \arguments{
-\item{res}{character string of path to eresults file or \code{data.frame} for results returned by \code{\link{read_results}}}
+\item{res}{character string of path to the results file or \code{data.frame} for results returned by \code{\link{read_results}}}
 
 \item{frecom}{character string of path to the data quality objectives file for completeness or \code{data.frame} returned by \code{\link{read_frecom}}}
 
@@ -16,7 +16,7 @@ qc_completeness(res, frecom, runchk = TRUE, warn = TRUE)
 \item{warn}{logical to return warnings to the console (default)}
 }
 \value{
-A summarized \code{data.frame} of completeness results for quality control in long format.  Each row applies to a specific completeness check for a parameter. The total observations (\code{obs}) for each parameter are also shown, which is repeated for a parameter across the rows to calculate percentages.  The \code{check} column shows the relevant activity type that is assessed for completeness, the \code{count} columns shows the number of observations that apply to the check, the \code{standard} shows the relevant percentage required for quality control check from the quality control objectives file, the \code{percent} column shows the calculated percent taken from the input data, and the \code{met} column shows if the standard was met by comparing if \code{percent} is greater than or equal to \code{standard}.
+The output shows the completeness checks from the combined files.  Each row applies to a completeness check for a parameter. The \code{datarec} and \code{qualrec} columns show the number of data records and qualified records, respectively. The \code{standard} column shows the relevant percentage required for the quality control check from the quality control objectives file, the \code{complete} column shows the calculated completeness taken from the input data, and the \code{met} column shows if the standard was met by comparing if \code{complete} is greater than or equal to \code{standard}.
 }
 \description{
 Run quality control completeness checks for water quality monitoring results
