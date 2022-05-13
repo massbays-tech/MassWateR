@@ -406,7 +406,7 @@ Functions in MassWateR are organized around these topics.
 <li>
 <strong>Time formats</strong>: Should be HH:MM and parsed correctly on import</li>
 <li>
-<strong>Activity Relative Depth Name</strong>: Should be either Surface, Bottom, Midwater, Near Bottom, or blank</li>
+<strong>Activity Relative Depth Name</strong>: Should be either Surface, Bottom, Midwater, Near Bottom, or blank (warning only)</li>
 <li>
 <strong>Characteristic Name</strong>: Should match parameter names in the <code>Simple Parameter</code> or <code>WQX Parameter</code> column of the <code><a href="../reference/params.html">params()</a></code> data</li>
 <li>
@@ -421,7 +421,7 @@ Functions in MassWateR are organized around these topics.
 <li>
 <strong>Correct Result Unit</strong>: Each unique parameter in <code>Characteristic Name</code> should have an entry in <code>Result Unit</code> that matches one of the acceptable values in the <code>Units of measure</code> column of the <code><a href="../reference/params.html">params()</a></code> data, see the table above.</li>
 </ul>
-<p>An informative error is returned if the input data fail any of the checks. The input data should be corrected by hand in the Excel file by altering the appropriate rows or column names indicated in the error.</p>
+<p>An informative error is returned if the input data fail any of the checks. The input data should be corrected by hand in the Excel file by altering the appropriate rows or column names indicated in the error. Checks with warnings can be fixed at the discretion of the user before proceeding.</p>
 <p>Here is an example of an error that might be returned for an incorrect data entry (using the <code><a href="../reference/check_results.html">check_results()</a></code> function, which is used inside of <code><a href="../reference/read_results.html">read_results()</a></code>). To remedy the issue, change the entries in row 4 and 135 in the Activity Type column to Sample-Routine and Field Msr/Obs, respectively. This must be done in the original Excel file. Import the data again in R to verify the data are corrected.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleResults_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
