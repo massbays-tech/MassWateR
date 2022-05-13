@@ -11,6 +11,9 @@
 #'  \item{Activity Type: }{Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike}
 #'  \item{Date formats: }{Should be mm/dd/yyyy and parsed correctly on import}
 #'  \item{Time formats: }{Should be HH:MM and parsed correctly on import}
+#'  \item{Non-numeric Activity Depth/Height Measure: }{All depth values should be numbers, excluding missing values}
+#'  \item{Activity Depth/Height Unit: }{All entries should be \code{ft}, \code{m}, or blank}
+#'  \item{Activity Depth/Height Measure out of range: }{All depth values should be less than or equal to 1 meter or 3.3 feet (warning only)}
 #'  \item{Activity Relative Depth Name: }{Should be either Surface, Bottom, Midwater, Near Bottom, or blank (warning only)}
 #'  \item{Characteristic Name: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{params}} data}
 #'  \item{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
@@ -47,6 +50,7 @@ check_results <- function(resdat){
               "Quality Control Sample-Lab Spike")
   dpstyp <- c('Surface', 'Bottom', 'Midwater', 'Bottom', NA)
   chntyp <- sort(unique(c(params$`Simple Parameter`, params$`WQX Parameter`)))
+  unityp <- c('ft', 'm')
   restyp <- c('AQL', 'BDL')
 
   # check field names
@@ -97,6 +101,42 @@ check_results <- function(resdat){
     stop(msg, '\n\tCheck time on row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
+
+  # check for non-numeric depth
+  msg <- '\tChecking for non-numeric values in Activity Depth/Height Measure...'
+  typ <- resdat$`Activity Depth/Height Measure`
+  chk <- !grepl('[[:alpha:]]', typ, ignore.case = TRUE)
+  if(any(!chk)){
+    rws <- which(!chk)
+    tochk <- unique(typ[!chk])
+    stop(msg, '\n\tNon-numeric entries in Activity Depth/Height Measure found: ', paste(tochk, collapse = ', '), ' in rows ', paste(rws, collapse = ', '), call. = FALSE)
+  }
+  message(paste(msg, 'OK'))
+
+  # checking invalid unit entries for depth
+  msg <- '\tChecking Activity Depth/Height Unit...'
+  typ <- resdat$`Activity Depth/Height Unit`
+  chk <- typ %in% unityp | is.na(typ)
+  if(any(!chk)){
+    rws <- which(!chk)
+    tochk <- unique(typ[!chk])
+    stop(msg, '\n\tIncorrect Activity Depth/Height Unit found: ', paste(tochk, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
+  }
+  message(paste(msg, 'OK'))
+
+  # check for depth out of range
+  msg <- '\tChecking values in Activity Depth/Height Measure > 1 m / 3.3 ft...'
+  typ <- resdat[, c('Activity Depth/Height Measure', 'Activity Depth/Height Unit')]
+  typft <- typ$`Activity Depth/Height Measure` <= 3.3 & typ$`Activity Depth/Height Unit` == 'ft'
+  typm <- typ$`Activity Depth/Height Measure` <= 1 & typ$`Activity Depth/Height Unit` == 'm'
+  chk <- typm | typft
+  if(any(!chk, na.rm = TRUE)){
+    rws <- which(!chk)
+    warning(msg, '\n\tValues in Activity Depth/Height Measure > 1 m / 3.3 ft found on row(s): ', paste(rws, collapse = ', '), call. = FALSE)
+    message(paste(msg, 'WARNING'))
+  } else {
+    message(paste(msg, 'OK'))
+  }
   
   # check depth categories
   msg <- '\tChecking Activity Relative Depth Name formats...'

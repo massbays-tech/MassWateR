@@ -32,6 +32,30 @@ test_that("Checking time formats", {
   expect_error(check_results(chk))
 })
 
+test_that("Checking non-numeric Activity Depth/Height Measure", {
+  chk <- resdat
+  chk$`Activity Depth/Height Measure`[5] <- 'a'
+  chk$`Activity Depth/Height Measure`[6] <- 'baa'
+  chk$`Activity Depth/Height Measure`[12] <- 'a'
+  expect_error(check_results(chk))
+})
+
+test_that("Checking Activity Depth/Height Unit", {
+  chk <- resdat
+  chk$`Activity Depth/Height Unit`[12] <- 'FT'
+  chk$`Activity Depth/Height Unit`[100] <- 'FT'
+  chk$`Activity Depth/Height Unit`[101] <- 'meters'
+  expect_error(check_results(chk))
+})
+
+test_that("Checking Activity Depth/Height Measure range", {
+  chk <- resdat
+  chk$`Activity Depth/Height Measure`[1] <- 3.4
+  chk$`Activity Depth/Height Measure`[3] <- 1.1 
+  chk$`Activity Depth/Height Unit`[3] <- 'm' 
+  expect_warning(check_results(chk))
+})
+
 test_that("Checking Activity Relative Depth Name entries", {
   chk <- resdat
   chk[6, 7] <- 'Surf'
