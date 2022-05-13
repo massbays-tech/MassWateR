@@ -115,7 +115,7 @@ Several checks are run automatically when the data are imported. These file chec
 -   **Activity Type**: Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike
 -   **Date formats**: Should be mm/dd/yyyy and parsed correctly on import
 -   **Time formats**: Should be HH:MM and parsed correctly on import
--   **Activity Relative Depth Name**: Should be either Surface, Bottom, Midwater, Near Bottom, or blank
+-   **Activity Relative Depth Name**: Should be either Surface, Bottom, Midwater, Near Bottom, or blank (warning only)
 -   **Characteristic Name**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` column of the `params()` data
 -   **Result Value**: Should be a numeric value or a text value as AQL or BDL
 -   **QC Reference Value**: Any entered values should be numeric
@@ -123,7 +123,7 @@ Several checks are run automatically when the data are imported. These file chec
 -   **Single Result Unit**: Each unique parameter in `Characteristic Name` should have only one entry in `Result Unit`
 -   **Correct Result Unit**: Each unique parameter in `Characteristic Name` should have an entry in `Result Unit` that matches one of the acceptable values in the `Units of measure` column of the `params()` data, see the table above.
 
-An informative error is returned if the input data fail any of the checks. The input data should be corrected by hand in the Excel file by altering the appropriate rows or column names indicated in the error.
+An informative error is returned if the input data fail any of the checks. The input data should be corrected by hand in the Excel file by altering the appropriate rows or column names indicated in the error. Checks with warnings can be fixed at the discretion of the user before proceeding.
 
 Here is an example of an error that might be returned for an incorrect data entry (using the `check_results()` function, which is used inside of `read_results()`). To remedy the issue, change the entries in row 4 and 135 in the Activity Type column to Sample-Routine and Field Msr/Obs, respectively. This must be done in the original Excel file. Import the data again in R to verify the data are corrected.
 

@@ -11,7 +11,7 @@
 #'  \item{Activity Type: }{Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike}
 #'  \item{Date formats: }{Should be mm/dd/yyyy and parsed correctly on import}
 #'  \item{Time formats: }{Should be HH:MM and parsed correctly on import}
-#'  \item{Activity Relative Depth Name: }{Should be either Surface, Bottom, Midwater, Near Bottom, or blank}
+#'  \item{Activity Relative Depth Name: }{Should be either Surface, Bottom, Midwater, Near Bottom, or blank (warning only)}
 #'  \item{Characteristic Name: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{params}} data}
 #'  \item{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
 #'  \item{QC Reference Value: }{Should be a numeric value or a text value as AQL or BDL}
@@ -20,7 +20,7 @@
 #'  \item{Correct Result Unit: }{Each unique parameter in \code{Characteristic Name} should have an entry in \code{Result Unit} that matches one of the acceptable values in the \code{Units of measure} column of the \code{\link{params}} data}
 #' }
 #' 
-#' @return \code{resdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. 
+#' @return \code{resdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. Checks with warnings can be fixed at the discretion of the user before proceeding.
 #' 
 #' @export
 #'
@@ -105,10 +105,12 @@ check_results <- function(resdat){
   if(any(!chk)){
     rws <- which(!dps %in% dpstyp)
     tochk <- unique(dps[!chk])
-    stop(msg, '\n\tIncorrect Activity Relative Depth Name format found: ', paste(tochk, collapse = ', '), ' on row(s)', paste(rws, collapse = ', '), call. = FALSE)
+    warning(msg, '\n\tIncorrect Activity Relative Depth Name format found: ', paste(tochk, collapse = ', '), ' on row(s) ', paste(rws, collapse = ', '), call. = FALSE)
+    message(paste(msg, 'WARNING'))
+  } else {
+    message(paste(msg, 'OK'))
   }
-  message(paste(msg, 'OK'))
-
+  
   # check characteristic names
   msg <- '\tChecking Characteristic Name formats...'
   typ <- resdat$`Characteristic Name`

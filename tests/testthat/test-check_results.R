@@ -36,7 +36,7 @@ test_that("Checking Activity Relative Depth Name entries", {
   chk <- resdat
   chk[6, 7] <- 'Surf'
   chk[387, 7] <- 'nearbottom'
-  expect_error(check_results(chk))
+  expect_warning(check_results(chk))
 })
 
 test_that("Checking correct Characteristic Names", {

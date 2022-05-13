@@ -10,7 +10,7 @@ check_results(resdat)
 \item{resdat}{input data frame for results}
 }
 \value{
-\code{resdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding.
+\code{resdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. Checks with warnings can be fixed at the discretion of the user before proceeding.
 }
 \description{
 Check water quality monitoring results
@@ -25,7 +25,7 @@ The following checks are made:
 \item{Activity Type: }{Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike}
 \item{Date formats: }{Should be mm/dd/yyyy and parsed correctly on import}
 \item{Time formats: }{Should be HH:MM and parsed correctly on import}
-\item{Activity Relative Depth Name: }{Should be either Surface, Bottom, Midwater, Near Bottom, or blank}
+\item{Activity Relative Depth Name: }{Should be either Surface, Bottom, Midwater, Near Bottom, or blank (warning only)}
 \item{Characteristic Name: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{params}} data}
 \item{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
 \item{QC Reference Value: }{Should be a numeric value or a text value as AQL or BDL}
