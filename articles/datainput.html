@@ -369,6 +369,9 @@ Functions in MassWateR are organized around these topics.
 <span class="co">#&gt;  Checking valid Activity Types... OK</span>
 <span class="co">#&gt;  Checking Activity Start Date formats... OK</span>
 <span class="co">#&gt;  Checking Activity Start Time formats... OK</span>
+<span class="co">#&gt;  Checking for non-numeric values in Activity Depth/Height Measure... OK</span>
+<span class="co">#&gt;  Checking Activity Depth/Height Unit... OK</span>
+<span class="co">#&gt;  Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft... OK</span>
 <span class="co">#&gt;  Checking Activity Relative Depth Name formats... OK</span>
 <span class="co">#&gt;  Checking Characteristic Name formats... OK</span>
 <span class="co">#&gt;  Checking Result Values... OK</span>
@@ -405,6 +408,12 @@ Functions in MassWateR are organized around these topics.
 <strong>Date formats</strong>: Should be mm/dd/yyyy and parsed correctly on import</li>
 <li>
 <strong>Time formats</strong>: Should be HH:MM and parsed correctly on import</li>
+<li>
+<strong>Non-numeric Activity Depth/Height Measure</strong>: All depth values should be numbers, excluding missing values</li>
+<li>
+<strong>Activity Depth/Height Unit</strong>: All entries should be <code>ft</code>, <code>m</code>, or blank</li>
+<li>
+<strong>Activity Depth/Height Measure out of range</strong>: All depth values should be less than or equal to 1 meter or 3.3 feet (warning only)</li>
 <li>
 <strong>Activity Relative Depth Name</strong>: Should be either Surface, Bottom, Midwater, Near Bottom, or blank (warning only)</li>
 <li>

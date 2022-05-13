@@ -75,6 +75,9 @@
 <li><p>Activity Type: Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike</p></li>
 <li><p>Date formats: Should be mm/dd/yyyy and parsed correctly on import</p></li>
 <li><p>Time formats: Should be HH:MM and parsed correctly on import</p></li>
+<li><p>Non-numeric Activity Depth/Height Measure: All depth values should be numbers, excluding missing values</p></li>
+<li><p>Activity Depth/Height Unit: All entries should be <code>ft</code>, <code>m</code>, or blank</p></li>
+<li><p>Activity Depth/Height Measure out of range: All depth values should be less than or equal to 1 meter or 3.3 feet (warning only)</p></li>
 <li><p>Activity Relative Depth Name: Should be either Surface, Bottom, Midwater, Near Bottom, or blank (warning only)</p></li>
 <li><p>Characteristic Name: Should match parameter names in the <code>Simple Parameter</code> or <code>WQX Parameter</code> columns of the <code><a href="params.html">params</a></code> data</p></li>
 <li><p>Result Value: Should be a numeric value or a text value as AQL or BDL</p></li>
@@ -99,6 +102,9 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking valid Activity Types... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Start Date formats... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Start Time formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in Activity Depth/Height Measure... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Depth/Height Unit... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Relative Depth Name formats... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Characteristic Name formats... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Result Values... OK</span>
