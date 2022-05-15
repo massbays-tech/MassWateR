@@ -23,15 +23,15 @@ library(MassWateR)
 
 # import results data
 respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
-resdat <- read_results(respth)
+resdat <- readMWRresults(respth)
 
 # import data quality objectives for accuracy
 accpth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
-accdat <- read_acc(accpth)
+accdat <- readMWRacc(accpth)
 
 # import data quality objectives for frequency and completeness
 frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness_final.xlsx', package = 'MassWateR')
-frecomdat <- read_frecom(frecompth)
+frecomdat <- readMWRfrecom(frecompth)
 ```
 
 ## Quality control for accuracy
@@ -44,20 +44,20 @@ The quality control checks for frequency and completeness are used to verify an 
 
 ### Completeness
 
-The `tab_completeness()` function can be used with inputs as paths to the relevant files or as data frames returned by `read_results()` and `read_frecom()`.  For the former, the full suite of data checks can be evaluated with `runkchk = T` (default) or suppressed with `runchk = F`, as explained in the [data inputs and checks vignette](https://massbays-tech.github.io/MassWateR/articles/datainput.html).  In the latter case, downstream analyses may not work if data are formatted incorrectly.  Also note that completeness is only evaluated on parameters in the `Parameter` column in the data quality objectives completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.  This warning can be suppressed by setting `warn = FALSE`. 
+The `tabMWRcom()` function can be used with inputs as paths to the relevant files or as data frames returned by `readMWRresults()` and `read_frecom()`.  For the former, the full suite of data checks can be evaluated with `runkchk = T` (default) or suppressed with `runchk = F`, as explained in the [data inputs and checks vignette](https://massbays-tech.github.io/MassWateR/articles/datainput.html).  In the latter case, downstream analyses may not work if data are formatted incorrectly.  Also note that completeness is only evaluated on parameters in the `Parameter` column in the data quality objectives completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.  This warning can be suppressed by setting `warn = FALSE`. 
 
-A summary table showing the total number of records, the total number of qualified records (those collected for data quality objective checks), and percent completeness (the difference between the two) can be created with `tab_completeness()`.  The `% Completeness` column shows cells as green or red if the required percentage of observations for completeness are present as specified in the data quality objectives file. The function is also executed with the data frames from above, since they have already passed the internal checks. 
+A summary table showing the total number of records, the total number of qualified records (those collected for data quality objective checks), and percent completeness (the difference between the two) can be created with `tabMWRcom()`.  The `% Completeness` column shows cells as green or red if the required percentage of observations for completeness are present as specified in the data quality objectives file. The function is also executed with the data frames from above, since they have already passed the internal checks. 
 
 ```{r, warning = T}
-tab_completeness(res = resdat, frecom = frecomdat)
+tabMWRcom(res = resdat, frecom = frecomdat)
 ```
 
-The `tab_completeness()` function uses the `qc_completeness()` function internally to create the table.  This function creates the raw summaries of completeness from the input data.  Typically, `qc_completeness()` is not used by itself because it is used internally by `tab_completeness()`.  It is explained here to demonstrate how the raw summaries can be obtained, if desired. 
+The `tabMWRcom()` function uses the `qcMWRcom()` function internally to create the table.  This function creates the raw summaries of completeness from the input data.  Typically, `qcMWRcom()` is not used by itself because it is used internally by `tabMWRcom()`.  It is explained here to demonstrate how the raw summaries can be obtained, if desired. 
 
-Below, the `qc_completeness()` function is executed with the data frames for the results and quality objectives file for completeness.  The warnings and checks are suppressed. 
+Below, the `qcMWRcom()` function is executed with the data frames for the results and quality objectives file for completeness.  The warnings and checks are suppressed. 
 
 ```{r, warning = T}
-qc_completeness(res = resdat, frecom = frecomdat)
+qcMWRcom(res = resdat, frecom = frecomdat)
 ```
 
 The output shows the completeness checks from the combined files.  Each row applies to a completeness check for a parameter. The `datarec` and `qualrec` columns show the number of data records and qualified records, respectively. The `standard` column shows the relevant percentage required for the quality control check from the quality control objectives file, the `complete` column shows the calculated completeness taken from the input data, and the `met` column shows if the standard was met by comparing if `complete` is greater than or equal to `standard`.
