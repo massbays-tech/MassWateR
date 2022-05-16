@@ -58,6 +58,9 @@
     <loc>https://massbays-tech.github.io/MassWateR/reference/qcMWRcom.html</loc>
   </url>
   <url>
+    <loc>https://massbays-tech.github.io/MassWateR/reference/qcMWRfre.html</loc>
+  </url>
+  <url>
     <loc>https://massbays-tech.github.io/MassWateR/reference/readMWRacc.html</loc>
   </url>
   <url>
@@ -71,5 +74,8 @@
   </url>
   <url>
     <loc>https://massbays-tech.github.io/MassWateR/reference/tabMWRcom.html</loc>
+  </url>
+  <url>
+    <loc>https://massbays-tech.github.io/MassWateR/reference/tabMWRfre.html</loc>
   </url>
 </urlset>

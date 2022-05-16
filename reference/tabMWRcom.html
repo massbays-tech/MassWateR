@@ -72,15 +72,15 @@
     <dl><dt>res</dt>
 <dd><p>character string of path to the results file or <code>data.frame</code> for results returned by <code><a href="readMWRresults.html">readMWRresults</a></code></p></dd>
 <dt>frecom</dt>
-<dd><p>character string of path to the data quality objectives file for completeness or <code>data.frame</code> returned by <code><a href="readMWRfrecom.html">readMWRfrecom</a></code></p></dd>
+<dd><p>character string of path to the data quality objectives file for frequency and completeness or <code>data.frame</code> returned by <code><a href="readMWRfrecom.html">readMWRfrecom</a></code></p></dd>
 <dt>runchk</dt>
 <dd><p>logical to run data checks with <code><a href="checkMWRresults.html">checkMWRresults</a></code> and <code><a href="checkMWRfrecom.html">checkMWRfrecom</a></code>, applies only if <code>res</code> or <code>frecom</code> are file paths</p></dd>
 <dt>warn</dt>
 <dd><p>logical to return warnings to the console (default)</p></dd>
 <dt>pass_col</dt>
-<dd><p>character string for the cell color of checks that pass, applies only if <code>type = 'percent'</code></p></dd>
+<dd><p>character string for the cell color of checks that pass</p></dd>
 <dt>fail_col</dt>
-<dd><p>character string for the cell color of checks that fail, applies only if <code>type = 'percent'</code></p></dd>
+<dd><p>character string for the cell color of checks that fail</p></dd>
 <dt>digits</dt>
 <dd><p>numeric indicating number of significant digits to report for percentages</p></dd>
 <dt>suffix</dt>
@@ -92,9 +92,9 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The function can be used with inputs as paths to the relevant files or as data frames returned by <code><a href="readMWRresults.html">readMWRresults</a></code> and <code><a href="readMWRfrecom.html">readMWRfrecom</a></code>.  For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly.  Also note that completeness is only evaluated on parameters in the <code>Parameter</code> column in the data quality objectives completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.  This warning can be suppressed by setting <code>warn = FALSE</code>.</p>
-<p>A summary table showing the the total number of qualified records (those collected for data quality objective checks), and percent completeness (the difference between the two) is created.  The <code>% Completeness</code> column shows cells as green or red if the required percentage of observations for completeness are present as specified in the data quality objectives file.</p>
-<p>Inputs for the results and data quality objectives for completeness are processed internally with <code><a href="qcMWRcom.html">qcMWRcom</a></code> and the same arguments are accepted for this function, in addition to others listed above.</p>
+    <p>The function can be used with inputs as paths to the relevant files or as data frames returned by <code><a href="readMWRresults.html">readMWRresults</a></code> and <code><a href="readMWRfrecom.html">readMWRfrecom</a></code>.  For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly.  Also note that completeness is only evaluated on parameters in the <code>Parameter</code> column in the data quality objectives frequency and completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.  This warning can be suppressed by setting <code>warn = FALSE</code>.</p>
+<p>A summary table showing the number of data records, number of qualified records, and percent completeness is created.  The <code>% Completeness</code> column shows cells as green or red if the required percentage of observations for completeness are present as specified in the data quality objectives file.  The <code>Hit/Miss</code> column shows similar information but in text format, i.e., <code>MISS</code> is shown if the quality control standard for completeness is not met.</p>
+<p>Inputs for the results and data quality objectives for frequency and completeness are processed internally with <code><a href="qcMWRcom.html">qcMWRcom</a></code> and the same arguments are accepted for this function, in addition to others listed above.</p>
     </div>
 
     <div class="section level2">
@@ -103,7 +103,7 @@
 <span class="r-in"><span class="co"># results path</span></span>
 <span class="r-in"><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleResults_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co"># completeness path</span></span>
+<span class="r-in"><span class="co"># frequency and completeness path</span></span>
 <span class="r-in"><span class="va">frecompth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOFrequencyCompleteness_final.xlsx'</span>, </span>
 <span class="r-in">     package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span>
 <span class="r-in"></span>
@@ -134,7 +134,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Parameter formats... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for completeness not found in results data: Chloride</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for frequency and completeness not found in results data: Chloride</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Number of Data Records`, `Number of Qualified Records`, `% Completeness`, `Hit/Miss`, `Number of Censored Records`, `Notes` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
