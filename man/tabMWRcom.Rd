@@ -18,15 +18,15 @@ tabMWRcom(
 \arguments{
 \item{res}{character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}}
 
-\item{frecom}{character string of path to the data quality objectives file for completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}}
+\item{frecom}{character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}}
 
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}} and \code{\link{checkMWRfrecom}}, applies only if \code{res} or \code{frecom} are file paths}
 
 \item{warn}{logical to return warnings to the console (default)}
 
-\item{pass_col}{character string for the cell color of checks that pass, applies only if \code{type = 'percent'}}
+\item{pass_col}{character string for the cell color of checks that pass}
 
-\item{fail_col}{character string for the cell color of checks that fail, applies only if \code{type = 'percent'}}
+\item{fail_col}{character string for the cell color of checks that fail}
 
 \item{digits}{numeric indicating number of significant digits to report for percentages}
 
@@ -39,18 +39,18 @@ A \code{\link{flextable}} object with formatted results showing summary counts f
 Create a formatted table of quality control completeness checks
 }
 \details{
-The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly.  Also note that completeness is only evaluated on parameters in the \code{Parameter} column in the data quality objectives completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.  This warning can be suppressed by setting \code{warn = FALSE}.
+The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly.  Also note that completeness is only evaluated on parameters in the \code{Parameter} column in the data quality objectives frequency and completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.  This warning can be suppressed by setting \code{warn = FALSE}.
 
-A summary table showing the the total number of qualified records (those collected for data quality objective checks), and percent completeness (the difference between the two) is created.  The \code{\% Completeness} column shows cells as green or red if the required percentage of observations for completeness are present as specified in the data quality objectives file.
+A summary table showing the number of data records, number of qualified records, and percent completeness is created.  The \code{\% Completeness} column shows cells as green or red if the required percentage of observations for completeness are present as specified in the data quality objectives file.  The \code{Hit/Miss} column shows similar information but in text format, i.e., \code{MISS} is shown if the quality control standard for completeness is not met.
 
-Inputs for the results and data quality objectives for completeness are processed internally with \code{\link{qcMWRcom}} and the same arguments are accepted for this function, in addition to others listed above.
+Inputs for the results and data quality objectives for frequency and completeness are processed internally with \code{\link{qcMWRcom}} and the same arguments are accepted for this function, in addition to others listed above.
 }
 \examples{
 
 # results path
 respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
 
-# completeness path
+# frequency and completeness path
 frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness_final.xlsx', 
      package = 'MassWateR')
 
