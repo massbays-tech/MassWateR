@@ -1,6 +1,7 @@
 #' Run quality control frequency checks for water quality monitoring results
 #'
-#' @inheritParams utilMWRinput
+#' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
+#' @param frecom character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}
 #' @param warn logical to return warnings to the console (default)
 #'
 #' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly.

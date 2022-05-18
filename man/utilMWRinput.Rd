@@ -4,23 +4,27 @@
 \alias{utilMWRinput}
 \title{Utility function to import data as paths or data frames}
 \usage{
-utilMWRinput(res, frecom, runchk = TRUE)
+utilMWRinput(res, acc = NULL, frecom = NULL, runchk = TRUE)
 }
 \arguments{
 \item{res}{character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}}
 
+\item{acc}{character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}}
+
 \item{frecom}{character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}}
 
-\item{runchk}{logical to run data checks with \code{\link{checkMWRresults}} and \code{\link{checkMWRfrecom}}, applies only if \code{res} or \code{frecom} are file paths}
+\item{runchk}{logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths}
 }
 \value{
-A two element list with the imported results and data quality objectives, named \code{"resdat"} and \code{"frecomdat"}, respectively.
+A three element list with the imported results and data quality objective filfes, named \code{"resdat"}, \code{"accdat"}, and \code{"frecomdat"}, respectively.
 }
 \description{
 Utility function to import data as paths or data frames
 }
 \details{
-The function is used internally by others to import data from paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.
+The function is used internally by others to import data from paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRacc}}, and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.
+
+The data quality objective file arguments for \code{acc} and \code{frecom} can be \code{NULL}, used as a convenience for downstream functions that do not require both.
 }
 \examples{
 ##
@@ -29,12 +33,16 @@ The function is used internally by others to import data from paths to the relev
 # results path
 respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
 
+# accuracy path
+accpth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
+
 # frequency and completeness path
 frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness_final.xlsx', 
      package = 'MassWateR')
 
-inp <- utilMWRinput(res = respth, frecom = frecompth)
+inp <- utilMWRinput(res = respth, acc = accpth, frecom = frecompth)
 inp$resdat
+inp$accdat
 inp$frecomdat
 
 ##
@@ -43,10 +51,14 @@ inp$frecomdat
 # results data
 resdat <- readMWRresults(respth)
 
+# accuracy data
+accdat <- readMWRacc(accpth)
+
 # frequency and completeness data
 frecomdat <- readMWRfrecom(frecompth)
 
-inp <- utilMWRinput(res = respth, frecom = frecompth)
+inp <- utilMWRinput(res = resdat, acc = accdat, frecom = frecomdat)
 inp$resdat
+inp$accdat
 inp$frecomdat
 }
