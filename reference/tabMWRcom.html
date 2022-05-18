@@ -99,7 +99,9 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">##</span></span>
+<span class="r-in"><span class="co"># using file paths</span></span>
+<span class="r-in"></span>
 <span class="r-in"><span class="co"># results path</span></span>
 <span class="r-in"><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleResults_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span>
 <span class="r-in"></span>
@@ -134,6 +136,61 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Parameter formats... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for frequency and completeness not found in results data: Chloride</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Number of Data Records`, `Number of Qualified Records`, `% Completeness`, `Hit/Miss`, `Number of Censored Records`, `Notes` </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> body has 10 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Parameter Number of Data Records Number of Qualified Records</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      Ammonia                    138                           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        Chl a                     18                           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Conductivity                    199                          13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4           DO                    199                          19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      Nitrate                     96                           0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   % Completeness met Hit/Miss Number of Censored Records Notes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      100.00000   1                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      100.00000   1                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       93.46734   1                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       90.45226   1                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      100.00000   1                                          </span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co">##</span></span>
+<span class="r-in"><span class="co"># using data frames</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># results data</span></span>
+<span class="r-in"><span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="readMWRresults.html">readMWRresults</a></span><span class="op">(</span><span class="va">respth</span><span class="op">)</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on results data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking valid Activity Types... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Start Date formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Start Time formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in Activity Depth/Height Measure... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Depth/Height Unit... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Relative Depth Name formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Characteristic Name formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Result Values... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking QC Reference Values... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for Result Unit... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit per Characteristic Name... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking acceptable units for each entry in Characteristic Name... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># frequency and completeness data</span></span>
+<span class="r-in"><span class="va">frecomdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="readMWRfrecom.html">readMWRfrecom</a></span><span class="op">(</span><span class="va">frecompth</span><span class="op">)</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on data quality objectives for frequency and completeness...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for values outside of 0 and 100... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Parameter formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="fu">tabMWRcom</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, frecom <span class="op">=</span> <span class="va">frecomdat</span><span class="op">)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for frequency and completeness not found in results data: Chloride</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Number of Data Records`, `Number of Qualified Records`, `% Completeness`, `Hit/Miss`, `Number of Censored Records`, `Notes` </span>
