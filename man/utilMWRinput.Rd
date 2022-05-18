@@ -16,7 +16,7 @@ utilMWRinput(res, acc = NULL, frecom = NULL, runchk = TRUE)
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths}
 }
 \value{
-A three element list with the imported results and data quality objective filfes, named \code{"resdat"}, \code{"accdat"}, and \code{"frecomdat"}, respectively.
+A three element list with the imported results and data quality objective files, named \code{"resdat"}, \code{"accdat"}, and \code{"frecomdat"}, respectively.
 }
 \description{
 Utility function to import data as paths or data frames

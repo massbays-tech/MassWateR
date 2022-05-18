@@ -9,7 +9,7 @@
 #' 
 #' The data quality objective file arguments for \code{acc} and \code{frecom} can be \code{NULL}, used as a convenience for downstream functions that do not require both. 
 #'
-#' @return A three element list with the imported results and data quality objective filfes, named \code{"resdat"}, \code{"accdat"}, and \code{"frecomdat"}, respectively.
+#' @return A three element list with the imported results and data quality objective files, named \code{"resdat"}, \code{"accdat"}, and \code{"frecomdat"}, respectively.
 #' 
 #' @export
 #'

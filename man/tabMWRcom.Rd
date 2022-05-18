@@ -20,6 +20,8 @@ tabMWRcom(
 
 \item{frecom}{character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}}
 
+\item{runchk}{logical to run data checks with \code{\link{checkMWRresults}} and \code{\link{checkMWRfrecom}}, applies only if \code{res} or \code{frecom} are file paths}
+
 \item{warn}{logical to return warnings to the console (default)}
 
 \item{pass_col}{character string for the cell color of checks that pass}
