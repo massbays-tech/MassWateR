@@ -1,8 +1,6 @@
 #' Run quality control frequency checks for water quality monitoring results
 #'
-#' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
-#' @param frecom character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}
-#' @param runchk  logical to run data checks with \code{\link{checkMWRresults}} and \code{\link{checkMWRfrecom}}, applies only if \code{res} or \code{frecom} are file paths
+#' @inheritParams utilMWRinput
 #' @param warn logical to return warnings to the console (default)
 #'
 #' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly.
@@ -40,42 +38,10 @@
 qcMWRfre <- function(res, frecom, runchk = TRUE, warn = TRUE){
   
   ##
-  # results input
-  
-  # data frame
-  if(inherits(res, 'data.frame'))
-    resdat <- res
-  
-  # import from path
-  if(inherits(res, 'character')){
-    
-    respth <- res
-    chk <- file.exists(respth)
-    if(!chk)
-      stop('File specified with res argument not found')
-    
-    resdat <- readMWRresults(respth, runchk = runchk)
-    
-  }
-  
-  ##
-  # dqo frequency and completeness input
-  
-  # data frame
-  if(inherits(frecom, 'data.frame'))
-    frecomdat <- frecom
-  
-  # import from path
-  if(inherits(frecom, 'character')){
-    
-    frecompth <- frecom
-    chk <- file.exists(frecompth)
-    if(!chk)
-      stop('File specified with frecom argument not found')
-    
-    frecomdat <- readMWRfrecom(frecompth, runchk = runchk)
-    
-  }
+  # get user inputs
+  inp <- utilMWRinput(res = res, frecom = frecom)
+  resdat <- inp$resdat
+  frecomdat <- inp$frecomdat
   
   ##
   # check parameters in frequency and completeness can be found in results

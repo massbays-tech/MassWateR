@@ -46,6 +46,8 @@ A summary table showing the number of data records, number of qualified records,
 Inputs for the results and data quality objectives for frequency and completeness are processed internally with \code{\link{qcMWRcom}} and the same arguments are accepted for this function, in addition to others listed above.
 }
 \examples{
+##
+# using file paths
 
 # results path
 respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
@@ -55,5 +57,16 @@ frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness_final.xlsx',
      package = 'MassWateR')
 
 tabMWRcom(res = respth, frecom = frecompth)
+
+##
+# using data frames
+
+# results data
+resdat <- readMWRresults(respth)
+
+# frequency and completeness data
+frecomdat <- readMWRfrecom(frecompth)
+
+tabMWRcom(res = resdat, frecom = frecomdat)
 
 }

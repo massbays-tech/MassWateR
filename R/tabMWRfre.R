@@ -18,11 +18,14 @@
 #' @export
 #'
 #' @examples
+#'
+#' ##
+#' # using file paths
 #' 
 #' # results path
 #' respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
 #' 
-#' # cfrequency and completeness path
+#' # frequency and completeness path
 #' frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness_final.xlsx', 
 #'      package = 'MassWateR')
 #' 
@@ -31,6 +34,21 @@
 #' 
 #' # table as percent
 #' tabMWRfre(res = respth, frecom = frecompth, type = 'percent')
+#' 
+#' ##
+#' # using data frames
+#' 
+#' # results data
+#' resdat <- readMWRresults(respth)
+#' 
+#' # frequency and completeness data
+#' frecomdat <- readMWRfrecom(frecompth)
+#' 
+#' # table as summary
+#' tabMWRfre(res = resdat, frecom = frecomdat, type = 'summary')
+#' 
+#' # table as percent
+#' tabMWRfre(res = resdat, frecom = frecomdat, type = 'percent')
 tabMWRfre <- function(res, frecom, runchk = TRUE, warn = TRUE, type = c('summary', 'percent'), pass_col = 'green', fail_col = 'red', digits = 0, suffix = '%'){
   
   type <- match.arg(type)

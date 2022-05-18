@@ -17,6 +17,8 @@
 #' @export
 #'
 #' @examples
+#' ##
+#' # using file paths
 #' 
 #' # results path
 #' respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
@@ -26,6 +28,17 @@
 #'      package = 'MassWateR')
 #' 
 #' tabMWRcom(res = respth, frecom = frecompth)
+#' 
+#' ##
+#' # using data frames
+#' 
+#' # results data
+#' resdat <- readMWRresults(respth)
+#' 
+#' # frequency and completeness data
+#' frecomdat <- readMWRfrecom(frecompth)
+#' 
+#' tabMWRcom(res = resdat, frecom = frecomdat)
 #' 
 tabMWRcom <- function(res, frecom, runchk = TRUE, warn = TRUE, pass_col = 'green', fail_col = 'red', digits = 0, suffix = '%'){
 

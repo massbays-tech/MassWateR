@@ -58,7 +58,7 @@ tabMWRfre(res = resdat, frecom = frecomdat, type = 'percent')
 
 The `tabMWRfre()` function uses the `qcMWRfre()` function internally to create the table.  This function creates the raw summaries of frequency from the input data.  Typically, `qcMWRfre()` is not used by itself because it is used internally by `tabMWRfre()`.  It is explained here to demonstrate how the raw summaries can be obtained, if desired. 
 
-Below, the `qcMWRfre()` function is executed with the data frames for the results and quality objectives file for frequency and completeness.  The warnings and checks are suppressed. 
+Below, the `qcMWRfre()` function is executed with the data frames for the results and quality objectives file for frequency and completeness.  The warnings are suppressed. 
 
 ```{r, warning = T}
 qcMWRfre(res = resdat, frecom = frecomdat, warn = FALSE)
