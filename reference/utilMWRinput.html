@@ -55,25 +55,28 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">utilMWRinput</span><span class="op">(</span><span class="va">res</span>, <span class="va">frecom</span>, runchk <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">utilMWRinput</span><span class="op">(</span><span class="va">res</span>, acc <span class="op">=</span> <span class="cn">NULL</span>, frecom <span class="op">=</span> <span class="cn">NULL</span>, runchk <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>res</dt>
 <dd><p>character string of path to the results file or <code>data.frame</code> for results returned by <code><a href="readMWRresults.html">readMWRresults</a></code></p></dd>
+<dt>acc</dt>
+<dd><p>character string of path to the data quality objectives file for accuracy or <code>data.frame</code> returned by <code><a href="readMWRacc.html">readMWRacc</a></code></p></dd>
 <dt>frecom</dt>
 <dd><p>character string of path to the data quality objectives file for frequency and completeness or <code>data.frame</code> returned by <code><a href="readMWRfrecom.html">readMWRfrecom</a></code></p></dd>
 <dt>runchk</dt>
-<dd><p>logical to run data checks with <code><a href="checkMWRresults.html">checkMWRresults</a></code> and <code><a href="checkMWRfrecom.html">checkMWRfrecom</a></code>, applies only if <code>res</code> or <code>frecom</code> are file paths</p></dd>
+<dd><p>logical to run data checks with <code><a href="checkMWRresults.html">checkMWRresults</a></code>, <code><a href="checkMWRacc.html">checkMWRacc</a></code>, <code><a href="checkMWRfrecom.html">checkMWRfrecom</a></code>, applies only if <code>res</code>, <code>acc</code>, or <code>frecom</code> are file paths</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A two element list with the imported results and data quality objectives, named <code>"resdat"</code> and <code>"frecomdat"</code>, respectively.</p>
+    <p>A three element list with the imported results and data quality objective files, named <code>"resdat"</code>, <code>"accdat"</code>, and <code>"frecomdat"</code>, respectively.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The function is used internally by others to import data from paths to the relevant files or as data frames returned by <code><a href="readMWRresults.html">readMWRresults</a></code> and <code><a href="readMWRfrecom.html">readMWRfrecom</a></code>.  For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>.</p>
+    <p>The function is used internally by others to import data from paths to the relevant files or as data frames returned by <code><a href="readMWRresults.html">readMWRresults</a></code>, <code><a href="readMWRacc.html">readMWRacc</a></code>, and <code><a href="readMWRfrecom.html">readMWRfrecom</a></code>.  For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>.</p>
+<p>The data quality objective file arguments for <code>acc</code> and <code>frecom</code> can be <code>NULL</code>, used as a convenience for downstream functions that do not require both.</p>
     </div>
 
     <div class="section level2">
@@ -84,11 +87,14 @@
 <span class="r-in"><span class="co"># results path</span></span>
 <span class="r-in"><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleResults_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span>
 <span class="r-in"></span>
+<span class="r-in"><span class="co"># accuracy path</span></span>
+<span class="r-in"><span class="va">accpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOAccuracy_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span>
+<span class="r-in"></span>
 <span class="r-in"><span class="co"># frequency and completeness path</span></span>
 <span class="r-in"><span class="va">frecompth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOFrequencyCompleteness_final.xlsx'</span>, </span>
 <span class="r-in">     package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="va">inp</span> <span class="op">&lt;-</span> <span class="fu">utilMWRinput</span><span class="op">(</span>res <span class="op">=</span> <span class="va">respth</span>, frecom <span class="op">=</span> <span class="va">frecompth</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">inp</span> <span class="op">&lt;-</span> <span class="fu">utilMWRinput</span><span class="op">(</span>res <span class="op">=</span> <span class="va">respth</span>, acc <span class="op">=</span> <span class="va">accpth</span>, frecom <span class="op">=</span> <span class="va">frecompth</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on results data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
@@ -105,6 +111,17 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for Result Unit... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit per Characteristic Name... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking acceptable units for each entry in Characteristic Name... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on data quality objectives for accuracy...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in MDL, UQL... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for text other than &lt;=, ≤, &lt;, &gt;=, ≥, &gt;, ±, %, AQL, BQL, log, or all... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Parameter formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for unit (uom)... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit (uom) per Parameter... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking acceptable units (uom) for each entry in Parameter... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on data quality objectives for frequency and completeness...</span>
@@ -135,6 +152,22 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Value` &lt;chr&gt;, `Result Unit` &lt;chr&gt;, `Quantitation Limit` &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `QC Reference Value` &lt;chr&gt;, `Result Measure Qualifier` &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Attribute` &lt;chr&gt;</span></span>
+<span class="r-in"><span class="va">inp</span><span class="op">$</span><span class="va">accdat</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 21 × 10</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter    uom     MDL   UQL `Value Range` `Field Duplica…` `Lab Duplicate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Water Temp   deg C <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span> all           &lt;= 10%           &lt;= 10%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> pH           s.u.  <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span> all           0.5              0.5            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> DO           mg/l   0.1     <span style="color: #BB0000;">NA</span> &lt; 4           &lt;= 20%           &lt;= 20%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> DO           mg/l   0.1     <span style="color: #BB0000;">NA</span> &gt;= 4          &lt;= 10%           &lt;= 10%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Conductivity uS/cm  1       <span style="color: #BB0000;">NA</span> &lt; 250         &lt;= 30%           &lt;= 20%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Conductivity uS/cm  1       <span style="color: #BB0000;">NA</span> &gt;= 250        &lt;= 20%           &lt;= 10%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> TSS          mg/l   1       <span style="color: #BB0000;">NA</span> &lt; 3           1                &lt;= 20%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> TSS          mg/l   1       <span style="color: #BB0000;">NA</span> &gt;= 3          &lt;= 30%           &lt;= 20%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> TP           mg/l   0.01    <span style="color: #BB0000;">NA</span> &lt; 0.05        0.02             0.01           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> TP           mg/l   0.01    <span style="color: #BB0000;">NA</span> &gt;= 0.05       &lt;= 30%           &lt;= 20%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 11 more rows, and 3 more variables: `Field Blank` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Lab Blank` &lt;chr&gt;, `Spike/Check Accuracy` &lt;dbl&gt;</span></span>
 <span class="r-in"><span class="va">inp</span><span class="op">$</span><span class="va">frecomdat</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 11 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter    `Field Duplicate` `Lab Duplicate` `Field Blank` `Lab Blank`</span>
@@ -176,6 +209,20 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-in"></span>
+<span class="r-in"><span class="co"># accuracy data</span></span>
+<span class="r-in"><span class="va">accdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="readMWRacc.html">readMWRacc</a></span><span class="op">(</span><span class="va">accpth</span><span class="op">)</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on data quality objectives for accuracy...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in MDL, UQL... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for text other than &lt;=, ≤, &lt;, &gt;=, ≥, &gt;, ±, %, AQL, BQL, log, or all... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Parameter formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for unit (uom)... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit (uom) per Parameter... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking acceptable units (uom) for each entry in Parameter... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
+<span class="r-in"></span>
 <span class="r-in"><span class="co"># frequency and completeness data</span></span>
 <span class="r-in"><span class="va">frecomdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="readMWRfrecom.html">readMWRfrecom</a></span><span class="op">(</span><span class="va">frecompth</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on data quality objectives for frequency and completeness...</span>
@@ -187,33 +234,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-in"></span>
-<span class="r-in"><span class="va">inp</span> <span class="op">&lt;-</span> <span class="fu">utilMWRinput</span><span class="op">(</span>res <span class="op">=</span> <span class="va">respth</span>, frecom <span class="op">=</span> <span class="va">frecompth</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on results data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking valid Activity Types... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Start Date formats... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Start Time formats... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in Activity Depth/Height Measure... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Depth/Height Unit... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Relative Depth Name formats... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Characteristic Name formats... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Result Values... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking QC Reference Values... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for Result Unit... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit per Characteristic Name... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking acceptable units for each entry in Characteristic Name... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on data quality objectives for frequency and completeness...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for values outside of 0 and 100... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Parameter formats... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
+<span class="r-in"><span class="va">inp</span> <span class="op">&lt;-</span> <span class="fu">utilMWRinput</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, frecom <span class="op">=</span> <span class="va">frecomdat</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">inp</span><span class="op">$</span><span class="va">resdat</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2,586 × 14</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    `Monitoring Location ID` `Activity Type` `Activity Start D…` `Activity Star…`</span>
@@ -234,6 +255,22 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Value` &lt;chr&gt;, `Result Unit` &lt;chr&gt;, `Quantitation Limit` &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `QC Reference Value` &lt;chr&gt;, `Result Measure Qualifier` &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Attribute` &lt;chr&gt;</span></span>
+<span class="r-in"><span class="va">inp</span><span class="op">$</span><span class="va">accdat</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 21 × 10</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter    uom     MDL   UQL `Value Range` `Field Duplica…` `Lab Duplicate`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Water Temp   deg C <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span> all           &lt;= 10%           &lt;= 10%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> pH           s.u.  <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span> all           0.5              0.5            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> DO           mg/l   0.1     <span style="color: #BB0000;">NA</span> &lt; 4           &lt;= 20%           &lt;= 20%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> DO           mg/l   0.1     <span style="color: #BB0000;">NA</span> &gt;= 4          &lt;= 10%           &lt;= 10%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Conductivity uS/cm  1       <span style="color: #BB0000;">NA</span> &lt; 250         &lt;= 30%           &lt;= 20%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Conductivity uS/cm  1       <span style="color: #BB0000;">NA</span> &gt;= 250        &lt;= 20%           &lt;= 10%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> TSS          mg/l   1       <span style="color: #BB0000;">NA</span> &lt; 3           1                &lt;= 20%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> TSS          mg/l   1       <span style="color: #BB0000;">NA</span> &gt;= 3          &lt;= 30%           &lt;= 20%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> TP           mg/l   0.01    <span style="color: #BB0000;">NA</span> &lt; 0.05        0.02             0.01           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> TP           mg/l   0.01    <span style="color: #BB0000;">NA</span> &gt;= 0.05       &lt;= 30%           &lt;= 20%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 11 more rows, and 3 more variables: `Field Blank` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Lab Blank` &lt;chr&gt;, `Spike/Check Accuracy` &lt;dbl&gt;</span></span>
 <span class="r-in"><span class="va">inp</span><span class="op">$</span><span class="va">frecomdat</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 11 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter    `Field Duplicate` `Lab Duplicate` `Field Blank` `Lab Blank`</span>
