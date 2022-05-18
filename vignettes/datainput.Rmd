@@ -89,7 +89,7 @@ The example files are provided to demonstrate how the functions in MassWateR are
 
 The MassWateR package is developed for quality control and exploratory analysis of surface water quality data. Before these analyses can occur, the data must be formatted correctly. This section describes how to import data and the expectations that are checked automatically by the functions.
 
-For many of the checks, parameter names and units need to match the following columns in the `paramsMWR()` file included with the package.  Specifically parameter names (either `Characteristic Name` in the results file, or `Parameter` in the data quality objectives files) can be the simple or WQX format as below.  The units can be any that apply for a given parameter, although only one is allowed per parameter. All entries are case-sensitive. 
+For many of the checks, parameter names and units need to match the following columns in the `paramsMWR` file included with the package.  Specifically parameter names (either `Characteristic Name` in the results file, or `Parameter` in the data quality objectives files) can be the simple or WQX format as below.  The units can be any that apply for a given parameter, although only one is allowed per parameter. All entries are case-sensitive. 
 
 ```{r, echo = F}
 paramsMWR %>% 
@@ -119,12 +119,12 @@ Several checks are run automatically when the data are imported. These file chec
 -   **Activity Depth/Height Unit**: All entries should be `ft`, `m`, or blank
 -   **Activity Depth/Height Measure out of range**: All depth values should be less than or equal to 1 meter or 3.3 feet (warning only)
 -   **Activity Relative Depth Name**: Should be either Surface, Bottom, Midwater, Near Bottom, or blank (warning only)
--   **Characteristic Name**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` column of the `paramsMWR()` data
+-   **Characteristic Name**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` column of the `paramsMWR` data
 -   **Result Value**: Should be a numeric value or a text value as AQL or BDL
 -   **QC Reference Value**: Any entered values should be numeric
 -   **Result Unit**: No missing entries in `Result Unit`, except pH which can be blank
 -   **Single Result Unit**: Each unique parameter in `Characteristic Name` should have only one entry in `Result Unit`
--   **Correct Result Unit**: Each unique parameter in `Characteristic Name` should have an entry in `Result Unit` that matches one of the acceptable values in the `Units of measure` column of the `paramsMWR()` data, see the table above.
+-   **Correct Result Unit**: Each unique parameter in `Characteristic Name` should have an entry in `Result Unit` that matches one of the acceptable values in the `Units of measure` column of the `paramsMWR` data, see the table above.
 
 An informative error is returned if the input data fail any of the checks. The input data should be corrected by hand in the Excel file by altering the appropriate rows or column names indicated in the error. Checks with warnings can be fixed at the discretion of the user before proceeding.
 
@@ -143,7 +143,7 @@ Data imported with `readMWRresults()` are also formatted to take care of a few m
 
 -   **Fix date and time inputs**: Activity Start Date is converted to YYYY-MM-DD as a date object, Activity Start Time is converted to HH:MM as a character to fix artifacts from Excel import.
 -   **Minor formatting for Result Unit**: For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to `NA`. 
--   **Convert characteristic Names**: All parameters in `Characteristic Name` are converted to `Simple Parameter` in `paramsMWR()` as needed.
+-   **Convert characteristic Names**: All parameters in `Characteristic Name` are converted to `Simple Parameter` in `paramsMWR` as needed.
 
 ### Data quality objectives
 
@@ -171,10 +171,10 @@ File checks for accuracy:
 -   **Columns present**: All columns from the previous check should be present
 -   **Non-numeric values in MDL, UQL**: Values entered in columns MDL and UQL should be numeric
 -   **Unrecognized characters**: Fields describing accuracy checks should not include symbols or text other than $<=$, $\leq$, $<$, $>=$, $\geq$, $>$, $\pm$ \%, BDL, AQL, log, or all
--   **Parameter**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` columns of the `paramsMWR()` data
+-   **Parameter**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` columns of the `paramsMWR` data
 -   **Units**: No missing entries in units (`uom`), except pH which can be blank
 -   **Single unit**: Each unique `Parameter` should have only one type for the units (`uom`)
--   **Correct units**: Each unique `Parameter` should have an entry in the units (`uom`) that matches one of the acceptable values in the `Units of measure` column of the `paramsMWR()` data, see the table above.
+-   **Correct units**: Each unique `Parameter` should have an entry in the units (`uom`) that matches one of the acceptable values in the `Units of measure` column of the `paramsMWR` data, see the table above.
 
 File checks for frequency and completeness:
 
@@ -182,9 +182,9 @@ File checks for frequency and completeness:
 -   **Columns present**: All columns from the previous check should be present
 -   **Non-numeric values**: Values entered in columns other than the first should be numeric
 -   **Values outside of 0 - 100**: Values entered in columns other than the first should not be outside of 0 and 100
--   **Parameter**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` columns of the `paramsMWR()` data
+-   **Parameter**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` columns of the `paramsMWR` data
 
-For all files,  all parameters in the `Parameter` column are converted to `Simple Parameter` in `paramsMWR()` as needed.  This is done automatically using `formMWRacc()` and `formMWRfrecom()` within the import functions.
+For all files,  all parameters in the `Parameter` column are converted to `Simple Parameter` in `paramsMWR` as needed.  This is done automatically using `formMWRacc()` and `formMWRfrecom()` within the import functions.
 
 ### Site metadata
 
