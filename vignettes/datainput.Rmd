@@ -119,7 +119,7 @@ Several checks are run automatically when the data are imported. These file chec
 -   **Activity Depth/Height Unit**: All entries should be `ft`, `m`, or blank
 -   **Activity Depth/Height Measure out of range**: All depth values should be less than or equal to 1 meter or 3.3 feet (warning only)
 -   **Activity Relative Depth Name**: Should be either Surface, Bottom, Midwater, Near Bottom, or blank (warning only)
--   **Characteristic Name**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` column of the `paramsMWR` data
+-   **Characteristic Name**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` column of the `paramsMWR` data (warning only)
 -   **Result Value**: Should be a numeric value or a text value as AQL or BDL
 -   **QC Reference Value**: Any entered values should be numeric
 -   **Result Unit**: No missing entries in `Result Unit`, except pH which can be blank
