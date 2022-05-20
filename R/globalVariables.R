@@ -5,3 +5,6 @@ globalVariables(c("Activity Start Date", "Activity Start Time", "QC Reference Va
                   "Units of measure", "Units of measure.x", "Units of measure.y", 
                   "WQX Parameter", "datarec", "qualrec", "standard", "Activity Type", 
                   "check", "Type", "Frequency %"))
+
+#' @importFrom stats na.omit
+NULL

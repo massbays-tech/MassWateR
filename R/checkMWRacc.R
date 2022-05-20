@@ -127,22 +127,24 @@ checkMWRacc <- function(accdat){
   message(paste(msg, 'OK'))
   
   # convert all Parameters to simple so that units can be verified
-  
+
   # check acceptable units for each parameter, must check all parameter names simple or wqx in paramsMWR
   msg <- '\tChecking acceptable units (uom) for each entry in Parameter...'
   typ <- accdat[, c('Parameter', 'uom')]
   typ <- unique(typ)
-  typ$`uom`[is.na(typ$`uom`) & typ$`Parameter` == 'pH'] <- 'NA'
+  typ$`uom`[(is.na(typ$`uom`) | typ$`uom` == 's.u.') & typ$`Parameter` == 'pH'] <- 'blank'
   tojn <- paramsMWR[, c('Simple Parameter', 'Units of measure')]
   tojn <- dplyr::rename(tojn, `Parameter` = `Simple Parameter`)
   typ <- dplyr::left_join(typ, tojn, by = 'Parameter')
   tojn <- paramsMWR[, c('WQX Parameter', 'Units of measure')] # repeat for wqx parameter names
   tojn <- dplyr::rename(tojn, `Parameter` = `WQX Parameter`)
   typ <- dplyr::left_join(typ, tojn, by = 'Parameter')
-  typ <- tidyr::unite(typ, 'Units of measure', `Units of measure.x`, `Units of measure.y`, na.rm = TRUE)
-  chk <- dplyr::rowwise(typ)
-  chk <- dplyr::mutate(chk, 
-                       fnd = grepl(`uom`, `Units of measure`, fixed = TRUE)
+  typ <- dplyr::rowwise(typ)
+  typ <- dplyr::mutate(typ, 
+    `Units of measure` = na.omit(unique(`Units of measure.x`, `Units of measure.y`))
+  )
+  chk <- dplyr::mutate(typ, 
+    fnd = grepl(`uom`, `Units of measure`, fixed = TRUE)
   )
   if(any(!chk$fnd)){
     tochk <- chk[!chk$fnd, c('Parameter', 'uom')]
