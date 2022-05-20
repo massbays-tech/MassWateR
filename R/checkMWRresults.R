@@ -157,7 +157,7 @@ checkMWRresults <- function(resdat){
   chk <- typ %in% chntyp
   if(any(!chk)){
     tochk <- unique(typ[!chk])
-    warning(msg, '\n\tIncorrect Characteristic Name found: ', paste(tochk, collapse = ', '), call. = FALSE)
+    warning(msg, '\n\tCharacteristic Name not used for quality control: ', paste(tochk, collapse = ', '), call. = FALSE)
     message(paste(msg, 'WARNING'))
   } else {
     message(paste(msg, 'OK'))
@@ -216,19 +216,23 @@ checkMWRresults <- function(resdat){
   message(paste(msg, 'OK'))
 
   # check acceptable units for each parameter, must check all parameter names simple or wqx in paramsMWR
+  # does not check those in Characteristic Name not found in parameter names in simple or wqx in paramsMWR
   msg <- '\tChecking acceptable units for each entry in Characteristic Name...'
   typ <- resdat[, c('Characteristic Name', 'Result Unit')]
   typ <- unique(typ)
-  typ$`Result Unit`[is.na(typ$`Result Unit`) & typ$`Characteristic Name` == 'pH'] <- 'NA'
+  typ$`Result Unit`[(is.na(typ$`Result Unit`) | typ$`Result Unit` == 's.u.') & typ$`Characteristic Name` == 'pH'] <- 'blank'
   tojn <- paramsMWR[, c('Simple Parameter', 'Units of measure')]
   tojn <- dplyr::rename(tojn, `Characteristic Name` = `Simple Parameter`)
   typ <- dplyr::left_join(typ, tojn, by = 'Characteristic Name')
   tojn <- paramsMWR[, c('WQX Parameter', 'Units of measure')] # repeat for wqx parameter names
   tojn <- dplyr::rename(tojn, `Characteristic Name` = `WQX Parameter`)
   typ <- dplyr::left_join(typ, tojn, by = 'Characteristic Name')
-  typ <- tidyr::unite(typ, 'Units of measure', `Units of measure.x`, `Units of measure.y`, na.rm = TRUE)
-  chk <- dplyr::rowwise(typ)
-  chk <- dplyr::mutate(chk, 
+  typ <- dplyr::filter(typ, !(is.na(`Units of measure.x`) & is.na(`Units of measure.y`)))
+  typ <- dplyr::rowwise(typ)
+  typ <- dplyr::mutate(typ, 
+    `Units of measure` = na.omit(unique(`Units of measure.x`, `Units of measure.y`))
+  )
+  chk <- dplyr::mutate(typ, 
     fnd = grepl(`Result Unit`, `Units of measure`, fixed = TRUE)
   )
   if(any(!chk$fnd)){
