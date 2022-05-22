@@ -64,8 +64,12 @@ tabMWRfre <- function(res, frecom, runchk = TRUE, warn = TRUE, type = c('summary
       flextable::autofit(x)
     }
     
+    # levels to use
+    levs <- c('Field Duplicate', 'Lab Duplicate', 'Field Blank', 'Lab Blank', 'Lab Spike', 'Instrument Check')
+    
     # format for the table
     totab <- res %>% 
+      dplyr::filter(!check %in% 'Spike/Check Accuracy') %>% 
       dplyr::select(
         Type = check, 
         Parameter, 
@@ -75,10 +79,7 @@ tabMWRfre <- function(res, frecom, runchk = TRUE, warn = TRUE, type = c('summary
         `Hit/Miss` = met
         ) %>% 
       dplyr::mutate(
-        Type = factor(Type, 
-          levels = c('Field Duplicate', 'Lab Duplicate', 'Field Blank', 'Lab Blank', 'Spike/Check Accuracy'), 
-          labels = c('Field Duplicate', 'Lab Duplicate', 'Field Blank', 'Lab Blank', 'Lab Spikes')
-          ), 
+        Type = factor(Type, levels = levs, labels = paste0(levs, 's')), 
         `Hit/Miss` = dplyr::case_when(
           !`Hit/Miss` ~ 'MISS', 
           T ~ ''
@@ -107,8 +108,8 @@ tabMWRfre <- function(res, frecom, runchk = TRUE, warn = TRUE, type = c('summary
     
     # format for the table
     totab <- res %>% 
+      dplyr::filter(!check %in% c('Lab Spike', 'Instrument Check')) %>% 
       dplyr::select(Parameter, check, percent, met) %>%
-      dplyr::filter(!check %in% '% Completeness') %>% 
       dplyr::mutate(met = as.numeric(met)) %>% 
       tidyr::pivot_longer(cols = c('percent', 'met')) %>% 
       tidyr::unite('check', check, name) %>% 

@@ -93,10 +93,17 @@ qcMWRfre <- function(res, frecom, runchk = TRUE, warn = TRUE){
     # lab blank
     acts <- 'Quality Control Sample-Lab Blank'
     labblnk <- sum(resdattmp$`Activity Type` %in% acts)
-    
-    # spikes/checks
+
+    # lab spikes
     acts <- 'Quality Control Sample-Lab Spike'
     spikes <- sum(resdattmp$`Activity Type` %in% acts)
+    
+    # instrument checks
+    acts <- 'Quality Control Field Calibration Check'
+    instchks <- sum(resdattmp$`Activity Type` %in% acts)
+    
+    # spikes and checks total (for summary table)
+    spkchk <- sum(spikes, instchks)
     
     # compile results
     res <- tibble::tibble(
@@ -106,7 +113,9 @@ qcMWRfre <- function(res, frecom, runchk = TRUE, warn = TRUE){
       `Lab Duplicate` = labdup, 
       `Field Blank` = fieldblnk,
       `Lab Blank` = labblnk,
-      `Spike/Check Accuracy` = spikes
+      `Lab Spike`= spikes,
+      `Instrument Check` = instchks,
+      `Spike/Check Accuracy` = spkchk
     )
     
     resall <- dplyr::bind_rows(resall, res)
@@ -115,6 +124,10 @@ qcMWRfre <- function(res, frecom, runchk = TRUE, warn = TRUE){
   
   # frecomdat long format
   frecomdat <- frecomdat %>% 
+    dplyr::mutate(
+      `Lab Spike` = `Spike/Check Accuracy`, 
+      `Instrument Check` = `Spike/Check Accuracy`
+    ) %>% 
     tidyr::pivot_longer(cols = -dplyr::matches('Parameter'), names_to = 'check', values_to = 'standard')
   
   # summary results long format
