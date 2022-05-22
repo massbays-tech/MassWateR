@@ -112,7 +112,7 @@ Several checks are run automatically when the data are imported. These file chec
 
 -   **Column name spelling**: Should be the following: Monitoring Location ID, Activity Type, Activity Start Date, Activity Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit, Activity Relative Depth Name, Characteristic Name, Result Value, Result Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier, Result Attribute.
 -   **Columns present**: All columns from the previous should be present, Result Attribute is optional
--   **Activity Type**: Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike
+-   **Activity Type**: Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Field Duplicate, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike
 -   **Date formats**: Should be mm/dd/yyyy and parsed correctly on import
 -   **Time formats**: Should be HH:MM and parsed correctly on import
 -   **Non-numeric Activity Depth/Height Measure**: All depth values should be numbers, excluding missing values
@@ -139,11 +139,11 @@ chk[135, 2] <- 'Field'
 checkMWRresults(chk)
 ```
 
-Data imported with `readMWRresults()` are also formatted to take care of a few minor issues for downstream analysis. This formatting includes:
+Data imported with `readMWRresults()` are also formatted to address a few minor issues for downstream analysis. This formatting includes:
 
 -   **Fix date and time inputs**: Activity Start Date is converted to YYYY-MM-DD as a date object, Activity Start Time is converted to HH:MM as a character to fix artifacts from Excel import.
 -   **Minor formatting for Result Unit**: For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to `NA`. 
--   **Convert characteristic Names**: All parameters in `Characteristic Name` are converted to `Simple Parameter` in `paramsMWR` as needed.
+-   **Convert characteristic names**: All parameters in `Characteristic Name` are converted to `Simple Parameter` in `paramsMWR` as needed.
 
 ### Data quality objectives
 
@@ -184,7 +184,10 @@ File checks for frequency and completeness:
 -   **Values outside of 0 - 100**: Values entered in columns other than the first should not be outside of 0 and 100
 -   **Parameter**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` columns of the `paramsMWR` data
 
-For all files,  all parameters in the `Parameter` column are converted to `Simple Parameter` in `paramsMWR` as needed.  This is done automatically using `formMWRacc()` and `formMWRfrecom()` within the import functions.
+Minor formatting of the input files is also done to address a few minor issues for downstream analysis. This formatting includes:
+
+-   **Minor formatting for units**: For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to `NA` for the `uom` column (`readMWRacc()` only). 
+-   **Convert parameter names**: All parameters in `Parameter` are converted to `Simple Parameter` in `paramsMWR` as needed.
 
 ### Site metadata
 

@@ -22,7 +22,7 @@ The following checks are made:
 \itemize{
 \item{Column name spelling: }{Should be the following: Monitoring Location ID, Activity Type, Activity Start Date, Activity Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit, Activity Relative Depth Name, Characteristic Name, Result Value, Result Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier, Result Attribute.}
 \item{Columns present: }{All columns from the previous check should be present, Result Attribute is optional}
-\item{Activity Type: }{Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike, Quality Control Field Calibration Check}
+\item{Activity Type: }{Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Field Duplicate, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike, Quality Control Field Calibration Check}
 \item{Date formats: }{Should be mm/dd/yyyy and parsed correctly on import}
 \item{Time formats: }{Should be HH:MM and parsed correctly on import}
 \item{Non-numeric Activity Depth/Height Measure: }{All depth values should be numbers, excluding missing values}

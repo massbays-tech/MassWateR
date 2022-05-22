@@ -16,6 +16,7 @@ Format data quality objective accuracy data
 This function is used internally within \code{\link{readMWRacc}} to format the input data for downstream analysis.  The formatting includes:
 
 \itemize{
+\item{Minor formatting for units: }{For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to NA in \code{uom}}
 \item{Convert Parameter: }{All parameters are converted to \code{Simple Parameter} in \code{\link{paramsMWR}} as needed}
 }
 }

@@ -5,7 +5,7 @@
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}} and \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
-#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly.
+#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRacc}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly.
 #' 
 #' Note that accuracy is only evaluated on parameters in the \code{Parameter} column in the data quality objectives completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.
 #' 
@@ -54,85 +54,117 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE){
     warning('Parameters in quality control objectives for accuracy not found in results data: ', paste(tochk, collapse = ', '))
   }
   
+  # check units in resdat match those in accuracy file
+  accuni <- accdat %>% 
+    dplyr::select(
+      `Characteristic Name` = Parameter, 
+      `uom`
+    ) %>% 
+    unique
+  resdatuni <- unique(resdat[, c('Characteristic Name', 'Result Unit')])
+  jndat <- inner_join(resdatuni, accuni, by = 'Characteristic Name') %>% 
+    dplyr::mutate(
+      `Result Unit` = ifelse(is.na(`Result Unit`), 'blank', `Result Unit`),
+      uom = ifelse(is.na(uom), 'blank', uom)
+    )
+  chk <- jndat$`Result Unit` == jndat$uom
+  if(any(!chk)){
+    tochk <- sort(jndat$`Characteristic Name`[!chk])
+    stop('Mis-match between units in result and DQO file: ', paste(tochk, collapse = ', '), call. = FALSE)
+  }
+  
   # parameters for accuracy checks
   prms <- accprm[chk]
   
-  resall <- NULL
+  fldblk <- NULL
+  labblk <- NULL
+  flddup <- NULL
+  labdup <- NULL
+  labspk <- NULL
+  inschk <- NULL
   
-  # # run completeness checks
-  # for(prm in prms){
-  #   
-  #   # subset dqo data
-  #   frecomdattmp <- frecomdat %>% 
-  #     dplyr::filter(Parameter == prm)
-  #   
-  #   # subset results data
-  #   resdattmp <- resdat %>% 
-  #     dplyr::filter(`Characteristic Name` == prm)
-  #   
-  #   # total obs
-  #   ntot <- resdattmp %>% 
-  #     dplyr::filter(`Activity Type` %in% c('Sample-Routine', 'Field Msr/Obs')) %>% 
-  #     dplyr::filter(is.na(`QC Reference Value`)) %>% 
-  #     nrow()
-  #   
-  #   # field duplicates
-  #   fielddup <- resdattmp %>% 
-  #     dplyr::filter(`Activity Type` %in% c('Sample-Routine', 'Field Msr/Obs')) %>% 
-  #     dplyr::filter(!is.na(`QC Reference Value`)) %>% 
-  #     nrow()
-  #   
-  #   # lab duplicates
-  #   acts <- 'Quality Control Sample-Lab Duplicate'
-  #   labdup <- sum(resdattmp$`Activity Type` %in% acts)
-  #   
-  #   # field blank
-  #   acts <- 'Quality Control Sample-Field Blank'
-  #   fieldblnk <- sum(resdattmp$`Activity Type` %in% acts)
-  #   
-  #   # lab blank
-  #   acts <- 'Quality Control Sample-Lab Blank'
-  #   labblnk <- sum(resdattmp$`Activity Type` %in% acts)
-  #   
-  #   # spikes/checks
-  #   acts <- 'Quality Control Sample-Lab Spike'
-  #   spikes <- sum(resdattmp$`Activity Type` %in% acts)
-  #   
-  #   # compile results
-  #   res <- tibble::tibble(
-  #     Parameter = prm, 
-  #     obs = ntot,
-  #     `Field Duplicate` = fielddup, 
-  #     `Lab Duplicate` = labdup, 
-  #     `Field Blank` = fieldblnk,
-  #     `Lab Blank` = labblnk,
-  #     `Spike/Check Accuracy` = spikes
-  #   )
-  #   
-  #   resall <- dplyr::bind_rows(resall, res)
-  #   
-  # }
-  # 
-  # # frecomdat long format
-  # frecomdat <- frecomdat %>% 
-  #   tidyr::pivot_longer(cols = -dplyr::matches('Parameter'), names_to = 'check', values_to = 'standard')
-  # 
-  # # summary results long format
-  # resall <- resall %>% 
-  #   tidyr::pivot_longer(cols = -dplyr::matches('^Parameter$|^obs$'), names_to = 'check', values_to = 'count')
-  # 
-  # # combine and create summaries
-  # out <- resall %>% 
-  #   dplyr::left_join(frecomdat, by = c('Parameter', 'check')) %>% 
-  #   dplyr::mutate(
-  #     percent = dplyr::case_when(
-  #       !is.na(standard) ~ 100 * count / obs,
-  #       T ~ NA_real_
-  #     ),
-  #     met = percent >= standard
-  #   )
+  # run acuracy checks
+  for(prm in prms){
+    
+    # subset dqo data
+    accdattmp <- accdat %>%
+      dplyr::filter(Parameter == prm)
+
+    # subset results data
+    resdattmp <- resdat %>%
+      dplyr::filter(`Characteristic Name` == prm)
+
+    # field blank
+    fldblksub <- resdattmp %>% 
+      dplyr::filter(`Activity Type` == 'Quality Control Sample-Field Blank')
+    if(nrow(fldblksub) != 0){
+      
+      res <- NULL
+      fldblk <- dplyr::bind_rows(fldblk, res) 
   
-  out <- NULL
+    }
+      
+    # lab blanks
+    labblksub <- resdattmp %>% 
+      dplyr::filter(`Activity Type` == 'Quality Control Sample-Lab Blank')
+    if(nrow(labblksub) != 0){
+      
+      res <- NULL
+      labblk <- dplyr::bind_rows(labblk, res) 
+      
+    }
+    
+    # field duplicates
+    flddupsub <- resdattmp %>% 
+      dplyr::filter(`Activity Type` == 'Quality Control Sample-Field Duplicate')
+    if(nrow(flddupsub) != 0){
+      
+      res <- NULL
+      flddup <- dplyr::bind_rows(flddup, res) 
+      
+    }
+    
+    # lab duplicates
+    labdupsub <- resdattmp %>% 
+      dplyr::filter(`Activity Type` == 'Quality Control Sample-Lab Duplicate')
+    if(nrow(labdupsub) != 0){
+      
+      res <- NULL
+      labdup <- dplyr::bind_rows(labdup, res) 
+      
+    }
+    
+    # lab spikes
+    labspksub <- resdattmp %>% 
+      dplyr::filter(`Activity Type` == 'Quality Control Sample-Lab Spike')
+    if(nrow(labspksub) != 0){
+      
+      res <- NULL
+      labspk <- dplyr::bind_rows(labspk, res) 
+      
+    }
+    
+    # instrument checks
+    inschksub <- resdattmp %>% 
+      dplyr::filter(`Activity Type` == 'Quality Control Field Calibration Check')
+    if(nrow(inschksub) != 0){
+      
+      res <- NULL
+      inschk <- dplyr::bind_rows(inschk, res) 
+      
+    }
+
+  }
+ 
+  # compile all as list since columns differ
+  out <- list(
+    `Field Blanks` = fldblk,
+    `Lab Blanks` = labblk,
+    `Field Duplicates` = flddup,
+    `Lab Duplicates` = labdup, 
+    `Lab Spikes` = labspk,
+    `Instrument Checks (post sampling)` = inschk
+  )
   
   return(out)
   
