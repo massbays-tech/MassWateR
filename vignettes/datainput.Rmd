@@ -11,7 +11,7 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>", 
-  warning = F, 
+  warning = T, 
   message = F, 
   fig.align = 'center'
 )
@@ -156,7 +156,7 @@ accdat <- readMWRacc(accpth)
 head(accdat)
 ```
 
-```{r, message = T}
+```{r, message = T, warning = T}
 # import data quality objectives for frequency and completeness
 frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness_final.xlsx', package = 'MassWateR')
 frecomdat <- readMWRfrecom(frecompth)
