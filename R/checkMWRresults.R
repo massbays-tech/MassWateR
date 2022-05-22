@@ -38,6 +38,7 @@
 checkMWRresults <- function(resdat){
   
   message('Running checks on results data...\n')
+  wrn <- 0
   
   # globals
   colnms <- c("Monitoring Location ID", "Activity Type", "Activity Start Date", 
@@ -133,6 +134,7 @@ checkMWRresults <- function(resdat){
   if(any(!chk, na.rm = TRUE)){
     rws <- which(!chk)
     warning(msg, '\n\tValues in Activity Depth/Height Measure > 1 m / 3.3 ft found on row(s): ', paste(rws, collapse = ', '), call. = FALSE)
+    wrn <- wrn + 1
     message(paste(msg, 'WARNING'))
   } else {
     message(paste(msg, 'OK'))
@@ -146,6 +148,7 @@ checkMWRresults <- function(resdat){
     rws <- which(!dps %in% dpstyp)
     tochk <- unique(dps[!chk])
     warning(msg, '\n\tIncorrect Activity Relative Depth Name format found: ', paste(tochk, collapse = ', '), ' on row(s) ', paste(rws, collapse = ', '), call. = FALSE)
+    wrn <- wrn + 1
     message(paste(msg, 'WARNING'))
   } else {
     message(paste(msg, 'OK'))
@@ -158,6 +161,7 @@ checkMWRresults <- function(resdat){
   if(any(!chk)){
     tochk <- unique(typ[!chk])
     warning(msg, '\n\tCharacteristic Name not used for quality control: ', paste(tochk, collapse = ', '), call. = FALSE)
+    wrn <- wrn + 1
     message(paste(msg, 'WARNING'))
   } else {
     message(paste(msg, 'OK'))
@@ -241,8 +245,13 @@ checkMWRresults <- function(resdat){
     stop(msg, '\n\tIncorrect Result Unit found for Characteristic Names: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
-  
-  message('\nAll checks passed!')
+
+  # final out message
+  outmsg <- '\nAll checks passed'
+  if(wrn > 0)
+    outmsg <- paste0(outmsg, ' (', wrn, ' WARNING(s))')
+  outmsg <- paste0(outmsg, '!')
+  message(outmsg)
 
   return(resdat)
   
