@@ -36,11 +36,9 @@ frecomdat <- readMWRfrecom(frecompth)
 
 ## Quality control for accuracy
 
-## Quality control for frequency and completeness
+### Quality control for frequency 
 
-The quality control checks for frequency and completeness are used to verify an appropriate number of quality control samples have been collected or analyzed for each parameter.  These are checks on the quantity of samples and not the values, as for the accuracy checks.  The frequency and completeness checks require results data (as in `resdat` above) and a data quality objectives file for frequency and completeness (as in `frecomdat`).
-
-### Frequency 
+The quality control checks for frequency are used to verify an appropriate number of quality control samples have been collected or analyzed for each parameter.  These are checks on the quantity of samples and not the values, as for the accuracy checks.  The frequency checks require results data (as in `resdat` above) and a data quality objectives file for frequency and completeness (as in `frecomdat`).
 
 The `tabMWRfre()` function is used to create tabular results for the frequency checks for each parameter.  The function can be used with inputs as paths to the relevant files or as data frames returned by `readMWRresults()` and `read_frecom()`.  For the former, the full suite of data checks can be evaluated with `runkchk = T` (default) or suppressed with `runchk = F`, as explained in the [data inputs and checks vignette](https://massbays-tech.github.io/MassWateR/articles/datainput.html).  In the latter case, downstream analyses may not work if data are formatted incorrectly.  Also note that completeness is only evaluated on parameters in the `Parameter` column in the data quality objectives completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.  This warning can be suppressed by setting `warn = FALSE`. 
 
@@ -66,7 +64,9 @@ qcMWRfre(res = resdat, frecom = frecomdat, warn = FALSE)
 
 The output shows the frequency checks from the combined files.  Each row applies to a frequency check for a parameter. The `Parameter` column shows the parameter, the `obs` column shows the total records that apply to regular activity types, the `check` column shows the relevant activity type for each frequency check, the `count` column shows the number of records that apply to a check, the `standard` column shows the relevant percentage required for the quality control check from the quality control objectives file, and the `met` column shows if the standard was met by comparing if `percent` is greater than or equal to `standard`.
 
-### Completeness
+### Quality control for completeness
+
+The quality control checks for completeness are used to assess the number of regular samples relative to qualified samples that apply to each parameter. Regular samples are those with `Field Msr/Obs` or `Sample-Routine` in the `Activity Type` column of the results file and qualified samples are those marked as `Q` in the `Result Measure Qualifier` column of the results file.  The completeness checks require results data (as in `resdat` above) and a data quality objectives file for frequency and completeness (as in `frecomdat`).
 
 The `tabMWRcom()` function is used to create a table that shows the completeness percentages for each parameter.  As explained in the previous section, the function can be used with inputs as paths to the relevant files or as data frames returned by `readMWRresults()` and `read_frecom()`.  
 
