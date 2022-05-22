@@ -73,8 +73,7 @@ qcMWRfre <- function(res, frecom, runchk = TRUE, warn = TRUE){
 
     # total obs
     ntot <- resdattmp %>% 
-      dplyr::filter(`Activity Type` %in% c('Sample-Routine', 'Field Msr/Obs')) %>% 
-      dplyr::filter(is.na(`QC Reference Value`)) %>% 
+      dplyr::filter(`Activity Type` %in% c('Sample-Routine', 'Field Msr/Obs')) %>%
       nrow()
     
     # field duplicates
