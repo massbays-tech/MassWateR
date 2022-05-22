@@ -75,15 +75,58 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE){
   
   # parameters for accuracy checks
   prms <- accprm[chk]
+
+  ##
+  # accuracy checks not requiring a loop
   
-  fldblk <- NULL
-  labblk <- NULL
+  # field and lab blanks, can do together 
+  blk <- accdat %>% 
+    select(`Characteristic Name` = Parameter, MDL, uom) %>% 
+    unique %>% 
+    left_join(resdat, ., by = 'Characteristic Name') %>%
+    dplyr::filter(`Activity Type` %in% c('Quality Control Sample-Field Blank', 'Quality Control Sample-Lab Blank')) %>% 
+    dplyr::select(
+      `Activity Type`,
+      Parameter = `Characteristic Name`,
+      Date = `Activity Start Date`,
+      Site = `Monitoring Location ID`,
+      Result = `Result Value`,
+      `Result Unit`, 
+      MDL, 
+      `MDL Unit` = uom
+    ) %>% 
+    dplyr::mutate(
+      `Hit/Miss` = dplyr::case_when(
+        !`Result` %in% c('AQL', 'BDL') & Result >= MDL ~ 'MISS',
+        Result %in% 'AQL' ~ 'MISS',
+        T ~ NA_character_
+      ), 
+      `Result Unit` = ifelse(Result %in% c('AQL', 'BDL'), NA, `Result Unit`)
+    ) %>% 
+    tidyr::unite('Result', Result, `Result Unit`, sep = ' ', na.rm = TRUE) %>% 
+    tidyr::unite('MDL', MDL, `MDL Unit`, sep = ' ')
+  
+  # field blank
+  fldblk <- blk %>%
+    dplyr::filter(`Activity Type` == 'Quality Control Sample-Field Blank') %>% 
+    dplyr::select(-`Activity Type`)
+  
+  # lab blank
+  labblk <- blk %>%
+    dplyr::filter(`Activity Type` == 'Quality Control Sample-Lab Blank') %>% 
+    dplyr::select(-`Activity Type`)
+
+  # output placeholders
   flddup <- NULL
   labdup <- NULL
   labspk <- NULL
   inschk <- NULL
   
-  # run acuracy checks
+  # remove columns from accdat that we don't need for remaning checks
+  accdat <- accdat %>% 
+    dplyr::select(-uom, -`Field Blank`, -`Lab Blank`)
+  
+  # run accuracy checks
   for(prm in prms){
     
     # subset dqo data
@@ -94,31 +137,11 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE){
     resdattmp <- resdat %>%
       dplyr::filter(`Characteristic Name` == prm)
 
-    # field blank
-    fldblksub <- resdattmp %>% 
-      dplyr::filter(`Activity Type` == 'Quality Control Sample-Field Blank')
-    if(nrow(fldblksub) != 0){
-      
-      res <- NULL
-      fldblk <- dplyr::bind_rows(fldblk, res) 
-  
-    }
-      
-    # lab blanks
-    labblksub <- resdattmp %>% 
-      dplyr::filter(`Activity Type` == 'Quality Control Sample-Lab Blank')
-    if(nrow(labblksub) != 0){
-      
-      res <- NULL
-      labblk <- dplyr::bind_rows(labblk, res) 
-      
-    }
-    
     # field duplicates
     flddupsub <- resdattmp %>% 
       dplyr::filter(`Activity Type` == 'Quality Control Sample-Field Duplicate')
     if(nrow(flddupsub) != 0){
-      
+
       res <- NULL
       flddup <- dplyr::bind_rows(flddup, res) 
       
@@ -128,8 +151,29 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE){
     labdupsub <- resdattmp %>% 
       dplyr::filter(`Activity Type` == 'Quality Control Sample-Lab Duplicate')
     if(nrow(labdupsub) != 0){
-      
-      res <- NULL
+    
+      res <- labdupsub %>% 
+        dplyr::select(
+          Parameter = `Characteristic Name`, 
+          Date = `Activity Start Date`, 
+          Site = `Monitoring Location ID`, 
+          `Initial Result` = `Result Value`, 
+          `Dup. Result` = `QC Reference Value`
+        ) %>%
+        dplyr::left_join(accdat, by = 'Parameter') %>% 
+        dplyr::mutate(
+          `Initial Result2` = dplyr::case_when(
+            `Initial Result` == 'BDL' ~ as.character(MDL), 
+            `Initial Result` == 'AQL' ~ as.character(UQL), 
+            T ~ `Initial Result`
+          ), 
+          `Dup. Result2` = dplyr::case_when(
+            `Dup. Result` == 'BDL' ~ as.character(MDL), 
+            `Dup. Result` == 'AQL' ~ as.character(UQL), 
+            T ~ `Dup. Result`
+          )
+        )
+      # need to figure out how to handle differing value ranges for the standard
       labdup <- dplyr::bind_rows(labdup, res) 
       
     }
