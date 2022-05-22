@@ -108,5 +108,15 @@ test_that("Checking incorrect unit type per parameter in Characteristic Name", {
   expect_error(checkMWRresults(chk))
 })
 
+test_that("Checking tests if all Characteristic Name is correct", {
+  chk <- resdat
+  chk <- chk %>% 
+    filter(!`Characteristic Name`%in% c('Air Temp', 'Gage'))
+  expect_message(checkMWRresults(chk), 'All checks passed!')
+})
+
+
+
+
 
 
