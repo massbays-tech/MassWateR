@@ -395,7 +395,7 @@ Functions in MassWateR are organized around these topics.
 <li>
 <strong>Columns present</strong>: All columns from the previous should be present, Result Attribute is optional</li>
 <li>
-<strong>Activity Type</strong>: Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike</li>
+<strong>Activity Type</strong>: Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Field Duplicate, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike</li>
 <li>
 <strong>Date formats</strong>: Should be mm/dd/yyyy and parsed correctly on import</li>
 <li>
@@ -437,14 +437,14 @@ Functions in MassWateR are organized around these topics.
 <span class="co">#&gt;  Checking all required columns are present... OK</span>
 <span class="co">#&gt; Error:   Checking valid Activity Types...</span>
 <span class="co">#&gt;  Incorrect Activity Type found: Sample, Field in row(s) 4, 135</span></code></pre></div>
-<p>Data imported with <code><a href="../reference/readMWRresults.html">readMWRresults()</a></code> are also formatted to take care of a few minor issues for downstream analysis. This formatting includes:</p>
+<p>Data imported with <code><a href="../reference/readMWRresults.html">readMWRresults()</a></code> are also formatted to address a few minor issues for downstream analysis. This formatting includes:</p>
 <ul>
 <li>
 <strong>Fix date and time inputs</strong>: Activity Start Date is converted to YYYY-MM-DD as a date object, Activity Start Time is converted to HH:MM as a character to fix artifacts from Excel import.</li>
 <li>
 <strong>Minor formatting for Result Unit</strong>: For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to <code>NA</code>.</li>
 <li>
-<strong>Convert characteristic Names</strong>: All parameters in <code>Characteristic Name</code> are converted to <code>Simple Parameter</code> in <code>paramsMWR</code> as needed.</li>
+<strong>Convert characteristic names</strong>: All parameters in <code>Characteristic Name</code> are converted to <code>Simple Parameter</code> in <code>paramsMWR</code> as needed.</li>
 </ul>
 </div>
 <div class="section level3">
@@ -471,7 +471,7 @@ Functions in MassWateR are organized around these topics.
 <span class="co">#&gt;   Parameter    uom     MDL   UQL `Value Range` `Field Duplicate` `Lab Duplicate`</span>
 <span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Water Temp   deg C  <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> all           &lt;= 10%            &lt;= 10%         </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pH           s.u.   <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> all           0.5               0.5            </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pH           <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> all           0.5               0.5            </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">3</span> DO           mg/l    0.1    <span style="color: #BB0000;">NA</span> &lt; 4           &lt;= 20%            &lt;= 20%         </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">4</span> DO           mg/l    0.1    <span style="color: #BB0000;">NA</span> &gt;= 4          &lt;= 10%            &lt;= 10%         </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Conductivity uS/cm   1      <span style="color: #BB0000;">NA</span> &lt; 250         &lt;= 30%            &lt;= 20%         </span>
@@ -534,7 +534,13 @@ Functions in MassWateR are organized around these topics.
 <li>
 <strong>Parameter</strong>: Should match parameter names in the <code>Simple Parameter</code> or <code>WQX Parameter</code> columns of the <code>paramsMWR</code> data</li>
 </ul>
-<p>For all files, all parameters in the <code>Parameter</code> column are converted to <code>Simple Parameter</code> in <code>paramsMWR</code> as needed. This is done automatically using <code><a href="../reference/formMWRacc.html">formMWRacc()</a></code> and <code><a href="../reference/formMWRfrecom.html">formMWRfrecom()</a></code> within the import functions.</p>
+<p>Minor formatting of the input files is also done to address a few minor issues for downstream analysis. This formatting includes:</p>
+<ul>
+<li>
+<strong>Minor formatting for units</strong>: For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to <code>NA</code> for the <code>uom</code> column (<code><a href="../reference/readMWRacc.html">readMWRacc()</a></code> only).</li>
+<li>
+<strong>Convert parameter names</strong>: All parameters in <code>Parameter</code> are converted to <code>Simple Parameter</code> in <code>paramsMWR</code> as needed.</li>
+</ul>
 </div>
 <div class="section level3">
 <h3 id="site-metadata">Site metadata<a class="anchor" aria-label="anchor" href="#site-metadata"></a>

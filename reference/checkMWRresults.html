@@ -72,7 +72,7 @@
     <p>This function is used internally within <code><a href="readMWRresults.html">readMWRresults</a></code> to run several checks on the input data for completeness and conformance to WQX requirements.</p>
 <p>The following checks are made:</p><ul><li><p>Column name spelling: Should be the following: Monitoring Location ID, Activity Type, Activity Start Date, Activity Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit, Activity Relative Depth Name, Characteristic Name, Result Value, Result Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier, Result Attribute.</p></li>
 <li><p>Columns present: All columns from the previous check should be present, Result Attribute is optional</p></li>
-<li><p>Activity Type: Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike, Quality Control Field Calibration Check</p></li>
+<li><p>Activity Type: Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Field Duplicate, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike, Quality Control Field Calibration Check</p></li>
 <li><p>Date formats: Should be mm/dd/yyyy and parsed correctly on import</p></li>
 <li><p>Time formats: Should be HH:MM and parsed correctly on import</p></li>
 <li><p>Non-numeric Activity Depth/Height Measure: All depth values should be numbers, excluding missing values</p></li>
