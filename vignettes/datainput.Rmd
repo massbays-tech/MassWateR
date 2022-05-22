@@ -121,7 +121,7 @@ Several checks are run automatically when the data are imported. These file chec
 -   **Activity Relative Depth Name**: Should be either Surface, Bottom, Midwater, Near Bottom, or blank (warning only)
 -   **Characteristic Name**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` column of the `paramsMWR` data (warning only)
 -   **Result Value**: Should be a numeric value or a text value as AQL or BDL
--   **QC Reference Value**: Any entered values should be numeric
+-   **QC Reference Value**: Any entered values should be numeric or a text value as AQL or BDL
 -   **Result Unit**: No missing entries in `Result Unit`, except pH which can be blank
 -   **Single Result Unit**: Each unique parameter in `Characteristic Name` should have only one entry in `Result Unit`
 -   **Correct Result Unit**: Each unique parameter in `Characteristic Name` should have an entry in `Result Unit` that matches one of the acceptable values in the `Units of measure` column of the `paramsMWR` data, see the table above.
