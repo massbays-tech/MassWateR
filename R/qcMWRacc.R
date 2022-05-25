@@ -53,6 +53,9 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE){
     tochk <- accprm[!chk]
     warning('Parameters in quality control objectives for accuracy not found in results data: ', paste(tochk, collapse = ', '))
   }
+
+  # parameters for accuracy checks
+  prms <- accprm[chk]
   
   # check units in resdat match those in accuracy file
   accuni <- accdat %>% 
@@ -73,133 +76,276 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE){
     stop('Mis-match between units in result and DQO file: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
   
-  # parameters for accuracy checks
-  prms <- accprm[chk]
-
   ##
-  # accuracy checks not requiring a loop
+  # accuracy checks
   
-  # field and lab blanks, can do together 
-  blk <- accdat %>% 
-    select(`Characteristic Name` = Parameter, MDL, uom) %>% 
-    unique %>% 
-    left_join(resdat, ., by = 'Characteristic Name') %>%
-    dplyr::filter(`Activity Type` %in% c('Quality Control Sample-Field Blank', 'Quality Control Sample-Lab Blank')) %>% 
-    dplyr::select(
-      `Activity Type`,
-      Parameter = `Characteristic Name`,
-      Date = `Activity Start Date`,
-      Site = `Monitoring Location ID`,
-      Result = `Result Value`,
-      `Result Unit`, 
-      MDL, 
-      `MDL Unit` = uom
-    ) %>% 
-    dplyr::mutate(
-      `Hit/Miss` = dplyr::case_when(
-        !`Result` %in% c('AQL', 'BDL') & Result >= MDL ~ 'MISS',
-        Result %in% 'AQL' ~ 'MISS',
-        T ~ NA_character_
-      ), 
-      `Result Unit` = ifelse(Result %in% c('AQL', 'BDL'), NA, `Result Unit`)
-    ) %>% 
-    tidyr::unite('Result', Result, `Result Unit`, sep = ' ', na.rm = TRUE) %>% 
-    tidyr::unite('MDL', MDL, `MDL Unit`, sep = ' ')
-  
-  # field blank
-  fldblk <- blk %>%
-    dplyr::filter(`Activity Type` == 'Quality Control Sample-Field Blank') %>% 
-    dplyr::select(-`Activity Type`)
-  
-  # lab blank
-  labblk <- blk %>%
-    dplyr::filter(`Activity Type` == 'Quality Control Sample-Lab Blank') %>% 
-    dplyr::select(-`Activity Type`)
-
-  # output placeholders
+  # NULL if relevant activity types not found
+  fldblk <- NULL
+  labblk <- NULL
   flddup <- NULL
   labdup <- NULL
   labspk <- NULL
   inschk <- NULL
   
-  # remove columns from accdat that we don't need for remaning checks
-  accdat <- accdat %>% 
-    dplyr::select(-uom, -`Field Blank`, -`Lab Blank`)
-  
-  # run accuracy checks
-  for(prm in prms){
+  # field and lab blank
+  blktyp <- c('Quality Control Sample-Field Blank', 'Quality Control Sample-Lab Blank')
+  if(any(blktyp %in% resdat$`Activity Type`)){
     
-    # subset dqo data
-    accdattmp <- accdat %>%
-      dplyr::filter(Parameter == prm)
+    # get MDL and uom info from accuracy file
+    acctmp <- accdat %>%
+      select(Parameter, MDL, uom) %>% 
+      unique
+    
+    # field and lab blanks, can do together 
+    blk <- resdat %>% 
+      dplyr::filter(`Activity Type` %in% blktyp) %>% 
+      dplyr::left_join(acctmp, by = c('Characteristic Name' = 'Parameter')) %>% 
+      dplyr::select(
+        `Activity Type`,
+        Parameter = `Characteristic Name`,
+        Date = `Activity Start Date`,
+        Site = `Monitoring Location ID`,
+        Result = `Result Value`,
+        `Result Unit`, 
+        MDL, 
+        `MDL Unit` = uom
+      ) %>% 
+      dplyr::mutate(
+        `Hit/Miss` = dplyr::case_when(
+          !`Result` %in% c('AQL', 'BDL') & Result >= MDL ~ 'MISS',
+          Result %in% 'AQL' ~ 'MISS',
+          T ~ NA_character_
+        ), 
+        `Result Unit` = ifelse(Result %in% c('AQL', 'BDL'), NA, `Result Unit`)
+      ) %>% 
+      tidyr::unite('Result', Result, `Result Unit`, sep = ' ', na.rm = TRUE) %>% 
+      tidyr::unite('MDL', MDL, `MDL Unit`, sep = ' ')
+    
+    # field blank
+    if('Quality Control Sample-Field Blank' %in% blk$`Activity Type`)
+      fldblk <- blk %>%
+        dplyr::filter(`Activity Type` == 'Quality Control Sample-Field Blank') %>% 
+        dplyr::select(-`Activity Type`)
+      
+    # lab blank
+    if('Quality Control Sample-Lab Blank' %in% blk$`Activity Type`)
+      labblk <- blk %>%
+        dplyr::filter(`Activity Type` == 'Quality Control Sample-Lab Blank') %>% 
+        dplyr::select(-`Activity Type`)
+  
+  }
 
-    # subset results data
-    resdattmp <- resdat %>%
-      dplyr::filter(`Characteristic Name` == prm)
+  # lab and field lab duplicates
+  # steps include replacing any initial or duplicates as BDL/AQL with MDL/UQL for comparison
+  # joining one to many of results to accuracy, then filtering results by range values in accuracy
+  # comparing initial and duplicates to standard in accuracy file, handling percent/log and non-percent differently
+  duptyp <- c('Quality Control Sample-Field Duplicate', 'Quality Control Sample-Lab Duplicate')
+  if(any(duptyp %in% resdat$`Activity Type`)){
+    
+    dup <- resdat %>% 
+      dplyr::filter(`Activity Type` %in% duptyp) %>% 
+      left_join(accdat, by = c('Characteristic Name' = 'Parameter')) %>% 
+      dplyr::select(
+        `Activity Type`,
+        Parameter = `Characteristic Name`, 
+        Date = `Activity Start Date`, 
+        Site = `Monitoring Location ID`, 
+        `Result Unit`,
+        `Initial Result` = `Result Value`, 
+        `Dup. Result` = `QC Reference Value`, 
+        `Value Range`, 
+        `Lab Duplicate`, 
+        MDL, 
+        UQL
+      ) %>%
+      dplyr::mutate(
+        `Initial Result2` = dplyr::case_when(
+          `Initial Result` == 'BDL' ~ as.character(MDL), 
+          `Initial Result` == 'AQL' ~ as.character(UQL), 
+          T ~ `Initial Result`
+        ), 
+        `Dup. Result2` = dplyr::case_when(
+          `Dup. Result` == 'BDL' ~ as.character(MDL), 
+          `Dup. Result` == 'AQL' ~ as.character(UQL), 
+          T ~ `Dup. Result`
+        ), 
+        `Initial Result2` = as.numeric(`Initial Result2`),
+        `Dup. Result2` = as.numeric(`Dup. Result2`)
+      ) %>% 
+      dplyr::rowwise() %>% 
+      dplyr::mutate( 
+        `Initial Result` = ifelse(
+          `Initial Result` %in% c('BDL', 'AQL'), 
+          `Initial Result`,
+          paste(round(as.numeric(`Initial Result`), 2), `Result Unit`)
+        ),
+        `Dup. Result` = ifelse(
+          `Dup. Result` %in% c('BDL', 'AQL'),
+          `Dup. Result`,
+          paste(round(as.numeric(`Dup. Result`), 2), `Result Unit`)
+        )
+      ) %>%
+      tidyr::unite('flt', `Initial Result2`, `Value Range`, sep = ' ', remove = FALSE) %>% 
+      dplyr::rowwise() %>%
+      dplyr::mutate(
+        flt = ifelse(grepl('all', flt), T, eval(parse(text = flt)))
+      ) %>% 
+      dplyr::filter(flt) 
 
     # field duplicates
-    flddupsub <- resdattmp %>% 
-      dplyr::filter(`Activity Type` == 'Quality Control Sample-Field Duplicate')
-    if(nrow(flddupsub) != 0){
-
-      res <- NULL
-      flddup <- dplyr::bind_rows(flddup, res) 
-      
-    }
-    
-    # lab duplicates
-    labdupsub <- resdattmp %>% 
-      dplyr::filter(`Activity Type` == 'Quality Control Sample-Lab Duplicate')
-    if(nrow(labdupsub) != 0){
-    
-      res <- labdupsub %>% 
-        dplyr::select(
-          Parameter = `Characteristic Name`, 
-          Date = `Activity Start Date`, 
-          Site = `Monitoring Location ID`, 
-          `Initial Result` = `Result Value`, 
-          `Dup. Result` = `QC Reference Value`
-        ) %>%
-        dplyr::left_join(accdat, by = 'Parameter') %>% 
+    if('Quality Control Sample-Field Duplicate' %in% dup$`Activity Type`)
+      flddup <- dup %>% 
+        dplyr::filter(`Activity Type` %in% 'Quality Control Sample-Field Duplicate') %>% 
         dplyr::mutate(
-          `Initial Result2` = dplyr::case_when(
-            `Initial Result` == 'BDL' ~ as.character(MDL), 
-            `Initial Result` == 'AQL' ~ as.character(UQL), 
-            T ~ `Initial Result`
-          ), 
-          `Dup. Result2` = dplyr::case_when(
-            `Dup. Result` == 'BDL' ~ as.character(MDL), 
-            `Dup. Result` == 'AQL' ~ as.character(UQL), 
-            T ~ `Dup. Result`
-          )
-        )
-      # need to figure out how to handle differing value ranges for the standard
-      labdup <- dplyr::bind_rows(labdup, res) 
+          diffv = dplyr::case_when(
+            grepl('log', `Field Duplicate`) ~ abs(log(`Dup. Result2`) - log(`Initial Result2`)),
+            T ~ abs(`Dup. Result2` - `Initial Result2`)
+          ),
+          percv = dplyr::case_when(
+            grepl('log', `Field Duplicate`) ~ 100 * diffv / log(`Initial Result2`),
+            T ~ 100 * diffv / `Initial Result2`
+          ),
+          `Field Duplicate2` = gsub('%|log', '', `Field Duplicate`),
+          `Hit/Miss` = dplyr::case_when(
+            grepl('%|log', `Field Duplicate`) ~ eval(parse(text = paste(percv, `Field Duplicate2`))), 
+            !grepl('%|log', `Field Duplicate`) ~ diffv <= `Field Duplicate`
+          ),
+          `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'), 
+          percv = paste0(round(percv, 0), '% RPD'), 
+          diffv = paste(round(diffv, 2), `Result Unit`), 
+          `Diff./RPD` = ifelse(grepl('%', `Field Duplicate`), percv, diffv)
+        ) %>% 
+        dplyr::ungroup() %>% 
+        dplyr::select(
+          Parameter, Date, Site, `Initial Result`, `Dup. Result`, `Diff./RPD`, `Hit/Miss` 
+        ) 
+
+    # lab duplicates
+    if('Quality Control Sample-Lab Duplicate' %in% dup$`Activity Type`)
+      labdup <- dup %>% 
+        dplyr::filter(`Activity Type` %in% 'Quality Control Sample-Lab Duplicate') %>% 
+        dplyr::mutate(
+          diffv = dplyr::case_when(
+            grepl('log', `Lab Duplicate`) ~ abs(log(`Dup. Result2`) - log(`Initial Result2`)),
+            T ~ abs(`Dup. Result2` - `Initial Result2`)
+          ),
+          percv = dplyr::case_when(
+            grepl('log', `Lab Duplicate`) ~ 100 * diffv / log(`Initial Result2`),
+            T ~ 100 * diffv / `Initial Result2`
+          ),
+          `Lab Duplicate2` = gsub('%|log', '', `Lab Duplicate`),
+          `Hit/Miss` = dplyr::case_when(
+            grepl('%|log', `Lab Duplicate`) ~ eval(parse(text = paste(percv, `Lab Duplicate2`))), 
+            !grepl('%|log', `Lab Duplicate`) ~ diffv <= `Lab Duplicate`
+          ),
+          `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'), 
+          percv = paste0(round(percv, 0), '% RPD'), 
+          diffv = paste(round(diffv, 2), `Result Unit`), 
+          `Diff./RPD` = ifelse(grepl('%', `Lab Duplicate`), percv, diffv)
+        ) %>% 
+        dplyr::ungroup() %>% 
+        dplyr::select(
+          Parameter, Date, Site, `Initial Result`, `Dup. Result`, `Diff./RPD`, `Hit/Miss` 
+        ) 
       
-    }
+  }
+  
+  # lab spikes and instrument checks
+  # steps include replacing any recovered or standards as BDL/AQL with MDL/UQL for comparison
+  # joining one to many of results to accuracy, then filtering results by range values in accuracy
+  # comparing recovered and standards to accepted range in accuracy file
+  labinstyp <- c('Quality Control Sample-Lab Spike', 'Quality Control Field Calibration Check')
+  if(any(labinstyp %in% resdat$`Activity Type`)){
     
-    # lab spikes
-    labspksub <- resdattmp %>% 
-      dplyr::filter(`Activity Type` == 'Quality Control Sample-Lab Spike')
-    if(nrow(labspksub) != 0){
-      
-      res <- NULL
-      labspk <- dplyr::bind_rows(labspk, res) 
-      
-    }
+    labins <- resdat %>% 
+      dplyr::filter(`Activity Type` %in% labinstyp) %>% 
+      left_join(accdat, by = c('Characteristic Name' = 'Parameter')) %>% 
+      dplyr::select(
+        `Activity Type`,
+        Parameter = `Characteristic Name`, 
+        Date = `Activity Start Date`, 
+        Reference = `Monitoring Location ID`, 
+        Recovered = `Result Value`, 
+        Standard = `QC Reference Value`, 
+        `Result Unit`, 
+        `Value Range`, 
+        `Spike/Check Accuracy`, 
+        MDL, 
+        UQL
+      ) %>% 
+      dplyr::filter(!is.na(`Spike/Check Accuracy`)) %>% 
+      dplyr::mutate(
+        `Result Unit` = ifelse(Parameter == 'pH', 's.u.', `Result Unit`),
+        `Recovered2` = dplyr::case_when(
+          `Recovered` == 'BDL' ~ as.character(MDL), 
+          `Recovered` == 'AQL' ~ as.character(UQL), 
+          T ~ `Recovered`
+        ), 
+        `Standard2` = dplyr::case_when(
+          `Standard` == 'BDL' ~ as.character(MDL), 
+          `Standard` == 'AQL' ~ as.character(UQL), 
+          T ~ `Standard`
+        )
+      ) %>% 
+      dplyr::rowwise() %>% 
+      dplyr::mutate( 
+        `Recovered` = ifelse(
+          `Recovered` %in% c('BDL', 'AQL'), 
+          `Recovered`,
+          paste(round(as.numeric(`Recovered`), 2), `Result Unit`)
+        ),
+        `Standard` = ifelse(
+          `Standard` %in% c('BDL', 'AQL'), 
+          `Standard`, 
+          paste(round(as.numeric(`Standard`), 2), `Result Unit`)
+        )
+      ) %>% 
+      tidyr::unite('flt', `Recovered2`, `Value Range`, sep = ' ', remove = FALSE) %>% 
+      dplyr::rowwise() %>% 
+      dplyr::mutate(
+        flt = ifelse(grepl('all', flt), T, eval(parse(text = flt)))
+      ) %>% 
+      dplyr::filter(flt) %>% 
+      mutate(
+        `Recovered2` = as.numeric(`Recovered2`),
+        `Standard2` = as.numeric(`Standard2`), 
+        diffv = abs(Recovered2 - Standard2),
+        percv = paste0(round(100 * Recovered2 / Standard2, 0), '%'),
+        `Hit/Miss` = ifelse(diffv <= `Spike/Check Accuracy`, NA_character_, 'MISS'), 
+        diffv = paste(round(diffv, 2), `Result Unit`)
+      ) 
+    
+    # lab spike
+    if('Quality Control Sample-Lab Spike' %in% labins$`Activity Type`)
+      labspk <- labins %>% 
+        dplyr::filter(`Activity Type` %in% 'Quality Control Sample-Lab Spike') %>% 
+        dplyr::select(
+          Parameter, 
+          Date, 
+          Reference, 
+          Spike = Standard, 
+          `Amt Recovered` = Recovered, 
+          `% Recovery` = percv, 
+          `Hit/Miss`
+        )
     
     # instrument checks
-    inschksub <- resdattmp %>% 
-      dplyr::filter(`Activity Type` == 'Quality Control Field Calibration Check')
-    if(nrow(inschksub) != 0){
-      
-      res <- NULL
-      inschk <- dplyr::bind_rows(inschk, res) 
-      
-    }
-
+    if('Quality Control Field Calibration Check' %in% labins$`Activity Type`)
+      inschk <- labins %>% 
+        dplyr::filter(`Activity Type` %in% 'Quality Control Field Calibration Check') %>% 
+        dplyr::select(
+          Parameter, 
+          Date, 
+          Reference, 
+          `Calibration Standard` = Standard, 
+          `Instrument Reading` = Recovered, 
+          `Accuracy` = diffv, 
+          `Hit/Miss`
+        )
+   
   }
- 
+  
+
   # compile all as list since columns differ
   out <- list(
     `Field Blanks` = fldblk,
