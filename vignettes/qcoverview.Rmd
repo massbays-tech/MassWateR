@@ -36,6 +36,10 @@ frecomdat <- readMWRfrecom(frecompth)
 
 ## Quality control for accuracy
 
+```{r}
+tabMWRacc(res= resdat, acc = accdat, type = 'summary')
+```
+
 ### Quality control for frequency 
 
 The quality control checks for frequency are used to verify an appropriate number of quality control samples have been collected or analyzed for each parameter.  These are checks on the quantity of samples and not the values, as for the accuracy checks.  The frequency checks require results data (as in `resdat` above) and a data quality objectives file for frequency and completeness (as in `frecomdat`).
