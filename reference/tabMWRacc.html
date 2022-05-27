@@ -60,6 +60,8 @@
   <span class="va">acc</span>,
   runchk <span class="op">=</span> <span class="cn">TRUE</span>,
   warn <span class="op">=</span> <span class="cn">TRUE</span>,
+  accchk <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Field Blanks"</span>, <span class="st">"Lab Blanks"</span>, <span class="st">"Field Duplicates"</span>, <span class="st">"Lab Duplicates"</span>,
+    <span class="st">"Lab Spikes"</span>, <span class="st">"Instrument Checks (post sampling)"</span><span class="op">)</span>,
   type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"summary"</span>, <span class="st">"percent"</span><span class="op">)</span>,
   pass_col <span class="op">=</span> <span class="st">"green"</span>,
   fail_col <span class="op">=</span> <span class="st">"red"</span>,
@@ -78,6 +80,8 @@
 <dd><p>logical to run data checks with <code><a href="checkMWRresults.html">checkMWRresults</a></code> and <code><a href="checkMWRacc.html">checkMWRacc</a></code>, applies only if <code>res</code> or <code>acc</code> are file paths</p></dd>
 <dt>warn</dt>
 <dd><p>logical to return warnings to the console (default)</p></dd>
+<dt>accchk</dt>
+<dd><p>character string indicating which accuracy check to return, one to any of <code>"Field Blanks"</code>, <code>"Lab Blanks"</code>, <code>"Field Duplicates"</code>, <code>"Lab Duplicates"</code>, <code>"Lab Spikes"</code>, or <code>"Instrument Checks (post sampling)"</code></p></dd>
 <dt>type</dt>
 <dd><p>character string indicating <code>summary</code> or <code>percent</code> tabular output, see datails</p></dd>
 <dt>pass_col</dt>
@@ -114,7 +118,7 @@
 <span class="r-in">     package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># table as summary</span></span>
-<span class="r-in"><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">respth</span>, acc <span class="op">=</span> <span class="va">accpth</span>, type <span class="op">=</span> <span class="st">'summary'</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">respth</span>, acc <span class="op">=</span> <span class="va">accpth</span>, type <span class="op">=</span> <span class="st">'summary'</span>, accchk <span class="op">=</span> <span class="st">'Field Blanks'</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on results data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
@@ -158,56 +162,6 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4      &lt;NA&gt; 2021-06-13 CND-110       BDL 0.01 mg/l     &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5      &lt;NA&gt; 2021-06-13 CND-036       BDL 0.01 mg/l     &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6      &lt;NA&gt; 2021-06-13 CND-009 0.01 mg/l 0.01 mg/l     MISS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Date`, `Site`, `Result`, `MDL`, `Hit/Miss` </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 17 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Parameter       Date Site   Result       MDL Hit/Miss</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        TP       &lt;NA&gt; &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      &lt;NA&gt; 2021-06-13 &lt;NA&gt;      BDL 0.01 mg/l     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      &lt;NA&gt; 2021-06-13 &lt;NA&gt; 0.1 mg/l 0.01 mg/l     MISS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      &lt;NA&gt; 2021-06-13 &lt;NA&gt;      BDL 0.01 mg/l     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      &lt;NA&gt; 2021-06-13 &lt;NA&gt;      BDL 0.01 mg/l     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Date`, `Site`, `Initial Result`, `Dup. Result`, `Diff./RPD`, `Hit/Miss` </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 18 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Parameter       Date Site Initial Result Dup. Result Diff./RPD Hit/Miss</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Nitrate       &lt;NA&gt; &lt;NA&gt;           &lt;NA&gt;        &lt;NA&gt;      &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      &lt;NA&gt; 2021-05-16 &lt;NA&gt;       0.8 mg/l    0.9 mg/l   12% RPD     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      &lt;NA&gt; 2021-05-16 &lt;NA&gt;       0.3 mg/l    0.3 mg/l    0% RPD     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      &lt;NA&gt; 2021-05-16 &lt;NA&gt;      0.45 mg/l    0.3 mg/l   33% RPD     MISS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      &lt;NA&gt; 2021-05-16 &lt;NA&gt;       0.8 mg/l   0.82 mg/l    2% RPD     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Date`, `Reference`, `Spike`, `Amt Recovered`, `% Recovery`, `Hit/Miss` </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 13 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Parameter       Date Reference     Spike Amt Recovered % Recovery Hit/Miss</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Nitrate       &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;          &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      &lt;NA&gt; 2021-05-16      &lt;NA&gt;  0.8 mg/l      0.9 mg/l       112%     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      &lt;NA&gt; 2021-05-16      &lt;NA&gt;  0.3 mg/l      0.3 mg/l       100%     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      &lt;NA&gt; 2021-05-16      &lt;NA&gt; 0.45 mg/l      0.3 mg/l        67%     MISS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      &lt;NA&gt; 2021-05-16      &lt;NA&gt;  0.8 mg/l     0.82 mg/l       102%     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Date`, `Reference`, `Calibration Standard`, `Instrument Reading`, `Accuracy`, `Hit/Miss` </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 8 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Parameter       Date Reference Calibration Standard Instrument Reading</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        pH       &lt;NA&gt;      &lt;NA&gt;                 &lt;NA&gt;               &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      &lt;NA&gt; 2021-06-13      &lt;NA&gt;               7 s.u.          7.14 s.u.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      &lt;NA&gt; 2021-06-13      &lt;NA&gt;               7 s.u.          7.21 s.u.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      &lt;NA&gt; 2021-06-13      &lt;NA&gt;               7 s.u.          7.38 s.u.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      &lt;NA&gt; 2021-06-13      &lt;NA&gt;               7 s.u.          7.39 s.u.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Accuracy Hit/Miss</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.14 s.u.     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.21 s.u.     MISS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.38 s.u.     MISS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.39 s.u.     MISS</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># table as percent</span></span>
 <span class="r-in"><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">respth</span>, acc <span class="op">=</span> <span class="va">accpth</span>, type <span class="op">=</span> <span class="st">'percent'</span><span class="op">)</span></span>
@@ -243,6 +197,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for accuracy not found in results data: Chloride, Conductivity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##</span></span>
 <span class="r-in"><span class="co"># using data frames</span></span>
@@ -285,7 +240,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># table as summary</span></span>
-<span class="r-in"><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'summary'</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'summary'</span>, accchk <span class="op">=</span> <span class="st">'Field Blanks'</span><span class="op">)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for accuracy not found in results data: Chloride, Conductivity</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Date`, `Site`, `Result`, `MDL`, `Hit/Miss` </span>
@@ -298,60 +253,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4      &lt;NA&gt; 2021-06-13 CND-110       BDL 0.01 mg/l     &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5      &lt;NA&gt; 2021-06-13 CND-036       BDL 0.01 mg/l     &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6      &lt;NA&gt; 2021-06-13 CND-009 0.01 mg/l 0.01 mg/l     MISS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Date`, `Site`, `Result`, `MDL`, `Hit/Miss` </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 17 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Parameter       Date Site   Result       MDL Hit/Miss</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        TP       &lt;NA&gt; &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      &lt;NA&gt; 2021-06-13 &lt;NA&gt;      BDL 0.01 mg/l     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      &lt;NA&gt; 2021-06-13 &lt;NA&gt; 0.1 mg/l 0.01 mg/l     MISS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      &lt;NA&gt; 2021-06-13 &lt;NA&gt;      BDL 0.01 mg/l     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      &lt;NA&gt; 2021-06-13 &lt;NA&gt;      BDL 0.01 mg/l     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Date`, `Site`, `Initial Result`, `Dup. Result`, `Diff./RPD`, `Hit/Miss` </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 18 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Parameter       Date Site Initial Result Dup. Result Diff./RPD Hit/Miss</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Nitrate       &lt;NA&gt; &lt;NA&gt;           &lt;NA&gt;        &lt;NA&gt;      &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      &lt;NA&gt; 2021-05-16 &lt;NA&gt;       0.8 mg/l    0.9 mg/l   12% RPD     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      &lt;NA&gt; 2021-05-16 &lt;NA&gt;       0.3 mg/l    0.3 mg/l    0% RPD     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      &lt;NA&gt; 2021-05-16 &lt;NA&gt;      0.45 mg/l    0.3 mg/l   33% RPD     MISS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      &lt;NA&gt; 2021-05-16 &lt;NA&gt;       0.8 mg/l   0.82 mg/l    2% RPD     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Date`, `Reference`, `Spike`, `Amt Recovered`, `% Recovery`, `Hit/Miss` </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 13 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Parameter       Date Reference     Spike Amt Recovered % Recovery Hit/Miss</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Nitrate       &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;          &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      &lt;NA&gt; 2021-05-16      &lt;NA&gt;  0.8 mg/l      0.9 mg/l       112%     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      &lt;NA&gt; 2021-05-16      &lt;NA&gt;  0.3 mg/l      0.3 mg/l       100%     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      &lt;NA&gt; 2021-05-16      &lt;NA&gt; 0.45 mg/l      0.3 mg/l        67%     MISS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6      &lt;NA&gt; 2021-05-16      &lt;NA&gt;  0.8 mg/l     0.82 mg/l       102%     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Date`, `Reference`, `Calibration Standard`, `Instrument Reading`, `Accuracy`, `Hit/Miss` </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 8 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Parameter       Date Reference Calibration Standard Instrument Reading</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        pH       &lt;NA&gt;      &lt;NA&gt;                 &lt;NA&gt;               &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      &lt;NA&gt; 2021-06-13      &lt;NA&gt;               7 s.u.          7.14 s.u.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      &lt;NA&gt; 2021-06-13      &lt;NA&gt;               7 s.u.          7.21 s.u.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      &lt;NA&gt; 2021-06-13      &lt;NA&gt;               7 s.u.          7.38 s.u.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      &lt;NA&gt; 2021-06-13      &lt;NA&gt;               7 s.u.          7.39 s.u.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Accuracy Hit/Miss</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.14 s.u.     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.21 s.u.     MISS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.38 s.u.     MISS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.39 s.u.     MISS</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># table as percent</span></span>
 <span class="r-in"><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'percent'</span><span class="op">)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for accuracy not found in results data: Chloride, Conductivity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
