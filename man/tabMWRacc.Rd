@@ -9,6 +9,8 @@ tabMWRacc(
   acc,
   runchk = TRUE,
   warn = TRUE,
+  accchk = c("Field Blanks", "Lab Blanks", "Field Duplicates", "Lab Duplicates",
+    "Lab Spikes", "Instrument Checks (post sampling)"),
   type = c("summary", "percent"),
   pass_col = "green",
   fail_col = "red",
@@ -24,6 +26,8 @@ tabMWRacc(
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}} and \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths}
 
 \item{warn}{logical to return warnings to the console (default)}
+
+\item{accchk}{character string indicating which accuracy check to return, one to any of \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, \code{"Lab Spikes"}, or \code{"Instrument Checks (post sampling)"}}
 
 \item{type}{character string indicating \code{summary} or \code{percent} tabular output, see datails}
 
@@ -61,7 +65,7 @@ accpth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx',
      package = 'MassWateR')
 
 # table as summary
-tabMWRacc(res = respth, acc = accpth, type = 'summary')
+tabMWRacc(res = respth, acc = accpth, type = 'summary', accchk = 'Field Blanks')
 
 # table as percent
 tabMWRacc(res = respth, acc = accpth, type = 'percent')
@@ -76,7 +80,7 @@ resdat <- readMWRresults(respth)
 accdat <- readMWRacc(accpth)
 
 # table as summary
-tabMWRacc(res = resdat, acc = accdat, type = 'summary')
+tabMWRacc(res = resdat, acc = accdat, type = 'summary', accchk = 'Field Blanks')
 
 # table as percent
 tabMWRacc(res = resdat, acc = accdat, type = 'percent')

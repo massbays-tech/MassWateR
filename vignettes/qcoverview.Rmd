@@ -36,8 +36,13 @@ frecomdat <- readMWRfrecom(frecompth)
 
 ## Quality control for accuracy
 
-```{r}
-tabMWRacc(res= resdat, acc = accdat, type = 'summary')
+```{r, error = T}
+tabMWRacc(res= resdat, acc = accdat, type = 'summary', accchk = 'Field Blanks')
+tabMWRacc(res= resdat, acc = accdat, type = 'summary', accchk = 'Lab Blanks')
+tabMWRacc(res= resdat, acc = accdat, type = 'summary', accchk = 'Field Duplicates')
+tabMWRacc(res= resdat, acc = accdat, type = 'summary', accchk = 'Lab Duplicates')
+tabMWRacc(res= resdat, acc = accdat, type = 'summary', accchk = 'Lab Spikes')
+tabMWRacc(res= resdat, acc = accdat, type = 'summary', accchk = 'Instrument Checks (post sampling)')
 ```
 
 ### Quality control for frequency 

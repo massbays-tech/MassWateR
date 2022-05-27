@@ -4,6 +4,7 @@
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}} and \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param warn logical to return warnings to the console (default)
+#' @param accchk character string indicating which accuracy check to return, one to any of \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, \code{"Lab Spikes"}, or \code{"Instrument Checks (post sampling)"}
 #'
 #' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRacc}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly.
 #' 
@@ -36,7 +37,7 @@
 #' 
 #' qcMWRacc(res = resdat, acc = accdat)
 #' 
-qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE){
+qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks (post sampling)')){
   
   ##
   # get user inputs
@@ -89,7 +90,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE){
   
   # field and lab blank
   blktyp <- c('Quality Control Sample-Field Blank', 'Quality Control Sample-Lab Blank')
-  if(any(blktyp %in% resdat$`Activity Type`)){
+  if(any(blktyp %in% resdat$`Activity Type`) & any(c('Field Blanks', 'Lab Blanks') %in% accchk)){
     
     # get MDL and uom info from accuracy file
     acctmp <- accdat %>%
@@ -122,13 +123,13 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE){
       tidyr::unite('MDL', MDL, `MDL Unit`, sep = ' ')
     
     # field blank
-    if('Quality Control Sample-Field Blank' %in% blk$`Activity Type`)
+    if('Quality Control Sample-Field Blank' %in% blk$`Activity Type` & 'Field Blanks' %in% accchk)
       fldblk <- blk %>%
         dplyr::filter(`Activity Type` == 'Quality Control Sample-Field Blank') %>% 
         dplyr::select(-`Activity Type`)
       
     # lab blank
-    if('Quality Control Sample-Lab Blank' %in% blk$`Activity Type`)
+    if('Quality Control Sample-Lab Blank' %in% blk$`Activity Type` & 'Lab Blanks' %in% accchk)
       labblk <- blk %>%
         dplyr::filter(`Activity Type` == 'Quality Control Sample-Lab Blank') %>% 
         dplyr::select(-`Activity Type`)
@@ -140,7 +141,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE){
   # joining one to many of results to accuracy, then filtering results by range values in accuracy
   # comparing initial and duplicates to standard in accuracy file, handling percent/log and non-percent differently
   duptyp <- c('Quality Control Sample-Field Duplicate', 'Quality Control Sample-Lab Duplicate')
-  if(any(duptyp %in% resdat$`Activity Type`)){
+  if(any(duptyp %in% resdat$`Activity Type`) & any(c('Field Duplicates', 'Lab Duplicates') %in% accchk)){
     
     dup <- resdat %>% 
       dplyr::filter(`Activity Type` %in% duptyp) %>% 
@@ -193,7 +194,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE){
       dplyr::filter(flt) 
 
     # field duplicates
-    if('Quality Control Sample-Field Duplicate' %in% dup$`Activity Type`)
+    if('Quality Control Sample-Field Duplicate' %in% dup$`Activity Type` & 'Field Duplicates' %in% accchk)
       flddup <- dup %>% 
         dplyr::filter(`Activity Type` %in% 'Quality Control Sample-Field Duplicate') %>% 
         dplyr::mutate(
@@ -221,7 +222,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE){
         ) 
 
     # lab duplicates
-    if('Quality Control Sample-Lab Duplicate' %in% dup$`Activity Type`)
+    if('Quality Control Sample-Lab Duplicate' %in% dup$`Activity Type` & 'Lab Duplicates' %in% accchk)
       labdup <- dup %>% 
         dplyr::filter(`Activity Type` %in% 'Quality Control Sample-Lab Duplicate') %>% 
         dplyr::mutate(
@@ -255,7 +256,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE){
   # joining one to many of results to accuracy, then filtering results by range values in accuracy
   # comparing recovered and standards to accepted range in accuracy file
   labinstyp <- c('Quality Control Sample-Lab Spike', 'Quality Control Field Calibration Check')
-  if(any(labinstyp %in% resdat$`Activity Type`)){
+  if(any(labinstyp %in% resdat$`Activity Type`) & any(c('Lab Spikes', 'Instrument Checks (post sampling)') %in% accchk)){
     
     labins <- resdat %>% 
       dplyr::filter(`Activity Type` %in% labinstyp) %>% 
@@ -316,7 +317,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE){
       ) 
     
     # lab spike
-    if('Quality Control Sample-Lab Spike' %in% labins$`Activity Type`)
+    if('Quality Control Sample-Lab Spike' %in% labins$`Activity Type` & 'Lab Spikes' %in% accchk)
       labspk <- labins %>% 
         dplyr::filter(`Activity Type` %in% 'Quality Control Sample-Lab Spike') %>% 
         dplyr::select(
@@ -330,7 +331,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE){
         )
     
     # instrument checks
-    if('Quality Control Field Calibration Check' %in% labins$`Activity Type`)
+    if('Quality Control Field Calibration Check' %in% labins$`Activity Type` & 'Instrument Checks (post sampling)' %in% accchk)
       inschk <- labins %>% 
         dplyr::filter(`Activity Type` %in% 'Quality Control Field Calibration Check') %>% 
         dplyr::select(
@@ -355,6 +356,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE){
     `Lab Spikes` = labspk,
     `Instrument Checks (post sampling)` = inschk
   )
+  out <- out[accchk]
   
   return(out)
   

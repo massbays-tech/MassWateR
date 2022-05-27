@@ -5,8 +5,11 @@ globalVariables(c("Activity Start Date", "Activity Start Time", "QC Reference Va
                   "Units of measure", "Units of measure.x", "Units of measure.y", 
                   "WQX Parameter", "datarec", "qualrec", "standard", "Activity Type", 
                   "check", "Type", "Frequency %", ".", "Monitoring Location ID", "Result Value", 
-                  "Result", "MDL Unit", "Field Blank", "Lab Blank", "Spike/Check Accuracy" 
-                  ))
+                  "Result", "MDL Unit", "Field Blank", "Lab Blank", "Spike/Check Accuracy", 
+                  "Date", "Diff./RPD", "Dup. Result", "Dup. Result2", "Field Duplicate",
+                  "Hit/Miss", "Initial Result", "Initial Result2", "Lab Duplicate", "Recovered",
+                  "Recovered2", "Reference", "Site", "Standard", "Standard2", "Value Range", 
+                  "diffv", "flt", "percv"))
 
 #' @importFrom stats na.omit
 NULL

@@ -4,7 +4,14 @@
 \alias{qcMWRacc}
 \title{Run quality control accuracy checks for water quality monitoring results}
 \usage{
-qcMWRacc(res, acc, runchk = TRUE, warn = TRUE)
+qcMWRacc(
+  res,
+  acc,
+  runchk = TRUE,
+  warn = TRUE,
+  accchk = c("Field Blanks", "Lab Blanks", "Field Duplicates", "Lab Duplicates",
+    "Lab Spikes", "Instrument Checks (post sampling)")
+)
 }
 \arguments{
 \item{res}{character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}}
@@ -14,6 +21,8 @@ qcMWRacc(res, acc, runchk = TRUE, warn = TRUE)
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}} and \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths}
 
 \item{warn}{logical to return warnings to the console (default)}
+
+\item{accchk}{character string indicating which accuracy check to return, one to any of \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, \code{"Lab Spikes"}, or \code{"Instrument Checks (post sampling)"}}
 }
 \value{
 The output shows the accuracy checks from the input files.

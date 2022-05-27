@@ -30,7 +30,7 @@
 #'      package = 'MassWateR')
 #' 
 #' # table as summary
-#' tabMWRacc(res = respth, acc = accpth, type = 'summary')
+#' tabMWRacc(res = respth, acc = accpth, type = 'summary', accchk = 'Field Blanks')
 #' 
 #' # table as percent
 #' tabMWRacc(res = respth, acc = accpth, type = 'percent')
@@ -45,47 +45,46 @@
 #' accdat <- readMWRacc(accpth)
 #' 
 #' # table as summary
-#' tabMWRacc(res = resdat, acc = accdat, type = 'summary')
+#' tabMWRacc(res = resdat, acc = accdat, type = 'summary', accchk = 'Field Blanks')
 #' 
 #' # table as percent
 #' tabMWRacc(res = resdat, acc = accdat, type = 'percent')
-tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, type = c('summary', 'percent'), pass_col = 'green', fail_col = 'red', digits = 0, suffix = '%'){
+tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks (post sampling)'), type = c('summary', 'percent'), pass_col = 'green', fail_col = 'red', digits = 0, suffix = '%'){
   
   type <- match.arg(type)
   
   # get accuracy summary
-  res <- qcMWRacc(res = res, acc = acc, runchk = runchk, warn = warn)
+  res <- qcMWRacc(res = res, acc = acc, runchk = runchk, warn = warn, accchk = accchk)
   
   if(type == 'summary'){
+    
+    if(length(accchk) != 1)
+      stop('accchk must have only one entry for type = "summary"')
     
     # table theme
     thm <- function(x, ...){
       x <- flextable::colformat_double(x, digits = digits, suffix = suffix)
       flextable::autofit(x)
     }
-    
-    for(i in names(res)){
-      
-      totab <- res[[i]]
-      if(is.null(totab))
-        next()
 
-      totab <- totab %>% 
-        dplyr::mutate(Date = as.character(Date)) %>% 
-        flextable::as_grouped_data(groups = 'Parameter')
-
-      # table
-      tab <- flextable::flextable(totab) %>% 
-        thm %>% 
-        flextable::align(align = 'left', part = 'all') %>% 
-        # flextable::align(align = 'left', j = 1, part = 'all') %>% 
-        flextable::border_inner() %>% 
-        flextable::set_caption(i)
-      
-      print(tab)
-      
-    }
+    totab <- res[[1]]
     
+    # stop if no data to use for table
+    if(is.null(totab))
+      stop(paste('No data to check for', accchk))
+    
+    totab <- totab %>% 
+      dplyr::mutate(Date = as.character(Date)) %>% 
+      flextable::as_grouped_data(groups = 'Parameter')
+    
+    # table
+    tab <- flextable::flextable(totab) %>% 
+      thm %>% 
+      flextable::align(align = 'left', part = 'all') %>% 
+      # flextable::align(align = 'left', j = 1, part = 'all') %>% 
+      flextable::border_inner() %>% 
+      flextable::set_caption(names(res))
+
   }
   
   if(type == 'percent'){
@@ -128,6 +127,6 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, type = c('summary', 
     # 
   }
   
-  # return(tab)
+  return(tab)
   
 }
