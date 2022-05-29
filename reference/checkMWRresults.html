@@ -74,7 +74,7 @@
 <li><p>Columns present: All columns from the previous check should be present, Result Attribute is optional</p></li>
 <li><p>Activity Type: Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Field Duplicate, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike, Quality Control Field Calibration Check</p></li>
 <li><p>Date formats: Should be mm/dd/yyyy and parsed correctly on import</p></li>
-<li><p>Time formats: Should be HH:MM and parsed correctly on import</p></li>
+<li><p>Time formats: Should be HH:MM and parsed correctly on import, missing entries okay</p></li>
 <li><p>Non-numeric Activity Depth/Height Measure: All depth values should be numbers, excluding missing values</p></li>
 <li><p>Activity Depth/Height Unit: All entries should be <code>ft</code>, <code>m</code>, or blank</p></li>
 <li><p>Activity Depth/Height Measure out of range: All depth values should be less than or equal to 1 meter or 3.3 feet (warning only)</p></li>
@@ -89,16 +89,52 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleResults_final.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleResults.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_excel</a></span><span class="op">(</span><span class="va">respth</span>, </span>
 <span class="r-in">  col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'text'</span>, <span class="st">'text'</span>, <span class="st">'date'</span>, <span class="st">'date'</span>, <span class="st">'text'</span>, <span class="st">'text'</span>, <span class="st">'text'</span>, <span class="st">'text'</span>, <span class="st">'text'</span>, <span class="st">'text'</span>, </span>
 <span class="r-in">             <span class="st">'text'</span>, <span class="st">'text'</span>, <span class="st">'text'</span>, <span class="st">'text'</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> `path` does not exist: ‘’</span>
 <span class="r-in">             </span>
 <span class="r-in"><span class="fu">checkMWRresults</span><span class="op">(</span><span class="va">resdat</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on results data...</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in checkMWRresults(resdat):</span> object 'resdat' not found</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking valid Activity Types... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Start Date formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Start Time formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in Activity Depth/Height Measure... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Depth/Height Unit... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Relative Depth Name formats... OK</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>	Checking Characteristic Name formats...</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> 	Characteristic Name not used for quality control: Air Temp, Gage</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Characteristic Name formats... WARNING</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Result Values... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking QC Reference Values... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for Result Unit... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit per Characteristic Name... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking acceptable units for each entry in Characteristic Name... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed (1 WARNING(s))!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2,594 × 14</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    `Monitoring Locatio…` `Activity Type` `Activity Start D…` `Activity Start T…`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> HBS-016               Field Msr/Obs   2021-01-14 <span style="color: #949494;">00:00:00</span> 1899-12-31 <span style="color: #949494;">09:22:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> LND-007               Field Msr/Obs   2021-01-14 <span style="color: #949494;">00:00:00</span> 1899-12-31 <span style="color: #949494;">09:50:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> HBS-031               Field Msr/Obs   2021-01-14 <span style="color: #949494;">00:00:00</span> 1899-12-31 <span style="color: #949494;">10:05:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> HBS-057               Field Msr/Obs   2021-01-14 <span style="color: #949494;">00:00:00</span> 1899-12-31 <span style="color: #949494;">10:30:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> HBS-065               Field Msr/Obs   2021-01-14 <span style="color: #949494;">00:00:00</span> 1899-12-31 <span style="color: #949494;">10:40:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> CRN-002               Field Msr/Obs   2021-01-14 <span style="color: #949494;">00:00:00</span> 1899-12-31 <span style="color: #949494;">11:30:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> HBS-076               Field Msr/Obs   2021-01-14 <span style="color: #949494;">00:00:00</span> 1899-12-31 <span style="color: #949494;">11:58:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> HBS-085               Field Msr/Obs   2021-01-14 <span style="color: #949494;">00:00:00</span> 1899-12-31 <span style="color: #949494;">12:10:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> HBS-095               Field Msr/Obs   2021-01-14 <span style="color: #949494;">00:00:00</span> 1899-12-31 <span style="color: #949494;">12:20:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> HBS-016               Field Msr/Obs   2021-02-15 <span style="color: #949494;">00:00:00</span> 1899-12-31 <span style="color: #949494;">08:50:00</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 2,584 more rows, and 10 more variables:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Activity Depth/Height Measure` &lt;chr&gt;, `Activity Depth/Height Unit` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Activity Relative Depth Name` &lt;chr&gt;, `Characteristic Name` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Value` &lt;chr&gt;, `Result Unit` &lt;chr&gt;, `Quantitation Limit` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `QC Reference Value` &lt;chr&gt;, `Result Measure Qualifier` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Attribute` &lt;chr&gt;</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
