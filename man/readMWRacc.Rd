@@ -21,7 +21,7 @@ Read data quality objectives for accuracy from an external file
 Data are imported with \code{\link[readxl]{read_excel}} and checked with \code{\link{checkMWRacc}}.
 }
 \examples{
-accpth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
+accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
 
 accdat <- readMWRacc(accpth)
 head(accdat)

@@ -32,7 +32,7 @@ The following checks are made:
 \examples{
 library(dplyr)
 
-sitpth <- system.file('extdata/ExampleSites_final.xlsx', package = 'MassWateR')
+sitpth <- system.file('extdata/ExampleSites.xlsx', package = 'MassWateR')
 
 sitdat <- readxl::read_excel(sitpth, na = c('NA', 'na', ''))
     

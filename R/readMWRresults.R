@@ -11,7 +11,7 @@
 #' @export
 #'
 #' @examples
-#' respth <- system.file('extdata/CopyOfExampleResults_final.xlsx', package = 'MassWateR')
+#' respth <- system.file('extdata/CopyOfExampleResults.xlsx', package = 'MassWateR')
 #' 
 #' resdat <- readMWRresults(respth)
 #' head(resdat)

@@ -21,7 +21,7 @@ This function is used internally within \code{\link{readMWRacc}} to format the i
 }
 }
 \examples{
-accpth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
+accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
 
 accdat <- readxl::read_excel(accpth, na = c('NA', 'na', '')) 
 

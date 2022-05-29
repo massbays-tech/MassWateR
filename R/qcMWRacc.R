@@ -105,6 +105,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         `Activity Type`,
         Parameter = `Characteristic Name`,
         Date = `Activity Start Date`,
+        `Sample ID` = `Result Attribute`,
         Site = `Monitoring Location ID`,
         Result = `Result Value`,
         `Result Unit`, 
@@ -126,13 +127,15 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
     if('Quality Control Sample-Field Blank' %in% blk$`Activity Type` & 'Field Blanks' %in% accchk)
       fldblk <- blk %>%
         dplyr::filter(`Activity Type` == 'Quality Control Sample-Field Blank') %>% 
-        dplyr::select(-`Activity Type`)
+        dplyr::select(-`Activity Type`) %>% 
+        dplyr::select(-`Sample ID`)
       
     # lab blank
     if('Quality Control Sample-Lab Blank' %in% blk$`Activity Type` & 'Lab Blanks' %in% accchk)
       labblk <- blk %>%
         dplyr::filter(`Activity Type` == 'Quality Control Sample-Lab Blank') %>% 
-        dplyr::select(-`Activity Type`)
+        dplyr::select(-`Activity Type`) %>% 
+        dplyr::select(-`Site`)
   
   }
 
@@ -150,6 +153,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         `Activity Type`,
         Parameter = `Characteristic Name`, 
         Date = `Activity Start Date`, 
+        `Sample ID` = `Result Attribute`,
         Site = `Monitoring Location ID`, 
         `Result Unit`,
         `Initial Result` = `Result Value`, 
@@ -246,7 +250,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         ) %>% 
         dplyr::ungroup() %>% 
         dplyr::select(
-          Parameter, Date, Site, `Initial Result`, `Dup. Result`, `Diff./RPD`, `Hit/Miss` 
+          Parameter, Date, `Sample ID`, `Initial Result`, `Dup. Result`, `Diff./RPD`, `Hit/Miss` 
         ) 
       
   }
@@ -265,7 +269,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         `Activity Type`,
         Parameter = `Characteristic Name`, 
         Date = `Activity Start Date`, 
-        Reference = `Monitoring Location ID`, 
+        `Sample ID` = `Result Attribute`,
         Recovered = `Result Value`, 
         Standard = `QC Reference Value`, 
         `Result Unit`, 
@@ -323,7 +327,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         dplyr::select(
           Parameter, 
           Date, 
-          Reference, 
+          `Sample ID`, 
           Spike = Standard, 
           `Amt Recovered` = Recovered, 
           `% Recovery` = percv, 
@@ -337,7 +341,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         dplyr::select(
           Parameter, 
           Date, 
-          Reference, 
+          `Sample ID`, 
           `Calibration Standard` = Standard, 
           `Instrument Reading` = Recovered, 
           `Accuracy` = diffv, 

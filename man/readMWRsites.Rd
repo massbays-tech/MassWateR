@@ -21,7 +21,7 @@ Read site metadata from an external file
 Data are imported with \code{\link[readxl]{read_excel}} and checked with \code{\link{checkMWRsites}}.
 }
 \examples{
-sitpth <- system.file('extdata/ExampleSites_final.xlsx', package = 'MassWateR')
+sitpth <- system.file('extdata/ExampleSites.xlsx', package = 'MassWateR')
 
 sitdat <- readMWRsites(sitpth)
 head(sitdat)

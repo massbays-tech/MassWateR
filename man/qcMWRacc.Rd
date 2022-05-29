@@ -40,10 +40,10 @@ Note that accuracy is only evaluated on parameters in the \code{Parameter} colum
 # using file paths
 
 # results path
-respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
+respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 
 # accuracy path
-accpth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
+accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
 
 qcMWRacc(res = respth, acc = accpth)
 

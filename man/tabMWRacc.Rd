@@ -58,10 +58,10 @@ Inputs for the results and data quality objectives for accuracy are processed in
 # using file paths
 
 # results path
-respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
+respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 
 # accuracy path
-accpth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', 
+accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', 
      package = 'MassWateR')
 
 # table as summary

@@ -21,7 +21,7 @@ Read data quality objectives for frequency and completeness from an external fil
 Data are imported with \code{\link[readxl]{read_excel}} and checked with \code{\link{checkMWRfrecom}}.
 }
 \examples{
-frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness_final.xlsx', 
+frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', 
      package = 'MassWateR')
 
 frecomdat <- readMWRfrecom(frecompth)
