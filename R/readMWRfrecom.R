@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @examples
-#' frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness_final.xlsx', 
+#' frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', 
 #'      package = 'MassWateR')
 #' 
 #' frecomdat <- readMWRfrecom(frecompth)

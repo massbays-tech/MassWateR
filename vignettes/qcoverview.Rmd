@@ -22,21 +22,21 @@ The quality control functions in MassWateR can be used once the required data ar
 library(MassWateR)
 
 # import results data
-respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
+respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 resdat <- readMWRresults(respth)
 
 # import data quality objectives for accuracy
-accpth <- system.file('extdata/ExampleDQOAccuracy_final.xlsx', package = 'MassWateR')
+accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
 accdat <- readMWRacc(accpth)
 
 # import data quality objectives for frequency and completeness
-frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness_final.xlsx', package = 'MassWateR')
+frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', package = 'MassWateR')
 frecomdat <- readMWRfrecom(frecompth)
 ```
 
 ## Quality control for accuracy
 
-```{r, error = T}
+```{r, error = T, results = 'hold'}
 tabMWRacc(res= resdat, acc = accdat, type = 'summary', accchk = 'Field Blanks')
 tabMWRacc(res= resdat, acc = accdat, type = 'summary', accchk = 'Lab Blanks')
 tabMWRacc(res= resdat, acc = accdat, type = 'summary', accchk = 'Field Duplicates')

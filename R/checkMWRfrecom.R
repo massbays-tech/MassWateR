@@ -20,7 +20,7 @@
 #' @examples
 #' library(dplyr)
 #' 
-#' frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness_final.xlsx', 
+#' frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', 
 #'      package = 'MassWateR')
 #' 
 #' frecomdat <- suppressMessages(readxl::read_excel(frecompth, 

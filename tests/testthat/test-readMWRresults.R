@@ -7,5 +7,5 @@ test_that("Checking row length from readMWRresults", {
   
   # formMWRresults adds extra rows if values in QC Reference Value 
   result <- nrow(readMWRresults(respth))
-  expect_equal(result, 2586)
+  expect_equal(result, 2594)
 })

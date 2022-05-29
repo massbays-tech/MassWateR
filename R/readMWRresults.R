@@ -11,15 +11,15 @@
 #' @export
 #'
 #' @examples
-#' respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
+#' respth <- system.file('extdata/CopyOfExampleResults_final.xlsx', package = 'MassWateR')
 #' 
 #' resdat <- readMWRresults(respth)
 #' head(resdat)
 readMWRresults <- function(respth, runchk = TRUE, tzone = 'America/Jamaica'){
-  
-  resdat <- readxl::read_excel(respth, na = c('NA', 'na', ''), 
+
+  resdat <- suppressWarnings(readxl::read_excel(respth, na = c('NA', 'na', ''), 
     col_types = c('text', 'text', 'date', 'date', 'text', 'text', 'text', 'text', 'text', 'text', 
-                  'text', 'text', 'text', 'text'))
+                  'text', 'text', 'text', 'text')))
   
   # run checks
   if(runchk)

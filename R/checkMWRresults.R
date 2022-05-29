@@ -10,7 +10,7 @@
 #'  \item{Columns present: }{All columns from the previous check should be present, Result Attribute is optional}
 #'  \item{Activity Type: }{Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Field Duplicate, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike, Quality Control Field Calibration Check}
 #'  \item{Date formats: }{Should be mm/dd/yyyy and parsed correctly on import}
-#'  \item{Time formats: }{Should be HH:MM and parsed correctly on import}
+#'  \item{Time formats: }{Should be HH:MM and parsed correctly on import, missing entries okay}
 #'  \item{Non-numeric Activity Depth/Height Measure: }{All depth values should be numbers, excluding missing values}
 #'  \item{Activity Depth/Height Unit: }{All entries should be \code{ft}, \code{m}, or blank}
 #'  \item{Activity Depth/Height Measure out of range: }{All depth values should be less than or equal to 1 meter or 3.3 feet (warning only)}
@@ -28,7 +28,7 @@
 #' @export
 #'
 #' @examples
-#' respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
+#' respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 #' 
 #' resdat <- readxl::read_excel(respth, 
 #'   col_types = c('text', 'text', 'date', 'date', 'text', 'text', 'text', 'text', 'text', 'text', 
@@ -85,21 +85,27 @@ checkMWRresults <- function(resdat){
     stop(msg, '\n\tIncorrect Activity Type found: ', paste(tochk, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
-  
+
   # check date parsing
   msg <- '\tChecking Activity Start Date formats...'
   dts <- resdat$`Activity Start Date`
+  dts <- lubridate::ymd(dts, quiet = TRUE)
+  rws <- which(is.na(dts))
+  chk <- length(rws) == 0
   if(anyNA(dts)){
-    rws <- which(is.na(dts))
     stop(msg, '\n\tCheck date on row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
-  
+
   # check time formats
   msg <- '\tChecking Activity Start Time formats...'
   tms <- resdat$`Activity Start Time`
-  if(anyNA(tms)){
-    rws <- which(is.na(tms))
+  bln <- which(is.na(tms))
+  tms <- lubridate::ymd_hms(tms, quiet = TRUE)
+  rws <- which(is.na(tms))
+  rws <- rws[!rws %in% bln]
+  chk <- length(rws) == 0
+  if(!chk){
     stop(msg, '\n\tCheck time on row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))

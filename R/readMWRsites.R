@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @examples
-#' sitpth <- system.file('extdata/ExampleSites_final.xlsx', package = 'MassWateR')
+#' sitpth <- system.file('extdata/ExampleSites.xlsx', package = 'MassWateR')
 #' 
 #' sitdat <- readMWRsites(sitpth)
 #' head(sitdat)

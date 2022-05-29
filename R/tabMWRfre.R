@@ -23,10 +23,10 @@
 #' # using file paths
 #' 
 #' # results path
-#' respth <- system.file('extdata/ExampleResults_final.xlsx', package = 'MassWateR')
+#' respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 #' 
 #' # frequency and completeness path
-#' frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness_final.xlsx', 
+#' frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', 
 #'      package = 'MassWateR')
 #' 
 #' # table as summary

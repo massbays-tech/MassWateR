@@ -20,15 +20,17 @@ test_that("Checking correct Activity Types", {
 
 test_that("Checking date formats", {
   chk <- resdat
-  chk[4, 3] <- NA
+  chk$`Activity Start Date` = as.character(chk$`Activity Start Date`)
+  chk[4, 3] <- '12-30-2018'
   chk[5, 3] <- NA
   expect_error(checkMWRresults(chk))
 })
 
 test_that("Checking time formats", {
   chk <- resdat
-  chk[120, 4] <- NA
-  chk[125, 4] <- NA
+  chk$`Activity Start Time` <- as.character(chk$`Activity Start Time`)
+  chk[120, 4] <- 'aaaaa'
+  chk[125, 4] <- '1899-12-31 55:08:00'
   expect_error(checkMWRresults(chk))
 })
 
@@ -68,7 +70,7 @@ test_that("Checking correct Characteristic Names", {
   chk[12, 8] <- 'chla'
   chk[200, 8] <- 'chla'
   chk[2500, 8] <- 'nitrogne'
-  expect_error(checkMWRresults(chk))
+  expect_warning(checkMWRresults(chk))
 })
 
 test_that("Checking entries in Result Value", {
