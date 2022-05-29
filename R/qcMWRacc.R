@@ -203,7 +203,8 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
           T ~ `Dup. Result`
         ), 
         `Initial Result2` = as.numeric(`Initial Result2`),
-        `Dup. Result2` = as.numeric(`Dup. Result2`)
+        `Dup. Result2` = as.numeric(`Dup. Result2`), 
+        `Avg. Result` = (`Initial Result2` + `Dup. Result2`) / 2
       ) %>% 
       dplyr::rowwise() %>% 
       dplyr::mutate( 
@@ -218,7 +219,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
           paste(round(as.numeric(`Dup. Result`), 2), `Result Unit`)
         )
       ) %>%
-      tidyr::unite('flt', `Initial Result2`, `Value Range`, sep = ' ', remove = FALSE) %>% 
+      tidyr::unite('flt', `Avg. Result`, `Value Range`, sep = ' ', remove = FALSE) %>% 
       dplyr::rowwise() %>%
       dplyr::mutate(
         flt = ifelse(grepl('all', flt), T, eval(parse(text = flt)))
@@ -235,6 +236,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
     if('Field Duplicate' %in% dup$`Activity Type` & 'Field Duplicates' %in% accchk)
       flddup <- dup %>% 
         dplyr::filter(`Activity Type` %in% 'Field Duplicate') %>% 
+        dplyr::rowwise() %>% 
         dplyr::mutate(
           diffv = dplyr::case_when(
             grepl('log', `Field Duplicate`) ~ abs(log(`Dup. Result2`) - log(`Initial Result2`)),
@@ -263,6 +265,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
     if('Quality Control Sample-Lab Duplicate' %in% dup$`Activity Type` & 'Lab Duplicates' %in% accchk)
       labdup <- dup %>% 
         dplyr::filter(`Activity Type` %in% 'Quality Control Sample-Lab Duplicate') %>% 
+        dplyr::rowwise() %>% 
         dplyr::mutate(
           diffv = dplyr::case_when(
             grepl('log', `Lab Duplicate`) ~ abs(log(`Dup. Result2`) - log(`Initial Result2`)),
@@ -277,9 +280,9 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
             grepl('%|log', `Lab Duplicate`) ~ eval(parse(text = paste(percv, `Lab Duplicate2`))), 
             !grepl('%|log', `Lab Duplicate`) ~ diffv <= `Lab Duplicate`
           ),
-          `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'), 
-          percv = paste0(round(percv, 0), '% RPD'), 
-          diffv = paste(round(diffv, 2), `Result Unit`), 
+          `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
+          percv = paste0(round(percv, 0), '% RPD'),
+          diffv = paste(round(diffv, 2), `Result Unit`),
           `Diff./RPD` = ifelse(grepl('%', `Lab Duplicate`), percv, diffv)
         ) %>% 
         dplyr::ungroup() %>% 
@@ -326,7 +329,10 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
           `Standard` == 'BDL' ~ as.character(MDL), 
           `Standard` == 'AQL' ~ as.character(UQL), 
           T ~ `Standard`
-        )
+        ),        
+        `Recovered2` = as.numeric(`Recovered2`),
+        `Standard2` = as.numeric(`Standard2`), 
+        `Avg. Result` = (`Recovered2` + `Standard2`) / 2
       ) %>% 
       dplyr::rowwise() %>% 
       dplyr::mutate( 
@@ -341,7 +347,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
           paste(round(as.numeric(`Standard`), 2), `Result Unit`)
         )
       ) %>% 
-      tidyr::unite('flt', `Recovered2`, `Value Range`, sep = ' ', remove = FALSE) %>% 
+      tidyr::unite('flt', `Avg. Result`, `Value Range`, sep = ' ', remove = FALSE) %>% 
       dplyr::rowwise() %>% 
       dplyr::mutate(
         flt = ifelse(grepl('all', flt), T, eval(parse(text = flt)))
@@ -354,8 +360,6 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
       dplyr::filter(ifelse(is.na(rngflt), T, max(rngflt) == rngflt)) %>% 
       dplyr::ungroup() %>% 
       mutate(
-        `Recovered2` = as.numeric(`Recovered2`),
-        `Standard2` = as.numeric(`Standard2`), 
         diffv = abs(Recovered2 - Standard2),
         percv = paste0(round(100 * Recovered2 / Standard2, 0), '%'),
         `Hit/Miss` = ifelse(diffv <= `Spike/Check Accuracy`, NA_character_, 'MISS'), 
