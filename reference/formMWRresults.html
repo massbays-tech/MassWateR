@@ -80,26 +80,9 @@
 <span class="r-in"><span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_excel</a></span><span class="op">(</span><span class="va">respth</span>, </span>
 <span class="r-in">  col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'text'</span>, <span class="st">'text'</span>, <span class="st">'date'</span>, <span class="st">'date'</span>, <span class="st">'text'</span>, <span class="st">'text'</span>, <span class="st">'text'</span>, <span class="st">'text'</span>, <span class="st">'text'</span>, <span class="st">'text'</span>, </span>
 <span class="r-in">             <span class="st">'text'</span>, <span class="st">'text'</span>, <span class="st">'text'</span>, <span class="st">'text'</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> `path` does not exist: ‘’</span>
 <span class="r-in"><span class="fu">formMWRresults</span><span class="op">(</span><span class="va">resdat</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2,586 × 14</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    `Monitoring Location ID` `Activity Type` `Activity Start D…` `Activity Star…`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> HBS-016                  Field Msr/Obs   2021-01-14          09:22           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> HBS-057                  Field Msr/Obs   2021-01-14          10:30           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> HBS-016                  Sample-Routine  2021-01-14          09:22           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> HBS-016                  Sample-Routine  2021-01-14          09:22           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> LND-007                  Field Msr/Obs   2021-01-14          09:50           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> HBS-076                  Field Msr/Obs   2021-01-14          11:58           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> LND-007                  Sample-Routine  2021-01-14          09:50           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> LND-007                  Sample-Routine  2021-01-14          09:50           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> HBS-031                  Field Msr/Obs   2021-01-14          10:05           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> LND-007                  Field Msr/Obs   2021-02-15          09:16           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 2,576 more rows, and 10 more variables:</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Activity Depth/Height Measure` &lt;chr&gt;, `Activity Depth/Height Unit` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Activity Relative Depth Name` &lt;chr&gt;, `Characteristic Name` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Value` &lt;chr&gt;, `Result Unit` &lt;chr&gt;, `Quantitation Limit` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `QC Reference Value` &lt;chr&gt;, `Result Measure Qualifier` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Attribute` &lt;chr&gt;</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in mutate(., `Activity Start Date` = lubridate::force_tz(`Activity Start Date`,     tzone = tzone), `Activity Start Date` = lubridate::ymd(`Activity Start Date`),     `Activity Start Time` = gsub("^.*\\s", "", as.character(`Activity Start Time`)),     `Activity Start Time` = gsub(":00$", "", `Activity Start Time`)):</span> object 'resdat' not found</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
