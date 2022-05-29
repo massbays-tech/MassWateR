@@ -8,7 +8,9 @@
 #'
 #' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRacc}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly.
 #' 
-#' Note that accuracy is only evaluated on parameters in the \code{Parameter} column in the data quality objectives completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.
+#' Note that accuracy is only evaluated on parameters in the \code{Parameter} column in the data quality objectives accuracy file.  A warning is returned if there are parameters in \code{Parameter} in the accuracy file that are not in \code{Characteristic Name} in the results file. 
+#' 
+#' Similarly, parameters in the results file in the \code{Characteristic Name} column that are not found in the data quality objectives accuracy file are not evaluated.  A warning is returned if there are parameters in \code{Characteristic Name} in the results file that are not in \code{Parameter} in the accuracy file.
 #' 
 #' @return The output shows the accuracy checks from the input files.  
 #' 
@@ -39,6 +41,8 @@
 #' 
 qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks (post sampling)')){
   
+  colsym <- c('<=', '<', '>=', '>', '\u00b1', '\u2265', '\u2264', '%', 'AQL', 'BDL', 'log', 'all')
+  
   ##
   # get user inputs
   inp <- utilMWRinput(res = res, acc = acc, runchk = runchk)
@@ -46,15 +50,24 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
   accdat <- inp$accdat
   
   ##
-  # check parameters in accuracy can be found in results
+  # check parameter matches between results and accuracy
   accprm <- sort(unique(accdat$Parameter))
   resdatprm <- sort(unique(resdat$`Characteristic Name`))
+  
+  # check parameters in accuracy can be found in results  
   chk <- accprm %in% resdatprm
   if(any(!chk) & warn){
     tochk <- accprm[!chk]
     warning('Parameters in quality control objectives for accuracy not found in results data: ', paste(tochk, collapse = ', '))
   }
 
+  # check parameters in results can be found in accuracy
+  chk <- resdatprm %in% accprm
+  if(any(!chk) & warn){
+    tochk <- resdatprm[!chk]
+    warning('Parameters in results not found in  quality control objectives for accuracy: ', paste(tochk, collapse = ', '))
+  }
+  
   # parameters for accuracy checks
   prms <- accprm[chk]
   
@@ -100,7 +113,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
     # field and lab blanks, can do together 
     blk <- resdat %>% 
       dplyr::filter(`Activity Type` %in% blktyp) %>% 
-      dplyr::left_join(acctmp, by = c('Characteristic Name' = 'Parameter')) %>% 
+      dplyr::inner_join(acctmp, by = c('Characteristic Name' = 'Parameter')) %>% 
       dplyr::select(
         `Activity Type`,
         Parameter = `Characteristic Name`,
@@ -140,16 +153,30 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
   }
 
   # lab and field lab duplicates
+  # first create a field duplicate entry in activity types, this will never be entered on the user side
+  # field duplicates are those where activity type is Field Msr/Obs or Sample-Routine, with entries in QC Reference Value
+  # then proceed as normal
   # steps include replacing any initial or duplicates as BDL/AQL with MDL/UQL for comparison
   # joining one to many of results to accuracy, then filtering results by range values in accuracy
   # comparing initial and duplicates to standard in accuracy file, handling percent/log and non-percent differently
-  duptyp <- c('Quality Control Sample-Field Duplicate', 'Quality Control Sample-Lab Duplicate')
-  if(any(duptyp %in% resdat$`Activity Type`) & any(c('Field Duplicates', 'Lab Duplicates') %in% accchk)){
-    
-    dup <- resdat %>% 
+  
+  resdat_dup <- resdat %>% 
+    dplyr::mutate(
+      `Activity Type` = dplyr::case_when(
+        `Activity Type` %in% c('Field Msr/Obs', 'Sample-Routine') & !is.na(`QC Reference Value`) ~ 'Field Duplicate', 
+        T ~ `Activity Type`
+      )
+    )
+  
+  duptyp <- c('Field Duplicate', 'Quality Control Sample-Lab Duplicate')
+  if(any(duptyp %in% resdat_dup$`Activity Type`) & any(c('Field Duplicates', 'Lab Duplicates') %in% accchk)){
+ 
+    dup <- resdat_dup %>% 
       dplyr::filter(`Activity Type` %in% duptyp) %>% 
-      left_join(accdat, by = c('Characteristic Name' = 'Parameter')) %>% 
+      dplyr::mutate(ind = 1:n()) %>% 
+      inner_join(accdat, by = c('Characteristic Name' = 'Parameter')) %>% 
       dplyr::select(
+        ind, 
         `Activity Type`,
         Parameter = `Characteristic Name`, 
         Date = `Activity Start Date`, 
@@ -159,6 +186,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         `Initial Result` = `Result Value`, 
         `Dup. Result` = `QC Reference Value`, 
         `Value Range`, 
+        `Field Duplicate`,
         `Lab Duplicate`, 
         MDL, 
         UQL
@@ -195,12 +223,18 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
       dplyr::mutate(
         flt = ifelse(grepl('all', flt), T, eval(parse(text = flt)))
       ) %>% 
-      dplyr::filter(flt) 
+      dplyr::filter(flt) %>% 
+      dplyr::group_by(ind) %>% 
+      dplyr::mutate(
+        `rngflt` = as.numeric(gsub(paste(colsym, collapse = '|'), '', `Value Range`))
+      ) %>% 
+      dplyr::filter(ifelse(is.na(rngflt), T, max(rngflt) == rngflt)) %>% 
+      dplyr::ungroup()
 
     # field duplicates
-    if('Quality Control Sample-Field Duplicate' %in% dup$`Activity Type` & 'Field Duplicates' %in% accchk)
+    if('Field Duplicate' %in% dup$`Activity Type` & 'Field Duplicates' %in% accchk)
       flddup <- dup %>% 
-        dplyr::filter(`Activity Type` %in% 'Quality Control Sample-Field Duplicate') %>% 
+        dplyr::filter(`Activity Type` %in% 'Field Duplicate') %>% 
         dplyr::mutate(
           diffv = dplyr::case_when(
             grepl('log', `Field Duplicate`) ~ abs(log(`Dup. Result2`) - log(`Initial Result2`)),
@@ -264,8 +298,10 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
     
     labins <- resdat %>% 
       dplyr::filter(`Activity Type` %in% labinstyp) %>% 
-      left_join(accdat, by = c('Characteristic Name' = 'Parameter')) %>% 
+      dplyr::mutate(ind = 1:n()) %>% 
+      inner_join(accdat, by = c('Characteristic Name' = 'Parameter')) %>% 
       dplyr::select(
+        ind,
         `Activity Type`,
         Parameter = `Characteristic Name`, 
         Date = `Activity Start Date`, 
@@ -311,6 +347,12 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         flt = ifelse(grepl('all', flt), T, eval(parse(text = flt)))
       ) %>% 
       dplyr::filter(flt) %>% 
+      dplyr::group_by(ind) %>% 
+      dplyr::mutate(
+        `rngflt` = as.numeric(gsub(paste(colsym, collapse = '|'), '', `Value Range`))
+      ) %>% 
+      dplyr::filter(ifelse(is.na(rngflt), T, max(rngflt) == rngflt)) %>% 
+      dplyr::ungroup() %>% 
       mutate(
         `Recovered2` = as.numeric(`Recovered2`),
         `Standard2` = as.numeric(`Standard2`), 

@@ -7,7 +7,9 @@
 #'
 #' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly.
 #' 
-#' Note that frequency is only evaluated on parameters in the \code{Parameter} column in the data quality objectives completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.
+#' Note that frequency is only evaluated on parameters in the \code{Parameter} column in the data quality objectives frequency and completeness file.  A warning is returned if there are parameters in \code{Parameter} in the frequency and completeness file that are not in \code{Characteristic Name} in the results file. 
+#' 
+#' Similarly, parameters in the results file in the \code{Characteristic Name} column that are not found in the data quality objectives frequency and completeness file are not evaluated.  A warning is returned if there are parameters in \code{Characteristic Name} in the results file that are not in \code{Parameter} in the frequency and completeness file.
 #' 
 #' @return The output shows the frequency checks from the input files.  Each row applies to a frequency check for a parameter. The \code{Parameter} column shows the parameter, the \code{obs} column shows the total records that apply to regular activity types, the \code{check} column shows the relevant activity type for each frequency check, the \code{count} column shows the number of records that apply to a check, the \code{standard} column shows the relevant percentage required for the quality control check from the quality control objectives file, and the \code{met} column shows if the standard was met by comparing if \code{percent} is greater than or equal to \code{standard}.
 #' 
@@ -46,17 +48,26 @@ qcMWRfre <- function(res, frecom, runchk = TRUE, warn = TRUE){
   frecomdat <- inp$frecomdat
   
   ##
-  # check parameters in frequency and completeness can be found in results
+  # check parameter matches between results and completeness
   frecomprm <- sort(unique(frecomdat$Parameter))
   resdatprm <- sort(unique(resdat$`Characteristic Name`))
+  
+  # check parameters in completeness can be found in results  
   chk <- frecomprm %in% resdatprm
   if(any(!chk) & warn){
     tochk <- frecomprm[!chk]
     warning('Parameters in quality control objectives for frequency and completeness not found in results data: ', paste(tochk, collapse = ', '))
   }
   
-  # parameters for frequency checks
-  prms <- frecomprm[chk]
+  # check parameters in results can be found in completeness
+  chk <- resdatprm %in% frecomprm
+  if(any(!chk) & warn){
+    tochk <- resdatprm[!chk]
+    warning('Parameters in results not found in quality control objectives for frequency and completeness: ', paste(tochk, collapse = ', '))
+  }
+  
+  # parameters for completeness checks
+  prms <- intersect(resdatprm, frecomprm)
   
   resall <- NULL
   
