@@ -243,8 +243,8 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
             T ~ abs(`Dup. Result2` - `Initial Result2`)
           ),
           percv = dplyr::case_when(
-            grepl('log', `Field Duplicate`) ~ 100 * diffv / log(`Initial Result2`),
-            T ~ 100 * diffv / `Initial Result2`
+            grepl('log', `Field Duplicate`) ~ 100 * diffv / ((log(`Initial Result2`) + log(`Dup. Result2)`)) / 2),
+            T ~ 100 * diffv / ((`Initial Result2` + `Dup. Result2`) / 2)
           ),
           `Field Duplicate2` = gsub('%|log', '', `Field Duplicate`),
           `Hit/Miss` = dplyr::case_when(
@@ -272,8 +272,8 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
             T ~ abs(`Dup. Result2` - `Initial Result2`)
           ),
           percv = dplyr::case_when(
-            grepl('log', `Lab Duplicate`) ~ 100 * diffv / log(`Initial Result2`),
-            T ~ 100 * diffv / `Initial Result2`
+            grepl('log', `Lab Duplicate`) ~ 100 * diffv / ((log(`Initial Result2`) + log(`Dup. Result2)`)) / 2),
+            T ~ 100 * diffv / ((`Initial Result2` + `Dup. Result2`) / 2)
           ),
           `Lab Duplicate2` = gsub('%|log', '', `Lab Duplicate`),
           `Hit/Miss` = dplyr::case_when(
