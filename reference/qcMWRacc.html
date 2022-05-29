@@ -85,7 +85,8 @@
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The function can be used with inputs as paths to the relevant files or as data frames returned by <code><a href="readMWRresults.html">readMWRresults</a></code> and <code><a href="readMWRacc.html">readMWRacc</a></code>.  For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>.  In the latter case, downstream analyses may not work if data are formatted incorrectly.</p>
-<p>Note that accuracy is only evaluated on parameters in the <code>Parameter</code> column in the data quality objectives completeness file.  A warning is returned if there are parameters in that column that are not found in the results file.</p>
+<p>Note that accuracy is only evaluated on parameters in the <code>Parameter</code> column in the data quality objectives accuracy file.  A warning is returned if there are parameters in <code>Parameter</code> in the accuracy file that are not in <code>Characteristic Name</code> in the results file.</p>
+<p>Similarly, parameters in the results file in the <code>Characteristic Name</code> column that are not found in the data quality objectives accuracy file are not evaluated.  A warning is returned if there are parameters in <code>Characteristic Name</code> in the results file that are not in <code>Parameter</code> in the accuracy file.</p>
     </div>
 
     <div class="section level2">
