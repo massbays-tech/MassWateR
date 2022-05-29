@@ -23,7 +23,7 @@ Read water quality monitoring results from an external file
 Date are imported with \code{\link[readxl]{read_excel}}, checked with \code{\link{checkMWRresults}}, and formatted with \code{\link{formMWRresults}}.
 }
 \examples{
-respth <- system.file('extdata/CopyOfExampleResults.xlsx', package = 'MassWateR')
+respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 
 resdat <- readMWRresults(respth)
 head(resdat)
