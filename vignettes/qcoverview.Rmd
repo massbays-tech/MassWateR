@@ -72,7 +72,7 @@ tabMWRacc(res = resdat, acc = accdat, type = 'summary', warn = FALSE)
 For `type = "percent"`, the function returns a similar table as for the summary option, except only the percentage of checks that pass for each parameter are shown in wide format.  Cells are color-coded based on whether the percentage of checks that have passed exceed a user-defined threshold, 90% by default using the `pass_thr` argument. All accuracy checks are used and the `accchk` argument does not apply.
 
 ```{r}
-tabMWRacc(res = resdat, acc = accdat, type = 'percent', warn = FALSE, accchk = 'test')
+tabMWRacc(res = resdat, acc = accdat, type = 'percent', warn = FALSE)
 ```
 
 The `tabMWRacc()` function uses the `qcMWRacc()` function internally to create the table.  This function creates the raw summaries of accuracy from the input data.  Typically, `qcMWRacc()` is not used by itself, but it is explained here to demonstrate how the raw summaries can be obtained. 
