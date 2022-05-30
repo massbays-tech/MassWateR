@@ -537,6 +537,8 @@ Functions in MassWateR are organized around these topics.
 <strong>Minor formatting for units</strong>: For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to <code>NA</code> for the <code>uom</code> column (<code><a href="../reference/readMWRacc.html">readMWRacc()</a></code> only).</li>
 <li>
 <strong>Convert parameter names</strong>: All parameters in <code>Parameter</code> are converted to <code>Simple Parameter</code> in <code>paramsMWR</code> as needed.</li>
+<li>
+<strong>Remove unicode</strong>: Remove or replace unicode characters with those that can be used in logical expressions in <code><a href="../reference/qcMWRacc.html">qcMWRacc()</a></code>, e.g., replace <span class="math inline">\(\geq\)</span> with <span class="math inline">\(&gt;=\)</span>.</li>
 </ul>
 </div>
 <div class="section level3">

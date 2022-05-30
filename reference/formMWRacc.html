@@ -68,6 +68,7 @@
     <p>This function is used internally within <code><a href="readMWRacc.html">readMWRacc</a></code> to format the input data for downstream analysis.  The formatting includes:</p>
 <ul><li><p>Minor formatting for units: For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to NA in <code>uom</code></p></li>
 <li><p>Convert Parameter: All parameters are converted to <code>Simple Parameter</code> in <code><a href="paramsMWR.html">paramsMWR</a></code> as needed</p></li>
+<li><p>Remove unicode: Remove or replace unicode characters with those that can be used in logical expressions in <code><a href="qcMWRacc.html">qcMWRacc</a></code>, e.g., replace \(\geq\) with \(&gt;=\)</p></li>
 </ul></div>
 
     <div class="section level2">
