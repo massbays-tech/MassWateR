@@ -10,10 +10,11 @@ test_that("Checking required column names are present", {
   expect_error(checkMWRacc(chk))
 })
 
-test_that("Checking non-numeric values in MDL, UQL", {
+test_that("Checking column types", {
   chk <- accdat
   chk$`MDL` <- as.character(chk$`MDL`)
   chk$`UQL`[5] <- 'a'
+  chk$`Spike/Check Accuracy` <- suppressWarnings(as.numeric(chk$`Spike/Check Accuracy`))
   expect_error(checkMWRacc(chk))
 })
 

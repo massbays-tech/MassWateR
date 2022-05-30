@@ -169,7 +169,7 @@ File checks for accuracy:
 
 -   **Column name spelling**: Should be the following: Parameter, uom, MDL, UQL, Value Range, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy
 -   **Columns present**: All columns from the previous check should be present
--   **Non-numeric values in MDL, UQL**: Values entered in columns MDL and UQL should be numeric
+-   **Column types**: All columns should be characters/text, except for MDL and UQL
 -   **Unrecognized characters**: Fields describing accuracy checks should not include symbols or text other than $<=$, $\leq$, $<$, $>=$, $\geq$, $>$, $\pm$ \%, BDL, AQL, log, or all
 -   **Parameter**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` columns of the `paramsMWR` data
 -   **Units**: No missing entries in units (`uom`), except pH which can be blank

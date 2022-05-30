@@ -8,7 +8,7 @@
 #' \itemize{
 #'  \item{Column name spelling: }{Should be the following: Parameter, uom, MDL, UQL, Value Range, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy}
 #'  \item{Columns present: }{All columns from the previous check should be present}
-#'  \item{Non-numeric values in MDL, UQL: }{Values entered in columns MDL and UQL should be numeric}
+#'  \item{Column types: }{All columns should be characters/text, except for MDL and UQL}
 #'  \item{Unrecognized characters: }{Fields describing accuracy checks should not include symbols or text other than \eqn{<=}, \eqn{\leq}, \eqn{<}, \eqn{>=}, \eqn{\geq}, \eqn{>}, \eqn{\pm}, %, BDL, AQL, log, or all}
 #'  \item{Parameter: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{paramsMWR}} data}
 #'  \item{Units: }{No missing entries in units (\code{uom}), except pH which can be blank}
@@ -31,10 +31,12 @@
 checkMWRacc <- function(accdat){
   
   message('Running checks on data quality objectives for accuracy...\n')
-  
+
   # globals
   colnms <- c("Parameter", "uom", "MDL", "UQL", "Value Range", "Field Duplicate", 
               "Lab Duplicate", "Field Blank", "Lab Blank", "Spike/Check Accuracy")
+  coltyp <- c("character", "character", "numeric", "numeric", "character", "character", "character", 
+               "character", "character", "character")
   # 00b1 is plus/minus, 2265 is greater than or equal to, 2264 is less than or equal to 
   colsym <- c('<=', '<', '>=', '>', '\u00b1', '\u2265', '\u2264', '%', 'AQL', 'BDL', 'log', 'all')
   chntyp <- sort(unique(c(paramsMWR$`Simple Parameter`, paramsMWR$`WQX Parameter`)))
@@ -58,17 +60,18 @@ checkMWRacc <- function(accdat){
     stop(msg, '\n\tMissing the following columns: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
-  
-  # check for any non-numeric values in MDL, UQL 
-  msg <- '\tChecking for non-numeric values in MDL, UQL...'
+
+  # checking column types
+  msg <- '\tChecking column types...'
   typ <- accdat %>% 
-    dplyr::select(MDL, UQL) %>% 
     lapply(class) %>% 
     unlist
-  chk <- typ %in% 'numeric'
+  chk <- typ == coltyp
   if(any(!chk)){
     tochk <- names(typ)[!chk]
-    stop(msg, '\n\tNon-numeric values found in columns: ', paste(tochk, collapse = ', '), call. = FALSE)
+    totyp <- typ[!chk]
+    tochk <- paste(tochk, totyp, sep = '-')
+    stop(msg, '\n\tIncorrect column type found in columns: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
   
