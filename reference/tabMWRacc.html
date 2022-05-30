@@ -62,7 +62,7 @@
   warn <span class="op">=</span> <span class="cn">TRUE</span>,
   accchk <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Field Blanks"</span>, <span class="st">"Lab Blanks"</span>, <span class="st">"Field Duplicates"</span>, <span class="st">"Lab Duplicates"</span>,
     <span class="st">"Lab Spikes"</span>, <span class="st">"Instrument Checks (post sampling)"</span><span class="op">)</span>,
-  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"summary"</span>, <span class="st">"percent"</span><span class="op">)</span>,
+  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"individual"</span>, <span class="st">"summary"</span>, <span class="st">"percent"</span><span class="op">)</span>,
   pass_col <span class="op">=</span> <span class="st">"green"</span>,
   fail_col <span class="op">=</span> <span class="st">"red"</span>,
   digits <span class="op">=</span> <span class="fl">0</span>,
@@ -83,7 +83,7 @@
 <dt>accchk</dt>
 <dd><p>character string indicating which accuracy check to return, one to any of <code>"Field Blanks"</code>, <code>"Lab Blanks"</code>, <code>"Field Duplicates"</code>, <code>"Lab Duplicates"</code>, <code>"Lab Spikes"</code>, or <code>"Instrument Checks (post sampling)"</code></p></dd>
 <dt>type</dt>
-<dd><p>character string indicating <code>summary</code> or <code>percent</code> tabular output, see datails</p></dd>
+<dd><p>character string indicating <code>individual</code>, <code>summary</code> or <code>percent</code> tabular output, see details</p></dd>
 <dt>pass_col</dt>
 <dd><p>character string for the cell color of checks that pass, applies only if <code>type = 'percent'</code></p></dd>
 <dt>fail_col</dt>
@@ -100,7 +100,10 @@
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The function can be used with inputs as paths to the relevant files or as data frames returned by <code><a href="readMWRresults.html">readMWRresults</a></code> and <code><a href="readMWRacc.html">readMWRacc</a></code>.  For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. Also note that accuracy is only evaluated on parameters that are shared between the results file and data quality objectives file for accuracy.  A warning is returned for parameters that do not match between the files. This warning can be suppressed by setting <code>warn = FALSE</code>.</p>
-<p>The quality control tables for accuracy show ........</p>
+<p>The function can return three types of tables as specified with the <code>type</code> argument: <code>"individual"</code>, <code>"summary"</code>, or <code>"percent"</code>.  The individual tables are specific to each type of accuracy check for each parameter (e.g., field blanks, lab blanks, etc.).  The summary table summarizes all accuracy checks by the number of checks and how many hit/misses are returned for each across all parameters.  The percent table is similar to the summary table, but showing only percentages with appropriate color-coding for hit/misses.</p>
+<p>For <code>type = "individual"</code>, the quality control tables for accuracy are retrieved by specifying the check with the <code>accchk</code> argument.  The <code>accchk</code> argument can be used to specify one of the following values to retrieve the relevant tables: <code>"Field Blanks"</code>, <code>"Lab Blanks"</code>, <code>"Field Duplicates"</code>, <code>"Lab Duplicates"</code>, <code>"Lab Spikes"</code>, or <code>"Instrument Checks (post sampling)"</code>.</p>
+<p>For <code>type = "summary"</code>, the function... The <code>accchk</code> argument does not apply for this table and results are returned for all checks.</p>
+<p>For <code>type = "percent"</code>, the function... The <code>accchk</code> argument does not apply for this table and results are returned for all checks.</p>
 <p>Inputs for the results and data quality objectives for accuracy are processed internally with <code><a href="qcMWRacc.html">qcMWRacc</a></code> and the same arguments are accepted for this function, in addition to others listed above.</p>
     </div>
 
@@ -118,7 +121,7 @@
 <span class="r-in">     package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># table as summary</span></span>
-<span class="r-in"><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">respth</span>, acc <span class="op">=</span> <span class="va">accpth</span>, type <span class="op">=</span> <span class="st">'summary'</span>, accchk <span class="op">=</span> <span class="st">'Field Blanks'</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">respth</span>, acc <span class="op">=</span> <span class="va">accpth</span>, type <span class="op">=</span> <span class="st">'individual'</span>, accchk <span class="op">=</span> <span class="st">'Field Blanks'</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on results data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
@@ -163,6 +166,43 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5      &lt;NA&gt; 2021-07-11 ABT-237      BDL 0.05 mg/l     &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6      &lt;NA&gt; 2021-07-11 ABT-301 0.1 mg/l 0.05 mg/l     MISS</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7      &lt;NA&gt; 2021-07-11 DAN-013      BDL 0.05 mg/l     &lt;NA&gt;</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># table as summary</span></span>
+<span class="r-in"><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">respth</span>, acc <span class="op">=</span> <span class="va">accpth</span>, type <span class="op">=</span> <span class="st">'summary'</span><span class="op">)</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on results data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking valid Activity Types... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Start Date formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Start Time formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in Activity Depth/Height Measure... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Depth/Height Unit... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Relative Depth Name formats... OK</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>	Checking Characteristic Name formats...</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> 	Characteristic Name not used for quality control: Air Temp, Gage</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Characteristic Name formats... WARNING</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Result Values... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking QC Reference Values... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for Result Unit... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit per Characteristic Name... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking acceptable units for each entry in Characteristic Name... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed (1 WARNING(s))!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on data quality objectives for accuracy...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column types... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for text other than &lt;=, ≤, &lt;, &gt;=, ≥, &gt;, ±, %, AQL, BQL, log, or all... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Parameter formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for unit (uom)... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit (uom) per Parameter... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking acceptable units (uom) for each entry in Parameter... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for accuracy not found in results data: Chloride</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in results not found in  quality control objectives for accuracy: Air Temp, DO saturation, Flow, Gage</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># table as percent</span></span>
 <span class="r-in"><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">respth</span>, acc <span class="op">=</span> <span class="va">accpth</span>, type <span class="op">=</span> <span class="st">'percent'</span><span class="op">)</span></span>
@@ -242,7 +282,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># table as summary</span></span>
-<span class="r-in"><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'summary'</span>, accchk <span class="op">=</span> <span class="st">'Field Blanks'</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'individual'</span>, accchk <span class="op">=</span> <span class="st">'Field Blanks'</span><span class="op">)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for accuracy not found in results data: Chloride</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in results not found in  quality control objectives for accuracy: Air Temp, DO saturation, Flow, Gage</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
@@ -259,6 +299,11 @@
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># table as percent</span></span>
 <span class="r-in"><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'percent'</span><span class="op">)</span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for accuracy not found in results data: Chloride</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in results not found in  quality control objectives for accuracy: Air Temp, DO saturation, Flow, Gage</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-in"><span class="co"># table as percent</span></span>
+<span class="r-in"><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'summary'</span><span class="op">)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for accuracy not found in results data: Chloride</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in results not found in  quality control objectives for accuracy: Air Temp, DO saturation, Flow, Gage</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
