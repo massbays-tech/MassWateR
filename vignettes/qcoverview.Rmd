@@ -36,7 +36,7 @@ frecomdat <- readMWRfrecom(frecompth)
 
 ## Quality control for accuracy
 
-The quality control checks for accuracy assess several characteristics of the data in the results file by referencing appropriate values in the data quality objectives file for accuracy.  In short, the accuracy checks evaluate field blanks, lab blanks, field duplicates, lab duplicates, lab spikes, and instrument checks. The accuracy checks require results data (as in `resdat` above) and a data quality objectives file for accuruacy (as in `accdat`).
+The quality control checks for accuracy assess several characteristics of the data in the results file by referencing appropriate values in the data quality objectives file for accuracy.  In short, the accuracy checks evaluate field blanks, lab blanks, field duplicates, lab duplicates, lab spikes, and instrument checks. The accuracy checks require results data (as in `resdat` above) and a data quality objectives file for accuracy (as in `accdat`).
 
 The `tabMWRacc()` function is used to create tabular results for the accuracy checks for each parameter.  The function can be used with inputs as paths to the relevant files or as data frames returned by `readMWRresults()` and `readMWRacc()`.  For the former, the full suite of data checks can be evaluated with `runkchk = T` (default) or suppressed with `runchk = F`, as explained in the [data inputs and checks vignette](https://massbays-tech.github.io/MassWateR/articles/datainput.html).  In the latter case, downstream analyses may not work if data are formatted incorrectly.  Also note that accuracy is only evaluated on parameters that are shared between the results file and the data quality objectives accuracy file.  A warning is returned if there are parameters that do not match. The warnings can be suppressed by setting `warn = FALSE`. 
 
@@ -45,29 +45,29 @@ The `tabMWRacc()` function can return three types of tables as specified with th
 For `type = "individual"`, the quality control tables for accuracy are retrieved by specifying the check with the `accchk` argument.  The `accchk` argument can be used to specify one of the following values to retrieve the relevant tables: `"Field Blanks"`, `"Lab Blanks"`, `"Field Duplicates"`, `"Lab Duplicates"`, `"Lab Spikes"`, or `"Instrument Checks (post sampling)"`.  Below shows how to retrieve each table using the data frames from above for the results and quality objectives file for accuracy. The warnings are suppressed with `warn = FALSE`.
 
 ```{r}
-tabMWRacc(res= resdat, acc = accdat, type = 'summary', accchk = 'Field Blanks', warn = FALSE)
+tabMWRacc(res= resdat, acc = accdat, type = 'individual', accchk = 'Field Blanks', warn = FALSE)
 ```
 ```{r}
-tabMWRacc(res= resdat, acc = accdat, type = 'summary', accchk = 'Lab Blanks', warn = FALSE)
+tabMWRacc(res= resdat, acc = accdat, type = 'individual', accchk = 'Lab Blanks', warn = FALSE)
 ```
 ```{r}
-tabMWRacc(res= resdat, acc = accdat, type = 'summary', accchk = 'Field Duplicates', warn = FALSE)
+tabMWRacc(res= resdat, acc = accdat, type = 'individual', accchk = 'Field Duplicates', warn = FALSE)
 ```
 ```{r}
-tabMWRacc(res= resdat, acc = accdat, type = 'summary', accchk = 'Lab Duplicates', warn = FALSE)
+tabMWRacc(res= resdat, acc = accdat, type = 'individual', accchk = 'Lab Duplicates', warn = FALSE)
 ```
 ```{r}
-tabMWRacc(res= resdat, acc = accdat, type = 'summary', accchk = 'Lab Spikes', warn = FALSE)
+tabMWRacc(res= resdat, acc = accdat, type = 'individual', accchk = 'Lab Spikes', warn = FALSE)
 ```
 ```{r}
-tabMWRacc(res= resdat, acc = accdat, type = 'summary', accchk = 'Instrument Checks (post sampling)', warn = FALSE)
+tabMWRacc(res= resdat, acc = accdat, type = 'individual', accchk = 'Instrument Checks (post sampling)', warn = FALSE)
 ```
 
 For `type = "summary"`, the `tabMWRacc()` function... The `accchk` argument does not apply for this table and results are returned for all checks.
 
 For `type = "percent"`, the `tabMWRacc()` function... The `accchk` argument does not apply for this table and results are returned for all checks.
 
-The `tabMWRacc()` function uses the `qcMWRacc()` function internally to create the table.  This function creates the raw summaries of accuracy from the input data.  Typically, `qcMWRacc()` is not used by itself because it is used internally by `tabMWRfre()`.  It is explained here to demonstrate how the raw summaries can be obtained, if desired. 
+The `tabMWRacc()` function uses the `qcMWRacc()` function internally to create the table.  This function creates the raw summaries of accuracy from the input data.  Typically, `qcMWRacc()` is not used by itself, but it is explained here to demonstrate how the raw summaries can be obtained. 
 
 Below, the `qcMWRacc()` function is executed with the data frames for the results and quality objectives file for accuracy.  As with `tabMWRacc`, the `accchk` argument can be used to return one to all of the checks.  The results are returned as a list, with each element of the list corresponding to a specific accuracy check.  Here, the lab duplicate checks are returned.  The warnings are also suppressed. 
 
@@ -93,7 +93,7 @@ A color-coded table showing similar information as percentages for each paramete
 tabMWRfre(res = resdat, frecom = frecomdat, type = 'percent')
 ```
 
-The `tabMWRfre()` function uses the `qcMWRfre()` function internally to create the table.  This function creates the raw summaries of frequency from the input data.  Typically, `qcMWRfre()` is not used by itself because it is used internally by `tabMWRfre()`.  It is explained here to demonstrate how the raw summaries can be obtained, if desired. 
+The `tabMWRfre()` function uses the `qcMWRfre()` function internally to create the table.  This function creates the raw summaries of frequency from the input data.  Typically, `qcMWRfre()` is not used by itself, but it is explained here to demonstrate how the raw summaries can be obtained. 
 
 Below, the `qcMWRfre()` function is executed with the data frames for the results and quality objectives file for frequency and completeness.  The warnings are suppressed. 
 
@@ -115,7 +115,7 @@ A summary table showing the number of data records, number of qualified records,
 tabMWRcom(res = resdat, frecom = frecomdat)
 ```
 
-The `tabMWRcom()` function uses the `qcMWRcom()` function internally to create the table.  This function creates the raw summaries of completeness from the input data.  Typically, `qcMWRcom()` is not used by itself because it is used internally by `tabMWRcom()`.  It is explained here to demonstrate how the raw summaries can be obtained, if desired. 
+The `tabMWRcom()` function uses the `qcMWRcom()` function internally to create the table.  This function creates the raw summaries of completeness from the input data.  Typically, `qcMWRcom()` is not used by itself, but it is explained here to demonstrate how the raw summaries can be obtained. 
 
 Below, the `qcMWRcom()` function is executed with the data frames for the results and quality objectives file for completeness.  The warnings are suppressed. 
 
