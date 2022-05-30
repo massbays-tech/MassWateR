@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">MassWateR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9004</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9005</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,6 +65,7 @@
   type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"individual"</span>, <span class="st">"summary"</span>, <span class="st">"percent"</span><span class="op">)</span>,
   pass_col <span class="op">=</span> <span class="st">"green"</span>,
   fail_col <span class="op">=</span> <span class="st">"red"</span>,
+  pass_thr <span class="op">=</span> <span class="fl">90</span>,
   digits <span class="op">=</span> <span class="fl">0</span>,
   suffix <span class="op">=</span> <span class="st">"%"</span>
 <span class="op">)</span></code></pre></div>
@@ -88,6 +89,8 @@
 <dd><p>character string for the cell color of checks that pass, applies only if <code>type = 'percent'</code></p></dd>
 <dt>fail_col</dt>
 <dd><p>character string for the cell color of checks that fail, applies only if <code>type = 'percent'</code></p></dd>
+<dt>pass_thr</dt>
+<dd><p>numeric indicating the threshold for pass/fail if <code>type = 'percent'</code></p></dd>
 <dt>digits</dt>
 <dd><p>numeric indicating number of significant digits to report for percentages</p></dd>
 <dt>suffix</dt>
@@ -102,8 +105,8 @@
     <p>The function can be used with inputs as paths to the relevant files or as data frames returned by <code><a href="readMWRresults.html">readMWRresults</a></code> and <code><a href="readMWRacc.html">readMWRacc</a></code>.  For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. Also note that accuracy is only evaluated on parameters that are shared between the results file and data quality objectives file for accuracy.  A warning is returned for parameters that do not match between the files. This warning can be suppressed by setting <code>warn = FALSE</code>.</p>
 <p>The function can return three types of tables as specified with the <code>type</code> argument: <code>"individual"</code>, <code>"summary"</code>, or <code>"percent"</code>.  The individual tables are specific to each type of accuracy check for each parameter (e.g., field blanks, lab blanks, etc.).  The summary table summarizes all accuracy checks by the number of checks and how many hit/misses are returned for each across all parameters.  The percent table is similar to the summary table, but showing only percentages with appropriate color-coding for hit/misses.</p>
 <p>For <code>type = "individual"</code>, the quality control tables for accuracy are retrieved by specifying the check with the <code>accchk</code> argument.  The <code>accchk</code> argument can be used to specify one of the following values to retrieve the relevant tables: <code>"Field Blanks"</code>, <code>"Lab Blanks"</code>, <code>"Field Duplicates"</code>, <code>"Lab Duplicates"</code>, <code>"Lab Spikes"</code>, or <code>"Instrument Checks (post sampling)"</code>.</p>
-<p>For <code>type = "summary"</code>, the function summarizes all accuracy checks by counting the number of quality control checks, number of misses, and percent acceptance for each parameter. The <code>accchk</code> argument can be used for one to any of all accuracy checks, defaulting to all if left blank.</p>
-<p>For <code>type = "percent"</code>, the function... The <code>accchk</code> argument can be used for one to any of all accuracy checks, defaulting to all if left blank.</p>
+<p>For <code>type = "summary"</code>, the function summarizes all accuracy checks by counting the number of quality control checks, number of misses, and percent acceptance for each parameter. All accuracy checks are used and the <code>accchk</code> argument does not apply.</p>
+<p>For <code>type = "percent"</code>, the function returns a similar table as for the summary option, except only the percentage of checks that pass for each parameter are shown in wide format.  Cells are color-coded based on whether the percentage of checks that have passed exceed a user-defined threshold, 90% by default. All accuracy checks are used and the <code>accchk</code> argument does not apply.</p>
 <p>Inputs for the results and data quality objectives for accuracy are processed internally with <code><a href="qcMWRacc.html">qcMWRacc</a></code> and the same arguments are accepted for this function, in addition to others listed above.</p>
     </div>
 
@@ -207,12 +210,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> body has 21 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Type Parameter Number of QC Checks Number of Misses % Acceptance</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Field Blanks      &lt;NA&gt;                  NA               NA         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7         &lt;NA&gt;   Ammonia                   7                2         71 %</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8         &lt;NA&gt;    E.coli                   3                2         33 %</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9         &lt;NA&gt;        TP                   8                3         62 %</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   Lab Blanks      &lt;NA&gt;                  NA               NA         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               Type Parameter Number of QC Checks Number of Misses % Acceptance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Field Duplicates      &lt;NA&gt;                  NA               NA         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7             &lt;NA&gt;    E.coli                  22                8         64 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8             &lt;NA&gt;   Nitrate                   8                2         75 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9             &lt;NA&gt;        TP                   8                3         62 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   Lab Duplicates      &lt;NA&gt;                  NA               NA         &lt;NA&gt;</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># table as percent</span></span>
 <span class="r-in"><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">respth</span>, acc <span class="op">=</span> <span class="va">accpth</span>, type <span class="op">=</span> <span class="st">'percent'</span><span class="op">)</span></span>
@@ -249,7 +252,29 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for accuracy not found in results data: Chloride</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in results not found in  quality control objectives for accuracy: Air Temp, DO saturation, Flow, Gage</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Field Duplicate`, `Lab Duplicate`, `Field Blank`, `Lab Blank`, `Spike/Check Accuracy` </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> body has 6 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        Parameter Field Duplicate Field Duplicate_met Lab Duplicate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         E.coli              64                   0            40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        Nitrate              75                   0            62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3             TP              62                   0            62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4        Ammonia              NA                  NA            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Sp Conductance              NA                  NA            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Lab Duplicate_met Field Blank Field Blank_met Lab Blank Lab Blank_met</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                 0          33               0        NA            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                 0          NA              NA        NA            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                 0          62               0        62             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                NA          71               0        71             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                NA          NA              NA        NA            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Spike/Check Accuracy Spike/Check Accuracy_met</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                   NA                       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                   67                        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                   60                        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                   NA                       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                   67                        0</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##</span></span>
 <span class="r-in"><span class="co"># using data frames</span></span>
@@ -316,18 +341,40 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> body has 21 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Type Parameter Number of QC Checks Number of Misses % Acceptance</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Field Blanks      &lt;NA&gt;                  NA               NA         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7         &lt;NA&gt;   Ammonia                   7                2         71 %</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8         &lt;NA&gt;    E.coli                   3                2         33 %</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9         &lt;NA&gt;        TP                   8                3         62 %</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   Lab Blanks      &lt;NA&gt;                  NA               NA         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               Type Parameter Number of QC Checks Number of Misses % Acceptance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Field Duplicates      &lt;NA&gt;                  NA               NA         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7             &lt;NA&gt;    E.coli                  22                8         64 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8             &lt;NA&gt;   Nitrate                   8                2         75 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9             &lt;NA&gt;        TP                   8                3         62 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   Lab Duplicates      &lt;NA&gt;                  NA               NA         &lt;NA&gt;</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># table as percent</span></span>
 <span class="r-in"><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'percent'</span><span class="op">)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for accuracy not found in results data: Chloride</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in results not found in  quality control objectives for accuracy: Air Temp, DO saturation, Flow, Gage</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Field Duplicate`, `Lab Duplicate`, `Field Blank`, `Lab Blank`, `Spike/Check Accuracy` </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> body has 6 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        Parameter Field Duplicate Field Duplicate_met Lab Duplicate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         E.coli              64                   0            40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        Nitrate              75                   0            62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3             TP              62                   0            62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4        Ammonia              NA                  NA            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Sp Conductance              NA                  NA            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Lab Duplicate_met Field Blank Field Blank_met Lab Blank Lab Blank_met</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                 0          33               0        NA            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                 0          NA              NA        NA            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                 0          62               0        62             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                NA          71               0        71             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                NA          NA              NA        NA            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Spike/Check Accuracy Spike/Check Accuracy_met</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                   NA                       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                   67                        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                   60                        0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                   NA                       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                   67                        0</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
