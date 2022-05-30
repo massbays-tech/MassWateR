@@ -34,7 +34,7 @@ frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', package
 frecomdat <- readMWRfrecom(frecompth)
 ```
 
-## Quality control for accuracy
+### Quality control for accuracy
 
 The quality control checks for accuracy assess several characteristics of the data in the results file by referencing appropriate values in the data quality objectives file for accuracy.  In short, the accuracy checks evaluate field blanks, lab blanks, field duplicates, lab duplicates, lab spikes, and instrument checks. The accuracy checks require results data (as in `resdat` above) and a data quality objectives file for accuracy (as in `accdat`).
 

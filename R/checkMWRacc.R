@@ -88,7 +88,7 @@ checkMWRacc <- function(accdat){
     tochk <- names(typ[!chk])
     stop(msg, '\n\tUnrecognized text in columns: ', paste0(tochk, collapse = ', '), call. = FALSE)
   }
-  message(paste(msg, 'OK'))
+  message(paste(msg, 'OK'), domain = NA)
   
   # check parameter names
   msg <- '\tChecking Parameter formats...'
