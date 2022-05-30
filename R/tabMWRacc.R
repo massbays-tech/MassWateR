@@ -4,8 +4,6 @@
 #' @param type character string indicating \code{individual}, \code{summary} or \code{percent} tabular output, see details
 #' @param pass_col character string for the cell color of checks that pass, applies only if \code{type = 'percent'}
 #' @param fail_col character string for the cell color of checks that fail, applies only if \code{type = 'percent'} 
-#' @param digits numeric indicating number of significant digits to report for percentages
-#' @param suffix character string indicating suffix to append to percentage values
 #'
 #' @return A \code{\link{flextable}} object with formatted results.
 #' 
@@ -66,7 +64,7 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
   type <- match.arg(type)
   
   # get accuracy summary
-  res <- qcMWRacc(res = res, acc = acc, runchk = runchk, warn = warn, accchk = accchk)
+  res <- qcMWRacc(res = res, acc = acc, runchk = runchk, warn = warn, accchk = accchk, digits = digits, suffix = suffix)
   
   if(type == 'individual'){
     

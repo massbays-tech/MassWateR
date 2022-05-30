@@ -5,7 +5,9 @@
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}} and \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param warn logical to return warnings to the console (default)
 #' @param accchk character string indicating which accuracy check to return, one to any of \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, \code{"Lab Spikes"}, or \code{"Instrument Checks (post sampling)"}
-#'
+#' @param digits numeric indicating number of significant digits to report for percentages
+#' @param suffix character string indicating suffix to append to percentage values
+#' 
 #' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRacc}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly.
 #' 
 #' Note that accuracy is only evaluated on parameters in the \code{Parameter} column in the data quality objectives accuracy file.  A warning is returned if there are parameters in \code{Parameter} in the accuracy file that are not in \code{Characteristic Name} in the results file. 
@@ -39,7 +41,7 @@
 #' 
 #' qcMWRacc(res = resdat, acc = accdat)
 #' 
-qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks (post sampling)')){
+qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks (post sampling)'), digits = 0, suffix = '%'){
   
   colsym <- c('<=', '<', '>=', '>', '\u00b1', '\u2265', '\u2264', '%', 'AQL', 'BDL', 'log', 'all')
   
@@ -252,7 +254,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
             !grepl('%|log', `Field Duplicate`) ~ diffv <= `Field Duplicate`
           ),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'), 
-          percv = paste0(round(percv, 0), '% RPD'), 
+          percv = paste0(round(percv, digits), suffix, ' RPD'), 
           diffv = paste(round(diffv, 2), `Result Unit`), 
           `Diff./RPD` = ifelse(grepl('%', `Field Duplicate`), percv, diffv)
         ) %>% 
@@ -281,7 +283,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
             !grepl('%|log', `Lab Duplicate`) ~ diffv <= `Lab Duplicate`
           ),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
-          percv = paste0(round(percv, 0), '% RPD'),
+          percv = paste0(round(percv, digits), suffix, ' RPD'),
           diffv = paste(round(diffv, 2), `Result Unit`),
           `Diff./RPD` = ifelse(grepl('%', `Lab Duplicate`), percv, diffv)
         ) %>% 
@@ -386,7 +388,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
             !per ~ diffv <= numref
           ),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
-          recov = paste0(round(recov, 0), '%')
+          recov = paste0(round(recov, digits), suffix)
         ) %>% 
         dplyr::select(
           Parameter, 
