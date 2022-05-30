@@ -34,7 +34,7 @@ frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', package
 frecomdat <- readMWRfrecom(frecompth)
 ```
 
-### Quality control for accuracy
+## Quality control for accuracy
 
 The quality control checks for accuracy assess several characteristics of the data in the results file by referencing appropriate values in the data quality objectives file for accuracy.  In short, the accuracy checks evaluate field blanks, lab blanks, field duplicates, lab duplicates, lab spikes, and instrument checks. The accuracy checks require results data (as in `resdat` above) and a data quality objectives file for accuracy (as in `accdat`).
 
@@ -75,7 +75,7 @@ Below, the `qcMWRacc()` function is executed with the data frames for the result
 qcMWRacc(res = resdat, acc = accdat, accchk = 'Lab Duplicates', warn = FALSE)
 ```
 
-### Quality control for frequency 
+## Quality control for frequency 
 
 The quality control checks for frequency are used to verify an appropriate number of quality control samples have been collected or analyzed for each parameter.  These are checks on the quantity of samples and not the values, as for the accuracy checks.  The frequency checks require results data (as in `resdat` above) and a data quality objectives file for frequency and completeness (as in `frecomdat`).
 
@@ -103,7 +103,7 @@ qcMWRfre(res = resdat, frecom = frecomdat, warn = FALSE)
 
 The output shows the frequency checks from the combined files.  Each row applies to a frequency check for a parameter. The `Parameter` column shows the parameter, the `obs` column shows the total records that apply to regular activity types, the `check` column shows the relevant activity type for each frequency check, the `count` column shows the number of records that apply to a check, the `standard` column shows the relevant percentage required for the quality control check from the quality control objectives file, and the `met` column shows if the standard was met by comparing if `percent` is greater than or equal to `standard`.
 
-### Quality control for completeness
+## Quality control for completeness
 
 The quality control checks for completeness are used to assess the number of regular samples relative to qualified samples that apply to each parameter. Regular samples are those with `Field Msr/Obs` or `Sample-Routine` in the `Activity Type` column of the results file and qualified samples are those marked as `Q` in the `Result Measure Qualifier` column of the results file.  The completeness checks require results data (as in `resdat` above) and a data quality objectives file for frequency and completeness (as in `frecomdat`).
 
