@@ -12,7 +12,7 @@
 #' 
 #' Similarly, parameters in the results file in the \code{Characteristic Name} column that are not found in the data quality objectives accuracy file are not evaluated.  A warning is returned if there are parameters in \code{Characteristic Name} in the results file that are not in \code{Parameter} in the accuracy file.
 #' 
-#' @return The output shows the accuracy checks from the input files.  
+#' @return The output shows the accuracy checks from the input files returned as a list, with each element of the list corresponding to a specific accuracy check specified with \code{accchk}.  
 #' 
 #' @export
 #'

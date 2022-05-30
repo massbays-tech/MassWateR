@@ -25,7 +25,7 @@ qcMWRacc(
 \item{accchk}{character string indicating which accuracy check to return, one to any of \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, \code{"Lab Spikes"}, or \code{"Instrument Checks (post sampling)"}}
 }
 \value{
-The output shows the accuracy checks from the input files.
+The output shows the accuracy checks from the input files returned as a list, with each element of the list corresponding to a specific accuracy check specified with \code{accchk}.
 }
 \description{
 Run quality control accuracy checks for water quality monitoring results

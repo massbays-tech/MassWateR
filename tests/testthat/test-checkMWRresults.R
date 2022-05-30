@@ -55,14 +55,14 @@ test_that("Checking Activity Depth/Height Measure range", {
   chk$`Activity Depth/Height Measure`[1] <- 3.4
   chk$`Activity Depth/Height Measure`[3] <- 1.1 
   chk$`Activity Depth/Height Unit`[3] <- 'm' 
-  expect_warning(checkMWRresults(chk))
+  expect_warning(expect_warning(checkMWRresults(chk)))
 })
 
 test_that("Checking Activity Relative Depth Name entries", {
   chk <- resdat
   chk[6, 7] <- 'Surf'
   chk[387, 7] <- 'nearbottom'
-  expect_warning(checkMWRresults(chk))
+  expect_warning(expect_warning(checkMWRresults(chk)))
 })
 
 test_that("Checking correct Characteristic Names", {
@@ -78,7 +78,7 @@ test_that("Checking entries in Result Value", {
   chk[23, 9] <- '1.a09'
   chk[1103, 9] <- 'MDL'
   chk[1204, 9] <- 'MDL'
-  expect_error(checkMWRresults(chk))
+  expect_error(suppressWarnings(checkMWRresults(chk)))
 })
 
 test_that("Checking entries in QC Reference Value", {
@@ -86,7 +86,7 @@ test_that("Checking entries in QC Reference Value", {
   chk[27, 12] <- 'a.23'
   chk[1099, 12] <- 'MDL'
   chk[1333, 12] <- 'MDL'
-  expect_error(checkMWRresults(chk))
+  expect_error(suppressWarnings(checkMWRresults(chk)))
 })
 
 test_that("Checking missing entries in Result Unit", {
@@ -94,20 +94,20 @@ test_that("Checking missing entries in Result Unit", {
   chk[25, 10] <- NA
   chk[1244, 10] <- NA
   chk[78, 10] <- NA # pH, will not trigger
-  expect_error(checkMWRresults(chk))
+  expect_error(suppressWarnings(checkMWRresults(chk)))
 })
 
 test_that("Checking more than one unit type per parameter in Characteristic Name", {
   chk <- resdat
   chk[13, 10] <- 'F'
-  expect_error(checkMWRresults(chk))
+  expect_error(suppressWarnings(checkMWRresults(chk)))
 })
 
 test_that("Checking incorrect unit type per parameter in Characteristic Name", {
   chk <- resdat
   chk[chk$`Characteristic Name` == 'Chl a', 10] <- 'micrograms/L'
   chk[chk$`Characteristic Name` == 'TP', 10] <- 'mg/L'
-  expect_error(checkMWRresults(chk))
+  expect_error(suppressWarnings(checkMWRresults(chk)))
 })
 
 test_that("Checking tests if all Characteristic Name is correct", {

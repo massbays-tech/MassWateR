@@ -11,7 +11,7 @@ tabMWRacc(
   warn = TRUE,
   accchk = c("Field Blanks", "Lab Blanks", "Field Duplicates", "Lab Duplicates",
     "Lab Spikes", "Instrument Checks (post sampling)"),
-  type = c("summary", "percent"),
+  type = c("individual", "summary", "percent"),
   pass_col = "green",
   fail_col = "red",
   digits = 0,
@@ -29,7 +29,7 @@ tabMWRacc(
 
 \item{accchk}{character string indicating which accuracy check to return, one to any of \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, \code{"Lab Spikes"}, or \code{"Instrument Checks (post sampling)"}}
 
-\item{type}{character string indicating \code{summary} or \code{percent} tabular output, see datails}
+\item{type}{character string indicating \code{individual}, \code{summary} or \code{percent} tabular output, see details}
 
 \item{pass_col}{character string for the cell color of checks that pass, applies only if \code{type = 'percent'}}
 
@@ -48,7 +48,13 @@ Create a formatted table of quality control accuracy checks
 \details{
 The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRacc}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. Also note that accuracy is only evaluated on parameters that are shared between the results file and data quality objectives file for accuracy.  A warning is returned for parameters that do not match between the files. This warning can be suppressed by setting \code{warn = FALSE}.
 
-The quality control tables for accuracy show ........
+The function can return three types of tables as specified with the \code{type} argument: \code{"individual"}, \code{"summary"}, or \code{"percent"}.  The individual tables are specific to each type of accuracy check for each parameter (e.g., field blanks, lab blanks, etc.).  The summary table summarizes all accuracy checks by the number of checks and how many hit/misses are returned for each across all parameters.  The percent table is similar to the summary table, but showing only percentages with appropriate color-coding for hit/misses.
+
+For \code{type = "individual"}, the quality control tables for accuracy are retrieved by specifying the check with the \code{accchk} argument.  The \code{accchk} argument can be used to specify one of the following values to retrieve the relevant tables: \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, \code{"Lab Spikes"}, or \code{"Instrument Checks (post sampling)"}.
+
+For \code{type = "summary"}, the function... The \code{accchk} argument does not apply for this table and results are returned for all checks.
+
+For \code{type = "percent"}, the function... The \code{accchk} argument does not apply for this table and results are returned for all checks.
 
 Inputs for the results and data quality objectives for accuracy are processed internally with \code{\link{qcMWRacc}} and the same arguments are accepted for this function, in addition to others listed above.
 }
@@ -65,7 +71,10 @@ accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx',
      package = 'MassWateR')
 
 # table as summary
-tabMWRacc(res = respth, acc = accpth, type = 'summary', accchk = 'Field Blanks')
+tabMWRacc(res = respth, acc = accpth, type = 'individual', accchk = 'Field Blanks')
+
+# table as summary
+tabMWRacc(res = respth, acc = accpth, type = 'summary')
 
 # table as percent
 tabMWRacc(res = respth, acc = accpth, type = 'percent')
@@ -80,8 +89,10 @@ resdat <- readMWRresults(respth)
 accdat <- readMWRacc(accpth)
 
 # table as summary
-tabMWRacc(res = resdat, acc = accdat, type = 'summary', accchk = 'Field Blanks')
+tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Blanks')
 
 # table as percent
 tabMWRacc(res = resdat, acc = accdat, type = 'percent')
+# table as percent
+tabMWRacc(res = resdat, acc = accdat, type = 'summary')
 }

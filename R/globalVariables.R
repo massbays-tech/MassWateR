@@ -9,7 +9,8 @@ globalVariables(c("Activity Start Date", "Activity Start Time", "QC Reference Va
                   "Date", "Diff./RPD", "Dup. Result", "Dup. Result2", "Field Duplicate",
                   "Hit/Miss", "Initial Result", "Initial Result2", "Lab Duplicate", "Recovered",
                   "Recovered2", "Reference", "Site", "Standard", "Standard2", "Value Range", 
-                  "diffv", "flt", "percv"))
+                  "diffv", "flt", "percv", "Avg. Result", "Sample ID", "ind", "Result Attribute", 
+                  "rngflt", "Method", "recov"))
 
 #' @importFrom stats na.omit
 NULL

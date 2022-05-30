@@ -1,5 +1,5 @@
 test_that("Checking warning if parameters from frecom missing in res", {
-  expect_warning(qcMWRfre(respth, frecompth, runchk = F))
+  expect_warning(expect_warning(qcMWRfre(resdat, frecomdat, runchk = F)))
 })
 
 test_that("Checking output format", {

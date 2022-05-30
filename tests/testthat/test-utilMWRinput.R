@@ -1,5 +1,5 @@
 test_that("Checking path input for res, acc, and frecom", {
-  result <- utilMWRinput(res = respth, acc = accpth, frecom = frecompth)
+  result <- utilMWRinput(res = respth, acc = accpth, frecom = frecompth, runchk = F)
   expect_type(result, 'list')
 })
 

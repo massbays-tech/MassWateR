@@ -1,5 +1,5 @@
 test_that("Checking warning if parameters from acc missing in res", {
-  expect_warning(qcMWRacc(respth, accpth, runchk = F))
+  expect_warning(expect_warning(qcMWRacc(respth, accpth, runchk = F)))
 })
 
 test_that("Checking error if unit mismatch between results and accuracy file", {
