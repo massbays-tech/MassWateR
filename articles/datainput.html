@@ -880,7 +880,7 @@ Functions in MassWateR are organized around these topics.
 <span class="co">#&gt; Running checks on data quality objectives for accuracy...</span>
 <span class="co">#&gt;  Checking column names... OK</span>
 <span class="co">#&gt;  Checking all required columns are present... OK</span>
-<span class="co">#&gt;  Checking for non-numeric values in MDL, UQL... OK</span>
+<span class="co">#&gt;  Checking column types... OK</span>
 <span class="co">#&gt;  Checking for text other than &lt;=, ≤, &lt;, &gt;=, ≥, &gt;, ±, %, AQL, BQL, log, or all... OK</span>
 <span class="co">#&gt;  Checking Parameter formats... OK</span>
 <span class="co">#&gt;  Checking for missing entries for unit (uom)... OK</span>
@@ -899,7 +899,7 @@ Functions in MassWateR are organized around these topics.
 <span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Sp Conductan… uS/cm   1      <span style="color: #BB0000;">NA</span> &lt; 250         &lt;= 30%           &lt;= 20%         </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Sp Conductan… uS/cm   1      <span style="color: #BB0000;">NA</span> &gt;= 250        &lt;= 20%           &lt;= 10%         </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 3 more variables: `Field Blank` &lt;chr&gt;, `Lab Blank` &lt;chr&gt;,</span></span>
-<span class="co">#&gt; <span style="color: #949494;">#   `Spike/Check Accuracy` &lt;dbl&gt;</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #949494;">#   `Spike/Check Accuracy` &lt;chr&gt;</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># import data quality objectives for frequency and completeness</span>
 <span class="va">frecompth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOFrequencyCompleteness.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span>
@@ -931,7 +931,7 @@ Functions in MassWateR are organized around these topics.
 <li>
 <strong>Columns present</strong>: All columns from the previous check should be present</li>
 <li>
-<strong>Non-numeric values in MDL, UQL</strong>: Values entered in columns MDL and UQL should be numeric</li>
+<strong>Column types</strong>: All columns should be characters/text, except for MDL and UQL</li>
 <li>
 <strong>Unrecognized characters</strong>: Fields describing accuracy checks should not include symbols or text other than <span class="math inline">\(&lt;=\)</span>, <span class="math inline">\(\leq\)</span>, <span class="math inline">\(&lt;\)</span>, <span class="math inline">\(&gt;=\)</span>, <span class="math inline">\(\geq\)</span>, <span class="math inline">\(&gt;\)</span>, <span class="math inline">\(\pm\)</span> %, BDL, AQL, log, or all</li>
 <li>
