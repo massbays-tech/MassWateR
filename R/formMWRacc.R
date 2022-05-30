@@ -7,6 +7,7 @@
 #' \itemize{
 #'   \item{Minor formatting for units: }{For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to NA in \code{uom}}
 #'   \item{Convert Parameter: }{All parameters are converted to \code{Simple Parameter} in \code{\link{paramsMWR}} as needed}
+#'   \item{Remove unicode: }{Remove or replace unicode characters with those that can be used in logical expressions in \code{\link{qcMWRacc}}, e.g., replace \eqn{\geq} with \eqn{>=}}
 #' }
 #' 
 #' @export
@@ -29,14 +30,18 @@ formMWRacc <- function(accdat){
         T ~ uom
       )
     )
-  
+
   # convert all parameters to simple
-  out <- dplyr::mutate(out, # match any entries in Parameter that are WQX Parameter to Simple Parameter
-                       `Parameter` = dplyr::case_when(
-                         `Parameter` %in% paramsMWR$`WQX Parameter` ~ paramsMWR$`Simple Parameter`[match(`Parameter`, paramsMWR$`WQX Parameter`)], 
-                         T ~ `Parameter`
-                       )
-  )
+  out <- out %>% 
+    dplyr::mutate( 
+      `Parameter` = dplyr::case_when(
+        `Parameter` %in% paramsMWR$`WQX Parameter` ~ paramsMWR$`Simple Parameter`[match(`Parameter`, paramsMWR$`WQX Parameter`)], 
+        T ~ `Parameter`
+      )
+    ) %>% 
+    dplyr::mutate_at(vars(-Parameter, -uom, -MDL, -UQL), function(x) gsub('\u00b1', '', x)) %>%
+    dplyr::mutate_at(vars(-Parameter, -uom, -MDL, -UQL), function(x) gsub('\u2264', '<=', x)) %>%
+    dplyr::mutate_at(vars(-Parameter, -uom, -MDL, -UQL), function(x) gsub('\u2265', '>=', x))
   
   return(out)
   

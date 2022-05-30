@@ -186,6 +186,7 @@ Minor formatting of the input files is also done to address a few minor issues f
 
 -   **Minor formatting for units**: For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to `NA` for the `uom` column (`readMWRacc()` only). 
 -   **Convert parameter names**: All parameters in `Parameter` are converted to `Simple Parameter` in `paramsMWR` as needed.
+-   **Remove unicode**: Remove or replace unicode characters with those that can be used in logical expressions in `qcMWRacc()`, e.g., replace $\geq$ with $>=$.
 
 ### Site metadata
 
