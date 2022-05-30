@@ -15,9 +15,9 @@
 #'
 #'For \code{type = "individual"}, the quality control tables for accuracy are retrieved by specifying the check with the \code{accchk} argument.  The \code{accchk} argument can be used to specify one of the following values to retrieve the relevant tables: \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, \code{"Lab Spikes"}, or \code{"Instrument Checks (post sampling)"}.
 #' 
-#' For \code{type = "summary"}, the function... The \code{accchk} argument does not apply for this table and results are returned for all checks.
+#' For \code{type = "summary"}, the function summarizes all accuracy checks by counting the number of quality control checks, number of misses, and percent acceptance for each parameter. The \code{accchk} argument can be used for one to any of all accuracy checks, defaulting to all if left blank.
 #'
-#' For \code{type = "percent"}, the function... The \code{accchk} argument does not apply for this table and results are returned for all checks.
+#' For \code{type = "percent"}, the function... The \code{accchk} argument can be used for one to any of all accuracy checks, defaulting to all if left blank.
 #' 
 #' Inputs for the results and data quality objectives for accuracy are processed internally with \code{\link{qcMWRacc}} and the same arguments are accepted for this function, in addition to others listed above. 
 #' 
@@ -57,9 +57,10 @@
 #' tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Blanks')
 #'
 #' # table as percent
-#' tabMWRacc(res = resdat, acc = accdat, type = 'percent')
-#' # table as percent
 #' tabMWRacc(res = resdat, acc = accdat, type = 'summary')
+#' 
+#' # table as percent
+#' tabMWRacc(res = resdat, acc = accdat, type = 'percent')
 tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks (post sampling)'), type = c('individual', 'summary', 'percent'), pass_col = 'green', fail_col = 'red', digits = 0, suffix = '%'){
   
   type <- match.arg(type)
@@ -92,7 +93,6 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
     tab <- flextable::flextable(totab) %>% 
       thm %>% 
       flextable::align(align = 'left', part = 'all') %>% 
-      # flextable::align(align = 'left', j = 1, part = 'all') %>% 
       flextable::border_inner() %>% 
       flextable::set_caption(names(res))
 
@@ -100,42 +100,35 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
   
   if(type == 'summary'){
     
-    tab <- NULL
-    # # table theme
-    # thm <- function(x, ...){
-    #   x <- flextable::colformat_double(x, digits = digits, na_str = '-', suffix = suffix)
-    #   flextable::autofit(x)
-    # }
-    # 
-    # # format for the table
-    # totab <- res %>% 
-    #   dplyr::filter(!check %in% c('Lab Spike', 'Instrument Check')) %>% 
-    #   dplyr::select(Parameter, check, percent, met) %>%
-    #   dplyr::mutate(met = as.numeric(met)) %>% 
-    #   tidyr::pivot_longer(cols = c('percent', 'met')) %>% 
-    #   tidyr::unite('check', check, name) %>% 
-    #   dplyr::mutate(
-    #     check = gsub('\\_percent', '', check)
-    #   ) %>% 
-    #   tidyr::pivot_wider(names_from = check, values_from = value)
-    # 
-    # # table
-    # tab <- flextable::flextable(totab, col_keys = grep('\\_met', names(totab), value = T, invert = T)) %>% 
-    #   flextable::bg(i = ~ `Field Duplicate_met` == 0, j = 'Field Duplicate', bg = fail_col) %>% 
-    #   flextable::bg(i = ~ `Field Duplicate_met` == 1, j = 'Field Duplicate', bg = pass_col) %>% 
-    #   flextable::bg(i = ~ `Lab Duplicate_met` == 0, j = 'Lab Duplicate', bg = fail_col) %>% 
-    #   flextable::bg(i = ~ `Lab Duplicate_met` == 1, j = 'Lab Duplicate', bg = pass_col) %>% 
-    #   flextable::bg(i = ~ `Field Blank_met` == 0, j = 'Field Blank', bg = fail_col) %>% 
-    #   flextable::bg(i = ~ `Field Blank_met` == 1, j = 'Field Blank', bg = pass_col)%>% 
-    #   flextable::bg(i = ~ `Lab Blank_met` == 0, j = 'Lab Blank', bg  = fail_col) %>% 
-    #   flextable::bg(i = ~ `Lab Blank_met` == 1, j = 'Lab Blank', bg = pass_col) %>% 
-    #   flextable::bg(i = ~ `Spike/Check Accuracy_met` == 0, j = 'Spike/Check Accuracy', bg = fail_col) %>% 
-    #   flextable::bg(i = ~ `Spike/Check Accuracy_met` == 1, j = 'Spike/Check Accuracy', bg = pass_col) %>% 
-    #   thm %>% 
-    #   flextable::align(align = 'center', part = 'all') %>% 
-    #   flextable::align(align = 'left', j = 1, part = 'all') %>% 
-    #   flextable::border_inner()
-    # 
+    # table theme
+    thm <- function(x, ...){
+      x <- flextable::colformat_double(x, digits = digits, na_str = '-', suffix = suffix)
+      flextable::autofit(x)
+    }
+
+    # format for the table
+    totab <- res %>%
+      tibble::enframe(name = 'Type') %>% 
+      tidyr::unnest('value') %>% 
+      dplyr::group_by(Type, Parameter) %>% 
+      dplyr::summarise(
+        `Number of QC Checks` = n(), 
+        `Number of Misses` = sum(`Hit/Miss` == 'MISS', na.rm = TRUE)
+      ) %>% 
+      dplyr::mutate(
+        `% Acceptance` = 100 * (`Number of QC Checks` - `Number of Misses`) / `Number of QC Checks`, 
+        `% Acceptance` = paste(round(`% Acceptance`, 0), '%'), 
+        Type = factor(Type, levels = accchk)
+      ) %>% 
+      dplyr::arrange(Type) %>% 
+      flextable::as_grouped_data(groups = 'Type')
+
+    # table
+    tab <- flextable::flextable(totab) %>% 
+      thm %>% 
+      flextable::align(align = 'left', part = 'all') %>% 
+      flextable::border_inner()
+
   }
   
   if(type == 'percent'){

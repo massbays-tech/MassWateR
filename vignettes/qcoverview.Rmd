@@ -63,9 +63,9 @@ tabMWRacc(res= resdat, acc = accdat, type = 'individual', accchk = 'Lab Spikes',
 tabMWRacc(res= resdat, acc = accdat, type = 'individual', accchk = 'Instrument Checks (post sampling)', warn = FALSE)
 ```
 
-For `type = "summary"`, the `tabMWRacc()` function... The `accchk` argument does not apply for this table and results are returned for all checks.
+For `type = "summary"`, the function summarizes all accuracy checks by counting the number of quality control checks, number of misses, and percent acceptance for each parameter.  The `accchk` argument can be used for one to any of all accuracy checks, defaulting to all if left blank.
 
-For `type = "percent"`, the `tabMWRacc()` function... The `accchk` argument does not apply for this table and results are returned for all checks.
+For `type = "percent"`, the `tabMWRacc()` function... The `accchk` argument can be used for one to any of all accuracy checks, defaulting to all if left blank.
 
 The `tabMWRacc()` function uses the `qcMWRacc()` function internally to create the table.  This function creates the raw summaries of accuracy from the input data.  Typically, `qcMWRacc()` is not used by itself, but it is explained here to demonstrate how the raw summaries can be obtained. 
 

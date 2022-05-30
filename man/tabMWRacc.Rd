@@ -52,9 +52,9 @@ The function can return three types of tables as specified with the \code{type} 
 
 For \code{type = "individual"}, the quality control tables for accuracy are retrieved by specifying the check with the \code{accchk} argument.  The \code{accchk} argument can be used to specify one of the following values to retrieve the relevant tables: \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, \code{"Lab Spikes"}, or \code{"Instrument Checks (post sampling)"}.
 
-For \code{type = "summary"}, the function... The \code{accchk} argument does not apply for this table and results are returned for all checks.
+For \code{type = "summary"}, the function summarizes all accuracy checks by counting the number of quality control checks, number of misses, and percent acceptance for each parameter. The \code{accchk} argument can be used for one to any of all accuracy checks, defaulting to all if left blank.
 
-For \code{type = "percent"}, the function... The \code{accchk} argument does not apply for this table and results are returned for all checks.
+For \code{type = "percent"}, the function... The \code{accchk} argument can be used for one to any of all accuracy checks, defaulting to all if left blank.
 
 Inputs for the results and data quality objectives for accuracy are processed internally with \code{\link{qcMWRacc}} and the same arguments are accepted for this function, in addition to others listed above.
 }
@@ -92,7 +92,8 @@ accdat <- readMWRacc(accpth)
 tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Blanks')
 
 # table as percent
-tabMWRacc(res = resdat, acc = accdat, type = 'percent')
-# table as percent
 tabMWRacc(res = resdat, acc = accdat, type = 'summary')
+
+# table as percent
+tabMWRacc(res = resdat, acc = accdat, type = 'percent')
 }

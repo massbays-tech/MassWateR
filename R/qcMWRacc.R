@@ -396,7 +396,8 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
           `Amt Recovered` = Recovered, 
           `% Recovery` = recov, 
           `Hit/Miss`
-        )
+        ) %>% 
+        dplyr::ungroup()
       
     }
     
@@ -429,7 +430,8 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
           `Instrument Reading` = Recovered, 
           `Accuracy` = diffv, 
           `Hit/Miss`
-        )
+        ) %>% 
+        dplyr::ungroup()
       
     }
    
