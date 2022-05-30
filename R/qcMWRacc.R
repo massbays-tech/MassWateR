@@ -298,7 +298,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
   # comparing recovered and standards to accepted range in accuracy file
   labinstyp <- c('Quality Control Sample-Lab Spike', 'Quality Control Field Calibration Check')
   if(any(labinstyp %in% resdat$`Activity Type`) & any(c('Lab Spikes', 'Instrument Checks (post sampling)') %in% accchk)){
-    
+ 
     labins <- resdat %>% 
       dplyr::filter(`Activity Type` %in% labinstyp) %>% 
       dplyr::mutate(ind = 1:n()) %>% 
@@ -361,29 +361,66 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
       dplyr::ungroup() %>% 
       mutate(
         diffv = abs(Recovered2 - Standard2),
-        percv = paste0(round(100 * Recovered2 / Standard2, 0), '%'),
-        `Hit/Miss` = ifelse(diffv <= `Spike/Check Accuracy`, NA_character_, 'MISS'), 
-        diffv = paste(round(diffv, 2), `Result Unit`)
+        percv = 100 * diffv / Standard2,
+        recov = 100 * Recovered2 / Standard2,
+        per = grepl('%', `Spike/Check Accuracy`), 
+        numref = as.numeric(gsub('%', '', `Spike/Check Accuracy`))
       ) 
     
     # lab spike
-    if('Quality Control Sample-Lab Spike' %in% labins$`Activity Type` & 'Lab Spikes' %in% accchk)
+    if('Quality Control Sample-Lab Spike' %in% labins$`Activity Type` & 'Lab Spikes' %in% accchk){
+
+      # get parameters relevant for lab spikes
+      labpar <- paramsMWR %>% 
+        dplyr::filter(Method == 'Lab') %>% 
+        dplyr::pull(`Simple Parameter`) %>% 
+        unique
+      
       labspk <- labins %>% 
         dplyr::filter(`Activity Type` %in% 'Quality Control Sample-Lab Spike') %>% 
+        dplyr::filter(`Parameter` %in% labpar) %>% 
+        dplyr::rowwise() %>% 
+        dplyr::mutate(
+          `Hit/Miss` = dplyr::case_when(
+            per ~ eval(parse(text = paste(percv, '<=', numref))), 
+            !per ~ diffv <= numref
+          ),
+          `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
+          recov = paste0(round(recov, 0), '%')
+        ) %>% 
         dplyr::select(
           Parameter, 
           Date, 
           `Sample ID`, 
           Spike = Standard, 
           `Amt Recovered` = Recovered, 
-          `% Recovery` = percv, 
+          `% Recovery` = recov, 
           `Hit/Miss`
         )
+      
+    }
     
     # instrument checks
-    if('Quality Control Field Calibration Check' %in% labins$`Activity Type` & 'Instrument Checks (post sampling)' %in% accchk)
+    if('Quality Control Field Calibration Check' %in% labins$`Activity Type` & 'Instrument Checks (post sampling)' %in% accchk){
+      
+      # get parameters relevant for instrument checks
+      inspar <- paramsMWR %>% 
+        dplyr::filter(Method == 'InSitu') %>% 
+        dplyr::pull(`Simple Parameter`) %>% 
+        unique
+      
       inschk <- labins %>% 
         dplyr::filter(`Activity Type` %in% 'Quality Control Field Calibration Check') %>% 
+        dplyr::filter(Parameter %in% inspar) %>% 
+        dplyr::rowwise() %>% 
+        dplyr::mutate(
+          `Hit/Miss` = dplyr::case_when(
+            per ~ eval(parse(text = paste(percv, '<=', numref))), 
+            !per ~ diffv <= numref
+          ),
+          `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
+          diffv = paste(round(diffv, 2), `Result Unit`)
+        ) %>% 
         dplyr::select(
           Parameter, 
           Date, 
@@ -393,6 +430,8 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
           `Accuracy` = diffv, 
           `Hit/Miss`
         )
+      
+    }
    
   }
   
