@@ -61,7 +61,7 @@
   runchk <span class="op">=</span> <span class="cn">TRUE</span>,
   warn <span class="op">=</span> <span class="cn">TRUE</span>,
   accchk <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Field Blanks"</span>, <span class="st">"Lab Blanks"</span>, <span class="st">"Field Duplicates"</span>, <span class="st">"Lab Duplicates"</span>,
-    <span class="st">"Lab Spikes"</span>, <span class="st">"Instrument Checks (post sampling)"</span><span class="op">)</span>,
+    <span class="st">"Lab Spikes"</span>, <span class="st">"Instrument Checks"</span><span class="op">)</span>,
   digits <span class="op">=</span> <span class="fl">0</span>,
   suffix <span class="op">=</span> <span class="st">"%"</span>
 <span class="op">)</span></code></pre></div>
@@ -78,7 +78,7 @@
 <dt>warn</dt>
 <dd><p>logical to return warnings to the console (default)</p></dd>
 <dt>accchk</dt>
-<dd><p>character string indicating which accuracy check to return, one to any of <code>"Field Blanks"</code>, <code>"Lab Blanks"</code>, <code>"Field Duplicates"</code>, <code>"Lab Duplicates"</code>, <code>"Lab Spikes"</code>, or <code>"Instrument Checks (post sampling)"</code></p></dd>
+<dd><p>character string indicating which accuracy check to return, one to any of <code>"Field Blanks"</code>, <code>"Lab Blanks"</code>, <code>"Field Duplicates"</code>, <code>"Lab Duplicates"</code>, <code>"Lab Spikes"</code>, or <code>"Instrument Checks"</code></p></dd>
 <dt>digits</dt>
 <dd><p>numeric indicating number of significant digits to report for percentages</p></dd>
 <dt>suffix</dt>
@@ -232,7 +232,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> TP        2021-06-13 <span style="color: #BB0000;">NA</span>          0.07 mg/l 0.1 mg/l        143%        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 1 more variable: `Hit/Miss` &lt;chr&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`Instrument Checks (post sampling)`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Instrument Checks`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 16 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter   Date       `Sample ID` `Calibration S…` `Instrument Re…` Accuracy</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
@@ -390,7 +390,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> TP        2021-06-13 <span style="color: #BB0000;">NA</span>          0.07 mg/l 0.1 mg/l        143%        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 1 more variable: `Hit/Miss` &lt;chr&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`Instrument Checks (post sampling)`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Instrument Checks`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 16 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter   Date       `Sample ID` `Calibration S…` `Instrument Re…` Accuracy</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
