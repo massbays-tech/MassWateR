@@ -4,7 +4,7 @@
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}} and \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param warn logical to return warnings to the console (default)
-#' @param accchk character string indicating which accuracy check to return, one to any of \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, \code{"Lab Spikes"}, or \code{"Instrument Checks (post sampling)"}
+#' @param accchk character string indicating which accuracy check to return, one to any of \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, \code{"Lab Spikes"}, or \code{"Instrument Checks"}
 #' @param digits numeric indicating number of significant digits to report for percentages
 #' @param suffix character string indicating suffix to append to percentage values
 #' 
@@ -41,7 +41,7 @@
 #' 
 #' qcMWRacc(res = resdat, acc = accdat)
 #' 
-qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks (post sampling)'), digits = 0, suffix = '%'){
+qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks'), digits = 0, suffix = '%'){
   
   colsym <- c('<=', '<', '>=', '>', '\u00b1', '\u2265', '\u2264', '%', 'AQL', 'BDL', 'log', 'all')
   
@@ -299,7 +299,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
   # joining one to many of results to accuracy, then filtering results by range values in accuracy
   # comparing recovered and standards to accepted range in accuracy file
   labinstyp <- c('Quality Control Sample-Lab Spike', 'Quality Control Field Calibration Check')
-  if(any(labinstyp %in% resdat$`Activity Type`) & any(c('Lab Spikes', 'Instrument Checks (post sampling)') %in% accchk)){
+  if(any(labinstyp %in% resdat$`Activity Type`) & any(c('Lab Spikes', 'Instrument Checks') %in% accchk)){
  
     labins <- resdat %>% 
       dplyr::filter(`Activity Type` %in% labinstyp) %>% 
@@ -404,7 +404,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
     }
     
     # instrument checks
-    if('Quality Control Field Calibration Check' %in% labins$`Activity Type` & 'Instrument Checks (post sampling)' %in% accchk){
+    if('Quality Control Field Calibration Check' %in% labins$`Activity Type` & 'Instrument Checks' %in% accchk){
       
       # get parameters relevant for instrument checks
       inspar <- paramsMWR %>% 
@@ -447,7 +447,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
     `Field Duplicates` = flddup,
     `Lab Duplicates` = labdup, 
     `Lab Spikes` = labspk,
-    `Instrument Checks (post sampling)` = inschk
+    `Instrument Checks` = inschk
   )
   out <- out[accchk]
   

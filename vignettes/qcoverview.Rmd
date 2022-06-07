@@ -42,7 +42,7 @@ The `tabMWRacc()` function is used to create tabular results for the accuracy ch
 
 The `tabMWRacc()` function can return three types of tables as specified with the `type` argument: `"individual"`, `"summary"`, or `"percent"`.  The individual tables are specific to each type of accuracy check for each parameter (e.g., field blanks, lab blanks, etc.).  The summary table summarizes all accuracy checks by the number of checks and how many hit/misses are returned for each across all parameters.  The percent table is similar to the summary table, but showing only percentages with appropriate color-coding for hit/misses.   
 
-For `type = "individual"`, the quality control tables for accuracy are retrieved by specifying the check with the `accchk` argument.  The `accchk` argument can be used to specify one of the following values to retrieve the relevant tables: `"Field Blanks"`, `"Lab Blanks"`, `"Field Duplicates"`, `"Lab Duplicates"`, `"Lab Spikes"`, or `"Instrument Checks (post sampling)"`.  Below shows how to retrieve each table using the data frames from above for the results and quality objectives file for accuracy. The warnings are suppressed with `warn = FALSE`.
+For `type = "individual"`, the quality control tables for accuracy are retrieved by specifying the check with the `accchk` argument.  The `accchk` argument can be used to specify one of the following values to retrieve the relevant tables: `"Field Blanks"`, `"Lab Blanks"`, `"Field Duplicates"`, `"Lab Duplicates"`, `"Lab Spikes"`, or `"Instrument Checks"`.  Below shows how to retrieve each table using the data frames from above for the results and quality objectives file for accuracy. The warnings are suppressed with `warn = FALSE`.
 
 ```{r}
 tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Blanks', warn = FALSE)
@@ -60,7 +60,7 @@ tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Duplica
 tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Spikes', warn = FALSE)
 ```
 ```{r}
-tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Instrument Checks (post sampling)', warn = FALSE)
+tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Instrument Checks', warn = FALSE)
 ```
 
 For `type = "summary"`, the function summarizes all accuracy checks by counting the number of quality control checks, number of misses, and percent acceptance for each parameter.  All accuracy checks are used and the `accchk` argument does not apply.
