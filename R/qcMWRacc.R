@@ -124,6 +124,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         Site = `Monitoring Location ID`,
         Result = `Result Value`,
         `Result Unit`, 
+        `Quantitation Limit`, 
         MDL, 
         `MDL Unit` = uom, 
         `Field Blank`, 
@@ -142,8 +143,9 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         dplyr::rowwise() %>%
         dplyr::mutate(
           `Hit/Miss` = dplyr::case_when(
-            (`Field Blank` != 'BDL') & isnum ~ paste(Result, `Field Blank`), # doesn't parse correctly, so extra step is needed
-            (`Field Blank` == 'BDL') & isnum ~ paste(Result, 'MDL', sep = '<='),
+            isnum & `Field Blank` != 'BDL' ~ paste(Result, `Field Blank`), # doesn't parse correctly, so extra step is needed
+            isnum & `Field Blank` == 'BDL' & is.na(`Quantitation Limit`) ~ paste(Result, MDL, sep = '<='),
+            isnum & `Field Blank` == 'BDL' & !is.na(`Quantitation Limit`) ~ paste(Result, `Quantitation Limit`, sep = '<='),
             Result == 'AQL' ~ 'FALSE',
             Result == 'BDL' ~ 'TRUE', 
             T ~ 'TRUE'
@@ -155,7 +157,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         tidyr::unite('Result', Result, `Result Unit`, sep = ' ', na.rm = TRUE) %>%
         tidyr::unite('MDL', MDL, `MDL Unit`, sep = ' ') %>% 
         dplyr::ungroup() %>% 
-        dplyr::select(-`Field Blank`, -`Lab Blank`, -isnum)
+        dplyr::select(-`Field Blank`, -`Lab Blank`, -isnum, -`Quantitation Limit`)
       
     # lab blank
     if('Quality Control Sample-Lab Blank' %in% blk$`Activity Type` & 'Lab Blanks' %in% accchk)
@@ -166,8 +168,9 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         dplyr::rowwise() %>%
         dplyr::mutate(
           `Hit/Miss` = dplyr::case_when(
-            isnum & (`Lab Blank` != 'BDL') ~ paste(Result, `Lab Blank`), # doesn't parse correctly, so extra step is needed
-            isnum & (`Lab Blank` == 'BDL') ~ paste(Result, 'MDL', sep = '<='),
+            isnum & `Lab Blank` != 'BDL' ~ paste(Result, `Lab Blank`), # doesn't parse correctly, so extra step is needed
+            isnum & `Lab Blank` == 'BDL' & is.na(`Quantitation Limit`) ~ paste(Result, MDL, sep = '<='),
+            isnum & `Lab Blank` == 'BDL' & !is.na(`Quantitation Limit`) ~ paste(Result, `Quantitation Limit`, sep = '<='),
             Result == 'AQL' ~ 'FALSE',
             Result == 'BDL' ~ 'TRUE', 
             T ~ 'TRUE'
@@ -179,7 +182,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         tidyr::unite('Result', Result, `Result Unit`, sep = ' ', na.rm = TRUE) %>%
         tidyr::unite('MDL', MDL, `MDL Unit`, sep = ' ') %>% 
         dplyr::ungroup() %>% 
-        dplyr::select(-`Field Blank`, -`Lab Blank`, -isnum)
+        dplyr::select(-`Field Blank`, -`Lab Blank`, -isnum, -`Quantitation Limit`)
     
   }
 
@@ -201,7 +204,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
   
   duptyp <- c('Field Duplicate', 'Quality Control Sample-Lab Duplicate')
   if(any(duptyp %in% resdat_dup$`Activity Type`) & any(c('Field Duplicates', 'Lab Duplicates') %in% accchk)){
- 
+
     dup <- resdat_dup %>% 
       dplyr::filter(`Activity Type` %in% duptyp) %>% 
       dplyr::mutate(ind = 1:n()) %>% 
