@@ -145,8 +145,13 @@ qcMWRfre <- function(res, frecom, runchk = TRUE, warn = TRUE){
   resall <- resall %>% 
     tidyr::pivot_longer(cols = -dplyr::matches('^Parameter$|^obs$'), names_to = 'check', values_to = 'count')
 
+  # get parameters relevant for instrument checks and lab spikes, used in filter below
+  inspar <- split(paramsMWR$`Simple Parameter`, paramsMWR$Method)
+  
   # combine and create summaries
   out <- resall %>% 
+    dplyr::filter(!(check == 'Instrument Check' & Parameter %in% inspar$Lab)) %>% 
+    dplyr::filter(!(check == 'Lab Spike' & Parameter %in% inspar$InSitu)) %>% 
     dplyr::left_join(frecomdat, by = c('Parameter', 'check')) %>% 
     dplyr::mutate(
       percent = dplyr::case_when(
@@ -155,7 +160,7 @@ qcMWRfre <- function(res, frecom, runchk = TRUE, warn = TRUE){
       ),
       met = percent >= standard
     )
-  
+
   return(out)
   
 }
