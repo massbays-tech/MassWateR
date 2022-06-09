@@ -222,18 +222,23 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         `Value Range`, 
         `Field Duplicate`,
         `Lab Duplicate`, 
+        `Quantitation Limit`, 
         MDL, 
         UQL
       ) %>%
       dplyr::mutate(
         `Initial Result2` = dplyr::case_when(
-          `Initial Result` == 'BDL' ~ as.character(MDL), 
-          `Initial Result` == 'AQL' ~ as.character(UQL), 
+          `Initial Result` == 'BDL' & is.na(`Quantitation Limit`) ~ as.character(MDL), 
+          `Initial Result` == 'BDL' & !is.na(`Quantitation Limit`) ~ as.character(`Quantitation Limit`), 
+          `Initial Result` == 'AQL' & is.na(`Quantitation Limit`) ~ as.character(UQL),
+          `Initial Result` == 'AQL' & !is.na(`Quantitation Limit`) ~ as.character(`Quantitation Limit`), 
           T ~ `Initial Result`
         ), 
         `Dup. Result2` = dplyr::case_when(
-          `Dup. Result` == 'BDL' ~ as.character(MDL), 
-          `Dup. Result` == 'AQL' ~ as.character(UQL), 
+          `Dup. Result` == 'BDL' & is.na(`Quantitation Limit`) ~ as.character(MDL), 
+          `Dup. Result` == 'BDL' & !is.na(`Quantitation Limit`) ~ as.character(`Quantitation Limit`), 
+          `Dup. Result` == 'AQL' & is.na(`Quantitation Limit`) ~ as.character(UQL), 
+          `Dup. Result` == 'AQL' & !is.na(`Quantitation Limit`) ~ as.character(`Quantitation Limit`), 
           T ~ `Dup. Result`
         ), 
         `Initial Result2` = as.numeric(`Initial Result2`),
