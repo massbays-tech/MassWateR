@@ -4,7 +4,7 @@
 \alias{utilMWRinput}
 \title{Utility function to import data as paths or data frames}
 \usage{
-utilMWRinput(res, acc = NULL, frecom = NULL, runchk = TRUE)
+utilMWRinput(res = NULL, acc = NULL, frecom = NULL, runchk = TRUE)
 }
 \arguments{
 \item{res}{character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}}

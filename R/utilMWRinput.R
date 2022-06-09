@@ -48,7 +48,7 @@
 #' inp$resdat
 #' inp$accdat
 #' inp$frecomdat
-utilMWRinput <- function(res, acc = NULL, frecom = NULL, runchk = TRUE){
+utilMWRinput <- function(res = NULL, acc = NULL, frecom = NULL, runchk = TRUE){
   
   ##
   # results input
@@ -68,6 +68,9 @@ utilMWRinput <- function(res, acc = NULL, frecom = NULL, runchk = TRUE){
     resdat <- readMWRresults(respth, runchk = runchk)
     
   }
+  
+  if(inherits(res, 'NULL'))
+    resdat <-  NULL
   
   ##
   # dqo accuracy input

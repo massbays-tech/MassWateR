@@ -4,7 +4,7 @@
 #' @param type character string indicating \code{individual}, \code{summary} or \code{percent} tabular output, see details
 #' @param pass_col character string for the cell color of checks that pass, applies only if \code{type = 'percent'}
 #' @param fail_col character string for the cell color of checks that fail, applies only if \code{type = 'percent'} 
-#' @param pass_thr numeric indicating the threshold for pass/fail if \code{type = 'percent'}
+#' @param frecom character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}, applies only if \code{type = "percent"}
 #'
 #' @return A \code{\link{flextable}} object with formatted results.
 #' 
@@ -16,7 +16,7 @@
 #' 
 #' For \code{type = "summary"}, the function summarizes all accuracy checks by counting the number of quality control checks, number of misses, and percent acceptance for each parameter. All accuracy checks are used and the \code{accchk} argument does not apply.
 #'
-#' For \code{type = "percent"}, the function returns a similar table as for the summary option, except only the percentage of checks that pass for each parameter are shown in wide format.  Cells are color-coded based on whether the percentage of checks that have passed exceed a user-defined threshold, 90% by default. All accuracy checks are used and the \code{accchk} argument does not apply.
+#' For \code{type = "percent"}, the function returns a similar table as for the summary option, except only the percentage of checks that pass for each parameter are shown in wide format.  The data quality objectives file for frequency and completeness is required for this table.  Cells are color-coded based on the percentage of checks that have passed using the percent thresholds from the \code{% Completeness} column of the data quality objectives file for frequency and completeness. Parameters without an entry for \code{% Completeness} are not color-coded. All accuracy checks are used and the \code{accchk} argument does not apply.
 #' 
 #' Inputs for the results and data quality objectives for accuracy are processed internally with \code{\link{qcMWRacc}} and the same arguments are accepted for this function, in addition to others listed above. 
 #' 
@@ -34,6 +34,10 @@
 #' accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', 
 #'      package = 'MassWateR')
 #' 
+#' # frequency and completeness path, only needed if type = "percent"
+#' frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', 
+#'      package = 'MassWateR')
+#' 
 #' # table as summary
 #' tabMWRacc(res = respth, acc = accpth, type = 'individual', accchk = 'Field Blanks')
 #' 
@@ -41,7 +45,7 @@
 #' tabMWRacc(res = respth, acc = accpth, type = 'summary')
 #' 
 #' # table as percent
-#' tabMWRacc(res = respth, acc = accpth, type = 'percent')
+#' tabMWRacc(res = respth, acc = accpth, type = 'percent', frecom = frecompth)
 #' 
 #' ##
 #' # using data frames
@@ -52,6 +56,9 @@
 #' # accuracy data
 #' accdat <- readMWRacc(accpth)
 #' 
+#' # frequency and completeness data, only needed if type = "percent"
+#' frecomdat <- readMWRfrecom(frecompth)
+#' 
 #' # table as summary
 #' tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Blanks')
 #'
@@ -59,8 +66,8 @@
 #' tabMWRacc(res = resdat, acc = accdat, type = 'summary')
 #' 
 #' # table as percent
-#' tabMWRacc(res = resdat, acc = accdat, type = 'percent')
-tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks'), type = c('individual', 'summary', 'percent'), pass_col = 'green', fail_col = 'red', pass_thr = 90,  digits = 0, suffix = '%'){
+#' tabMWRacc(res = resdat, acc = accdat, type = 'percent', frecom = frecomdat)
+tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks'), type = c('individual', 'summary', 'percent'), pass_col = 'green', fail_col = 'red', frecom = NULL, digits = 0, suffix = '%'){
   
   type <- match.arg(type)
   
@@ -114,7 +121,6 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
       ) %>% 
       dplyr::mutate(
         `% Acceptance` = 100 * (`Number of QC Checks` - `Number of Misses`) / `Number of QC Checks`, 
-        `% Acceptance` = paste(round(`% Acceptance`, digits), suffix), 
         Type = factor(Type, 
           levels = c("Field Duplicates", "Lab Duplicates", "Field Blanks", "Lab Blanks", "Lab Spikes", "Instrument Checks")
         )
@@ -124,6 +130,9 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
     if(type == 'summary'){
       
       totab <- sumtab %>% 
+        dplyr::mutate(
+          `% Acceptance` = paste(round(`% Acceptance`, digits), suffix), 
+        ) %>% 
         flextable::as_grouped_data(groups = 'Type')
       
       # table
@@ -136,12 +145,23 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
 
     if(type == 'percent'){
 
+      if(is.null(frecom))
+        stop('frecom needed for type = "percent"')
+      
+      # get user inputs
+      inp <- utilMWRinput(frecom = frecom, runchk = runchk)
+      frecomdat <- inp$frecomdat
+      
       # table theme
       thm <- function(x, ...){
         x <- flextable::colformat_double(x, na_str = '-', digits = digits, suffix = suffix)
         flextable::autofit(x)
       }
       
+      # format frecomdat for comparison
+      frecomdat <- frecomdat %>% 
+        select(Parameter, `% Completeness`)
+        
       # get lab and ins checks only for total
       labinssum <- sumtab %>% 
         dplyr::filter(Type %in% c("Lab Spikes", "Instrument Checks")) %>% 
@@ -153,7 +173,7 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
         dplyr::ungroup() %>% 
         dplyr::mutate(
           `% Acceptance` = 100 * (`Number of QC Checks` - `Number of Misses`) / `Number of QC Checks`, 
-          `% Acceptance` = paste(round(`% Acceptance`, digits), suffix), 
+          # `% Acceptance` = paste(round(`% Acceptance`, digits), suffix), 
           Type = 'Spike/Check Accuracy'
         ) %>% 
         dplyr::select(check = Type, Parameter, percent = `% Acceptance`)
@@ -163,6 +183,7 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
         dplyr::select(check = Type, Parameter, percent = `% Acceptance`) %>% 
         dplyr::filter(!check %in% c("Lab Spikes", "Instrument Checks")) %>% 
         dplyr::bind_rows(labinssum) %>% 
+        left_join(frecomdat, by = 'Parameter') %>% 
         dplyr::mutate(
           check = factor(
             check, 
@@ -170,8 +191,9 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
             labels = c("Field Duplicate", "Lab Duplicate", "Field Blank", "Lab Blank", "Spike/Check Accuracy")
           ),
           percent = as.numeric(gsub(suffix, '', percent)), 
-          met = as.numeric(percent > pass_thr)
+          met = as.numeric(percent > `% Completeness`)
         ) %>% 
+        dplyr::select(-`% Completeness`) %>% 
         tidyr::pivot_longer(cols = c('percent', 'met')) %>%
         tidyr::unite('check', check, name) %>%
         dplyr::mutate(

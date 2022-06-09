@@ -14,7 +14,7 @@ tabMWRacc(
   type = c("individual", "summary", "percent"),
   pass_col = "green",
   fail_col = "red",
-  pass_thr = 90,
+  frecom = NULL,
   digits = 0,
   suffix = "\%"
 )
@@ -36,7 +36,7 @@ tabMWRacc(
 
 \item{fail_col}{character string for the cell color of checks that fail, applies only if \code{type = 'percent'}}
 
-\item{pass_thr}{numeric indicating the threshold for pass/fail if \code{type = 'percent'}}
+\item{frecom}{character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}, applies only if \code{type = "percent"}}
 
 \item{digits}{numeric indicating number of significant digits to report for percentages}
 
@@ -57,7 +57,7 @@ For \code{type = "individual"}, the quality control tables for accuracy are retr
 
 For \code{type = "summary"}, the function summarizes all accuracy checks by counting the number of quality control checks, number of misses, and percent acceptance for each parameter. All accuracy checks are used and the \code{accchk} argument does not apply.
 
-For \code{type = "percent"}, the function returns a similar table as for the summary option, except only the percentage of checks that pass for each parameter are shown in wide format.  Cells are color-coded based on whether the percentage of checks that have passed exceed a user-defined threshold, 90\% by default. All accuracy checks are used and the \code{accchk} argument does not apply.
+For \code{type = "percent"}, the function returns a similar table as for the summary option, except only the percentage of checks that pass for each parameter are shown in wide format.  The data quality objectives file for frequency and completeness is required for this table.  Cells are color-coded based on the percentage of checks that have passed using the percent thresholds from the \code{\% Completeness} column of the data quality objectives file for frequency and completeness. Parameters without an entry for \code{\% Completeness} are not color-coded. All accuracy checks are used and the \code{accchk} argument does not apply.
 
 Inputs for the results and data quality objectives for accuracy are processed internally with \code{\link{qcMWRacc}} and the same arguments are accepted for this function, in addition to others listed above.
 }
@@ -73,6 +73,10 @@ respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', 
      package = 'MassWateR')
 
+# frequency and completeness path, only needed if type = "percent"
+frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', 
+     package = 'MassWateR')
+
 # table as summary
 tabMWRacc(res = respth, acc = accpth, type = 'individual', accchk = 'Field Blanks')
 
@@ -80,7 +84,7 @@ tabMWRacc(res = respth, acc = accpth, type = 'individual', accchk = 'Field Blank
 tabMWRacc(res = respth, acc = accpth, type = 'summary')
 
 # table as percent
-tabMWRacc(res = respth, acc = accpth, type = 'percent')
+tabMWRacc(res = respth, acc = accpth, type = 'percent', frecom = frecompth)
 
 ##
 # using data frames
@@ -91,6 +95,9 @@ resdat <- readMWRresults(respth)
 # accuracy data
 accdat <- readMWRacc(accpth)
 
+# frequency and completeness data, only needed if type = "percent"
+frecomdat <- readMWRfrecom(frecompth)
+
 # table as summary
 tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Blanks')
 
@@ -98,5 +105,5 @@ tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Blank
 tabMWRacc(res = resdat, acc = accdat, type = 'summary')
 
 # table as percent
-tabMWRacc(res = resdat, acc = accdat, type = 'percent')
+tabMWRacc(res = resdat, acc = accdat, type = 'percent', frecom = frecomdat)
 }
