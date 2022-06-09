@@ -69,7 +69,7 @@ For `type = "summary"`, the function summarizes all accuracy checks by counting 
 tabMWRacc(res = resdat, acc = accdat, type = 'summary', warn = FALSE)
 ```
 
-For `type = "percent"`, the function returns a similar table as for the summary option, except only the percentage of checks that pass for each parameter are shown in wide format.  The data quality objectives file for frequency and completeness is required for this table.  Cells are color-coded based on the percentage of checks that have passed using the percent thresholds from the `% Completeness` column of the data quality objectives file for frequency and completeness. Parameters without an entry for `% Completeness` are not color-coded. All accuracy checks are used and the `accchk` argument does not apply.
+For `type = "percent"`, the function returns a similar table as for the summary option, except only the percentage of checks that pass for each parameter are shown in wide format.  The data quality objectives file for frequency and completeness is required for this table.  Cells are color-coded based on the percentage of checks that have passed using the percent thresholds from the `% Completeness` column of the data quality objectives file for frequency and completeness. Parameters without an entry for `% Completeness` are not color-coded and an appropriate warning is returned. All accuracy checks are used and the `accchk` argument does not apply.
 
 ```{r}
 tabMWRacc(res = resdat, acc = accdat, type = 'percent', warn = FALSE, frecom = frecomdat)
