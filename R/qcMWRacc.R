@@ -284,6 +284,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
           ),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'), 
           percv = paste0(round(percv, digits), suffix, ' RPD'), 
+          percv = ifelse(grepl('log', `Field Duplicate`), gsub('RPD', 'logRPD', percv), percv),
           diffv = paste(round(diffv, 2), `Result Unit`), 
           `Diff./RPD` = ifelse(grepl('%', `Field Duplicate`), percv, diffv)
         ) %>% 
@@ -313,6 +314,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
           ),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
           percv = paste0(round(percv, digits), suffix, ' RPD'),
+          percv = ifelse(grepl('log', `Field Duplicate`), gsub('RPD', 'logRPD', percv), percv),
           diffv = paste(round(diffv, 2), `Result Unit`),
           `Diff./RPD` = ifelse(grepl('%', `Lab Duplicate`), percv, diffv)
         ) %>% 
