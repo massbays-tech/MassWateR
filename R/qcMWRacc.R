@@ -106,12 +106,12 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
   # field and lab blank
   blktyp <- c('Quality Control Sample-Field Blank', 'Quality Control Sample-Lab Blank')
   if(any(blktyp %in% resdat$`Activity Type`) & any(c('Field Blanks', 'Lab Blanks') %in% accchk)){
-    
+
     # get MDL and uom info from accuracy file
     acctmp <- accdat %>%
-      select(Parameter, MDL, uom) %>% 
+      select(Parameter, MDL, uom, `Field Blank`, `Lab Blank`) %>% 
       unique
-    
+
     # field and lab blanks, can do together 
     blk <- resdat %>% 
       dplyr::filter(`Activity Type` %in% blktyp) %>% 
@@ -125,33 +125,62 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         Result = `Result Value`,
         `Result Unit`, 
         MDL, 
-        `MDL Unit` = uom
+        `MDL Unit` = uom, 
+        `Field Blank`, 
+        `Lab Blank`
       ) %>% 
-      dplyr::mutate(
-        `Hit/Miss` = dplyr::case_when(
-          !`Result` %in% c('AQL', 'BDL') & Result >= MDL ~ 'MISS',
-          Result %in% 'AQL' ~ 'MISS',
-          T ~ NA_character_
-        ), 
-        `Result Unit` = ifelse(Result %in% c('AQL', 'BDL'), NA, `Result Unit`)
-      ) %>% 
-      tidyr::unite('Result', Result, `Result Unit`, sep = ' ', na.rm = TRUE) %>% 
-      tidyr::unite('MDL', MDL, `MDL Unit`, sep = ' ')
-    
+      mutate(
+        isnum = grepl('^(?=.)([+-]?([0-9]*)(\\.([0-9]+))?)$', Result, perl = TRUE)
+      )
+
     # field blank
     if('Quality Control Sample-Field Blank' %in% blk$`Activity Type` & 'Field Blanks' %in% accchk)
       fldblk <- blk %>%
         dplyr::filter(`Activity Type` == 'Quality Control Sample-Field Blank') %>% 
         dplyr::select(-`Activity Type`) %>% 
-        dplyr::select(-`Sample ID`)
+        dplyr::select(-`Sample ID`) %>% 
+        dplyr::rowwise() %>%
+        dplyr::mutate(
+          `Hit/Miss` = dplyr::case_when(
+            (`Field Blank` != 'BDL') & isnum ~ paste(Result, `Field Blank`), # doesn't parse correctly, so extra step is needed
+            (`Field Blank` == 'BDL') & isnum ~ paste(Result, 'MDL', sep = '<='),
+            Result == 'AQL' ~ 'FALSE',
+            Result == 'BDL' ~ 'TRUE', 
+            T ~ 'TRUE'
+          ),
+          `Hit/Miss` = eval(parse(text = `Hit/Miss`)),
+          `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
+          `Result Unit` = ifelse(Result %in% c('AQL', 'BDL'), NA, `Result Unit`)
+        ) %>% 
+        tidyr::unite('Result', Result, `Result Unit`, sep = ' ', na.rm = TRUE) %>%
+        tidyr::unite('MDL', MDL, `MDL Unit`, sep = ' ') %>% 
+        dplyr::ungroup() %>% 
+        dplyr::select(-`Field Blank`, -`Lab Blank`, -isnum)
       
     # lab blank
     if('Quality Control Sample-Lab Blank' %in% blk$`Activity Type` & 'Lab Blanks' %in% accchk)
       labblk <- blk %>%
         dplyr::filter(`Activity Type` == 'Quality Control Sample-Lab Blank') %>% 
         dplyr::select(-`Activity Type`) %>% 
-        dplyr::select(-`Site`)
-  
+        dplyr::select(-`Site`) %>% 
+        dplyr::rowwise() %>%
+        dplyr::mutate(
+          `Hit/Miss` = dplyr::case_when(
+            isnum & (`Lab Blank` != 'BDL') ~ paste(Result, `Lab Blank`), # doesn't parse correctly, so extra step is needed
+            isnum & (`Lab Blank` == 'BDL') ~ paste(Result, 'MDL', sep = '<='),
+            Result == 'AQL' ~ 'FALSE',
+            Result == 'BDL' ~ 'TRUE', 
+            T ~ 'TRUE'
+          ),
+          `Hit/Miss` = eval(parse(text = `Hit/Miss`)),
+          `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
+          `Result Unit` = ifelse(Result %in% c('AQL', 'BDL'), NA, `Result Unit`)
+        ) %>% 
+        tidyr::unite('Result', Result, `Result Unit`, sep = ' ', na.rm = TRUE) %>%
+        tidyr::unite('MDL', MDL, `MDL Unit`, sep = ' ') %>% 
+        dplyr::ungroup() %>% 
+        dplyr::select(-`Field Blank`, -`Lab Blank`, -isnum)
+    
   }
 
   # lab and field lab duplicates
@@ -251,7 +280,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
           `Field Duplicate2` = gsub('%|log', '', `Field Duplicate`),
           `Hit/Miss` = dplyr::case_when(
             grepl('%|log', `Field Duplicate`) ~ eval(parse(text = paste(percv, `Field Duplicate2`))), 
-            !grepl('%|log', `Field Duplicate`) ~ diffv <= `Field Duplicate`
+            !grepl('%|log', `Field Duplicate`) ~ eval(parse(text = paste(diffv, `Field Duplicate2`)))
           ),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'), 
           percv = paste0(round(percv, digits), suffix, ' RPD'), 
@@ -280,7 +309,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
           `Lab Duplicate2` = gsub('%|log', '', `Lab Duplicate`),
           `Hit/Miss` = dplyr::case_when(
             grepl('%|log', `Lab Duplicate`) ~ eval(parse(text = paste(percv, `Lab Duplicate2`))), 
-            !grepl('%|log', `Lab Duplicate`) ~ diffv <= `Lab Duplicate`
+            !grepl('%|log', `Lab Duplicate`) ~ eval(parse(text = paste(diffv, `Lab Duplicate2`)))
           ),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
           percv = paste0(round(percv, digits), suffix, ' RPD'),
@@ -365,8 +394,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         diffv = abs(Recovered2 - Standard2),
         percv = 100 * diffv / Standard2,
         recov = 100 * Recovered2 / Standard2,
-        per = grepl('%', `Spike/Check Accuracy`), 
-        numref = as.numeric(gsub('%', '', `Spike/Check Accuracy`))
+        `Spike/Check Accuracy2` = gsub('%|log', '', `Spike/Check Accuracy`),
       ) 
     
     # lab spike
@@ -377,15 +405,15 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         dplyr::filter(Method == 'Lab') %>% 
         dplyr::pull(`Simple Parameter`) %>% 
         unique
-      
+
       labspk <- labins %>% 
         dplyr::filter(`Activity Type` %in% 'Quality Control Sample-Lab Spike') %>% 
         dplyr::filter(`Parameter` %in% labpar) %>% 
         dplyr::rowwise() %>% 
         dplyr::mutate(
           `Hit/Miss` = dplyr::case_when(
-            per ~ eval(parse(text = paste(percv, '<=', numref))), 
-            !per ~ diffv <= numref
+            grepl('%|log', `Spike/Check Accuracy`) ~ eval(parse(text = paste(percv, `Spike/Check Accuracy2`))), 
+            !grepl('%|log', `Spike/Check Accuracy`) ~ eval(parse(text = paste(diffv, `Spike/Check Accuracy2`)))
           ),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
           recov = paste0(round(recov, digits), suffix)
@@ -418,8 +446,8 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         dplyr::rowwise() %>% 
         dplyr::mutate(
           `Hit/Miss` = dplyr::case_when(
-            per ~ eval(parse(text = paste(percv, '<=', numref))), 
-            !per ~ diffv <= numref
+            grepl('%|log', `Spike/Check Accuracy`) ~ eval(parse(text = paste(percv, `Spike/Check Accuracy2`))), 
+            !grepl('%|log', `Spike/Check Accuracy`) ~ eval(parse(text = paste(diffv, `Spike/Check Accuracy2`)))
           ),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
           diffv = paste(round(diffv, 2), `Result Unit`)
