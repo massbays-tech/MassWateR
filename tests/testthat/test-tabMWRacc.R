@@ -9,7 +9,7 @@ test_that("Checking output format type error if individual and no table", {
 })
 
 test_that("Checking output format type as individual", {
-  result <- tabMWRacc(resdat, accdat, runchk = F, warn = F, type = 'individual', accchk = 'Field Blanks')
+  result <- tabMWRacc(resdat, accdat, runchk = F, warn = F, type = 'individual', accchk = 'Instrument Checks')
   expect_s3_class(result, 'flextable')
 })
 

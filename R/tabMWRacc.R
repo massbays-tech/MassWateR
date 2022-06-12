@@ -85,7 +85,7 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
   res <- qcMWRacc(res = res, acc = acc, runchk = runchk, warn = warn, accchk = accchk, digits = digits, suffix = suffix)
   
   if(type == 'individual'){
-    
+
     if(length(accchk) != 1)
       stop('accchk must have only one entry for type = "individual"')
 
@@ -94,6 +94,10 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
     # stop if no data to use for table
     if(is.null(totab))
       stop(paste('No data to check for', accchk))
+    
+    # change caption for instrument checks
+    if(names(res) == 'Instrument Checks')
+      names(res) <- 'Instrument Checks (post sampling)'
     
     totab <- totab %>% 
       dplyr::mutate(Date = as.character(Date)) %>% 
@@ -208,8 +212,9 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
         dplyr::mutate(
           check = gsub('\\_percent', '', check)
         ) %>%
-        tidyr::pivot_wider(names_from = check, values_from = value)
-      
+        tidyr::pivot_wider(names_from = check, values_from = value) %>% 
+        dplyr::arrange(Parameter)
+
       # table
       tab <- flextable::flextable(totab, col_keys = grep('\\_met', names(totab), value = T, invert = T)) %>% 
         flextable::bg(i = ~ `Field Duplicate_met` == 0, j = 'Field Duplicate', bg = fail_col) %>% 
