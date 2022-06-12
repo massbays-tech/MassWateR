@@ -5,7 +5,7 @@
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}} and \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param warn logical to return warnings to the console (default)
 #' @param accchk character string indicating which accuracy check to return, one to any of \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, \code{"Lab Spikes"}, or \code{"Instrument Checks"}
-#' @param digits numeric indicating number of significant digits to report for percentages
+#' @param digits numeric indicating number of significant digits to report accuracy comparisons
 #' @param suffix character string indicating suffix to append to percentage values
 #' 
 #' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRacc}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly.
@@ -263,12 +263,12 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         `Initial Result` = ifelse(
           `Initial Result` %in% c('BDL', 'AQL'), 
           `Initial Result`,
-          paste(round(as.numeric(`Initial Result`), 2), `Result Unit`)
+          paste(as.numeric(`Initial Result`), `Result Unit`)
         ),
         `Dup. Result` = ifelse(
           `Dup. Result` %in% c('BDL', 'AQL'),
           `Dup. Result`,
-          paste(round(as.numeric(`Dup. Result`), 2), `Result Unit`)
+          paste(as.numeric(`Dup. Result`), `Result Unit`)
         )
       ) %>%
       tidyr::unite('flt', `Avg. Result`, `Value Range`, sep = ' ', remove = FALSE) %>% 
@@ -307,7 +307,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'), 
           percv = paste0(round(percv, digits), suffix, ' RPD'), 
           percv = ifelse(grepl('log', `Field Duplicate`), gsub('RPD', 'logRPD', percv), percv),
-          diffv = paste(round(diffv, 2), `Result Unit`), 
+          diffv = paste(round(diffv, digits), `Result Unit`), 
           `Diff./RPD` = ifelse(grepl('%', `Field Duplicate`), percv, diffv)
         ) %>% 
         dplyr::ungroup() %>% 
@@ -337,7 +337,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
           percv = paste0(round(percv, digits), suffix, ' RPD'),
           percv = ifelse(grepl('log', `Field Duplicate`), gsub('RPD', 'logRPD', percv), percv),
-          diffv = paste(round(diffv, 2), `Result Unit`),
+          diffv = paste(round(diffv, digits), `Result Unit`),
           `Diff./RPD` = ifelse(grepl('%', `Lab Duplicate`), percv, diffv)
         ) %>% 
         dplyr::ungroup() %>% 
@@ -394,12 +394,12 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         `Recovered` = ifelse(
           `Recovered` %in% c('BDL', 'AQL'), 
           `Recovered`,
-          paste(round(as.numeric(`Recovered`), 2), `Result Unit`)
+          paste(as.numeric(`Recovered`), `Result Unit`)
         ),
         `Standard` = ifelse(
           `Standard` %in% c('BDL', 'AQL'), 
           `Standard`, 
-          paste(round(as.numeric(`Standard`), 2), `Result Unit`)
+          paste(as.numeric(`Standard`), `Result Unit`)
         )
       ) %>% 
       tidyr::unite('flt', `Avg. Result`, `Value Range`, sep = ' ', remove = FALSE) %>% 
@@ -441,7 +441,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
             !grepl('%|log', `Spike/Check Accuracy`) ~ eval(parse(text = paste(diffv, `Spike/Check Accuracy2`)))
           ),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
-          recov = paste0(round(recov, digits), suffix)
+          recov = paste0(recov, suffix)
         ) %>% 
         dplyr::select(
           Parameter, 
@@ -475,7 +475,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
             !grepl('%|log', `Spike/Check Accuracy`) ~ eval(parse(text = paste(diffv, `Spike/Check Accuracy2`)))
           ),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
-          diffv = paste(round(diffv, 2), `Result Unit`)
+          diffv = paste(round(diffv, digits), `Result Unit`)
         ) %>% 
         dplyr::select(
           Parameter, 

@@ -26,7 +26,7 @@ qcMWRacc(
 
 \item{accchk}{character string indicating which accuracy check to return, one to any of \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, \code{"Lab Spikes"}, or \code{"Instrument Checks"}}
 
-\item{digits}{numeric indicating number of significant digits to report for percentages}
+\item{digits}{numeric indicating number of significant digits to report accuracy comparisons}
 
 \item{suffix}{character string indicating suffix to append to percentage values}
 }

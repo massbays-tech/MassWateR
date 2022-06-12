@@ -38,7 +38,7 @@ tabMWRacc(
 
 \item{frecom}{character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}, applies only if \code{type = "percent"}}
 
-\item{digits}{numeric indicating number of significant digits to report for percentages}
+\item{digits}{numeric indicating number of significant digits to report accuracy comparisons}
 
 \item{suffix}{character string indicating suffix to append to percentage values}
 }
