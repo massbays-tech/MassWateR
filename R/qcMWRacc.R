@@ -441,7 +441,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
             !grepl('%|log', `Spike/Check Accuracy`) ~ eval(parse(text = paste(diffv, `Spike/Check Accuracy2`)))
           ),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
-          recov = paste0(recov, suffix)
+          recov = paste0(round(recov, digits), suffix)
         ) %>% 
         dplyr::select(
           Parameter, 
