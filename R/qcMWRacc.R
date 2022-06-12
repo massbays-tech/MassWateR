@@ -131,7 +131,9 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         `Lab Blank`
       ) %>% 
       mutate(
-        isnum = grepl('^(?=.)([+-]?([0-9]*)(\\.([0-9]+))?)$', Result, perl = TRUE)
+        isnum = suppressWarnings(as.numeric(Result)), 
+        isnum = !is.na(isnum), 
+        Threshold = ifelse(is.na(`Quantitation Limit`), as.character(MDL), `Quantitation Limit`)
       )
 
     # field blank
@@ -142,22 +144,26 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         dplyr::select(-`Sample ID`) %>% 
         dplyr::rowwise() %>%
         dplyr::mutate(
+          Threshold = dplyr::case_when(
+            `Field Blank` != 'BDL' & is.na(`Quantitation Limit`) ~ `Field Blank`, 
+            TRUE ~ paste('<=', Threshold)
+          ),
           `Hit/Miss` = dplyr::case_when(
-            isnum & `Field Blank` != 'BDL' ~ paste(Result, `Field Blank`), # doesn't parse correctly, so extra step is needed
-            isnum & `Field Blank` == 'BDL' & is.na(`Quantitation Limit`) ~ paste(Result, MDL, sep = '<='),
-            isnum & `Field Blank` == 'BDL' & !is.na(`Quantitation Limit`) ~ paste(Result, `Quantitation Limit`, sep = '<='),
+            isnum ~ paste(Result, Threshold),
             Result == 'AQL' ~ 'FALSE',
             Result == 'BDL' ~ 'TRUE', 
             T ~ 'TRUE'
           ),
           `Hit/Miss` = eval(parse(text = `Hit/Miss`)),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
-          `Result Unit` = ifelse(Result %in% c('AQL', 'BDL'), NA, `Result Unit`)
+          `Result Unit` = ifelse(Result %in% c('AQL', 'BDL'), NA, `Result Unit`), 
+          Threshold = as.numeric(gsub('<|=', '', Threshold)), 
+          Result = ifelse(isnum, as.character(as.numeric(Result)), Result)
         ) %>% 
         tidyr::unite('Result', Result, `Result Unit`, sep = ' ', na.rm = TRUE) %>%
-        tidyr::unite('MDL', MDL, `MDL Unit`, sep = ' ') %>% 
+        tidyr::unite('Threshold', Threshold, `MDL Unit`, sep = ' ') %>% 
         dplyr::ungroup() %>% 
-        dplyr::select(-`Field Blank`, -`Lab Blank`, -isnum, -`Quantitation Limit`)
+        dplyr::select(-`Field Blank`, -`Lab Blank`, -isnum, -`Quantitation Limit`, -MDL)
       
     # lab blank
     if('Quality Control Sample-Lab Blank' %in% blk$`Activity Type` & 'Lab Blanks' %in% accchk)
@@ -167,22 +173,26 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         dplyr::select(-`Site`) %>% 
         dplyr::rowwise() %>%
         dplyr::mutate(
+          Threshold = dplyr::case_when(
+            `Lab Blank` != 'BDL' & is.na(`Quantitation Limit`) ~ `Lab Blank`, 
+            TRUE ~ paste('<=', Threshold)
+          ),
           `Hit/Miss` = dplyr::case_when(
-            isnum & `Lab Blank` != 'BDL' ~ paste(Result, `Lab Blank`), # doesn't parse correctly, so extra step is needed
-            isnum & `Lab Blank` == 'BDL' & is.na(`Quantitation Limit`) ~ paste(Result, MDL, sep = '<='),
-            isnum & `Lab Blank` == 'BDL' & !is.na(`Quantitation Limit`) ~ paste(Result, `Quantitation Limit`, sep = '<='),
+            isnum ~ paste(Result, Threshold),
             Result == 'AQL' ~ 'FALSE',
             Result == 'BDL' ~ 'TRUE', 
             T ~ 'TRUE'
           ),
           `Hit/Miss` = eval(parse(text = `Hit/Miss`)),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
-          `Result Unit` = ifelse(Result %in% c('AQL', 'BDL'), NA, `Result Unit`)
+          `Result Unit` = ifelse(Result %in% c('AQL', 'BDL'), NA, `Result Unit`), 
+          Threshold = as.numeric(gsub('<|=', '', Threshold)), 
+          Result = ifelse(isnum, as.character(as.numeric(Result)), Result)
         ) %>% 
         tidyr::unite('Result', Result, `Result Unit`, sep = ' ', na.rm = TRUE) %>%
-        tidyr::unite('MDL', MDL, `MDL Unit`, sep = ' ') %>% 
+        tidyr::unite('Threshold', Threshold, `MDL Unit`, sep = ' ') %>% 
         dplyr::ungroup() %>% 
-        dplyr::select(-`Field Blank`, -`Lab Blank`, -isnum, -`Quantitation Limit`)
+        dplyr::select(-`Field Blank`, -`Lab Blank`, -isnum, -`Quantitation Limit`, -MDL)
     
   }
 
