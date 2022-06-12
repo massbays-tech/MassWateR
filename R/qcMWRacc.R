@@ -135,7 +135,8 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         isnum = suppressWarnings(as.numeric(Result)), 
         isnum = !is.na(isnum), 
         Threshold = ifelse(is.na(`Quantitation Limit`), as.character(MDL), `Quantitation Limit`)
-      )
+      ) %>% 
+      dplyr::arrange(Parameter, -dplyr::desc(Date))
 
     # field blank
     if('Quality Control Sample-Field Blank' %in% blk$`Activity Type` & 'Field Blanks' %in% accchk)
@@ -281,7 +282,8 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         `rngflt` = as.numeric(gsub(paste(colsym, collapse = '|'), '', `Value Range`))
       ) %>% 
       dplyr::filter(ifelse(is.na(rngflt), T, max(rngflt) == rngflt)) %>% 
-      dplyr::ungroup()
+      dplyr::ungroup() %>% 
+      dplyr::arrange(Parameter, -dplyr::desc(Date))
 
     # field duplicates
     if('Field Duplicate' %in% dup$`Activity Type` & 'Field Duplicates' %in% accchk)
@@ -417,7 +419,8 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         percv = 100 * diffv / Standard2,
         recov = 100 * Recovered2 / Standard2,
         `Spike/Check Accuracy2` = gsub('%|log', '', `Spike/Check Accuracy`),
-      ) 
+      ) %>% 
+      dplyr::arrange(Parameter, -dplyr::desc(Date))
     
     # lab spike
     if('Quality Control Sample-Lab Spike' %in% labins$`Activity Type` & 'Lab Spikes' %in% accchk){
