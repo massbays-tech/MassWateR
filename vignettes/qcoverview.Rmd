@@ -92,13 +92,13 @@ The `tabMWRfre()` function is used to create tabular results for the frequency c
 The quality control tables for frequency show the number of records that apply to a given check (e.g., Lab Blank, Field Blank, etc.) relative to the number of "regular" data records (e.g., field samples or measures) for each parameter.  A summary of all frequency checks for each parameter is provided if `type = "summary"`. The function is executed with the data frames for the results and quality objectives file for frequency. 
 
 ```{r}
-tabMWRfre(res = resdat, frecom = frecomdat, type = 'summary', warn = F)
+tabMWRfre(res = resdat, frecom = frecomdat, type = 'summary', warn = FALSE)
 ```
 
 A color-coded table showing similar information as percentages for each parameter is provided if `type = "percent"`. Cells are shown as green or red if the required frequency checks are met as specified in the data quality objectives file.
 
 ```{r}
-tabMWRfre(res = resdat, frecom = frecomdat, type = 'percent')
+tabMWRfre(res = resdat, frecom = frecomdat, type = 'percent', warn = FALSE)
 ```
 
 The `tabMWRfre()` function uses the `qcMWRfre()` function internally to create the table.  This function creates the raw summaries of frequency from the input data.  Typically, `qcMWRfre()` is not used by itself, but it is explained here to demonstrate how the raw summaries can be obtained. 
@@ -120,7 +120,7 @@ The `tabMWRcom()` function is used to create a table that shows the completeness
 A summary table showing the number of data records, number of qualified records, and percent completeness can be created with `tabMWRcom()`.  The `% Completeness` column shows cells as green or red if the required percentage of observations for completeness are present as specified in the data quality objectives file.  The `Hit/Miss` column shows similar information but in text format, i.e., `MISS` is shown if the quality control standard for completeness is not met. The function is also executed with the data frames from above, since they have already passed the internal checks. 
 
 ```{r, warning = T}
-tabMWRcom(res = resdat, frecom = frecomdat)
+tabMWRcom(res = resdat, frecom = frecomdat, warn = FALSE)
 ```
 
 The `tabMWRcom()` function uses the `qcMWRcom()` function internally to create the table.  This function creates the raw summaries of completeness from the input data.  Typically, `qcMWRcom()` is not used by itself, but it is explained here to demonstrate how the raw summaries can be obtained. 
