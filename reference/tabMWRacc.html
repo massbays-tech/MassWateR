@@ -75,30 +75,53 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>res</dt>
 <dd><p>character string of path to the results file or <code>data.frame</code> for results returned by <code><a href="readMWRresults.html">readMWRresults</a></code></p></dd>
+
+
 <dt>acc</dt>
 <dd><p>character string of path to the data quality objectives file for accuracy or <code>data.frame</code> returned by <code><a href="readMWRacc.html">readMWRacc</a></code></p></dd>
+
+
 <dt>runchk</dt>
 <dd><p>logical to run data checks with <code><a href="checkMWRresults.html">checkMWRresults</a></code> and <code><a href="checkMWRacc.html">checkMWRacc</a></code>, applies only if <code>res</code> or <code>acc</code> are file paths</p></dd>
+
+
 <dt>warn</dt>
 <dd><p>logical to return warnings to the console (default)</p></dd>
+
+
 <dt>accchk</dt>
 <dd><p>character string indicating which accuracy check to return, one to any of <code>"Field Blanks"</code>, <code>"Lab Blanks"</code>, <code>"Field Duplicates"</code>, <code>"Lab Duplicates"</code>, <code>"Lab Spikes"</code>, or <code>"Instrument Checks"</code></p></dd>
+
+
 <dt>type</dt>
 <dd><p>character string indicating <code>individual</code>, <code>summary</code> or <code>percent</code> tabular output, see details</p></dd>
+
+
 <dt>pass_col</dt>
 <dd><p>character string for the cell color of checks that pass, applies only if <code>type = 'percent'</code></p></dd>
+
+
 <dt>fail_col</dt>
 <dd><p>character string for the cell color of checks that fail, applies only if <code>type = 'percent'</code></p></dd>
+
+
 <dt>frecom</dt>
 <dd><p>character string of path to the data quality objectives file for frequency and completeness or <code>data.frame</code> returned by <code><a href="readMWRfrecom.html">readMWRfrecom</a></code>, applies only if <code>type = "percent"</code></p></dd>
+
+
 <dt>digits</dt>
 <dd><p>numeric indicating number of significant digits to report for percentages</p></dd>
+
+
 <dt>suffix</dt>
 <dd><p>character string indicating suffix to append to percentage values</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code>flextable</code> object with formatted results.</p>
+    
+
+<p>A <code>flextable</code> object with formatted results.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -165,7 +188,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Date`, `Site`, `Result`, `MDL`, `Hit/Miss` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 21 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> body has 22 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Parameter       Date    Site   Result       MDL Hit/Miss</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   Ammonia       &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;     &lt;NA&gt;</span>
@@ -212,14 +235,20 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Type`, `Parameter`, `Number of QC Checks`, `Number of Misses`, `% Acceptance` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 21 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> body has 26 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               Type Parameter Number of QC Checks Number of Misses % Acceptance</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Field Duplicates      &lt;NA&gt;                  NA               NA         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7             &lt;NA&gt;    E.coli                  22                8         64 %</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8             &lt;NA&gt;   Nitrate                   8                2         75 %</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9             &lt;NA&gt;        TP                   8                3         62 %</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   Lab Duplicates      &lt;NA&gt;                  NA               NA         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                Type      Parameter Number of QC Checks Number of Misses</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Field Duplicates           &lt;NA&gt;                  NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7              &lt;NA&gt;         E.coli                  22                8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8              &lt;NA&gt;        Nitrate                   8                2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9              &lt;NA&gt; Sp Conductance                   4                1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10             &lt;NA&gt;             TP                  15                6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    % Acceptance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          64 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          75 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          75 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10         60 %</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># table as percent</span></span>
 <span class="r-in"><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">respth</span>, acc <span class="op">=</span> <span class="va">accpth</span>, type <span class="op">=</span> <span class="st">'percent'</span>, frecom <span class="op">=</span> <span class="va">frecompth</span><span class="op">)</span></span>
@@ -268,26 +297,26 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Field Duplicate`, `Lab Duplicate`, `Field Blank`, `Lab Blank`, `Spike/Check Accuracy` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 6 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> body has 8 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        Parameter Field Duplicate Field Duplicate_met Lab Duplicate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         E.coli        63.63636                  NA          40.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        Nitrate        75.00000                   0          62.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3             TP        62.50000                   0          62.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        Ammonia              NA                  NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Sp Conductance              NA                  NA            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         E.coli        63.63636                  NA      50.00000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        Nitrate        75.00000                   0      54.54545</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Sp Conductance        75.00000                  NA            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4             TP        60.00000                   0      66.66667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     Water Temp        97.67442                   1            NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Lab Duplicate_met Field Blank Field Blank_met Lab Blank Lab Blank_met</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                NA    33.33333              NA        NA            NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                 0          NA              NA        NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                 0    75.00000               0  62.50000             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                NA    71.42857               0  71.42857             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                NA          NA              NA      60.0            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                 0    77.77778               0      62.5             0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5                NA          NA              NA        NA            NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Spike/Check Accuracy Spike/Check Accuracy_met</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                   NA                       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2             66.66667                        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3             60.00000                        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                   NA                       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5             66.66667                       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3             60.00000                       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4             90.47619                        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                   NA                       NA</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##</span></span>
 <span class="r-in"><span class="co"># using data frames</span></span>
@@ -347,7 +376,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Date`, `Site`, `Result`, `MDL`, `Hit/Miss` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 21 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> body has 22 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Parameter       Date    Site   Result       MDL Hit/Miss</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   Ammonia       &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;     &lt;NA&gt;</span>
@@ -363,14 +392,20 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Type`, `Parameter`, `Number of QC Checks`, `Number of Misses`, `% Acceptance` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 21 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> body has 26 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               Type Parameter Number of QC Checks Number of Misses % Acceptance</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Field Duplicates      &lt;NA&gt;                  NA               NA         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7             &lt;NA&gt;    E.coli                  22                8         64 %</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8             &lt;NA&gt;   Nitrate                   8                2         75 %</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9             &lt;NA&gt;        TP                   8                3         62 %</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   Lab Duplicates      &lt;NA&gt;                  NA               NA         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                Type      Parameter Number of QC Checks Number of Misses</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Field Duplicates           &lt;NA&gt;                  NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7              &lt;NA&gt;         E.coli                  22                8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8              &lt;NA&gt;        Nitrate                   8                2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9              &lt;NA&gt; Sp Conductance                   4                1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10             &lt;NA&gt;             TP                  15                6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    % Acceptance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          64 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8          75 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          75 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10         60 %</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># table as percent</span></span>
 <span class="r-in"><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'percent'</span>, frecom <span class="op">=</span> <span class="va">frecomdat</span><span class="op">)</span></span>
@@ -380,26 +415,26 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Field Duplicate`, `Lab Duplicate`, `Field Blank`, `Lab Blank`, `Spike/Check Accuracy` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 6 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> body has 8 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        Parameter Field Duplicate Field Duplicate_met Lab Duplicate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         E.coli        63.63636                  NA          40.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        Nitrate        75.00000                   0          62.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3             TP        62.50000                   0          62.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        Ammonia              NA                  NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Sp Conductance              NA                  NA            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         E.coli        63.63636                  NA      50.00000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        Nitrate        75.00000                   0      54.54545</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Sp Conductance        75.00000                  NA            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4             TP        60.00000                   0      66.66667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     Water Temp        97.67442                   1            NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Lab Duplicate_met Field Blank Field Blank_met Lab Blank Lab Blank_met</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                NA    33.33333              NA        NA            NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                 0          NA              NA        NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                 0    75.00000               0  62.50000             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                NA    71.42857               0  71.42857             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                NA          NA              NA      60.0            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                 0    77.77778               0      62.5             0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5                NA          NA              NA        NA            NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Spike/Check Accuracy Spike/Check Accuracy_met</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                   NA                       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2             66.66667                        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3             60.00000                        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                   NA                       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5             66.66667                       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3             60.00000                       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4             90.47619                        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                   NA                       NA</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -411,7 +446,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

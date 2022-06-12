@@ -62,16 +62,25 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>res</dt>
 <dd><p>character string of path to the results file or <code>data.frame</code> for results returned by <code><a href="readMWRresults.html">readMWRresults</a></code></p></dd>
+
+
 <dt>frecom</dt>
 <dd><p>character string of path to the data quality objectives file for frequency and completeness or <code>data.frame</code> returned by <code><a href="readMWRfrecom.html">readMWRfrecom</a></code></p></dd>
+
+
 <dt>runchk</dt>
 <dd><p>logical to run data checks with <code><a href="checkMWRresults.html">checkMWRresults</a></code> and <code><a href="checkMWRfrecom.html">checkMWRfrecom</a></code>, applies only if <code>res</code> or <code>frecom</code> are file paths</p></dd>
+
+
 <dt>warn</dt>
 <dd><p>logical to return warnings to the console (default)</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The output shows the frequency checks from the input files.  Each row applies to a frequency check for a parameter. The <code>Parameter</code> column shows the parameter, the <code>obs</code> column shows the total records that apply to regular activity types, the <code>check</code> column shows the relevant activity type for each frequency check, the <code>count</code> column shows the number of records that apply to a check, the <code>standard</code> column shows the relevant percentage required for the quality control check from the quality control objectives file, and the <code>met</code> column shows if the standard was met by comparing if <code>percent</code> is greater than or equal to <code>standard</code>.</p>
+    
+
+<p>The output shows the frequency checks from the input files.  Each row applies to a frequency check for a parameter. The <code>Parameter</code> column shows the parameter, the <code>obs</code> column shows the total records that apply to regular activity types, the <code>check</code> column shows the relevant activity type for each frequency check, the <code>count</code> column shows the number of records that apply to a check, the <code>standard</code> column shows the relevant percentage required for the quality control check from the quality control objectives file, and the <code>met</code> column shows if the standard was met by comparing if <code>percent</code> is greater than or equal to <code>standard</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -204,7 +213,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>

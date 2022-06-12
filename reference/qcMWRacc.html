@@ -71,22 +71,37 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>res</dt>
 <dd><p>character string of path to the results file or <code>data.frame</code> for results returned by <code><a href="readMWRresults.html">readMWRresults</a></code></p></dd>
+
+
 <dt>acc</dt>
 <dd><p>character string of path to the data quality objectives file for accuracy or <code>data.frame</code> returned by <code><a href="readMWRacc.html">readMWRacc</a></code></p></dd>
+
+
 <dt>runchk</dt>
 <dd><p>logical to run data checks with <code><a href="checkMWRresults.html">checkMWRresults</a></code> and <code><a href="checkMWRacc.html">checkMWRacc</a></code>, applies only if <code>res</code> or <code>acc</code> are file paths</p></dd>
+
+
 <dt>warn</dt>
 <dd><p>logical to return warnings to the console (default)</p></dd>
+
+
 <dt>accchk</dt>
 <dd><p>character string indicating which accuracy check to return, one to any of <code>"Field Blanks"</code>, <code>"Lab Blanks"</code>, <code>"Field Duplicates"</code>, <code>"Lab Duplicates"</code>, <code>"Lab Spikes"</code>, or <code>"Instrument Checks"</code></p></dd>
+
+
 <dt>digits</dt>
 <dd><p>numeric indicating number of significant digits to report for percentages</p></dd>
+
+
 <dt>suffix</dt>
 <dd><p>character string indicating suffix to append to percentage values</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The output shows the accuracy checks from the input files returned as a list, with each element of the list corresponding to a specific accuracy check specified with <code>accchk</code>.</p>
+    
+
+<p>The output shows the accuracy checks from the input files returned as a list, with each element of the list corresponding to a specific accuracy check specified with <code>accchk</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -141,82 +156,88 @@
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for accuracy not found in results data: Chloride</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in results not found in  quality control objectives for accuracy: Air Temp, DO saturation, Flow, Gage</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Field Blanks`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 18 × 6</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       Site    Result        MDL          `Hit/Miss`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Ammonia   2021-07-11 ABT-062 0.2 mg/l      0.05 mg/l    MISS      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Ammonia   2021-07-11 ABT-237 BDL           0.05 mg/l    <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Ammonia   2021-07-11 ABT-301 0.1 mg/l      0.05 mg/l    MISS      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Ammonia   2021-07-11 DAN-013 BDL           0.05 mg/l    <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Ammonia   2021-07-11 CND-036 BDL           0.05 mg/l    <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Ammonia   2021-07-11 ABT-144 BDL           0.05 mg/l    <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Ammonia   2021-07-11 ABT-026 BDL           0.05 mg/l    <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> E.coli    2021-09-13 SUD-236 BDL           10 cfu/100ml <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> E.coli    2021-09-13 NSH-002 15 cfu/100ml  10 cfu/100ml MISS      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> E.coli    2021-09-13 ABT-162 128 cfu/100ml 10 cfu/100ml MISS      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> TP        2021-06-13 ABT-062 BDL           0.01 mg/l    <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> TP        2021-06-13 CND-110 BDL           0.01 mg/l    <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> TP        2021-06-13 CND-036 BDL           0.01 mg/l    <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> TP        2021-06-13 CND-009 0.01 mg/l     0.01 mg/l    <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> TP        2021-06-13 HBS-016 0.1 mg/l      0.01 mg/l    MISS      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> TP        2021-06-13 ABT-026 BDL           0.01 mg/l    <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> TP        2021-06-13 NSH-002 BDL           0.01 mg/l    <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> TP        2021-06-13 NSH-047 0.02 mg/l     0.01 mg/l    MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 19 × 6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       Site    Result                     MDL        `Hit/Miss`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Ammonia   2021-07-11 ABT-062 0.2 mg/l                   0.05 mg/l  MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Ammonia   2021-07-11 ABT-237 BDL                        0.05 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Ammonia   2021-07-11 ABT-301 0.1 mg/l                   0.05 mg/l  MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Ammonia   2021-07-11 DAN-013 BDL                        0.05 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Ammonia   2021-07-11 CND-036 0.02 mg/l                  0.05 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Ammonia   2021-07-11 ABT-144 BDL                        0.05 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Ammonia   2021-07-11 ABT-026 BDL                        0.05 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> E.coli    2021-09-13 SUD-236 BDL                        10 cfu/10… <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> E.coli    2021-09-13 NSH-002 15 cfu/100ml               10 cfu/10… MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> E.coli    2021-09-13 ABT-162 128 cfu/100ml              10 cfu/10… MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> TP        2021-06-13 ABT-062 BDL                        0.01 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> TP        2021-06-13 CND-110 BDL                        0.01 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> TP        2021-06-13 CND-036 BDL                        0.01 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> TP        2021-06-15 CND-036 8.0000000000000002E-3 mg/l 0.01 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> TP        2021-06-13 CND-009 0.01 mg/l                  0.01 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> TP        2021-06-13 HBS-016 0.1 mg/l                   0.01 mg/l  MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> TP        2021-06-13 ABT-026 BDL                        0.01 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> TP        2021-06-13 NSH-002 BDL                        0.01 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> TP        2021-06-13 NSH-047 0.02 mg/l                  0.01 mg/l  MISS      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Lab Blanks`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 15 × 6</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       `Sample ID` Result    MDL       `Hit/Miss`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Ammonia   2021-07-11 <span style="color: #BB0000;">NA</span>          0.4 mg/l  0.05 mg/l MISS      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Ammonia   2021-07-11 <span style="color: #BB0000;">NA</span>          BDL       0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Ammonia   2021-07-11 <span style="color: #BB0000;">NA</span>          BDL       0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Ammonia   2021-07-11 <span style="color: #BB0000;">NA</span>          BDL       0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Ammonia   2021-07-11 <span style="color: #BB0000;">NA</span>          0.11 mg/l 0.05 mg/l MISS      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Ammonia   2021-07-11 <span style="color: #BB0000;">NA</span>          BDL       0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Ammonia   2021-07-11 <span style="color: #BB0000;">NA</span>          BDL       0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> TP        2021-06-13 K17452-MB1  BDL       0.01 mg/l <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> TP        2021-06-13 K17453-MB1  0.1 mg/l  0.01 mg/l MISS      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> TP        2021-06-13 K17452-MB2  BDL       0.01 mg/l <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> TP        2021-06-13 K17453-MB2  BDL       0.01 mg/l <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> TP        2021-06-13 K17452-MB3  0.02 mg/l 0.01 mg/l MISS      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> TP        2021-06-13 K17453-MB3  BDL       0.01 mg/l <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> TP        2021-06-13 K17452-MB4  BDL       0.01 mg/l <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> TP        2021-06-13 K17453-MB4  0.03 mg/l 0.01 mg/l MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 20 × 6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter      Date       `Sample ID` Result    MDL       `Hit/Miss`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Ammonia        2021-07-11 <span style="color: #BB0000;">NA</span>          0.4 mg/l  0.05 mg/l MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Ammonia        2021-07-11 <span style="color: #BB0000;">NA</span>          BDL       0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Ammonia        2021-07-11 <span style="color: #BB0000;">NA</span>          BDL       0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Ammonia        2021-07-11 <span style="color: #BB0000;">NA</span>          BDL       0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Ammonia        2021-07-11 <span style="color: #BB0000;">NA</span>          0.11 mg/l 0.05 mg/l MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Ammonia        2021-07-11 <span style="color: #BB0000;">NA</span>          BDL       0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Ammonia        2021-07-11 <span style="color: #BB0000;">NA</span>          BDL       0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> TP             2021-06-13 K17452-MB1  BDL       0.01 mg/l <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> TP             2021-06-13 K17453-MB1  0.1 mg/l  0.01 mg/l MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> TP             2021-06-13 K17452-MB2  BDL       0.01 mg/l <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> TP             2021-06-13 K17453-MB2  BDL       0.01 mg/l <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> TP             2021-06-13 K17452-MB3  0.02 mg/l 0.01 mg/l MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> TP             2021-06-13 K17453-MB3  BDL       0.01 mg/l <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> TP             2021-06-13 K17452-MB4  BDL       0.01 mg/l <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> TP             2021-06-13 K17453-MB4  0.03 mg/l 0.01 mg/l MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> Sp Conductance 2021-04-11 <span style="color: #BB0000;">NA</span>          45 uS/cm  1 uS/cm   MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> Sp Conductance 2021-04-11 <span style="color: #BB0000;">NA</span>          5 uS/cm   1 uS/cm   <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> Sp Conductance 2021-04-11 <span style="color: #BB0000;">NA</span>          25 uS/cm  1 uS/cm   MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> Sp Conductance 2021-04-12 <span style="color: #BB0000;">NA</span>          BDL       1 uS/cm   <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">20</span> Sp Conductance 2021-04-13 <span style="color: #BB0000;">NA</span>          BDL       1 uS/cm   <span style="color: #BB0000;">NA</span>        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Field Duplicates`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 38 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       Site    `Initial Result` `Dup. Result` `Diff./RPD`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> E.coli    2021-06-07 RVM-001 530 cfu/100ml    600 cfu/100ml 2% logRPD  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> E.coli    2021-06-07 RME-003 260 cfu/100ml    260 cfu/100ml 0% logRPD  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> E.coli    2021-06-14 RVM-027 170 cfu/100ml    500 cfu/100ml 19% logRPD </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> E.coli    2021-06-14 HBS-057 10 cfu/100ml     12 cfu/100ml  8% logRPD  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> E.coli    2021-06-28 RVM-022 280 cfu/100ml    45 cfu/100ml  39% logRPD </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> E.coli    2021-06-28 SUD-096 50 cfu/100ml     45 cfu/100ml  3% logRPD  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> E.coli    2021-07-06 RVM-001 890 cfu/100ml    950 cfu/100ml 1% logRPD  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> E.coli    2021-07-19 CND-009 10 cfu/100ml     20 cfu/100ml  26% logRPD </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> E.coli    2021-07-19 RVM-001 10 cfu/100ml     30 cfu/100ml  39% logRPD </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> E.coli    2021-07-26 HBS-031 192 cfu/100ml    60 cfu/100ml  25% logRPD </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 28 more rows, and 1 more variable: `Hit/Miss` &lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 92 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter      Date       Site    `Initial Result` `Dup. Result` `Diff./RPD`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Sp Conductance 2021-07-26 HBS-098 928 uS/cm        930 uS/cm     0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Sp Conductance 2021-08-15 ABT-062 625 uS/cm        725 uS/cm     15% RPD    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Sp Conductance 2021-08-15 SUD-086 531 uS/cm        515 uS/cm     3% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Sp Conductance 2021-08-15 CND-110 510 uS/cm        800 uS/cm     44% RPD    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Water Temp     2021-09-14 HBS-057 18.3 deg C       18.3 deg C    0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Water Temp     2021-02-15 HBS-095 3.5 deg C        3.5 deg C     0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Water Temp     2021-01-14 HBS-016 1 deg C          1 deg C       0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Water Temp     2021-01-14 LND-007 1 deg C          1 deg C       0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Water Temp     2021-01-14 HBS-031 2 deg C          2 deg C       0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Water Temp     2021-01-14 HBS-065 2 deg C          2 deg C       0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 82 more rows, and 1 more variable: `Hit/Miss` &lt;chr&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Lab Duplicates`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 21 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 33 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       `Sample ID` `Initial Result` `Dup. Result` `Diff./RPD`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> E.coli    2021-09-13 R2546-8     128 cfu/100ml    150 cfu/100ml 3% logRPD  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> E.coli    2021-07-12 R2546-9     40 cfu/100ml     10 cfu/100ml  46% logRPD </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> E.coli    2021-07-12 R2546-10    35 cfu/100ml     37 cfu/100ml  2% logRPD  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> E.coli    2021-07-19 R2546-11    100 cfu/100ml    400 cfu/100ml 26% logRPD </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> E.coli    2021-07-19 R2546-12    800 cfu/100ml    400 cfu/100ml 11% logRPD </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Nitrate   2021-05-16 K16452-MB1  0.8 mg/l         0.9 mg/l      12% RPD    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Nitrate   2021-05-16 K16453-MB1  0.3 mg/l         0.3 mg/l      0% RPD     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Nitrate   2021-05-16 K16454-MB1  0.45 mg/l        0.3 mg/l      40% RPD    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Nitrate   2021-05-16 K16452-MB2  0.8 mg/l         0.82 mg/l     2% RPD     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Nitrate   2021-05-16 K16453-MB2  0.12 mg/l        0.3 mg/l      86% RPD    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 11 more rows, and 1 more variable: `Hit/Miss` &lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> E.coli    2021-07-19 R2546-13    100 cfu/100ml    250 cfu/100ml 18% logRPD </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> E.coli    2021-07-19 R2546-12    800 cfu/100ml    400 cfu/100ml 11% logRPD </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Nitrate   2021-05-16 K16452-MB1  0.8 mg/l         0.9 mg/l      12% RPD    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Nitrate   2021-05-16 K16453-MB1  0.3 mg/l         0.3 mg/l      0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Nitrate   2021-05-16 K16454-MB1  0.45 mg/l        0.3 mg/l      40% RPD    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Nitrate   2021-05-16 K16452-MB2  0.8 mg/l         0.82 mg/l     2% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 23 more rows, and 1 more variable: `Hit/Miss` &lt;chr&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Lab Spikes`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 11 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 35 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       `Sample ID` Spike     `Amt Recovered` `% Recovery`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Nitrate   2021-05-16 NO3-1       0.8 mg/l  0.9 mg/l        112%        </span>
@@ -229,25 +250,24 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> TP        2021-06-13 <span style="color: #BB0000;">NA</span>          0.1 mg/l  0.09 mg/l       90%         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> TP        2021-06-13 <span style="color: #BB0000;">NA</span>          0.15 mg/l 0.2 mg/l        133%        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> TP        2021-06-13 <span style="color: #BB0000;">NA</span>          0.07 mg/l 0.08 mg/l       114%        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> TP        2021-06-13 <span style="color: #BB0000;">NA</span>          0.07 mg/l 0.1 mg/l        143%        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 1 more variable: `Hit/Miss` &lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 25 more rows, and 1 more variable: `Hit/Miss` &lt;chr&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Instrument Checks`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 16 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter   Date       `Sample ID` `Calibration S…` `Instrument Re…` Accuracy</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> pH          2021-06-13 pH-6-13-1   7 s.u.           7.14 s.u.        0.14 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> pH          2021-06-13 pH-6-13-2   7 s.u.           7.21 s.u.        0.21 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> pH          2021-06-13 pH-6-13-3   7 s.u.           7.38 s.u.        0.38 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> pH          2021-06-13 pH-6-13-4   7 s.u.           7.39 s.u.        0.39 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> pH          2021-06-13 pH-6-13-5   7 s.u.           7.23 s.u.        0.23 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> pH          2021-06-13 pH-6-13-6   7 s.u.           6.92 s.u.        0.08 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> pH          2021-06-13 pH-6-13-7   7 s.u.           7.23 s.u.        0.23 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       1010 uS/cm       10 uS/cm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       950 uS/cm        50 uS/cm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       1001 uS/cm       1 uS/cm </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       1040 uS/cm       40 uS/cm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       1100 uS/cm       100 uS/…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> pH          2021-06-13 pH-6-13-2   7 s.u.           7.21 s.u.        0.21 s.…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> pH          2021-06-13 pH-6-13-3   7 s.u.           7.38 s.u.        0.38 s.…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> pH          2021-06-13 pH-6-13-4   7 s.u.           7.39 s.u.        0.39 s.…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> pH          2021-06-13 pH-6-13-5   7 s.u.           7.23 s.u.        0.23 s.…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> pH          2021-06-13 pH-6-13-6   7 s.u.           6.92 s.u.        0.08 s.…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> pH          2021-06-13 pH-6-13-7   7 s.u.           7.23 s.u.        0.23 s.…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       1010 uS/cm       10 uS/cm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       950 uS/cm        50 uS/cm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       1001 uS/cm       1 uS/cm </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       1040 uS/cm       40 uS/cm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       1100 uS/cm       100 uS/…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          100 uS/cm        165 uS/cm        65 uS/cm</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       750 uS/cm        250 uS/…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       999 uS/cm        1 uS/cm </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       980 uS/cm        20 uS/cm</span>
@@ -299,82 +319,88 @@
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for accuracy not found in results data: Chloride</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in results not found in  quality control objectives for accuracy: Air Temp, DO saturation, Flow, Gage</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Field Blanks`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 18 × 6</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       Site    Result        MDL          `Hit/Miss`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Ammonia   2021-07-11 ABT-062 0.2 mg/l      0.05 mg/l    MISS      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Ammonia   2021-07-11 ABT-237 BDL           0.05 mg/l    <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Ammonia   2021-07-11 ABT-301 0.1 mg/l      0.05 mg/l    MISS      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Ammonia   2021-07-11 DAN-013 BDL           0.05 mg/l    <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Ammonia   2021-07-11 CND-036 BDL           0.05 mg/l    <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Ammonia   2021-07-11 ABT-144 BDL           0.05 mg/l    <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Ammonia   2021-07-11 ABT-026 BDL           0.05 mg/l    <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> E.coli    2021-09-13 SUD-236 BDL           10 cfu/100ml <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> E.coli    2021-09-13 NSH-002 15 cfu/100ml  10 cfu/100ml MISS      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> E.coli    2021-09-13 ABT-162 128 cfu/100ml 10 cfu/100ml MISS      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> TP        2021-06-13 ABT-062 BDL           0.01 mg/l    <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> TP        2021-06-13 CND-110 BDL           0.01 mg/l    <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> TP        2021-06-13 CND-036 BDL           0.01 mg/l    <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> TP        2021-06-13 CND-009 0.01 mg/l     0.01 mg/l    <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> TP        2021-06-13 HBS-016 0.1 mg/l      0.01 mg/l    MISS      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> TP        2021-06-13 ABT-026 BDL           0.01 mg/l    <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> TP        2021-06-13 NSH-002 BDL           0.01 mg/l    <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> TP        2021-06-13 NSH-047 0.02 mg/l     0.01 mg/l    MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 19 × 6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       Site    Result                     MDL        `Hit/Miss`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Ammonia   2021-07-11 ABT-062 0.2 mg/l                   0.05 mg/l  MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Ammonia   2021-07-11 ABT-237 BDL                        0.05 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Ammonia   2021-07-11 ABT-301 0.1 mg/l                   0.05 mg/l  MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Ammonia   2021-07-11 DAN-013 BDL                        0.05 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Ammonia   2021-07-11 CND-036 0.02 mg/l                  0.05 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Ammonia   2021-07-11 ABT-144 BDL                        0.05 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Ammonia   2021-07-11 ABT-026 BDL                        0.05 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> E.coli    2021-09-13 SUD-236 BDL                        10 cfu/10… <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> E.coli    2021-09-13 NSH-002 15 cfu/100ml               10 cfu/10… MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> E.coli    2021-09-13 ABT-162 128 cfu/100ml              10 cfu/10… MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> TP        2021-06-13 ABT-062 BDL                        0.01 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> TP        2021-06-13 CND-110 BDL                        0.01 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> TP        2021-06-13 CND-036 BDL                        0.01 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> TP        2021-06-15 CND-036 8.0000000000000002E-3 mg/l 0.01 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> TP        2021-06-13 CND-009 0.01 mg/l                  0.01 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> TP        2021-06-13 HBS-016 0.1 mg/l                   0.01 mg/l  MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> TP        2021-06-13 ABT-026 BDL                        0.01 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> TP        2021-06-13 NSH-002 BDL                        0.01 mg/l  <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> TP        2021-06-13 NSH-047 0.02 mg/l                  0.01 mg/l  MISS      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Lab Blanks`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 15 × 6</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       `Sample ID` Result    MDL       `Hit/Miss`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Ammonia   2021-07-11 <span style="color: #BB0000;">NA</span>          0.4 mg/l  0.05 mg/l MISS      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Ammonia   2021-07-11 <span style="color: #BB0000;">NA</span>          BDL       0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Ammonia   2021-07-11 <span style="color: #BB0000;">NA</span>          BDL       0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Ammonia   2021-07-11 <span style="color: #BB0000;">NA</span>          BDL       0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Ammonia   2021-07-11 <span style="color: #BB0000;">NA</span>          0.11 mg/l 0.05 mg/l MISS      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Ammonia   2021-07-11 <span style="color: #BB0000;">NA</span>          BDL       0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Ammonia   2021-07-11 <span style="color: #BB0000;">NA</span>          BDL       0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> TP        2021-06-13 K17452-MB1  BDL       0.01 mg/l <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> TP        2021-06-13 K17453-MB1  0.1 mg/l  0.01 mg/l MISS      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> TP        2021-06-13 K17452-MB2  BDL       0.01 mg/l <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> TP        2021-06-13 K17453-MB2  BDL       0.01 mg/l <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> TP        2021-06-13 K17452-MB3  0.02 mg/l 0.01 mg/l MISS      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> TP        2021-06-13 K17453-MB3  BDL       0.01 mg/l <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> TP        2021-06-13 K17452-MB4  BDL       0.01 mg/l <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> TP        2021-06-13 K17453-MB4  0.03 mg/l 0.01 mg/l MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 20 × 6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter      Date       `Sample ID` Result    MDL       `Hit/Miss`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Ammonia        2021-07-11 <span style="color: #BB0000;">NA</span>          0.4 mg/l  0.05 mg/l MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Ammonia        2021-07-11 <span style="color: #BB0000;">NA</span>          BDL       0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Ammonia        2021-07-11 <span style="color: #BB0000;">NA</span>          BDL       0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Ammonia        2021-07-11 <span style="color: #BB0000;">NA</span>          BDL       0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Ammonia        2021-07-11 <span style="color: #BB0000;">NA</span>          0.11 mg/l 0.05 mg/l MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Ammonia        2021-07-11 <span style="color: #BB0000;">NA</span>          BDL       0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Ammonia        2021-07-11 <span style="color: #BB0000;">NA</span>          BDL       0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> TP             2021-06-13 K17452-MB1  BDL       0.01 mg/l <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> TP             2021-06-13 K17453-MB1  0.1 mg/l  0.01 mg/l MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> TP             2021-06-13 K17452-MB2  BDL       0.01 mg/l <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> TP             2021-06-13 K17453-MB2  BDL       0.01 mg/l <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> TP             2021-06-13 K17452-MB3  0.02 mg/l 0.01 mg/l MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> TP             2021-06-13 K17453-MB3  BDL       0.01 mg/l <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> TP             2021-06-13 K17452-MB4  BDL       0.01 mg/l <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> TP             2021-06-13 K17453-MB4  0.03 mg/l 0.01 mg/l MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> Sp Conductance 2021-04-11 <span style="color: #BB0000;">NA</span>          45 uS/cm  1 uS/cm   MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> Sp Conductance 2021-04-11 <span style="color: #BB0000;">NA</span>          5 uS/cm   1 uS/cm   <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> Sp Conductance 2021-04-11 <span style="color: #BB0000;">NA</span>          25 uS/cm  1 uS/cm   MISS      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> Sp Conductance 2021-04-12 <span style="color: #BB0000;">NA</span>          BDL       1 uS/cm   <span style="color: #BB0000;">NA</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">20</span> Sp Conductance 2021-04-13 <span style="color: #BB0000;">NA</span>          BDL       1 uS/cm   <span style="color: #BB0000;">NA</span>        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Field Duplicates`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 38 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       Site    `Initial Result` `Dup. Result` `Diff./RPD`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> E.coli    2021-06-07 RVM-001 530 cfu/100ml    600 cfu/100ml 2% logRPD  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> E.coli    2021-06-07 RME-003 260 cfu/100ml    260 cfu/100ml 0% logRPD  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> E.coli    2021-06-14 RVM-027 170 cfu/100ml    500 cfu/100ml 19% logRPD </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> E.coli    2021-06-14 HBS-057 10 cfu/100ml     12 cfu/100ml  8% logRPD  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> E.coli    2021-06-28 RVM-022 280 cfu/100ml    45 cfu/100ml  39% logRPD </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> E.coli    2021-06-28 SUD-096 50 cfu/100ml     45 cfu/100ml  3% logRPD  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> E.coli    2021-07-06 RVM-001 890 cfu/100ml    950 cfu/100ml 1% logRPD  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> E.coli    2021-07-19 CND-009 10 cfu/100ml     20 cfu/100ml  26% logRPD </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> E.coli    2021-07-19 RVM-001 10 cfu/100ml     30 cfu/100ml  39% logRPD </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> E.coli    2021-07-26 HBS-031 192 cfu/100ml    60 cfu/100ml  25% logRPD </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 28 more rows, and 1 more variable: `Hit/Miss` &lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 92 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter      Date       Site    `Initial Result` `Dup. Result` `Diff./RPD`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Sp Conductance 2021-07-26 HBS-098 928 uS/cm        930 uS/cm     0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Sp Conductance 2021-08-15 ABT-062 625 uS/cm        725 uS/cm     15% RPD    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Sp Conductance 2021-08-15 SUD-086 531 uS/cm        515 uS/cm     3% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Sp Conductance 2021-08-15 CND-110 510 uS/cm        800 uS/cm     44% RPD    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Water Temp     2021-09-14 HBS-057 18.3 deg C       18.3 deg C    0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Water Temp     2021-02-15 HBS-095 3.5 deg C        3.5 deg C     0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Water Temp     2021-01-14 HBS-016 1 deg C          1 deg C       0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Water Temp     2021-01-14 LND-007 1 deg C          1 deg C       0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Water Temp     2021-01-14 HBS-031 2 deg C          2 deg C       0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Water Temp     2021-01-14 HBS-065 2 deg C          2 deg C       0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 82 more rows, and 1 more variable: `Hit/Miss` &lt;chr&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Lab Duplicates`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 21 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 33 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       `Sample ID` `Initial Result` `Dup. Result` `Diff./RPD`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> E.coli    2021-09-13 R2546-8     128 cfu/100ml    150 cfu/100ml 3% logRPD  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> E.coli    2021-07-12 R2546-9     40 cfu/100ml     10 cfu/100ml  46% logRPD </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> E.coli    2021-07-12 R2546-10    35 cfu/100ml     37 cfu/100ml  2% logRPD  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> E.coli    2021-07-19 R2546-11    100 cfu/100ml    400 cfu/100ml 26% logRPD </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> E.coli    2021-07-19 R2546-12    800 cfu/100ml    400 cfu/100ml 11% logRPD </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Nitrate   2021-05-16 K16452-MB1  0.8 mg/l         0.9 mg/l      12% RPD    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Nitrate   2021-05-16 K16453-MB1  0.3 mg/l         0.3 mg/l      0% RPD     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Nitrate   2021-05-16 K16454-MB1  0.45 mg/l        0.3 mg/l      40% RPD    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Nitrate   2021-05-16 K16452-MB2  0.8 mg/l         0.82 mg/l     2% RPD     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Nitrate   2021-05-16 K16453-MB2  0.12 mg/l        0.3 mg/l      86% RPD    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 11 more rows, and 1 more variable: `Hit/Miss` &lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> E.coli    2021-07-19 R2546-13    100 cfu/100ml    250 cfu/100ml 18% logRPD </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> E.coli    2021-07-19 R2546-12    800 cfu/100ml    400 cfu/100ml 11% logRPD </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Nitrate   2021-05-16 K16452-MB1  0.8 mg/l         0.9 mg/l      12% RPD    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Nitrate   2021-05-16 K16453-MB1  0.3 mg/l         0.3 mg/l      0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Nitrate   2021-05-16 K16454-MB1  0.45 mg/l        0.3 mg/l      40% RPD    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Nitrate   2021-05-16 K16452-MB2  0.8 mg/l         0.82 mg/l     2% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 23 more rows, and 1 more variable: `Hit/Miss` &lt;chr&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Lab Spikes`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 11 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 35 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       `Sample ID` Spike     `Amt Recovered` `% Recovery`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Nitrate   2021-05-16 NO3-1       0.8 mg/l  0.9 mg/l        112%        </span>
@@ -387,25 +413,24 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> TP        2021-06-13 <span style="color: #BB0000;">NA</span>          0.1 mg/l  0.09 mg/l       90%         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> TP        2021-06-13 <span style="color: #BB0000;">NA</span>          0.15 mg/l 0.2 mg/l        133%        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> TP        2021-06-13 <span style="color: #BB0000;">NA</span>          0.07 mg/l 0.08 mg/l       114%        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> TP        2021-06-13 <span style="color: #BB0000;">NA</span>          0.07 mg/l 0.1 mg/l        143%        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 1 more variable: `Hit/Miss` &lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 25 more rows, and 1 more variable: `Hit/Miss` &lt;chr&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Instrument Checks`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 16 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter   Date       `Sample ID` `Calibration S…` `Instrument Re…` Accuracy</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> pH          2021-06-13 pH-6-13-1   7 s.u.           7.14 s.u.        0.14 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> pH          2021-06-13 pH-6-13-2   7 s.u.           7.21 s.u.        0.21 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> pH          2021-06-13 pH-6-13-3   7 s.u.           7.38 s.u.        0.38 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> pH          2021-06-13 pH-6-13-4   7 s.u.           7.39 s.u.        0.39 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> pH          2021-06-13 pH-6-13-5   7 s.u.           7.23 s.u.        0.23 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> pH          2021-06-13 pH-6-13-6   7 s.u.           6.92 s.u.        0.08 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> pH          2021-06-13 pH-6-13-7   7 s.u.           7.23 s.u.        0.23 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       1010 uS/cm       10 uS/cm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       950 uS/cm        50 uS/cm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       1001 uS/cm       1 uS/cm </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       1040 uS/cm       40 uS/cm</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       1100 uS/cm       100 uS/…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> pH          2021-06-13 pH-6-13-2   7 s.u.           7.21 s.u.        0.21 s.…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> pH          2021-06-13 pH-6-13-3   7 s.u.           7.38 s.u.        0.38 s.…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> pH          2021-06-13 pH-6-13-4   7 s.u.           7.39 s.u.        0.39 s.…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> pH          2021-06-13 pH-6-13-5   7 s.u.           7.23 s.u.        0.23 s.…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> pH          2021-06-13 pH-6-13-6   7 s.u.           6.92 s.u.        0.08 s.…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> pH          2021-06-13 pH-6-13-7   7 s.u.           7.23 s.u.        0.23 s.…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       1010 uS/cm       10 uS/cm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       950 uS/cm        50 uS/cm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       1001 uS/cm       1 uS/cm </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       1040 uS/cm       40 uS/cm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       1100 uS/cm       100 uS/…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          100 uS/cm        165 uS/cm        65 uS/cm</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       750 uS/cm        250 uS/…</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       999 uS/cm        1 uS/cm </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       980 uS/cm        20 uS/cm</span>
@@ -424,7 +449,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
     </footer></div>
