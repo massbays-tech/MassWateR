@@ -131,6 +131,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         `Lab Blank`
       ) %>% 
       mutate(
+        `Result Unit` = ifelse(Parameter == 'pH', 's.u.', `Result Unit`),
         isnum = suppressWarnings(as.numeric(Result)), 
         isnum = !is.na(isnum), 
         Threshold = ifelse(is.na(`Quantitation Limit`), as.character(MDL), `Quantitation Limit`)
@@ -237,6 +238,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         UQL
       ) %>%
       dplyr::mutate(
+        `Result Unit` = ifelse(Parameter == 'pH', 's.u.', `Result Unit`),
         `Initial Result2` = dplyr::case_when(
           `Initial Result` == 'BDL' & is.na(`Quantitation Limit`) ~ as.character(MDL), 
           `Initial Result` == 'BDL' & !is.na(`Quantitation Limit`) ~ as.character(`Quantitation Limit`), 
