@@ -90,7 +90,7 @@
 
 
 <dt>digits</dt>
-<dd><p>numeric indicating number of significant digits to report for percentages</p></dd>
+<dd><p>numeric indicating number of significant digits to report accuracy comparisons</p></dd>
 
 
 <dt>suffix</dt>
@@ -238,18 +238,18 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Lab Spikes`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 35 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       `Sample ID` Spike     `Amt Recovered` `% Recovery`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Nitrate   2021-05-16 NO3-1       0.8 mg/l  0.9 mg/l        112%        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Nitrate   2021-05-16 NO3-2       0.3 mg/l  0.3 mg/l        100%        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Nitrate   2021-05-16 NO3-3       0.45 mg/l 0.3 mg/l        67%         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Nitrate   2021-05-16 NO3-4       0.8 mg/l  0.82 mg/l       102%        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Nitrate   2021-05-16 NO3-5       0.12 mg/l 0.15 mg/l       125%        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Nitrate   2021-05-16 NO3-6       0.34 mg/l 0.38 mg/l       112%        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Ortho P   2021-02-12 <span style="color: #BB0000;">NA</span>          BDL       BDL             100%        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Ortho P   2021-02-13 <span style="color: #BB0000;">NA</span>          0.02 mg/l BDL             50%         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Ortho P   2021-02-14 <span style="color: #BB0000;">NA</span>          0.05 mg/l 0.04 mg/l       80%         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Ortho P   2021-02-15 <span style="color: #BB0000;">NA</span>          0.06 mg/l 0.04 mg/l       67%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       `Sample ID` Spike     `Amt Recovered` `% Recovery`     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Nitrate   2021-05-16 NO3-1       0.8 mg/l  0.9 mg/l        112.5%           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Nitrate   2021-05-16 NO3-2       0.3 mg/l  0.3 mg/l        100%             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Nitrate   2021-05-16 NO3-3       0.45 mg/l 0.3 mg/l        66.6666666666667%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Nitrate   2021-05-16 NO3-4       0.8 mg/l  0.82 mg/l       102.5%           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Nitrate   2021-05-16 NO3-5       0.12 mg/l 0.15 mg/l       125%             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Nitrate   2021-05-16 NO3-6       0.34 mg/l 0.38 mg/l       111.764705882353%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Ortho P   2021-02-12 <span style="color: #BB0000;">NA</span>          BDL       BDL             100%             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Ortho P   2021-02-13 <span style="color: #BB0000;">NA</span>          0.02 mg/l BDL             50%              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Ortho P   2021-02-14 <span style="color: #BB0000;">NA</span>          0.05 mg/l 0.04 mg/l       80%              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Ortho P   2021-02-15 <span style="color: #BB0000;">NA</span>          0.06 mg/l 0.04 mg/l       66.6666666666667%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 25 more rows, and 1 more variable: `Hit/Miss` &lt;chr&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Instrument Checks`</span>
@@ -266,12 +266,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       999 uS/cm        1 uS/cm </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       980 uS/cm        20 uS/cm</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       420 uS/cm        580 uS/…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> pH          2021-06-13 pH-6-13-2   7 s.u.           7.21 s.u.        0.21 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> pH          2021-06-13 pH-6-13-3   7 s.u.           7.38 s.u.        0.38 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> pH          2021-06-13 pH-6-13-4   7 s.u.           7.39 s.u.        0.39 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> pH          2021-06-13 pH-6-13-5   7 s.u.           7.23 s.u.        0.23 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> pH          2021-06-13 pH-6-13-6   7 s.u.           6.92 s.u.        0.08 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> pH          2021-06-13 pH-6-13-7   7 s.u.           7.23 s.u.        0.23 s.…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> pH          2021-06-13 pH-6-13-2   7 s.u.           7.21 s.u.        0 s.u.  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> pH          2021-06-13 pH-6-13-3   7 s.u.           7.38 s.u.        0 s.u.  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> pH          2021-06-13 pH-6-13-4   7 s.u.           7.39 s.u.        0 s.u.  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> pH          2021-06-13 pH-6-13-5   7 s.u.           7.23 s.u.        0 s.u.  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> pH          2021-06-13 pH-6-13-6   7 s.u.           6.92 s.u.        0 s.u.  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> pH          2021-06-13 pH-6-13-7   7 s.u.           7.23 s.u.        0 s.u.  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 1 more variable: `Hit/Miss` &lt;chr&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
@@ -401,18 +401,18 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Lab Spikes`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 35 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       `Sample ID` Spike     `Amt Recovered` `% Recovery`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Nitrate   2021-05-16 NO3-1       0.8 mg/l  0.9 mg/l        112%        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Nitrate   2021-05-16 NO3-2       0.3 mg/l  0.3 mg/l        100%        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Nitrate   2021-05-16 NO3-3       0.45 mg/l 0.3 mg/l        67%         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Nitrate   2021-05-16 NO3-4       0.8 mg/l  0.82 mg/l       102%        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Nitrate   2021-05-16 NO3-5       0.12 mg/l 0.15 mg/l       125%        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Nitrate   2021-05-16 NO3-6       0.34 mg/l 0.38 mg/l       112%        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Ortho P   2021-02-12 <span style="color: #BB0000;">NA</span>          BDL       BDL             100%        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Ortho P   2021-02-13 <span style="color: #BB0000;">NA</span>          0.02 mg/l BDL             50%         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Ortho P   2021-02-14 <span style="color: #BB0000;">NA</span>          0.05 mg/l 0.04 mg/l       80%         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Ortho P   2021-02-15 <span style="color: #BB0000;">NA</span>          0.06 mg/l 0.04 mg/l       67%         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       `Sample ID` Spike     `Amt Recovered` `% Recovery`     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Nitrate   2021-05-16 NO3-1       0.8 mg/l  0.9 mg/l        112.5%           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Nitrate   2021-05-16 NO3-2       0.3 mg/l  0.3 mg/l        100%             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Nitrate   2021-05-16 NO3-3       0.45 mg/l 0.3 mg/l        66.6666666666667%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Nitrate   2021-05-16 NO3-4       0.8 mg/l  0.82 mg/l       102.5%           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Nitrate   2021-05-16 NO3-5       0.12 mg/l 0.15 mg/l       125%             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Nitrate   2021-05-16 NO3-6       0.34 mg/l 0.38 mg/l       111.764705882353%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Ortho P   2021-02-12 <span style="color: #BB0000;">NA</span>          BDL       BDL             100%             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Ortho P   2021-02-13 <span style="color: #BB0000;">NA</span>          0.02 mg/l BDL             50%              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Ortho P   2021-02-14 <span style="color: #BB0000;">NA</span>          0.05 mg/l 0.04 mg/l       80%              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Ortho P   2021-02-15 <span style="color: #BB0000;">NA</span>          0.06 mg/l 0.04 mg/l       66.6666666666667%</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 25 more rows, and 1 more variable: `Hit/Miss` &lt;chr&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Instrument Checks`</span>
@@ -429,12 +429,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       999 uS/cm        1 uS/cm </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       980 uS/cm        20 uS/cm</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Sp Conduct… 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm       420 uS/cm        580 uS/…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> pH          2021-06-13 pH-6-13-2   7 s.u.           7.21 s.u.        0.21 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> pH          2021-06-13 pH-6-13-3   7 s.u.           7.38 s.u.        0.38 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> pH          2021-06-13 pH-6-13-4   7 s.u.           7.39 s.u.        0.39 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> pH          2021-06-13 pH-6-13-5   7 s.u.           7.23 s.u.        0.23 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> pH          2021-06-13 pH-6-13-6   7 s.u.           6.92 s.u.        0.08 s.…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> pH          2021-06-13 pH-6-13-7   7 s.u.           7.23 s.u.        0.23 s.…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> pH          2021-06-13 pH-6-13-2   7 s.u.           7.21 s.u.        0 s.u.  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> pH          2021-06-13 pH-6-13-3   7 s.u.           7.38 s.u.        0 s.u.  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> pH          2021-06-13 pH-6-13-4   7 s.u.           7.39 s.u.        0 s.u.  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> pH          2021-06-13 pH-6-13-5   7 s.u.           7.23 s.u.        0 s.u.  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> pH          2021-06-13 pH-6-13-6   7 s.u.           6.92 s.u.        0 s.u.  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> pH          2021-06-13 pH-6-13-7   7 s.u.           7.23 s.u.        0 s.u.  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 1 more variable: `Hit/Miss` &lt;chr&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
