@@ -9,8 +9,11 @@ knitr::opts_chunk$set(echo = FALSE, ft.keepnext = F)
 library(MassWateR)
 library(dplyr)
 library(flextable)
+library(lubridate)
 
 set_flextable_defaults(font.size = 9, padding = 0)
+
+warn <- FALSE
 
 # results data
 respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
@@ -25,18 +28,25 @@ resdat <- readMWRresults(respth, runchk = F)
 accdat <- readMWRacc(accpth, runchk = F)
 frecomdat <- readMWRfrecom(frecompth, runchk = F)
 
-dt <- format(Sys.Date(), "%B %d, %Y")
+dt <- format(Sys.Date(), "%B %d, %Y") 
+
+resdatdt <- range(resdat$`Activity Start Date`)
+resdatdt <- paste(month(resdatdt), day(resdatdt), year(resdatdt), sep = '/') %>% 
+  paste(collapse = ' to ')
+  
 
 # table theme
-thm <- function(x, ...){
-  x <- flextable::colformat_double(x, na_str = '-')
-  flextable::autofit(x) %>% 
+thm <- function(x){
+  flextable::colformat_double(x, na_str = '-') %>% 
+    flextable::colformat_char(na_str = '-') %>% 
     flextable::border_inner() %>% 
     flextable::align(align = 'center', part = 'all') %>% 
     flextable::align(align = 'left', j = 1, part = 'all') %>% 
-    flextable::fontsize(size = 8, part = 'all') %>% 
+    flextable::fontsize(size = 7, part = 'all') %>% 
     flextable::padding(padding = 0, part = 'all')
 }
+
+wd <- 6.5
 ```
 
 # QC Review
@@ -53,7 +63,7 @@ Prepared by: ____________________________________________
 
 <br>
 
-QAPP version ____________________________________________
+QAPP version: ___________________________________________
 
 <br>
 
@@ -62,18 +72,22 @@ QAPP version ____________________________________________
 <br>
 
 ```{r}
-flextable(frecomdat) %>% 
-  thm #%>%
-  #flextable::fit_to_width(max_width = 8)
+flextable::flextable(frecomdat) %>% 
+  thm %>%
+  flextable::width(width = wd / ncol(frecomdat)) %>% 
+  flextable::add_header_row(value = c('', 'Frequency %', ''), colwidths = c(1, 5, 1))
 ```
 
 <br>
 
 ```{r}
-flextable(accdat) %>% 
-  thm #%>% 
-  #flextable::fit_to_width(max_width = 7.75)
+flextable::flextable(accdat) %>% 
+  thm %>% 
+  flextable::width(width = 1, j = 1) %>% 
+  flextable::width(width = (wd -1) / (ncol(accdat) - 1), j = 2:ncol(accdat)) 
 ```
+
+<br><br><br><br>
 
 Notes:
 <br>
@@ -83,15 +97,16 @@ Notes:
 
 \newpage
 
-### QC Frequencies
+### QC Frequencies for `r resdatdt`
 
 <br>
 
 ```{r}
-tabMWRfre(res = resdat, frecom = frecomdat, type = 'summary', warn = FALSE) %>% 
-  autofit() %>% 
-  fit_to_width(7.5)
+tabMWRfre(res = resdat, frecom = frecomdat, type = 'summary', warn = warn) %>% 
+  flextable::width(width = wd / ncol_keys(.)) 
 ```
+
+<br><br><br><br>
 
 Notes:
 <br>
@@ -99,36 +114,49 @@ Notes:
 <br>
 <br>_____________________________________________________________________________________
 
-<!-- \newline -->
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
 
-<!-- ```{r} -->
-<!-- tabMWRfre(res = resdat, frecom = frecomdat, type = 'percent', warn = FALSE) -->
-<!-- ``` -->
+```{r}
+tabMWRfre(res = resdat, frecom = frecomdat, type = 'percent', warn = warn) %>% 
+  flextable::width(width = wd / ncol_keys(.)) 
+```
 
-<!-- Notes: -->
+\newpage
 
-<!-- *** -->
+### QC Accuracy Summary for `r resdatdt`
 
-<!-- *** -->
+<br>
 
-<!-- \newpage -->
+```{r}
+tabMWRacc(res = resdat, acc = accdat, type = 'summary', warn = warn) %>% 
+  flextable::width(width = wd / ncol_keys(.))
+```
 
-<!-- ### QC Accuracy Summary -->
+<br><br><br><br>
 
-<!-- ```{r} -->
-<!-- tabMWRacc(res = resdat, acc = accdat, type = 'summary', warn = FALSE) -->
-<!-- ``` -->
+Notes:
+<br>
+<br>_____________________________________________________________________________________
+<br>
+<br>_____________________________________________________________________________________
 
-<!-- ```{r} -->
-<!-- tabMWRacc(res = resdat, acc = accdat, type = 'percent', warn = FALSE, frecom = frecomdat) -->
-<!-- ``` -->
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
 
-<!-- \newpage  -->
+```{r}
+tabMWRacc(res = resdat, acc = accdat, type = 'percent', warn = warn, frecom = frecomdat) %>% 
+  flextable::width(width = wd / ncol_keys(.))
+```
 
-<!-- ### Data Completeness -->
+\newpage
+
+### Data Completeness for `r resdatdt`
 
 <!-- ```{r, warning = T} -->
-<!-- tabMWRcom(res = resdat, frecom = frecomdat, warn = FALSE) -->
+<!-- tabMWRcom(res = resdat, frecom = frecomdat, warn = warn) -->
 <!-- ``` -->
 
 <!-- \newpage -->
@@ -136,20 +164,20 @@ Notes:
 <!-- ### QC Raw Data -->
 
 <!-- ```{r} -->
-<!-- tab <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Blanks', warn = FALSE) -->
+<!-- tab <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Blanks', warn = warn) -->
 <!-- ``` -->
 <!-- ```{r} -->
-<!-- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Blanks', warn = FALSE) -->
+<!-- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Blanks', warn = warn) -->
 <!-- ``` -->
 <!-- ```{r} -->
-<!-- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Duplicates', warn = FALSE) -->
+<!-- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Duplicates', warn = warn) -->
 <!-- ``` -->
 <!-- ```{r} -->
-<!-- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Duplicates', warn = FALSE) -->
+<!-- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Duplicates', warn = warn) -->
 <!-- ``` -->
 <!-- ```{r} -->
-<!-- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Spikes', warn = FALSE) -->
+<!-- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Spikes', warn = warn) -->
 <!-- ``` -->
 <!-- ```{r} -->
-<!-- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Instrument Checks', warn = FALSE) -->
+<!-- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Instrument Checks', warn = warn) -->
 <!-- ``` -->
