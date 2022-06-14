@@ -5,6 +5,7 @@
 #' @param pass_col character string for the cell color of checks that pass, applies only if \code{type = 'percent'}
 #' @param fail_col character string for the cell color of checks that fail, applies only if \code{type = 'percent'} 
 #' @param frecom character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}, applies only if \code{type = "percent"}
+#' @param caption logical to include a caption from \code{accchk}, only applies if \code{type = "individual"}
 #'
 #' @return A \code{\link{flextable}} object with formatted results.
 #' 
@@ -67,7 +68,7 @@
 #' 
 #' # table as percent
 #' tabMWRacc(res = resdat, acc = accdat, type = 'percent', frecom = frecomdat)
-tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks'), type = c('individual', 'summary', 'percent'), pass_col = 'green', fail_col = 'red', frecom = NULL, digits = 0, suffix = '%'){
+tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks'), type = c('individual', 'summary', 'percent'), pass_col = 'green', fail_col = 'red', frecom = NULL, digits = 0, suffix = '%', caption = TRUE){
   
   type <- match.arg(type)
   
@@ -107,8 +108,11 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
     tab <- flextable::flextable(totab) %>% 
       thm %>% 
       flextable::align(align = 'left', part = 'all') %>% 
-      flextable::border_inner() %>% 
-      flextable::set_caption(names(res))
+      flextable::border_inner()
+    
+    if(caption)
+      tab <- tab %>% 
+        flextable::set_caption(names(res))
 
   }
   

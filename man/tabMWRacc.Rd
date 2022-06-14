@@ -16,7 +16,8 @@ tabMWRacc(
   fail_col = "red",
   frecom = NULL,
   digits = 0,
-  suffix = "\%"
+  suffix = "\%",
+  caption = TRUE
 )
 }
 \arguments{
@@ -41,6 +42,8 @@ tabMWRacc(
 \item{digits}{numeric indicating number of significant digits to report accuracy comparisons}
 
 \item{suffix}{character string indicating suffix to append to percentage values}
+
+\item{caption}{logical to include a caption from \code{accchk}, only applies if \code{type = "individual"}}
 }
 \value{
 A \code{\link{flextable}} object with formatted results.
