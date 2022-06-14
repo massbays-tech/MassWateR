@@ -5,6 +5,7 @@
 #' @param fail_col character string for the cell color of checks that fail
 #' @param digits numeric indicating number of significant digits to report for percentages
 #' @param suffix character string indicating suffix to append to percentage values
+#' @param noteswd numeric indicating width of notes column
 #'
 #' @return A \code{\link{flextable}} object with formatted results showing summary counts for all completeness checks for each parameter.
 #' 
@@ -40,7 +41,7 @@
 #' 
 #' tabMWRcom(res = resdat, frecom = frecomdat)
 #' 
-tabMWRcom <- function(res, frecom, runchk = TRUE, warn = TRUE, pass_col = 'green', fail_col = 'red', digits = 0, suffix = '%'){
+tabMWRcom <- function(res, frecom, runchk = TRUE, warn = TRUE, pass_col = 'green', fail_col = 'red', digits = 0, suffix = '%', noteswd = 3){
 
   # table theme
   thm <- function(x, ...){
@@ -72,7 +73,7 @@ tabMWRcom <- function(res, frecom, runchk = TRUE, warn = TRUE, pass_col = 'green
     thm %>% 
     flextable::align(align = 'left', part = 'all') %>% 
     flextable::border_inner() %>% 
-    flextable::width(j = 'Notes', width = 3)
+    flextable::width(j = 'Notes', width = noteswd)
   
   return(tab)
   

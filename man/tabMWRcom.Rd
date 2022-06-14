@@ -12,7 +12,8 @@ tabMWRcom(
   pass_col = "green",
   fail_col = "red",
   digits = 0,
-  suffix = "\%"
+  suffix = "\%",
+  noteswd = 3
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ tabMWRcom(
 \item{digits}{numeric indicating number of significant digits to report for percentages}
 
 \item{suffix}{character string indicating suffix to append to percentage values}
+
+\item{noteswd}{numeric indicating width of notes column}
 }
 \value{
 A \code{\link{flextable}} object with formatted results showing summary counts for all completeness checks for each parameter.
