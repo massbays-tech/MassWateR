@@ -1,0 +1,306 @@
+---
+output: 
+  word_document:
+    reference_docx: !expr system.file("extdata/template.docx", package = "MassWateR")
+---
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = FALSE, ft.keepnext = F)
+library(MassWateR)
+library(dplyr)
+library(flextable)
+library(lubridate)
+
+set_flextable_defaults(font.size = 9, padding = 0)
+
+warn <- FALSE
+
+# results data
+respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
+
+# dqo accuracy data
+accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
+
+# dqo completeness data
+frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', package = 'MassWateR')
+
+resdat <- readMWRresults(respth, runchk = F)
+accdat <- readMWRacc(accpth, runchk = F)
+frecomdat <- readMWRfrecom(frecompth, runchk = F)
+
+dt <- format(Sys.Date(), "%B %d, %Y") 
+
+resdatdt <- range(resdat$`Activity Start Date`)
+resdatdt <- paste(month(resdatdt), day(resdatdt), year(resdatdt), sep = '/') %>% 
+  paste(collapse = ' to ')
+  
+# globals
+wd <- 6.5
+fontname <- 'Calibri (Body)'
+
+# dqo table theme
+thmdqo <- function(x, fontname){
+  flextable::colformat_double(x, na_str = '-') %>% 
+    flextable::colformat_char(na_str = '-') %>% 
+    flextable::border_inner() %>% 
+    flextable::align(align = 'center', part = 'all') %>% 
+    flextable::align(align = 'left', j = 1, part = 'all') %>% 
+    flextable::fontsize(size = 7.5, part = 'all') %>% 
+    flextable::padding(padding = 0, part = 'all') %>% 
+    flextable::font(fontname = fontname, part = 'all')
+}
+
+# dqo summary table theme
+thmsum <- function(x, wd, fontname){
+  flextable::width(x, width = wd / ncol_keys(x)) %>% 
+    flextable::font(fontname = fontname, part = 'all')
+}
+```
+
+# QC Review
+
+## Organization Name
+
+<br>
+
+`r dt`
+
+<br>
+
+Prepared by: ____________________________________________ 
+
+<br>
+
+QAPP version: ___________________________________________
+
+<br>
+
+### Data Quality Objectives
+
+<br>
+
+```{r}
+flextable::flextable(frecomdat) %>% 
+  thmdqo(fontname = fontname) %>%
+  flextable::width(width = wd / ncol(frecomdat)) %>% 
+  flextable::add_header_row(value = c('', 'Frequency %', ''), colwidths = c(1, 5, 1))
+```
+
+<br>
+
+```{r}
+flextable::flextable(accdat) %>% 
+  thmdqo(fontname = fontname) %>% 
+  flextable::width(width = 1, j = 1) %>% 
+  flextable::width(width = (wd -1) / (ncol_keys(.) - 1), j = 2:ncol_keys(.)) 
+```
+
+<br><br><br><br>
+
+Notes:
+<br>
+<br>_____________________________________________________________________________________
+<br>
+<br>_____________________________________________________________________________________
+
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+
+### QC Frequencies for `r resdatdt`
+
+<br>
+
+```{r}
+tabMWRfre(res = resdat, frecom = frecomdat, type = 'summary', warn = warn) %>% 
+  thmsum(wd = wd, fontname = fontname)
+```
+
+<br><br><br><br>
+
+Notes:
+<br>
+<br>_____________________________________________________________________________________
+<br>
+<br>_____________________________________________________________________________________
+
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+
+```{r}
+tabMWRfre(res = resdat, frecom = frecomdat, type = 'percent', warn = warn) %>% 
+  thmsum(wd = wd, fontname = fontname)
+```
+
+\newpage
+
+### QC Accuracy Summary for `r resdatdt`
+
+<br>
+
+```{r}
+tabMWRacc(res = resdat, acc = accdat, type = 'summary', warn = warn) %>% 
+  thmsum(wd = wd, fontname = fontname)
+```
+
+<br><br><br><br>
+
+Notes:
+<br>
+<br>_____________________________________________________________________________________
+<br>
+<br>_____________________________________________________________________________________
+
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+
+```{r}
+tabMWRacc(res = resdat, acc = accdat, type = 'percent', warn = warn, frecom = frecomdat) %>% 
+  thmsum(wd = wd, fontname = fontname)
+```
+
+\newpage
+
+### Data Completeness for `r resdatdt`
+
+<br>
+
+```{r, warning = T}
+tabMWRcom(res = resdat, frecom = frecomdat, warn = warn, noteswd = 2) %>% 
+  flextable::width(width = (wd - 2) / (ncol_keys(.) - 1), j = 1:(ncol_keys(.) -1)) %>%
+  flextable::font(fontname = fontname, part = 'all')
+```
+
+<br><br><br><br>
+
+Notes:
+<br>
+<br>_____________________________________________________________________________________
+<br>
+<br>_____________________________________________________________________________________
+
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+
+\newpage
+
+### QC Raw Data for `r resdatdt`
+
+<br>
+
+#### Field Blanks
+
+```{r}
+tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Blanks', warn = warn, caption = FALSE) %>% 
+  thmsum(wd = wd, fontname = fontname)
+```
+
+<br><br><br><br>
+
+Notes:
+<br>
+<br>_____________________________________________________________________________________
+<br>
+<br>_____________________________________________________________________________________
+
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+
+#### Lab Blanks
+
+```{r}
+tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Blanks', warn = warn, caption = FALSE) %>% 
+  thmsum(wd = wd, fontname = fontname)
+```
+
+<br><br><br><br>
+
+Notes:
+<br>
+<br>_____________________________________________________________________________________
+<br>
+<br>_____________________________________________________________________________________
+
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+
+#### Field Duplicates
+
+```{r}
+tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Duplicates', warn = warn, caption = FALSE) %>% 
+  thmsum(wd = wd, fontname = fontname)
+```
+
+<br><br><br><br>
+
+Notes:
+<br>
+<br>_____________________________________________________________________________________
+<br>
+<br>_____________________________________________________________________________________
+
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+
+#### Lab Duplicates
+
+```{r}
+tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Duplicates', warn = warn, caption = FALSE) %>% 
+  thmsum(wd = wd, fontname = fontname)
+```
+
+<br><br><br><br>
+
+Notes:
+<br>
+<br>_____________________________________________________________________________________
+<br>
+<br>_____________________________________________________________________________________
+
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+
+#### Lab Spikes 
+
+```{r}
+tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Spikes', warn = warn, caption = FALSE) %>% 
+  thmsum(wd = wd, fontname = fontname)
+```
+
+<br><br><br><br>
+
+Notes:
+<br>
+<br>_____________________________________________________________________________________
+<br>
+<br>_____________________________________________________________________________________
+
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+
+#### Instrument Checks (post sampling)
+
+```{r}
+tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Instrument Checks', warn = warn, caption = FALSE) %>% 
+  thmsum(wd = wd, fontname = fontname)
+```
+
+<br><br><br><br>
+
+Notes:
+<br>
+<br>_____________________________________________________________________________________
+<br>
+<br>_____________________________________________________________________________________
+
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
