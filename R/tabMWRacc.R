@@ -68,7 +68,7 @@
 #' 
 #' # table as percent
 #' tabMWRacc(res = resdat, acc = accdat, type = 'percent', frecom = frecomdat)
-tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks'), type = c('individual', 'summary', 'percent'), pass_col = 'green', fail_col = 'red', frecom = NULL, digits = 0, suffix = '%', caption = TRUE){
+tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks'), type = c('individual', 'summary', 'percent'), pass_col = 'green', fail_col = 'red', frecom = NULL, suffix = '%', caption = TRUE){
   
   type <- match.arg(type)
   
@@ -83,7 +83,7 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
   }
   
   # get accuracy summary
-  res <- qcMWRacc(res = res, acc = acc, runchk = runchk, warn = warn, accchk = accchk, digits = digits, suffix = suffix)
+  res <- qcMWRacc(res = res, acc = acc, runchk = runchk, warn = warn, accchk = accchk, suffix = suffix)
   
   if(type == 'individual'){
 
@@ -139,7 +139,7 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
       
       totab <- sumtab %>% 
         dplyr::mutate(
-          `% Acceptance` = paste(round(`% Acceptance`, digits), suffix), 
+          `% Acceptance` = paste(round(`% Acceptance`, 0), suffix), 
         ) %>% 
         flextable::as_grouped_data(groups = 'Type')
       
@@ -171,7 +171,7 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
       
       # table theme
       thm <- function(x, ...){
-        x <- flextable::colformat_double(x, na_str = '-', digits = digits, suffix = suffix)
+        x <- flextable::colformat_double(x, na_str = '-', digits = 0, suffix = suffix)
         flextable::autofit(x)
       }
       
@@ -190,7 +190,6 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
         dplyr::ungroup() %>% 
         dplyr::mutate(
           `% Acceptance` = 100 * (`Number of QC Checks` - `Number of Misses`) / `Number of QC Checks`, 
-          # `% Acceptance` = paste(round(`% Acceptance`, digits), suffix), 
           Type = 'Spike/Check Accuracy'
         ) %>% 
         dplyr::select(check = Type, Parameter, percent = `% Acceptance`)

@@ -5,7 +5,6 @@
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}} and \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param warn logical to return warnings to the console (default)
 #' @param accchk character string indicating which accuracy check to return, one to any of \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, \code{"Lab Spikes"}, or \code{"Instrument Checks"}
-#' @param digits numeric indicating number of significant digits to report accuracy comparisons
 #' @param suffix character string indicating suffix to append to percentage values
 #' 
 #' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRacc}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly.
@@ -41,7 +40,7 @@
 #' 
 #' qcMWRacc(res = resdat, acc = accdat)
 #' 
-qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks'), digits = 0, suffix = '%'){
+qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks'), suffix = '%'){
   
   colsym <- c('<=', '<', '>=', '>', '\u00b1', '\u2265', '\u2264', '%', 'AQL', 'BDL', 'log', 'all')
   
@@ -316,9 +315,9 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
             !grepl('%|log', `Field Duplicate`) ~ eval(parse(text = paste(diffv, `Field Duplicate2`)))
           ),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'), 
-          percv = paste0(round(percv, digits), suffix, ' RPD'), 
+          percv = paste0(round(percv, 0), suffix, ' RPD'), 
           percv = ifelse(grepl('log', `Field Duplicate`), gsub('RPD', 'logRPD', percv), percv),
-          diffv = paste(round(diffv, digits), `Result Unit`), 
+          diffv = paste(round(diffv, 3), `Result Unit`), 
           `Diff./RPD` = ifelse(grepl('%', `Field Duplicate`), percv, diffv)
         ) %>% 
         dplyr::ungroup() %>% 
@@ -346,9 +345,9 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
             !grepl('%|log', `Lab Duplicate`) ~ eval(parse(text = paste(diffv, `Lab Duplicate2`)))
           ),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
-          percv = paste0(round(percv, digits), suffix, ' RPD'),
+          percv = paste0(round(percv, 0), suffix, ' RPD'),
           percv = ifelse(grepl('log', `Field Duplicate`), gsub('RPD', 'logRPD', percv), percv),
-          diffv = paste(round(diffv, digits), `Result Unit`),
+          diffv = paste(round(diffv, 3), `Result Unit`),
           `Diff./RPD` = ifelse(grepl('%', `Lab Duplicate`), percv, diffv)
         ) %>% 
         dplyr::ungroup() %>% 
@@ -452,7 +451,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
             !grepl('%|log', `Spike/Check Accuracy`) ~ eval(parse(text = paste(diffv, `Spike/Check Accuracy2`)))
           ),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
-          recov = paste0(round(recov, digits), suffix)
+          recov = paste0(round(recov, 0), suffix)
         ) %>% 
         dplyr::select(
           Parameter, 
@@ -486,7 +485,10 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
             !grepl('%|log', `Spike/Check Accuracy`) ~ eval(parse(text = paste(diffv, `Spike/Check Accuracy2`)))
           ),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
-          diffv = paste(round(diffv, digits), `Result Unit`)
+          diffv = ifelse(Parameter == 'Sp Conductance',
+                         paste(round(diffv, 0), `Result Unit`),
+                         paste(round(diffv, 3), `Result Unit`)
+          )
         ) %>% 
         dplyr::select(
           Parameter, 

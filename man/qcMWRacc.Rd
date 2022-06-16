@@ -11,7 +11,6 @@ qcMWRacc(
   warn = TRUE,
   accchk = c("Field Blanks", "Lab Blanks", "Field Duplicates", "Lab Duplicates",
     "Lab Spikes", "Instrument Checks"),
-  digits = 0,
   suffix = "\%"
 )
 }
@@ -25,8 +24,6 @@ qcMWRacc(
 \item{warn}{logical to return warnings to the console (default)}
 
 \item{accchk}{character string indicating which accuracy check to return, one to any of \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, \code{"Lab Spikes"}, or \code{"Instrument Checks"}}
-
-\item{digits}{numeric indicating number of significant digits to report accuracy comparisons}
 
 \item{suffix}{character string indicating suffix to append to percentage values}
 }
