@@ -133,8 +133,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
       mutate(
         `Result Unit` = ifelse(Parameter == 'pH', 's.u.', `Result Unit`),
         isnum = suppressWarnings(as.numeric(Result)), 
-        isnum = !is.na(isnum), 
-        Threshold = ifelse(is.na(`Quantitation Limit`), as.character(MDL), `Quantitation Limit`)
+        isnum = !is.na(isnum)
       ) %>% 
       dplyr::arrange(Parameter, -dplyr::desc(Date))
 
@@ -144,18 +143,24 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         dplyr::filter(`Activity Type` == 'Quality Control Sample-Field Blank') %>% 
         dplyr::select(-`Activity Type`) %>% 
         dplyr::select(-`Sample ID`) %>% 
-        dplyr::rowwise() %>%
         dplyr::mutate(
+          Threshold = ifelse(`Field Blank` != 'BDL', `Field Blank`, MDL), 
           Threshold = dplyr::case_when(
-            `Field Blank` != 'BDL' & is.na(`Quantitation Limit`) ~ `Field Blank`, 
-            TRUE ~ paste('<=', Threshold)
+            Result != 'BDL' ~ Threshold, 
+            Result == 'BDL' & is.na(`Quantitation Limit`) ~ Threshold,
+            TRUE ~ Threshold
           ),
+          Threshold = ifelse(Result == 'BDL' & !is.na(`Quantitation Limit`), `Quantitation Limit`, Threshold),
+          Threshold = ifelse(grepl('<|=', Threshold), Threshold, paste('<=', Threshold)),
           `Hit/Miss` = dplyr::case_when(
             isnum ~ paste(Result, Threshold),
             Result == 'AQL' ~ 'FALSE',
             Result == 'BDL' ~ 'TRUE', 
             T ~ 'TRUE'
-          ),
+          )
+        ) %>% 
+        dplyr::rowwise() %>% 
+        dplyr::mutate(
           `Hit/Miss` = eval(parse(text = `Hit/Miss`)),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
           `Result Unit` = ifelse(Result %in% c('AQL', 'BDL'), NA, `Result Unit`), 
@@ -173,18 +178,24 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
         dplyr::filter(`Activity Type` == 'Quality Control Sample-Lab Blank') %>% 
         dplyr::select(-`Activity Type`) %>% 
         dplyr::select(-`Site`) %>% 
-        dplyr::rowwise() %>%
         dplyr::mutate(
+          Threshold = ifelse(`Lab Blank` != 'BDL', `Lab Blank`, MDL), 
           Threshold = dplyr::case_when(
-            `Lab Blank` != 'BDL' & is.na(`Quantitation Limit`) ~ `Lab Blank`, 
-            TRUE ~ paste('<=', Threshold)
+            Result != 'BDL' ~ Threshold, 
+            Result == 'BDL' & is.na(`Quantitation Limit`) ~ Threshold,
+            TRUE ~ Threshold
           ),
+          Threshold = ifelse(Result == 'BDL' & !is.na(`Quantitation Limit`), `Quantitation Limit`, Threshold),
+          Threshold = ifelse(grepl('<|=', Threshold), Threshold, paste('<=', Threshold)),
           `Hit/Miss` = dplyr::case_when(
             isnum ~ paste(Result, Threshold),
             Result == 'AQL' ~ 'FALSE',
             Result == 'BDL' ~ 'TRUE', 
             T ~ 'TRUE'
-          ),
+          )
+        ) %>% 
+        dplyr::rowwise() %>% 
+        dplyr::mutate(
           `Hit/Miss` = eval(parse(text = `Hit/Miss`)),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
           `Result Unit` = ifelse(Result %in% c('AQL', 'BDL'), NA, `Result Unit`), 
