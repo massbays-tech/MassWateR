@@ -151,7 +151,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
             TRUE ~ Threshold
           ),
           Threshold = ifelse(Result == 'BDL' & !is.na(`Quantitation Limit`), `Quantitation Limit`, Threshold),
-          Threshold = ifelse(grepl('<|=', Threshold), Threshold, paste('<=', Threshold)),
+          Threshold = ifelse(grepl('<|=', Threshold), Threshold, paste('<', Threshold)),
           `Hit/Miss` = dplyr::case_when(
             isnum ~ paste(Result, Threshold),
             Result == 'AQL' ~ 'FALSE',
@@ -186,7 +186,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
             TRUE ~ Threshold
           ),
           Threshold = ifelse(Result == 'BDL' & !is.na(`Quantitation Limit`), `Quantitation Limit`, Threshold),
-          Threshold = ifelse(grepl('<|=', Threshold), Threshold, paste('<=', Threshold)),
+          Threshold = ifelse(grepl('<|=', Threshold), Threshold, paste('<', Threshold)),
           `Hit/Miss` = dplyr::case_when(
             isnum ~ paste(Result, Threshold),
             Result == 'AQL' ~ 'FALSE',
