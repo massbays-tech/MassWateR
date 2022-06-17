@@ -1,51 +1,57 @@
 ---
 output: 
   word_document:
-    reference_docx: !expr system.file("extdata/template.docx", package = "MassWateR")
+    reference_docx: !expr system.file("rmd", "template.docx", package = "MassWateR")
+params: 
+  warn: warn
+  dqofontsize: dqofontsize
+  tabfontsize: tabfontsize
+  res: res
+  acc: acc
+  frecom: frecom
 ---
 
 ```{r setup, include=FALSE, message=FALSE, warning=FALSE}
-knitr::opts_chunk$set(echo = FALSE, ft.keepnext = F)
+knitr::opts_chunk$set(echo = FALSE, ft.keepnext = F, warning = TRUE)
 library(MassWateR)
 library(dplyr)
 library(flextable)
 library(lubridate)
 
-set_flextable_defaults(font.size = 9, padding = 0)
+# user parameters
+warn <- params$warn
+dqofontsize <- params$dqofontsize
+tabfontsize <- params$tabfontsize
+res <- params$res
+acc <- params$acc
+frecom <- params$frecom
 
-warn <- FALSE
-
-# results data
-respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
-
-# dqo accuracy data
-accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
-
-# dqo completeness data
-frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', package = 'MassWateR')
-
-resdat <- readMWRresults(respth, runchk = F)
-accdat <- readMWRacc(accpth, runchk = F)
-frecomdat <- readMWRfrecom(frecompth, runchk = F)
+set_flextable_defaults(font.size = tabfontsize, padding = 0)
 
 dt <- format(Sys.Date(), "%B %d, %Y") 
+
+# get input 
+inp <- utilMWRinput(res = res, acc = acc, frecom = frecom, runchk = FALSE)
+resdat <- inp$resdat
+accdat <- inp$accdat
+frecomdat <- inp$frecomdat
 
 resdatdt <- range(resdat$`Activity Start Date`)
 resdatdt <- paste(month(resdatdt), day(resdatdt), year(resdatdt), sep = '/') %>% 
   paste(collapse = ' to ')
-  
+
 # globals
 wd <- 6.5
 fontname <- 'Calibri (Body)'
 
 # dqo table theme
-thmdqo <- function(x, fontname){
+thmdqo <- function(x, fontname, dqofontsize){
   flextable::colformat_double(x, na_str = '-') %>% 
     flextable::colformat_char(na_str = '-') %>% 
     flextable::border_inner() %>% 
     flextable::align(align = 'center', part = 'all') %>% 
     flextable::align(align = 'left', j = 1, part = 'all') %>% 
-    flextable::fontsize(size = 7.5, part = 'all') %>% 
+    flextable::fontsize(size = dqofontsize, part = 'all') %>% 
     flextable::padding(padding = 0, part = 'all') %>% 
     flextable::font(fontname = fontname, part = 'all')
 }
@@ -81,7 +87,7 @@ QAPP version: ___________________________________________
 
 ```{r}
 flextable::flextable(frecomdat) %>% 
-  thmdqo(fontname = fontname) %>%
+  thmdqo(fontname = fontname, dqofontsize = dqofontsize) %>%
   flextable::width(width = wd / ncol(frecomdat)) %>% 
   flextable::add_header_row(value = c('', 'Frequency %', ''), colwidths = c(1, 5, 1))
 ```
@@ -90,7 +96,7 @@ flextable::flextable(frecomdat) %>%
 
 ```{r}
 flextable::flextable(accdat) %>% 
-  thmdqo(fontname = fontname) %>% 
+  thmdqo(fontname = fontname, dqofontsize = dqofontsize) %>% 
   flextable::width(width = 1, j = 1) %>% 
   flextable::width(width = (wd -1) / (ncol_keys(.) - 1), j = 2:ncol_keys(.)) 
 ```
