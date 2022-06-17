@@ -34,6 +34,22 @@ frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', package
 frecomdat <- readMWRfrecom(frecompth)
 ```
 
+## Creating the review report
+
+The `qcMWRreview()` function compiles a review report as a Word document for all quality control checks included in the MassWateR package.  The report shows several tables, including the data quality objectives files for accuracy, frequency, and completeness, summary results for all accuracy checks, summary results for all frequency checks, summary results for all completeness checks, and individual results for all accuracy checks.  The report uses individual table functions described in the sections below to return the results, which include `tabMWRacc()`, `tabMWRfre()`, and `tabMWRcom()`.
+ 
+The workflow for using this function is to import the required data (results and data quality objective files, as above) and to fix any errors noted on import prior to creating the review report.  Additional warnings that may be of interest as returned by the individual table functions can be included in the report by setting \code{warn = TRUE}. The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRacc}}, and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. 
+
+The report can be created as follows by including the required files and specifying an output directory where the Word document is saved.  Once the function is done running, a message indicating success and where the file is located is returned.  The report is created in the current working directory.  The Word file can be further edited by hand as needed.  
+
+```{r}
+qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat, output_dir = getwd())
+```
+
+```{r, echo = FALSE, results = 'hide'}
+file.remove(list.files(getwd(), 'qcreview'))
+```
+
 ## Quality control for accuracy
 
 The quality control checks for accuracy assess several characteristics of the data in the results file by referencing appropriate values in the data quality objectives file for accuracy.  In short, the accuracy checks evaluate field blanks, lab blanks, field duplicates, lab duplicates, lab spikes, and instrument checks. The accuracy checks require results data (as in `resdat` above) and a data quality objectives file for accuracy (as in `accdat`).

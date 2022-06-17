@@ -13,7 +13,7 @@
 #'
 #' @details 
 #' 
-#' The function compiles a review report as a word document for all quality control checks included in the MassWateR package.  The report shows several tables, including the data quality objectives files for accuracy, frequency, and completeness, summary results for all accuracy checks, summary results for all frequency checks, summary results for all completeness checks, and individual results for all accuracy checks.  The report uses the individual table functions (which can be used separately) to return the results, which include \code{\link{tabMWRacc}}, \code{\link{tabMWRfre}}, and \code{\link{tabMWRcom}}.  The help files for each of these functions can be consulted for a more detailed explanation of the quality control checks. 
+#' The function compiles a review report as a Word document for all quality control checks included in the MassWateR package.  The report shows several tables, including the data quality objectives files for accuracy, frequency, and completeness, summary results for all accuracy checks, summary results for all frequency checks, summary results for all completeness checks, and individual results for all accuracy checks.  The report uses the individual table functions (which can be used separately) to return the results, which include \code{\link{tabMWRacc}}, \code{\link{tabMWRfre}}, and \code{\link{tabMWRcom}}.  The help files for each of these functions can be consulted for a more detailed explanation of the quality control checks. 
 #' 
 #' The workflow for using this function is to import the required data (results and data quality objective files) and to fix any errors noted on import prior to creating the review report.  Additional warnings that may be of interest as returned by the individual table functions can be included in the report by setting \code{warn = TRUE}.  
 #' 
@@ -52,7 +52,7 @@ qcMWRreview <- function(res, acc, frecom, output_dir, dqofontsize = 7.5, tabfont
     quiet = TRUE
   )
   
-  msg <- paste("Report created successfully! View it at", output_dir)
+  msg <- paste("Report created successfully! View the file qcreview.docx at", output_dir)
   message(msg)
 
 }
