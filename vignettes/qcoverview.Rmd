@@ -42,7 +42,7 @@ The workflow for using this function is to import the required data (results and
 
 The report can be created as follows by including the required files and specifying an output directory where the Word document is saved.  Once the function is done running, a message indicating success and where the file is located is returned.  The report is created in the current working directory.  The Word file can be further edited by hand as needed.  
 
-```{r}
+```{r, message = T}
 qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat, output_dir = getwd())
 ```
 
