@@ -52,4 +52,7 @@ qcMWRreview <- function(res, acc, frecom, output_dir, dqofontsize = 7.5, tabfont
     quiet = TRUE
   )
   
+  msg <- paste("Report created successfully! View it at", output_dir)
+  message(msg)
+
 }
