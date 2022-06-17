@@ -38,7 +38,7 @@ qcMWRreview <- function(res, acc, frecom, output_dir, dqofontsize = 7.5, tabfont
 
   qcreview <- system.file('rmd', 'qcreview.Rmd', package = 'MassWateR')
   
-  rmarkdown::render(
+  suppressMessages(rmarkdown::render(
     input = qcreview,
     output_dir = output_dir, 
     params = list(
@@ -50,7 +50,7 @@ qcMWRreview <- function(res, acc, frecom, output_dir, dqofontsize = 7.5, tabfont
       frecom = frecom
     ), 
     quiet = TRUE
-  )
+  ))
   
   msg <- paste("Report created successfully! View the file qcreview.docx at", output_dir)
   message(msg)
