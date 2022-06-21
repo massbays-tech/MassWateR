@@ -486,7 +486,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
           ),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
           diffv = ifelse(Parameter == 'Sp Conductance',
-                         paste(round(diffv, 0), `Result Unit`),
+                         paste(round(diffv, 1), `Result Unit`),
                          paste(round(diffv, 3), `Result Unit`)
           )
         ) %>% 
@@ -504,7 +504,6 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
     }
    
   }
-  
 
   # compile all as list since columns differ
   out <- list(
