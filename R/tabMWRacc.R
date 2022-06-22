@@ -39,11 +39,11 @@
 #' frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', 
 #'      package = 'MassWateR')
 #' 
-#' # table as summary
+#' # table as individual
 #' tabMWRacc(res = respth, acc = accpth, type = 'individual', accchk = 'Field Blanks')
 #' 
 #' # table as summary
-#' tabMWRacc(res = respth, acc = accpth, type = 'summary')
+#' tabMWRacc(res = respth, acc = accpth, type = 'summary', frecom = frecompth)
 #' 
 #' # table as percent
 #' tabMWRacc(res = respth, acc = accpth, type = 'percent', frecom = frecompth)
@@ -60,11 +60,11 @@
 #' # frequency and completeness data, only needed if type = "percent"
 #' frecomdat <- readMWRfrecom(frecompth)
 #' 
-#' # table as summary
+#' # table as individual
 #' tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Blanks')
 #'
-#' # table as percent
-#' tabMWRacc(res = resdat, acc = accdat, type = 'summary')
+#' # table as summary
+#' tabMWRacc(res = resdat, acc = accdat, type = 'summary', frecom = frecomdat)
 #' 
 #' # table as percent
 #' tabMWRacc(res = resdat, acc = accdat, type = 'percent', frecom = frecomdat)
@@ -118,6 +118,13 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
   
   if(type %in% c('summary', 'percent')){
     
+    if(is.null(frecom))
+      stop('frecom needed for type = "summary" or type = "percent"')
+    
+    # get user inputs
+    inp <- utilMWRinput(frecom = frecom, runchk = runchk)
+    frecomdat <- inp$frecomdat
+    
     # format for the table
     sumtab <- res %>%
       tibble::enframe(name = 'Type') %>% 
@@ -137,10 +144,62 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
 
     if(type == 'summary'){
       
+      ##
+      # create parameter list for all
+      sumtabprms <- sumtab %>% 
+        dplyr::select(Type, Parameter) %>% 
+        dplyr::group_by(Type) %>% 
+        tidyr::nest() %>% 
+        tibble::deframe() %>% 
+        lapply(dplyr::pull)
+
+      # get master parameter list to fill all
+      fldblkprm <- sumtabprms$`Field Blanks` %>% 
+        union(., na.omit(frecomdat[, c('Parameter', 'Field Blank')])$Parameter) %>% 
+        sort
+      labblkprm <- sumtabprms$`Lab Blanks` %>% 
+        union(., na.omit(frecomdat[, c('Parameter', 'Lab Blank')])$Parameter) %>% 
+        sort
+      flddupprm <- sumtabprms$`Field Duplicates` %>% 
+        union(., na.omit(frecomdat[, c('Parameter', 'Field Duplicate')])$Parameter) %>% 
+        sort
+      labdupprm <- sumtabprms$`Lab Duplicates` %>% 
+        union(., na.omit(frecomdat[, c('Parameter', 'Lab Duplicate')])$Parameter) %>% 
+        sort
+      labspkprm <- sumtabprms$`Lab Spikes` %>% 
+        union(., na.omit(frecomdat[, c('Parameter', 'Spike/Check Accuracy')])$Parameter) %>% 
+        sort
+      inschkprm <- sumtabprms$`Instrument Checks` %>% 
+        union(., na.omit(frecomdat[, c('Parameter', 'Spike/Check Accuracy')])$Parameter) %>% 
+        sort
+
+      allprm <- list(
+          `Field Duplicates` = flddupprm,
+          `Lab Duplicates` = labdupprm,
+          `Field Blanks` = fldblkprm,
+          `Lab Blanks` = labblkprm, 
+          `Lab Spikes` = labspkprm,
+          `Instrument Checks` = inschkprm
+        ) %>% 
+        tibble::enframe('Type', 'Parameter') %>% 
+        tidyr::unnest('Parameter') %>% 
+        dplyr::mutate(
+          Type = factor(Type, levels = levels(sumtab$Type))
+        )
+      
+      ## 
+      # summary table, all parameters
       totab <- sumtab %>% 
         dplyr::mutate(
           `% Acceptance` = paste(round(`% Acceptance`, 0), suffix), 
         ) %>% 
+        left_join(allprm, ., by = c('Type', 'Parameter')) %>% 
+        dplyr::mutate(
+          `Number of QC Checks` = ifelse(is.na(`Number of QC Checks`), 0, `Number of QC Checks`),
+          `Number of QC Checks` = as.character(`Number of QC Checks`), 
+          `Number of Misses` = ifelse(is.na(`Number of Misses`), '-', as.character(`Number of Misses`)),
+          `% Acceptance` = ifelse(is.na(`% Acceptance`), '-', as.character(`% Acceptance`))
+          ) %>%
         flextable::as_grouped_data(groups = 'Type')
       
       # table
@@ -153,13 +212,6 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
 
     if(type == 'percent'){
 
-      if(is.null(frecom))
-        stop('frecom needed for type = "percent"')
-      
-      # get user inputs
-      inp <- utilMWRinput(frecom = frecom, runchk = runchk)
-      frecomdat <- inp$frecomdat
-      
       # warning if parameters in results not found in frecomdat
       resdatprm <- unique(sumtab$Parameter)
       frecomprm <- unique(frecomdat$Parameter)

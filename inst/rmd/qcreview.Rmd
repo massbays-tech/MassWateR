@@ -146,7 +146,7 @@ tabMWRfre(res = resdat, frecom = frecomdat, type = 'percent', warn = warn) %>%
 <br>
 
 ```{r}
-tabMWRacc(res = resdat, acc = accdat, type = 'summary', warn = warn) %>% 
+tabMWRacc(res = resdat, acc = accdat, type = 'summary', warn = warn, frecom = frecomdat) %>% 
   thmsum(wd = wd, fontname = fontname)
 ```
 

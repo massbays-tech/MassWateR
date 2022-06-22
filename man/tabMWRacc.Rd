@@ -77,11 +77,11 @@ accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx',
 frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', 
      package = 'MassWateR')
 
-# table as summary
+# table as individual
 tabMWRacc(res = respth, acc = accpth, type = 'individual', accchk = 'Field Blanks')
 
 # table as summary
-tabMWRacc(res = respth, acc = accpth, type = 'summary')
+tabMWRacc(res = respth, acc = accpth, type = 'summary', frecom = frecompth)
 
 # table as percent
 tabMWRacc(res = respth, acc = accpth, type = 'percent', frecom = frecompth)
@@ -98,11 +98,11 @@ accdat <- readMWRacc(accpth)
 # frequency and completeness data, only needed if type = "percent"
 frecomdat <- readMWRfrecom(frecompth)
 
-# table as summary
+# table as individual
 tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Blanks')
 
-# table as percent
-tabMWRacc(res = resdat, acc = accdat, type = 'summary')
+# table as summary
+tabMWRacc(res = resdat, acc = accdat, type = 'summary', frecom = frecomdat)
 
 # table as percent
 tabMWRacc(res = resdat, acc = accdat, type = 'percent', frecom = frecomdat)

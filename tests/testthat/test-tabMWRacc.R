@@ -14,7 +14,7 @@ test_that("Checking output format type as individual", {
 })
 
 test_that("Checking output format type as summary", {
-  result <- tabMWRacc(respth, accpth, runchk = F, warn = F, type = 'summary')
+  result <- tabMWRacc(respth, accpth, runchk = F, warn = F, type = 'summary', frecom = frecompth)
   expect_s3_class(result, 'flextable')
 })
 
