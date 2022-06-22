@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   datainput: datainput.html
   qcoverview: qcoverview.html
-last_built: 2022-06-21T12:27Z
+last_built: 2022-06-22T13:47Z
 urls:
   reference: https://massbays-tech.github.io/MassWateR/reference
   article: https://massbays-tech.github.io/MassWateR/articles
