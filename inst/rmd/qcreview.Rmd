@@ -97,7 +97,9 @@ frecomdat %>%
 <br>
 
 ```{r}
-flextable::flextable(accdat) %>% 
+accdat %>% 
+  dplyr::mutate_if(is.numeric, as.character) %>%   
+  flextable::flextable() %>% 
   thmdqo(fontname = fontname, dqofontsize = dqofontsize) %>% 
   flextable::width(width = 1, j = 1) %>% 
   flextable::width(width = (wd -1) / (ncol_keys(.) - 1), j = 2:ncol_keys(.)) 
