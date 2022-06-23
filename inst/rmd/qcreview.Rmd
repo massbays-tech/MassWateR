@@ -113,6 +113,8 @@ Notes:
 <br><br><br><br>
 <br><br><br><br>
 
+\newpage
+
 ### QC Frequencies for `r resdatdt`
 
 <br>
