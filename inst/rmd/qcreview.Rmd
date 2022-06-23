@@ -86,7 +86,9 @@ QAPP version: ___________________________________________
 <br>
 
 ```{r}
-flextable::flextable(frecomdat) %>% 
+frecomdat %>% 
+  dplyr::mutate_if(is.numeric, as.character) %>% 
+  flextable::flextable() %>% 
   thmdqo(fontname = fontname, dqofontsize = dqofontsize) %>%
   flextable::width(width = wd / ncol(frecomdat)) %>% 
   flextable::add_header_row(value = c('', 'Frequency %', ''), colwidths = c(1, 5, 1))
