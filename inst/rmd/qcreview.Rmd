@@ -73,11 +73,23 @@ thmsum <- function(x, wd, fontname){
 
 <br>
 
-Prepared by: ____________________________________________ 
+```{r, ft.align = 'left'}
+tab <- data.frame(
+  x = c('Prepared by:', 'QAPP version:'),
+  y = c(NA, NA)
+)
 
-<br>
-
-QAPP version: ___________________________________________
+flextable::flextable(tab) %>% 
+  flextable::align(align = 'left', j = c(1, 2), part = 'all') %>%
+  flextable::border_remove() %>%
+  flextable::width(j = 1, width = 1.2) %>% 
+  flextable::width(j = 2, width = 3) %>% 
+  flextable::hline(j = 2, part = 'body') %>%
+  flextable::padding(padding = 2, part = 'all') %>% 
+  flextable::delete_part(part = 'header') %>%
+  flextable::font(fontname = fontname, part = 'all') %>% 
+  flextable::fontsize(size = 11, part = 'all') 
+```
 
 <br>
 
