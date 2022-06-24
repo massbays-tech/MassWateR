@@ -83,22 +83,22 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
   }
   
   # get accuracy summary
-  res <- qcMWRacc(res = res, acc = acc, runchk = runchk, warn = warn, accchk = accchk, suffix = suffix)
+  accsum <- qcMWRacc(res = res, acc = acc, runchk = runchk, warn = warn, accchk = accchk, suffix = suffix)
   
   if(type == 'individual'){
 
     if(length(accchk) != 1)
       stop('accchk must have only one entry for type = "individual"')
 
-    totab <- res[[1]]
+    totab <- accsum[[1]]
     
     # stop if no data to use for table
     if(is.null(totab))
       stop(paste('No data to check for', accchk))
     
     # change caption for instrument checks
-    if(names(res) == 'Instrument Checks')
-      names(res) <- 'Instrument Checks (post sampling)'
+    if(names(accsum) == 'Instrument Checks')
+      names(accsum) <- 'Instrument Checks (post sampling)'
     
     totab <- totab %>% 
       dplyr::mutate(Date = as.character(Date)) %>% 
@@ -112,7 +112,7 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
     
     if(caption)
       tab <- tab %>% 
-        flextable::set_caption(names(res))
+        flextable::set_caption(names(accsum))
 
   }
   
@@ -121,12 +121,21 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
     if(is.null(frecom))
       stop('frecom needed for type = "summary" or type = "percent"')
     
-    # get user inputs
-    inp <- utilMWRinput(frecom = frecom, runchk = runchk)
-    frecomdat <- inp$frecomdat
+    # get frecomdat, checks should follow runchk since not done above
+    frecomdat <- utilMWRinput(frecom = frecom, runchk = runchk)$frecomdat
     
-    # format for the table
-    sumtab <- res %>%
+    # get resdat, checks should have been run or not run as for call with qcMWRacc
+    resdat <- utilMWRinput(res = res, runchk = FALSE)$resdat
+    
+    # results parameters with Field Msr/Obs, Sample-Routine
+    resdatprm <- resdat %>% 
+      dplyr::filter(`Activity Type` %in% c('Field Msr/Obs', 'Sample-Routine')) %>% 
+      dplyr::pull(`Characteristic Name`) %>% 
+      unique %>% 
+      sort
+    
+    # format for the tables
+    sumtab <- accsum %>%
       tibble::enframe(name = 'Type') %>% 
       tidyr::unnest('value') %>% 
       dplyr::group_by(Type, Parameter) %>% 
@@ -142,50 +151,68 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
       ) %>% 
       dplyr::arrange(Type)
 
+    ##
+    # create parameter list for all
+
+    # parameters in the summary tab
+    sumtabprm <- sumtab %>% 
+      dplyr::select(Type, Parameter) %>% 
+      dplyr::group_by(Type) %>% 
+      tidyr::nest() %>% 
+      tibble::deframe() %>% 
+      lapply(dplyr::pull)
+    
+    # get parameters relevant for lab spikes
+    labpar <- paramsMWR %>% 
+      dplyr::filter(Method == 'Lab') %>% 
+      dplyr::pull(`Simple Parameter`) %>% 
+      unique
+    
+    # get parameters relevant for instrument checks
+    inspar <- paramsMWR %>% 
+      dplyr::filter(Method == 'InSitu') %>% 
+      dplyr::pull(`Simple Parameter`) %>% 
+      unique
+    
+    # get master parameter list to fill all, specific to each check
+    fldblkprm <- sumtabprm$`Field Blanks` %>% 
+      union(., na.omit(frecomdat[, c('Parameter', 'Field Blank')])$Parameter) %>% 
+      sort
+    labblkprm <- sumtabprm$`Lab Blanks` %>% 
+      union(., na.omit(frecomdat[, c('Parameter', 'Lab Blank')])$Parameter) %>% 
+      sort
+    flddupprm <- sumtabprm$`Field Duplicates` %>% 
+      union(., na.omit(frecomdat[, c('Parameter', 'Field Duplicate')])$Parameter) %>% 
+      sort
+    labdupprm <- sumtabprm$`Lab Duplicates` %>% 
+      union(., na.omit(frecomdat[, c('Parameter', 'Lab Duplicate')])$Parameter) %>% 
+      sort
+    labspkprm <- sumtabprm$`Lab Spikes` %>% 
+      union(., na.omit(frecomdat[, c('Parameter', 'Spike/Check Accuracy')])$Parameter) %>% 
+      sort %>% 
+      .[. %in% labpar]
+    inschkprm <- sumtabprm$`Instrument Checks` %>% 
+      union(., na.omit(frecomdat[, c('Parameter', 'Spike/Check Accuracy')])$Parameter) %>% 
+      sort %>% 
+      .[. %in% inspar]
+
+    # all parameters by check, then filter by those in resdat
+    allprm <- list(
+        `Field Duplicates` = flddupprm,
+        `Lab Duplicates` = labdupprm,
+        `Field Blanks` = fldblkprm,
+        `Lab Blanks` = labblkprm, 
+        `Lab Spikes` = labspkprm,
+        `Instrument Checks` = inschkprm
+      ) %>% 
+      tibble::enframe('Type', 'Parameter') %>% 
+      tidyr::unnest('Parameter') %>% 
+      dplyr::mutate(
+        Type = factor(Type, levels = levels(sumtab$Type))
+      ) %>% 
+      dplyr::filter(Parameter %in% resdatprm)
+
     if(type == 'summary'){
-      
-      ##
-      # create parameter list for all
-      sumtabprms <- sumtab %>% 
-        dplyr::select(Type, Parameter) %>% 
-        dplyr::group_by(Type) %>% 
-        tidyr::nest() %>% 
-        tibble::deframe() %>% 
-        lapply(dplyr::pull)
-
-      # get master parameter list to fill all
-      fldblkprm <- sumtabprms$`Field Blanks` %>% 
-        union(., na.omit(frecomdat[, c('Parameter', 'Field Blank')])$Parameter) %>% 
-        sort
-      labblkprm <- sumtabprms$`Lab Blanks` %>% 
-        union(., na.omit(frecomdat[, c('Parameter', 'Lab Blank')])$Parameter) %>% 
-        sort
-      flddupprm <- sumtabprms$`Field Duplicates` %>% 
-        union(., na.omit(frecomdat[, c('Parameter', 'Field Duplicate')])$Parameter) %>% 
-        sort
-      labdupprm <- sumtabprms$`Lab Duplicates` %>% 
-        union(., na.omit(frecomdat[, c('Parameter', 'Lab Duplicate')])$Parameter) %>% 
-        sort
-      labspkprm <- sumtabprms$`Lab Spikes` %>% 
-        union(., na.omit(frecomdat[, c('Parameter', 'Spike/Check Accuracy')])$Parameter) %>% 
-        sort
-      inschkprm <- sumtabprms$`Instrument Checks` %>% 
-        union(., na.omit(frecomdat[, c('Parameter', 'Spike/Check Accuracy')])$Parameter) %>% 
-        sort
-
-      allprm <- list(
-          `Field Duplicates` = flddupprm,
-          `Lab Duplicates` = labdupprm,
-          `Field Blanks` = fldblkprm,
-          `Lab Blanks` = labblkprm, 
-          `Lab Spikes` = labspkprm,
-          `Instrument Checks` = inschkprm
-        ) %>% 
-        tibble::enframe('Type', 'Parameter') %>% 
-        tidyr::unnest('Parameter') %>% 
-        dplyr::mutate(
-          Type = factor(Type, levels = levels(sumtab$Type))
-        )
       
       ## 
       # summary table, all parameters
@@ -211,15 +238,6 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
     }
 
     if(type == 'percent'){
-
-      # warning if parameters in results not found in frecomdat
-      resdatprm <- unique(sumtab$Parameter)
-      frecomprm <- unique(frecomdat$Parameter)
-      chk <- resdatprm %in% frecomprm
-      if(any(!chk) & warn){
-        tochk <- resdatprm[!chk]
-        warning('Parameters in results not found in quality control objectives for frequency and completeness (no color): ', paste(tochk, collapse = ', '))
-      }
       
       # table theme
       thm <- function(x, ...){
@@ -230,7 +248,15 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
       # format frecomdat for comparison
       frecomdat <- frecomdat %>% 
         select(Parameter, `% Completeness`)
-        
+      
+      # allprm combine lab spikes and instrument checks
+      allprm <- allprm %>% 
+        dplyr::mutate(
+          Type = as.character(Type),
+          Type = ifelse(Type %in% c('Lab Spikes', 'Instrument Checks'), 'Spike/Check Accuracy', Type)
+        ) %>% 
+        unique
+      
       # get lab and ins checks only for total
       labinssum <- sumtab %>% 
         dplyr::filter(Type %in% c("Lab Spikes", "Instrument Checks")) %>% 
@@ -244,14 +270,29 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
           `% Acceptance` = 100 * (`Number of QC Checks` - `Number of Misses`) / `Number of QC Checks`, 
           Type = 'Spike/Check Accuracy'
         ) %>% 
-        dplyr::select(check = Type, Parameter, percent = `% Acceptance`)
-        
+        dplyr::select(Type, Parameter, percent = `% Acceptance`)
+   
       # combine all
       totab <- sumtab %>% 
-        dplyr::select(check = Type, Parameter, percent = `% Acceptance`) %>% 
-        dplyr::filter(!check %in% c("Lab Spikes", "Instrument Checks")) %>% 
+        dplyr::select(Type, Parameter, percent = `% Acceptance`) %>% 
+        dplyr::filter(!Type %in% c("Lab Spikes", "Instrument Checks")) %>% 
         dplyr::bind_rows(labinssum) %>% 
-        left_join(frecomdat, by = 'Parameter') %>% 
+        dplyr::left_join(allprm, ., by = c('Type', 'Parameter')) %>% 
+        dplyr::left_join(frecomdat, by = 'Parameter') %>% 
+        dplyr::rename(check = Type) 
+      
+      # warning for entries in table w/o checks
+      nocol <- totab %>% 
+        filter(is.na(`% Completeness`)) %>% 
+        pull(Parameter) %>% 
+        unique %>% 
+        sort
+      chk <- length(nocol) == 0
+      if(!chk & warn){
+        warning('Parameters in table not found in quality control objectives for frequency and completeness (no color): ', paste(nocol, collapse = ', '))
+      }
+      
+      totab <- totab %>% 
         dplyr::mutate(
           check = factor(
             check, 
