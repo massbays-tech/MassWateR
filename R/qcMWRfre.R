@@ -43,7 +43,7 @@ qcMWRfre <- function(res, frecom, runchk = TRUE, warn = TRUE){
   
   ##
   # get user inputs
-  inp <- utilMWRinput(res = res, frecom = frecom, runchk = runchk)
+  inp <- utilMWRinput(res = res, frecom = frecom, runchk = runchk, warn = warn)
   resdat <- inp$resdat
   frecomdat <- inp$frecomdat
   

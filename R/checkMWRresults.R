@@ -1,6 +1,7 @@
 #' Check water quality monitoring results
 #'
 #' @param resdat input data frame for results
+#' @param warn logical to return warnings to the console (default)
 #'
 #' @details This function is used internally within \code{\link{readMWRresults}} to run several checks on the input data for completeness and conformance to WQX requirements.
 #' 
@@ -35,7 +36,7 @@
 #'              'text', 'text', 'text', 'text'))
 #'              
 #' checkMWRresults(resdat)
-checkMWRresults <- function(resdat){
+checkMWRresults <- function(resdat, warn = TRUE){
   
   message('Running checks on results data...\n')
   wrn <- 0
@@ -139,7 +140,8 @@ checkMWRresults <- function(resdat){
   chk <- typm | typft
   if(any(!chk, na.rm = TRUE)){
     rws <- which(!chk)
-    warning(msg, '\n\tValues in Activity Depth/Height Measure > 1 m / 3.3 ft found on row(s): ', paste(rws, collapse = ', '), call. = FALSE)
+    if(warn)
+      warning(msg, '\n\tValues in Activity Depth/Height Measure > 1 m / 3.3 ft found on row(s): ', paste(rws, collapse = ', '), call. = FALSE)
     wrn <- wrn + 1
     message(paste(msg, 'WARNING'))
   } else {
@@ -153,7 +155,8 @@ checkMWRresults <- function(resdat){
   if(any(!chk)){
     rws <- which(!dps %in% dpstyp)
     tochk <- unique(dps[!chk])
-    warning(msg, '\n\tIncorrect Activity Relative Depth Name format found: ', paste(tochk, collapse = ', '), ' on row(s) ', paste(rws, collapse = ', '), call. = FALSE)
+    if(warn)
+      warning(msg, '\n\tIncorrect Activity Relative Depth Name format found: ', paste(tochk, collapse = ', '), ' on row(s) ', paste(rws, collapse = ', '), call. = FALSE)
     wrn <- wrn + 1
     message(paste(msg, 'WARNING'))
   } else {
@@ -166,7 +169,8 @@ checkMWRresults <- function(resdat){
   chk <- typ %in% chntyp
   if(any(!chk)){
     tochk <- unique(typ[!chk])
-    warning(msg, '\n\tCharacteristic Name not used for quality control: ', paste(tochk, collapse = ', '), call. = FALSE)
+    if(warn)
+      warning(msg, '\n\tCharacteristic Name not used for quality control: ', paste(tochk, collapse = ', '), call. = FALSE)
     wrn <- wrn + 1
     message(paste(msg, 'WARNING'))
   } else {

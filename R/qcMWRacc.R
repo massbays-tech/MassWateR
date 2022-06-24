@@ -46,7 +46,7 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
   
   ##
   # get user inputs
-  inp <- utilMWRinput(res = res, acc = acc, runchk = runchk)
+  inp <- utilMWRinput(res = res, acc = acc, runchk = runchk, warn = warn)
   resdat <- inp$resdat
   accdat <- inp$accdat
   

@@ -4,12 +4,14 @@
 \alias{readMWRresults}
 \title{Read water quality monitoring results from an external file}
 \usage{
-readMWRresults(respth, runchk = TRUE, tzone = "America/Jamaica")
+readMWRresults(respth, runchk = TRUE, warn = TRUE, tzone = "America/Jamaica")
 }
 \arguments{
 \item{respth}{character string of path to the results file}
 
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}}}
+
+\item{warn}{logical to return warnings to the console (default)}
 
 \item{tzone}{character string for time zone, passed to \code{\link{formMWRresults}}}
 }

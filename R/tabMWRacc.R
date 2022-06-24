@@ -122,10 +122,10 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
       stop('frecom needed for type = "summary" or type = "percent"')
     
     # get frecomdat, checks should follow runchk since not done above
-    frecomdat <- utilMWRinput(frecom = frecom, runchk = runchk)$frecomdat
+    frecomdat <- utilMWRinput(frecom = frecom, runchk = runchk, warn = warn)$frecomdat
     
     # get resdat, checks should have been run or not run as for call with qcMWRacc
-    resdat <- utilMWRinput(res = res, runchk = FALSE)$resdat
+    resdat <- utilMWRinput(res = res, runchk = FALSE, warn = FALSE)$resdat
     
     # results parameters with Field Msr/Obs, Sample-Routine
     resdatprm <- resdat %>% 

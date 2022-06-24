@@ -4,6 +4,7 @@
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
 #' @param frecom character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths
+#' @param warn logical to return warnings to the console (default)
 #'
 #' @details The function is used internally by others to import data from paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRacc}}, and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.
 #' 
@@ -48,7 +49,7 @@
 #' inp$resdat
 #' inp$accdat
 #' inp$frecomdat
-utilMWRinput <- function(res = NULL, acc = NULL, frecom = NULL, runchk = TRUE){
+utilMWRinput <- function(res = NULL, acc = NULL, frecom = NULL, runchk = TRUE, warn = TRUE){
   
   ##
   # results input
@@ -65,7 +66,7 @@ utilMWRinput <- function(res = NULL, acc = NULL, frecom = NULL, runchk = TRUE){
     if(!chk)
       stop('File specified with res argument not found')
     
-    resdat <- readMWRresults(respth, runchk = runchk)
+    resdat <- readMWRresults(respth, runchk = runchk, warn = warn)
     
   }
   

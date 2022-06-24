@@ -4,7 +4,7 @@
 \alias{utilMWRinput}
 \title{Utility function to import data as paths or data frames}
 \usage{
-utilMWRinput(res = NULL, acc = NULL, frecom = NULL, runchk = TRUE)
+utilMWRinput(res = NULL, acc = NULL, frecom = NULL, runchk = TRUE, warn = TRUE)
 }
 \arguments{
 \item{res}{character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}}
@@ -14,6 +14,8 @@ utilMWRinput(res = NULL, acc = NULL, frecom = NULL, runchk = TRUE)
 \item{frecom}{character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}}
 
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths}
+
+\item{warn}{logical to return warnings to the console (default)}
 }
 \value{
 A three element list with the imported results and data quality objective files, named \code{"resdat"}, \code{"accdat"}, and \code{"frecomdat"}, respectively.

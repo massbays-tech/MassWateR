@@ -4,10 +4,12 @@
 \alias{checkMWRresults}
 \title{Check water quality monitoring results}
 \usage{
-checkMWRresults(resdat)
+checkMWRresults(resdat, warn = TRUE)
 }
 \arguments{
 \item{resdat}{input data frame for results}
+
+\item{warn}{logical to return warnings to the console (default)}
 }
 \value{
 \code{resdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. Checks with warnings can be fixed at the discretion of the user before proceeding.
