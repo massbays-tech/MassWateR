@@ -4,6 +4,7 @@
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
 #' @param frecom character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}
 #' @param output_dir character string of the output directory for the rendered file
+#' @param output_file optional character string for the file name
 #' @param dqofontsize numeric for font size in the data quality objective tables in the first page of the review
 #' @param tabfontsize numeric for font size in the review tables
 #' @param warn logical indicating if warnings from the table functions are included in the file output
@@ -34,13 +35,14 @@
 #' 
 #' # remove file when done
 #' file.remove(list.files(getwd(), 'qcreview'))
-qcMWRreview <- function(res, acc, frecom, output_dir, dqofontsize = 7.5, tabfontsize = 9, warn = FALSE) {
+qcMWRreview <- function(res, acc, frecom, output_dir, output_file = NULL, dqofontsize = 7.5, tabfontsize = 9, warn = FALSE) {
 
   qcreview <- system.file('rmd', 'qcreview.Rmd', package = 'MassWateR')
   
   suppressMessages(rmarkdown::render(
     input = qcreview,
     output_dir = output_dir, 
+    output_file = output_file, 
     params = list(
       warn = warn,
       dqofontsize = dqofontsize, 
