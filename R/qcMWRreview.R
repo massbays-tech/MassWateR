@@ -52,19 +52,96 @@ qcMWRreview <- function(res, acc, frecom, output_dir, output_file = NULL, rawdat
 
   qcreview <- system.file('rmd', 'qcreview.Rmd', package = 'MassWateR')
   
+  # get input 
+  inp <- utilMWRinput(res = res, acc = acc, frecom = frecom, runchk = runchk, warn = warn)
+  resdat <- inp$resdat
+  accdat <- inp$accdat
+  frecomdat <- inp$frecomdat
+  
+  resdatdt <- range(resdat$`Activity Start Date`)
+  resdatdt <- paste(month(resdatdt), day(resdatdt), year(resdatdt), sep = '/') %>% 
+    paste(collapse = ' to ')
+  
+  # dqo summary table theme
+  thmsum <- function(x, wd, fontname){
+    flextable::width(x, width = wd / ncol_keys(x)) %>% 
+      flextable::font(fontname = fontname, part = 'all')
+  }
+  
+  # globals
+  wd <- 6.5
+  fontname <- 'Calibri (Body)'
+  
+  # frequency summary table
+  tabfresum <- tabMWRfre(res = resdat, frecom = frecomdat, type = 'summary', warn = warn) %>% 
+    thmsum(wd = wd, fontname = fontname)
+  
+  # frequency table percent
+  tabfreper <- tabMWRfre(res = resdat, frecom = frecomdat, type = 'percent', warn = warn) %>% 
+    thmsum(wd = wd, fontname = fontname)
+  
+  # accuracy table summary
+  tabaccsum <- tabMWRacc(res = resdat, acc = accdat, type = 'summary', warn = warn, frecom = frecomdat) %>% 
+    thmsum(wd = wd, fontname = fontname)
+  
+  # accuracy table percent
+  tabaccper <- tabMWRacc(res = resdat, acc = accdat, type = 'percent', warn = warn, frecom = frecomdat) %>% 
+    thmsum(wd = wd, fontname = fontname)
+    
+  # completeness table
+  tabcom <- tabMWRcom(res = resdat, frecom = frecomdat, warn = warn, noteswd = 2) %>% 
+    flextable::width(width = (wd - 2) / (ncol_keys(.) - 1), j = 1:(ncol_keys(.) -1)) %>%
+    flextable::font(fontname = fontname, part = 'all')
+  
+  # individual accuracy checks for raw data
+  indfldblk <- NULL
+  indlabblk <- NULL
+  indflddup <- NULL
+  indlabdup <- NULL
+  indlabspk <- NULL
+  indinschk <- NULL
+  if(rawdata){
+    indfldblk <- tabMWRacc(res = res, acc = acc, type = 'individual', accchk = 'Field Blanks', warn = warn, caption = FALSE) %>% 
+      thmsum(wd = wd, fontname = fontname)
+    indlabblk <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Blanks', warn = warn, caption = FALSE) %>% 
+      thmsum(wd = wd, fontname = fontname)
+    indflddup <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Duplicates', warn = warn, caption = FALSE) %>% 
+      thmsum(wd = wd, fontname = fontname)
+    indlabdup <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Duplicates', warn = warn, caption = FALSE) %>%
+      thmsum(wd = wd, fontname = fontname)
+    indlabspk <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Spikes', warn = warn, caption = FALSE) %>% 
+      thmsum(wd = wd, fontname = fontname)
+    indinschk <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Instrument Checks', warn = warn, caption = FALSE) %>% 
+      thmsum(wd = wd, fontname = fontname)
+  }
+  
   suppressMessages(rmarkdown::render(
     input = qcreview,
     output_dir = output_dir, 
     output_file = output_file, 
     params = list(
-      res = res, 
-      acc = acc, 
-      frecom = frecom,
+      resdatdt = resdatdt,
+      accdat = accdat, 
+      frecomdat = frecomdat,
+      wd = wd, 
+      fontname = fontname,
+      output_dir = output_dir,
       rawdata = rawdata,
       dqofontsize = dqofontsize, 
       tabfontsize = tabfontsize,
       warn = warn,
-      runchk = runchk
+      runchk = runchk,
+      tabfresum = tabfresum,
+      tabfreper = tabfreper,
+      tabaccsum = tabaccsum, 
+      tabaccper = tabaccper,
+      tabcom = tabcom,
+      indfldblk = indfldblk,
+      indlabblk = indlabblk,
+      indflddup = indflddup,
+      indlabdup = indlabdup,
+      indlabspk = indlabspk,
+      indinschk = indinschk
     ), 
     quiet = TRUE
   ))

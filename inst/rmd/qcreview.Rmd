@@ -3,14 +3,28 @@ output:
   word_document:
     reference_docx: !expr system.file("rmd", "template.docx", package = "MassWateR")
 params: 
-  res: res
-  acc: acc 
-  frecom: frecom
+  resdatdt: resdatdt
+  accdat: accdat 
+  frecomdat: frecomdat
+  wd: wd
+  fontname: fontname
+  output_dir: output_dir
   rawdata: rawdata
   dqofontsize: dqofontsize 
   tabfontsize: tabfontsize
   warn: warn
   runchk: runchk
+  tabfresum: tabfresum
+  tabfreper: tabfreper
+  tabaccsum: tabaccsum
+  tabaccper: tabaccper
+  tabcom: tabcom
+  indfldblk: indfldblk
+  indlabblk : indlabblk
+  indflddup: indflddup
+  indlabdup: indlabdup
+  indlabspk: indlabspk
+  indinschk: indinschk
 ---
 
 ```{r setup, echo = F}
@@ -22,29 +36,31 @@ suppressWarnings(suppressMessages(library(lubridate, warn.conflicts = FALSE, qui
 
 # user parameters
 warn <- params$warn
+resdatdt <- params$resdatdt
 dqofontsize <- params$dqofontsize
 tabfontsize <- params$tabfontsize
-res <- params$res
-acc <- params$acc
-frecom <- params$frecom
-
-set_flextable_defaults(font.size = tabfontsize, padding = 0)
+resdat <- params$resdat
+accdat <- params$accdat
+frecomdat <- params$frecomdat
+wd <- params$wd
+fontname <- params$fontname
+output_dir <- params$output_dir
+tabfresum <- params$tabfresum
+tabfreper <- params$tabfreper
+tabaccsum <- params$tabaccsum
+tabaccper <- params$tabaccper
+tabcom <- params$tabcom
+indfldblk <- params$indfldblk
+indfldblk <- params$indfldblk
+indlabblk <- params$indlabblk
+indflddup <- params$indflddup
+indlabdup <- params$indlabdup
+indlabspk <- params$indlabspk
+indinschk <- params$indinschk
 
 dt <- format(Sys.Date(), "%B %d, %Y") 
 
-# get input 
-inp <- utilMWRinput(res = res, acc = acc, frecom = frecom, runchk = runchk, warn = warn)
-resdat <- inp$resdat
-accdat <- inp$accdat
-frecomdat <- inp$frecomdat
-
-resdatdt <- range(resdat$`Activity Start Date`)
-resdatdt <- paste(month(resdatdt), day(resdatdt), year(resdatdt), sep = '/') %>% 
-  paste(collapse = ' to ')
-
-# globals
-wd <- 6.5
-fontname <- 'Calibri (Body)'
+set_flextable_defaults(font.size = tabfontsize, padding = 0)
 
 # dqo table theme
 thmdqo <- function(x, fontname, dqofontsize){
@@ -55,12 +71,6 @@ thmdqo <- function(x, fontname, dqofontsize){
     flextable::align(align = 'left', j = 1, part = 'all') %>% 
     flextable::fontsize(size = dqofontsize, part = 'all') %>% 
     flextable::padding(padding = 0, part = 'all') %>% 
-    flextable::font(fontname = fontname, part = 'all')
-}
-
-# dqo summary table theme
-thmsum <- function(x, wd, fontname){
-  flextable::width(x, width = wd / ncol_keys(x)) %>% 
     flextable::font(fontname = fontname, part = 'all')
 }
 
@@ -147,8 +157,7 @@ notes(wd, fontname)
 <br>
 
 ```{r}
-tabMWRfre(res = resdat, frecom = frecomdat, type = 'summary', warn = warn) %>% 
-  thmsum(wd = wd, fontname = fontname)
+tabfresum
 ```
 
 <br>
@@ -160,8 +169,7 @@ notes(wd, fontname)
 <br>
 
 ```{r}
-tabMWRfre(res = resdat, frecom = frecomdat, type = 'percent', warn = warn) %>% 
-  thmsum(wd = wd, fontname = fontname)
+tabfreper
 ```
 
 \newpage
@@ -171,8 +179,7 @@ tabMWRfre(res = resdat, frecom = frecomdat, type = 'percent', warn = warn) %>%
 <br>
 
 ```{r}
-tabMWRacc(res = resdat, acc = accdat, type = 'summary', warn = warn, frecom = frecomdat) %>% 
-  thmsum(wd = wd, fontname = fontname)
+tabaccsum
 ```
 
 <br>
@@ -184,8 +191,7 @@ notes(wd, fontname)
 <br>
 
 ```{r}
-tabMWRacc(res = resdat, acc = accdat, type = 'percent', warn = warn, frecom = frecomdat) %>% 
-  thmsum(wd = wd, fontname = fontname)
+tabaccper
 ```
 
 \newpage
@@ -195,9 +201,7 @@ tabMWRacc(res = resdat, acc = accdat, type = 'percent', warn = warn, frecom = fr
 <br>
 
 ```{r, warning = T}
-tabMWRcom(res = resdat, frecom = frecomdat, warn = warn, noteswd = 2) %>% 
-  flextable::width(width = (wd - 2) / (ncol_keys(.) - 1), j = 1:(ncol_keys(.) -1)) %>%
-  flextable::font(fontname = fontname, part = 'all')
+tabcom
 ```
 
 <br>
@@ -213,8 +217,7 @@ notes(wd, fontname)
 `r if(rawdata){"#### Field Blanks\n"}`
 
 ```{r, eval = rawdata}
-tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Blanks', warn = warn, caption = FALSE) %>% 
-  thmsum(wd = wd, fontname = fontname)
+indfldblk
 ```
 
 `r if(rawdata){"<br>"}`
@@ -228,8 +231,7 @@ notes(wd, fontname)
 `r if(rawdata){"#### Lab Blanks\n"}`
 
 ```{r, eval = rawdata}
-tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Blanks', warn = warn, caption = FALSE) %>% 
-  thmsum(wd = wd, fontname = fontname)
+indlabblk
 ```
 
 `r if(rawdata){"<br>"}`
@@ -243,8 +245,7 @@ notes(wd, fontname)
 `r if (rawdata){"#### Field Duplicates\n"}`
 
 ```{r, eval = rawdata}
-tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Duplicates', warn = warn, caption = FALSE) %>% 
-  thmsum(wd = wd, fontname = fontname)
+indflddup
 ```
 
 `r if(rawdata){"<br>"}`
@@ -258,8 +259,7 @@ notes(wd, fontname)
 `r if(rawdata){"#### Lab Duplicates\n"}`
 
 ```{r, eval = rawdata}
-tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Duplicates', warn = warn, caption = FALSE) %>% 
-  thmsum(wd = wd, fontname = fontname)
+indlabdup
 ```
 
 `r if(rawdata){"<br>"}`
@@ -273,8 +273,7 @@ notes(wd, fontname)
 `r if(rawdata){"#### Lab Spikes\n"}`
 
 ```{r, eval = rawdata}
-tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Spikes', warn = warn, caption = FALSE) %>% 
-  thmsum(wd = wd, fontname = fontname)
+indlabspk
 ```
 
 `r if(rawdata){"<br>"}`
@@ -288,8 +287,7 @@ notes(wd, fontname)
 `r if(rawdata){"#### Instrument Checks (post sampling)"}`
 
 ```{r, eval = rawdata}
-tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Instrument Checks', warn = warn, caption = FALSE) %>% 
-  thmsum(wd = wd, fontname = fontname)
+indinschk
 ```
 
 `r if(rawdata){"<br>"}`
@@ -299,3 +297,4 @@ notes(wd, fontname)
 ```
 
 `r if(rawdata){"<br>"}`
+
