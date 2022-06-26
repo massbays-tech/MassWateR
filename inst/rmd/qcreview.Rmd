@@ -4,6 +4,7 @@ output:
     reference_docx: !expr system.file("rmd", "template.docx", package = "MassWateR")
 params: 
   warn: warn
+  rawdata: rawdata
   dqofontsize: dqofontsize
   tabfontsize: tabfontsize
   res: res
@@ -204,98 +205,96 @@ tabMWRcom(res = resdat, frecom = frecomdat, warn = warn, noteswd = 2) %>%
 notes(wd, fontname)
 ```
 
-\newpage
+`r if(rawdata){"\\newpage"}`
 
-### QC Raw Data for `r resdatdt`
+`r if(rawdata){paste0("### QC Raw Data for ", resdatdt, "\n<br>")}`
 
-<br>
+`r if(rawdata){"#### Field Blanks\n"}`
 
-#### Field Blanks
-
-```{r}
+```{r, eval = rawdata}
 tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Blanks', warn = warn, caption = FALSE) %>% 
   thmsum(wd = wd, fontname = fontname)
 ```
 
-<br>
+`r if(rawdata){"<br>"}`
 
-```{r}
+```{r, eval = rawdata}
 notes(wd, fontname)
 ```
 
-<br>
+`r if(rawdata){"<br>"}`
 
-#### Lab Blanks
+`r if(rawdata){"#### Lab Blanks\n"}`
 
-```{r}
+```{r, eval = rawdata}
 tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Blanks', warn = warn, caption = FALSE) %>% 
   thmsum(wd = wd, fontname = fontname)
 ```
 
-<br>
+`r if(rawdata){"<br>"}`
 
-```{r}
+```{r, eval = rawdata}
 notes(wd, fontname)
 ```
 
-<br>
+`r if(rawdata){"<br>"}`
 
-#### Field Duplicates
+`r if (rawdata){"#### Field Duplicates\n"}`
 
-```{r}
+```{r, eval = rawdata}
 tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Duplicates', warn = warn, caption = FALSE) %>% 
   thmsum(wd = wd, fontname = fontname)
 ```
 
-<br>
+`r if(rawdata){"<br>"}`
 
-```{r}
+```{r, eval = rawdata}
 notes(wd, fontname)
 ```
 
-<br>
+`r if(rawdata){"<br>"}`
 
-#### Lab Duplicates
+`r if(rawdata){"#### Lab Duplicates\n"}`
 
-```{r}
+```{r, eval = rawdata}
 tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Duplicates', warn = warn, caption = FALSE) %>% 
   thmsum(wd = wd, fontname = fontname)
 ```
 
-<br>
+`r if(rawdata){"<br>"}`
 
-```{r}
+```{r, eval = rawdata}
 notes(wd, fontname)
 ```
 
-<br>
+`r if(rawdata){"<br>"}`
 
-#### Lab Spikes 
+`r if(rawdata){"#### Lab Spikes\n"}`
 
-```{r}
+```{r, eval = rawdata}
 tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Spikes', warn = warn, caption = FALSE) %>% 
   thmsum(wd = wd, fontname = fontname)
 ```
 
-<br>
+`r if(rawdata){"<br>"}`
 
-```{r}
+```{r, eval = rawdata}
 notes(wd, fontname)
 ```
 
-<br>
+`r if(rawdata){"<br>"}`
 
-#### Instrument Checks (post sampling)
+`r if(rawdata){"#### Instrument Checks (post sampling)"}`
 
-```{r}
+```{r, eval = rawdata}
 tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Instrument Checks', warn = warn, caption = FALSE) %>% 
   thmsum(wd = wd, fontname = fontname)
 ```
 
-<br>
+`r if(rawdata){"<br>"}`
 
-```{r}
+```{r, eval = rawdata}
 notes(wd, fontname)
 ```
 
-<br>
+`r if(rawdata){"<br>"}`

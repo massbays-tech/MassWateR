@@ -50,6 +50,7 @@ qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat, output_dir = getwd()
 file.remove(list.files(getwd(), 'qcreview'))
 ```
 
+Optional arguments for `qcMWRreview()` that can be changed as needed include specifying the file name with `output_file`, suppressing the raw data summaries at the end of the report with `rawdata = FALSE`, and changing the table font sizes (`dqofontsize` for the data quality objectives on the first page, `tabfontsize` for the remainder).
 ## Quality control for accuracy
 
 The quality control checks for accuracy assess several characteristics of the data in the results file by referencing appropriate values in the data quality objectives file for accuracy.  In short, the accuracy checks evaluate field blanks, lab blanks, field duplicates, lab duplicates, lab spikes, and instrument checks. The accuracy checks require results data (as in `resdat` above) and a data quality objectives file for accuracy (as in `accdat`).
