@@ -61,6 +61,25 @@ thmsum <- function(x, wd, fontname){
   flextable::width(x, width = wd / ncol_keys(x)) %>% 
     flextable::font(fontname = fontname, part = 'all')
 }
+
+# notes table
+notes <- function(wd, fontname){
+  
+  tab <- data.frame(
+    x = c('Notes:', NA, NA)
+  )
+
+  flextable::flextable(tab) %>% 
+    flextable::align(align = 'left', part = 'all') %>%
+    flextable::border_remove() %>%
+    flextable::width(width = wd) %>% 
+    flextable::hline(i = 2:3, part = 'body') %>%
+    flextable::padding(padding = 1.5, part = 'all') %>% 
+    flextable::delete_part(part = 'header') %>%
+    flextable::font(fontname = fontname, part = 'all') %>% 
+    flextable::fontsize(size = 11, part = 'all') 
+  
+}
 ```
 
 # QC Review
@@ -69,14 +88,10 @@ thmsum <- function(x, wd, fontname){
 
 <br>
 
-`r dt`
-
-<br>
-
 ```{r, ft.align = 'left'}
 tab <- data.frame(
-  x = c('Prepared by:', 'QAPP version:'),
-  y = c(NA, NA)
+  x = c(dt, 'Prepared by:', 'QAPP version:'),
+  y = c(NA, NA, NA)
 )
 
 flextable::flextable(tab) %>% 
@@ -84,8 +99,8 @@ flextable::flextable(tab) %>%
   flextable::border_remove() %>%
   flextable::width(j = 1, width = 1.2) %>% 
   flextable::width(j = 2, width = 3) %>% 
-  flextable::hline(j = 2, part = 'body') %>%
-  flextable::padding(padding = 2, part = 'all') %>% 
+  flextable::hline(i = 2:3, j = 2, part = 'body') %>%
+  flextable::padding(padding = 1.5, part = 'all') %>% 
   flextable::delete_part(part = 'header') %>%
   flextable::font(fontname = fontname, part = 'all') %>% 
   flextable::fontsize(size = 11, part = 'all') 
@@ -117,17 +132,11 @@ accdat %>%
   flextable::width(width = (wd -1) / (ncol_keys(.) - 1), j = 2:ncol_keys(.)) 
 ```
 
-<br><br><br><br>
-
-Notes:
 <br>
-<br>_____________________________________________________________________________________
-<br>
-<br>_____________________________________________________________________________________
 
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
+```{r}
+notes(wd, fontname)
+```
 
 \newpage
 
@@ -140,17 +149,13 @@ tabMWRfre(res = resdat, frecom = frecomdat, type = 'summary', warn = warn) %>%
   thmsum(wd = wd, fontname = fontname)
 ```
 
-<br><br><br><br>
-
-Notes:
 <br>
-<br>_____________________________________________________________________________________
-<br>
-<br>_____________________________________________________________________________________
 
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
+```{r}
+notes(wd, fontname)
+```
+
+<br>
 
 ```{r}
 tabMWRfre(res = resdat, frecom = frecomdat, type = 'percent', warn = warn) %>% 
@@ -168,17 +173,13 @@ tabMWRacc(res = resdat, acc = accdat, type = 'summary', warn = warn, frecom = fr
   thmsum(wd = wd, fontname = fontname)
 ```
 
-<br><br><br><br>
-
-Notes:
 <br>
-<br>_____________________________________________________________________________________
-<br>
-<br>_____________________________________________________________________________________
 
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
+```{r}
+notes(wd, fontname)
+```
+
+<br>
 
 ```{r}
 tabMWRacc(res = resdat, acc = accdat, type = 'percent', warn = warn, frecom = frecomdat) %>% 
@@ -197,17 +198,11 @@ tabMWRcom(res = resdat, frecom = frecomdat, warn = warn, noteswd = 2) %>%
   flextable::font(fontname = fontname, part = 'all')
 ```
 
-<br><br><br><br>
-
-Notes:
 <br>
-<br>_____________________________________________________________________________________
-<br>
-<br>_____________________________________________________________________________________
 
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
+```{r}
+notes(wd, fontname)
+```
 
 \newpage
 
@@ -222,17 +217,13 @@ tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Blank
   thmsum(wd = wd, fontname = fontname)
 ```
 
-<br><br><br><br>
-
-Notes:
 <br>
-<br>_____________________________________________________________________________________
-<br>
-<br>_____________________________________________________________________________________
 
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
+```{r}
+notes(wd, fontname)
+```
+
+<br>
 
 #### Lab Blanks
 
@@ -241,17 +232,13 @@ tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Blanks'
   thmsum(wd = wd, fontname = fontname)
 ```
 
-<br><br><br><br>
-
-Notes:
 <br>
-<br>_____________________________________________________________________________________
-<br>
-<br>_____________________________________________________________________________________
 
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
+```{r}
+notes(wd, fontname)
+```
+
+<br>
 
 #### Field Duplicates
 
@@ -260,17 +247,13 @@ tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Dupli
   thmsum(wd = wd, fontname = fontname)
 ```
 
-<br><br><br><br>
-
-Notes:
 <br>
-<br>_____________________________________________________________________________________
-<br>
-<br>_____________________________________________________________________________________
 
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
+```{r}
+notes(wd, fontname)
+```
+
+<br>
 
 #### Lab Duplicates
 
@@ -279,17 +262,13 @@ tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Duplica
   thmsum(wd = wd, fontname = fontname)
 ```
 
-<br><br><br><br>
-
-Notes:
 <br>
-<br>_____________________________________________________________________________________
-<br>
-<br>_____________________________________________________________________________________
 
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
+```{r}
+notes(wd, fontname)
+```
+
+<br>
 
 #### Lab Spikes 
 
@@ -298,17 +277,13 @@ tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Spikes'
   thmsum(wd = wd, fontname = fontname)
 ```
 
-<br><br><br><br>
-
-Notes:
 <br>
-<br>_____________________________________________________________________________________
-<br>
-<br>_____________________________________________________________________________________
 
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
+```{r}
+notes(wd, fontname)
+```
+
+<br>
 
 #### Instrument Checks (post sampling)
 
@@ -317,14 +292,10 @@ tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Instrument 
   thmsum(wd = wd, fontname = fontname)
 ```
 
-<br><br><br><br>
-
-Notes:
 <br>
-<br>_____________________________________________________________________________________
-<br>
-<br>_____________________________________________________________________________________
 
-<br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
+```{r}
+notes(wd, fontname)
+```
+
+<br>
