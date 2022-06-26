@@ -13,7 +13,8 @@ qcMWRreview(
   rawdata = TRUE,
   dqofontsize = 7.5,
   tabfontsize = 9,
-  warn = FALSE
+  warn = TRUE,
+  runchk = TRUE
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ qcMWRreview(
 \item{tabfontsize}{numeric for font size in the review tables}
 
 \item{warn}{logical indicating if warnings from the table functions are included in the file output}
+
+\item{runchk}{logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths}
 }
 \value{
 A compiled review report named \code{qcreview.docx} will be saved in the directory specified by \code{output_dir}
@@ -51,17 +54,26 @@ Optional arguments that can be changed as needed include specifying the file nam
 The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRacc}}, and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly.
 }
 \examples{
-# results data
+# results data path
 respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 
-# dqo accuracy data
+# dqo accuracy data path
 accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
 
-# dqo completeness data
+# dqo completeness data path
 frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', package = 'MassWateR')
 
+# results data
+resdat <- readMWRresults(respth)
+
+# accuracy data
+accdat <- readMWRacc(accpth)
+
+# frequency and completeness data, only needed if type = "percent"
+frecomdat <- readMWRfrecom(frecompth)
+
 # create report in working directory
-qcMWRreview(res = respth, acc = accpth, frecom = frecompth, output_dir = getwd())
+qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat, output_dir = getwd())
 
 # remove file when done
 file.remove(list.files(getwd(), 'qcreview'))

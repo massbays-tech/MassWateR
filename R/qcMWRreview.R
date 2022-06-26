@@ -8,6 +8,7 @@
 #' @param rawdata logical to include quality control accuracy summaries for raw data, e.g., field blanks, etc.
 #' @param dqofontsize numeric for font size in the data quality objective tables in the first page of the review
 #' @param tabfontsize numeric for font size in the review tables
+#' @param runchk logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths
 #' @param warn logical indicating if warnings from the table functions are included in the file output
 #'
 #' @return A compiled review report named \code{qcreview.docx} will be saved in the directory specified by \code{output_dir}
@@ -24,21 +25,30 @@
 #' The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRacc}}, and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. 
 #' 
 #' @examples
-#' # results data
+#' # results data path
 #' respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 #' 
-#' # dqo accuracy data
+#' # dqo accuracy data path
 #' accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
 #' 
-#' # dqo completeness data
+#' # dqo completeness data path
 #' frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', package = 'MassWateR')
 #' 
+#' # results data
+#' resdat <- readMWRresults(respth)
+#' 
+#' # accuracy data
+#' accdat <- readMWRacc(accpth)
+#' 
+#' # frequency and completeness data, only needed if type = "percent"
+#' frecomdat <- readMWRfrecom(frecompth)
+#' 
 #' # create report in working directory
-#' qcMWRreview(res = respth, acc = accpth, frecom = frecompth, output_dir = getwd())
+#' qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat, output_dir = getwd())
 #' 
 #' # remove file when done
 #' file.remove(list.files(getwd(), 'qcreview'))
-qcMWRreview <- function(res, acc, frecom, output_dir, output_file = NULL, rawdata = TRUE, dqofontsize = 7.5, tabfontsize = 9, warn = FALSE) {
+qcMWRreview <- function(res, acc, frecom, output_dir, output_file = NULL, rawdata = TRUE, dqofontsize = 7.5, tabfontsize = 9, warn = TRUE, runchk = TRUE) {
 
   qcreview <- system.file('rmd', 'qcreview.Rmd', package = 'MassWateR')
   
@@ -47,13 +57,14 @@ qcMWRreview <- function(res, acc, frecom, output_dir, output_file = NULL, rawdat
     output_dir = output_dir, 
     output_file = output_file, 
     params = list(
-      rawdata = rawdata,
-      warn = warn,
-      dqofontsize = dqofontsize, 
-      tabfontsize = tabfontsize,
       res = res, 
       acc = acc, 
-      frecom = frecom
+      frecom = frecom,
+      rawdata = rawdata,
+      dqofontsize = dqofontsize, 
+      tabfontsize = tabfontsize,
+      warn = warn,
+      runchk = runchk
     ), 
     quiet = TRUE
   ))

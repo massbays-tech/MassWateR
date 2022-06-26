@@ -3,21 +3,22 @@ output:
   word_document:
     reference_docx: !expr system.file("rmd", "template.docx", package = "MassWateR")
 params: 
-  warn: warn
-  rawdata: rawdata
-  dqofontsize: dqofontsize
-  tabfontsize: tabfontsize
   res: res
-  acc: acc
+  acc: acc 
   frecom: frecom
+  rawdata: rawdata
+  dqofontsize: dqofontsize 
+  tabfontsize: tabfontsize
+  warn: warn
+  runchk: runchk
 ---
 
-```{r setup, include=FALSE, message=FALSE, warning=FALSE, results = 'hide'}
+```{r setup, echo = F}
 knitr::opts_chunk$set(echo = FALSE, ft.keepnext = F, warning = TRUE)
-library(MassWateR)
-library(dplyr)
-library(flextable)
-library(lubridate)
+suppressWarnings(suppressMessages(library(MassWateR, warn.conflicts = FALSE, quietly = TRUE)))
+suppressWarnings(suppressMessages(library(dplyr, warn.conflicts = FALSE, quietly = TRUE)))
+suppressWarnings(suppressMessages(library(flextable, warn.conflicts = FALSE, quietly = TRUE)))
+suppressWarnings(suppressMessages(library(lubridate, warn.conflicts = FALSE, quietly = TRUE)))
 
 # user parameters
 warn <- params$warn
@@ -32,7 +33,7 @@ set_flextable_defaults(font.size = tabfontsize, padding = 0)
 dt <- format(Sys.Date(), "%B %d, %Y") 
 
 # get input 
-inp <- utilMWRinput(res = res, acc = acc, frecom = frecom, runchk = FALSE)
+inp <- utilMWRinput(res = res, acc = acc, frecom = frecom, runchk = runchk, warn = warn)
 resdat <- inp$resdat
 accdat <- inp$accdat
 frecomdat <- inp$frecomdat
