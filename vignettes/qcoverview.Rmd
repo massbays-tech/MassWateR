@@ -43,14 +43,17 @@ The workflow for using this function is to import the required data (results and
 The report can be created as follows by including the required files and specifying an output directory where the Word document is saved.  Once the function is done running, a message indicating success and where the file is located is returned.  The report is created in the current working directory.  The Word file can be further edited by hand as needed.  
 
 ```{r, message = T}
-qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat, output_dir = getwd())
+qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat, output_dir = getwd(), warn = FALSE)
 ```
 
 ```{r, echo = FALSE, results = 'hide'}
 file.remove(list.files(getwd(), 'qcreview'))
 ```
 
+Note that the warnings are suppressed above with `warn = FALSE`.  By default, this argument is set to `TRUE` to view the warnings in the R console.  The warnings indicate notable concerns to consider for the input data that may need to be addressed.  Details on these warnings are described in the sections below for each quality control table.   
+
 Optional arguments for `qcMWRreview()` that can be changed as needed include specifying the file name with `output_file`, suppressing the raw data summaries at the end of the report with `rawdata = FALSE`, and changing the table font sizes (`dqofontsize` for the data quality objectives on the first page, `tabfontsize` for the remainder).
+
 ## Quality control for accuracy
 
 The quality control checks for accuracy assess several characteristics of the data in the results file by referencing appropriate values in the data quality objectives file for accuracy.  In short, the accuracy checks evaluate field blanks, lab blanks, field duplicates, lab duplicates, lab spikes, and instrument checks. The accuracy checks require results data (as in `resdat` above) and a data quality objectives file for accuracy (as in `accdat`).
