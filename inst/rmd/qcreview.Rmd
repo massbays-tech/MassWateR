@@ -8,12 +8,10 @@ params:
   frecomdat: frecomdat
   wd: wd
   fontname: fontname
-  output_dir: output_dir
   rawdata: rawdata
+  warn: warn
   dqofontsize: dqofontsize 
   tabfontsize: tabfontsize
-  warn: warn
-  runchk: runchk
   tabfresum: tabfresum
   tabfreper: tabfreper
   tabaccsum: tabaccsum
@@ -29,22 +27,19 @@ params:
 
 ```{r setup, echo = F}
 knitr::opts_chunk$set(echo = FALSE, ft.keepnext = F, warning = TRUE)
-suppressWarnings(suppressMessages(library(MassWateR, warn.conflicts = FALSE, quietly = TRUE)))
 suppressWarnings(suppressMessages(library(dplyr, warn.conflicts = FALSE, quietly = TRUE)))
 suppressWarnings(suppressMessages(library(flextable, warn.conflicts = FALSE, quietly = TRUE)))
-suppressWarnings(suppressMessages(library(lubridate, warn.conflicts = FALSE, quietly = TRUE)))
 
 # user parameters
-warn <- params$warn
 resdatdt <- params$resdatdt
-dqofontsize <- params$dqofontsize
-tabfontsize <- params$tabfontsize
-resdat <- params$resdat
 accdat <- params$accdat
 frecomdat <- params$frecomdat
 wd <- params$wd
 fontname <- params$fontname
-output_dir <- params$output_dir
+rawdata <- params$rawdata
+warn <- params$warn
+dqofontsize <- params$dqofontsize
+tabfontsize <- params$tabfontsize
 tabfresum <- params$tabfresum
 tabfreper <- params$tabfreper
 tabaccsum <- params$tabaccsum
@@ -60,7 +55,7 @@ indinschk <- params$indinschk
 
 dt <- format(Sys.Date(), "%B %d, %Y") 
 
-set_flextable_defaults(font.size = tabfontsize, padding = 0)
+flextable::set_flextable_defaults(font.size = tabfontsize, padding = 0)
 
 # dqo table theme
 thmdqo <- function(x, fontname, dqofontsize){
@@ -141,7 +136,7 @@ accdat %>%
   flextable::flextable() %>% 
   thmdqo(fontname = fontname, dqofontsize = dqofontsize) %>% 
   flextable::width(width = 1, j = 1) %>% 
-  flextable::width(width = (wd -1) / (ncol_keys(.) - 1), j = 2:ncol_keys(.)) 
+  flextable::width(width = (wd -1) / (flextable::ncol_keys(.) - 1), j = 2:flextable::ncol_keys(.)) 
 ```
 
 <br>

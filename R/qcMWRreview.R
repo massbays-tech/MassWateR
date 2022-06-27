@@ -50,6 +50,7 @@
 #' file.remove(list.files(getwd(), 'qcreview'))
 qcMWRreview <- function(res, acc, frecom, output_dir, output_file = NULL, rawdata = TRUE, dqofontsize = 7.5, tabfontsize = 9, warn = TRUE, runchk = TRUE) {
 
+  # rmd template
   qcreview <- system.file('rmd', 'qcreview.Rmd', package = 'MassWateR')
   
   # get input 
@@ -58,17 +59,18 @@ qcMWRreview <- function(res, acc, frecom, output_dir, output_file = NULL, rawdat
   accdat <- inp$accdat
   frecomdat <- inp$frecomdat
   
+  # date for report
   resdatdt <- range(resdat$`Activity Start Date`)
-  resdatdt <- paste(month(resdatdt), day(resdatdt), year(resdatdt), sep = '/') %>% 
+  resdatdt <- paste(lubridate::month(resdatdt), lubridate::day(resdatdt), lubridate::year(resdatdt), sep = '/') %>% 
     paste(collapse = ' to ')
   
   # dqo summary table theme
   thmsum <- function(x, wd, fontname){
-    flextable::width(x, width = wd / ncol_keys(x)) %>% 
+    flextable::width(x, width = wd / flextable::ncol_keys(x)) %>% 
       flextable::font(fontname = fontname, part = 'all')
   }
   
-  # globals
+  # table width and font for flextable in rmd
   wd <- 6.5
   fontname <- 'Calibri (Body)'
   
@@ -90,7 +92,7 @@ qcMWRreview <- function(res, acc, frecom, output_dir, output_file = NULL, rawdat
     
   # completeness table
   tabcom <- tabMWRcom(res = resdat, frecom = frecomdat, warn = warn, noteswd = 2) %>% 
-    flextable::width(width = (wd - 2) / (ncol_keys(.) - 1), j = 1:(ncol_keys(.) -1)) %>%
+    flextable::width(width = (wd - 2) / (flextable::ncol_keys(.) - 1), j = 1:(flextable::ncol_keys(.) -1)) %>%
     flextable::font(fontname = fontname, part = 'all')
   
   # individual accuracy checks for raw data
@@ -125,12 +127,10 @@ qcMWRreview <- function(res, acc, frecom, output_dir, output_file = NULL, rawdat
       frecomdat = frecomdat,
       wd = wd, 
       fontname = fontname,
-      output_dir = output_dir,
       rawdata = rawdata,
+      warn = warn,
       dqofontsize = dqofontsize, 
       tabfontsize = tabfontsize,
-      warn = warn,
-      runchk = runchk,
       tabfresum = tabfresum,
       tabfreper = tabfreper,
       tabaccsum = tabaccsum, 
@@ -146,7 +146,10 @@ qcMWRreview <- function(res, acc, frecom, output_dir, output_file = NULL, rawdat
     quiet = TRUE
   ))
   
-  msg <- paste("Report created successfully! View the file qcreview.docx at", output_dir)
+  if(is.null(output_file))
+    output_file <- gsub('\\.Rmd$', '.docx', basename(qcreview))
+  file_loc <- file.path(output_dir, output_file)
+  msg <- paste("Report created successfully! File located at", file_loc)
   message(msg)
 
 }
