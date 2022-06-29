@@ -55,17 +55,17 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">tabMWRcom</span><span class="op">(</span>
-  <span class="va">res</span>,
-  <span class="va">frecom</span>,
-  runchk <span class="op">=</span> <span class="cn">TRUE</span>,
-  warn <span class="op">=</span> <span class="cn">TRUE</span>,
-  pass_col <span class="op">=</span> <span class="st">"green"</span>,
-  fail_col <span class="op">=</span> <span class="st">"red"</span>,
-  digits <span class="op">=</span> <span class="fl">0</span>,
-  suffix <span class="op">=</span> <span class="st">"%"</span>,
-  noteswd <span class="op">=</span> <span class="fl">3</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tabMWRcom</span><span class="op">(</span></span>
+<span>  <span class="va">res</span>,</span>
+<span>  <span class="va">frecom</span>,</span>
+<span>  runchk <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  warn <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  pass_col <span class="op">=</span> <span class="st">"green"</span>,</span>
+<span>  fail_col <span class="op">=</span> <span class="st">"red"</span>,</span>
+<span>  digits <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  suffix <span class="op">=</span> <span class="st">"%"</span>,</span>
+<span>  noteswd <span class="op">=</span> <span class="fl">3</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -121,17 +121,17 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co"># using file paths</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># results path</span></span>
-<span class="r-in"><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleResults.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># frequency and completeness path</span></span>
-<span class="r-in"><span class="va">frecompth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOFrequencyCompleteness.xlsx'</span>, </span>
-<span class="r-in">     package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">tabMWRcom</span><span class="op">(</span>res <span class="op">=</span> <span class="va">respth</span>, frecom <span class="op">=</span> <span class="va">frecompth</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">##</span></span></span>
+<span class="r-in"><span><span class="co"># using file paths</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># results path</span></span></span>
+<span class="r-in"><span><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleResults.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># frequency and completeness path</span></span></span>
+<span class="r-in"><span><span class="va">frecompth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOFrequencyCompleteness.xlsx'</span>, </span></span>
+<span class="r-in"><span>     package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">tabMWRcom</span><span class="op">(</span>res <span class="op">=</span> <span class="va">respth</span>, frecom <span class="op">=</span> <span class="va">frecompth</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on results data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
@@ -179,12 +179,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3   1                                          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4   1                                          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5   1                                          </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">##</span></span>
-<span class="r-in"><span class="co"># using data frames</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># results data</span></span>
-<span class="r-in"><span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="readMWRresults.html">readMWRresults</a></span><span class="op">(</span><span class="va">respth</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##</span></span></span>
+<span class="r-in"><span><span class="co"># using data frames</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># results data</span></span></span>
+<span class="r-in"><span><span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="readMWRresults.html">readMWRresults</a></span><span class="op">(</span><span class="va">respth</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on results data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
@@ -205,9 +205,9 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking acceptable units for each entry in Characteristic Name... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed (1 WARNING(s))!</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># frequency and completeness data</span></span>
-<span class="r-in"><span class="va">frecomdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="readMWRfrecom.html">readMWRfrecom</a></span><span class="op">(</span><span class="va">frecompth</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># frequency and completeness data</span></span></span>
+<span class="r-in"><span><span class="va">frecomdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="readMWRfrecom.html">readMWRfrecom</a></span><span class="op">(</span><span class="va">frecompth</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on data quality objectives for frequency and completeness...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
@@ -216,8 +216,8 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Parameter formats... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">tabMWRcom</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, frecom <span class="op">=</span> <span class="va">frecomdat</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">tabMWRcom</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, frecom <span class="op">=</span> <span class="va">frecomdat</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for frequency and completeness not found in results data: Chloride, Conductivity</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in results not found in quality control objectives for frequency and completeness: Air Temp, DO saturation, E.coli, Flow, Gage, Sp Conductance</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
@@ -237,7 +237,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3   1                                          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4   1                                          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5   1                                          </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
