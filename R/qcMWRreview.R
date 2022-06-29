@@ -94,7 +94,7 @@ qcMWRreview <- function(res, acc, frecom, output_dir, output_file = NULL, rawdat
   tabcom <- tabMWRcom(res = resdat, frecom = frecomdat, warn = warn, noteswd = 2) %>% 
     flextable::width(width = (wd - 2) / (flextable::ncol_keys(.) - 1), j = 1:(flextable::ncol_keys(.) -1)) %>%
     flextable::font(fontname = fontname, part = 'all')
-  
+
   # individual accuracy checks for raw data
   indfldblk <- NULL
   indlabblk <- NULL
@@ -148,7 +148,7 @@ qcMWRreview <- function(res, acc, frecom, output_dir, output_file = NULL, rawdat
   
   if(is.null(output_file))
     output_file <- gsub('\\.Rmd$', '.docx', basename(qcreview))
-  file_loc <- file.path(output_dir, output_file)
+  file_loc <- list.files(path = output_dir, pattern = output_file, full.names = TRUE)
   msg <- paste("Report created successfully! File located at", file_loc)
   message(msg)
 

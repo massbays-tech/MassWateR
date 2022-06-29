@@ -55,7 +55,7 @@ indinschk <- params$indinschk
 
 dt <- format(Sys.Date(), "%B %d, %Y") 
 
-flextable::set_flextable_defaults(font.size = tabfontsize, padding = 0)
+set_flextable_defaults(font.size = tabfontsize, padding = 0)
 
 # dqo table theme
 thmdqo <- function(x, fontname, dqofontsize){
