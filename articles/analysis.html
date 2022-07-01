@@ -48,7 +48,7 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/analyis.html">MassWateR analysis functions</a>
+    <a class="dropdown-item" href="../articles/analysis.html">MassWateR analysis functions</a>
     <a class="dropdown-item" href="../articles/datainput.html">MassWateR data input and checks</a>
     <a class="dropdown-item" href="../articles/qcoverview.html">MassWateR quality control functions</a>
   </div>
@@ -74,13 +74,13 @@
 
 
 
-<script src="analyis_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+<script src="analysis_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>MassWateR analysis functions</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/massbays-tech/MassWateR/blob/HEAD/vignettes/analyis.Rmd" class="external-link"><code>vignettes/analyis.Rmd</code></a></small>
-      <div class="d-none name"><code>analyis.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/massbays-tech/MassWateR/blob/HEAD/vignettes/analysis.Rmd" class="external-link"><code>vignettes/analysis.Rmd</code></a></small>
+      <div class="d-none name"><code>analysis.Rmd</code></div>
     </div>
 
     
@@ -119,15 +119,15 @@
 <p>The <code><a href="../reference/anlzMWRoutlier.html">anlzMWRoutlier()</a></code> function uses the results data as a file path or data frame as input. The results for a selected parameter are shown as boxplots, with the outliers labelled accordingly. Outliers can be shown by month using <code>type = "month"</code> or by site using <code>type = "month"</code>. Below, outliers are shown for dissolved oxygen grouped by month.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlier.html">anlzMWRoutlier</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, type <span class="op">=</span> <span class="st">'month'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analyis_files/figure-html/unnamed-chunk-3-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-3-1.png" width="768"></p>
 <p>The same data are also grouped by site.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlier.html">anlzMWRoutlier</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, type <span class="op">=</span> <span class="st">'site'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analyis_files/figure-html/unnamed-chunk-4-1.png" width="768"></p>
-<p>By default, points that are not outliers are jittered over the boxplots. These can be suppressed using <code>jitter = FALSE</code>. Outlier labels that overlap are also offset. This can be suppresed using <code>repel = FALSE</code>.</p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-4-1.png" width="768"></p>
+<p>Points that are not outliers can also be jittered over the boxplots using <code>jitter = TRUE</code>. Outlier labels that overlap are also offset. This can be suppresed using <code>repel = FALSE</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlier.html">anlzMWRoutlier</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, type <span class="op">=</span> <span class="st">'month'</span>, jitter <span class="op">=</span> <span class="cn">FALSE</span>, repel <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analyis_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlier.html">anlzMWRoutlier</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, type <span class="op">=</span> <span class="st">'month'</span>, jitter <span class="op">=</span> <span class="cn">TRUE</span>, repel <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<p><img src="analysis_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
 <p>A data frame of the identified outliers can also be returned by setting <code>outliers = TRUE</code>. This table can be used to identify the outliers in the original data for removal or additional follow-up.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlier.html">anlzMWRoutlier</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, type <span class="op">=</span> <span class="st">'month'</span>, outliers <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
