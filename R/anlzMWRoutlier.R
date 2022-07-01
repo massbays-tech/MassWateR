@@ -32,7 +32,7 @@
 #' 
 #' # data frame output
 #' anlzMWRoutlier(res = resdat, param = 'DO', type = 'month', outliers = TRUE)
-anlzMWRoutlier <- function(res, param, type = c('month', 'site'), jitter = TRUE, repel = TRUE, outliers = FALSE, runchk = TRUE, warn = TRUE){
+anlzMWRoutlier <- function(res, param, type = c('month', 'site'), jitter = FALSE, repel = TRUE, outliers = FALSE, runchk = TRUE, warn = TRUE){
   
   type <- match.arg(type)
   

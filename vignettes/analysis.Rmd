@@ -43,11 +43,11 @@ anlzMWRoutlier(res = resdat, param = 'DO', type = 'site')
 ```
 
 
-By default, points that are not outliers are jittered over the boxplots.  These can be suppressed using `jitter = FALSE`. Outlier labels that overlap are also offset.  This can be suppresed using `repel = FALSE`. 
+Points that are not outliers can also be jittered over the boxplots using `jitter = TRUE`. Outlier labels that overlap are also offset.  This can be suppresed using `repel = FALSE`. 
 
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRoutlier(res = resdat, param = 'DO', type = 'month', jitter = FALSE, repel = FALSE)
+anlzMWRoutlier(res = resdat, param = 'DO', type = 'month', jitter = TRUE, repel = FALSE)
 ```
 
 A data frame of the identified outliers can also be returned by setting `outliers = TRUE`.  This table can be used to identify the outliers in the original data for removal or additional follow-up.

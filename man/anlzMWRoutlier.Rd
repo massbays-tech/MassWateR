@@ -8,7 +8,7 @@ anlzMWRoutlier(
   res,
   param,
   type = c("month", "site"),
-  jitter = TRUE,
+  jitter = FALSE,
   repel = TRUE,
   outliers = FALSE,
   runchk = TRUE,
