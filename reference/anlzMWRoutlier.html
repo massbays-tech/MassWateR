@@ -59,8 +59,11 @@
 <span>  <span class="va">res</span>,</span>
 <span>  <span class="va">param</span>,</span>
 <span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"month"</span>, <span class="st">"site"</span><span class="op">)</span>,</span>
-<span>  threshold <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  outliertxt <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  jitter <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  repel <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  outliers <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  runchk <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  warn <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -78,25 +81,72 @@
 <dd><p>character indicating whether the summaries are grouped by month (default) or site</p></dd>
 
 
-<dt>threshold</dt>
-<dd><p>logical indicating if threshold lines are applied to the plot from <code><a href="thresholdMWR.html">thresholdMWR</a></code>, if available</p></dd>
+<dt>jitter</dt>
+<dd><p>logical indicating of non-outlier points are jittered over the boxplots</p></dd>
 
 
-<dt>outliertxt</dt>
-<dd><p>logical indicating if outliers are returned to the console after plotting</p></dd>
+<dt>repel</dt>
+<dd><p>logical indicating if overlapping outlier labels are offset</p></dd>
+
+
+<dt>outliers</dt>
+<dd><p>logical indicating if outliers are returned to the console instead of plotting</p></dd>
+
+
+<dt>runchk</dt>
+<dd><p>logical to run data checks with <code><a href="checkMWRresults.html">checkMWRresults</a></code>, <code><a href="checkMWRacc.html">checkMWRacc</a></code>, <code><a href="checkMWRfrecom.html">checkMWRfrecom</a></code>, applies only if <code>res</code>, <code>acc</code>, or <code>frecom</code> are file paths</p></dd>
+
+
+<dt>warn</dt>
+<dd><p>logical to return warnings to the console (default)</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-
+<p>A <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></code> object that can be further modified if <code>outliers = TRUE</code>, otherwise a data frame of outliers based on the grouping defined by <code>type</code>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>Outliers are defined following the standard <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></code> definition as 1.5 times the inter-quartile range of each boxplot.  The data frame returned if <code>outliers = TRUE</code> may vary based on the boxplot groupings defined by <code>type</code>.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="cn">NULL</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># results data path</span></span></span>
+<span class="r-in"><span><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleResults.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># results data</span></span></span>
+<span class="r-in"><span><span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="readMWRresults.html">readMWRresults</a></span><span class="op">(</span><span class="va">respth</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on results data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking valid Activity Types... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Start Date formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Start Time formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in Activity Depth/Height Measure... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Depth/Height Unit... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Relative Depth Name formats... OK</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>	Checking Characteristic Name formats...</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> 	Characteristic Name not used for quality control: Air Temp, Gage</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Characteristic Name formats... WARNING</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Result Values... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking QC Reference Values... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for Result Unit... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit per Characteristic Name... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking acceptable units for each entry in Characteristic Name... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed (1 WARNING(s))!</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># outliers by month</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRoutlier</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, type <span class="op">=</span> <span class="st">'month'</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="anlzMWRoutlier-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># outliers by site</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRoutlier</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, type <span class="op">=</span> <span class="st">'site'</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="anlzMWRoutlier-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
