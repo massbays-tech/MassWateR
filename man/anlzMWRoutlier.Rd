@@ -33,7 +33,7 @@ anlzMWRoutlier(
 \item{warn}{logical to return warnings to the console (default)}
 }
 \value{
-A \code{\link[ggplot2]{ggplot}} object that can be further modified if \code{outliers = TRUE}, otherwise a data frame of outliers based on the grouping defined by \code{type}.
+A \code{\link[ggplot2]{ggplot}} object that can be further modified if \code{outliers = TRUE}, otherwise a data frame of outliers is returned.
 }
 \description{
 Analyze outliers in results file
@@ -53,4 +53,7 @@ anlzMWRoutlier(res = resdat, param = 'DO', type = 'month')
 
 # outliers by site
 anlzMWRoutlier(res = resdat, param = 'DO', type = 'site')
+
+# data frame output
+anlzMWRoutlier(res = resdat, param = 'DO', type = 'month', outliers = TRUE)
 }

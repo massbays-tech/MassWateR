@@ -11,7 +11,7 @@
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
-#' @return A \code{\link[ggplot2]{ggplot}} object that can be further modified if \code{outliers = TRUE}, otherwise a data frame of outliers based on the grouping defined by \code{type}.
+#' @return A \code{\link[ggplot2]{ggplot}} object that can be further modified if \code{outliers = TRUE}, otherwise a data frame of outliers is returned.
 #' 
 #' @details Outliers are defined following the standard \code{\link[ggplot2]{ggplot}} definition as 1.5 times the inter-quartile range of each boxplot.  The data frame returned if \code{outliers = TRUE} may vary based on the boxplot groupings defined by \code{type}.
 #' 
@@ -29,6 +29,9 @@
 #' 
 #' # outliers by site
 #' anlzMWRoutlier(res = resdat, param = 'DO', type = 'site')
+#' 
+#' # data frame output
+#' anlzMWRoutlier(res = resdat, param = 'DO', type = 'month', outliers = TRUE)
 anlzMWRoutlier <- function(res, param, type = c('month', 'site'), jitter = TRUE, repel = TRUE, outliers = FALSE, runchk = TRUE, warn = TRUE){
   
   type <- match.arg(type)

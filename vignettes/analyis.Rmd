@@ -50,7 +50,7 @@ By default, points that are not outliers are jittered over the boxplots.  These 
 anlzMWRoutlier(res = resdat, param = 'DO', type = 'month', jitter = FALSE, repel = FALSE)
 ```
 
-A data frame of the identified outliers can also be returned by setting `outliers = FALSE`.  This table can be used to identify the outliers in the original data for removal or additional follow-up.
+A data frame of the identified outliers can also be returned by setting `outliers = TRUE`.  This table can be used to identify the outliers in the original data for removal or additional follow-up.
 
 ```{r}
 anlzMWRoutlier(res = resdat, param = 'DO', type = 'month', outliers = TRUE)
