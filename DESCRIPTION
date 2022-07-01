@@ -35,6 +35,7 @@ Depends:
 Imports:
   dplyr, 
   flextable,
+  ggrepel,
   lubridate, 
   readxl,
   tidyr, 
