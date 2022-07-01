@@ -1,0 +1,57 @@
+---
+title: "MassWateR analysis functions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{MassWateR analysis functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  warning = T, 
+  message = F
+)
+```
+
+The analysis functions in MassWateR can be used once the required data are successfully imported into R (see the [data input and checks vignette](https://massbays-tech.github.io/MassWateR/articles/datainput.html) for an overview).  The results data file that describes the monitoring data for surface waters is required to use these functions.  The example data included with the package are imported here to demonstrate how to use the analysis functions:
+
+```{r, message = T}
+library(MassWateR)
+
+# import results data
+respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
+resdat <- readMWRresults(respth)
+```
+
+## Analyzing outliers
+
+Outliers can be identified using the `anlzMWRoutlier()` function.  Evaluating data for outliers is a critical step of quality control.  Although outliers are not explicitly evaluated with the formal quality control checks, the function allows a user to quickly identify them for removal or additional follow-up.  Outliers are defined using the standard definition of 1.5 times the interquartile range (the 25th to 75th percentile) of a parameter, depending on the grouping type used for the function.  They are visually identified as points above or below the whiskers in the boxplots that describe distribution of the data, i.e., the box defines the interquartile range, the horizontal line is the median, and the whiskers extend above and below 1.5 times the interquartile range.  
+
+The `anlzMWRoutlier()` function uses the results data as a file path or data frame as input. The results for a selected parameter are shown as boxplots, with the outliers labelled accordingly. Outliers can be shown by month using `type = "month"` or by site using `type = "month"`.  Below, outliers are shown for dissolved oxygen grouped by month.   
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRoutlier(res = resdat, param = 'DO', type = 'month')
+```
+
+The same data are also grouped by site.
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRoutlier(res = resdat, param = 'DO', type = 'site')
+```
+
+
+By default, points that are not outliers are jittered over the boxplots.  These can be suppressed using `jitter = FALSE`. Outlier labels that overlap are also offset.  This can be suppresed using `repel = FALSE`. 
+
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRoutlier(res = resdat, param = 'DO', type = 'month', jitter = FALSE, repel = FALSE)
+```
+
+A data frame of the identified outliers can also be returned by setting `outliers = FALSE`.  This table can be used to identify the outliers in the original data for removal or additional follow-up.
+
+```{r}
+anlzMWRoutlier(res = resdat, param = 'DO', type = 'month', outliers = TRUE)
+```

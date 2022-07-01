@@ -27,6 +27,7 @@ Please see the vignette articles for an overview of how to use functions in the 
 
 * [MassWateR data input and checks](https://massbays-tech.github.io/MassWateR/articles/datainput.html): Information on datasets required to use the package, the required formats and how to import them into R, and the checks that are run when the data are imported.
 * [MassWateR quality control functions](https://massbays-tech.github.io/MassWateR/articles/qcoverview.html): Information on using the quality control functions to assess completeness and accuracy of results data for surface water quality and to generate automated reports.
+* [MassWateR analysis functions](https://massbays-tech.github.io/MassWateR/articles/analysis.html): Information on using the analysis functions to create plots and evaluate the results data for surface water quality.
 
 ## Issues and suggestions 
 
