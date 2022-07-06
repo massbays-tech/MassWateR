@@ -30,12 +30,16 @@
 #' # outliers by site
 #' anlzMWRoutlier(res = resdat, param = 'DO', type = 'site')
 #' 
+#' #' # outliers by site, June, July 2021 only
+#' anlzMWRoutlier(res = resdat, param = 'DO', type = 'site', dtrng = c('2021-06-01', '2021-07-31'))
+#' 
 #' # data frame output
 #' anlzMWRoutlier(res = resdat, param = 'DO', type = 'month', outliers = TRUE)
-anlzMWRoutlier <- function(res, param, type = c('month', 'site'), jitter = FALSE, repel = TRUE, outliers = FALSE, runchk = TRUE, warn = TRUE){
+#' 
+anlzMWRoutlier <- function(res, param, type = c('month', 'site'), dtrng = NULL, jitter = FALSE, repel = TRUE, outliers = FALSE, runchk = TRUE, warn = TRUE){
   
   type <- match.arg(type)
-  
+
   # inputs
   inp <- utilMWRinput(res = res, runchk = runchk, warn = warn)
   
@@ -48,9 +52,13 @@ anlzMWRoutlier <- function(res, param, type = c('month', 'site'), jitter = FALSE
     dplyr::pull(`Characteristic Name`) %>% 
     unique()
   
+  # check if parameter in resdat
   chk <- param %in% resprms
   if(!chk)
     stop(param, ' not found in results data', call. = FALSE)
+  
+  # filter if needed
+  resdat <- utilMWRdaterange(resdat = resdat, dtrng = dtrng)
   
   ##
   # plot prep

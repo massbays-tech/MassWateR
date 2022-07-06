@@ -8,6 +8,7 @@ anlzMWRoutlier(
   res,
   param,
   type = c("month", "site"),
+  dtrng = NULL,
   jitter = FALSE,
   repel = TRUE,
   outliers = FALSE,
@@ -54,6 +55,10 @@ anlzMWRoutlier(res = resdat, param = 'DO', type = 'month')
 # outliers by site
 anlzMWRoutlier(res = resdat, param = 'DO', type = 'site')
 
+#' # outliers by site, June, July 2021 only
+anlzMWRoutlier(res = resdat, param = 'DO', type = 'site', dtrng = c('2021-06-01', '2021-07-31'))
+
 # data frame output
 anlzMWRoutlier(res = resdat, param = 'DO', type = 'month', outliers = TRUE)
+
 }
