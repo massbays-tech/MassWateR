@@ -13,6 +13,7 @@ qcMWRreview(
   rawdata = TRUE,
   dqofontsize = 7.5,
   tabfontsize = 9,
+  padding = 0,
   warn = TRUE,
   runchk = TRUE
 )
@@ -33,6 +34,8 @@ qcMWRreview(
 \item{dqofontsize}{numeric for font size in the data quality objective tables in the first page of the review}
 
 \item{tabfontsize}{numeric for font size in the review tables}
+
+\item{padding}{numeric for row padding for table output}
 
 \item{warn}{logical indicating if warnings from the table functions are included in the file output}
 

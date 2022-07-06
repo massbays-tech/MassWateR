@@ -12,6 +12,7 @@ params:
   warn: warn
   dqofontsize: dqofontsize 
   tabfontsize: tabfontsize
+  padding: padding
   tabfresum: tabfresum
   tabfreper: tabfreper
   tabaccsum: tabaccsum
@@ -40,6 +41,7 @@ rawdata <- params$rawdata
 warn <- params$warn
 dqofontsize <- params$dqofontsize
 tabfontsize <- params$tabfontsize
+padding <- params$padding
 tabfresum <- params$tabfresum
 tabfreper <- params$tabfreper
 tabaccsum <- params$tabaccsum
@@ -55,17 +57,17 @@ indinschk <- params$indinschk
 
 dt <- format(Sys.Date(), "%B %d, %Y") 
 
-set_flextable_defaults(font.size = tabfontsize, padding = 0)
+set_flextable_defaults(font.size = tabfontsize, padding = padding)
 
 # dqo table theme
-thmdqo <- function(x, fontname, dqofontsize){
+thmdqo <- function(x, fontname, dqofontsize, padding){
   flextable::colformat_double(x, na_str = '-') %>% 
     flextable::colformat_char(na_str = '-') %>% 
     flextable::border_inner() %>% 
     flextable::align(align = 'center', part = 'all') %>% 
     flextable::align(align = 'left', j = 1, part = 'all') %>% 
     flextable::fontsize(size = dqofontsize, part = 'all') %>% 
-    flextable::padding(padding = 0, part = 'all') %>% 
+    flextable::padding(padding = padding, part = 'all') %>% 
     flextable::font(fontname = fontname, part = 'all')
 }
 
@@ -123,7 +125,7 @@ flextable::flextable(tab) %>%
 frecomdat %>% 
   dplyr::mutate_if(is.numeric, as.character) %>% 
   flextable::flextable() %>% 
-  thmdqo(fontname = fontname, dqofontsize = dqofontsize) %>%
+  thmdqo(fontname = fontname, dqofontsize = dqofontsize, padding = padding) %>%
   flextable::width(width = wd / ncol(frecomdat)) %>% 
   flextable::add_header_row(value = c('', 'Frequency %', ''), colwidths = c(1, 5, 1))
 ```
@@ -134,7 +136,7 @@ frecomdat %>%
 accdat %>% 
   dplyr::mutate_if(is.numeric, as.character) %>%   
   flextable::flextable() %>% 
-  thmdqo(fontname = fontname, dqofontsize = dqofontsize) %>% 
+  thmdqo(fontname = fontname, dqofontsize = dqofontsize, padding = padding) %>% 
   flextable::width(width = 1, j = 1) %>% 
   flextable::width(width = (wd -1) / (flextable::ncol_keys(.) - 1), j = 2:flextable::ncol_keys(.)) 
 ```

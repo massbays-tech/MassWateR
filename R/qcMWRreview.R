@@ -8,6 +8,7 @@
 #' @param rawdata logical to include quality control accuracy summaries for raw data, e.g., field blanks, etc.
 #' @param dqofontsize numeric for font size in the data quality objective tables in the first page of the review
 #' @param tabfontsize numeric for font size in the review tables
+#' @param padding numeric for row padding for table output
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths
 #' @param warn logical indicating if warnings from the table functions are included in the file output
 #'
@@ -48,7 +49,7 @@
 #' 
 #' # remove file when done
 #' file.remove(list.files(getwd(), 'qcreview'))
-qcMWRreview <- function(res, acc, frecom, output_dir, output_file = NULL, rawdata = TRUE, dqofontsize = 7.5, tabfontsize = 9, warn = TRUE, runchk = TRUE) {
+qcMWRreview <- function(res, acc, frecom, output_dir, output_file = NULL, rawdata = TRUE, dqofontsize = 7.5, tabfontsize = 9, padding = 0,warn = TRUE, runchk = TRUE) {
 
   # rmd template
   qcreview <- system.file('rmd', 'qcreview.Rmd', package = 'MassWateR')
@@ -73,6 +74,8 @@ qcMWRreview <- function(res, acc, frecom, output_dir, output_file = NULL, rawdat
   # table width and font for flextable in rmd
   wd <- 6.5
   fontname <- 'Calibri (Body)'
+  
+  flextable::set_flextable_defaults(font.size = tabfontsize, padding = padding)
   
   # frequency summary table
   tabfresum <- tabMWRfre(res = resdat, frecom = frecomdat, type = 'summary', warn = warn) %>% 
@@ -131,6 +134,7 @@ qcMWRreview <- function(res, acc, frecom, output_dir, output_file = NULL, rawdat
       warn = warn,
       dqofontsize = dqofontsize, 
       tabfontsize = tabfontsize,
+      padding = padding,
       tabfresum = tabfresum,
       tabfreper = tabfreper,
       tabaccsum = tabaccsum, 
