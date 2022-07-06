@@ -27,7 +27,7 @@ resdat <- readMWRresults(respth)
 
 # import accuracy data
 accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
-accdat <- readMWRresults(accpth)
+accdat <- readMWRacc(accpth)
 ```
 
 ## Analyzing outliers
