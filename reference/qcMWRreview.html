@@ -65,6 +65,7 @@
 <span>  rawdata <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  dqofontsize <span class="op">=</span> <span class="fl">7.5</span>,</span>
 <span>  tabfontsize <span class="op">=</span> <span class="fl">9</span>,</span>
+<span>  padding <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  warn <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  runchk <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -102,6 +103,10 @@
 
 <dt>tabfontsize</dt>
 <dd><p>numeric for font size in the review tables</p></dd>
+
+
+<dt>padding</dt>
+<dd><p>numeric for row padding for table output</p></dd>
 
 
 <dt>warn</dt>
@@ -212,7 +217,7 @@
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in results not found in  quality control objectives for accuracy: Air Temp, DO saturation, Flow, Gage</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for accuracy not found in results data: Chloride</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in results not found in  quality control objectives for accuracy: Air Temp, DO saturation, Flow, Gage</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Report created successfully! File located at /tmp/RtmpnuVQRV/file31f127c17880/reference/qcreview.docx</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Report created successfully! File located at /tmp/RtmpdMGT9W/file32b857b9a492/reference/qcreview.docx</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># remove file when done</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">'qcreview'</span><span class="op">)</span><span class="op">)</span></span></span>
