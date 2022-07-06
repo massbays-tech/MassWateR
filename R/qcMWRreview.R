@@ -94,8 +94,8 @@ qcMWRreview <- function(res, acc, frecom, output_dir, output_file = NULL, rawdat
     thmsum(wd = wd, fontname = fontname)
     
   # completeness table
-  tabcom <- tabMWRcom(res = resdat, frecom = frecomdat, warn = warn, noteswd = 2) %>% 
-    flextable::width(width = (wd - 2) / (flextable::ncol_keys(.) - 1), j = 1:(flextable::ncol_keys(.) -1)) %>%
+  tabcom <- tabMWRcom(res = resdat, frecom = frecomdat, warn = warn, parameterwd = 1.15, noteswd = 2) %>% 
+    flextable::width(width = (wd - 3.15) / (flextable::ncol_keys(.) - 2), j = 2:(flextable::ncol_keys(.) - 1)) %>%
     flextable::font(fontname = fontname, part = 'all')
 
   # individual accuracy checks for raw data

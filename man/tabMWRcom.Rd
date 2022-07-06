@@ -13,6 +13,7 @@ tabMWRcom(
   fail_col = "red",
   digits = 0,
   suffix = "\%",
+  parameterwd = 1.15,
   noteswd = 3
 )
 }
@@ -33,6 +34,8 @@ tabMWRcom(
 
 \item{suffix}{character string indicating suffix to append to percentage values}
 
+\item{parameterwd}{numeric indicating width of the parameter column}
+
 \item{noteswd}{numeric indicating width of notes column}
 }
 \value{
@@ -44,7 +47,7 @@ Create a formatted table of quality control completeness checks
 \details{
 The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly.  Also note that completeness is only evaluated on parameters that are shared between the results file and data quality objectives file for frequency and completeness. A warning is returned for parameters that do not match between the files. This warning can be suppressed by setting \code{warn = FALSE}.
 
-A summary table showing the number of data records, number of qualified records, and percent completeness is created.  The \code{\% Completeness} column shows cells as green or red if the required percentage of observations for completeness are present as specified in the data quality objectives file.  The \code{Hit/Miss} column shows similar information but in text format, i.e., \code{MISS} is shown if the quality control standard for completeness is not met.
+A summary table showing the number of data records, number of qualified records, and percent completeness is created.  The \code{\% Completeness} column shows cells as green or red if the required percentage of observations for completeness are present as specified in the data quality objectives file.  The \code{Hit/ Miss} column shows similar information but in text format, i.e., \code{MISS} is shown if the quality control standard for completeness is not met.
 
 Inputs for the results and data quality objectives for frequency and completeness are processed internally with \code{\link{qcMWRcom}} and the same arguments are accepted for this function, in addition to others listed above.
 }
