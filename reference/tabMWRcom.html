@@ -65,6 +65,7 @@
 <span>  fail_col <span class="op">=</span> <span class="st">"red"</span>,</span>
 <span>  digits <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  suffix <span class="op">=</span> <span class="st">"%"</span>,</span>
+<span>  parameterwd <span class="op">=</span> <span class="fl">1.15</span>,</span>
 <span>  noteswd <span class="op">=</span> <span class="fl">3</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -103,6 +104,10 @@
 <dd><p>character string indicating suffix to append to percentage values</p></dd>
 
 
+<dt>parameterwd</dt>
+<dd><p>numeric indicating width of the parameter column</p></dd>
+
+
 <dt>noteswd</dt>
 <dd><p>numeric indicating width of notes column</p></dd>
 
@@ -116,7 +121,7 @@
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The function can be used with inputs as paths to the relevant files or as data frames returned by <code><a href="readMWRresults.html">readMWRresults</a></code> and <code><a href="readMWRfrecom.html">readMWRfrecom</a></code>.  For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly.  Also note that completeness is only evaluated on parameters that are shared between the results file and data quality objectives file for frequency and completeness. A warning is returned for parameters that do not match between the files. This warning can be suppressed by setting <code>warn = FALSE</code>.</p>
-<p>A summary table showing the number of data records, number of qualified records, and percent completeness is created.  The <code>% Completeness</code> column shows cells as green or red if the required percentage of observations for completeness are present as specified in the data quality objectives file.  The <code>Hit/Miss</code> column shows similar information but in text format, i.e., <code>MISS</code> is shown if the quality control standard for completeness is not met.</p>
+<p>A summary table showing the number of data records, number of qualified records, and percent completeness is created.  The <code>% Completeness</code> column shows cells as green or red if the required percentage of observations for completeness are present as specified in the data quality objectives file.  The <code>Hit/ Miss</code> column shows similar information but in text format, i.e., <code>MISS</code> is shown if the quality control standard for completeness is not met.</p>
 <p>Inputs for the results and data quality objectives for frequency and completeness are processed internally with <code><a href="qcMWRcom.html">qcMWRcom</a></code> and the same arguments are accepted for this function, in addition to others listed above.</p>
     </div>
 
@@ -164,7 +169,7 @@
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for frequency and completeness not found in results data: Chloride, Conductivity</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in results not found in quality control objectives for frequency and completeness: Air Temp, DO saturation, E.coli, Flow, Gage, Sp Conductance</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Number of Data Records`, `Number of Qualified Records`, `% Completeness`, `Hit/Miss`, `Number of Censored Records`, `Notes` </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Number of Data Records`, `Number of Qualified Records`, `% Completeness`, `Hit/ Miss`, `Number of Censored Records`, `Notes` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> body has 9 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
@@ -174,12 +179,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3        DO                    199                          19       90.45226</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4   Nitrate                     96                           0      100.00000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5   Ortho P                    175                           0      100.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   met Hit/Miss Number of Censored Records Notes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1                                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1                                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1                                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1                                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   met Hit/ Miss Number of Censored Records Notes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1                                           </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##</span></span></span>
 <span class="r-in"><span><span class="co"># using data frames</span></span></span>
@@ -222,7 +227,7 @@
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for frequency and completeness not found in results data: Chloride, Conductivity</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in results not found in quality control objectives for frequency and completeness: Air Temp, DO saturation, E.coli, Flow, Gage, Sp Conductance</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Number of Data Records`, `Number of Qualified Records`, `% Completeness`, `Hit/Miss`, `Number of Censored Records`, `Notes` </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Number of Data Records`, `Number of Qualified Records`, `% Completeness`, `Hit/ Miss`, `Number of Censored Records`, `Notes` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> body has 9 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
@@ -232,12 +237,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3        DO                    199                          19       90.45226</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4   Nitrate                     96                           0      100.00000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5   Ortho P                    175                           0      100.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   met Hit/Miss Number of Censored Records Notes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1                                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1                                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1                                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1                                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   met Hit/ Miss Number of Censored Records Notes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1                                           </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
