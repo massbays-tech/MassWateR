@@ -5,6 +5,7 @@
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param param character string of the parameter to plot, must conform entries in the \code{"Simple Parameter"} of \code{\link{paramsMWR}}
 #' @param type character indicating whether the summaries are grouped by month (default) or site
+#' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, optional
 #' @param jitter logical indicating of non-outlier points are jittered over the boxplots
 #' @param repel logical indicating if overlapping outlier labels are offset
 #' @param outliers logical indicating if outliers are returned to the console instead of plotting

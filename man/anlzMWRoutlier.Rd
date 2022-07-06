@@ -23,6 +23,8 @@ anlzMWRoutlier(
 
 \item{type}{character indicating whether the summaries are grouped by month (default) or site}
 
+\item{dtrng}{character string of length two for the date ranges as YYYY-MM-DD, optional}
+
 \item{jitter}{logical indicating of non-outlier points are jittered over the boxplots}
 
 \item{repel}{logical indicating if overlapping outlier labels are offset}
