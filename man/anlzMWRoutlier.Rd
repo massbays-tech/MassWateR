@@ -7,6 +7,7 @@
 anlzMWRoutlier(
   res,
   param,
+  acc,
   type = c("month", "site"),
   dtrng = NULL,
   jitter = FALSE,
@@ -20,6 +21,8 @@ anlzMWRoutlier(
 \item{res}{character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}}
 
 \item{param}{character string of the parameter to plot, must conform entries in the \code{"Simple Parameter"} of \code{\link{paramsMWR}}}
+
+\item{acc}{character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}}
 
 \item{type}{character indicating whether the summaries are grouped by month (default) or site}
 
@@ -43,6 +46,10 @@ Analyze outliers in results file
 }
 \details{
 Outliers are defined following the standard \code{\link[ggplot2]{ggplot}} definition as 1.5 times the inter-quartile range of each boxplot.  The data frame returned if \code{outliers = TRUE} may vary based on the boxplot groupings defined by \code{type}.
+
+The y-axis scaling as arithmetic or logarithmic is determined automatically from the data quality objective file for accuracy, i.e., parameters with 'log' in any of the columns are plotted on log10-scale, otherwise arithmetic.
+
+Entries for \code{Result Value} that are not numeric are removed from the plot, e.g., \code{'AQL'}.
 }
 \examples{
 # results data path
@@ -51,16 +58,23 @@ respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 # results data
 resdat <- readMWRresults(respth)
 
+# accuracy path
+accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', 
+     package = 'MassWateR')
+
+# accuracy data
+accdat <- readMWRacc(accpth)
+
 # outliers by month
-anlzMWRoutlier(res = resdat, param = 'DO', type = 'month')
+anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'month')
 
 # outliers by site
-anlzMWRoutlier(res = resdat, param = 'DO', type = 'site')
+anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'site')
 
 #' # outliers by site, June, July 2021 only
-anlzMWRoutlier(res = resdat, param = 'DO', type = 'site', dtrng = c('2021-06-01', '2021-07-31'))
+anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'site', dtrng = c('2021-06-01', '2021-07-31'))
 
 # data frame output
-anlzMWRoutlier(res = resdat, param = 'DO', type = 'month', outliers = TRUE)
+anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'month', outliers = TRUE)
 
 }

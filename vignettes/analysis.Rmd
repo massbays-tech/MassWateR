@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The analysis functions in MassWateR can be used once the required data are successfully imported into R (see the [data input and checks vignette](https://massbays-tech.github.io/MassWateR/articles/datainput.html) for an overview).  The results data file that describes the monitoring data for surface waters is required to use these functions.  The example data included with the package are imported here to demonstrate how to use the analysis functions:
+The analysis functions in MassWateR can be used once the required data are successfully imported into R (see the [data input and checks vignette](https://massbays-tech.github.io/MassWateR/articles/datainput.html) for an overview).  The results data file that describes the monitoring data for surface waters is required to use these functions.  The data quality objectives file for accuracy is also required to determine plot axis scaling as arithmetic (linear) or logarithmic. The example data included with the package are imported here to demonstrate how to use the analysis functions:
 
 ```{r, message = T}
 library(MassWateR)
@@ -24,6 +24,10 @@ library(MassWateR)
 # import results data
 respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 resdat <- readMWRresults(respth)
+
+# import accuracy data
+accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
+accdat <- readMWRresults(accpth)
 ```
 
 ## Analyzing outliers
@@ -33,29 +37,36 @@ Outliers can be identified using the `anlzMWRoutlier()` function.  Evaluating da
 The `anlzMWRoutlier()` function uses the results data as a file path or data frame as input. The results for a selected parameter are shown as boxplots, with the outliers labelled accordingly. Outliers can be shown by month using `type = "month"` or by site using `type = "month"`.  Below, outliers are shown for dissolved oxygen grouped by month.   
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRoutlier(res = resdat, param = 'DO', type = 'month')
+anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'month')
 ```
 
 The same data are also grouped by site.
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRoutlier(res = resdat, param = 'DO', type = 'site')
+anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'site')
 ```
 
 Results can also be filtered by dates using the `dtrng` argument. Note that the date format must be `YYYY-MM-DD`. 
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRoutlier(res = resdat, param = 'DO', type = 'site', dtrng = c('2021-06-01', '2021-07-31'))
+anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'site', dtrng = c('2021-06-01', '2021-07-31'))
 ```
 
 Points that are not outliers can also be jittered over the boxplots using `jitter = TRUE`. Outlier labels that overlap are also offset by default.  This can be suppressed using `repel = FALSE`. 
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRoutlier(res = resdat, param = 'DO', type = 'month', jitter = TRUE, repel = FALSE)
+anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'month', jitter = TRUE, repel = FALSE)
+```
+
+The data quality objectives file for accuracy is also used to determine the scaling for the y-axis. Below, the axis for E. Coli is plotting on the log-10 scale automatically.
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRoutlier(res = resdat, param = 'E.coli', acc = accdat, type = 'month')
 ```
 
 A data frame of the identified outliers can also be returned by setting `outliers = TRUE`.  This table can be used to identify the outliers in the original data for removal or additional follow-up.
 
 ```{r}
-anlzMWRoutlier(res = resdat, param = 'DO', type = 'month', outliers = TRUE)
+anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'month', outliers = TRUE)
 ```
+

@@ -4,6 +4,7 @@
 #'
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param param character string of the parameter to plot, must conform entries in the \code{"Simple Parameter"} of \code{\link{paramsMWR}}
+#' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
 #' @param type character indicating whether the summaries are grouped by month (default) or site
 #' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, optional
 #' @param jitter logical indicating of non-outlier points are jittered over the boxplots
@@ -16,6 +17,10 @@
 #' 
 #' @details Outliers are defined following the standard \code{\link[ggplot2]{ggplot}} definition as 1.5 times the inter-quartile range of each boxplot.  The data frame returned if \code{outliers = TRUE} may vary based on the boxplot groupings defined by \code{type}.
 #' 
+#' The y-axis scaling as arithmetic or logarithmic is determined automatically from the data quality objective file for accuracy, i.e., parameters with 'log' in any of the columns are plotted on log10-scale, otherwise arithmetic. 
+#' 
+#' Entries for \code{Result Value} that are not numeric are removed from the plot, e.g., \code{'AQL'}.
+#' 
 #' @export
 #'
 #' @examples
@@ -25,38 +30,56 @@
 #' # results data
 #' resdat <- readMWRresults(respth)
 #' 
+#' # accuracy path
+#' accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', 
+#'      package = 'MassWateR')
+#' 
+#' # accuracy data
+#' accdat <- readMWRacc(accpth)
+#' 
 #' # outliers by month
-#' anlzMWRoutlier(res = resdat, param = 'DO', type = 'month')
+#' anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'month')
 #' 
 #' # outliers by site
-#' anlzMWRoutlier(res = resdat, param = 'DO', type = 'site')
+#' anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'site')
 #' 
 #' #' # outliers by site, June, July 2021 only
-#' anlzMWRoutlier(res = resdat, param = 'DO', type = 'site', dtrng = c('2021-06-01', '2021-07-31'))
+#' anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'site', dtrng = c('2021-06-01', '2021-07-31'))
 #' 
 #' # data frame output
-#' anlzMWRoutlier(res = resdat, param = 'DO', type = 'month', outliers = TRUE)
+#' anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'month', outliers = TRUE)
 #' 
-anlzMWRoutlier <- function(res, param, type = c('month', 'site'), dtrng = NULL, jitter = FALSE, repel = TRUE, outliers = FALSE, runchk = TRUE, warn = TRUE){
+anlzMWRoutlier <- function(res, param, acc, type = c('month', 'site'), dtrng = NULL, jitter = FALSE, repel = TRUE, outliers = FALSE, runchk = TRUE, warn = TRUE){
   
   type <- match.arg(type)
 
   # inputs
-  inp <- utilMWRinput(res = res, runchk = runchk, warn = warn)
+  inp <- utilMWRinput(res = res, acc = acc, runchk = runchk, warn = warn)
   
   # results data
   resdat <- inp$resdat %>% 
     dplyr::filter(`Activity Type` %in% c('Field Msr/Obs', 'Sample-Routine'))
 
+  # accuracy data
+  accdat <- inp$accdat
+  
   # check of param in resdat
   resprms <- resdat %>% 
     dplyr::pull(`Characteristic Name`) %>% 
-    unique()
+    unique() %>% 
+    sort
   
   # check if parameter in resdat
   chk <- param %in% resprms
   if(!chk)
-    stop(param, ' not found in results data', call. = FALSE)
+    stop(param, ' not found in results data, should be one of ', paste(resprms, collapse = ', '), call. = FALSE)
+  
+  # get log or not
+  logscl <- accdat %>% 
+    dplyr::filter(Parameter %in% param) %>% 
+    unlist %>% 
+    grepl('log', .) %>% 
+    any
   
   # filter if needed
   resdat <- utilMWRdaterange(resdat = resdat, dtrng = dtrng)
@@ -74,14 +97,15 @@ anlzMWRoutlier <- function(res, param, type = c('month', 'site'), dtrng = NULL, 
   
   # outlier function
   is_outlier <- function(x) {
-    return(x < quantile(x, 0.25) - 1.5 * IQR(x) | x > quantile(x, 0.75) + 1.5 * IQR(x))
+    return(x < quantile(x, 0.25, na.rm = TRUE) - 1.5 * IQR(x, na.rm = T) | x > quantile(x, 0.75, na.rm = TRUE) + 1.5 * IQR(x, na.rm = T))
   }
-  
+
   toplo <- resdat %>% 
     dplyr::filter(`Characteristic Name` == param) %>% 
     dplyr::mutate(
-      `Result Value` = as.numeric(`Result Value`)
-    )
+      `Result Value` = suppressWarnings(as.numeric(`Result Value`))
+    ) %>% 
+    dplyr::filter(!is.na(`Result Value`))
 
   ylab <- unique(toplo$`Result Unit`)
 
@@ -147,6 +171,9 @@ anlzMWRoutlier <- function(res, param, type = c('month', 'site'), dtrng = NULL, 
       ggplot2::geom_point(data = jitplo, position = ggplot2::position_dodge2(width = 0.7), alpha = 0.5, size = 1)
     
   }
+  
+  if(logscl)
+    p <- p + ggplot2::scale_y_log10()
   
   p <- p +  
     thm +
