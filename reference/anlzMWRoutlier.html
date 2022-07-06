@@ -59,6 +59,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">anlzMWRoutlier</span><span class="op">(</span></span>
 <span>  <span class="va">res</span>,</span>
 <span>  <span class="va">param</span>,</span>
+<span>  <span class="va">acc</span>,</span>
 <span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"month"</span>, <span class="st">"site"</span><span class="op">)</span>,</span>
 <span>  dtrng <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  jitter <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -77,6 +78,10 @@
 
 <dt>param</dt>
 <dd><p>character string of the parameter to plot, must conform entries in the <code>"Simple Parameter"</code> of <code><a href="paramsMWR.html">paramsMWR</a></code></p></dd>
+
+
+<dt>acc</dt>
+<dd><p>character string of path to the data quality objectives file for accuracy or <code>data.frame</code> returned by <code><a href="readMWRacc.html">readMWRacc</a></code></p></dd>
 
 
 <dt>type</dt>
@@ -116,6 +121,8 @@
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Outliers are defined following the standard <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></code> definition as 1.5 times the inter-quartile range of each boxplot.  The data frame returned if <code>outliers = TRUE</code> may vary based on the boxplot groupings defined by <code>type</code>.</p>
+<p>The y-axis scaling as arithmetic or logarithmic is determined automatically from the data quality objective file for accuracy, i.e., parameters with 'log' in any of the columns are plotted on log10-scale, otherwise arithmetic.</p>
+<p>Entries for <code>Result Value</code> that are not numeric are removed from the plot, e.g., <code>'AQL'</code>.</p>
     </div>
 
     <div class="section level2">
@@ -146,20 +153,38 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed (1 WARNING(s))!</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># accuracy path</span></span></span>
+<span class="r-in"><span><span class="va">accpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOAccuracy.xlsx'</span>, </span></span>
+<span class="r-in"><span>     package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># accuracy data</span></span></span>
+<span class="r-in"><span><span class="va">accdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="readMWRacc.html">readMWRacc</a></span><span class="op">(</span><span class="va">accpth</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on data quality objectives for accuracy...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column types... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for text other than &lt;=, ≤, &lt;, &gt;=, ≥, &gt;, ±, %, AQL, BQL, log, or all... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Parameter formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for unit (uom)... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit (uom) per Parameter... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking acceptable units (uom) for each entry in Parameter... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># outliers by month</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRoutlier</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, type <span class="op">=</span> <span class="st">'month'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRoutlier</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'month'</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="anlzMWRoutlier-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># outliers by site</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRoutlier</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, type <span class="op">=</span> <span class="st">'site'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRoutlier</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'site'</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="anlzMWRoutlier-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#' # outliers by site, June, July 2021 only</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRoutlier</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, type <span class="op">=</span> <span class="st">'site'</span>, dtrng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2021-06-01'</span>, <span class="st">'2021-07-31'</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRoutlier</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'site'</span>, dtrng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2021-06-01'</span>, <span class="st">'2021-07-31'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="anlzMWRoutlier-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># data frame output</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRoutlier</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, type <span class="op">=</span> <span class="st">'month'</span>, outliers <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRoutlier</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'month'</span>, outliers <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 7 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   `Monitoring Location ID` `Activity Start Date` `Characteristi…` `Result Value`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
