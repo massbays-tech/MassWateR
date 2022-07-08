@@ -13,6 +13,7 @@ anlzMWRoutlier(
   jitter = FALSE,
   repel = TRUE,
   outliers = FALSE,
+  labsize = 3,
   runchk = TRUE,
   warn = TRUE
 )
@@ -33,6 +34,8 @@ anlzMWRoutlier(
 \item{repel}{logical indicating if overlapping outlier labels are offset}
 
 \item{outliers}{logical indicating if outliers are returned to the console instead of plotting}
+
+\item{labsize}{numeric indicating font size for the outlier labels}
 
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths}
 
