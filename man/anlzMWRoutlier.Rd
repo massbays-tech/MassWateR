@@ -15,6 +15,7 @@ anlzMWRoutlier(
   outliers = FALSE,
   labsize = 3,
   fill = "lightgrey",
+  yscl = c("auto", "log", "linear"),
   runchk = TRUE,
   warn = TRUE
 )
@@ -40,6 +41,8 @@ anlzMWRoutlier(
 
 \item{fill}{numeric indicating fill color for boxplots}
 
+\item{yscl}{character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details}
+
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths}
 
 \item{warn}{logical to return warnings to the console (default)}
@@ -53,7 +56,7 @@ Analyze outliers in results file
 \details{
 Outliers are defined following the standard \code{\link[ggplot2]{ggplot}} definition as 1.5 times the inter-quartile range of each boxplot.  The data frame returned if \code{outliers = TRUE} may vary based on the boxplot groupings defined by \code{type}.
 
-The y-axis scaling as arithmetic or logarithmic is determined automatically from the data quality objective file for accuracy, i.e., parameters with 'log' in any of the columns are plotted on log10-scale, otherwise arithmetic.
+The y-axis scaling as arithmetic (linear) or logarithmic can be set with the \code{yscl} argument.  If \code{yscl = "auto"} (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting \code{yscl = "linear"} or \code{yscl = "log"} will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy.
 
 Entries for \code{Result Value} that are not numeric are removed from the plot, e.g., \code{'AQL'}.
 }
