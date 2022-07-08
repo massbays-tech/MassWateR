@@ -154,17 +154,17 @@
 <p>A data frame of the identified outliers can also be returned by setting <code>outliers = TRUE</code>. This table can be used to identify the outliers in the original data for removal or additional follow-up.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlier.html">anlzMWRoutlier</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'month'</span>, outliers <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 5</span></span></span>
-<span><span class="co">#&gt;   `Monitoring Location ID` `Activity Start Date` `Characteristi…` `Result Value`</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> SUD-293                  2021-03-21            DO                         9.32</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> LND-007                  2021-05-19            DO                         3.05</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> HBS-080P                 2021-05-19            DO                        14.4 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> HBS-080P                 2021-05-19            DO                        14.1 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> HBS-095P                 2021-06-14            DO                        14.7 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> SUD-005                  2021-11-14            DO                         8.44</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> HBS-016                  2021-11-14            DO                         7.11</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 1 more variable: `Result Unit` &lt;chr&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 6</span></span></span>
+<span><span class="co">#&gt;   `Monitoring Location ID` `Activity Start D…` `Activity Star…` `Characteristi…`</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> SUD-293                  2021-03-21          08:16            DO              </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> LND-007                  2021-05-19          06:35            DO              </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> HBS-080P                 2021-05-19          09:29            DO              </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> HBS-080P                 2021-05-19          09:33            DO              </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> HBS-095P                 2021-06-14          05:17            DO              </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> SUD-005                  2021-11-14          07:15            DO              </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> HBS-016                  2021-11-14          07:25            DO              </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 2 more variables: `Result Value` &lt;dbl&gt;, `Result Unit` &lt;chr&gt;</span></span></span></code></pre></div>
 </div>
   </main>
 </div>
