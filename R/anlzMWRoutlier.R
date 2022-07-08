@@ -142,10 +142,10 @@ anlzMWRoutlier <- function(res, param, acc, type = c('month', 'site'), dtrng = N
 
   # return outliers if TRUE
   if(outliers){
-    
+
     out <- toplo %>% 
       dplyr::filter(!is.na(outlier)) %>% 
-      dplyr::select(`Monitoring Location ID`, `Activity Start Date`, `Characteristic Name`, `Result Value`, `Result Unit`)
+      dplyr::select(`Monitoring Location ID`, `Activity Start Date`, `Activity Start Time`, `Characteristic Name`, `Result Value`, `Result Unit`)
 
     return(out)      
     
