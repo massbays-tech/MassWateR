@@ -11,6 +11,7 @@
 #' @param repel logical indicating if overlapping outlier labels are offset
 #' @param outliers logical indicating if outliers are returned to the console instead of plotting
 #' @param labsize numeric indicating font size for the outlier labels
+#' @param fill numeric indicating fill color for boxplots
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
@@ -50,7 +51,7 @@
 #' # data frame output
 #' anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'month', outliers = TRUE)
 #' 
-anlzMWRoutlier <- function(res, param, acc, type = c('month', 'site'), dtrng = NULL, jitter = FALSE, repel = TRUE, outliers = FALSE, labsize = 3, runchk = TRUE, warn = TRUE){
+anlzMWRoutlier <- function(res, param, acc, type = c('month', 'site'), dtrng = NULL, jitter = FALSE, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', runchk = TRUE, warn = TRUE){
   
   type <- match.arg(type)
 
@@ -153,7 +154,7 @@ anlzMWRoutlier <- function(res, param, acc, type = c('month', 'site'), dtrng = N
   }
   
   p <- p + 
-    ggplot2::geom_boxplot(outlier.color = 'tomato1')
+    ggplot2::geom_boxplot(outlier.color = 'tomato1', fill = fill)
   
   if(repel)
     p <- p +

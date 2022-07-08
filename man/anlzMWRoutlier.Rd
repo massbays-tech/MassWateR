@@ -14,6 +14,7 @@ anlzMWRoutlier(
   repel = TRUE,
   outliers = FALSE,
   labsize = 3,
+  fill = "lightgrey",
   runchk = TRUE,
   warn = TRUE
 )
@@ -36,6 +37,8 @@ anlzMWRoutlier(
 \item{outliers}{logical indicating if outliers are returned to the console instead of plotting}
 
 \item{labsize}{numeric indicating font size for the outlier labels}
+
+\item{fill}{numeric indicating fill color for boxplots}
 
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths}
 
