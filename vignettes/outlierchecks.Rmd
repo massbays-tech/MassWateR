@@ -1,8 +1,8 @@
 ---
-title: "MassWateR analysis functions"
+title: "MassWateR outlier checks"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{MassWateR analysis functions}
+  %\VignetteIndexEntry{MassWateR outlier checks}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
