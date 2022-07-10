@@ -7,13 +7,14 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r, include = FALSE, message = F, warning = F}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>", 
   warning = T, 
   message = F
 )
+library(ggplot2)
 ```
 
 Outliers can be evaluated once the required data are successfully imported into R (see the [data input and checks vignette](https://massbays-tech.github.io/MassWateR/articles/datainput.html) for an overview).  The results data file that describes the monitoring data for surface waters is required.  The data quality objectives file for accuracy is also required to determine plot axis scaling as arithmetic (linear) or logarithmic. The example data included with the package are imported here to demonstrate how to use the analysis functions:
@@ -84,5 +85,40 @@ Finally, a data frame of the identified outliers can also be returned by setting
 
 ```{r}
 anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'month', outliers = TRUE)
+```
+
+## Modifying the plot
+
+The default plot format should be sufficient in most cases, but it can be modified using common `ggplot()` plot functions.  The plot returned by `anlzMWRoutlier()` is a `ggplot2()` plot object and additional components can be added using the `+` notation. Note that overriding some of the existing plot components may significantly alter the appearance, so use caution. 
+
+Below are a few examples of minimal additions to change the standard plot. A single plot object for the original plot is created as `p` and is modified differently in each example. 
+
+Modify plot labels: 
+
+```{r, fig.height = 4, fig.width = 8}
+p <- anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'month')
+p +
+  labs(
+    x = "Month", 
+    y = 'Dissolved oxygen (mg/L)', 
+    title = "Outliers for dissolved oxygen"
+  )
+```
+
+Modify theme elements:
+
+```{r}
+p + 
+  theme_bw() +
+  theme(
+    axis.text = element_text(size = 14)
+  )
+```
+
+Change the y-axis scale limits:
+
+```{r}
+p + 
+  scale_y_continuous(limits = c(0, 20))
 ```
 
