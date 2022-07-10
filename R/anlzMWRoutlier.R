@@ -98,11 +98,6 @@ anlzMWRoutlier <- function(res, param, acc, type = c('month', 'site', 'week'), d
       panel.grid.minor.y = ggplot2::element_blank(), 
       axis.text.x = ggplot2::element_text(angle = 45, size = 8, hjust = 1)
     )
-  
-  # outlier function
-  is_outlier <- function(x) {
-    return(x < quantile(x, 0.25, na.rm = TRUE) - 1.5 * IQR(x, na.rm = T) | x > quantile(x, 0.75, na.rm = TRUE) + 1.5 * IQR(x, na.rm = T))
-  }
 
   toplo <- resdat
 
@@ -117,7 +112,7 @@ anlzMWRoutlier <- function(res, param, acc, type = c('month', 'site', 'week'), d
         ) %>% 
       dplyr::group_by(Month) %>% 
       dplyr::mutate(
-        outlier = ifelse(is_outlier(`Result Value`), `Monitoring Location ID`, NA_character_)
+        outlier = ifelse(utilMWRoutlier(`Result Value`, logscl = logscl), `Monitoring Location ID`, NA_character_)
       ) %>% 
       dplyr::ungroup()
 
@@ -131,7 +126,7 @@ anlzMWRoutlier <- function(res, param, acc, type = c('month', 'site', 'week'), d
     toplo <- toplo %>% 
       dplyr::group_by(`Monitoring Location ID`) %>% 
       dplyr::mutate(
-        outlier = ifelse(is_outlier(`Result Value`), as.character(`Activity Start Date`), NA_character_)
+        outlier = ifelse(utilMWRoutlier(`Result Value`, logscl = logscl), as.character(`Activity Start Date`), NA_character_)
       ) %>% 
       dplyr::ungroup()
     
@@ -148,7 +143,7 @@ anlzMWRoutlier <- function(res, param, acc, type = c('month', 'site', 'week'), d
       ) %>% 
       dplyr::group_by(Week) %>% 
       dplyr::mutate(
-        outlier = ifelse(is_outlier(`Result Value`), `Monitoring Location ID`, NA_character_)
+        outlier = ifelse(utilMWRoutlier(`Result Value`, logscl = logscl), `Monitoring Location ID`, NA_character_)
       ) %>% 
       dplyr::ungroup()
     
