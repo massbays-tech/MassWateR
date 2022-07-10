@@ -38,7 +38,7 @@ Outliers can be identified using the `anlzMWRoutlier()` function.  Evaluating da
 knitr::include_graphics('boxplotex.PNG')
 ```
 
-The `anlzMWRoutlier()` function uses the results data as a file path or data frame as input. The results for a selected parameter are shown as boxplots, with the outliers labelled accordingly. Outliers can be shown by month using `type = "month"` or by site using `type = "site"`.  Below, outliers are shown for dissolved oxygen grouped by month.   
+The `anlzMWRoutlier()` function uses the results data as a file path or data frame as input. The results for a selected parameter are shown as boxplots, with the outliers labelled accordingly. Outliers can be shown by month using `type = "month"`, by site using `type = "site"`, or by week of year using `type = "week"`.  Below, outliers are shown for dissolved oxygen grouped by month.   
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'month')
@@ -48,6 +48,12 @@ The same data are also grouped by site.
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'site')
+```
+
+The same data are also grouped by week using an integer to specify the week. Note that there can be no common month/day indicating the start of the week between years and an integer is the only way to compare summaries if the results data span multiple years. 
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'week')
 ```
 
 Results can also be filtered by dates using the `dtrng` argument. Note that the date format must be `YYYY-MM-DD`. 

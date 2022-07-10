@@ -5,7 +5,7 @@
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param param character string of the parameter to plot, must conform entries in the \code{"Simple Parameter"} of \code{\link{paramsMWR}}
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
-#' @param type character indicating whether the summaries are grouped by month (default) or site
+#' @param type character indicating whether the summaries are grouped by month (default), site, or week of year
 #' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, optional
 #' @param jitter logical indicating of non-outlier points are jittered over the boxplots
 #' @param repel logical indicating if overlapping outlier labels are offset
@@ -20,6 +20,8 @@
 #' 
 #' @details Outliers are defined following the standard \code{\link[ggplot2]{ggplot}} definition as 1.5 times the inter-quartile range of each boxplot.  The data frame returned if \code{outliers = TRUE} may vary based on the boxplot groupings defined by \code{type}.
 #' 
+#' Specifying \code{type = "week"} will group the samples by week of year using an integer specifying the week.  Note that there can be no common month/day indicating the start of the week between years and an integer is the only way to compare summaries if the results data span multiple years.
+#'
 #' The y-axis scaling as arithmetic (linear) or logarithmic can be set with the \code{yscl} argument.  If \code{yscl = "auto"} (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting \code{yscl = "linear"} or \code{yscl = "log"} will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy. 
 #' 
 #' Entries for \code{Result Value} that are not numeric are removed from the plot, e.g., \code{'AQL'}.
@@ -52,7 +54,7 @@
 #' # data frame output
 #' anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'month', outliers = TRUE)
 #' 
-anlzMWRoutlier <- function(res, param, acc, type = c('month', 'site'), dtrng = NULL, jitter = FALSE, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
+anlzMWRoutlier <- function(res, param, acc, type = c('month', 'site', 'week'), dtrng = NULL, jitter = FALSE, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
   
   type <- match.arg(type)
   yscl <- match.arg(yscl)
@@ -151,6 +153,23 @@ anlzMWRoutlier <- function(res, param, acc, type = c('month', 'site'), dtrng = N
     
   }
 
+  # plot by week
+  if(type == 'week'){
+    
+    toplo <- toplo %>% 
+      dplyr::mutate(
+        Week = factor(lubridate::week(`Activity Start Date`))
+      ) %>% 
+      dplyr::group_by(Week) %>% 
+      dplyr::mutate(
+        outlier = ifelse(is_outlier(`Result Value`), `Monitoring Location ID`, NA_character_)
+      ) %>% 
+      dplyr::ungroup()
+    
+    p <- ggplot2::ggplot(toplo, ggplot2::aes(x = Week, y = `Result Value`))
+    
+  }
+  
   # return outliers if TRUE
   if(outliers){
 

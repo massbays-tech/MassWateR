@@ -8,7 +8,7 @@ anlzMWRoutlier(
   res,
   param,
   acc,
-  type = c("month", "site"),
+  type = c("month", "site", "week"),
   dtrng = NULL,
   jitter = FALSE,
   repel = TRUE,
@@ -27,7 +27,7 @@ anlzMWRoutlier(
 
 \item{acc}{character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}}
 
-\item{type}{character indicating whether the summaries are grouped by month (default) or site}
+\item{type}{character indicating whether the summaries are grouped by month (default), site, or week of year}
 
 \item{dtrng}{character string of length two for the date ranges as YYYY-MM-DD, optional}
 
@@ -55,6 +55,8 @@ Analyze outliers in results file
 }
 \details{
 Outliers are defined following the standard \code{\link[ggplot2]{ggplot}} definition as 1.5 times the inter-quartile range of each boxplot.  The data frame returned if \code{outliers = TRUE} may vary based on the boxplot groupings defined by \code{type}.
+
+Specifying \code{type = "week"} will group the samples by week of year using an integer specifying the week.  Note that there can be no common month/day indicating the start of the week between years and an integer is the only way to compare summaries if the results data span multiple years.
 
 The y-axis scaling as arithmetic (linear) or logarithmic can be set with the \code{yscl} argument.  If \code{yscl = "auto"} (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting \code{yscl = "linear"} or \code{yscl = "log"} will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy.
 
