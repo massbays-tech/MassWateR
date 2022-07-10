@@ -60,7 +60,7 @@
 <span>  <span class="va">res</span>,</span>
 <span>  <span class="va">param</span>,</span>
 <span>  <span class="va">acc</span>,</span>
-<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"month"</span>, <span class="st">"site"</span><span class="op">)</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"month"</span>, <span class="st">"site"</span>, <span class="st">"week"</span><span class="op">)</span>,</span>
 <span>  dtrng <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  jitter <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  repel <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -88,7 +88,7 @@
 
 
 <dt>type</dt>
-<dd><p>character indicating whether the summaries are grouped by month (default) or site</p></dd>
+<dd><p>character indicating whether the summaries are grouped by month (default), site, or week of year</p></dd>
 
 
 <dt>dtrng</dt>
@@ -136,6 +136,7 @@
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Outliers are defined following the standard <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></code> definition as 1.5 times the inter-quartile range of each boxplot.  The data frame returned if <code>outliers = TRUE</code> may vary based on the boxplot groupings defined by <code>type</code>.</p>
+<p>Specifying <code>type = "week"</code> will group the samples by week of year using an integer specifying the week.  Note that there can be no common month/day indicating the start of the week between years and an integer is the only way to compare summaries if the results data span multiple years.</p>
 <p>The y-axis scaling as arithmetic (linear) or logarithmic can be set with the <code>yscl</code> argument.  If <code>yscl = "auto"</code> (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting <code>yscl = "linear"</code> or <code>yscl = "log"</code> will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy.</p>
 <p>Entries for <code>Result Value</code> that are not numeric are removed from the plot, e.g., <code>'AQL'</code>.</p>
     </div>
