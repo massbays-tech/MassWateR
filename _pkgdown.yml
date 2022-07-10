@@ -1,4 +1,10 @@
 url: https://massbays-tech.github.io/MassWateR
 template:
   bootstrap: 5
-
+articles: 
+- title: Articles
+  navbar: ~
+  contents: 
+  - datainput
+  - qcoverview
+  - outlierchecks
