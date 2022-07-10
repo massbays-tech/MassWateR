@@ -24,6 +24,6 @@ respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 # results data
 resdat <- readMWRresults(respth)
 
-# filtered results
+# filtered results by date only
 utilMWRdaterange(resdat, dtrng = c('2021-06-01', '2021-06-30'))
 }

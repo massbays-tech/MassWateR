@@ -12,7 +12,7 @@ globalVariables(c("Activity Start Date", "Activity Start Time", "QC Reference Va
                   "diffv", "flt", "percv", "Avg. Result", "Sample ID", "ind", "Result Attribute", 
                   "rngflt", "Method", "recov", "% Acceptance", "Number of Misses", 
                   "Number of QC Checks", "isnum", "Quantitation Limit", "Threshold", "Month", 
-                  "outlier"))
+                  "outlier", "Week"))
 
 #' @importFrom stats IQR na.omit quantile
 NULL

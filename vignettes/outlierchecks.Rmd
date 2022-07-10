@@ -59,7 +59,7 @@ anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'week')
 Results can also be filtered by dates using the `dtrng` argument. Note that the date format must be `YYYY-MM-DD`. 
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'site', dtrng = c('2021-06-01', '2021-07-31'))
+anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'site', dtrng = c('2021-05-01', '2021-07-31'))
 ```
 
 Points that are not outliers can also be jittered over the boxplots using `jitter = TRUE`. Outlier labels that overlap are also offset by default.  This can be suppressed using `repel = FALSE`. 
