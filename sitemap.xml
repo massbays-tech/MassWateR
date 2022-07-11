@@ -34,6 +34,9 @@
     <loc>https://massbays-tech.github.io/MassWateR/reference/anlzMWRoutlier.html</loc>
   </url>
   <url>
+    <loc>https://massbays-tech.github.io/MassWateR/reference/anlzMWRseason.html</loc>
+  </url>
+  <url>
     <loc>https://massbays-tech.github.io/MassWateR/reference/checkMWRacc.html</loc>
   </url>
   <url>
@@ -107,5 +110,8 @@
   </url>
   <url>
     <loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRoutlier.html</loc>
+  </url>
+  <url>
+    <loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRthresh.html</loc>
   </url>
 </urlset>
