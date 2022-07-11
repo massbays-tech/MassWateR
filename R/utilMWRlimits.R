@@ -2,7 +2,9 @@
 #'
 #' @param resdat results data as returned by \code{\link{readMWRresults}}
 #' @param accdat \code{data.frame} for data quality objectives file for accuracy as returned by \code{\link{readMWRacc}}
-#' @param param character string to first filter results by a parameter in \code{`Characteristic Name`}
+#' @param param character string to first filter results by a parameter in \code{"Characteristic Name"}
+#' @param site character string to filter results by site in \code{"Montoring Location ID"}, optional
+#' @param resultatt character string to filter results by result attribute in \code{"Result Attribute"}, optional
 #' @param warn logical to return warnings to the console (default)
 #'
 #' @return \code{resdat} with any entries in \code{"Result Value"} as \code{"BDL"} or \code{"AQL"} replaced with appropriate values in the \code{"Quantitation Limit"} column, if present, otherwise the \code{"MDL"} or \code{"UQL"} columns from the data quality objectives file for accuracy are used.  Values as \code{"BDL"} use one half of the appropriate limit.
@@ -22,9 +24,12 @@
 #' # accuracy data
 #' accdat <- readMWRacc(accpth)
 #' 
-#' # filtered results by date only
+#' # apply to total phosphorus
 #' utilMWRlimits(resdat, accdat, param = 'TP')
-utilMWRlimits <- function(resdat, accdat, param, warn = TRUE){
+#' 
+#' # apply to E.coli, filter by site and result attribute
+#' utilMWRlimits(resdat = resdat, accdat = accdat, param = 'E.coli', site = 'ABT-077', resultatt = c('Dry'))
+utilMWRlimits <- function(resdat, accdat, param, site = NULL, resultatt = NULL, warn = TRUE){
   
   colsym <- c('<=', '<', '>=', '>', '\u00b1', '\u2265', '\u2264', '%', 'AQL', 'BDL', 'log', 'all')
   
@@ -45,7 +50,40 @@ utilMWRlimits <- function(resdat, accdat, param, warn = TRUE){
   resdat <- resdat %>% 
     dplyr::filter(`Characteristic Name` %in% param)
   
-  # check if parameter in accdat, warn if TRUE, then conver to numeric and exit
+  # filter by site
+  if(!is.null(site)){
+    
+    # run checks if site in resdat
+    ressit <- sort(unique(resdat$`Monitoring Location ID`))
+    chk <- !site %in% ressit
+    if(any(chk)){
+      msg <- site[chk]
+      stop('Sites not found in Monitoring Location ID in results file for ', param, ': ', paste(msg, collapse = ', '), ', should be any of ', paste(ressit, collapse = ', '), call. = FALSE)
+    }
+      
+    resdat <- resdat %>% 
+      dplyr::filter(`Monitoring Location ID` %in% site)
+    
+  }
+  
+  # filter by result attribute
+  if(!is.null(resultatt)){
+    
+    # run checks if result attribute in resdat
+    resatt <- sort(unique(resdat$`Result Attribute`))
+    chk <- !resultatt %in% resatt
+    if(any(chk)){
+      msg <- resultatt[chk]
+      resatt <- ifelse(length(na.omit(resatt)) == 0, 'none available', paste('should be any of', paste(resatt, collapse = ', ')))
+      stop('Result attributes not found in results file for ', param, ': ', paste(msg, collapse = ', '), ', ', resatt, call. = FALSE)
+    }
+    
+    resdat <- resdat %>% 
+      dplyr::filter(`Result Attribute` %in% resultatt)
+    
+  }
+    
+  # check if parameter in accdat, warn if TRUE, then convert to numeric and exit
   chk <- !param %in% accdat$Parameter
   if(chk){
     
@@ -85,6 +123,8 @@ utilMWRlimits <- function(resdat, accdat, param, warn = TRUE){
   accdat <- accdat %>% 
     dplyr::select(Parameter, MDL, UQL, `Value Range`)
 
+  # replace BDL with 1/2 quant limit or MDL, replace AQL wiht quant limit or UQL
+  # then filter by value range in accdat
   out <- resdat %>% 
     dplyr::mutate(ind = 1:n()) %>% 
     inner_join(accdat, by = c('Characteristic Name' = 'Parameter')) %>% 

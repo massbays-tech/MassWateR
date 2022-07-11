@@ -4,7 +4,7 @@
 #' 
 #' @format A \code{data.frame} of 39 rows and 6 columns
 #' 
-#' @details This information is used to verify the correct format of input data and for minor formatting of output data for upload to WQX.  A column showing the corresponding WQX names is also included.
+#' @details This file includes appropriate threshold values of water quality parameters for marine and freshwater environments based on state standards or typical ranges in Massachusetts.  
 #' 
 #' @examples 
 #' \dontrun{

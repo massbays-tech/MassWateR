@@ -14,7 +14,7 @@ thresholdMWR
 Master thresholds list for analysis of results data
 }
 \details{
-This information is used to verify the correct format of input data and for minor formatting of output data for upload to WQX.  A column showing the corresponding WQX names is also included.
+This file includes appropriate threshold values of water quality parameters for marine and freshwater environments based on state standards or typical ranges in Massachusetts.
 }
 \examples{
 \dontrun{
