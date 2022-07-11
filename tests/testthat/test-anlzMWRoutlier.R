@@ -1,29 +1,29 @@
 test_that("Checking ouput format by month", {
-  result <- anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'month')
+  result <- anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month')
   expect_s3_class(result, 'ggplot')
 })
 
 test_that("Checking ouput format by site", {
-  result <- anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'site')
+  result <- anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'site')
   expect_s3_class(result, 'ggplot')
 })
 
 test_that("Checking ouput format by week", {
-  result <- anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'week')
+  result <- anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'week')
   expect_s3_class(result, 'ggplot')
 })
 
 test_that("Checking ouput format log-scale", {
-  result <- anlzMWRoutlier(res = resdat, param = 'E.coli', acc = accdat, type = 'site')
+  result <- anlzMWRoutlier(res = resdat, param = 'E.coli', acc = accdat, group = 'site')
   expect_s3_class(result, 'ggplot')
 })
 
 test_that("Return outliers only", {
-  result <- anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'month', outliers = TRUE)
+  result <- anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month', outliers = TRUE)
   expect_s3_class(result, 'data.frame')
 })
 
 test_that("Testing no repel for outliers", {
-  result <- anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, type = 'month', repel = F)
+  result <- anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month', repel = F)
   expect_s3_class(result, 'ggplot')
 })

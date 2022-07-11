@@ -13,7 +13,7 @@
 #' # results data
 #' resdat <- readMWRresults(respth)
 #' 
-#' # filtered results by date only
+#' # filtered results
 #' utilMWRdaterange(resdat, dtrng = c('2021-06-01', '2021-06-30'))
 utilMWRdaterange <- function(resdat, dtrng = NULL){
   
