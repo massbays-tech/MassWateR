@@ -18,7 +18,7 @@
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object that can be further modified if \code{outliers = FALSE}, otherwise a data frame of outliers is returned.
 #' 
-#' @details 
+#' @details Outliers are defined following the standard \code{\link[ggplot2]{ggplot}} definition as 1.5 times the inter-quartile range of each boxplot.  The data frame returned if \code{outliers = TRUE} may vary based on the boxplot groupings defined by \code{group}.
 #' 
 #' Specifying \code{group = "week"} will group the samples by week of year using an integer specifying the week.  Note that there can be no common month/day indicating the start of the week between years and an integer is the only way to compare summaries if the results data span multiple years.
 #'

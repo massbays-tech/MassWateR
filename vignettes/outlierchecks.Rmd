@@ -89,7 +89,7 @@ anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month', outlie
 
 ## Modifying the plot
 
-The default plot format should be sufficient in most cases, but it can be modified using common `ggplot()` plot functions.  The plot returned by `anlzMWRoutlier()` is a `ggplot2()` plot object and additional components can be added using the `+` notation. Note that overriding some of the existing plot components may significantly alter the appearance, so use caution. 
+The default plot format should be sufficient in most cases, but it can be modified using common `ggplot()` plot functions.  The plot returned by `anlzMWRoutlier()` is a `ggplot()` plot object and additional components can be added using the `+` notation. Note that overriding some of the existing plot components may significantly alter the appearance, so use caution. 
 
 Below are a few examples of minimal additions to change the standard plot. A single plot object for the original plot is created as `p` and is modified differently in each example. 
 
