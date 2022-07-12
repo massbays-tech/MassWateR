@@ -1,19 +1,19 @@
-test_that("Checking ouput format by month", {
-  result <- anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month')
+test_that("Checking output format by month", {
+  result <- anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month', jitter = TRUE)
   expect_s3_class(result, 'ggplot')
 })
 
-test_that("Checking ouput format by site", {
+test_that("Checking output format by site", {
   result <- anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'site')
   expect_s3_class(result, 'ggplot')
 })
 
-test_that("Checking ouput format by week", {
+test_that("Checking output format by week", {
   result <- anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'week')
   expect_s3_class(result, 'ggplot')
 })
 
-test_that("Checking ouput format log-scale", {
+test_that("Checking output format log-scale", {
   result <- anlzMWRoutlier(res = resdat, param = 'E.coli', acc = accdat, group = 'site')
   expect_s3_class(result, 'ggplot')
 })

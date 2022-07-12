@@ -12,7 +12,8 @@ globalVariables(c("Activity Start Date", "Activity Start Time", "QC Reference Va
                   "diffv", "flt", "percv", "Avg. Result", "Sample ID", "ind", "Result Attribute", 
                   "rngflt", "Method", "recov", "% Acceptance", "Number of Misses", 
                   "Number of QC Checks", "isnum", "Quantitation Limit", "Threshold", "Month", 
-                  "outlier", "Week"))
+                  "outlier", "Week", "grpvar", "hiv", "label", "lov", "meanval","num", 
+                  "thresholdMWR"))
 
-#' @importFrom stats IQR na.omit quantile
+#' @importFrom stats IQR na.omit quantile t.test
 NULL

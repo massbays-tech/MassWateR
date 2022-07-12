@@ -50,5 +50,6 @@ accdat <- readMWRacc(accpth)
 utilMWRlimits(resdat, accdat, param = 'TP')
 
 # apply to E.coli, filter by site and result attribute
-utilMWRlimits(resdat = resdat, accdat = accdat, param = 'E.coli', site = 'ABT-077', resultatt = c('Dry'))
+utilMWRlimits(resdat = resdat, accdat = accdat, param = 'E.coli', 
+     site = 'ABT-077', resultatt = c('Dry'))
 }

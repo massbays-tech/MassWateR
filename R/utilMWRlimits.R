@@ -28,7 +28,8 @@
 #' utilMWRlimits(resdat, accdat, param = 'TP')
 #' 
 #' # apply to E.coli, filter by site and result attribute
-#' utilMWRlimits(resdat = resdat, accdat = accdat, param = 'E.coli', site = 'ABT-077', resultatt = c('Dry'))
+#' utilMWRlimits(resdat = resdat, accdat = accdat, param = 'E.coli', 
+#'      site = 'ABT-077', resultatt = c('Dry'))
 utilMWRlimits <- function(resdat, accdat, param, site = NULL, resultatt = NULL, warn = TRUE){
   
   colsym <- c('<=', '<', '>=', '>', '\u00b1', '\u2265', '\u2264', '%', 'AQL', 'BDL', 'log', 'all')

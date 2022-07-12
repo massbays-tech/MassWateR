@@ -51,9 +51,9 @@
 #' # seasonal trends by week
 #' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'week')
 #' 
-#' #' outliers by site, June, July 2021 only
-#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'site', dtrng = c('2021-06-01', '2021-07-31'))
-#' 
+#' # seasonal trends by month, May to July only
+#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'month', 
+#'      dtrng = c('2021-05-01', '2021-07-31'))
 anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c('box', 'bar'), thresh = c('fresh', 'marine', 'none'), site = NULL, resultatt = NULL, dtrng = NULL, jitter = FALSE, fill = 'lightgrey', yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
   
   group <- match.arg(group)
