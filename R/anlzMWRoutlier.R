@@ -12,6 +12,7 @@
 #' @param outliers logical indicating if outliers are returned to the console instead of plotting
 #' @param labsize numeric indicating font size for the outlier labels
 #' @param fill numeric indicating fill color for boxplots
+#' @param alpha numeric from 0 to 1 indicating transparency of fill color
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths
 #' @param warn logical to return warnings to the console (default)
@@ -55,7 +56,7 @@
 #' # data frame output
 #' anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month', outliers = TRUE)
 #' 
-anlzMWRoutlier <- function(res, param, acc, group = c('month', 'site', 'week'), dtrng = NULL, jitter = FALSE, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
+anlzMWRoutlier <- function(res, param, acc, group = c('month', 'site', 'week'), dtrng = NULL, jitter = FALSE, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
   
   group <- match.arg(group)
   yscl <- match.arg(yscl)
@@ -164,7 +165,7 @@ anlzMWRoutlier <- function(res, param, acc, group = c('month', 'site', 'week'), 
   }
   
   p <- p + 
-    ggplot2::geom_boxplot(outlier.color = 'tomato1', fill = fill)
+    ggplot2::geom_boxplot(outlier.color = 'tomato1', fill = fill, alpha = alpha)
   
   if(repel)
     p <- p +

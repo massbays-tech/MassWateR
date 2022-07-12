@@ -8,11 +8,13 @@
 #' @param group character indicating whether the summaries are grouped by month (default) or week of year
 #' @param type character indicating \code{"box"} for boxplots or \code{"bar"} for barplots, see details
 #' @param thresh character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}
+#' @param threshcol character indicating color of threshold lines if available
 #' @param site character string of sites to include, default all
 #' @param resultatt character string of result attributes to plot, default all
 #' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, optional
 #' @param jitter logical indicating if points are jittered over the boxplots, only applies if \code{type = "boxplot"}
 #' @param fill numeric indicating fill color for boxplots or barplots
+#' @param alpha numeric from 0 to 1 indicating transparency of fill color
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths
 #' @param warn logical to return warnings to the console (default)
@@ -45,16 +47,23 @@
 #' # accuracy data
 #' accdat <- readMWRacc(accpth)
 #' 
-#' # seasonal trends by month
-#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'month')
+#' # seasonal trends by month, boxplot
+#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'month', type = 'box')
 #' 
-#' # seasonal trends by week
-#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'week')
+#' # seasonal trends by week, boxplot
+#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'week', type = 'box')
 #' 
 #' # seasonal trends by month, May to July only
-#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'month', 
+#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'month', type = 'bar',
 #'      dtrng = c('2021-05-01', '2021-07-31'))
-anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c('box', 'bar'), thresh = c('fresh', 'marine', 'none'), site = NULL, resultatt = NULL, dtrng = NULL, jitter = FALSE, fill = 'lightgrey', yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
+#'      
+#' # seasonal trends by month, barplot
+#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'month', type = 'bar')
+#' 
+#' # seasonal trends by week, barplot
+#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'week', type = 'bar')
+#' 
+anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c('box', 'bar'), thresh = c('fresh', 'marine', 'none'), threshcol = 'tan', site = NULL, resultatt = NULL, dtrng = NULL, jitter = FALSE, fill = 'lightblue', alpha = 0.8, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
   
   group <- match.arg(group)
   type <- match.arg(type)
@@ -76,8 +85,8 @@ anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c(
   resdat <- utilMWRdaterange(resdat = resdat, dtrng = dtrng)
   
   # get thresholds
-  thresh <- utilMWRthresh(resdat = resdat, param = param, thresh = thresh, warn = warn)
-  
+  threshln <- utilMWRthresh(resdat = resdat, param = param, thresh = thresh, warn = warn)
+
   # get scaling from accuracy data
   logscl <- accdat %>% 
     dplyr::filter(Parameter %in% param) %>% 
@@ -100,7 +109,8 @@ anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c(
       panel.grid.major.x = ggplot2::element_blank(), 
       panel.grid.minor.x = ggplot2::element_blank(),
       panel.grid.minor.y = ggplot2::element_blank(), 
-      axis.text.x = ggplot2::element_text(angle = 45, size = 8, hjust = 1)
+      axis.text.x = ggplot2::element_text(angle = 45, size = 8, hjust = 1), 
+      legend.position = 'top'
     )
   
   toplo <- resdat
@@ -137,7 +147,7 @@ anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c(
       dplyr::ungroup()
     
     p <- ggplot2::ggplot(toplo, ggplot2::aes(x = grpvar, y = `Result Value`)) +
-      ggplot2::geom_boxplot(outlier.size = 1, fill = fill)
+      ggplot2::geom_boxplot(outlier.size = 1, fill = fill, alpha = alpha)
     
   }
   
@@ -145,16 +155,28 @@ anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c(
   if(type == 'bar'){
     
     toplo <- toplo %>% 
-      dplyr::group_by(grpvar) %>% 
-      dplyr::summarize(
-        meanval = mean(`Result Value`, na.rm = T), 
-        lov = t.test(`Result Value`, na.rm = T)$conf.int[1],
-        hiv = t.test(`Result Value`, na.rm = T)$conf.int[2], 
-        .groups = 'drop'
-      ) 
+      dplyr::group_by(grpvar)
+    
+    if(!logscl)
+      toplo <- toplo %>% 
+        dplyr::summarize(
+          meanval = mean(`Result Value`, na.rm = T), 
+          lov = t.test(`Result Value`, na.rm = T)$conf.int[1],
+          hiv = t.test(`Result Value`, na.rm = T)$conf.int[2], 
+          .groups = 'drop'
+        ) 
+    
+    if(logscl)
+      toplo <- toplo %>% 
+        dplyr::summarize(
+          meanval = 10^mean(log10(`Result Value`), na.rm = T), 
+          lov = 10^t.test(log10(`Result Value`), na.rm = T)$conf.int[1],
+          hiv = 10^t.test(log10(`Result Value`), na.rm = T)$conf.int[2], 
+          .groups = 'drop'
+        ) 
     
     p <-  ggplot2::ggplot(toplo, ggplot2::aes(x = grpvar, y = meanval)) +
-      ggplot2::geom_bar(fill = fill, stat = 'identity') + 
+      ggplot2::geom_bar(fill = fill, stat = 'identity', alpha = alpha) + 
       ggplot2::geom_errorbar(ggplot2::aes(ymin = lov, ymax = hiv), width = 0.2)
     
   }
@@ -170,6 +192,18 @@ anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c(
     
   }
   
+  # add threshold lines
+  if(!is.null(threshln)){
+    
+    threshln <- na.omit(threshln)
+    
+    p <- p + 
+      ggplot2::geom_hline(data = threshln, ggplot2::aes(yintercept  = thresh, color = label, size = label)) + 
+      ggplot2::scale_color_manual(values = rep(threshcol, nrow(threshln))) +
+      ggplot2::scale_size_manual(values = threshln$size)
+
+  }
+  
   if(logscl)
     p <- p + ggplot2::scale_y_log10()
   
@@ -178,6 +212,9 @@ anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c(
     ggplot2::labs(
       y = ylab, 
       title = param, 
+      color = NULL,
+      size = NULL, 
+      alpha = NULL,
       x = NULL
     )
   

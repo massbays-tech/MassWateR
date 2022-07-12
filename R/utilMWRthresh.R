@@ -66,8 +66,12 @@ utilMWRthresh <- function(resdat, param, thresh = c('fresh', 'marine', 'none'), 
 
   out <- full_join(out1, out2, by = 'num') %>% 
     dplyr::select(num, thresh, label) %>% 
-    dplyr::mutate(label = factor(label))
-  
+    dplyr::mutate(
+      size = c(1.5, 0.5),
+      label = factor(label, levels = rev(label))
+      ) %>% 
+    dplyr::arrange(label)
+
   if(nrow(na.omit(out)) == 0){
     if(warn)
       warning('No threshold info for ', thresh, ' ', param)
