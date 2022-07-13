@@ -180,12 +180,12 @@ anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c(
       ggplot2::geom_errorbar(ggplot2::aes(ymin = lov, ymax = hiv), width = 0.2)
     
   }
-  
+
   # jitter if box
   if(jitter & type == 'box'){
     
     jitplo <- toplo %>% 
-      dplyr::filter(is.na(outlier))
+      dplyr::filter(!outlier)
     
     p <- p + 
       ggplot2::geom_point(data = jitplo, position = ggplot2::position_dodge2(width = 0.7), alpha = 0.5, size = 1)
