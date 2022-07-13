@@ -5,7 +5,7 @@
 #' @param thresh character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}
 #' @param warn logical to return warnings to the console (default)
 #'
-#' @return
+#' @return A logical value indicating \code{TRUE} if a log10-scale should be used, \code{FALSE} for arithmetic (linear)
 #' @export
 #'
 #' @examples
@@ -34,6 +34,12 @@ utilMWRthresh <- function(resdat, param, thresh = c('fresh', 'marine', 'none'), 
   out <- thresholdMWR %>% 
     dplyr::filter(`Simple Parameter` == param)
     
+  if(nrow(out) == 0){
+    if(warn)
+      warning('No threshold info for ', param)
+    return(NULL)
+  }
+  
   # threshold units
   thruni <- out %>% 
     dplyr::mutate(
@@ -43,7 +49,7 @@ utilMWRthresh <- function(resdat, param, thresh = c('fresh', 'marine', 'none'), 
       )
     ) %>% 
     dplyr::pull(uom)
-  
+
   # check if threshold units same as resdat units
   chk <- !resuni == thruni
   if(chk)

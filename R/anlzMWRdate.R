@@ -11,7 +11,6 @@
 #' @param site character string of sites to include, default all
 #' @param resultatt character string of result attributes to plot, default all
 #' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, optional
-#' @param color 
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths
 #' @param warn logical to return warnings to the console (default)
@@ -52,7 +51,7 @@
 #' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', 
 #'      dtrng = c('2021-05-01', '2021-07-31'))
 #' 
-anlzMWRdate <- function(res, param, acc, group = c('site', 'all'), thresh = c('fresh', 'marine', 'none'), threshcol = 'tan', site = NULL, resultatt = NULL, dtrng = NULL, color = NULL, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
+anlzMWRdate <- function(res, param, acc, group = c('site', 'all'), thresh = c('fresh', 'marine', 'none'), threshcol = 'tan', site = NULL, resultatt = NULL, dtrng = NULL, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
   
   group <- match.arg(group)
 
@@ -89,82 +88,50 @@ anlzMWRdate <- function(res, param, acc, group = c('site', 'all'), thresh = c('f
       legend.position = 'top'
     )
   
-  toplo <- resdat
+  toplo <- resdat %>% 
+    dplyr::mutate(
+      `Activity Start Date` = lubridate::ymd(`Activity Start Date`)
+    )
   
   ylab <- unique(toplo$`Result Unit`)
   
-  # group by month
-  if(group == 'month'){
-    
-    toplo <- toplo %>% 
-      dplyr::mutate(
-        grpvar = lubridate::month(`Activity Start Date`, label = TRUE, abbr = TRUE)
-      )
-  }
-  
-  # group by week
-  if(group == 'week'){
-    
-    toplo <- toplo %>% 
-      dplyr::mutate(
-        grpvar = factor(lubridate::week(`Activity Start Date`))
-      ) 
+  # by site
+  if(group == 'site'){
+
+    p <- ggplot2::ggplot(toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`)) +
+      ggplot2::geom_line() + 
+      ggplot2::geom_point()
     
   }
   
-  # boxplot
-  if(type == 'box'){
+  # combine all sites
+  if(group == 'all'){
     
     toplo <- toplo %>% 
-      dplyr::group_by(grpvar) %>% 
-      dplyr::mutate(
-        outlier = utilMWRoutlier(`Result Value`, logscl = logscl)
-      ) %>% 
-      dplyr::ungroup()
-    
-    p <- ggplot2::ggplot(toplo, ggplot2::aes(x = grpvar, y = `Result Value`)) +
-      ggplot2::geom_boxplot(outlier.size = 1, fill = fill, alpha = alpha)
-    
-  }
-  
-  # barplot
-  if(type == 'bar'){
-    
-    toplo <- toplo %>% 
-      dplyr::group_by(grpvar)
+      dplyr::group_by(`Activity Start Date`) 
     
     if(!logscl)
       toplo <- toplo %>% 
         dplyr::summarize(
-          meanval = mean(`Result Value`, na.rm = T), 
-          lov = t.test(`Result Value`, na.rm = T)$conf.int[1],
-          hiv = t.test(`Result Value`, na.rm = T)$conf.int[2], 
+          lov = tryCatch(t.test(`Result Value`, na.rm = T)$conf.int[1], error = function(x) NA),
+          hiv = tryCatch(t.test(`Result Value`, na.rm = T)$conf.int[2], error = function(x) NA),
+          `Result Value` = mean(`Result Value`, na.rm = TRUE), 
           .groups = 'drop'
-        ) 
+        )
     
     if(logscl)
       toplo <- toplo %>% 
         dplyr::summarize(
-          meanval = 10^mean(log10(`Result Value`), na.rm = T), 
-          lov = 10^t.test(log10(`Result Value`), na.rm = T)$conf.int[1],
-          hiv = 10^t.test(log10(`Result Value`), na.rm = T)$conf.int[2], 
+          lov = tryCatch(10^t.test(log10(`Result Value`), na.rm = T)$conf.int[1], error = function(x) NA),
+          hiv = tryCatch(10^t.test(log10(`Result Value`), na.rm = T)$conf.int[2], error = function(x) NA),
+          `Result Value` = 10^mean(log10(`Result Value`), na.rm = TRUE), 
           .groups = 'drop'
-        ) 
+        )
     
-    p <-  ggplot2::ggplot(toplo, ggplot2::aes(x = grpvar, y = meanval)) +
-      ggplot2::geom_bar(fill = fill, stat = 'identity', alpha = alpha) + 
-      ggplot2::geom_errorbar(ggplot2::aes(ymin = lov, ymax = hiv), width = 0.2)
-    
-  }
-  
-  # jitter if box
-  if(jitter & type == 'box'){
-    
-    jitplo <- toplo %>% 
-      dplyr::filter(!outlier)
-    
-    p <- p + 
-      ggplot2::geom_point(data = jitplo, position = ggplot2::position_dodge2(width = 0.7), alpha = 0.5, size = 1)
+    p <-  ggplot2::ggplot(toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`)) +
+      ggplot2::geom_line() + 
+      ggplot2::geom_point() + 
+      ggplot2::geom_errorbar(ggplot2::aes(ymin = lov, ymax = hiv), width = 1)
     
   }
   

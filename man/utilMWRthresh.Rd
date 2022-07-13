@@ -21,7 +21,7 @@ utilMWRthresh(
 \item{warn}{logical to return warnings to the console (default)}
 }
 \value{
-
+A logical value indicating \code{TRUE} if a log10-scale should be used, \code{FALSE} for arithmetic (linear)
 }
 \description{
 Get threshold lines from thresholdMWR

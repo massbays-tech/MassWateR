@@ -3,8 +3,12 @@ test_that("Checking output format", {
   expect_s3_class(result, 'tbl_df')
 })
 
-test_that("Checking output format no threshold", {
+test_that("Checking output format no marine threshold", {
   expect_warning(utilMWRthresh(resdat, param = 'TP', thresh = 'marine'))
+})
+
+test_that("Checking output format no threshold", {
+  expect_warning(utilMWRthresh(resdat, param = 'Air Temp'))
 })
 
 test_that("Checking output format none", {

@@ -149,8 +149,8 @@ anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c(
       toplo <- toplo %>% 
         dplyr::summarize(
           meanval = mean(`Result Value`, na.rm = T), 
-          lov = t.test(`Result Value`, na.rm = T)$conf.int[1],
-          hiv = t.test(`Result Value`, na.rm = T)$conf.int[2], 
+          lov = tryCatch(t.test(`Result Value`, na.rm = T)$conf.int[1], error = function(x) NA),
+          hiv = tryCatch(t.test(`Result Value`, na.rm = T)$conf.int[2], error = function(x) NA), 
           .groups = 'drop'
         ) 
     
@@ -158,8 +158,8 @@ anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c(
       toplo <- toplo %>% 
         dplyr::summarize(
           meanval = 10^mean(log10(`Result Value`), na.rm = T), 
-          lov = 10^t.test(log10(`Result Value`), na.rm = T)$conf.int[1],
-          hiv = 10^t.test(log10(`Result Value`), na.rm = T)$conf.int[2], 
+          lov = tryCatch(10^t.test(log10(`Result Value`), na.rm = T)$conf.int[1], error = function(x) NA),
+          hiv = tryCatch(10^t.test(log10(`Result Value`), na.rm = T)$conf.int[2], error = function(x) NA), 
           .groups = 'drop'
         ) 
     
