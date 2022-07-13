@@ -113,7 +113,8 @@ Modify theme elements:
 p + 
   theme_bw() +
   theme(
-    axis.text = element_text(size = 14)
+    axis.text = element_text(size = 14), 
+    legend.position = 'bottom'
   )
 ```
 
