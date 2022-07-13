@@ -3,7 +3,7 @@
 #' Analyze outliers in results file
 #'
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
-#' @param param character string of the parameter to plot, must conform entries in the \code{"Simple Parameter"} of \code{\link{paramsMWR}}
+#' @param param character string of the parameter to plot, must conform to entries in the \code{"Simple Parameter"} column of \code{\link{paramsMWR}}
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
 #' @param group character indicating whether the summaries are grouped by month (default), site, or week of year
 #' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, optional
@@ -59,7 +59,6 @@
 anlzMWRoutlier <- function(res, param, acc, group = c('month', 'site', 'week'), dtrng = NULL, jitter = FALSE, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
   
   group <- match.arg(group)
-  yscl <- match.arg(yscl)
   
   # inputs
   inp <- utilMWRinput(res = res, acc = acc, runchk = runchk, warn = warn)
@@ -76,19 +75,8 @@ anlzMWRoutlier <- function(res, param, acc, group = c('month', 'site', 'week'), 
   # filter if needed
   resdat <- utilMWRdaterange(resdat = resdat, dtrng = dtrng)
   
-  # get scaling from accuracy data
-  logscl <- accdat %>% 
-    dplyr::filter(Parameter %in% param) %>% 
-    unlist %>% 
-    grepl('log', .) %>% 
-    any
-  
-  # final log scale logical
-  logscl <- dplyr::case_when(
-    yscl == 'linear' ~ FALSE, 
-    yscl == 'log' ~ TRUE, 
-    yscl == 'auto' ~ logscl
-  )
+  # get y axis scaling
+  logscl <- utilMWRyscale(accdat = accdat, param = param, yscl = yscl)
   
   ##
   # plot prep

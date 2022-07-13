@@ -1,29 +1,24 @@
-#' Analyze seasonal trends in results file
+#' Analyze trends by date in results file
 #' 
-#' Analyze seasonal trends in results file
+#' Analyze trends by date in results file
 #'
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param param character string of the parameter to plot, must conform to entries in the \code{"Simple Parameter"} column of \code{\link{paramsMWR}}
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
-#' @param group character indicating whether the summaries are grouped by month (default) or week of year
-#' @param type character indicating \code{"box"} for boxplots or \code{"bar"} for barplots, see details
+#' @param group character indicating whether the results are grouped by site (default) or combined across all sites
 #' @param thresh character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}
 #' @param threshcol character indicating color of threshold lines if available
 #' @param site character string of sites to include, default all
 #' @param resultatt character string of result attributes to plot, default all
 #' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, optional
-#' @param jitter logical indicating if points are jittered over the boxplots, only applies if \code{type = "boxplot"}
-#' @param fill numeric indicating fill color for boxplots or barplots
-#' @param alpha numeric from 0 to 1 indicating transparency of fill color
+#' @param color 
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object that can be further modified.
 #' 
-#' @details Summaries of a parameter are shown as boxplots if \code{type = "box"} or as barplots if \code{type = "bar"}.  For the latter, points can be jittered over the boxplots by setting \code{jitter = TRUE}.  For the former, 95% confidence intervals are also shown. 
-#' 
-#' Specifying \code{group = "week"} will group the samples by week of year using an integer specifying the week.  Note that there can be no common month/day indicating the start of the week between years and an integer is the only way to compare summaries if the results data span multiple years.
+#' @details Results are shown for the selected parameter as continuous line plots over time. Specifying \code{group = "site"} plot a separate line for each site.  Specifying \code{group = "all"} will average results across sites for each date.
 #'
 #' Threshold lines applicable to marine or freshwater environments can be included in the plot by using the \code{thresh} argument.  These thresholds are specific to each parameter and can be found in the \code{\link{thresholdMWR}} file.  Threshold lines are plotted only for those parameters with entries in \code{\link{thresholdMWR}} and only if the value in \code{`Result Unit`} matches those in \code{\link{thresholdMWR}}. The threshold lines can be suppressed by setting \code{thresh = 'none'}. 
 #'  
@@ -47,27 +42,20 @@
 #' # accuracy data
 #' accdat <- readMWRacc(accpth)
 #' 
-#' # seasonal trends by month, boxplot
-#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'month', type = 'box')
+#' # all sites
+#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site')
 #' 
-#' # seasonal trends by week, boxplot
-#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'week', type = 'box')
+#' # combined sites
+#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'all')
 #' 
-#' # seasonal trends by month, May to July only
-#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'month', type = 'bar',
+#' # all sites, May to July only
+#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', 
 #'      dtrng = c('2021-05-01', '2021-07-31'))
-#'      
-#' # seasonal trends by month, barplot
-#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'month', type = 'bar')
 #' 
-#' # seasonal trends by week, barplot
-#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'week', type = 'bar')
-#' 
-anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c('box', 'bar'), thresh = c('fresh', 'marine', 'none'), threshcol = 'tan', site = NULL, resultatt = NULL, dtrng = NULL, jitter = FALSE, fill = 'lightblue', alpha = 0.8, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
+anlzMWRdate <- function(res, param, acc, group = c('site', 'all'), thresh = c('fresh', 'marine', 'none'), threshcol = 'tan', site = NULL, resultatt = NULL, dtrng = NULL, color = NULL, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
   
   group <- match.arg(group)
-  type <- match.arg(type)
-  
+
   # inputs
   inp <- utilMWRinput(res = res, acc = acc, runchk = runchk, warn = warn)
   
@@ -85,10 +73,10 @@ anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c(
   
   # get thresholds
   threshln <- utilMWRthresh(resdat = resdat, param = param, thresh = thresh, warn = warn)
-
+  
   # get y axis scaling
   logscl <- utilMWRyscale(accdat = accdat, param = param, yscl = yscl)
-  
+
   ##
   # plot prep
   
@@ -168,7 +156,7 @@ anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c(
       ggplot2::geom_errorbar(ggplot2::aes(ymin = lov, ymax = hiv), width = 0.2)
     
   }
-
+  
   # jitter if box
   if(jitter & type == 'box'){
     
@@ -189,7 +177,7 @@ anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c(
       ggplot2::geom_hline(data = threshln, ggplot2::aes(yintercept  = thresh, color = label, size = label)) + 
       ggplot2::scale_color_manual(values = rep(threshcol, nrow(threshln))) +
       ggplot2::scale_size_manual(values = threshln$size)
-
+    
   }
   
   if(logscl)

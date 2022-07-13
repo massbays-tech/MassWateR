@@ -26,7 +26,7 @@ anlzMWRseason(
 \arguments{
 \item{res}{character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}}
 
-\item{param}{character string of the parameter to plot, must conform entries in the \code{"Simple Parameter"} of \code{\link{paramsMWR}}}
+\item{param}{character string of the parameter to plot, must conform to entries in the \code{"Simple Parameter"} column of \code{\link{paramsMWR}}}
 
 \item{acc}{character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}}
 
