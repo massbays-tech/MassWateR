@@ -182,7 +182,7 @@ anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c(
   }
   
   # jitter if box
-  if(jitter & group == 'box'){
+  if(jitter & type == 'box'){
     
     jitplo <- toplo %>% 
       dplyr::filter(is.na(outlier))

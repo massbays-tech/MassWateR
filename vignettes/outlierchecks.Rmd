@@ -51,7 +51,7 @@ The same data are also grouped by site.
 anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'site')
 ```
 
-The same data are also grouped by week using an integer to specify the week. Note that there can be no common month/day indicating the start of the week between years and an integer is the only way to compare summaries if the results data span multiple years. 
+The same data can also be grouped by week using `group = "week"`.  The week of the year is shown on the plot as an integer. Note that there can be no common month/day indicating the start of the week between years and an integer is the only way to compare summaries if the results data span multiple years. 
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'week')

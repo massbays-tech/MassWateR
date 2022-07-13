@@ -33,30 +33,24 @@ accdat <- readMWRacc(accpth)
 
 ## Analyze seasonal trends
 
-Seasonal trends can be evaluated using the `anlzMWRseason()` function.  This function summarizes results for a single parameter using boxplots or barplots with seasonal groups assigned to months or weeks of the year.  Threshold lines are also shown on the plot to determine if results are near thresholds of interest.
+Seasonal trends can be evaluated using the `anlzMWRseason()` function.  This function summarizes results for a single parameter using boxplots or barplots with seasonal groups assigned to months or weeks of the year.  Threshold lines are also shown on the plot to determine if results are near thresholds of interest.  The data that are plotted can be filtered by site, dates, or result attributes.
 
-The `anlzMWRseason()` function uses the results data as a file path or data frame as input. Outliers can be shown by month using `group = "month"` and as boxplots using `type = "box"`, as below.  A description of the summary statistics shown by a boxplot is provided in the [outlier checks](https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html) vignette.  The relevant threshold lines for freshwater environments are shown.  
+The `anlzMWRseason()` function uses the results data as a file path or data frame as input. Below, the results are grouped by month using `group = "month"` and as boxplots using `type = "box"`.  A description of the summary statistics shown by a boxplot is provided in the [outlier checks](https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html) vignette.  The relevant threshold lines for freshwater environments are shown using `thresh = "fresh"` (this is the default setting and does not need to be entered explicitly).  
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'month', type = 'box')
+anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'month', type = 'box', thresh = 'fresh')
 ```
 
-The same data can also be grouped by week using an integer to specify the week. Note that there can be no common month/day indicating the start of the week between years and an integer is the only way to compare summaries if the results data span multiple years. 
+The same data can also be grouped by week using `group = "week"`.  The week of the year is shown on the plot as an integer. Note that there can be no common month/day indicating the start of the week between years and an integer is the only way to compare summaries if the results data span multiple years. 
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'week', type = 'box')
 ```
 
-If `group = "box"`, points can also be jittered over over the boxplots using `jitter = TRUE`.
+If `type = "box"`, points can also be jittered over over the boxplots using `jitter = TRUE`.
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'week', type = 'box', jitter = TRUE)
-```
-
-Results can also be filtered by dates using the `dtrng` argument. Note that the date format must be `YYYY-MM-DD`. 
-
-```{r, fig.height = 4, fig.width = 8}
-anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'week', type = 'box', dtrng = c('2021-05-01', '2021-07-31'))
 ```
 
 Barplots can be shown using `type = "box"`.  The barplots show the average estimate and a 95% confidence interval for the results defined by the `group` argument.  
@@ -71,19 +65,25 @@ The threshold lines shown on each plot are determined from the `thresholdMWR` fi
 anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'month', type = 'bar', thresh = 'marine')
 ```
 
-The y-axis scaling as arithmetic (linear) or logarithmic can be set with the `yscl` argument.  If `yscl = "auto"` (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting `yscl = "linear"` or `yscl = "log"` will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy. Below, the axis for E. Coli is plotted on the log-10 scale automatically.  The y-axis scaling does not need to specified explicitly in the function call because the default setting `yscl = "auto"`.  Note the means and confidence intervals will vary between arithmetic and log-scaling if `group = "bar"`.
+The y-axis scaling as arithmetic (linear) or logarithmic can be set with the `yscl` argument.  If `yscl = "auto"` (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting `yscl = "linear"` or `yscl = "log"` will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy. Below, the axis for E. Coli is plotted on the log-10 scale automatically.  The y-axis scaling does not need to specified explicitly in the function call because the default setting `yscl = "auto"`.  The means and confidence intervals will vary between arithmetic and log-scaling if `group = "bar"`.
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRseason(res = resdat, param = 'E.coli', acc = accdat, group = 'month')
+anlzMWRseason(res = resdat, param = 'E.coli', acc = accdat, group = 'month', type = 'bar')
 ```
 
 To force the y-axis as linear for E. Coli, `yscl = "linear"` must be used. Note that the default linear scaling for dissolved oxygen above is determined automatically.
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRseason(res = resdat, param = 'E.coli', acc = accdat, group = 'month', yscl = 'linear')
+anlzMWRseason(res = resdat, param = 'E.coli', acc = accdat, group = 'month', type = 'bar', yscl = 'linear')
 ```
 
-Finally, the plots can be filtered by sites and result attributes using the `site` and `resultatt` arguments. These options will filter the results data based on values in the `Monitoring Location ID` and/or `Result Attribute` columns. 
+Results can also be filtered by dates using the `dtrng` argument. Note that the date format must be `YYYY-MM-DD`. 
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRseason(res = resdat, param = 'E.coli', acc = accdat, group = 'month', type = 'bar', dtrng = c('2021-05-01', '2021-07-31'))
+```
+
+Finally, the results can be filtered by sites and result attributes using the `site` and `resultatt` arguments. These options will filter the results data based on values in the `Monitoring Location ID` and `Result Attribute` columns. 
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRseason(res = resdat, param = 'E.coli', acc = accdat, group = 'month', site = 'ABT-077', resultatt = 'Dry')
