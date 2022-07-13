@@ -50,10 +50,10 @@ anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'week', type = '
 If `type = "box"`, points can also be jittered over over the boxplots using `jitter = TRUE`.
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'week', type = 'bar', jitter = TRUE)
+anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'week', type = 'box', jitter = TRUE)
 ```
 
-Barplots can be shown using `type = "box"`.  The barplots show the average estimate and a 95% confidence interval for the results defined by the `group` argument.  
+Barplots can be shown using `type = "bar"`.  The barplots show the average estimate and a 95% confidence interval for the results defined by the `group` argument.  
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'month', type = 'bar')
