@@ -89,6 +89,28 @@ Finally, the results can be filtered by sites and result attributes using the `s
 anlzMWRseason(res = resdat, param = 'E.coli', acc = accdat, group = 'month', site = 'ABT-077', resultatt = 'Dry')
 ```
 
+## Analyze trends by date
+
+Trends by date for selected parameters can be evaluated using the `anlzMWRdate()` function.  The plot shows results continuously over time as line plots, with the lines separated by site or combined across sites as an average with 95% confidence intervals.  Many of the options described for the `anlzMWRseason()` function also apply and will not be repeated here. As before, the required data are a results file and data quality objective file for accuracy.  
+
+The default plot for `anlzMWRdate()` will show separate lines for each site, threshold lines for freshwater environments, y-axis scaling determined automatically from the data quality objectives file, and site labels offset from each line.  All sites in the results file will be plotted, which can be difficult to visualize.  Selecting specific sites with the `site` argument is recommended. 
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', thresh = 'fresh', site = c('ABT-026', 'ABT-062', 'ABT-077'))
+```
+
+The results averaged across the selected sites can be plotted using `group = 'all'`.
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'all', thresh = 'fresh', site = c('ABT-026', 'ABT-062', 'ABT-077'))
+```
+
+The results averaged across all sites in the results file can be plotted by omitting the `site` argument.
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'all', thresh = 'fresh')
+```
+
 ## Modifying the plots
 
 The default plot format should be sufficient in most cases, but it can be modified using common `ggplot()` plot functions.  Each plot returned is a `ggplot()` plot object and additional components can be added using the `+` notation. Note that overriding some of the existing plot components may significantly alter the appearance, so use caution. 
