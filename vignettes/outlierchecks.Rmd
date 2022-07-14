@@ -69,7 +69,7 @@ Points that are not outliers can also be jittered over the boxplots using `jitte
 anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month', jitter = TRUE, repel = FALSE)
 ```
 
-The y-axis scaling as arithmetic (linear) or logarithmic can be set with the `yscl` argument.  If `yscl = "auto"` (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting `yscl = "linear"` or `yscl = "log"` will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy. Below, the axis for E. Coli is plotted on the log-10 scale automatically.  The y-axis scaling does not need to specified explicitly in the function call because the default setting `yscl = "auto"`. 
+The y-axis scaling as arithmetic (linear) or logarithmic can be set with the `yscl` argument.  If `yscl = "auto"` (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting `yscl = "linear"` or `yscl = "log"` will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy. Below, the axis for E. Coli is plotted on the log-10 scale automatically.  The y-axis scaling does not need to specified explicitly in the function call because the default setting is `yscl = "auto"`. 
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRoutlier(res = resdat, param = 'E.coli', acc = accdat, group = 'month')

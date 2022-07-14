@@ -157,7 +157,7 @@ anlzMWRoutlier <- function(res, param, acc, group = c('month', 'site', 'week'), 
   
   if(repel)
     p <- p +
-      ggrepel::geom_text_repel(ggplot2::aes(label = outlier), na.rm = T, point.size = NA, size = labsize)
+      ggrepel::geom_text_repel(ggplot2::aes(label = outlier), na.rm = T, point.size = NA, size = labsize, segment.color = 'grey')
     
   if(!repel)
     p <- p + 

@@ -11,6 +11,9 @@
 #' @param site character string of sites to include, default all
 #' @param resultatt character string of result attributes to plot, default all
 #' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, optional
+#' @param repel logical indicating if overlapping site labels are offset
+#' @param labsize numeric indicating font size for the site labels, only if \code{group = "site"}
+#' @param ptsize numeric indicating size of the points
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths
 #' @param warn logical to return warnings to the console (default)
@@ -51,7 +54,7 @@
 #' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', 
 #'      dtrng = c('2021-05-01', '2021-07-31'))
 #' 
-anlzMWRdate <- function(res, param, acc, group = c('site', 'all'), thresh = c('fresh', 'marine', 'none'), threshcol = 'tan', site = NULL, resultatt = NULL, dtrng = NULL, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
+anlzMWRdate <- function(res, param, acc, group = c('site', 'all'), thresh = c('fresh', 'marine', 'none'), threshcol = 'tan', site = NULL, resultatt = NULL, dtrng = NULL, ptsize = 2, repel = TRUE, labsize = 3, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
   
   group <- match.arg(group)
 
@@ -84,7 +87,7 @@ anlzMWRdate <- function(res, param, acc, group = c('site', 'all'), thresh = c('f
       panel.grid.major.x = ggplot2::element_blank(), 
       panel.grid.minor.x = ggplot2::element_blank(),
       panel.grid.minor.y = ggplot2::element_blank(), 
-      axis.text.x = ggplot2::element_text(angle = 45, size = 8, hjust = 1), 
+      axis.text.x = ggplot2::element_text(angle = 45, size = 10, hjust = 1), 
       legend.position = 'top'
     )
   
@@ -98,10 +101,24 @@ anlzMWRdate <- function(res, param, acc, group = c('site', 'all'), thresh = c('f
   # by site
   if(group == 'site'){
 
+    # site labels
+    sitelb <- toplo %>% 
+      dplyr::group_by(`Monitoring Location ID`) %>% 
+      dplyr::filter(`Activity Start Date` == max(`Activity Start Date`)) %>% 
+      dplyr::select(`Monitoring Location ID`, `Activity Start Date`, `Result Value`)
+    
     p <- ggplot2::ggplot(toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`)) +
       ggplot2::geom_line() + 
-      ggplot2::geom_point()
+      ggplot2::geom_point(size = ptsize)
     
+    if(repel)
+      p <- p +
+        ggrepel::geom_text_repel(data = sitelb, ggplot2::aes(label = `Monitoring Location ID`), na.rm = T, size = labsize, hjust = 0, nudge_x = 5, segment.color = 'grey')
+    
+    if(!repel)
+      p <- p + 
+        ggplot2::geom_text(data = sitelb, ggplot2::aes(label = `Monitoring Location ID`), na.rm = T, size = labsize, hjust = 0, nudge_x = 3)
+      
   }
   
   # combine all sites
@@ -130,7 +147,7 @@ anlzMWRdate <- function(res, param, acc, group = c('site', 'all'), thresh = c('f
     
     p <-  ggplot2::ggplot(toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`)) +
       ggplot2::geom_line() + 
-      ggplot2::geom_point() + 
+      ggplot2::geom_point(size = ptsize) + 
       ggplot2::geom_errorbar(ggplot2::aes(ymin = lov, ymax = hiv), width = 1)
     
   }

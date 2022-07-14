@@ -14,6 +14,9 @@ anlzMWRdate(
   site = NULL,
   resultatt = NULL,
   dtrng = NULL,
+  ptsize = 2,
+  repel = TRUE,
+  labsize = 3,
   yscl = c("auto", "log", "linear"),
   runchk = TRUE,
   warn = TRUE
@@ -37,6 +40,12 @@ anlzMWRdate(
 \item{resultatt}{character string of result attributes to plot, default all}
 
 \item{dtrng}{character string of length two for the date ranges as YYYY-MM-DD, optional}
+
+\item{ptsize}{numeric indicating size of the points}
+
+\item{repel}{logical indicating if overlapping site labels are offset}
+
+\item{labsize}{numeric indicating font size for the site labels, only if \code{group = "site"}}
 
 \item{yscl}{character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details}
 

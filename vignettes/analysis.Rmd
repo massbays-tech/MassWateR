@@ -47,7 +47,7 @@ The same data can also be grouped by week using `group = "week"`.  The week of t
 anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'week', type = 'box')
 ```
 
-If `type = "box"`, points can also be jittered over over the boxplots using `jitter = TRUE`.
+If `type = "box"`, points can also be jittered over the boxplots using `jitter = TRUE`.
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'week', type = 'box', jitter = TRUE)
@@ -65,7 +65,7 @@ The threshold lines shown on each plot are determined from the `thresholdMWR` fi
 anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'month', type = 'bar', thresh = 'marine')
 ```
 
-The y-axis scaling as arithmetic (linear) or logarithmic can be set with the `yscl` argument.  If `yscl = "auto"` (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting `yscl = "linear"` or `yscl = "log"` will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy. Below, the axis for E. Coli is plotted on the log-10 scale automatically.  The y-axis scaling does not need to specified explicitly in the function call because the default setting `yscl = "auto"`.  The means and confidence intervals will vary between arithmetic and log-scaling if `group = "bar"`.
+The y-axis scaling as arithmetic (linear) or logarithmic can be set with the `yscl` argument.  If `yscl = "auto"` (default), the scaling is determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting `yscl = "linear"` or `yscl = "log"` will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy. Below, the axis for E. Coli is plotted on the log-10 scale automatically.  The y-axis scaling does not need to specified explicitly in the function call because the default setting is `yscl = "auto"`.  The means and confidence intervals will vary between arithmetic and log-scaling if `type = "bar"`.
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRseason(res = resdat, param = 'E.coli', acc = accdat, group = 'month', type = 'bar')
@@ -91,9 +91,9 @@ anlzMWRseason(res = resdat, param = 'E.coli', acc = accdat, group = 'month', sit
 
 ## Modifying the plots
 
-The default plot format should be sufficient in most cases, but it can be modified using common `ggplot()` plot functions.  The plot returned by `anlzMWRseason()` is a `ggplot()` plot object and additional components can be added using the `+` notation. Note that overriding some of the existing plot components may significantly alter the appearance, so use caution. 
+The default plot format should be sufficient in most cases, but it can be modified using common `ggplot()` plot functions.  Each plot returned is a `ggplot()` plot object and additional components can be added using the `+` notation. Note that overriding some of the existing plot components may significantly alter the appearance, so use caution. 
 
-Below are a few examples of minimal additions to change the standard plot. A single plot object for the original plot is created as `p` and is modified differently in each example. 
+Below are a few examples of minimal additions to change the standard plot, using `anlzMWRseason()` for demonstrations. A single plot object for the original plot is created as `p` and is modified differently in each example. 
 
 Modify plot labels: 
 
