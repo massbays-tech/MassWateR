@@ -3,14 +3,15 @@
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
 #' @param frecom character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}
+#' @param sit character string of path to the site metadata file or \code{data.frame} for site metadata returned by \code{\link{readMWRsites}}
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
-#' @details The function is used internally by others to import data from paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRacc}}, and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.
+#' @details The function is used internally by others to import data from paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRacc}}, \code{\link{readMWRfrecom}}, and \code{\link{readMWRsites}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.
 #' 
-#' The data quality objective file arguments for \code{acc} and \code{frecom} can be \code{NULL}, used as a convenience for downstream functions that do not require both. 
+#' Any of the arguments for the data files can be \code{NULL}, used as a convenience for downstream functions that do not require all. 
 #'
-#' @return A three element list with the imported results and data quality objective files, named \code{"resdat"}, \code{"accdat"}, and \code{"frecomdat"}, respectively.
+#' @return A four element list with the imported results, data quality objective files, and site metadata file named \code{"resdat"}, \code{"accdat"}, \code{"frecomdat"}, and \code{"sitdat"}, respectively.
 #' 
 #' @export
 #'
@@ -28,10 +29,14 @@
 #' frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', 
 #'      package = 'MassWateR')
 #' 
-#' inp <- utilMWRinput(res = respth, acc = accpth, frecom = frecompth)
+#' # site path
+#' sitpth <- system.file('extdata/ExampleSites.xlsx', package = 'MassWateR')
+#' 
+#' inp <- utilMWRinput(res = respth, acc = accpth, frecom = frecompth, sit = sitpth)
 #' inp$resdat
 #' inp$accdat
 #' inp$frecomdat
+#' inp$sitdat
 #' 
 #' ##
 #' # using data frames
@@ -45,11 +50,15 @@
 #' # frequency and completeness data
 #' frecomdat <- readMWRfrecom(frecompth)
 #' 
-#' inp <- utilMWRinput(res = resdat, acc = accdat, frecom = frecomdat)
+#' # site data
+#' sitdat <- readMWRsites(sitpth)
+#' 
+#' inp <- utilMWRinput(res = resdat, acc = accdat, frecom = frecomdat, sit = sitdat)
 #' inp$resdat
 #' inp$accdat
 #' inp$frecomdat
-utilMWRinput <- function(res = NULL, acc = NULL, frecom = NULL, runchk = TRUE, warn = TRUE){
+#' inp$sitdat
+utilMWRinput <- function(res = NULL, acc = NULL, frecom = NULL, sit = NULL, runchk = TRUE, warn = TRUE){
   
   ##
   # results input
@@ -118,12 +127,35 @@ utilMWRinput <- function(res = NULL, acc = NULL, frecom = NULL, runchk = TRUE, w
     frecomdat <- NULL
 
   ##
+  # site data
+  
+  # data frame
+  if(inherits(sit, 'data.frame'))
+    sitdat <- sit
+  
+  # import from path
+  if(inherits(sit, 'character')){
+    
+    sitpth <- sit
+    chk <- file.exists(sitpth)
+    if(!chk)
+      stop('File specified with sit argument not found')
+    
+    sitdat <- readMWRsites(sitpth, runchk = runchk)
+    
+  }
+  
+  if(inherits(sit, 'NULL'))
+    sitdat <- NULL
+  
+  ##
   # output
   
   out <- list(
     resdat = resdat,
     accdat = accdat,
-    frecomdat = frecomdat
+    frecomdat = frecomdat,
+    sitdat = sitdat
   )
   
   return(out)

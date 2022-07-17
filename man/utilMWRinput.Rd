@@ -4,7 +4,14 @@
 \alias{utilMWRinput}
 \title{Utility function to import data as paths or data frames}
 \usage{
-utilMWRinput(res = NULL, acc = NULL, frecom = NULL, runchk = TRUE, warn = TRUE)
+utilMWRinput(
+  res = NULL,
+  acc = NULL,
+  frecom = NULL,
+  sit = NULL,
+  runchk = TRUE,
+  warn = TRUE
+)
 }
 \arguments{
 \item{res}{character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}}
@@ -13,20 +20,22 @@ utilMWRinput(res = NULL, acc = NULL, frecom = NULL, runchk = TRUE, warn = TRUE)
 
 \item{frecom}{character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}}
 
+\item{sit}{character string of path to the site metadata file or \code{data.frame} for site metadata returned by \code{\link{readMWRsites}}}
+
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths}
 
 \item{warn}{logical to return warnings to the console (default)}
 }
 \value{
-A three element list with the imported results and data quality objective files, named \code{"resdat"}, \code{"accdat"}, and \code{"frecomdat"}, respectively.
+A four element list with the imported results, data quality objective files, and site metadata file named \code{"resdat"}, \code{"accdat"}, \code{"frecomdat"}, and \code{"sitdat"}, respectively.
 }
 \description{
 Utility function to import data as paths or data frames
 }
 \details{
-The function is used internally by others to import data from paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRacc}}, and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.
+The function is used internally by others to import data from paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRacc}}, \code{\link{readMWRfrecom}}, and \code{\link{readMWRsites}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.
 
-The data quality objective file arguments for \code{acc} and \code{frecom} can be \code{NULL}, used as a convenience for downstream functions that do not require both.
+Any of the arguments for the data files can be \code{NULL}, used as a convenience for downstream functions that do not require all.
 }
 \examples{
 ##
@@ -42,10 +51,14 @@ accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
 frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', 
      package = 'MassWateR')
 
-inp <- utilMWRinput(res = respth, acc = accpth, frecom = frecompth)
+# site path
+sitpth <- system.file('extdata/ExampleSites.xlsx', package = 'MassWateR')
+
+inp <- utilMWRinput(res = respth, acc = accpth, frecom = frecompth, sit = sitpth)
 inp$resdat
 inp$accdat
 inp$frecomdat
+inp$sitdat
 
 ##
 # using data frames
@@ -59,8 +72,12 @@ accdat <- readMWRacc(accpth)
 # frequency and completeness data
 frecomdat <- readMWRfrecom(frecompth)
 
-inp <- utilMWRinput(res = resdat, acc = accdat, frecom = frecomdat)
+# site data
+sitdat <- readMWRsites(sitpth)
+
+inp <- utilMWRinput(res = resdat, acc = accdat, frecom = frecomdat, sit = sitdat)
 inp$resdat
 inp$accdat
 inp$frecomdat
+inp$sitdat
 }
