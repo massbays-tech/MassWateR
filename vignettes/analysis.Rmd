@@ -113,7 +113,27 @@ anlzMWRdate(res = resdat, param = "DO", acc = accdat, group = "all", thresh = "f
 
 ## Analyze trends by site
 
-logical indicating if fecal indicator data have sites grouped separately by result attributes, applies only if `param` is `"E.coli"`, `"Enterococcus"`, or `"Fecal Coliform"`.
+Trends by site for selected parameters can be evaluated using the `anlzMWRsite()` function.  This function summarizes results for a single parameter using boxplots or barplots separately for each site on the x-axis.  Many of the options described for the `anlzMWRseason()` function also apply and will not be repeated here. As before, the required data are a results file and data quality objective file for accuracy.  
+
+The default plot for `anlzMWRsite()` will show boxplots of results for each site, threshold lines for freshwater environments, and y-axis scaling determined automatically from the data quality objectives file. 
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRsite(res = resdat, param = "DO", acc = accdat, type = "box", thresh = "fresh")
+```
+
+Results as barplots and 95% confidence intervals can be shows using `type = "bar"`.
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRsite(res = resdat, param = "DO", acc = accdat, type = "bar", thresh = "fresh")
+```
+
+Results data for fecal coliform indicators can be grouped by entries in the `Result Atribute` column using `fecalgrp = TRUE`.   For example, sites can be grouped by `"Dry"` or `"Wet"` conditions.  This option can only be used if the `param` argument is `"E.coli"`, `"Enterococcus"`, or `"Fecal Coliform"`.  Filtering by sites first is advised to reduce the amount of data that are plotted. 
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRsite(res = resdat, param = 'E.coli', acc = accdat, type = 'box', 
+                        site = c('ABT-077', 'ABT-162', 'CND-009', 'CND-110', 'HBS-016', 'HBS-031'),
+                        fecalgrp = TRUE)
+```
 
 ## Modifying the plots
 

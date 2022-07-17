@@ -15,7 +15,7 @@
 #' @param fill numeric indicating fill color for boxplots or barplots
 #' @param alpha numeric from 0 to 1 indicating transparency of fill color
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
-#' @param fecalgrp logical indicating if fecal indicator data have sites grouped separately by result attributes, applies if \code{param} is \code{"E.coli"`}, \code{"Enterococcus"}, or \code{"Fecal Coliform"}, see details
+#' @param fecalgrp logical indicating if fecal indicator data have sites grouped separately by result attributes, applies if \code{param} is \code{"E.coli"}, \code{"Enterococcus"}, or \code{"Fecal Coliform"}, see details
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
@@ -29,7 +29,7 @@
 #' 
 #' Any entries in \code{resdat} in the \code{"Result Value"} column as \code{"BDL"} or \code{"AQL"} are replaced with appropriate values in the \code{"Quantitation Limit"} column, if present, otherwise the \code{"MDL"} or \code{"UQL"} columns from the data quality objectives file for accuracy are used.  Values as \code{"BDL"} use one half of the appropriate limit.
 #' 
-#' The \code{fecalgrp} argument can be used to group sites separately by result attributes as plot facets and applies only if \code{param} is \code{"E.coli"`}, \code{"Enterococcus"}, or \code{"Fecal Coliform"}.  For example, sites can be grouped by \code{"Dry"} or \code{"Wet"} conditions if present in the \code{"Result Attrbute"} column.  
+#' The \code{fecalgrp} argument can be used to group sites separately by result attributes as plot facets and applies only if \code{param} is \code{"E.coli"}, \code{"Enterococcus"}, or \code{"Fecal Coliform"}.  For example, sites can be grouped by \code{"Dry"} or \code{"Wet"} conditions if present in the \code{"Result Attrbute"} column.  
 #' 
 #' @export
 #'
@@ -68,7 +68,7 @@ anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh = c('fre
 
   # check if param is in fec if fecalgrp is true 
   chk <- param %in% fec
-  if(!chk)
+  if(!chk & fecalgrp)
     stop('param must be one of ', paste(fec, collapse = ', '), ' if fecalgrp = TRUE')
   
   # inputs
