@@ -3,6 +3,7 @@
 export(anlzMWRdate)
 export(anlzMWRoutlier)
 export(anlzMWRseason)
+export(anlzMWRsite)
 export(checkMWRacc)
 export(checkMWRfrecom)
 export(checkMWRresults)
