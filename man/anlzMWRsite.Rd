@@ -18,6 +18,7 @@ anlzMWRsite(
   fill = "lightgreen",
   alpha = 0.8,
   yscl = c("auto", "log", "linear"),
+  fecalgrp = FALSE,
   runchk = TRUE,
   warn = TRUE
 )
@@ -49,6 +50,8 @@ anlzMWRsite(
 
 \item{yscl}{character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details}
 
+\item{fecalgrp}{logical indicating if fecal indicator data have sites grouped separately by result attributes, applies if \code{param} is \code{"E.coli"`}, \code{"Enterococcus"}, or \code{"Fecal Coliform"}, see details}
+
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths}
 
 \item{warn}{logical to return warnings to the console (default)}
@@ -60,13 +63,15 @@ A \code{\link[ggplot2]{ggplot}} object that can be further modified.
 Analyze site trends in results file
 }
 \details{
-Summaries of a parameter for each site are shown as boxplots if \code{type = "box"} or as barplots if \code{type = "bar"}.  For the latter, points can be jittered over the boxplots by setting \code{jitter = TRUE}.  For the former, 95\% confidence intervals are also shown.
+Summaries of a parameter for each site are shown as boxplots if \code{type = "box"} or as barplots if \code{type = "bar"}.  For the latter, points can be jittered over the boxplots by setting \code{jitter = TRUE}.  For the former, 95\% confidence intervals are also shown if they can be estimated (i.e., more than one result value per bar).
 
 Threshold lines applicable to marine or freshwater environments can be included in the plot by using the \code{thresh} argument.  These thresholds are specific to each parameter and can be found in the \code{\link{thresholdMWR}} file.  Threshold lines are plotted only for those parameters with entries in \code{\link{thresholdMWR}} and only if the value in \code{`Result Unit`} matches those in \code{\link{thresholdMWR}}. The threshold lines can be suppressed by setting \code{thresh = 'none'}.
 
 The y-axis scaling as arithmetic (linear) or logarithmic can be set with the \code{yscl} argument.  If \code{yscl = "auto"} (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting \code{yscl = "linear"} or \code{yscl = "log"} will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy. The means and confidence intervals will vary between arithmetic and log-scaling if \code{type = "bar"}.
 
 Any entries in \code{resdat} in the \code{"Result Value"} column as \code{"BDL"} or \code{"AQL"} are replaced with appropriate values in the \code{"Quantitation Limit"} column, if present, otherwise the \code{"MDL"} or \code{"UQL"} columns from the data quality objectives file for accuracy are used.  Values as \code{"BDL"} use one half of the appropriate limit.
+
+The \code{fecalgrp} argument can be used to group sites separately by result attributes as plot facets and applies only if \code{param} is \code{"E.coli"`}, \code{"Enterococcus"}, or \code{"Fecal Coliform"}.  For example, sites can be grouped by \code{"Dry"} or \code{"Wet"} conditions if present in the \code{"Result Attrbute"} column.
 }
 \examples{
 # results data path
@@ -91,4 +96,9 @@ anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'bar')
 # site trends, May to July only
 anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'box',
      dtrng = c('2021-05-01', '2021-07-31'))
+     
+# fecal grouping
+anlzMWRsite(res = resdat, param = 'E.coli', acc = accdat, type = 'box', 
+     site = c('ABT-077', 'ABT-162', 'CND-009', 'CND-110', 'HBS-016', 'HBS-031'),
+     fecalgrp = TRUE)
 }

@@ -12,3 +12,21 @@ test_that("Checking output format barplot, log scale", {
   result <- anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'bar', yscl = 'log')
   expect_s3_class(result, 'ggplot')
 })
+
+test_that("Checking param is a fecal indicator if fecalgrp is TRUE", {
+  expect_error(anlzMWRsite(res = resdat, param = 'DO', acc = accdat, fecalgrp = TRUE))
+})
+
+test_that("Checking output format boxplot, fecalgrp", {
+  result <- anlzMWRsite(res = resdat, param = 'E.coli', acc = accdat, type = 'box', 
+                        site = c('ABT-077', 'ABT-162', 'CND-009', 'CND-110', 'HBS-016', 'HBS-031'),
+                        fecalgrp = TRUE)
+  expect_s3_class(result, 'ggplot')
+})
+
+test_that("Checking output format barplot, fecalgrp", {
+  result <- anlzMWRsite(res = resdat, param = 'E.coli', acc = accdat, type = 'bar', 
+                        site = c('ABT-077', 'ABT-162', 'CND-009', 'CND-110', 'HBS-016', 'HBS-031'),
+                        fecalgrp = TRUE)
+  expect_s3_class(result, 'ggplot')
+})

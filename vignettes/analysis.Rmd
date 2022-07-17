@@ -111,6 +111,10 @@ The results averaged across all sites in the results file can be plotted by omit
 anlzMWRdate(res = resdat, param = "DO", acc = accdat, group = "all", thresh = "fresh")
 ```
 
+## Analyze trends by site
+
+logical indicating if fecal indicator data have sites grouped separately by result attributes, applies only if `param` is `"E.coli"`, `"Enterococcus"`, or `"Fecal Coliform"`.
+
 ## Modifying the plots
 
 The default plot format should be sufficient in most cases, but it can be modified using common `ggplot()` plot functions (see the [ggplot2](https://ggplot2.tidyverse.org/index.html) page for details).  Each plot returned is a `ggplot()` plot object and additional components can be added using the `+` notation. Note that overriding some of the existing plot components may significantly alter the appearance, so use caution. 

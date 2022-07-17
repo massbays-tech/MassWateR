@@ -15,18 +15,21 @@
 #' @param fill numeric indicating fill color for boxplots or barplots
 #' @param alpha numeric from 0 to 1 indicating transparency of fill color
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
+#' @param fecalgrp logical indicating if fecal indicator data have sites grouped separately by result attributes, applies if \code{param} is \code{"E.coli"`}, \code{"Enterococcus"}, or \code{"Fecal Coliform"}, see details
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object that can be further modified.
 #' 
-#' @details Summaries of a parameter for each site are shown as boxplots if \code{type = "box"} or as barplots if \code{type = "bar"}.  For the latter, points can be jittered over the boxplots by setting \code{jitter = TRUE}.  For the former, 95% confidence intervals are also shown. 
+#' @details Summaries of a parameter for each site are shown as boxplots if \code{type = "box"} or as barplots if \code{type = "bar"}.  For the latter, points can be jittered over the boxplots by setting \code{jitter = TRUE}.  For the former, 95% confidence intervals are also shown if they can be estimated (i.e., more than one result value per bar). 
 #'
 #' Threshold lines applicable to marine or freshwater environments can be included in the plot by using the \code{thresh} argument.  These thresholds are specific to each parameter and can be found in the \code{\link{thresholdMWR}} file.  Threshold lines are plotted only for those parameters with entries in \code{\link{thresholdMWR}} and only if the value in \code{`Result Unit`} matches those in \code{\link{thresholdMWR}}. The threshold lines can be suppressed by setting \code{thresh = 'none'}. 
 #'  
 #' The y-axis scaling as arithmetic (linear) or logarithmic can be set with the \code{yscl} argument.  If \code{yscl = "auto"} (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting \code{yscl = "linear"} or \code{yscl = "log"} will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy. The means and confidence intervals will vary between arithmetic and log-scaling if \code{type = "bar"}.
 #' 
 #' Any entries in \code{resdat} in the \code{"Result Value"} column as \code{"BDL"} or \code{"AQL"} are replaced with appropriate values in the \code{"Quantitation Limit"} column, if present, otherwise the \code{"MDL"} or \code{"UQL"} columns from the data quality objectives file for accuracy are used.  Values as \code{"BDL"} use one half of the appropriate limit.
+#' 
+#' The \code{fecalgrp} argument can be used to group sites separately by result attributes as plot facets and applies only if \code{param} is \code{"E.coli"`}, \code{"Enterococcus"}, or \code{"Fecal Coliform"}.  For example, sites can be grouped by \code{"Dry"} or \code{"Wet"} conditions if present in the \code{"Result Attrbute"} column.  
 #' 
 #' @export
 #'
@@ -53,9 +56,20 @@
 #' # site trends, May to July only
 #' anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'box',
 #'      dtrng = c('2021-05-01', '2021-07-31'))
-anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh = c('fresh', 'marine', 'none'), threshcol = 'tan', site = NULL, resultatt = NULL, dtrng = NULL, jitter = FALSE, fill = 'lightgreen', alpha = 0.8, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
+#'      
+#' # fecal grouping
+#' anlzMWRsite(res = resdat, param = 'E.coli', acc = accdat, type = 'box', 
+#'      site = c('ABT-077', 'ABT-162', 'CND-009', 'CND-110', 'HBS-016', 'HBS-031'),
+#'      fecalgrp = TRUE)
+anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh = c('fresh', 'marine', 'none'), threshcol = 'tan', site = NULL, resultatt = NULL, dtrng = NULL, jitter = FALSE, fill = 'lightgreen', alpha = 0.8, yscl = c('auto', 'log', 'linear'), fecalgrp = FALSE, runchk = TRUE, warn = TRUE){
   
+  fec <- c('E.coli', 'Enterococcus', 'Fecal Coliform')
   type <- match.arg(type)
+
+  # check if param is in fec if fecalgrp is true 
+  chk <- param %in% fec
+  if(!chk)
+    stop('param must be one of ', paste(fec, collapse = ', '), ' if fecalgrp = TRUE')
   
   # inputs
   inp <- utilMWRinput(res = res, acc = acc, runchk = runchk, warn = warn)
@@ -94,9 +108,8 @@ anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh = c('fre
   
   ylab <- unique(toplo$`Result Unit`)
   
-
-  # boxplot
-  if(type == 'box'){
+  # boxplot, no fecal group
+  if(type == 'box' & !fecalgrp){
     
     toplo <- toplo %>% 
       dplyr::group_by(`Monitoring Location ID`) %>% 
@@ -110,33 +123,50 @@ anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh = c('fre
     
   }
   
+  # boxplot, fecal group
+  if(type == 'box' & fecalgrp){
+    
+    toplo <- toplo %>% 
+      dplyr::group_by(`Monitoring Location ID`, `Result Attribute`) %>% 
+      dplyr::mutate(
+        outlier = utilMWRoutlier(`Result Value`, logscl = logscl)
+      ) %>% 
+      dplyr::ungroup()
+    
+    p <- ggplot2::ggplot(toplo, ggplot2::aes(x = `Result Attribute`, y = `Result Value`)) +
+      ggplot2::geom_boxplot(outlier.size = 1, fill = fill, alpha = alpha) + 
+      ggplot2::facet_grid(~`Monitoring Location ID`)
+    
+  }
+  
   # barplot
-  if(type == 'bar'){
+  if(type == 'bar' & !fecalgrp){
     
     toplo <- toplo %>% 
       dplyr::group_by(`Monitoring Location ID`)
     
-    if(!logscl)
-      toplo <- toplo %>% 
-        dplyr::summarize(
-          meanval = mean(`Result Value`, na.rm = T), 
-          lov = tryCatch(t.test(`Result Value`, na.rm = T)$conf.int[1], error = function(x) NA),
-          hiv = tryCatch(t.test(`Result Value`, na.rm = T)$conf.int[2], error = function(x) NA), 
-          .groups = 'drop'
-        ) 
+    # get mean and CI summary
+    toplo <- utilMWRconfint(toplo, logscl = logscl)
     
-    if(logscl)
-      toplo <- toplo %>% 
-        dplyr::summarize(
-          meanval = 10^mean(log10(`Result Value`), na.rm = T), 
-          lov = tryCatch(10^t.test(log10(`Result Value`), na.rm = T)$conf.int[1], error = function(x) NA),
-          hiv = tryCatch(10^t.test(log10(`Result Value`), na.rm = T)$conf.int[2], error = function(x) NA), 
-          .groups = 'drop'
-        ) 
-    
-    p <-  ggplot2::ggplot(toplo, ggplot2::aes(x = `Monitoring Location ID`, y = meanval)) +
+    p <-  ggplot2::ggplot(toplo, ggplot2::aes(x = `Monitoring Location ID`, y = `Result Value`)) +
       ggplot2::geom_bar(fill = fill, stat = 'identity', alpha = alpha) + 
       ggplot2::geom_errorbar(ggplot2::aes(ymin = lov, ymax = hiv), width = 0.2)
+    
+  }
+  
+  # barplot, fecal group
+  if(type == 'bar' & fecalgrp){
+    
+    toplo <- toplo %>% 
+      dplyr::group_by(`Monitoring Location ID`, `Result Attribute`)
+    
+    # get mean and CI summary
+    toplo <- utilMWRconfint(toplo, logscl = logscl)
+    
+    p <-  ggplot2::ggplot(toplo, ggplot2::aes(x = `Result Attribute`, y = `Result Value`)) +
+      ggplot2::geom_bar(fill = fill, stat = 'identity', alpha = alpha) + 
+      ggplot2::geom_errorbar(ggplot2::aes(ymin = lov, ymax = hiv), width = 0.2) + 
+      ggplot2::facet_grid(~`Monitoring Location ID`)
     
   }
   

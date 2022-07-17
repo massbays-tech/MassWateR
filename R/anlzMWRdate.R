@@ -127,23 +127,8 @@ anlzMWRdate <- function(res, param, acc, group = c('site', 'all'), thresh = c('f
     toplo <- toplo %>% 
       dplyr::group_by(`Activity Start Date`) 
     
-    if(!logscl)
-      toplo <- toplo %>% 
-        dplyr::summarize(
-          lov = tryCatch(t.test(`Result Value`, na.rm = T)$conf.int[1], error = function(x) NA),
-          hiv = tryCatch(t.test(`Result Value`, na.rm = T)$conf.int[2], error = function(x) NA),
-          `Result Value` = mean(`Result Value`, na.rm = TRUE), 
-          .groups = 'drop'
-        )
-    
-    if(logscl)
-      toplo <- toplo %>% 
-        dplyr::summarize(
-          lov = tryCatch(10^t.test(log10(`Result Value`), na.rm = T)$conf.int[1], error = function(x) NA),
-          hiv = tryCatch(10^t.test(log10(`Result Value`), na.rm = T)$conf.int[2], error = function(x) NA),
-          `Result Value` = 10^mean(log10(`Result Value`), na.rm = TRUE), 
-          .groups = 'drop'
-        )
+    # get mean and CI summary
+    toplo <- utilMWRconfint(toplo, logscl = logscl)
     
     p <-  ggplot2::ggplot(toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`)) +
       ggplot2::geom_line() + 

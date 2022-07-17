@@ -63,7 +63,7 @@ A \code{\link[ggplot2]{ggplot}} object that can be further modified.
 Analyze seasonal trends in results file
 }
 \details{
-Summaries of a parameter are shown as boxplots if \code{type = "box"} or as barplots if \code{type = "bar"}.  For the latter, points can be jittered over the boxplots by setting \code{jitter = TRUE}.  For the former, 95\% confidence intervals are also shown.
+Summaries of a parameter are shown as boxplots if \code{type = "box"} or as barplots if \code{type = "bar"}.  For the latter, points can be jittered over the boxplots by setting \code{jitter = TRUE}.  For the former, 95\% confidence intervals are also shown if they can be estimated (i.e., more than one result value per bar).
 
 Specifying \code{group = "week"} will group the samples by week of year using an integer specifying the week.  Note that there can be no common month/day indicating the start of the week between years and an integer is the only way to compare summaries if the results data span multiple years.
 

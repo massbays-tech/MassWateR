@@ -21,7 +21,7 @@
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object that can be further modified.
 #' 
-#' @details Summaries of a parameter are shown as boxplots if \code{type = "box"} or as barplots if \code{type = "bar"}.  For the latter, points can be jittered over the boxplots by setting \code{jitter = TRUE}.  For the former, 95% confidence intervals are also shown. 
+#' @details Summaries of a parameter are shown as boxplots if \code{type = "box"} or as barplots if \code{type = "bar"}.  For the latter, points can be jittered over the boxplots by setting \code{jitter = TRUE}.  For the former, 95% confidence intervals are also shown if they can be estimated (i.e., more than one result value per bar). 
 #' 
 #' Specifying \code{group = "week"} will group the samples by week of year using an integer specifying the week.  Note that there can be no common month/day indicating the start of the week between years and an integer is the only way to compare summaries if the results data span multiple years.
 #'
@@ -145,25 +145,10 @@ anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c(
     toplo <- toplo %>% 
       dplyr::group_by(grpvar)
     
-    if(!logscl)
-      toplo <- toplo %>% 
-        dplyr::summarize(
-          meanval = mean(`Result Value`, na.rm = T), 
-          lov = tryCatch(t.test(`Result Value`, na.rm = T)$conf.int[1], error = function(x) NA),
-          hiv = tryCatch(t.test(`Result Value`, na.rm = T)$conf.int[2], error = function(x) NA), 
-          .groups = 'drop'
-        ) 
+    # get mean and CI summary
+    toplo <- utilMWRconfint(toplo, logscl = logscl)
     
-    if(logscl)
-      toplo <- toplo %>% 
-        dplyr::summarize(
-          meanval = 10^mean(log10(`Result Value`), na.rm = T), 
-          lov = tryCatch(10^t.test(log10(`Result Value`), na.rm = T)$conf.int[1], error = function(x) NA),
-          hiv = tryCatch(10^t.test(log10(`Result Value`), na.rm = T)$conf.int[2], error = function(x) NA), 
-          .groups = 'drop'
-        ) 
-    
-    p <-  ggplot2::ggplot(toplo, ggplot2::aes(x = grpvar, y = meanval)) +
+    p <-  ggplot2::ggplot(toplo, ggplot2::aes(x = grpvar, y = `Result Value`)) +
       ggplot2::geom_bar(fill = fill, stat = 'identity', alpha = alpha) + 
       ggplot2::geom_errorbar(ggplot2::aes(ymin = lov, ymax = hiv), width = 0.2)
     
