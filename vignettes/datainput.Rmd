@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
   comment = "#>", 
   warning = T, 
   message = F, 
-  fig.align = 'center'
+  fig.align = "center"
 )
 
 library(dplyr)
@@ -26,7 +26,7 @@ The MassWateR R package is developed to work with surface water monitoring data 
 The objective of the package is to automate and facilitate quality control and exploratory analysis of data intended for upload to the EPA [Water Quality Exchange](https://www.epa.gov/waterdata/water-quality-data) (WQX). The functions provide a streamlined and repeatable means of 1) screening data for quality control, 2) interpreting data, and 3) creating graphics for analysis and reports to stakeholders. Miscellaneous formatting tools are also available to facilitate data upload to WQX. The functions are organized around these topics, shown below.
 
 ```{r workflow, out.width = '100%', echo = F, fig.cap = 'Functions in MassWateR are organized around these topics.'}
-knitr::include_graphics('workflow.PNG')
+knitr::include_graphics("workflow.PNG")
 ```
 
 Three types of data are used with the package. All types should be provided to make best use of the functions:
@@ -44,11 +44,11 @@ Install the package as follows:
 ```{r, eval = F}
 # Enable universe(s) by massbays-tech
 options(repos = c(
-  massbaystech = 'https://massbays-tech.r-universe.dev',
-  CRAN = 'https://cloud.r-project.org'))
+  massbaystech = "https://massbays-tech.r-universe.dev",
+  CRAN = "https://cloud.r-project.org"))
 
 # Install the package
-install.packages('MassWateR')
+install.packages("MassWateR")
 ```
 
 Load the package in an R session after installation:
@@ -62,25 +62,25 @@ The example files for the package can be viewed by navigating to their location 
 The surface water quality results files:
 
 ```{r, eval = F}
-system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
+system.file("extdata/ExampleResults.xlsx", package = "MassWateR")
 ```
 
 The data quality objectives file for accuracy:
 
 ```{r, eval = F}
-system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
+system.file("extdata/ExampleDQOAccuracy.xlsx", package = "MassWateR")
 ```
 
 The data quality objectives file for completeness:
 
 ```{r, eval = F}
-system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', package = 'MassWateR')
+system.file("extdata/ExampleDQOFrequencyCompleteness.xlsx", package = "MassWateR")
 ```
 
 The site metadata file:
 
 ```{r, eval = F}
-system.file('extdata/ExampleSites.xlsx', package = 'MassWateR')
+system.file("extdata/ExampleSites.xlsx", package = "MassWateR")
 ```
 
 The example files are provided to demonstrate how the functions in MassWateR are used. In practice, alternative data files that follow the same format as the examples will be used with the functions. There are several checks included in the data import functions to ensure the files are formatted correctly for downstream use. If any of the checks fail, an error message will be returned that prompts the necessary changes that must be made to the Excel file before the data can be used.  The checks can be suppressed by setting `runchk = FALSE` in the import functions.  These checks are described in the next section.
@@ -103,7 +103,7 @@ paramsMWR %>%
 First, the surface water quality results can be imported with the `readMWRresults()` function. This is designed to import an Excel file external to R, run checks on the data, and provide some minor formatting for downstream quality control or exploratory analysis. In this example, the system file `ExampleResults.xlsx` is imported. In practice, the `pth` argument will point to an external file in the WQX format.  Note that `runchk = TRUE` is set to run the checks on data import.  This is the default setting and it is not necessary to explicitly set this argument on import.
 
 ```{r, message = T}
-respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
+respth <- system.file("extdata/ExampleResults.xlsx", package = "MassWateR")
 resdat <- readMWRresults(respth, runchk = TRUE)
 head(resdat)
 ```
@@ -132,8 +132,8 @@ Here is an example of an error that might be returned for an incorrect data entr
 
 ```{r, error = T, message = T}
 chk <- resdat
-chk[4, 2] <- 'Sample'
-chk[135, 2] <- 'Field'
+chk[4, 2] <- "Sample"
+chk[135, 2] <- "Field"
 checkMWRresults(chk)
 ```
 
@@ -149,14 +149,14 @@ To use the quality control functions in MassWateR, Excel files that describe the
 
 ```{r, message = T}
 # import data quality objectives for accuracy
-accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
+accpth <- system.file("extdata/ExampleDQOAccuracy.xlsx", package = "MassWateR")
 accdat <- readMWRacc(accpth)
 head(accdat)
 ```
 
 ```{r, message = T, warning = T}
 # import data quality objectives for frequency and completeness
-frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', package = 'MassWateR')
+frecompth <- system.file("extdata/ExampleDQOFrequencyCompleteness.xlsx", package = "MassWateR")
 frecomdat <- readMWRfrecom(frecompth)
 head(frecomdat)
 ```
@@ -194,7 +194,7 @@ An Excel file for site metadata that describes spatial location and any other gr
 
 ```{r, message = T}
 # import site metadata
-sitpth <- system.file('extdata/ExampleSites.xlsx', package = 'MassWateR')
+sitpth <- system.file("extdata/ExampleSites.xlsx", package = "MassWateR")
 sitdat <- readMWRsites(sitpth)
 head(sitdat)
 ```

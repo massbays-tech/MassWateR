@@ -23,11 +23,11 @@ Outliers can be evaluated once the required data are successfully imported into 
 library(MassWateR)
 
 # import results data
-respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
+respth <- system.file("extdata/ExampleResults.xlsx", package = "MassWateR")
 resdat <- readMWRresults(respth)
 
 # import accuracy data
-accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
+accpth <- system.file("extdata/ExampleDQOAccuracy.xlsx", package = "MassWateR")
 accdat <- readMWRacc(accpth)
 ```
 
@@ -36,71 +36,71 @@ accdat <- readMWRacc(accpth)
 Outliers can be identified using the `anlzMWRoutlier()` function.  Evaluating data for outliers is a critical step of quality control.  Although outliers are not explicitly evaluated with the formal quality control checks, the function allows a user to quickly identify them for removal or additional follow-up.  Outliers are defined using the standard definition of 1.5 times the interquartile range (the 25th to 75th percentile) of a parameter, depending on the grouping used for the function.  They are visually identified as points above or below the whiskers in the boxplots that describe distribution of the data, i.e., the box defines the interquartile range, the horizontal line is the median, and the whiskers extend above and below 1.5 times the interquartile range.  
 
 ```{r boxplotex, out.width = '65%', fig.align = 'center', echo = F, fig.cap = 'A summary of the distribution statistics shown with a standard boxplot.  Outliers extend beyond the whiskers and are 1.5 times the interquartile range.'}
-knitr::include_graphics('boxplotex.PNG')
+knitr::include_graphics("boxplotex.PNG")
 ```
 
 The `anlzMWRoutlier()` function uses the results data as a file path or data frame as input. The results for a selected parameter are shown as boxplots, with the outliers labelled accordingly. Outliers can be shown by month using `group = "month"`, by site using `group = "site"`, or by week of year using `group = "week"`.  Below, outliers are shown for dissolved oxygen grouped by month.   
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month')
+anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, group = "month")
 ```
 
 The same data are also grouped by site.
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'site')
+anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, group = "site")
 ```
 
 The same data can also be grouped by week using `group = "week"`.  The week of the year is shown on the plot as an integer. Note that there can be no common month/day indicating the start of the week between years and an integer is the only way to compare summaries if the results data span multiple years. 
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'week')
+anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, group = "week")
 ```
 
-Results can also be filtered by dates using the `dtrng` argument. Note that the date format must be `YYYY-MM-DD`. 
+Results can also be filtered by dates using the `dtrng` argument. The date format must be `YYYY-MM-DD` and include two entries. 
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'site', dtrng = c('2021-05-01', '2021-07-31'))
+anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, group = "site", dtrng = c("2021-05-01", "2021-07-31"))
 ```
 
 Points that are not outliers can also be jittered over the boxplots using `jitter = TRUE`. Outlier labels that overlap are also offset by default.  This can be suppressed using `repel = FALSE`. 
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month', jitter = TRUE, repel = FALSE)
+anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, group = "month", jitter = TRUE, repel = FALSE)
 ```
 
 The y-axis scaling as arithmetic (linear) or logarithmic can be set with the `yscl` argument.  If `yscl = "auto"` (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting `yscl = "linear"` or `yscl = "log"` will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy. Below, the axis for E. Coli is plotted on the log-10 scale automatically.  The y-axis scaling does not need to specified explicitly in the function call because the default setting is `yscl = "auto"`. 
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRoutlier(res = resdat, param = 'E.coli', acc = accdat, group = 'month')
+anlzMWRoutlier(res = resdat, param = "E.coli", acc = accdat, group = "month")
 ```
 
 To force the y-axis as linear for E. Coli, `yscl = "linear"` must be used. Note that the default linear scaling for dissolved oxygen above is determined automatically.
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRoutlier(res = resdat, param = 'E.coli', acc = accdat, group = 'month', yscl = 'linear')
+anlzMWRoutlier(res = resdat, param = "E.coli", acc = accdat, group = "month", yscl = "linear")
 ```
 
 Finally, a data frame of the identified outliers can also be returned by setting `outliers = TRUE`.  This table can be used to identify the outliers in the original data for removal or additional follow-up.
 
 ```{r}
-anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month', outliers = TRUE)
+anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, group = "month", outliers = TRUE)
 ```
 
 ## Modifying the plot
 
-The default plot format should be sufficient in most cases, but it can be modified using common `ggplot()` plot functions.  The plot returned by `anlzMWRoutlier()` is a `ggplot()` plot object and additional components can be added using the `+` notation. Note that overriding some of the existing plot components may significantly alter the appearance, so use caution. 
+The default plot format should be sufficient in most cases, but it can be modified using common `ggplot()` plot functions (see the [ggplot2](https://ggplot2.tidyverse.org/index.html) page for details).  The plot returned by `anlzMWRoutlier()` is a `ggplot()` plot object and additional components can be added using the `+` notation. Note that overriding some of the existing plot components may significantly alter the appearance, so use caution. 
 
 Below are a few examples of minimal additions to change the standard plot. A single plot object for the original plot is created as `p` and is modified differently in each example. 
 
 Modify plot labels: 
 
 ```{r, fig.height = 4, fig.width = 8}
-p <- anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month')
+p <- anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, group = "month")
 p +
   labs(
     x = "Month", 
-    y = 'Dissolved oxygen (mg/L)', 
+    y = "Dissolved oxygen (mg/L)", 
     title = "Outliers for dissolved oxygen"
   )
 ```
