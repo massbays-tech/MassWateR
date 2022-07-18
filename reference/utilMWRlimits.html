@@ -149,46 +149,51 @@
 <span class="r-in"><span><span class="co"># apply to total phosphorus</span></span></span>
 <span class="r-in"><span><span class="fu">utilMWRlimits</span><span class="op">(</span><span class="va">resdat</span>, <span class="va">accdat</span>, param <span class="op">=</span> <span class="st">'TP'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 205 × 14</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    `Monitoring Location ID` `Activity Type` `Activity Start D…` `Activity Star…`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> HBS-016                  Sample-Routine  2021-01-14          09:22           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> LND-007                  Sample-Routine  2021-01-14          09:50           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> HBS-031                  Sample-Routine  2021-01-14          10:05           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> HBS-057                  Sample-Routine  2021-01-14          10:30           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> HBS-065                  Sample-Routine  2021-01-14          10:40           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> CRN-002                  Sample-Routine  2021-01-14          11:30           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> HBS-076                  Sample-Routine  2021-01-14          11:58           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> HBS-085                  Sample-Routine  2021-01-14          12:10           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> HBS-095                  Sample-Routine  2021-01-14          12:20           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> HBS-016                  Sample-Routine  2021-02-15          08:50           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 195 more rows, and 10 more variables:</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Activity Depth/Height Measure` &lt;chr&gt;, `Activity Depth/Height Unit` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Activity Relative Depth Name` &lt;chr&gt;, `Characteristic Name` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Value` &lt;dbl&gt;, `Result Unit` &lt;chr&gt;, `Quantitation Limit` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `QC Reference Value` &lt;chr&gt;, `Result Measure Qualifier` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Attribute` &lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Monitori…¹ Activ…² Activity…³ Activ…⁴ Activ…⁵ Activ…⁶ Activ…⁷ Chara…⁸ Resul…⁹</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> HBS-016    Sample… 2021-01-14 09:22   0.75    ft      <span style="color: #BB0000;">NA</span>      TP        0.01 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> LND-007    Sample… 2021-01-14 09:50   0.75    ft      <span style="color: #BB0000;">NA</span>      TP        0.03 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> HBS-031    Sample… 2021-01-14 10:05   0.75    ft      <span style="color: #BB0000;">NA</span>      TP        0.04 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> HBS-057    Sample… 2021-01-14 10:30   0.75    ft      <span style="color: #BB0000;">NA</span>      TP        0.03 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> HBS-065    Sample… 2021-01-14 10:40   0.75    ft      <span style="color: #BB0000;">NA</span>      TP        0.03 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> CRN-002    Sample… 2021-01-14 11:30   0.75    ft      <span style="color: #BB0000;">NA</span>      TP        0.07 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> HBS-076    Sample… 2021-01-14 11:58   0.75    ft      <span style="color: #BB0000;">NA</span>      TP        0.05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> HBS-085    Sample… 2021-01-14 12:10   0.75    ft      <span style="color: #BB0000;">NA</span>      TP        0.06 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> HBS-095    Sample… 2021-01-14 12:20   0.5     ft      <span style="color: #BB0000;">NA</span>      TP        0.05 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> HBS-016    Sample… 2021-02-15 08:50   0.75    ft      <span style="color: #BB0000;">NA</span>      TP        0.005</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 195 more rows, 5 more variables: `Result Unit` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Quantitation Limit` &lt;chr&gt;, `QC Reference Value` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Measure Qualifier` &lt;chr&gt;, `Result Attribute` &lt;chr&gt;, and abbreviated</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   variable names ¹​`Monitoring Location ID`, ²​`Activity Type`,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ³​`Activity Start Date`, ⁴​`Activity Start Time`,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁵​`Activity Depth/Height Measure`, ⁶​`Activity Depth/Height Unit`,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁷​`Activity Relative Depth Name`, ⁸​`Characteristic Name`, ⁹​`Result Value`</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># apply to E.coli, filter by site and result attribute</span></span></span>
 <span class="r-in"><span><span class="fu">utilMWRlimits</span><span class="op">(</span>resdat <span class="op">=</span> <span class="va">resdat</span>, accdat <span class="op">=</span> <span class="va">accdat</span>, param <span class="op">=</span> <span class="st">'E.coli'</span>, </span></span>
 <span class="r-in"><span>     site <span class="op">=</span> <span class="st">'ABT-077'</span>, resultatt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Dry'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 10 × 14</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    `Monitoring Location ID` `Activity Type` `Activity Start D…` `Activity Star…`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> ABT-077                  Sample-Routine  2021-06-14          07:57           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> ABT-077                  Sample-Routine  2021-06-28          07:51           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> ABT-077                  Sample-Routine  2021-07-06          07:40           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> ABT-077                  Sample-Routine  2021-07-12          08:10           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> ABT-077                  Sample-Routine  2021-08-02          07:28           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> ABT-077                  Sample-Routine  2021-08-09          07:35           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> ABT-077                  Sample-Routine  2021-08-16          07:45           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> ABT-077                  Sample-Routine  2021-08-24          07:30           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> ABT-077                  Sample-Routine  2021-08-30          07:55           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> ABT-077                  Sample-Routine  2021-09-13          07:49           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 10 more variables: `Activity Depth/Height Measure` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Activity Depth/Height Unit` &lt;chr&gt;, `Activity Relative Depth Name` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Characteristic Name` &lt;chr&gt;, `Result Value` &lt;dbl&gt;, `Result Unit` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Quantitation Limit` &lt;chr&gt;, `QC Reference Value` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Measure Qualifier` &lt;chr&gt;, `Result Attribute` &lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Monitori…¹ Activ…² Activity…³ Activ…⁴ Activ…⁵ Activ…⁶ Activ…⁷ Chara…⁸ Resul…⁹</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> ABT-077    Sample… 2021-06-14 07:57   0.75    ft      <span style="color: #BB0000;">NA</span>      E.coli      220</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> ABT-077    Sample… 2021-06-28 07:51   0.75    ft      <span style="color: #BB0000;">NA</span>      E.coli      420</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> ABT-077    Sample… 2021-07-06 07:40   0.75    ft      <span style="color: #BB0000;">NA</span>      E.coli       50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> ABT-077    Sample… 2021-07-12 08:10   0.75    ft      <span style="color: #BB0000;">NA</span>      E.coli      550</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> ABT-077    Sample… 2021-08-02 07:28   0.75    ft      <span style="color: #BB0000;">NA</span>      E.coli      116</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> ABT-077    Sample… 2021-08-09 07:35   0.75    ft      <span style="color: #BB0000;">NA</span>      E.coli     <span style="text-decoration: underline;">5</span>500</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> ABT-077    Sample… 2021-08-16 07:45   0.75    ft      <span style="color: #BB0000;">NA</span>      E.coli       92</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> ABT-077    Sample… 2021-08-24 07:30   0.75    ft      <span style="color: #BB0000;">NA</span>      E.coli      196</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> ABT-077    Sample… 2021-08-30 07:55   0.75    ft      <span style="color: #BB0000;">NA</span>      E.coli      132</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> ABT-077    Sample… 2021-09-13 07:49   0.75    ft      <span style="color: #BB0000;">NA</span>      E.coli      116</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 5 more variables: `Result Unit` &lt;chr&gt;, `Quantitation Limit` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `QC Reference Value` &lt;chr&gt;, `Result Measure Qualifier` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Attribute` &lt;chr&gt;, and abbreviated variable names</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ¹​`Monitoring Location ID`, ²​`Activity Type`, ³​`Activity Start Date`,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁴​`Activity Start Time`, ⁵​`Activity Depth/Height Measure`,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁶​`Activity Depth/Height Unit`, ⁷​`Activity Relative Depth Name`,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁸​`Characteristic Name`, ⁹​`Result Value`</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ Use `colnames()` to see all variable names</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

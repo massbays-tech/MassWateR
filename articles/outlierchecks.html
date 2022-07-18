@@ -169,16 +169,17 @@ A summary of the distribution statistics shown with a standard boxplot. Outliers
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlier.html">anlzMWRoutlier</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">"month"</span>, outliers <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 6</span></span></span>
-<span><span class="co">#&gt;   `Monitoring Location ID` `Activity Start D…` `Activity Star…` `Characteristi…`</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> SUD-293                  2021-03-21          08:16            DO              </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> LND-007                  2021-05-19          06:35            DO              </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> HBS-080P                 2021-05-19          09:29            DO              </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> HBS-080P                 2021-05-19          09:33            DO              </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> HBS-095P                 2021-06-14          05:17            DO              </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> SUD-005                  2021-11-14          07:15            DO              </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> HBS-016                  2021-11-14          07:25            DO              </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 2 more variables: `Result Value` &lt;dbl&gt;, `Result Unit` &lt;chr&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt;   `Monitoring Location ID` `Activity Start Date` Activ…¹ Chara…² Resul…³ Resul…⁴</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> SUD-293                  2021-03-21            08:16   DO         9.32 mg/l   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> LND-007                  2021-05-19            06:35   DO         3.05 mg/l   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> HBS-080P                 2021-05-19            09:29   DO        14.4  mg/l   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> HBS-080P                 2021-05-19            09:33   DO        14.1  mg/l   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> HBS-095P                 2021-06-14            05:17   DO        14.7  mg/l   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> SUD-005                  2021-11-14            07:15   DO         8.44 mg/l   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> HBS-016                  2021-11-14            07:25   DO         7.11 mg/l   </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​`Activity Start Time`,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ²​`Characteristic Name`, ³​`Result Value`, ⁴​`Result Unit`</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="modifying-the-plot">Modifying the plot<a class="anchor" aria-label="anchor" href="#modifying-the-plot"></a>

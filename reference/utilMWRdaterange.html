@@ -110,24 +110,26 @@
 <span class="r-in"><span><span class="co"># filtered results</span></span></span>
 <span class="r-in"><span><span class="fu">utilMWRdaterange</span><span class="op">(</span><span class="va">resdat</span>, dtrng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2021-06-01'</span>, <span class="st">'2021-06-30'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 519 × 14</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    `Monitoring Location ID` `Activity Type` `Activity Start D…` `Activity Star…`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> ABT-062                  Field Msr/Obs   2021-06-13          06:30           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> CND-110                  Field Msr/Obs   2021-06-13          06:32           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> HOP-011                  Field Msr/Obs   2021-06-13          06:40           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> ABT-237                  Field Msr/Obs   2021-06-13          06:43           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> ABT-301                  Field Msr/Obs   2021-06-13          07:18           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> CND-036                  Field Msr/Obs   2021-06-13          07:20           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> DAN-013                  Field Msr/Obs   2021-06-13          07:25           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> RVM-005                  Field Msr/Obs   2021-06-13          07:40           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> SUD-064                  Field Msr/Obs   2021-06-13          07:45           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> ABT-312                  Field Msr/Obs   2021-06-13          07:57           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 509 more rows, and 10 more variables:</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Activity Depth/Height Measure` &lt;chr&gt;, `Activity Depth/Height Unit` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Activity Relative Depth Name` &lt;chr&gt;, `Characteristic Name` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Value` &lt;chr&gt;, `Result Unit` &lt;chr&gt;, `Quantitation Limit` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `QC Reference Value` &lt;chr&gt;, `Result Measure Qualifier` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Attribute` &lt;chr&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Monitori…¹ Activ…² Activity…³ Activ…⁴ Activ…⁵ Activ…⁶ Activ…⁷ Chara…⁸ Resul…⁹</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> ABT-062    Field … 2021-06-13 06:30   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 15     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> CND-110    Field … 2021-06-13 06:32   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 15     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> HOP-011    Field … 2021-06-13 06:40   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 15     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> ABT-237    Field … 2021-06-13 06:43   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 16     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> ABT-301    Field … 2021-06-13 07:18   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 18     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> CND-036    Field … 2021-06-13 07:20   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 22     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> DAN-013    Field … 2021-06-13 07:25   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 16.5   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> RVM-005    Field … 2021-06-13 07:40   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 26     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> SUD-064    Field … 2021-06-13 07:45   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 18     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> ABT-312    Field … 2021-06-13 07:57   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 18     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 509 more rows, 5 more variables: `Result Unit` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Quantitation Limit` &lt;chr&gt;, `QC Reference Value` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Measure Qualifier` &lt;chr&gt;, `Result Attribute` &lt;chr&gt;, and abbreviated</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   variable names ¹​`Monitoring Location ID`, ²​`Activity Type`,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ³​`Activity Start Date`, ⁴​`Activity Start Time`,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁵​`Activity Depth/Height Measure`, ⁶​`Activity Depth/Height Unit`,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁷​`Activity Relative Depth Name`, ⁸​`Characteristic Name`, ⁹​`Result Value`</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
