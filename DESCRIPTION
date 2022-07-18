@@ -1,6 +1,6 @@
 Package: MassWateR
 Title: Tools for QAQC and Exploratory Analysis of Massachusetts Surface Water Quality Data
-Version: 0.0.0.9006
+Version: 0.0.0.9007
 Authors@R: c(
     person(given = "Marcus",
       family = "Beck",
@@ -35,12 +35,15 @@ Depends:
 Imports:
   dplyr, 
   flextable,
+  ggmap,
   ggplot2,
   ggrepel,
   lubridate, 
   readxl,
+  sf,
   tidyr, 
-  tibble
+  tibble, 
+  units
 License: CC0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

@@ -52,7 +52,7 @@ anlzMWRsite(
 
 \item{fecalgrp}{logical indicating if fecal indicator data have sites grouped separately by result attributes, applies if \code{param} is \code{"E.coli"}, \code{"Enterococcus"}, or \code{"Fecal Coliform"}, see details}
 
-\item{runchk}{logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths}
+\item{runchk}{logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths}
 
 \item{warn}{logical to return warnings to the console (default)}
 }

@@ -52,7 +52,7 @@ anlzMWRseason(
 
 \item{yscl}{character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details}
 
-\item{runchk}{logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths}
+\item{runchk}{logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths}
 
 \item{warn}{logical to return warnings to the console (default)}
 }

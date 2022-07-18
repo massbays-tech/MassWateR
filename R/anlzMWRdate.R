@@ -15,7 +15,7 @@
 #' @param labsize numeric indicating font size for the site labels, only if \code{group = "site"}
 #' @param ptsize numeric indicating size of the points
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
-#' @param runchk  logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths
+#' @param runchk logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object that can be further modified.

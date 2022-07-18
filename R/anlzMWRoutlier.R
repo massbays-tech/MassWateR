@@ -14,7 +14,7 @@
 #' @param fill numeric indicating fill color for boxplots
 #' @param alpha numeric from 0 to 1 indicating transparency of fill color
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
-#' @param runchk  logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths
+#' @param runchk logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object that can be further modified if \code{outliers = FALSE}, otherwise a data frame of outliers is returned.
