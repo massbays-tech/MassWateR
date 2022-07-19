@@ -62,6 +62,9 @@
 #' anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat)
 anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', yscl = c('auto', 'log', 'linear'), crs = 4326, zoom = 11, maptype = 'terrain-background', buffdist = 0.02, northloc = 'tl', scaleloc = 'br', runchk = TRUE, warn = TRUE){
   
+  if(!requireNamespace('ggmap', quietly = TRUE))
+    stop("Package \"ggmap\" needed for this function to work. Please install it.", call. = FALSE)
+  
   # inputs
   inp <- utilMWRinput(res = res, acc = acc, sit = sitdat, runchk = F, warn = warn)
   
