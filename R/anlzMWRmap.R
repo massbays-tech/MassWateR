@@ -66,7 +66,7 @@ anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, dtrng
     stop("Package \"ggmap\" needed for this function to work. Please install it.", call. = FALSE)
   
   # inputs
-  inp <- utilMWRinput(res = res, acc = acc, sit = sitdat, runchk = F, warn = warn)
+  inp <- utilMWRinput(res = res, acc = acc, sit = sit, runchk = F, warn = warn)
   
   # results data
   resdat <- inp$resdat 
