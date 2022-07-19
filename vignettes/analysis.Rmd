@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 library(ggplot2)
 ```
 
-The analysis functions in MassWateR can be used to evaluate trends, summaries, and maps once the required data are successfully imported into R (see the [data input and checks vignette](https://massbays-tech.github.io/MassWateR/articles/datainput.html) for an overview).  The results data file that describes the monitoring data for surface waters is required.  The data quality objectives file for accuracy is also required to automatically determine plot axis scaling as arithmetic (linear) or logarithmic and to fill results data that are below detection or above quantitation limits. The example data included with the package are imported here to demonstrate how to use the analysis functions:
+The analysis functions in MassWateR can be used to evaluate trends, summaries, and maps once the required data are successfully imported into R (see the [data input and checks vignette](https://massbays-tech.github.io/MassWateR/articles/datainput.html) for an overview).  The results data file that describes the monitoring data for surface waters is required.  The data quality objectives file for accuracy is also required to automatically determine plot axis scaling as arithmetic (linear) or logarithmic and to fill results data that are below detection or above quantitation limits. The site metadata file is used to create maps. The example data included with the package are imported here to demonstrate how to use the analysis functions:
 
 ```{r, message = T}
 library(MassWateR)
@@ -29,6 +29,10 @@ resdat <- readMWRresults(respth)
 # import accuracy data
 accpth <- system.file("extdata/ExampleDQOAccuracy.xlsx", package = "MassWateR")
 accdat <- readMWRacc(accpth)
+
+# import site metadata
+sitpth <- system.file("extdata/ExampleSites.xlsx", package = "MassWateR")
+sitdat <- readMWRsites(sitpth)
 ```
 
 ## Analyze seasonal trends
@@ -130,9 +134,75 @@ anlzMWRsite(res = resdat, param = "DO", acc = accdat, type = "bar", thresh = "fr
 Results data for fecal coliform indicators can be grouped by entries in the `Result Atribute` column using `fecalgrp = TRUE`.   For example, sites can be grouped by `"Dry"` or `"Wet"` conditions.  This option can only be used if the `param` argument is `"E.coli"`, `"Enterococcus"`, or `"Fecal Coliform"`.  Filtering by sites first is advised to reduce the amount of data that are plotted. 
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRsite(res = resdat, param = 'E.coli', acc = accdat, type = 'box', 
-                        site = c('ABT-077', 'ABT-162', 'CND-009', 'CND-110', 'HBS-016', 'HBS-031'),
+anlzMWRsite(res = resdat, param = "E.coli", acc = accdat, type = "box", 
+                        site = c("ABT-077", "ABT-162", "CND-009", "CND-110", "HBS-016", "HBS-031"),
                         fecalgrp = TRUE)
+```
+
+## Analyze results with maps
+
+The `anlzMWRmap()` function can be used to create a map of summarized results for a selected parameter at each monitoring site.  By default, all dates for the parameter are averaged. Options to filter by site, date range, and result attribute are provided.  Only sites with spatial information in the site metadata file are plotted and a warning is returned for those that do not have this information. The site labels are also plotted next to each point. 
+
+A map of dissolved oxygen averages across all dates can be created as follows. The required inputs are the results data, the data quality objective file for accuracy, and the site metadata file with the site locations. The warning message indicates some sites in the results file do not have spatial data in the site metadata file.
+
+```{r, fig.height = 7, fig.width = 6}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat)
+```
+
+By default, a north arrow, scale bar, and labels are plotted.  These can be suppressed by setting the appropriate arguments to `NULL`.
+
+```{r, fig.height = 7, fig.width = 6}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, northloc = NULL, scaleloc = NULL, labsize = NULL, warn = F)
+```
+
+Locations of the north arrow and scale bar can be changed with the same arguments by specifying `"tl"`, `"tr"`, `"bl"`, or `"br"` for top-left, top-right, bottom-left, or bottom-right. 
+
+```{r, fig.height = 7, fig.width = 6}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, northloc = "br", scaleloc = "tl", warn = F)
+```
+
+The color palette for the average values can also be changed.  Any palette from [RColorBrewer](https://r-graph-gallery.com/38-rcolorbrewers-palettes.html) can be used. 
+
+```{r, fig.height = 7, fig.width = 6}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, palcol = "Spectral", warn = F)
+```
+
+The base map can be modified as well.  First, the size of the bounding box around the points and map resolution can be changed with the `buffdist` and `zoom` arguments, respectively.  The default value for `buffdist` is 0.2 in decimal degrees.  The default `zoom` argument is set to 11 and decreasing the number will download a base map with lower resolution.
+
+```{r, fig.height = 7, fig.width = 7}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, buffdist = 0.3, zoom = 10, warn = F)
+```
+
+The type of base map can be changed with the `maptype` argument. Options include any stamen map as `"terrain"`, `"terrain-background"` (default), `"terrain-labels"`, `"terrain-lines"`, `"toner"`, `"toner-2010"`, `"toner-2011"`, `"toner-background"`, `"toner-hybrid"`, `"toner-labels"`, `"toner-lines"`, `"toner-lite"`, or `"watercolor"`.
+
+A `"terrain"` base map: 
+
+```{r, fig.height = 7, fig.width = 6}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "terrain", warn = F)
+```
+
+A `"terrain-lines"` base map: 
+
+```{r, fig.height = 7, fig.width = 6}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "terrain-lines", warn = F)
+```
+
+A `"toner"` base map:
+
+```{r, fig.height = 7, fig.width = 6}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "toner", warn = F)
+```
+
+A `"toner-labels"` base map:
+
+```{r, fig.height = 7, fig.width = 6}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "toner-labels", warn = F)
+```
+
+A `"watercolor"` base map:
+
+```{r, fig.height = 7, fig.width = 6}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "watercolor", warn = F)
 ```
 
 ## Modifying the plots

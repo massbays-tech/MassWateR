@@ -2,7 +2,7 @@
 % Please edit documentation in R/anlzMWRmap.R
 \name{anlzMWRmap}
 \alias{anlzMWRmap}
-\title{Title}
+\title{Analyze results with maps}
 \usage{
 anlzMWRmap(
   res,
@@ -72,7 +72,7 @@ anlzMWRmap(
 A \code{\link[ggplot2]{ggplot}} object that can be further modified.
 }
 \description{
-Title
+Analyze results with maps
 }
 \details{
 This function creates a map of summarized results for a selected parameter at each monitoring site.  By default, all dates for the parameter are averaged. Options to filter by site, date range, and result attribute are provided.  Only sites with spatial information in the site metadata file are plotted and a warning is returned for those that do not have this information. The site labels are also plotted next to each point.  The labels can be suppressed by setting \code{labsize = NULL}.

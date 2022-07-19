@@ -1,4 +1,4 @@
-#' Title
+#' Analyze results with maps
 #'
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param param character string of the parameter to plot, must conform to entries in the \code{"Simple Parameter"} column of \code{\link{paramsMWR}}
@@ -7,7 +7,7 @@
 #' @param site character string of sites to include, default all
 #' @param resultatt character string of result attributes to plot, default all
 #' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, optional
-#' @param ptsize numeric for size of the points
+#' @param ptsize numeric for size of the points, use a negative value to omit the points
 #' @param repel logical indicating if overlapping site labels are offset
 #' @param labsize numeric for size of the site labels
 #' @param palcol character string indicating the color palette to be used, see details
