@@ -38,6 +38,7 @@ Imports:
   ggmap,
   ggplot2,
   ggrepel,
+  ggspatial,
   lubridate, 
   readxl,
   sf,

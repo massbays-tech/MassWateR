@@ -79,7 +79,7 @@ This function creates a map of summarized results for a selected parameter at ea
 
 Any acceptable color palette from RColorBrewer can be used for \code{palcol}, which is passed to the \code{palette} argment in \code{\link[ggplot2]{scale_fill_distiller}}.
 
-The default value for \code{crs} is EPSG 4326 for the WGS 84 projection in decimal degrees.  The \code{crs} argument is passed to \code{\link[sf](st_as_sf)} and any acceptable CRS appropriate for the data can be used.
+The default value for \code{crs} is EPSG 4326 for the WGS 84 projection in decimal degrees.  The \code{crs} argument is passed to \code{\link[sf]{st_as_sf}} and any acceptable CRS appropriate for the data can be used.
 
 The results shown on the map represent the parameter average for each site within the date range provided by \code{dtrng}.  The average may differ depending on the value provided to the \code{yscl} argument.  Log10-distributed parameters use the geometric mean and normally-distributed parameters use the arithmetic mean.  The distribution is determined from the \code{ycsl} argument. If \code{yscl = "auto"} (default), the distribution is determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are summarized with the geometric mean, otherwise arithmetic. Setting \code{yscl = "linear"} or \code{yscl = "log"} will the use arithmetic or geometric summaries, respectively, regardless of the information in the data quality objective file for accuracy.
 

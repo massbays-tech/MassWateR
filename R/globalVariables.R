@@ -13,7 +13,7 @@ globalVariables(c("Activity Start Date", "Activity Start Time", "QC Reference Va
                   "rngflt", "Method", "recov", "% Acceptance", "Number of Misses", 
                   "Number of QC Checks", "isnum", "Quantitation Limit", "Threshold", "Month", 
                   "outlier", "Week", "grpvar", "hiv", "label", "lov", "meanval","num", 
-                  "thresholdMWR"))
+                  "thresholdMWR", "degree", "geometry"))
 
 #' @importFrom stats IQR na.omit quantile t.test
 NULL
