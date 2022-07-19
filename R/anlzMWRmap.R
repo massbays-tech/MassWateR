@@ -116,7 +116,8 @@ anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, dtrng
   tomap <- tomap %>% 
     dplyr::filter(!naloc) %>% 
     sf::st_as_sf(coords = c('Monitoring Location Longitude', 'Monitoring Location Latitude'), crs = crs) %>% 
-    sf::st_transform(crs = 4326)
+    sf::st_transform(crs = 4326) %>% 
+    sf::st_zm()
   
   # layer extent as bbox plus buffer
   dat_ext <- tomap %>% 
@@ -154,7 +155,7 @@ anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, dtrng
     m <- m +
       ggspatial::annotation_north_arrow(location = northloc, which_north = "true", height = grid::unit(0.75, "cm"), 
                                                 width = grid::unit(0.75, "cm"))
-  
+
   if(repel & !is.null(labsize))
     m <- m  +
       ggrepel::geom_text_repel(data = tomap, ggplot2::aes(label = `Monitoring Location ID`, geometry = geometry), stat = 'sf_coordinates', inherit.aes = F, size = labsize)
@@ -162,7 +163,7 @@ anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, dtrng
   if(!repel & !is.null(labsize))
     m <- m  +
       ggplot2::geom_sf_text(data = tomap, ggplot2::aes(label = `Monitoring Location ID`), inherit.aes = F, size = labsize)
-  
-  return(m)
+
+  return(suppressWarnings(print(m)))
   
 }
