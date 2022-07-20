@@ -21,6 +21,8 @@ jobs:
         with:
           use-public-rspm: true
       
+      - uses: r-lib/actions/setup-pandoc@v1
+      
       - name: Install OS dependencies
         run: |
           brew install gdal
