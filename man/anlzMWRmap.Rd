@@ -42,7 +42,7 @@ anlzMWRmap(
 
 \item{dtrng}{character string of length two for the date ranges as YYYY-MM-DD, optional}
 
-\item{ptsize}{numeric for size of the points}
+\item{ptsize}{numeric for size of the points, use a negative value to omit the points}
 
 \item{repel}{logical indicating if overlapping site labels are offset}
 
