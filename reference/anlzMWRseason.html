@@ -61,9 +61,9 @@
 <span>  <span class="va">res</span>,</span>
 <span>  <span class="va">param</span>,</span>
 <span>  <span class="va">acc</span>,</span>
+<span>  <span class="va">thresh</span>,</span>
 <span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"month"</span>, <span class="st">"week"</span><span class="op">)</span>,</span>
 <span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"box"</span>, <span class="st">"bar"</span><span class="op">)</span>,</span>
-<span>  thresh <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fresh"</span>, <span class="st">"marine"</span>, <span class="st">"none"</span><span class="op">)</span>,</span>
 <span>  threshcol <span class="op">=</span> <span class="st">"tan"</span>,</span>
 <span>  site <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  resultatt <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -92,16 +92,16 @@
 <dd><p>character string of path to the data quality objectives file for accuracy or <code>data.frame</code> returned by <code><a href="readMWRacc.html">readMWRacc</a></code></p></dd>
 
 
+<dt>thresh</dt>
+<dd><p>character indicating if relevant freshwater or marine threshold lines are included, one of <code>"fresh"</code>, <code>"marine"</code>, or <code>"none"</code></p></dd>
+
+
 <dt>group</dt>
 <dd><p>character indicating whether the summaries are grouped by month (default) or week of year</p></dd>
 
 
 <dt>type</dt>
 <dd><p>character indicating <code>"box"</code> for boxplots or <code>"bar"</code> for barplots, see details</p></dd>
-
-
-<dt>thresh</dt>
-<dd><p>character indicating if relevant freshwater or marine threshold lines are included, one of <code>"fresh"</code>, <code>"marine"</code>, or <code>"none"</code></p></dd>
 
 
 <dt>threshcol</dt>
@@ -210,24 +210,28 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># seasonal trends by month, boxplot</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRseason</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'month'</span>, type <span class="op">=</span> <span class="st">'box'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRseason</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">'fresh'</span>, group <span class="op">=</span> <span class="st">'month'</span>, </span></span>
+<span class="r-in"><span>     type <span class="op">=</span> <span class="st">'box'</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="anlzMWRseason-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># seasonal trends by week, boxplot</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRseason</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'week'</span>, type <span class="op">=</span> <span class="st">'box'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRseason</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">'fresh'</span>, group <span class="op">=</span> <span class="st">'week'</span>, </span></span>
+<span class="r-in"><span>     type <span class="op">=</span> <span class="st">'box'</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="anlzMWRseason-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># seasonal trends by month, May to July only</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRseason</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'month'</span>, type <span class="op">=</span> <span class="st">'bar'</span>,</span></span>
-<span class="r-in"><span>     dtrng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2021-05-01'</span>, <span class="st">'2021-07-31'</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRseason</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">'fresh'</span>, group <span class="op">=</span> <span class="st">'month'</span>, </span></span>
+<span class="r-in"><span>     type <span class="op">=</span> <span class="st">'bar'</span>, dtrng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2021-05-01'</span>, <span class="st">'2021-07-31'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="anlzMWRseason-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span>     </span></span>
 <span class="r-in"><span><span class="co"># seasonal trends by month, barplot</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRseason</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'month'</span>, type <span class="op">=</span> <span class="st">'bar'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRseason</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">'fresh'</span>, group <span class="op">=</span> <span class="st">'month'</span>, </span></span>
+<span class="r-in"><span>     type <span class="op">=</span> <span class="st">'bar'</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="anlzMWRseason-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># seasonal trends by week, barplot</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRseason</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'week'</span>, type <span class="op">=</span> <span class="st">'bar'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRseason</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">'fresh'</span>, group <span class="op">=</span> <span class="st">'week'</span>, </span></span>
+<span class="r-in"><span>     type <span class="op">=</span> <span class="st">'bar'</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="anlzMWRseason-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

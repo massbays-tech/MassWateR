@@ -62,7 +62,7 @@
 <span>  <span class="va">param</span>,</span>
 <span>  <span class="va">acc</span>,</span>
 <span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"box"</span>, <span class="st">"bar"</span><span class="op">)</span>,</span>
-<span>  thresh <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fresh"</span>, <span class="st">"marine"</span>, <span class="st">"none"</span><span class="op">)</span>,</span>
+<span>  <span class="va">thresh</span>,</span>
 <span>  threshcol <span class="op">=</span> <span class="st">"tan"</span>,</span>
 <span>  site <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  resultatt <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -210,20 +210,20 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># site trends, boxplot</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRsite</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'box'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRsite</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'box'</span>, thresh <span class="op">=</span> <span class="st">'fresh'</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="anlzMWRsite-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># site trends, barplot</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRsite</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'bar'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRsite</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'bar'</span>, thresh <span class="op">=</span> <span class="st">'fresh'</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="anlzMWRsite-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># site trends, May to July only</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRsite</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'box'</span>,</span></span>
+<span class="r-in"><span><span class="fu">anlzMWRsite</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'box'</span>, thresh <span class="op">=</span> <span class="st">'fresh'</span>,</span></span>
 <span class="r-in"><span>     dtrng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2021-05-01'</span>, <span class="st">'2021-07-31'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="anlzMWRsite-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span>     </span></span>
 <span class="r-in"><span><span class="co"># fecal grouping</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRsite</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'E.coli'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'box'</span>, </span></span>
+<span class="r-in"><span><span class="fu">anlzMWRsite</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'E.coli'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'box'</span>, thresh <span class="op">=</span> <span class="st">'fresh'</span>,</span></span>
 <span class="r-in"><span>     site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'ABT-077'</span>, <span class="st">'ABT-162'</span>, <span class="st">'CND-009'</span>, <span class="st">'CND-110'</span>, <span class="st">'HBS-016'</span>, <span class="st">'HBS-031'</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>     fecalgrp <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="anlzMWRsite-4.png" alt="" width="700" height="433"></span>

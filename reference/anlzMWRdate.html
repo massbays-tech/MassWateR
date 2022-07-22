@@ -61,8 +61,8 @@
 <span>  <span class="va">res</span>,</span>
 <span>  <span class="va">param</span>,</span>
 <span>  <span class="va">acc</span>,</span>
+<span>  <span class="va">thresh</span>,</span>
 <span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"site"</span>, <span class="st">"all"</span><span class="op">)</span>,</span>
-<span>  thresh <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fresh"</span>, <span class="st">"marine"</span>, <span class="st">"none"</span><span class="op">)</span>,</span>
 <span>  threshcol <span class="op">=</span> <span class="st">"tan"</span>,</span>
 <span>  site <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  resultatt <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -90,12 +90,12 @@
 <dd><p>character string of path to the data quality objectives file for accuracy or <code>data.frame</code> returned by <code><a href="readMWRacc.html">readMWRacc</a></code></p></dd>
 
 
-<dt>group</dt>
-<dd><p>character indicating whether the results are grouped by site (default) or combined across all sites</p></dd>
-
-
 <dt>thresh</dt>
 <dd><p>character indicating if relevant freshwater or marine threshold lines are included, one of <code>"fresh"</code>, <code>"marine"</code>, or <code>"none"</code></p></dd>
+
+
+<dt>group</dt>
+<dd><p>character indicating whether the results are grouped by site (default) or combined across all sites</p></dd>
 
 
 <dt>threshcol</dt>
@@ -198,18 +198,15 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># all sites</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRdate</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'site'</span>, site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ABT-026"</span>, <span class="st">"ABT-077"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># select sites</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRdate</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'site'</span>, thresh <span class="op">=</span> <span class="st">'fresh'</span>,</span></span>
+<span class="r-in"><span>     site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ABT-026"</span>, <span class="st">"ABT-077"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="anlzMWRdate-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># combined sites</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRdate</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'all'</span>, site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ABT-026"</span>, <span class="st">"ABT-077"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRdate</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'all'</span>, thresh <span class="op">=</span> <span class="st">'fresh'</span>,</span></span>
+<span class="r-in"><span>     site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ABT-026"</span>, <span class="st">"ABT-077"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="anlzMWRdate-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># all sites, May to July only</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRdate</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'site'</span>, </span></span>
-<span class="r-in"><span>     dtrng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2021-05-01'</span>, <span class="st">'2021-07-31'</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="anlzMWRdate-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
