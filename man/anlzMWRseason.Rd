@@ -8,9 +8,9 @@ anlzMWRseason(
   res,
   param,
   acc,
+  thresh,
   group = c("month", "week"),
   type = c("box", "bar"),
-  thresh = c("fresh", "marine", "none"),
   threshcol = "tan",
   site = NULL,
   resultatt = NULL,
@@ -31,11 +31,11 @@ anlzMWRseason(
 
 \item{acc}{character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}}
 
+\item{thresh}{character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}}
+
 \item{group}{character indicating whether the summaries are grouped by month (default) or week of year}
 
 \item{type}{character indicating \code{"box"} for boxplots or \code{"bar"} for barplots, see details}
-
-\item{thresh}{character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}}
 
 \item{threshcol}{character indicating color of threshold lines if available}
 
@@ -91,19 +91,23 @@ accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx',
 accdat <- readMWRacc(accpth)
 
 # seasonal trends by month, boxplot
-anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'month', type = 'box')
+anlzMWRseason(res = resdat, param = 'DO', acc = accdat, thresh = 'fresh', group = 'month', 
+     type = 'box')
 
 # seasonal trends by week, boxplot
-anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'week', type = 'box')
+anlzMWRseason(res = resdat, param = 'DO', acc = accdat, thresh = 'fresh', group = 'week', 
+     type = 'box')
 
 # seasonal trends by month, May to July only
-anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'month', type = 'bar',
-     dtrng = c('2021-05-01', '2021-07-31'))
+anlzMWRseason(res = resdat, param = 'DO', acc = accdat, thresh = 'fresh', group = 'month', 
+     type = 'bar', dtrng = c('2021-05-01', '2021-07-31'))
      
 # seasonal trends by month, barplot
-anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'month', type = 'bar')
+anlzMWRseason(res = resdat, param = 'DO', acc = accdat, thresh = 'fresh', group = 'month', 
+     type = 'bar')
 
 # seasonal trends by week, barplot
-anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'week', type = 'bar')
+anlzMWRseason(res = resdat, param = 'DO', acc = accdat, thresh = 'fresh', group = 'week', 
+     type = 'bar')
 
 }

@@ -5,9 +5,9 @@
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param param character string of the parameter to plot, must conform to entries in the \code{"Simple Parameter"} column of \code{\link{paramsMWR}}
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
+#' @param thresh character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}
 #' @param group character indicating whether the summaries are grouped by month (default) or week of year
 #' @param type character indicating \code{"box"} for boxplots or \code{"bar"} for barplots, see details
-#' @param thresh character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}
 #' @param threshcol character indicating color of threshold lines if available
 #' @param site character string of sites to include, default all
 #' @param resultatt character string of result attributes to plot, default all
@@ -49,22 +49,26 @@
 #' accdat <- readMWRacc(accpth)
 #' 
 #' # seasonal trends by month, boxplot
-#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'month', type = 'box')
+#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, thresh = 'fresh', group = 'month', 
+#'      type = 'box')
 #' 
 #' # seasonal trends by week, boxplot
-#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'week', type = 'box')
+#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, thresh = 'fresh', group = 'week', 
+#'      type = 'box')
 #' 
 #' # seasonal trends by month, May to July only
-#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'month', type = 'bar',
-#'      dtrng = c('2021-05-01', '2021-07-31'))
+#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, thresh = 'fresh', group = 'month', 
+#'      type = 'bar', dtrng = c('2021-05-01', '2021-07-31'))
 #'      
 #' # seasonal trends by month, barplot
-#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'month', type = 'bar')
+#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, thresh = 'fresh', group = 'month', 
+#'      type = 'bar')
 #' 
 #' # seasonal trends by week, barplot
-#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'week', type = 'bar')
+#' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, thresh = 'fresh', group = 'week', 
+#'      type = 'bar')
 #' 
-anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c('box', 'bar'), thresh = c('fresh', 'marine', 'none'), threshcol = 'tan', site = NULL, resultatt = NULL, dtrng = NULL, jitter = FALSE, fill = 'lightblue', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
+anlzMWRseason <- function(res, param, acc, thresh, group = c('month', 'week'), type = c('box', 'bar'), threshcol = 'tan', site = NULL, resultatt = NULL, dtrng = NULL, jitter = FALSE, fill = 'lightblue', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
   
   group <- match.arg(group)
   type <- match.arg(type)
@@ -85,7 +89,7 @@ anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c(
   resdat <- utilMWRdaterange(resdat = resdat, dtrng = dtrng)
   
   # get thresholds
-  threshln <- utilMWRthresh(resdat = resdat, param = param, thresh = thresh, warn = warn)
+  threshln <- utilMWRthresh(resdat = resdat, param = param, thresh = thresh)
 
   # get y axis scaling
   logscl <- utilMWRyscale(accdat = accdat, param = param, yscl = yscl)

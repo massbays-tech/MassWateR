@@ -4,12 +4,7 @@
 \alias{utilMWRthresh}
 \title{Get threshold lines from thresholdMWR}
 \usage{
-utilMWRthresh(
-  resdat,
-  param,
-  thresh = c("fresh", "marine", "none"),
-  warn = TRUE
-)
+utilMWRthresh(resdat, param, thresh = c("fresh", "marine", "none"))
 }
 \arguments{
 \item{resdat}{results data as returned by \code{\link{readMWRresults}}}
@@ -17,8 +12,6 @@ utilMWRthresh(
 \item{param}{character string to first filter results by a parameter in \code{"Characteristic Name"}}
 
 \item{thresh}{character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}}
-
-\item{warn}{logical to return warnings to the console (default)}
 }
 \value{
 A logical value indicating \code{TRUE} if a log10-scale should be used, \code{FALSE} for arithmetic (linear)

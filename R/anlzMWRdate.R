@@ -5,8 +5,8 @@
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param param character string of the parameter to plot, must conform to entries in the \code{"Simple Parameter"} column of \code{\link{paramsMWR}}
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
-#' @param group character indicating whether the results are grouped by site (default) or combined across all sites
 #' @param thresh character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}
+#' @param group character indicating whether the results are grouped by site (default) or combined across all sites
 #' @param threshcol character indicating color of threshold lines if available
 #' @param site character string of sites to include, default all
 #' @param resultatt character string of result attributes to plot, default all
@@ -44,17 +44,15 @@
 #' # accuracy data
 #' accdat <- readMWRacc(accpth)
 #' 
-#' # all sites
-#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', site = c("ABT-026", "ABT-077"))
+#' # select sites
+#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', thresh = 'fresh',
+#'      site = c("ABT-026", "ABT-077"))
 #' 
 #' # combined sites
-#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'all', site = c("ABT-026", "ABT-077"))
+#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'all', thresh = 'fresh',
+#'      site = c("ABT-026", "ABT-077"))
 #' 
-#' # all sites, May to July only
-#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', 
-#'      dtrng = c('2021-05-01', '2021-07-31'))
-#' 
-anlzMWRdate <- function(res, param, acc, group = c('site', 'all'), thresh = c('fresh', 'marine', 'none'), threshcol = 'tan', site = NULL, resultatt = NULL, dtrng = NULL, ptsize = 2, repel = TRUE, labsize = 3, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
+anlzMWRdate <- function(res, param, acc, thresh, group = c('site', 'all'), threshcol = 'tan', site = NULL, resultatt = NULL, dtrng = NULL, ptsize = 2, repel = TRUE, labsize = 3, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
   
   group <- match.arg(group)
 
@@ -74,7 +72,7 @@ anlzMWRdate <- function(res, param, acc, group = c('site', 'all'), thresh = c('f
   resdat <- utilMWRdaterange(resdat = resdat, dtrng = dtrng)
   
   # get thresholds
-  threshln <- utilMWRthresh(resdat = resdat, param = param, thresh = thresh, warn = warn)
+  threshln <- utilMWRthresh(resdat = resdat, param = param, thresh = thresh)
   
   # get y axis scaling
   logscl <- utilMWRyscale(accdat = accdat, param = param, yscl = yscl)

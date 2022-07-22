@@ -9,7 +9,7 @@ anlzMWRsite(
   param,
   acc,
   type = c("box", "bar"),
-  thresh = c("fresh", "marine", "none"),
+  thresh,
   threshcol = "tan",
   site = NULL,
   resultatt = NULL,
@@ -91,17 +91,17 @@ accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx',
 accdat <- readMWRacc(accpth)
 
 # site trends, boxplot
-anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'box')
+anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'box', thresh = 'fresh')
 
 # site trends, barplot
-anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'bar')
+anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'bar', thresh = 'fresh')
 
 # site trends, May to July only
-anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'box',
+anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'box', thresh = 'fresh',
      dtrng = c('2021-05-01', '2021-07-31'))
      
 # fecal grouping
-anlzMWRsite(res = resdat, param = 'E.coli', acc = accdat, type = 'box', 
+anlzMWRsite(res = resdat, param = 'E.coli', acc = accdat, type = 'box', thresh = 'fresh',
      site = c('ABT-077', 'ABT-162', 'CND-009', 'CND-110', 'HBS-016', 'HBS-031'),
      fecalgrp = TRUE)
 }

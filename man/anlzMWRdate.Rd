@@ -8,8 +8,8 @@ anlzMWRdate(
   res,
   param,
   acc,
+  thresh,
   group = c("site", "all"),
-  thresh = c("fresh", "marine", "none"),
   threshcol = "tan",
   site = NULL,
   resultatt = NULL,
@@ -29,9 +29,9 @@ anlzMWRdate(
 
 \item{acc}{character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}}
 
-\item{group}{character indicating whether the results are grouped by site (default) or combined across all sites}
-
 \item{thresh}{character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}}
+
+\item{group}{character indicating whether the results are grouped by site (default) or combined across all sites}
 
 \item{threshcol}{character indicating color of threshold lines if available}
 
@@ -82,14 +82,12 @@ accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx',
 # accuracy data
 accdat <- readMWRacc(accpth)
 
-# all sites
-anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', site = c("ABT-026", "ABT-077"))
+# select sites
+anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', thresh = 'fresh',
+     site = c("ABT-026", "ABT-077"))
 
 # combined sites
-anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'all', site = c("ABT-026", "ABT-077"))
-
-# all sites, May to July only
-anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', 
-     dtrng = c('2021-05-01', '2021-07-31'))
+anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'all', thresh = 'fresh',
+     site = c("ABT-026", "ABT-077"))
 
 }

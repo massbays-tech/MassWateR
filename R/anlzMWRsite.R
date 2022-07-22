@@ -5,8 +5,8 @@
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param param character string of the parameter to plot, must conform to entries in the \code{"Simple Parameter"} column of \code{\link{paramsMWR}}
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
-#' @param type character indicating \code{"box"} for boxplots or \code{"bar"} for barplots, see details
 #' @param thresh character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}
+#' @param type character indicating \code{"box"} for boxplots or \code{"bar"} for barplots, see details
 #' @param threshcol character indicating color of threshold lines if available
 #' @param site character string of sites to include, default all
 #' @param resultatt character string of result attributes to plot, default all
@@ -49,20 +49,20 @@
 #' accdat <- readMWRacc(accpth)
 #' 
 #' # site trends, boxplot
-#' anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'box')
+#' anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'box', thresh = 'fresh')
 #' 
 #' # site trends, barplot
-#' anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'bar')
+#' anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'bar', thresh = 'fresh')
 #' 
 #' # site trends, May to July only
-#' anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'box',
+#' anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'box', thresh = 'fresh',
 #'      dtrng = c('2021-05-01', '2021-07-31'))
 #'      
 #' # fecal grouping
-#' anlzMWRsite(res = resdat, param = 'E.coli', acc = accdat, type = 'box', 
+#' anlzMWRsite(res = resdat, param = 'E.coli', acc = accdat, type = 'box', thresh = 'fresh',
 #'      site = c('ABT-077', 'ABT-162', 'CND-009', 'CND-110', 'HBS-016', 'HBS-031'),
 #'      fecalgrp = TRUE)
-anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh = c('fresh', 'marine', 'none'), threshcol = 'tan', site = NULL, resultatt = NULL, dtrng = NULL, jitter = FALSE, fill = 'lightgreen', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), fecalgrp = FALSE, runchk = TRUE, warn = TRUE){
+anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh, threshcol = 'tan', site = NULL, resultatt = NULL, dtrng = NULL, jitter = FALSE, fill = 'lightgreen', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), fecalgrp = FALSE, runchk = TRUE, warn = TRUE){
   
   fec <- c('E.coli', 'Enterococcus', 'Fecal Coliform')
   type <- match.arg(type)
@@ -88,7 +88,7 @@ anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh = c('fre
   resdat <- utilMWRdaterange(resdat = resdat, dtrng = dtrng)
   
   # get thresholds
-  threshln <- utilMWRthresh(resdat = resdat, param = param, thresh = thresh, warn = warn)
+  threshln <- utilMWRthresh(resdat = resdat, param = param, thresh = thresh)
   
   # get y axis scaling
   logscl <- utilMWRyscale(accdat = accdat, param = param, yscl = yscl)

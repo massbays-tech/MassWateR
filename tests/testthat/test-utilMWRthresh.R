@@ -4,11 +4,11 @@ test_that("Checking output format", {
 })
 
 test_that("Checking output format no marine threshold", {
-  expect_warning(utilMWRthresh(resdat, param = 'TP', thresh = 'marine'))
+  expect_null(utilMWRthresh(resdat, param = 'TP', thresh = 'marine'))
 })
 
 test_that("Checking output format no threshold", {
-  expect_warning(utilMWRthresh(resdat, param = 'Air Temp'))
+  expect_null(utilMWRthresh(resdat, param = 'Air Temp'))
 })
 
 test_that("Checking output format none", {
