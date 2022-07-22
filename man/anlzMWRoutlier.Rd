@@ -16,6 +16,7 @@ anlzMWRoutlier(
   labsize = 3,
   fill = "lightgrey",
   alpha = 0.8,
+  width = 0.8,
   yscl = c("auto", "log", "linear"),
   runchk = TRUE,
   warn = TRUE
@@ -43,6 +44,8 @@ anlzMWRoutlier(
 \item{fill}{numeric indicating fill color for boxplots}
 
 \item{alpha}{numeric from 0 to 1 indicating transparency of fill color}
+
+\item{width}{numeric for width of boxplots}
 
 \item{yscl}{character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details}
 

@@ -17,6 +17,7 @@ anlzMWRsite(
   jitter = FALSE,
   fill = "lightgreen",
   alpha = 0.8,
+  width = 0.8,
   yscl = c("auto", "log", "linear"),
   fecalgrp = FALSE,
   runchk = TRUE,
@@ -47,6 +48,8 @@ anlzMWRsite(
 \item{fill}{numeric indicating fill color for boxplots or barplots}
 
 \item{alpha}{numeric from 0 to 1 indicating transparency of fill color}
+
+\item{width}{numeric for width of boxplots or barplots}
 
 \item{yscl}{character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details}
 

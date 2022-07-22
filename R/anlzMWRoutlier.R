@@ -13,6 +13,7 @@
 #' @param labsize numeric indicating font size for the outlier labels
 #' @param fill numeric indicating fill color for boxplots
 #' @param alpha numeric from 0 to 1 indicating transparency of fill color
+#' @param width numeric for width of boxplots
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param warn logical to return warnings to the console (default)
@@ -56,7 +57,7 @@
 #' # data frame output
 #' anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month', outliers = TRUE)
 #' 
-anlzMWRoutlier <- function(res, param, acc, group = c('month', 'site', 'week'), dtrng = NULL, jitter = FALSE, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
+anlzMWRoutlier <- function(res, param, acc, group = c('month', 'site', 'week'), dtrng = NULL, jitter = FALSE, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
   
   group <- match.arg(group)
   
@@ -153,7 +154,7 @@ anlzMWRoutlier <- function(res, param, acc, group = c('month', 'site', 'week'), 
   }
   
   p <- p + 
-    ggplot2::geom_boxplot(outlier.color = 'tomato1', fill = fill, alpha = alpha)
+    ggplot2::geom_boxplot(outlier.color = 'tomato1', fill = fill, alpha = alpha, width = width)
   
   if(repel)
     p <- p +
@@ -169,7 +170,7 @@ anlzMWRoutlier <- function(res, param, acc, group = c('month', 'site', 'week'), 
       dplyr::filter(is.na(outlier))
   
     p <- p + 
-      ggplot2::geom_point(data = jitplo, position = ggplot2::position_dodge2(width = 0.7), alpha = 0.5, size = 1)
+      ggplot2::geom_point(data = jitplo, position = ggplot2::position_dodge2(width = 0.7 * width), alpha = 0.5, size = 1)
     
   }
   

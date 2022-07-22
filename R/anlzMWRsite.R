@@ -14,6 +14,7 @@
 #' @param jitter logical indicating if points are jittered over the boxplots, only applies if \code{type = "boxplot"}
 #' @param fill numeric indicating fill color for boxplots or barplots
 #' @param alpha numeric from 0 to 1 indicating transparency of fill color
+#' @param width numeric for width of boxplots or barplots
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
 #' @param fecalgrp logical indicating if fecal indicator data have sites grouped separately by result attributes, applies if \code{param} is \code{"E.coli"}, \code{"Enterococcus"}, or \code{"Fecal Coliform"}, see details
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
@@ -61,7 +62,7 @@
 #' anlzMWRsite(res = resdat, param = 'E.coli', acc = accdat, type = 'box', 
 #'      site = c('ABT-077', 'ABT-162', 'CND-009', 'CND-110', 'HBS-016', 'HBS-031'),
 #'      fecalgrp = TRUE)
-anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh = c('fresh', 'marine', 'none'), threshcol = 'tan', site = NULL, resultatt = NULL, dtrng = NULL, jitter = FALSE, fill = 'lightgreen', alpha = 0.8, yscl = c('auto', 'log', 'linear'), fecalgrp = FALSE, runchk = TRUE, warn = TRUE){
+anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh = c('fresh', 'marine', 'none'), threshcol = 'tan', site = NULL, resultatt = NULL, dtrng = NULL, jitter = FALSE, fill = 'lightgreen', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), fecalgrp = FALSE, runchk = TRUE, warn = TRUE){
   
   fec <- c('E.coli', 'Enterococcus', 'Fecal Coliform')
   type <- match.arg(type)
@@ -135,7 +136,7 @@ anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh = c('fre
     
     p <- p +
       ggplot2::geom_boxplot(data = toplo, ggplot2::aes(x = `Monitoring Location ID`, y = `Result Value`), 
-                            outlier.size = 1, fill = fill, alpha = alpha)
+                            outlier.size = 1, fill = fill, alpha = alpha, width = width)
     
   }
   
@@ -151,7 +152,7 @@ anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh = c('fre
     
     p <- p +
       ggplot2::geom_boxplot(data = toplo, ggplot2::aes(x = `Result Attribute`, y = `Result Value`),
-                            outlier.size = 1, fill = fill, alpha = alpha) + 
+                            outlier.size = 1, fill = fill, alpha = alpha, width = width) + 
       ggplot2::facet_grid(~`Monitoring Location ID`)
     
   }
@@ -167,8 +168,8 @@ anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh = c('fre
     
     p <- p +
       ggplot2::geom_bar(data = toplo, ggplot2::aes(x = `Monitoring Location ID`, y = `Result Value`),
-                        fill = fill, stat = 'identity', alpha = alpha) + 
-      ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Monitoring Location ID`, ymin = lov, ymax = hiv), width = 0.2)
+                        fill = fill, stat = 'identity', alpha = alpha, width = width) + 
+      ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Monitoring Location ID`, ymin = lov, ymax = hiv), width = 0.2 * width)
     
   }
   
@@ -183,8 +184,8 @@ anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh = c('fre
     
     p <- p +
       ggplot2::geom_bar(toplo, ggplot2::aes(x = `Result Attribute`, y = `Result Value`), 
-                        fill = fill, stat = 'identity', alpha = alpha) + 
-      ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Result Attribute`, ymin = lov, ymax = hiv), width = 0.2) + 
+                        fill = fill, stat = 'identity', alpha = alpha, width = width) + 
+      ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Result Attribute`, ymin = lov, ymax = hiv), width = 0.2 * width) + 
       ggplot2::facet_grid(~`Monitoring Location ID`)
     
   }
@@ -196,7 +197,7 @@ anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh = c('fre
       dplyr::filter(!outlier)
     
     p <- p + 
-      ggplot2::geom_point(data = jitplo, ggplot2::aes(x = `Monitoring Location ID`, y = `Result Value`), position = ggplot2::position_dodge2(width = 0.7), alpha = 0.5, size = 1)
+      ggplot2::geom_point(data = jitplo, ggplot2::aes(x = `Result Attribute`, y = `Result Value`), position = ggplot2::position_dodge2(width = 0.7 * width), alpha = 0.5, size = 1)
     
   }
   

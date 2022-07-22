@@ -15,6 +15,7 @@
 #' @param jitter logical indicating if points are jittered over the boxplots, only applies if \code{type = "boxplot"}
 #' @param fill numeric indicating fill color for boxplots or barplots
 #' @param alpha numeric from 0 to 1 indicating transparency of fill color
+#' @param width numeric for width of boxplots or barplots
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param warn logical to return warnings to the console (default)
@@ -63,7 +64,7 @@
 #' # seasonal trends by week, barplot
 #' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, group = 'week', type = 'bar')
 #' 
-anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c('box', 'bar'), thresh = c('fresh', 'marine', 'none'), threshcol = 'tan', site = NULL, resultatt = NULL, dtrng = NULL, jitter = FALSE, fill = 'lightblue', alpha = 0.8, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
+anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c('box', 'bar'), thresh = c('fresh', 'marine', 'none'), threshcol = 'tan', site = NULL, resultatt = NULL, dtrng = NULL, jitter = FALSE, fill = 'lightblue', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
   
   group <- match.arg(group)
   type <- match.arg(type)
@@ -150,7 +151,7 @@ anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c(
     
     p <- p + 
       ggplot2::geom_boxplot(data = toplo, ggplot2::aes(x = grpvar, y = `Result Value`), 
-                            outlier.size = 1, fill = fill, alpha = alpha)
+                            outlier.size = 1, fill = fill, alpha = alpha, width = width)
     
   }
   
@@ -165,8 +166,8 @@ anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c(
     
     p <-  p +
       ggplot2::geom_bar(data = toplo, ggplot2::aes(x = grpvar, y = `Result Value`), 
-                        fill = fill, stat = 'identity', alpha = alpha) + 
-      ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = grpvar, ymin = lov, ymax = hiv), width = 0.2)
+                        fill = fill, stat = 'identity', alpha = alpha, width = width) + 
+      ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = grpvar, ymin = lov, ymax = hiv), width = 0.2 * width)
     
   }
 
@@ -178,7 +179,7 @@ anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c(
     
     p <- p + 
       ggplot2::geom_point(data = jitplo, ggplot2::aes(x = grpvar, y = `Result Value`),
-                          position = ggplot2::position_dodge2(width = 0.7), alpha = 0.5, size = 1)
+                          position = ggplot2::position_dodge2(width = 0.7 * width), alpha = 0.5, size = 1)
     
   }
   
