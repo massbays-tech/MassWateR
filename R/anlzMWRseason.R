@@ -105,6 +105,20 @@ anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c(
   
   ylab <- unique(toplo$`Result Unit`)
   
+  p <- ggplot2::ggplot()
+  
+  # add threshold lines
+  if(!is.null(threshln)){
+    
+    threshln <- na.omit(threshln)
+    
+    p <- p + 
+      ggplot2::geom_hline(data = threshln, ggplot2::aes(yintercept  = thresh, color = label, size = label)) + 
+      ggplot2::scale_color_manual(values = rep(threshcol, nrow(threshln))) +
+      ggplot2::scale_size_manual(values = threshln$size)
+    
+  }
+  
   # group by month
   if(group == 'month'){
     
@@ -134,8 +148,9 @@ anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c(
       ) %>% 
       dplyr::ungroup()
     
-    p <- ggplot2::ggplot(toplo, ggplot2::aes(x = grpvar, y = `Result Value`)) +
-      ggplot2::geom_boxplot(outlier.size = 1, fill = fill, alpha = alpha)
+    p <- p + 
+      ggplot2::geom_boxplot(data = toplo, ggplot2::aes(x = grpvar, y = `Result Value`), 
+                            outlier.size = 1, fill = fill, alpha = alpha)
     
   }
   
@@ -148,9 +163,10 @@ anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c(
     # get mean and CI summary
     toplo <- utilMWRconfint(toplo, logscl = logscl)
     
-    p <-  ggplot2::ggplot(toplo, ggplot2::aes(x = grpvar, y = `Result Value`)) +
-      ggplot2::geom_bar(fill = fill, stat = 'identity', alpha = alpha) + 
-      ggplot2::geom_errorbar(ggplot2::aes(ymin = lov, ymax = hiv), width = 0.2)
+    p <-  p +
+      ggplot2::geom_bar(data = toplo, ggplot2::aes(x = grpvar, y = `Result Value`), 
+                        fill = fill, stat = 'identity', alpha = alpha) + 
+      ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = grpvar, ymin = lov, ymax = hiv), width = 0.2)
     
   }
 
@@ -161,20 +177,9 @@ anlzMWRseason <- function(res, param, acc, group = c('month', 'week'), type = c(
       dplyr::filter(!outlier)
     
     p <- p + 
-      ggplot2::geom_point(data = jitplo, position = ggplot2::position_dodge2(width = 0.7), alpha = 0.5, size = 1)
+      ggplot2::geom_point(data = jitplo, ggplot2::aes(x = grpvar, y = `Result Value`),
+                          position = ggplot2::position_dodge2(width = 0.7), alpha = 0.5, size = 1)
     
-  }
-  
-  # add threshold lines
-  if(!is.null(threshln)){
-    
-    threshln <- na.omit(threshln)
-    
-    p <- p + 
-      ggplot2::geom_hline(data = threshln, ggplot2::aes(yintercept  = thresh, color = label, size = label)) + 
-      ggplot2::scale_color_manual(values = rep(threshcol, nrow(threshln))) +
-      ggplot2::scale_size_manual(values = threshln$size)
-
   }
   
   if(logscl)

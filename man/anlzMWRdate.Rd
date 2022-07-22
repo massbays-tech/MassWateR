@@ -83,10 +83,10 @@ accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx',
 accdat <- readMWRacc(accpth)
 
 # all sites
-anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site')
+anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', site = c("ABT-026", "ABT-077"))
 
 # combined sites
-anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'all')
+anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'all', site = c("ABT-026", "ABT-077"))
 
 # all sites, May to July only
 anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', 

@@ -108,6 +108,21 @@ anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh = c('fre
   
   ylab <- unique(toplo$`Result Unit`)
   
+  p <- ggplot2::ggplot()
+  
+  # add threshold lines
+  if(!is.null(threshln)){
+    
+    threshln <- na.omit(threshln)
+    
+    p <- p + 
+      ggplot2::geom_hline(data = threshln, ggplot2::aes(yintercept  = thresh, color = label, size = label)) + 
+      ggplot2::scale_color_manual(values = rep(threshcol, nrow(threshln))) +
+      ggplot2::scale_size_manual(values = threshln$size)
+    
+  }
+  
+  
   # boxplot, no fecal group
   if(type == 'box' & !fecalgrp){
     
@@ -118,8 +133,9 @@ anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh = c('fre
       ) %>% 
       dplyr::ungroup()
     
-    p <- ggplot2::ggplot(toplo, ggplot2::aes(x = `Monitoring Location ID`, y = `Result Value`)) +
-      ggplot2::geom_boxplot(outlier.size = 1, fill = fill, alpha = alpha)
+    p <- p +
+      ggplot2::geom_boxplot(data = toplo, ggplot2::aes(x = `Monitoring Location ID`, y = `Result Value`), 
+                            outlier.size = 1, fill = fill, alpha = alpha)
     
   }
   
@@ -133,8 +149,9 @@ anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh = c('fre
       ) %>% 
       dplyr::ungroup()
     
-    p <- ggplot2::ggplot(toplo, ggplot2::aes(x = `Result Attribute`, y = `Result Value`)) +
-      ggplot2::geom_boxplot(outlier.size = 1, fill = fill, alpha = alpha) + 
+    p <- p +
+      ggplot2::geom_boxplot(data = toplo, ggplot2::aes(x = `Result Attribute`, y = `Result Value`),
+                            outlier.size = 1, fill = fill, alpha = alpha) + 
       ggplot2::facet_grid(~`Monitoring Location ID`)
     
   }
@@ -148,9 +165,10 @@ anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh = c('fre
     # get mean and CI summary
     toplo <- utilMWRconfint(toplo, logscl = logscl)
     
-    p <-  ggplot2::ggplot(toplo, ggplot2::aes(x = `Monitoring Location ID`, y = `Result Value`)) +
-      ggplot2::geom_bar(fill = fill, stat = 'identity', alpha = alpha) + 
-      ggplot2::geom_errorbar(ggplot2::aes(ymin = lov, ymax = hiv), width = 0.2)
+    p <- p +
+      ggplot2::geom_bar(data = toplo, ggplot2::aes(x = `Monitoring Location ID`, y = `Result Value`),
+                        fill = fill, stat = 'identity', alpha = alpha) + 
+      ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Monitoring Location ID`, ymin = lov, ymax = hiv), width = 0.2)
     
   }
   
@@ -163,9 +181,10 @@ anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh = c('fre
     # get mean and CI summary
     toplo <- utilMWRconfint(toplo, logscl = logscl)
     
-    p <-  ggplot2::ggplot(toplo, ggplot2::aes(x = `Result Attribute`, y = `Result Value`)) +
-      ggplot2::geom_bar(fill = fill, stat = 'identity', alpha = alpha) + 
-      ggplot2::geom_errorbar(ggplot2::aes(ymin = lov, ymax = hiv), width = 0.2) + 
+    p <- p +
+      ggplot2::geom_bar(toplo, ggplot2::aes(x = `Result Attribute`, y = `Result Value`), 
+                        fill = fill, stat = 'identity', alpha = alpha) + 
+      ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Result Attribute`, ymin = lov, ymax = hiv), width = 0.2) + 
       ggplot2::facet_grid(~`Monitoring Location ID`)
     
   }
@@ -177,19 +196,7 @@ anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh = c('fre
       dplyr::filter(!outlier)
     
     p <- p + 
-      ggplot2::geom_point(data = jitplo, position = ggplot2::position_dodge2(width = 0.7), alpha = 0.5, size = 1)
-    
-  }
-  
-  # add threshold lines
-  if(!is.null(threshln)){
-    
-    threshln <- na.omit(threshln)
-    
-    p <- p + 
-      ggplot2::geom_hline(data = threshln, ggplot2::aes(yintercept  = thresh, color = label, size = label)) + 
-      ggplot2::scale_color_manual(values = rep(threshcol, nrow(threshln))) +
-      ggplot2::scale_size_manual(values = threshln$size)
+      ggplot2::geom_point(data = jitplo, ggplot2::aes(x = `Monitoring Location ID`, y = `Result Value`), position = ggplot2::position_dodge2(width = 0.7), alpha = 0.5, size = 1)
     
   }
   

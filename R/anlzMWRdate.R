@@ -45,10 +45,10 @@
 #' accdat <- readMWRacc(accpth)
 #' 
 #' # all sites
-#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site')
+#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', site = c("ABT-026", "ABT-077"))
 #' 
 #' # combined sites
-#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'all')
+#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'all', site = c("ABT-026", "ABT-077"))
 #' 
 #' # all sites, May to July only
 #' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', 
@@ -98,6 +98,20 @@ anlzMWRdate <- function(res, param, acc, group = c('site', 'all'), thresh = c('f
   
   ylab <- unique(toplo$`Result Unit`)
   
+  p <- ggplot2::ggplot()
+  
+  # add threshold lines
+  if(!is.null(threshln)){
+    
+    threshln <- na.omit(threshln)
+    
+    p <- p + 
+      ggplot2::geom_hline(data = threshln, ggplot2::aes(yintercept  = thresh, color = label, size = label)) + 
+      ggplot2::scale_color_manual(values = rep(threshcol, nrow(threshln))) +
+      ggplot2::scale_size_manual(values = threshln$size)
+    
+  }
+  
   # by site
   if(group == 'site'){
 
@@ -107,17 +121,19 @@ anlzMWRdate <- function(res, param, acc, group = c('site', 'all'), thresh = c('f
       dplyr::filter(`Activity Start Date` == max(`Activity Start Date`)) %>% 
       dplyr::select(`Monitoring Location ID`, `Activity Start Date`, `Result Value`)
     
-    p <- ggplot2::ggplot(toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`)) +
-      ggplot2::geom_line() + 
-      ggplot2::geom_point(size = ptsize)
+    p <- p +
+      ggplot2::geom_line(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`)) + 
+      ggplot2::geom_point(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`), size = ptsize)
     
     if(repel)
       p <- p +
-        ggrepel::geom_text_repel(data = sitelb, ggplot2::aes(label = `Monitoring Location ID`), na.rm = T, size = labsize, hjust = 0, nudge_x = 5, segment.color = 'grey')
+        ggrepel::geom_text_repel(data = sitelb, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`, label = `Monitoring Location ID`), 
+                                 na.rm = T, size = labsize, hjust = 0, nudge_x = 5, segment.color = 'grey')
     
     if(!repel)
       p <- p + 
-        ggplot2::geom_text(data = sitelb, ggplot2::aes(label = `Monitoring Location ID`), na.rm = T, size = labsize, hjust = 0, nudge_x = 3)
+        ggplot2::geom_text(data = sitelb, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`, label = `Monitoring Location ID`), 
+                           na.rm = T, size = labsize, hjust = 0, nudge_x = 3)
       
   }
   
@@ -130,22 +146,10 @@ anlzMWRdate <- function(res, param, acc, group = c('site', 'all'), thresh = c('f
     # get mean and CI summary
     toplo <- utilMWRconfint(toplo, logscl = logscl)
     
-    p <-  ggplot2::ggplot(toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`)) +
-      ggplot2::geom_line() + 
-      ggplot2::geom_point(size = ptsize) + 
-      ggplot2::geom_errorbar(ggplot2::aes(ymin = lov, ymax = hiv), width = 1)
-    
-  }
-  
-  # add threshold lines
-  if(!is.null(threshln)){
-    
-    threshln <- na.omit(threshln)
-    
-    p <- p + 
-      ggplot2::geom_hline(data = threshln, ggplot2::aes(yintercept  = thresh, color = label, size = label)) + 
-      ggplot2::scale_color_manual(values = rep(threshcol, nrow(threshln))) +
-      ggplot2::scale_size_manual(values = threshln$size)
+    p <- p +
+      ggplot2::geom_line(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`)) + 
+      ggplot2::geom_point(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`), size = ptsize) + 
+      ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Activity Start Date`, ymin = lov, ymax = hiv), width = 1)
     
   }
   
