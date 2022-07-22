@@ -181,9 +181,9 @@ anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh, threshc
     
     # get mean and CI summary
     toplo <- utilMWRconfint(toplo, logscl = logscl)
-    
+
     p <- p +
-      ggplot2::geom_bar(toplo, ggplot2::aes(x = `Result Attribute`, y = `Result Value`), 
+      ggplot2::geom_bar(data = toplo, ggplot2::aes(x = `Result Attribute`, y = `Result Value`), 
                         fill = fill, stat = 'identity', alpha = alpha, width = width) + 
       ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Result Attribute`, ymin = lov, ymax = hiv), width = 0.2 * width) + 
       ggplot2::facet_grid(~`Monitoring Location ID`)
