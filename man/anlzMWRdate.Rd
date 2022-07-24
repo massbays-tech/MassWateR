@@ -8,15 +8,18 @@ anlzMWRdate(
   res,
   param,
   acc,
+  sit = NULL,
   thresh,
   group = c("site", "all"),
   threshcol = "tan",
   site = NULL,
   resultatt = NULL,
+  locgroup = NULL,
   dtrng = NULL,
   ptsize = 2,
   repel = TRUE,
   labsize = 3,
+  confint = FALSE,
   yscl = c("auto", "log", "linear"),
   runchk = TRUE,
   warn = TRUE
@@ -29,6 +32,8 @@ anlzMWRdate(
 
 \item{acc}{character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}}
 
+\item{sit}{optional character string of path to the site metadata file or \code{data.frame} of site metadata returned by \code{\link{readMWRsites}}, required if \code{locgroup} is not \code{NULL}}
+
 \item{thresh}{character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}}
 
 \item{group}{character indicating whether the results are grouped by site (default) or combined across all sites}
@@ -39,13 +44,17 @@ anlzMWRdate(
 
 \item{resultatt}{character string of result attributes to plot, default all}
 
-\item{dtrng}{character string of length two for the date ranges as YYYY-MM-DD, optional}
+\item{locgroup}{character string of location groups to plot from the \code{"Location Group"} column in the site metadata file, optional and only if \code{sit} is not \code{NULL}}
+
+\item{dtrng}{character string of length two for the date ranges as YYYY-MM-DD, default all}
 
 \item{ptsize}{numeric indicating size of the points}
 
 \item{repel}{logical indicating if overlapping site labels are offset}
 
 \item{labsize}{numeric indicating font size for the site labels, only if \code{group = "site"}}
+
+\item{confint}{logical indicating if confidence intervals are shown, only applies if \code{type = "bar"}}
 
 \item{yscl}{character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details}
 
@@ -82,6 +91,12 @@ accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx',
 # accuracy data
 accdat <- readMWRacc(accpth)
 
+# site data path
+sitpth <- system.file('extdata/ExampleSites.xlsx', package = 'MassWateR')
+
+# site data
+sitdat <- readMWRsites(sitpth)
+
 # select sites
 anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', thresh = 'fresh',
      site = c("ABT-026", "ABT-077"))
@@ -90,4 +105,7 @@ anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', thresh = '
 anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'all', thresh = 'fresh',
      site = c("ABT-026", "ABT-077"))
 
+# sites by location group, requires sitdat
+anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'site', 
+     thresh = 'fresh', locgroup = 'Concord')
 }

@@ -6,7 +6,8 @@
 #' @param sit character string of path to the site metadata file or \code{data.frame} of site metadata returned by \code{\link{readMWRsites}}
 #' @param site character string of sites to include, default all
 #' @param resultatt character string of result attributes to plot, default all
-#' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, optional
+#' @param locgroup character string of location groups to plot from the \code{"Location Group"} column in the site metadata file, default all
+#' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, default all
 #' @param ptsize numeric for size of the points, use a negative value to omit the points
 #' @param repel logical indicating if overlapping site labels are offset
 #' @param labsize numeric for size of the site labels
@@ -60,7 +61,7 @@
 #' 
 #' # map 
 #' anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat)
-anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', yscl = c('auto', 'log', 'linear'), crs = 4326, zoom = 11, maptype = 'terrain-background', buffdist = 0.02, northloc = 'tl', scaleloc = 'br', runchk = TRUE, warn = TRUE){
+anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', yscl = c('auto', 'log', 'linear'), crs = 4326, zoom = 11, maptype = 'terrain-background', buffdist = 0.02, northloc = 'tl', scaleloc = 'br', runchk = TRUE, warn = TRUE){
   
   if(!requireNamespace('ggmap', quietly = TRUE))
     stop("Package \"ggmap\" needed for this function to work. Please install it.", call. = FALSE)
@@ -77,11 +78,11 @@ anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, dtrng
   # site data
   sitdat <- inp$sitdat
   
-  # fill BDL, AQL
-  resdat <- utilMWRlimits(resdat = resdat, accdat = accdat, param = param, site = site, resultatt = resultatt, warn = warn)
+  # filter
+  resdat <- utilMWRfilter(resdat = resdat, sitdat = sitdat, param = param, dtrng = dtrng, site = site, resultatt = resultatt, locgroup = locgroup)
   
-  # filter if needed
-  resdat <- utilMWRdaterange(resdat = resdat, dtrng = dtrng)
+  # fill BDL, AQL
+  resdat <- utilMWRlimits(resdat = resdat, accdat = accdat, param = param, warn = warn)
   
   # get y axis scaling
   logscl <- utilMWRyscale(accdat = accdat, param = param, yscl = yscl)

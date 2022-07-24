@@ -70,11 +70,11 @@ anlzMWRoutlier <- function(res, param, acc, group = c('month', 'site', 'week'), 
   # accuracy data
   accdat <- inp$accdat
   
+  # filter
+  resdat <- utilMWRfilter(resdat = resdat, param = param, dtrng = dtrng)
+  
   # fill BDL, AQL
   resdat <- utilMWRlimits(resdat = resdat, accdat = accdat, param = param, warn = warn)
-  
-  # filter if needed
-  resdat <- utilMWRdaterange(resdat = resdat, dtrng = dtrng)
   
   # get y axis scaling
   logscl <- utilMWRyscale(accdat = accdat, param = param, yscl = yscl)

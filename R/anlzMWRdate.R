@@ -5,15 +5,18 @@
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param param character string of the parameter to plot, must conform to entries in the \code{"Simple Parameter"} column of \code{\link{paramsMWR}}
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
+#' @param sit optional character string of path to the site metadata file or \code{data.frame} of site metadata returned by \code{\link{readMWRsites}}, required if \code{locgroup} is not \code{NULL} 
 #' @param thresh character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}
 #' @param group character indicating whether the results are grouped by site (default) or combined across all sites
 #' @param threshcol character indicating color of threshold lines if available
 #' @param site character string of sites to include, default all
 #' @param resultatt character string of result attributes to plot, default all
-#' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, optional
+#' @param locgroup character string of location groups to plot from the \code{"Location Group"} column in the site metadata file, optional and only if \code{sit} is not \code{NULL}
+#' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, default all
+#' @param ptsize numeric indicating size of the points
 #' @param repel logical indicating if overlapping site labels are offset
 #' @param labsize numeric indicating font size for the site labels, only if \code{group = "site"}
-#' @param ptsize numeric indicating size of the points
+#' @param confint logical indicating if confidence intervals are shown, only applies if \code{type = "bar"}
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param warn logical to return warnings to the console (default)
@@ -44,6 +47,12 @@
 #' # accuracy data
 #' accdat <- readMWRacc(accpth)
 #' 
+#' # site data path
+#' sitpth <- system.file('extdata/ExampleSites.xlsx', package = 'MassWateR')
+#' 
+#' # site data
+#' sitdat <- readMWRsites(sitpth)
+#' 
 #' # select sites
 #' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', thresh = 'fresh',
 #'      site = c("ABT-026", "ABT-077"))
@@ -52,7 +61,10 @@
 #' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'all', thresh = 'fresh',
 #'      site = c("ABT-026", "ABT-077"))
 #' 
-anlzMWRdate <- function(res, param, acc, thresh, group = c('site', 'all'), threshcol = 'tan', site = NULL, resultatt = NULL, dtrng = NULL, ptsize = 2, repel = TRUE, labsize = 3, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
+#' # sites by location group, requires sitdat
+#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'site', 
+#'      thresh = 'fresh', locgroup = 'Concord')
+anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', 'all'), threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 2, repel = TRUE, labsize = 3, confint = FALSE, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
   
   group <- match.arg(group)
 
@@ -65,11 +77,11 @@ anlzMWRdate <- function(res, param, acc, thresh, group = c('site', 'all'), thres
   # accuracy data
   accdat <- inp$accdat
   
-  # fill BDL, AQL
-  resdat <- utilMWRlimits(resdat = resdat, accdat = accdat, param = param, site = site, resultatt = resultatt, warn = warn)
+  # filter
+  resdat <- utilMWRfilter(resdat = resdat, sitdat = sitdat, param = param, dtrng = dtrng, site = site, resultatt = resultatt, locgroup = locgroup)
   
-  # filter if needed
-  resdat <- utilMWRdaterange(resdat = resdat, dtrng = dtrng)
+  # fill BDL, AQL
+  resdat <- utilMWRlimits(resdat = resdat, accdat = accdat, param = param, warn = warn)
   
   # get thresholds
   threshln <- utilMWRthresh(resdat = resdat, param = param, thresh = thresh)
@@ -146,8 +158,11 @@ anlzMWRdate <- function(res, param, acc, thresh, group = c('site', 'all'), thres
     
     p <- p +
       ggplot2::geom_line(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`)) + 
-      ggplot2::geom_point(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`), size = ptsize) + 
-      ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Activity Start Date`, ymin = lov, ymax = hiv), width = 1)
+      ggplot2::geom_point(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`), size = ptsize)
+    
+    if(confint)
+      p <- p + 
+        ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Activity Start Date`, ymin = lov, ymax = hiv), width = 1)
     
   }
   

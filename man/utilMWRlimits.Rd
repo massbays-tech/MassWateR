@@ -4,25 +4,14 @@
 \alias{utilMWRlimits}
 \title{Fill results data as BDL or AQL with appropriate values}
 \usage{
-utilMWRlimits(
-  resdat,
-  accdat,
-  param,
-  site = NULL,
-  resultatt = NULL,
-  warn = TRUE
-)
+utilMWRlimits(resdat, param, accdat, warn = TRUE)
 }
 \arguments{
 \item{resdat}{results data as returned by \code{\link{readMWRresults}}}
 
-\item{accdat}{\code{data.frame} for data quality objectives file for accuracy as returned by \code{\link{readMWRacc}}}
-
 \item{param}{character string to first filter results by a parameter in \code{"Characteristic Name"}}
 
-\item{site}{character string to filter results by site in \code{"Montoring Location ID"}, optional}
-
-\item{resultatt}{character string to filter results by result attribute in \code{"Result Attribute"}, optional}
+\item{accdat}{\code{data.frame} for data quality objectives file for accuracy as returned by \code{\link{readMWRacc}}}
 
 \item{warn}{logical to return warnings to the console (default)}
 }
@@ -49,7 +38,6 @@ accdat <- readMWRacc(accpth)
 # apply to total phosphorus
 utilMWRlimits(resdat, accdat, param = 'TP')
 
-# apply to E.coli, filter by site and result attribute
-utilMWRlimits(resdat = resdat, accdat = accdat, param = 'E.coli', 
-     site = 'ABT-077', resultatt = c('Dry'))
+# apply to E.coli
+utilMWRlimits(resdat, accdat, param = 'E.coli')
 }

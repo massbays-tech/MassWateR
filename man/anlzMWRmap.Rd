@@ -11,6 +11,7 @@ anlzMWRmap(
   sit,
   site = NULL,
   resultatt = NULL,
+  locgroup = NULL,
   dtrng = NULL,
   ptsize = 4,
   repel = TRUE,
@@ -40,7 +41,9 @@ anlzMWRmap(
 
 \item{resultatt}{character string of result attributes to plot, default all}
 
-\item{dtrng}{character string of length two for the date ranges as YYYY-MM-DD, optional}
+\item{locgroup}{character string of location groups to plot from the \code{"Location Group"} column in the site metadata file, default all}
+
+\item{dtrng}{character string of length two for the date ranges as YYYY-MM-DD, default all}
 
 \item{ptsize}{numeric for size of the points, use a negative value to omit the points}
 

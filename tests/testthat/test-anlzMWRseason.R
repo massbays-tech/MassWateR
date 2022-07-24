@@ -3,8 +3,8 @@ test_that("Checking output format by month, boxplot", {
   expect_s3_class(result, 'ggplot')
 })
 
-test_that("Checking output format by week, barplot", {
-  result <- anlzMWRseason(res = resdat, param = 'DO', acc = accdat, thresh = "fresh", group = 'week', type = 'bar')
+test_that("Checking output format by week, barplot, and confint", {
+  result <- anlzMWRseason(res = resdat, param = 'DO', acc = accdat, thresh = "fresh", group = 'week', type = 'bar', confint = T)
   expect_s3_class(result, 'ggplot')
 })
 

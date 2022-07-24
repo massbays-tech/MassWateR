@@ -5,13 +5,16 @@
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param param character string of the parameter to plot, must conform to entries in the \code{"Simple Parameter"} column of \code{\link{paramsMWR}}
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
+#' @param sit optional character string of path to the site metadata file or \code{data.frame} of site metadata returned by \code{\link{readMWRsites}}, required if \code{locgroup} is not \code{NULL} 
 #' @param thresh character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}
 #' @param type character indicating \code{"box"} for boxplots or \code{"bar"} for barplots, see details
 #' @param threshcol character indicating color of threshold lines if available
 #' @param site character string of sites to include, default all
 #' @param resultatt character string of result attributes to plot, default all
-#' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, optional
-#' @param jitter logical indicating if points are jittered over the boxplots, only applies if \code{type = "boxplot"}
+#' @param locgroup character string of location groups to plot from the \code{"Location Group"} column in the site metadata file, optional and only if \code{sit} is not \code{NULL}
+#' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, default all
+#' @param jitter logical indicating if points are jittered over the boxplots, only applies if \code{type = "box"}
+#' @param confint logical indicating if confidence intervals are shown, only applies if \code{type = "bar"}
 #' @param fill numeric indicating fill color for boxplots or barplots
 #' @param alpha numeric from 0 to 1 indicating transparency of fill color
 #' @param width numeric for width of boxplots or barplots
@@ -48,6 +51,12 @@
 #' # accuracy data
 #' accdat <- readMWRacc(accpth)
 #' 
+#' # site data path
+#' sitpth <- system.file('extdata/ExampleSites.xlsx', package = 'MassWateR')
+#' 
+#' # site data
+#' sitdat <- readMWRsites(sitpth)
+#' 
 #' # site trends, boxplot
 #' anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'box', thresh = 'fresh')
 #' 
@@ -62,7 +71,12 @@
 #' anlzMWRsite(res = resdat, param = 'E.coli', acc = accdat, type = 'box', thresh = 'fresh',
 #'      site = c('ABT-077', 'ABT-162', 'CND-009', 'CND-110', 'HBS-016', 'HBS-031'),
 #'      fecalgrp = TRUE)
-anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh, threshcol = 'tan', site = NULL, resultatt = NULL, dtrng = NULL, jitter = FALSE, fill = 'lightgreen', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), fecalgrp = FALSE, runchk = TRUE, warn = TRUE){
+#'      
+#' # site trends by location group, requires sitdat
+#' anlzMWRsite(res = resdat, param = 'DO', acc = accdat, sit = sitdat, type = 'box', 
+#'      thresh = 'fresh', locgroup = 'Concord')
+#'      
+anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'bar'), thresh, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, jitter = FALSE, confint = FALSE, fill = 'lightgreen', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), fecalgrp = FALSE, runchk = TRUE, warn = TRUE){
   
   fec <- c('E.coli', 'Enterococcus', 'Fecal Coliform')
   type <- match.arg(type)
@@ -81,11 +95,11 @@ anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh, threshc
   # accuracy data
   accdat <- inp$accdat
   
-  # fill BDL, AQL
-  resdat <- utilMWRlimits(resdat = resdat, accdat = accdat, param = param, site = site, resultatt = resultatt, warn = warn)
+  # filter
+  resdat <- utilMWRfilter(resdat = resdat, sitdat = sitdat, param = param, dtrng = dtrng, site = site, resultatt = resultatt, locgroup = locgroup)
   
-  # filter if needed
-  resdat <- utilMWRdaterange(resdat = resdat, dtrng = dtrng)
+  # fill BDL, AQL
+  resdat <- utilMWRlimits(resdat = resdat, accdat = accdat, param = param, warn = warn)
   
   # get thresholds
   threshln <- utilMWRthresh(resdat = resdat, param = param, thresh = thresh)
@@ -168,8 +182,11 @@ anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh, threshc
     
     p <- p +
       ggplot2::geom_bar(data = toplo, ggplot2::aes(x = `Monitoring Location ID`, y = `Result Value`),
-                        fill = fill, stat = 'identity', alpha = alpha, width = width) + 
-      ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Monitoring Location ID`, ymin = lov, ymax = hiv), width = 0.2 * width)
+                        fill = fill, stat = 'identity', alpha = alpha, width = width)
+    
+    if(confint)
+      p <- p + 
+        ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Monitoring Location ID`, ymin = lov, ymax = hiv), width = 0.2 * width)
     
   }
   
@@ -185,8 +202,11 @@ anlzMWRsite <- function(res, param, acc, type = c('box', 'bar'), thresh, threshc
     p <- p +
       ggplot2::geom_bar(data = toplo, ggplot2::aes(x = `Result Attribute`, y = `Result Value`), 
                         fill = fill, stat = 'identity', alpha = alpha, width = width) + 
-      ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Result Attribute`, ymin = lov, ymax = hiv), width = 0.2 * width) + 
       ggplot2::facet_grid(~`Monitoring Location ID`)
+    
+    if(confint)
+      p <- p +
+        ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Result Attribute`, ymin = lov, ymax = hiv), width = 0.2 * width)
     
   }
   

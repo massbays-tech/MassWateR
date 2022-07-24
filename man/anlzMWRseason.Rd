@@ -8,14 +8,17 @@ anlzMWRseason(
   res,
   param,
   acc,
+  sit = NULL,
   thresh,
   group = c("month", "week"),
   type = c("box", "bar"),
   threshcol = "tan",
   site = NULL,
   resultatt = NULL,
+  locgroup = NULL,
   dtrng = NULL,
   jitter = FALSE,
+  confint = FALSE,
   fill = "lightblue",
   alpha = 0.8,
   width = 0.8,
@@ -31,6 +34,8 @@ anlzMWRseason(
 
 \item{acc}{character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}}
 
+\item{sit}{optional character string of path to the site metadata file or \code{data.frame} of site metadata returned by \code{\link{readMWRsites}}, required if \code{locgroup} is not \code{NULL}}
+
 \item{thresh}{character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}}
 
 \item{group}{character indicating whether the summaries are grouped by month (default) or week of year}
@@ -43,9 +48,13 @@ anlzMWRseason(
 
 \item{resultatt}{character string of result attributes to plot, default all}
 
-\item{dtrng}{character string of length two for the date ranges as YYYY-MM-DD, optional}
+\item{locgroup}{character string of location groups to plot from the \code{"Location Group"} column in the site metadata file, optional and only if \code{sit} is not \code{NULL}}
 
-\item{jitter}{logical indicating if points are jittered over the boxplots, only applies if \code{type = "boxplot"}}
+\item{dtrng}{character string of length two for the date ranges as YYYY-MM-DD, default all}
+
+\item{jitter}{logical indicating if points are jittered over the boxplots, only applies if \code{type = "box"}}
+
+\item{confint}{logical indicating if confidence intervals are shown, only applies if \code{type = "bar"}}
 
 \item{fill}{numeric indicating fill color for boxplots or barplots}
 
@@ -66,7 +75,7 @@ A \code{\link[ggplot2]{ggplot}} object that can be further modified.
 Analyze seasonal trends in results file
 }
 \details{
-Summaries of a parameter are shown as boxplots if \code{type = "box"} or as barplots if \code{type = "bar"}.  For the latter, points can be jittered over the boxplots by setting \code{jitter = TRUE}.  For the former, 95\% confidence intervals are also shown if they can be estimated (i.e., more than one result value per bar).
+Summaries of a parameter are shown as boxplots if \code{type = "box"} or as barplots if \code{type = "bar"}.  For the latter, points can be jittered over the boxplots by setting \code{jitter = TRUE}.  For the former, 95\% confidence intervals can also be shown if \code{confint = TRUE} and they can be estimated (i.e., more than one result value per bar).
 
 Specifying \code{group = "week"} will group the samples by week of year using an integer specifying the week.  Note that there can be no common month/day indicating the start of the week between years and an integer is the only way to compare summaries if the results data span multiple years.
 
@@ -90,6 +99,12 @@ accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx',
 # accuracy data
 accdat <- readMWRacc(accpth)
 
+# site data path
+sitpth <- system.file('extdata/ExampleSites.xlsx', package = 'MassWateR')
+
+# site data
+sitdat <- readMWRsites(sitpth)
+
 # seasonal trends by month, boxplot
 anlzMWRseason(res = resdat, param = 'DO', acc = accdat, thresh = 'fresh', group = 'month', 
      type = 'box')
@@ -109,5 +124,8 @@ anlzMWRseason(res = resdat, param = 'DO', acc = accdat, thresh = 'fresh', group 
 # seasonal trends by week, barplot
 anlzMWRseason(res = resdat, param = 'DO', acc = accdat, thresh = 'fresh', group = 'week', 
      type = 'bar')
-
+     
+# seasonal trends by location group, requires sitdat
+anlzMWRseason(res = resdat, param = 'DO', acc = accdat, sit = sitdat, thresh = 'fresh', 
+     group = 'month', type = 'box', locgroup = 'Concord')
 }

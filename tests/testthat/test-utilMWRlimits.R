@@ -3,15 +3,6 @@ test_that("Checking output format", {
   expect_s3_class(result, 'tbl_df')
 })
 
-test_that("Checking output format with site and result attribute filter", {
-  result <- utilMWRlimits(resdat = resdat, accdat = accdat, param = 'E.coli', site = 'ABT-077', resultatt = c('Dry'))
-  expect_s3_class(result, 'tbl_df')
-})
-
-test_that("Error if parameter not found", {
-  expect_error(utilMWRlimits(resdat = resdat, accdat = accdat, param = 'notfound'))
-})
-
 test_that("Checking error if unit mismatch between results and accuracy file", {
   accdatchk <- accdat %>% 
     mutate(
@@ -25,12 +16,4 @@ test_that("Checking error if unit mismatch between results and accuracy file", {
 
 test_that("Checking output format if parameter not in accuracy file", {
   expect_warning(expect_s3_class(utilMWRlimits(resdat = resdat, accdat = accdat, param = 'Air Temp'), 'tbl_df'))
-})
-
-test_that("Error if site not found", {
-  expect_error(utilMWRlimits(resdat = resdat, accdat = accdat, param = 'TP', site = c('HBS-016', 'LND-007', 'asdfasdf', 'bsadasdf')))
-})
-
-test_that("Error if result attribute not found", {
-  expect_error(utilMWRlimits(resdat = resdat, accdat = accdat, param = 'TP', resultatt = 'Dry'))
 })

@@ -8,13 +8,16 @@ anlzMWRsite(
   res,
   param,
   acc,
+  sit = NULL,
   type = c("box", "bar"),
   thresh,
   threshcol = "tan",
   site = NULL,
   resultatt = NULL,
+  locgroup = NULL,
   dtrng = NULL,
   jitter = FALSE,
+  confint = FALSE,
   fill = "lightgreen",
   alpha = 0.8,
   width = 0.8,
@@ -31,6 +34,8 @@ anlzMWRsite(
 
 \item{acc}{character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}}
 
+\item{sit}{optional character string of path to the site metadata file or \code{data.frame} of site metadata returned by \code{\link{readMWRsites}}, required if \code{locgroup} is not \code{NULL}}
+
 \item{type}{character indicating \code{"box"} for boxplots or \code{"bar"} for barplots, see details}
 
 \item{thresh}{character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}}
@@ -41,9 +46,13 @@ anlzMWRsite(
 
 \item{resultatt}{character string of result attributes to plot, default all}
 
-\item{dtrng}{character string of length two for the date ranges as YYYY-MM-DD, optional}
+\item{locgroup}{character string of location groups to plot from the \code{"Location Group"} column in the site metadata file, optional and only if \code{sit} is not \code{NULL}}
 
-\item{jitter}{logical indicating if points are jittered over the boxplots, only applies if \code{type = "boxplot"}}
+\item{dtrng}{character string of length two for the date ranges as YYYY-MM-DD, default all}
+
+\item{jitter}{logical indicating if points are jittered over the boxplots, only applies if \code{type = "box"}}
+
+\item{confint}{logical indicating if confidence intervals are shown, only applies if \code{type = "bar"}}
 
 \item{fill}{numeric indicating fill color for boxplots or barplots}
 
@@ -90,6 +99,12 @@ accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx',
 # accuracy data
 accdat <- readMWRacc(accpth)
 
+# site data path
+sitpth <- system.file('extdata/ExampleSites.xlsx', package = 'MassWateR')
+
+# site data
+sitdat <- readMWRsites(sitpth)
+
 # site trends, boxplot
 anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'box', thresh = 'fresh')
 
@@ -104,4 +119,9 @@ anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'box', thresh = 'fr
 anlzMWRsite(res = resdat, param = 'E.coli', acc = accdat, type = 'box', thresh = 'fresh',
      site = c('ABT-077', 'ABT-162', 'CND-009', 'CND-110', 'HBS-016', 'HBS-031'),
      fecalgrp = TRUE)
+     
+# site trends by location group, requires sitdat
+anlzMWRsite(res = resdat, param = 'DO', acc = accdat, sit = sitdat, type = 'box', 
+     thresh = 'fresh', locgroup = 'Concord')
+     
 }

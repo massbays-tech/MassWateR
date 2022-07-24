@@ -57,10 +57,16 @@ If `type = "box"`, points can also be jittered over the boxplots using `jitter =
 anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "week", type = "box", jitter = TRUE)
 ```
 
-Barplots can be shown using `type = "bar"`.  The barplots show the average estimate and a 95% confidence interval for the results defined by the `group` argument.  
+Barplots can be shown using `type = "bar"`.  The barplots show the average estimate for the results defined by the `group` argument.  
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "month", type = "bar")
+```
+
+Confidence intervals at 95% for the barplots can be shown by setting `confint = TRUE`.
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "month", type = "bar", confint = TRUE)
 ```
 
 The threshold lines shown on each plot are determined from the `thresholdMWR` file included with MassWateR.  These threshold lines describe relevant state standards or typical ranges in Massachusetts, if applicable for a parameter. Thresholds can be plotted for freshwater or marine environments using the `thresh` argument as `thresh = "fresh"` or `thresh = "marine"`, respectively.  Two threshold lines are typically shown, whereas some parameters may only have one threshold line. Other parameters have no information in the `thresholdMWR` file and lines will not be plotted. Threshold lines can be suppressed by setting `thresh = "none"`. Below, the marine thresholds are shown for dissolved oxygen using the barplot option grouped by month. 
@@ -87,10 +93,10 @@ Results can also be filtered by dates using the `dtrng` argument. The date forma
 anlzMWRseason(res = resdat, param = "E.coli", acc = accdat, thresh = "fresh", group = "month", type = "bar", dtrng = c("2021-05-01", "2021-07-31"))
 ```
 
-Finally, the results can be filtered by sites and result attributes using the `site` and `resultatt` arguments. These options will filter the results data based on values in the `Monitoring Location ID` and `Result Attribute` columns. 
+Finally, the results can be filtered by sites, result attributes, and location groups using the `site`, `resultatt`, and `locgroup` arguments. These options will filter the results data based on values in the `Monitoring Location ID` and `Result Attribute` columns in the results file and by the `Location Group` column in the site metadata file, which must be provided to the `sit` argument if `locgroup` is used.  
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRseason(res = resdat, param = "E.coli", acc = accdat, thresh = "fresh", group = "month", site = "ABT-077", resultatt = "Dry")
+anlzMWRseason(res = resdat, param = "E.coli", acc = accdat, sit = sitdat, thresh = "fresh", group = "month", site = "ABT-077", resultatt = "Dry", locgroup = "Lower Assabet")
 ```
 
 ## Analyze trends by date
@@ -115,6 +121,12 @@ The results averaged across all sites in the results file can be plotted by omit
 anlzMWRdate(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "all")
 ```
 
+Confidence intervals at 95% for the barplots can be shown by setting `confint = TRUE`.
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRdate(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "all", confint = TRUE)
+```
+
 ## Analyze trends by site
 
 Trends by site for selected parameters can be evaluated using the `anlzMWRsite()` function.  This function summarizes results for a single parameter using boxplots or barplots separately for each site on the x-axis.  Many of the options described for the `anlzMWRseason()` function also apply and will not be repeated here. As before, the required data are a results file and data quality objective file for accuracy.  
@@ -125,10 +137,16 @@ The default plot for `anlzMWRsite()` will show boxplots of results for each site
 anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "box")
 ```
 
-Results as barplots and 95% confidence intervals can be shows using `type = "bar"`.
+Results as barplots can be shown using `type = "bar"`.
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "bar")
+```
+
+Confidence intervals at 95% for the barplots can be shown by setting `confint = TRUE`.
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "bar", confint = TRUE)
 ```
 
 Results data for fecal coliform indicators can be grouped by entries in the `Result Atribute` column using `fecalgrp = TRUE`.   For example, sites can be grouped by `"Dry"` or `"Wet"` conditions.  This option can only be used if the `param` argument is `"E.coli"`, `"Enterococcus"`, or `"Fecal Coliform"`.  Filtering by sites first is advised to reduce the amount of data that are plotted. 
