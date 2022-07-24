@@ -135,7 +135,7 @@ anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgr
   if(!is.null(maptype)){
     
     bsmap <- suppressMessages(ggmap::get_stamenmap(bbox = dat_ext, maptype = maptype, zoom = zoom))
-    m <- ggmap::gmap(bsmap)
+    m <- ggmap::ggmap(bsmap)
     
   }
 

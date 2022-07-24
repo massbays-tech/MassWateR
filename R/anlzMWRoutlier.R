@@ -5,9 +5,9 @@
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param param character string of the parameter to plot, must conform to entries in the \code{"Simple Parameter"} column of \code{\link{paramsMWR}}
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
+#' @param type character indicating \code{"box"} for boxplots or \code{"jitterbox"} for boxplots with point jittered on top, see details
 #' @param group character indicating whether the summaries are grouped by month (default), site, or week of year
 #' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, optional
-#' @param jitter logical indicating if non-outlier points are jittered over the boxplots
 #' @param repel logical indicating if overlapping outlier labels are offset
 #' @param outliers logical indicating if outliers are returned to the console instead of plotting
 #' @param labsize numeric indicating font size for the outlier labels
@@ -21,6 +21,8 @@
 #' @return A \code{\link[ggplot2]{ggplot}} object that can be further modified if \code{outliers = FALSE}, otherwise a data frame of outliers is returned.
 #' 
 #' @details Outliers are defined following the standard \code{\link[ggplot2]{ggplot}} definition as 1.5 times the inter-quartile range of each boxplot.  The data frame returned if \code{outliers = TRUE} may vary based on the boxplot groupings defined by \code{group}.
+#' 
+#' Specifying \code{type = "box"} will produce standard boxplots.  Specifying \code{type = "jitterbox"} will produce boxplots with non-outlier observations jittered on top.  
 #' 
 #' Specifying \code{group = "week"} will group the samples by week of year using an integer specifying the week.  Note that there can be no common month/day indicating the start of the week between years and an integer is the only way to compare summaries if the results data span multiple years.
 #'
@@ -57,8 +59,9 @@
 #' # data frame output
 #' anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month', outliers = TRUE)
 #' 
-anlzMWRoutlier <- function(res, param, acc, group = c('month', 'site', 'week'), dtrng = NULL, jitter = FALSE, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
+anlzMWRoutlier <- function(res, param, acc, type = c('box', 'jitterbox'), group = c('month', 'site', 'week'), dtrng = NULL, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
   
+  type <- match.arg(type)
   group <- match.arg(group)
   
   # inputs
@@ -164,7 +167,7 @@ anlzMWRoutlier <- function(res, param, acc, group = c('month', 'site', 'week'), 
     p <- p + 
       ggplot2::geom_text(ggplot2::aes(label = outlier), na.rm = T, size = labsize)
   
-  if(jitter){
+  if(type == 'jitterbox'){
     
     jitplo <- toplo %>% 
       dplyr::filter(is.na(outlier))

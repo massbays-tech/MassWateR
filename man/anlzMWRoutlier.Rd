@@ -8,9 +8,9 @@ anlzMWRoutlier(
   res,
   param,
   acc,
+  type = c("box", "jitterbox"),
   group = c("month", "site", "week"),
   dtrng = NULL,
-  jitter = FALSE,
   repel = TRUE,
   outliers = FALSE,
   labsize = 3,
@@ -29,11 +29,11 @@ anlzMWRoutlier(
 
 \item{acc}{character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}}
 
+\item{type}{character indicating \code{"box"} for boxplots or \code{"jitterbox"} for boxplots with point jittered on top, see details}
+
 \item{group}{character indicating whether the summaries are grouped by month (default), site, or week of year}
 
 \item{dtrng}{character string of length two for the date ranges as YYYY-MM-DD, optional}
-
-\item{jitter}{logical indicating if non-outlier points are jittered over the boxplots}
 
 \item{repel}{logical indicating if overlapping outlier labels are offset}
 
@@ -61,6 +61,8 @@ Analyze outliers in results file
 }
 \details{
 Outliers are defined following the standard \code{\link[ggplot2]{ggplot}} definition as 1.5 times the inter-quartile range of each boxplot.  The data frame returned if \code{outliers = TRUE} may vary based on the boxplot groupings defined by \code{group}.
+
+Specifying \code{type = "box"} will produce standard boxplots.  Specifying \code{type = "jitterbox"} will produce boxplots with non-outlier observations jittered on top.
 
 Specifying \code{group = "week"} will group the samples by week of year using an integer specifying the week.  Note that there can be no common month/day indicating the start of the week between years and an integer is the only way to compare summaries if the results data span multiple years.
 
