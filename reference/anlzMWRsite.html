@@ -61,13 +61,16 @@
 <span>  <span class="va">res</span>,</span>
 <span>  <span class="va">param</span>,</span>
 <span>  <span class="va">acc</span>,</span>
+<span>  sit <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"box"</span>, <span class="st">"bar"</span><span class="op">)</span>,</span>
 <span>  <span class="va">thresh</span>,</span>
 <span>  threshcol <span class="op">=</span> <span class="st">"tan"</span>,</span>
 <span>  site <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  resultatt <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  locgroup <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dtrng <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  jitter <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  confint <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  fill <span class="op">=</span> <span class="st">"lightgreen"</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">0.8</span>,</span>
 <span>  width <span class="op">=</span> <span class="fl">0.8</span>,</span>
@@ -92,6 +95,10 @@
 <dd><p>character string of path to the data quality objectives file for accuracy or <code>data.frame</code> returned by <code><a href="readMWRacc.html">readMWRacc</a></code></p></dd>
 
 
+<dt>sit</dt>
+<dd><p>optional character string of path to the site metadata file or <code>data.frame</code> of site metadata returned by <code><a href="readMWRsites.html">readMWRsites</a></code>, required if <code>locgroup</code> is not <code>NULL</code></p></dd>
+
+
 <dt>type</dt>
 <dd><p>character indicating <code>"box"</code> for boxplots or <code>"bar"</code> for barplots, see details</p></dd>
 
@@ -112,12 +119,20 @@
 <dd><p>character string of result attributes to plot, default all</p></dd>
 
 
+<dt>locgroup</dt>
+<dd><p>character string of location groups to plot from the <code>"Location Group"</code> column in the site metadata file, optional and only if <code>sit</code> is not <code>NULL</code></p></dd>
+
+
 <dt>dtrng</dt>
-<dd><p>character string of length two for the date ranges as YYYY-MM-DD, optional</p></dd>
+<dd><p>character string of length two for the date ranges as YYYY-MM-DD, default all</p></dd>
 
 
 <dt>jitter</dt>
-<dd><p>logical indicating if points are jittered over the boxplots, only applies if <code>type = "boxplot"</code></p></dd>
+<dd><p>logical indicating if points are jittered over the boxplots, only applies if <code>type = "box"</code></p></dd>
+
+
+<dt>confint</dt>
+<dd><p>logical indicating if confidence intervals are shown, only applies if <code>type = "bar"</code></p></dd>
 
 
 <dt>fill</dt>
@@ -209,6 +224,22 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># site data path</span></span></span>
+<span class="r-in"><span><span class="va">sitpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleSites.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># site data</span></span></span>
+<span class="r-in"><span><span class="va">sitdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="readMWRsites.html">readMWRsites</a></span><span class="op">(</span><span class="va">sitpth</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on site metadata...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing latitude or longitude values... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in latitude... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in longitude... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for positive values in longitude... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for Monitoring Location ID... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># site trends, boxplot</span></span></span>
 <span class="r-in"><span><span class="fu">anlzMWRsite</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'box'</span>, thresh <span class="op">=</span> <span class="st">'fresh'</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="anlzMWRsite-1.png" alt="" width="700" height="433"></span>
@@ -227,6 +258,12 @@
 <span class="r-in"><span>     site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'ABT-077'</span>, <span class="st">'ABT-162'</span>, <span class="st">'CND-009'</span>, <span class="st">'CND-110'</span>, <span class="st">'HBS-016'</span>, <span class="st">'HBS-031'</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>     fecalgrp <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="anlzMWRsite-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span>     </span></span>
+<span class="r-in"><span><span class="co"># site trends by location group, requires sitdat</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRsite</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, type <span class="op">=</span> <span class="st">'box'</span>, </span></span>
+<span class="r-in"><span>     thresh <span class="op">=</span> <span class="st">'fresh'</span>, locgroup <span class="op">=</span> <span class="st">'Concord'</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in utilMWRfilter(resdat = resdat, sitdat = sitdat, param = param,     dtrng = dtrng, site = site, resultatt = resultatt, locgroup = locgroup):</span> object 'sitdat' not found</span>
+<span class="r-in"><span>     </span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
