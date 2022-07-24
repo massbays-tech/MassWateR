@@ -223,6 +223,12 @@ A `"watercolor"` base map:
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "watercolor", warn = F)
 ```
 
+The base map can be suppressed with `maptype = NULL`.
+
+```{r, fig.height = 7, fig.width = 6}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = NULL, warn = F)
+```
+
 ## Modifying the plots
 
 The default plot format should be sufficient in most cases, but it can be modified using common `ggplot()` plot functions (see the [ggplot2](https://ggplot2.tidyverse.org/index.html) page for details).  Each plot returned is a `ggplot()` plot object and additional components can be added using the `+` notation. Note that overriding some of the existing plot components may significantly alter the appearance, so use caution. 
