@@ -7,7 +7,7 @@
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
 #' @param sit optional character string of path to the site metadata file or \code{data.frame} of site metadata returned by \code{\link{readMWRsites}}, required if \code{locgroup} is not \code{NULL} 
 #' @param thresh character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}
-#' @param group character indicating whether the results are grouped by site (default) or combined across all sites
+#' @param group character indicating whether the results are grouped by site (default), combined across location groups, or combined across sites, see details
 #' @param threshcol character indicating color of threshold lines if available
 #' @param site character string of sites to include, default all
 #' @param resultatt character string of result attributes to plot, default all
@@ -23,7 +23,7 @@
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object that can be further modified.
 #' 
-#' @details Results are shown for the selected parameter as continuous line plots over time. Specifying \code{group = "site"} plot a separate line for each site.  Specifying \code{group = "all"} will average results across sites for each date.
+#' @details Results are shown for the selected parameter as continuous line plots over time. Specifying \code{group = "site"} plot a separate line for each site.  Specifying \code{group = "location"} will average results across sites in the `locgroup` argument.  The site metadata file must be passed to the \code{`sit`} argument to use this option.  Specifying \code{group = "all"} will average results across sites for each date.
 #'
 #' Threshold lines applicable to marine or freshwater environments can be included in the plot by using the \code{thresh} argument.  These thresholds are specific to each parameter and can be found in the \code{\link{thresholdMWR}} file.  Threshold lines are plotted only for those parameters with entries in \code{\link{thresholdMWR}} and only if the value in \code{`Result Unit`} matches those in \code{\link{thresholdMWR}}. The threshold lines can be suppressed by setting \code{thresh = 'none'}. 
 #'  
@@ -64,18 +64,24 @@
 #' # sites by location group, requires sitdat
 #' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'site', 
 #'      thresh = 'fresh', locgroup = 'Concord')
-anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', 'all'), threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 2, repel = TRUE, labsize = 3, confint = FALSE, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
+#'      
+#' # sites by location group averaged by group, requires sitdat
+#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'location', 
+#'      thresh = 'fresh', locgroup = c('Lower Assabet', 'Upper Assabet'))
+anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', 'location', 'all'), threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 2, repel = TRUE, labsize = 3, confint = FALSE, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
   
   group <- match.arg(group)
 
   # inputs
-  inp <- utilMWRinput(res = res, acc = acc, runchk = runchk, warn = warn)
+  inp <- utilMWRinput(res = res, acc = acc, sit = sit, runchk = runchk, warn = warn)
   
   # results data
   resdat <- inp$resdat 
   
   # accuracy data
   accdat <- inp$accdat
+  
+  sitdat <- inp$sitdat
   
   # filter
   resdat <- utilMWRfilter(resdat = resdat, sitdat = sitdat, param = param, dtrng = dtrng, site = site, resultatt = resultatt, locgroup = locgroup)
@@ -145,6 +151,40 @@ anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', '
         ggplot2::geom_text(data = sitelb, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`, label = `Monitoring Location ID`), 
                            na.rm = T, size = labsize, hjust = 0, nudge_x = 3)
       
+  }
+  
+  if(group == 'location'){
+    
+    toplo <- toplo %>% 
+      dplyr::group_by(`Activity Start Date`, `Location Group`) 
+
+    # get mean and CI summary
+    toplo <- utilMWRconfint(toplo, logscl = logscl)
+    
+    # group labels
+    grplb <- toplo %>% 
+      dplyr::group_by(`Location Group`) %>% 
+      dplyr::filter(`Activity Start Date` == max(`Activity Start Date`)) %>% 
+      dplyr::select(`Location Group`, `Activity Start Date`, `Result Value`)
+    
+    p <- p +
+      ggplot2::geom_line(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Location Group`)) + 
+      ggplot2::geom_point(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Location Group`), size = ptsize)
+    
+    if(repel)
+      p <- p +
+      ggrepel::geom_text_repel(data = grplb, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Location Group`, label = `Location Group`), 
+                               na.rm = T, size = labsize, hjust = 0, nudge_x = 5, segment.color = 'grey')
+    
+    if(!repel)
+      p <- p + 
+      ggplot2::geom_text(data = grplb, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Location Group`, label = `Location Group`), 
+                         na.rm = T, size = labsize, hjust = 0, nudge_x = 3)
+    
+    if(confint)
+      p <- p + 
+       ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Activity Start Date`, ymin = lov, ymax = hiv, group = `Location Group`), width = 1)
+    
   }
   
   # combine all sites

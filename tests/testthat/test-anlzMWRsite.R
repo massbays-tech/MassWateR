@@ -4,7 +4,7 @@ test_that("Checking output format boxplot", {
 })
 
 test_that("Checking output format barplot", {
-  result <- anlzMWRsite(res = resdat, param = 'DO', acc = accdat, thresh = "fresh", type = 'bar')
+  result <- anlzMWRsite(res = resdat, param = 'DO', acc = accdat, thresh = "fresh", type = 'bar', confint = TRUE)
   expect_s3_class(result, 'ggplot')
 })
 
@@ -27,6 +27,6 @@ test_that("Checking output format boxplot, fecalgrp", {
 test_that("Checking output format barplot, fecalgrp", {
   result <- anlzMWRsite(res = resdat, param = 'E.coli', acc = accdat, thresh = "fresh", type = 'bar', 
                         site = c('ABT-077', 'ABT-162', 'CND-009', 'CND-110', 'HBS-016', 'HBS-031'),
-                        fecalgrp = TRUE)
+                        fecalgrp = TRUE, confint = TRUE)
   expect_s3_class(result, 'ggplot')
 })

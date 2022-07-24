@@ -19,8 +19,8 @@ test_that("Checking output format type as summary", {
 })
 
 test_that("Checking output format type as percent", {
-  result <- tabMWRacc(respth, accpth, runchk = F, warn = F, frecom = frecompth, type = 'percent')
-  expect_s3_class(result, 'flextable')
+  expect_warning(expect_warning(expect_warning(expect_s3_class(tabMWRacc(respth, accpth, runchk = F, warn = T, frecom = frecompth, type = 'percent'), 
+                  'flextable'))))
 })
 
 test_that("Checking error if frecom absent and type as percent", {

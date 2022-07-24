@@ -18,6 +18,10 @@ test_that("Check error if no data availble", {
                'No data available for date range')
 })
 
+test_that("Check error if site not found", {
+  expect_error(utilMWRfilter(resdat = resdat, param = 'DO', site = 'notfound'))
+})
+
 test_that("Check error if parameter not found", {
   expect_error(utilMWRfilter(resdat = resdat, param = 'notfound'))
 })

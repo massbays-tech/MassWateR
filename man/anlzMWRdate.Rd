@@ -10,7 +10,7 @@ anlzMWRdate(
   acc,
   sit = NULL,
   thresh,
-  group = c("site", "all"),
+  group = c("site", "location", "all"),
   threshcol = "tan",
   site = NULL,
   resultatt = NULL,
@@ -36,7 +36,7 @@ anlzMWRdate(
 
 \item{thresh}{character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}}
 
-\item{group}{character indicating whether the results are grouped by site (default) or combined across all sites}
+\item{group}{character indicating whether the results are grouped by site (default), combined across location groups, or combined across sites, see details}
 
 \item{threshcol}{character indicating color of threshold lines if available}
 
@@ -69,7 +69,7 @@ A \code{\link[ggplot2]{ggplot}} object that can be further modified.
 Analyze trends by date in results file
 }
 \details{
-Results are shown for the selected parameter as continuous line plots over time. Specifying \code{group = "site"} plot a separate line for each site.  Specifying \code{group = "all"} will average results across sites for each date.
+Results are shown for the selected parameter as continuous line plots over time. Specifying \code{group = "site"} plot a separate line for each site.  Specifying \code{group = "location"} will average results across sites in the \code{locgroup} argument.  The site metadata file must be passed to the \code{`sit`} argument to use this option.  Specifying \code{group = "all"} will average results across sites for each date.
 
 Threshold lines applicable to marine or freshwater environments can be included in the plot by using the \code{thresh} argument.  These thresholds are specific to each parameter and can be found in the \code{\link{thresholdMWR}} file.  Threshold lines are plotted only for those parameters with entries in \code{\link{thresholdMWR}} and only if the value in \code{`Result Unit`} matches those in \code{\link{thresholdMWR}}. The threshold lines can be suppressed by setting \code{thresh = 'none'}.
 
@@ -108,4 +108,8 @@ anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'all', thresh = 'f
 # sites by location group, requires sitdat
 anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'site', 
      thresh = 'fresh', locgroup = 'Concord')
+     
+# sites by location group averaged by group, requires sitdat
+anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'location', 
+     thresh = 'fresh', locgroup = c('Lower Assabet', 'Upper Assabet'))
 }
