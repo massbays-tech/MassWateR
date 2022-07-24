@@ -8,6 +8,11 @@ test_that("Checking output format by site and jitterbox", {
   expect_s3_class(result, 'ggplot')
 })
 
+test_that("Checking output format by month and jitter", {
+  result <- anlzMWRoutlier(res = resdat, param = 'DO', type = 'jitter', acc = accdat, group = 'month')
+  expect_s3_class(result, 'ggplot')
+})
+
 test_that("Checking output format by week", {
   result <- anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'week')
   expect_s3_class(result, 'ggplot')

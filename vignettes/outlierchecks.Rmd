@@ -63,10 +63,16 @@ Results can also be filtered by dates using the `dtrng` argument. The date forma
 anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, group = "site", dtrng = c("2021-05-01", "2021-07-31"))
 ```
 
-Points that are not outliers can also be jittered over the boxplots using `jitter = TRUE`. Outlier labels that overlap are also offset by default.  This can be suppressed using `repel = FALSE`. 
+Points that are not outliers can also be jittered over the boxplots using `type = "jitterbox"` (default is `type = "box"`). Outlier labels that overlap are also offset by default.  This can be suppressed using `repel = FALSE`. 
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, group = "month", jitter = TRUE, repel = FALSE)
+anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, type = "jitterbox", group = "month", repel = FALSE)
+```
+
+Specifying `type = "jitter` will suppress the boxplots. 
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, type = "jitter", group = "month")
 ```
 
 The y-axis scaling as arithmetic (linear) or logarithmic can be set with the `yscl` argument.  If `yscl = "auto"` (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting `yscl = "linear"` or `yscl = "log"` will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy. Below, the axis for E. Coli is plotted on the log-10 scale automatically.  The y-axis scaling does not need to specified explicitly in the function call because the default setting is `yscl = "auto"`. 

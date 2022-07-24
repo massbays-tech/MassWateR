@@ -5,7 +5,7 @@
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param param character string of the parameter to plot, must conform to entries in the \code{"Simple Parameter"} column of \code{\link{paramsMWR}}
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
-#' @param type character indicating \code{"box"} for boxplots or \code{"jitterbox"} for boxplots with point jittered on top, see details
+#' @param type character indicating \code{"box"}, \code{"jitterbox"}, or \code{"jitter"}, see details
 #' @param group character indicating whether the summaries are grouped by month (default), site, or week of year
 #' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, optional
 #' @param repel logical indicating if overlapping outlier labels are offset
@@ -22,7 +22,7 @@
 #' 
 #' @details Outliers are defined following the standard \code{\link[ggplot2]{ggplot}} definition as 1.5 times the inter-quartile range of each boxplot.  The data frame returned if \code{outliers = TRUE} may vary based on the boxplot groupings defined by \code{group}.
 #' 
-#' Specifying \code{type = "box"} will produce standard boxplots.  Specifying \code{type = "jitterbox"} will produce boxplots with non-outlier observations jittered on top.  
+#' Specifying \code{type = "box"} (default) will produce standard boxplots.  Specifying \code{type = "jitterbox"} will produce boxplots with non-outlier observations jittered on top.  Specifying \code{type = "jitter"} will suppress the boxplots and show only the jittered points and the outliers. 
 #' 
 #' Specifying \code{group = "week"} will group the samples by week of year using an integer specifying the week.  Note that there can be no common month/day indicating the start of the week between years and an integer is the only way to compare summaries if the results data span multiple years.
 #'
@@ -59,7 +59,7 @@
 #' # data frame output
 #' anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month', outliers = TRUE)
 #' 
-anlzMWRoutlier <- function(res, param, acc, type = c('box', 'jitterbox'), group = c('month', 'site', 'week'), dtrng = NULL, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
+anlzMWRoutlier <- function(res, param, acc, type = c('box', 'jitterbox', 'jitter'), group = c('month', 'site', 'week'), dtrng = NULL, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
   
   type <- match.arg(type)
   group <- match.arg(group)
@@ -102,7 +102,7 @@ anlzMWRoutlier <- function(res, param, acc, type = c('box', 'jitterbox'), group 
    
     toplo <- toplo %>% 
       dplyr::mutate(
-        Month = lubridate::month(`Activity Start Date`, label = TRUE, abbr = TRUE)
+        Month = factor(lubridate::month(`Activity Start Date`, label = TRUE, abbr = TRUE))
         ) %>% 
       dplyr::group_by(Month) %>% 
       dplyr::mutate(
@@ -156,26 +156,37 @@ anlzMWRoutlier <- function(res, param, acc, type = c('box', 'jitterbox'), group 
     
   }
   
-  p <- p + 
-    ggplot2::geom_boxplot(outlier.color = 'tomato1', fill = fill, alpha = alpha, width = width)
+  if(type == 'box' | type == 'jitterbox')
+    p <- p + 
+      ggplot2::geom_boxplot(outlier.color = 'tomato1', fill = fill, alpha = alpha, width = width)
+  
+  if(type == 'jitter' | type == 'jitterbox'){
+    
+    outplo <- toplo %>% 
+      dplyr::filter(is.na(outlier))
+    
+    p <- p + 
+      ggplot2::geom_point(data = outplo, position = ggplot2::position_dodge2(width = 0.7 * width), alpha = 0.5, size = 1)
+    
+  }
+  
+  if(type == 'jitter'){
+    
+    jitplo <- toplo %>% 
+      dplyr::filter(!is.na(outlier))
+
+    p <- p +
+      ggplot2::geom_point(data = jitplo, color = 'tomato1', )
+    
+  }
   
   if(repel)
     p <- p +
-      ggrepel::geom_text_repel(ggplot2::aes(label = outlier), na.rm = T, point.size = NA, size = labsize, segment.color = 'grey')
-    
+    ggrepel::geom_text_repel(ggplot2::aes(label = outlier), na.rm = T, point.size = NA, size = labsize, segment.color = 'grey')
+  
   if(!repel)
     p <- p + 
-      ggplot2::geom_text(ggplot2::aes(label = outlier), na.rm = T, size = labsize)
-  
-  if(type == 'jitterbox'){
-    
-    jitplo <- toplo %>% 
-      dplyr::filter(is.na(outlier))
-  
-    p <- p + 
-      ggplot2::geom_point(data = jitplo, position = ggplot2::position_dodge2(width = 0.7 * width), alpha = 0.5, size = 1)
-    
-  }
+    ggplot2::geom_text(ggplot2::aes(label = outlier), na.rm = T, size = labsize)
   
   if(logscl)
     p <- p + ggplot2::scale_y_log10()
