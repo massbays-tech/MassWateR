@@ -63,7 +63,7 @@
 <span>  <span class="va">acc</span>,</span>
 <span>  sit <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">thresh</span>,</span>
-<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"site"</span>, <span class="st">"all"</span><span class="op">)</span>,</span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"site"</span>, <span class="st">"location"</span>, <span class="st">"all"</span><span class="op">)</span>,</span>
 <span>  threshcol <span class="op">=</span> <span class="st">"tan"</span>,</span>
 <span>  site <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  resultatt <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -102,7 +102,7 @@
 
 
 <dt>group</dt>
-<dd><p>character indicating whether the results are grouped by site (default) or combined across all sites</p></dd>
+<dd><p>character indicating whether the results are grouped by site (default), combined across location groups, or combined across sites, see details</p></dd>
 
 
 <dt>threshcol</dt>
@@ -161,7 +161,7 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Results are shown for the selected parameter as continuous line plots over time. Specifying <code>group = "site"</code> plot a separate line for each site.  Specifying <code>group = "all"</code> will average results across sites for each date.</p>
+    <p>Results are shown for the selected parameter as continuous line plots over time. Specifying <code>group = "site"</code> plot a separate line for each site.  Specifying <code>group = "location"</code> will average results across sites in the <code>locgroup</code> argument.  The site metadata file must be passed to the <code>`sit`</code> argument to use this option.  Specifying <code>group = "all"</code> will average results across sites for each date.</p>
 <p>Threshold lines applicable to marine or freshwater environments can be included in the plot by using the <code>thresh</code> argument.  These thresholds are specific to each parameter and can be found in the <code><a href="thresholdMWR.html">thresholdMWR</a></code> file.  Threshold lines are plotted only for those parameters with entries in <code><a href="thresholdMWR.html">thresholdMWR</a></code> and only if the value in <code>`Result Unit`</code> matches those in <code><a href="thresholdMWR.html">thresholdMWR</a></code>. The threshold lines can be suppressed by setting <code>thresh = 'none'</code>.</p>
 <p>The y-axis scaling as arithmetic (linear) or logarithmic can be set with the <code>yscl</code> argument.  If <code>yscl = "auto"</code> (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting <code>yscl = "linear"</code> or <code>yscl = "log"</code> will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy.</p>
 <p>Any entries in <code>resdat</code> in the <code>"Result Value"</code> column as <code>"BDL"</code> or <code>"AQL"</code> are replaced with appropriate values in the <code>"Quantitation Limit"</code> column, if present, otherwise the <code>"MDL"</code> or <code>"UQL"</code> columns from the data quality objectives file for accuracy are used.  Values as <code>"BDL"</code> use one half of the appropriate limit.</p>
@@ -242,7 +242,12 @@
 <span class="r-in"><span><span class="co"># sites by location group, requires sitdat</span></span></span>
 <span class="r-in"><span><span class="fu">anlzMWRdate</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, group <span class="op">=</span> <span class="st">'site'</span>, </span></span>
 <span class="r-in"><span>     thresh <span class="op">=</span> <span class="st">'fresh'</span>, locgroup <span class="op">=</span> <span class="st">'Concord'</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in utilMWRfilter(resdat = resdat, sitdat = sitdat, param = param,     dtrng = dtrng, site = site, resultatt = resultatt, locgroup = locgroup):</span> object 'sitdat' not found</span>
+<span class="r-plt img"><img src="anlzMWRdate-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span>     </span></span>
+<span class="r-in"><span><span class="co"># sites by location group averaged by group, requires sitdat</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRdate</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, group <span class="op">=</span> <span class="st">'location'</span>, </span></span>
+<span class="r-in"><span>     thresh <span class="op">=</span> <span class="st">'fresh'</span>, locgroup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Lower Assabet'</span>, <span class="st">'Upper Assabet'</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="anlzMWRdate-4.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
