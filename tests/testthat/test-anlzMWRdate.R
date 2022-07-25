@@ -20,7 +20,7 @@ test_that("Checking output format group as all, log scale", {
 
 test_that("Checking output format group as location", {
   result <- anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'location', 
-                        thresh = 'fresh', locgroup = c('Lower Assabet', 'Upper Assabet'))
+                        thresh = 'fresh', locgroup = c('Lower Assabet', 'Upper Assabet'), confint = TRUE)
   expect_s3_class(result, 'ggplot')
 })
 
