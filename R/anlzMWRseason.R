@@ -8,13 +8,12 @@
 #' @param sit optional character string of path to the site metadata file or \code{data.frame} of site metadata returned by \code{\link{readMWRsites}}, required if \code{locgroup} is not \code{NULL} 
 #' @param thresh character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}
 #' @param group character indicating whether the summaries are grouped by month (default) or week of year
-#' @param type character indicating \code{"box"} for boxplots or \code{"bar"} for barplots, see details
+#' @param type character indicating \code{"box"}, \code{"jitterbox"}, \code{"bar"}, \code{"jitterbar"} or \code{"jitter"}, see details
 #' @param threshcol character indicating color of threshold lines if available
 #' @param site character string of sites to include, default all
 #' @param resultatt character string of result attributes to plot, default all
 #' @param locgroup character string of location groups to plot from the \code{"Location Group"} column in the site metadata file, optional and only if \code{sit} is not \code{NULL}
 #' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, default all
-#' @param jitter logical indicating if points are jittered over the boxplots, only applies if \code{type = "box"}
 #' @param confint logical indicating if confidence intervals are shown, only applies if \code{type = "bar"}
 #' @param fill numeric indicating fill color for boxplots or barplots
 #' @param alpha numeric from 0 to 1 indicating transparency of fill color
@@ -25,7 +24,7 @@
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object that can be further modified.
 #' 
-#' @details Summaries of a parameter are shown as boxplots if \code{type = "box"} or as barplots if \code{type = "bar"}.  For the latter, points can be jittered over the boxplots by setting \code{jitter = TRUE}.  For the former, 95% confidence intervals can also be shown if \code{confint = TRUE} and they can be estimated (i.e., more than one result value per bar). 
+#' @details Summaries of a parameter are shown as boxplots if \code{type = "box"} or as barplots if \code{type = "bar"}.  Points can be jittered over the boxplots by setting \code{type = "jitterbox"} or jittered over the barplots by setting \code{type = "jitterbar"}.  Setting \code{type = "jitter"} will show only only the jittered points.  For \code{type = "bar"} or \code{type = "jitterbar"}, 95% confidence intervals can also be shown if \code{confint = TRUE} and they can be estimated (i.e., more than one result value per bar). 
 #' 
 #' Specifying \code{group = "week"} will group the samples by week of year using an integer specifying the week.  Note that there can be no common month/day indicating the start of the week between years and an integer is the only way to compare summaries if the results data span multiple years.
 #'
@@ -80,7 +79,7 @@
 #' # seasonal trends by location group, requires sitdat
 #' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, sit = sitdat, thresh = 'fresh', 
 #'      group = 'month', type = 'box', locgroup = 'Concord')
-anlzMWRseason <- function(res, param, acc, sit = NULL, thresh, group = c('month', 'week'), type = c('box', 'bar'), threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, jitter = FALSE, confint = FALSE, fill = 'lightblue', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
+anlzMWRseason <- function(res, param, acc, sit = NULL, thresh, group = c('month', 'week'), type = c('box', 'jitterbox', 'bar', 'jitterbar', 'jitter'), threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, confint = FALSE, fill = 'lightblue', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
   
   group <- match.arg(group)
   type <- match.arg(type)
@@ -159,7 +158,7 @@ anlzMWRseason <- function(res, param, acc, sit = NULL, thresh, group = c('month'
   }
   
   # boxplot
-  if(type == 'box'){
+  if(type == 'box' | type == 'jitterbox'){
     
     toplo <- toplo %>% 
       dplyr::group_by(grpvar) %>% 
@@ -174,33 +173,49 @@ anlzMWRseason <- function(res, param, acc, sit = NULL, thresh, group = c('month'
     
   }
   
-  # barplot
-  if(type == 'bar'){
-    
-    toplo <- toplo %>% 
-      dplyr::group_by(grpvar)
-    
-    # get mean and CI summary
-    toplo <- utilMWRconfint(toplo, logscl = logscl)
-    
-    p <-  p +
-      ggplot2::geom_bar(data = toplo, ggplot2::aes(x = grpvar, y = `Result Value`), 
-                        fill = fill, stat = 'identity', alpha = alpha, width = width)
-    
-    if(confint)
-      p <- p + 
-        ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = grpvar, ymin = lov, ymax = hiv), width = 0.2 * width)
-    
-  }
-
   # jitter if box
-  if(jitter & type == 'box'){
+  if(type == 'jitterbox'){
     
     jitplo <- toplo %>% 
       dplyr::filter(!outlier)
     
     p <- p + 
       ggplot2::geom_point(data = jitplo, ggplot2::aes(x = grpvar, y = `Result Value`),
+                          position = ggplot2::position_dodge2(width = 0.7 * width), alpha = 0.5, size = 1)
+    
+  }
+  
+  # barplot
+  if(type == 'bar' | type == 'jitterbar'){
+    
+    toplo <- toplo %>% 
+      dplyr::group_by(grpvar)
+    
+    # get mean and CI summary
+    toplobr <- utilMWRconfint(toplo, logscl = logscl)
+
+    p <-  p +
+      ggplot2::geom_bar(data = toplobr, ggplot2::aes(x = grpvar, y = `Result Value`), 
+                        fill = fill, stat = 'identity', alpha = alpha, width = width)
+    
+    if(confint)
+      p <- p + 
+        ggplot2::geom_errorbar(data = toplobr, ggplot2::aes(x = grpvar, ymin = lov, ymax = hiv), width = 0.2 * width)
+    
+  }
+  
+  if(type == 'jitterbar'){
+    
+    p <- p + 
+      ggplot2::geom_point(data = toplo, ggplot2::aes(x = grpvar, y = `Result Value`),
+                          position = ggplot2::position_dodge2(width = 0.7 * width), alpha = 0.5, size = 1)
+    
+  }
+
+  if(type == 'jitter'){
+    
+    p <- p + 
+      ggplot2::geom_point(data = toplo, ggplot2::aes(x = grpvar, y = `Result Value`),
                           position = ggplot2::position_dodge2(width = 0.7 * width), alpha = 0.5, size = 1)
     
   }

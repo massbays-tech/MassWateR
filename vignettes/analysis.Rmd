@@ -37,7 +37,7 @@ sitdat <- readMWRsites(sitpth)
 
 ## Analyze seasonal trends
 
-Seasonal trends can be evaluated using the `anlzMWRseason()` function.  This function summarizes results for a single parameter using boxplots or barplots with seasonal groups assigned to months or weeks of the year.  Threshold lines are also shown on the plot to determine if results are near thresholds of interest.  The data that are plotted can be filtered by sites, dates, or result attributes.
+Seasonal trends can be evaluated using the `anlzMWRseason()` function.  This function summarizes results for a single parameter using boxplots or barplots with seasonal groups assigned to months or weeks of the year.  Boxplots or barplots can also include jittered points of the observations on top or only the jittered points can be shown.  Threshold lines are also shown on the plot to determine if results are near thresholds of interest.  The data that are plotted can be filtered by sites, dates, result attributes, or location groups (from the site metadata file).
 
 The `anlzMWRseason()` function uses the results data as a file path or data frame as input. Below, the results for dissolved oxygen (`param = "DO"`) are grouped by month using `group = "month"` and as boxplots using `type = "box"`.  A description of the summary statistics shown by a boxplot is provided in the [outlier checks](https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html#analyzing-outliers) vignette.  The relevant threshold lines for freshwater environments are shown using `thresh = "fresh"`.  
 
@@ -45,16 +45,16 @@ The `anlzMWRseason()` function uses the results data as a file path or data fram
 anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "month", type = "box")
 ```
 
+Jittered points over the boxplots can be shown by setting `type = "jitterbox"`.
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "month", type = "jitterbox")
+```
+
 The same data can also be grouped by week using `group = "week"`.  The week of the year is shown on the plot as an integer. Note that there can be no common month/day indicating the start of the week between years and an integer is the only way to compare summaries if the results data span multiple years. 
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "week", type = "box")
-```
-
-If `type = "box"`, points can also be jittered over the boxplots using `jitter = TRUE`.
-
-```{r, fig.height = 4, fig.width = 8}
-anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "week", type = "box", jitter = TRUE)
 ```
 
 Barplots can be shown using `type = "bar"`.  The barplots show the average estimate for the results defined by the `group` argument.  
@@ -67,6 +67,18 @@ Confidence intervals at 95% for the barplots can be shown by setting `confint = 
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "month", type = "bar", confint = TRUE)
+```
+
+Jittered points over the barplots can be shown by setting `type = "jitterbar"`.
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "month", type = "jitterbar")
+```
+
+Setting `type = "jitter"` will show only the jittered point.
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "month", type = "jitter")
 ```
 
 The threshold lines shown on each plot are determined from the `thresholdMWR` file included with MassWateR.  These threshold lines describe relevant state standards or typical ranges in Massachusetts, if applicable for a parameter. Thresholds can be plotted for freshwater or marine environments using the `thresh` argument as `thresh = "fresh"` or `thresh = "marine"`, respectively.  Two threshold lines are typically shown, whereas some parameters may only have one threshold line. Other parameters have no information in the `thresholdMWR` file and lines will not be plotted. Threshold lines can be suppressed by setting `thresh = "none"`. Below, the marine thresholds are shown for dissolved oxygen using the barplot option grouped by month. 
