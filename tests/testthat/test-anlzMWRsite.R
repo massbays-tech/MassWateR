@@ -1,15 +1,15 @@
-test_that("Checking output format boxplot", {
-  result <- anlzMWRsite(res = resdat, param = 'DO', acc = accdat, thresh = "fresh", type = 'box', jitter = TRUE)
+test_that("Checking output format jittered boxplot", {
+  result <- anlzMWRsite(res = resdat, param = 'DO', acc = accdat, thresh = "fresh", type = 'jitterbox')
   expect_s3_class(result, 'ggplot')
 })
 
-test_that("Checking output format barplot", {
-  result <- anlzMWRsite(res = resdat, param = 'DO', acc = accdat, thresh = "fresh", type = 'bar', confint = TRUE)
+test_that("Checking output format jittered barplot", {
+  result <- anlzMWRsite(res = resdat, param = 'DO', acc = accdat, thresh = "fresh", type = 'jitterbar', confint = TRUE)
   expect_s3_class(result, 'ggplot')
 })
 
-test_that("Checking output format barplot, log scale", {
-  result <- anlzMWRsite(res = resdat, param = 'DO', acc = accdat, thresh = "fresh", type = 'bar', yscl = 'log')
+test_that("Checking output format jittered barplot, log scale", {
+  result <- anlzMWRsite(res = resdat, param = 'DO', acc = accdat, thresh = "fresh", type = 'jitterbar', yscl = 'log')
   expect_s3_class(result, 'ggplot')
 })
 
