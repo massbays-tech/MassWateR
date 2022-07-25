@@ -113,7 +113,7 @@ anlzMWRseason(res = resdat, param = "E.coli", acc = accdat, sit = sitdat, thresh
 
 ## Analyze trends by date
 
-Trends by date for selected parameters can be evaluated using the `anlzMWRdate()` function.  The plot shows results continuously over time as line plots, with the lines separated by site or combined across sites as an average with 95% confidence intervals.  Many of the options described for the `anlzMWRseason()` function also apply and will not be repeated here. As before, the required data are a results file and data quality objective file for accuracy.  
+Trends by date for selected parameters can be evaluated using the `anlzMWRdate()` function.  The plot shows results continuously over time as line plots, with the lines separated by site, combined across sites, or combined across location groups as an average with 95% confidence intervals.  For location groups, the site metadata file must be supplied.  Many of the options described for the `anlzMWRseason()` function also apply and will not be repeated here. As before, the required data are a results file and data quality objective file for accuracy.  
 
 The default plot for `anlzMWRdate()` will show separate lines for each site, y-axis scaling determined automatically from the data quality objectives file, and site labels at the end of each line.  All sites in the results file will be plotted, which can be difficult to visualize. Selecting specific sites with the `site` argument is recommended. 
 
@@ -137,6 +137,13 @@ Confidence intervals at 95% for the barplots can be shown by setting `confint = 
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRdate(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "all", confint = TRUE)
+```
+
+Sites can be averaged across location groups using `group = "location"`.  This option requires the site metadata file passed to the `sit` argument and appropriate values for the location groups passed to the `locgroup` argument that match values in the `Location Group` column of the site metadata file. 
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'location', 
+      thresh = 'fresh', locgroup = c('Lower Assabet', 'Upper Assabet'))
 ```
 
 ## Analyze trends by site
