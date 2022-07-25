@@ -148,12 +148,18 @@ anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'loc
 
 ## Analyze trends by site
 
-Trends by site for selected parameters can be evaluated using the `anlzMWRsite()` function.  This function summarizes results for a single parameter using boxplots or barplots separately for each site on the x-axis.  Many of the options described for the `anlzMWRseason()` function also apply and will not be repeated here. As before, the required data are a results file and data quality objective file for accuracy.  
+Trends by site for selected parameters can be evaluated using the `anlzMWRsite()` function.  This function summarizes results for a single parameter using boxplots or barplots separately for each site on the x-axis. Boxplots or barplots can also include jittered points of the observations on top or only the jittered points can be shown. Many of the options described for the `anlzMWRseason()` function also apply and will not be repeated here. As before, the required data are a results file and data quality objective file for accuracy.  
 
 The default plot for `anlzMWRsite()` will show boxplots of results for each site and y-axis scaling determined automatically from the data quality objectives file. 
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "box")
+```
+
+Jittered points over the boxplots can be shown by setting `type = "jitterbox"`.
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "jitterbox")
 ```
 
 Results as barplots can be shown using `type = "bar"`.
@@ -166,6 +172,18 @@ Confidence intervals at 95% for the barplots can be shown by setting `confint = 
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "bar", confint = TRUE)
+```
+
+Jittered points over the barplots can be shown by setting `type = "jitterbar"`.
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "jitterbar")
+```
+
+Setting `type = "jitter"` will show only the jittered point.
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "jitter")
 ```
 
 Results data for fecal coliform indicators can be grouped by entries in the `Result Atribute` column using `fecalgrp = TRUE`.   For example, sites can be grouped by `"Dry"` or `"Wet"` conditions.  This option can only be used if the `param` argument is `"E.coli"`, `"Enterococcus"`, or `"Fecal Coliform"`.  Filtering by sites first is advised to reduce the amount of data that are plotted. 

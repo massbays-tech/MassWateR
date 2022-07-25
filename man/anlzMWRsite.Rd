@@ -9,14 +9,13 @@ anlzMWRsite(
   param,
   acc,
   sit = NULL,
-  type = c("box", "bar"),
+  type = c("box", "jitterbox", "bar", "jitterbar", "jitter"),
   thresh,
   threshcol = "tan",
   site = NULL,
   resultatt = NULL,
   locgroup = NULL,
   dtrng = NULL,
-  jitter = FALSE,
   confint = FALSE,
   fill = "lightgreen",
   alpha = 0.8,
@@ -36,7 +35,7 @@ anlzMWRsite(
 
 \item{sit}{optional character string of path to the site metadata file or \code{data.frame} of site metadata returned by \code{\link{readMWRsites}}, required if \code{locgroup} is not \code{NULL}}
 
-\item{type}{character indicating \code{"box"} for boxplots or \code{"bar"} for barplots, see details}
+\item{type}{character indicating \code{"box"}, \code{"jitterbox"}, \code{"bar"}, \code{"jitterbar"} or \code{"jitter"}, see details}
 
 \item{thresh}{character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}}
 
@@ -49,8 +48,6 @@ anlzMWRsite(
 \item{locgroup}{character string of location groups to plot from the \code{"Location Group"} column in the site metadata file, optional and only if \code{sit} is not \code{NULL}}
 
 \item{dtrng}{character string of length two for the date ranges as YYYY-MM-DD, default all}
-
-\item{jitter}{logical indicating if points are jittered over the boxplots, only applies if \code{type = "box"}}
 
 \item{confint}{logical indicating if confidence intervals are shown, only applies if \code{type = "bar"}}
 
@@ -75,7 +72,7 @@ A \code{\link[ggplot2]{ggplot}} object that can be further modified.
 Analyze site trends in results file
 }
 \details{
-Summaries of a parameter for each site are shown as boxplots if \code{type = "box"} or as barplots if \code{type = "bar"}.  For the latter, points can be jittered over the boxplots by setting \code{jitter = TRUE}.  For the former, 95\% confidence intervals are also shown if they can be estimated (i.e., more than one result value per bar).
+Summaries of a parameter for each site are shown as boxplots if \code{type = "box"} or as barplots if \code{type = "bar"}.  Points can be jittered over the boxplots by setting \code{type = "jitterbox"} or jittered over the barplots by setting \code{type = "jitterbar"}.  Setting \code{type = "jitter"} will show only only the jittered points.  For \code{type = "bar"} or \code{type = "jitterbar"}, 95\% confidence intervals can also be shown if \code{confint = TRUE} and they can be estimated (i.e., more than one result value per bar).
 
 Threshold lines applicable to marine or freshwater environments can be included in the plot by using the \code{thresh} argument.  These thresholds are specific to each parameter and can be found in the \code{\link{thresholdMWR}} file.  Threshold lines are plotted only for those parameters with entries in \code{\link{thresholdMWR}} and only if the value in \code{`Result Unit`} matches those in \code{\link{thresholdMWR}}. The threshold lines can be suppressed by setting \code{thresh = 'none'}.
 
