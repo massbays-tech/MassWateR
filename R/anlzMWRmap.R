@@ -96,15 +96,15 @@ anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgr
   
   tomap <- tomap %>% 
     left_join(sitdat, by = 'Monitoring Location ID')
-  
+
   # warning or stop if missing lat/lon or no lat/lon
   naloc <- is.na(tomap$`Monitoring Location Longitude`) | is.na(tomap$`Monitoring Location Latitude`)
-  chk <- anyNA(naloc)
-  
+  chk <- any(naloc)
+
   if(nrow(tomap) == sum(naloc))
     stop('No spatial information in sites file for selected data')
   
-  if(!chk & warn){
+  if(chk & warn){
     
     msg <- tomap[naloc, ] %>% 
       dplyr::pull(`Monitoring Location ID`) %>% 
@@ -119,7 +119,7 @@ anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgr
     sf::st_as_sf(coords = c('Monitoring Location Longitude', 'Monitoring Location Latitude'), crs = crs) %>% 
     sf::st_transform(crs = 4326) %>% 
     sf::st_zm()
-  
+
   # layer extent as bbox plus buffer
   dat_ext <- tomap %>% 
     sf::st_bbox() %>% 
