@@ -121,12 +121,19 @@ anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgr
     sf::st_zm()
 
   # layer extent as bbox plus buffer
-  dat_ext <- tomap %>% 
-    sf::st_bbox() %>% 
-    sf::st_as_sfc() %>% 
-    sf::st_buffer(dist = units::set_units(buffdist, degree)) %>%
-    sf::st_bbox() %>% 
-    unname
+  if(nrow(tomap) > 1)
+    dat_ext <- tomap %>% 
+      sf::st_bbox() %>% 
+      sf::st_as_sfc() %>% 
+      sf::st_buffer(dist = units::set_units(buffdist, degree)) %>%
+      sf::st_bbox() %>% 
+      unname
+  if(nrow(tomap) == 1)
+    dat_ext <- tomap %>% 
+      sf::st_as_sfc() %>% 
+      sf::st_buffer(dist = units::set_units(buffdist, degree)) %>%
+      sf::st_bbox() %>% 
+      unname
   
   ylab <- unique(resdat$`Result Unit`)
   
