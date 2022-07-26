@@ -117,7 +117,8 @@ anlzMWRseason <- function(res, param, acc, sit = NULL, thresh, group = c('month'
       panel.grid.minor.x = ggplot2::element_blank(),
       panel.grid.minor.y = ggplot2::element_blank(), 
       axis.text.x = ggplot2::element_text(angle = 45, size = 8, hjust = 1), 
-      legend.position = 'top'
+      legend.position = 'top',
+      legend.key.width = ggplot2::unit(1.05, "cm")
     )
   
   toplo <- resdat
@@ -130,10 +131,10 @@ anlzMWRseason <- function(res, param, acc, sit = NULL, thresh, group = c('month'
   if(!is.null(threshln)){
     
     threshln <- na.omit(threshln)
-    
+
     p <- p + 
-      ggplot2::geom_hline(data = threshln, ggplot2::aes(yintercept  = thresh, color = label, size = label)) + 
-      ggplot2::scale_color_manual(values = rep(threshcol, nrow(threshln))) +
+      ggplot2::geom_hline(data = threshln, ggplot2::aes(yintercept  = thresh, linetype = label, size = label), color = threshcol) + 
+      ggplot2::scale_linetype_manual(values = threshln$linetype) + 
       ggplot2::scale_size_manual(values = threshln$size)
     
   }
@@ -227,10 +228,10 @@ anlzMWRseason <- function(res, param, acc, sit = NULL, thresh, group = c('month'
     thm +
     ggplot2::labs(
       y = ylab, 
-      title = param, 
-      color = NULL,
-      size = NULL, 
+      title = param,
+      linetype = NULL, 
       alpha = NULL,
+      size = NULL, 
       x = NULL
     )
   

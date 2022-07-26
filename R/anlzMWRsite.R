@@ -115,7 +115,8 @@ anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox'
       panel.grid.minor.x = ggplot2::element_blank(),
       panel.grid.minor.y = ggplot2::element_blank(), 
       axis.text.x = ggplot2::element_text(angle = 45, size = 8, hjust = 1), 
-      legend.position = 'top'
+      legend.position = 'top',
+      legend.key.width = ggplot2::unit(1.05, "cm")
     )
   
   toplo <- resdat
@@ -130,8 +131,8 @@ anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox'
     threshln <- na.omit(threshln)
     
     p <- p + 
-      ggplot2::geom_hline(data = threshln, ggplot2::aes(yintercept  = thresh, color = label, size = label)) + 
-      ggplot2::scale_color_manual(values = rep(threshcol, nrow(threshln))) +
+      ggplot2::geom_hline(data = threshln, ggplot2::aes(yintercept  = thresh, linetype = label, size = label), color = threshcol) + 
+      ggplot2::scale_linetype_manual(values = threshln$linetype) + 
       ggplot2::scale_size_manual(values = threshln$size)
     
   }
@@ -248,12 +249,12 @@ anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox'
   if(logscl)
     p <- p + ggplot2::scale_y_log10()
   
-  p <- p +  
+  p <- p +
     thm +
     ggplot2::labs(
       y = ylab, 
       title = param, 
-      color = NULL,
+      linetype = NULL,
       size = NULL, 
       alpha = NULL,
       x = NULL

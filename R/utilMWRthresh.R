@@ -69,7 +69,8 @@ utilMWRthresh <- function(resdat, param, thresh = c('fresh', 'marine', 'none')){
   out <- full_join(out1, out2, by = 'num') %>% 
     dplyr::select(num, thresh, label) %>% 
     dplyr::mutate(
-      size = c(1.5, 0.5),
+      size = c(1.25, 0.75),
+      linetype = c('dotted', 'dashed'),
       label = factor(label, levels = rev(label))
       ) %>% 
     dplyr::arrange(label)

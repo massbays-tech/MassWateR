@@ -75,7 +75,7 @@ Jittered points over the barplots can be shown by setting `type = "jitterbar"`.
 anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "month", type = "jitterbar")
 ```
 
-Setting `type = "jitter"` will show only the jittered point.
+Setting `type = "jitter"` will show only the jittered points.
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "month", type = "jitter")
@@ -180,7 +180,7 @@ Jittered points over the barplots can be shown by setting `type = "jitterbar"`.
 anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "jitterbar")
 ```
 
-Setting `type = "jitter"` will show only the jittered point.
+Setting `type = "jitter"` will show only the jittered points.
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "jitter")

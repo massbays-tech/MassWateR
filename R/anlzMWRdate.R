@@ -104,7 +104,9 @@ anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', '
       panel.grid.minor.x = ggplot2::element_blank(),
       panel.grid.minor.y = ggplot2::element_blank(), 
       axis.text.x = ggplot2::element_text(angle = 45, size = 10, hjust = 1), 
-      legend.position = 'top'
+      legend.position = 'top',
+      legend.key.width = ggplot2::unit(1.05, "cm"), 
+      legend.box = "vertical"
     )
   
   toplo <- resdat %>% 
@@ -120,10 +122,10 @@ anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', '
   if(!is.null(threshln)){
     
     threshln <- na.omit(threshln)
-    
+
     p <- p + 
-      ggplot2::geom_hline(data = threshln, ggplot2::aes(yintercept  = thresh, color = label, size = label)) + 
-      ggplot2::scale_color_manual(values = rep(threshcol, nrow(threshln))) +
+      ggplot2::geom_hline(data = threshln, ggplot2::aes(yintercept  = thresh, linetype = label, size = label), color = threshcol) + 
+      ggplot2::scale_linetype_manual(values = threshln$linetype) + 
       ggplot2::scale_size_manual(values = threshln$size)
     
   }
@@ -138,18 +140,20 @@ anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', '
       dplyr::select(`Monitoring Location ID`, `Activity Start Date`, `Result Value`)
     
     p <- p +
-      ggplot2::geom_line(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`)) + 
-      ggplot2::geom_point(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`), size = ptsize)
+      ggplot2::geom_line(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`, color = `Monitoring Location ID`), show.legend = FALSE) + 
+      ggplot2::geom_point(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`, color = `Monitoring Location ID`), size = ptsize)
     
     if(repel)
       p <- p +
-        ggrepel::geom_text_repel(data = sitelb, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`, label = `Monitoring Location ID`), 
-                                 na.rm = T, size = labsize, hjust = 0, nudge_x = 5, segment.color = 'grey')
+        ggrepel::geom_text_repel(data = sitelb, 
+          ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`, label = `Monitoring Location ID`, color = `Monitoring Location ID`), 
+          na.rm = T, size = labsize, hjust = 0, nudge_x = 5, segment.color = 'grey', show.legend = FALSE)
     
     if(!repel)
       p <- p + 
-        ggplot2::geom_text(data = sitelb, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`, label = `Monitoring Location ID`), 
-                           na.rm = T, size = labsize, hjust = 0, nudge_x = 3)
+        ggplot2::geom_text(data = sitelb, 
+          ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`, label = `Monitoring Location ID`, color = `Monitoring Location ID`), 
+          na.rm = T, size = labsize, hjust = 0, nudge_x = 3, show.legend = FALSE)
       
   }
   
@@ -168,22 +172,24 @@ anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', '
       dplyr::select(`Location Group`, `Activity Start Date`, `Result Value`)
     
     p <- p +
-      ggplot2::geom_line(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Location Group`)) + 
-      ggplot2::geom_point(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Location Group`), size = ptsize)
+      ggplot2::geom_line(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Location Group`, color = `Location Group`), show.legend = FALSE) + 
+      ggplot2::geom_point(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Location Group`, color = `Location Group`), size = ptsize)
     
     if(repel)
       p <- p +
-      ggrepel::geom_text_repel(data = grplb, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Location Group`, label = `Location Group`), 
-                               na.rm = T, size = labsize, hjust = 0, nudge_x = 5, segment.color = 'grey')
+      ggrepel::geom_text_repel(data = grplb, 
+        ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Location Group`, label = `Location Group`, color = `Location Group`), 
+        na.rm = T, size = labsize, hjust = 0, nudge_x = 5, segment.color = 'grey', show.legend = FALSE)
     
     if(!repel)
       p <- p + 
-      ggplot2::geom_text(data = grplb, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Location Group`, label = `Location Group`), 
-                         na.rm = T, size = labsize, hjust = 0, nudge_x = 3)
+      ggplot2::geom_text(data = grplb, 
+        ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Location Group`, label = `Location Group`, color = `Location Group`), 
+        na.rm = T, size = labsize, hjust = 0, nudge_x = 3, show.legend = FALSE)
     
     if(confint)
       p <- p + 
-       ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Activity Start Date`, ymin = lov, ymax = hiv, group = `Location Group`), width = 1)
+       ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Activity Start Date`, ymin = lov, ymax = hiv, group = `Location Group`, color = `Location Group`), width = 1)
     
   }
   
@@ -211,11 +217,17 @@ anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', '
   
   p <- p +  
     thm +
+    ggplot2::guides(
+      linetype = ggplot2::guide_legend(order = 1),
+      size = ggplot2::guide_legend(order = 1),
+      color = ggplot2::guide_legend(order = 2)
+    ) +
     ggplot2::labs(
       y = ylab, 
       title = param, 
-      color = NULL,
+      linetype = NULL,
       size = NULL, 
+      color = NULL,
       alpha = NULL,
       x = NULL
     )
