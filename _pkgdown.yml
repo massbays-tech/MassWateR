@@ -12,3 +12,48 @@ articles:
   - qcoverview
   - outlierchecks
   - analysis
+reference:
+- title: Read, check, and format data
+  contents:
+  - readMWRresults
+  - checkMWRresults
+  - formMWRresults
+  - readMWRacc
+  - checkMWRacc
+  - formMWRacc
+  - readMWRfrecom
+  - checkMWRfrecom
+  - formMWRfrecom
+  - readMWRsites
+  - checkMWRsites
+- title: Quality control checks, table and report creation
+  contents:
+  - qcMWRreview
+  - qcMWRacc
+  - tabMWRacc
+  - qcMWRfre
+  - tabMWRfre
+  - qcMWRcom
+  - tabMWRcom
+- title: Outlier analysis
+  content:
+  - anlzMWRoutlier
+- title: General analysis
+  content: 
+  - anlzMWRseason
+  - anlzMWRdate
+  - anlzMWRsite
+  - anlzMWRmap
+- title: Utility functions used by all other functions
+  content: 
+  - utilMWRconfint
+  - utilMWRfilter
+  - utilMWRinput
+  - utilMWRlimits
+  - utilMWRthresh
+  - utilMWRyscale
+  - utilMWRoutlier
+- title: Lookup tables
+  - paramsMWR
+  - thresholdMWR
+  
