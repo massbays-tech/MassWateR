@@ -5,7 +5,7 @@ articles:
 - title: Get Started
   navbar: ~
   contents:
-  - datainput
+  - MassWateR
 - title: Articles
   navbar: ~
   contents: 
@@ -36,16 +36,16 @@ reference:
   - qcMWRcom
   - tabMWRcom
 - title: Outlier analysis
-  content:
+  contents:
   - anlzMWRoutlier
 - title: General analysis
-  content: 
+  contents: 
   - anlzMWRseason
   - anlzMWRdate
   - anlzMWRsite
   - anlzMWRmap
 - title: Utility functions used by all other functions
-  content: 
+  contents: 
   - utilMWRconfint
   - utilMWRfilter
   - utilMWRinput
@@ -54,6 +54,6 @@ reference:
   - utilMWRyscale
   - utilMWRoutlier
 - title: Lookup tables
+  contents:
   - paramsMWR
   - thresholdMWR
-  
