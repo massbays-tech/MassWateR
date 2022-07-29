@@ -92,39 +92,3 @@ Finally, a data frame of the identified outliers can also be returned by setting
 ```{r}
 anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, group = "month", outliers = TRUE)
 ```
-
-## Modifying the plot
-
-The default plot format should be sufficient in most cases, but it can be modified using common `ggplot()` plot functions (see the [ggplot2](https://ggplot2.tidyverse.org/index.html) page for details).  The plot returned by `anlzMWRoutlier()` is a `ggplot()` plot object and additional components can be added using the `+` notation. Note that overriding some of the existing plot components may significantly alter the appearance, so use caution. 
-
-Below are a few examples of minimal additions to change the standard plot. A single plot object for the original plot is created as `p` and is modified differently in each example. 
-
-Modify plot labels: 
-
-```{r, fig.height = 4, fig.width = 8}
-p <- anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, group = "month")
-p +
-  labs(
-    x = "Month", 
-    y = "Dissolved oxygen (mg/L)", 
-    title = "Outliers for dissolved oxygen"
-  )
-```
-
-Modify theme elements:
-
-```{r}
-p + 
-  theme_bw() +
-  theme(
-    axis.text = element_text(size = 14)
-  )
-```
-
-Change the y-axis scale limits:
-
-```{r}
-p + 
-  scale_y_continuous(limits = c(0, 20))
-```
-

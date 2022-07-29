@@ -7,13 +7,90 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r, include = FALSE, message = F, warning = F}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  warning = T, 
+  message = F
 )
 ```
 
-```{r setup}
+The default format for plots created from any of the [analyze](articles/analysis.html) functions, including the [outlier plots](articles/outlierchecks.html), should be sufficient in most cases.  However, the plot outputs are `ggplot()` objects and can be modified using common `ggplot()` plot functions (see the [ggplot2](https://ggplot2.tidyverse.org/index.html) page for details).  Additional components can be added using the `+` notation as for a standard `ggplot()` object. This is distinct from using any of the default arguments for the plots to change the appearance (e.g., `fill = "red"`).  Overriding some of the existing plot components may also significantly alter the appearance, so use caution. 
+
+First, `ggplot2` is loaded. 
+
+```{r}
+library(ggplot2)
+```
+
+Then, the required input files for the MassWateR analyze functions are imported, using the files included with the package for the examples.  The checks and warnings are suppressed because we know the files are formatted correctly.
+
+```{r}
 library(MassWateR)
+
+# import results data
+respth <- system.file("extdata/ExampleResults.xlsx", package = "MassWateR")
+resdat <- readMWRresults(respth, runchk = F, warn = F)
+
+# import accuracy data
+accpth <- system.file("extdata/ExampleDQOAccuracy.xlsx", package = "MassWateR")
+accdat <- readMWRacc(accpth, runchk = F)
+
+# import site metadata
+sitpth <- system.file("extdata/ExampleSites.xlsx", package = "MassWateR")
+sitdat <- readMWRsites(sitpth, runchk = F)
+```
+
+Below are a few examples of additions to change the standard plot, using `anlzMWRseason()` for demonstration. A single plot object for the original plot is created as `p` and is modified differently in each example. 
+
+```{r}
+p <- anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "month")
+```
+
+Modify plot labels: 
+
+```{r, fig.height = 4, fig.width = 8}
+p +
+  labs(
+    x = "Month", 
+    y = "Dissolved oxygen (mg/L)", 
+    title = "Seasonal summaries for dissolved oxygen"
+  )
+```
+
+Modify the theme:
+
+```{r, fig.height = 4, fig.width = 8}
+p + theme_grey()
+```
+
+Notice how the default legend placement and x-axis text were altered by changing the theme.  These can be changed by combining a preset theme (e.g., `theme_bw()`) with additional `theme()` elements. 
+
+```{r, fig.height = 4, fig.width = 8}
+p + 
+  theme_bw() +
+  theme(
+    axis.text = element_text(size = 14), 
+    legend.position = "bottom"
+  )
+```
+
+Changing the axis limits can be done two ways.  Note the difference between using `scale_y_continuous()` and `coord_cartesian()`.  Using `scale_y_continuous()` will omit any data beyond the range provided and rescale the boxplots accordingly.  The `coord_cartesian()` function will not omit any data used to create the boxplots in the original plot.    
+
+```{r, fig.height = 4, fig.width = 8}
+p + scale_y_continuous(limits = c(0, 8))
+p + coord_cartesian(ylim = c(0, 8))
+```
+
+A plot with facets for each site:
+
+```{r, fig.height = 9, fig.width = 9}
+p + facet_wrap(~`Monitoring Location ID`)
+```
+
+Switch the axes:
+
+```{r, fig.height = 4, fig.width = 8}
+p + coord_flip()
 ```
