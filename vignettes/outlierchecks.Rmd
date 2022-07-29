@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 library(ggplot2)
 ```
 
-Outliers can be evaluated once the required data are successfully imported into R (see the [data input and checks vignette](articles/MassWateR.html) for an overview).  The results data file that describes the monitoring data for surface waters is required.  The data quality objectives file for accuracy is also required to determine plot axis scaling as arithmetic (linear) or logarithmic and to fill results data that are below detection or above quantitation limits. The example data included with the package are imported here to demonstrate how to use the analysis functions:
+Outliers can be evaluated once the required data are successfully imported into R (see the [data input and checks vignette](articles/MassWateR.html) for an overview).  The results data file with the monitoring data is required.  The data quality objectives file for accuracy is also required to determine plot axis scaling as arithmetic (linear) or logarithmic and to fill results data that are below detection or above quantitation limits. The example data included with the package are imported here to demonstrate how to use the analysis functions:
 
 ```{r, message = T}
 library(MassWateR)
@@ -33,7 +33,7 @@ accdat <- readMWRacc(accpth)
 
 ## Analyzing outliers
 
-Outliers can be identified using the `anlzMWRoutlier()` function.  Evaluating data for outliers is a critical step of quality control.  Although outliers are not explicitly evaluated with the formal quality control checks, the function allows a user to quickly identify them for removal or additional follow-up.  Outliers are defined using the standard definition of 1.5 times the interquartile range (the 25th to 75th percentile) of a parameter, depending on the grouping used for the function.  They are visually identified as points above or below the whiskers in the boxplots that describe distribution of the data, i.e., the box defines the interquartile range, the horizontal line is the median, and the whiskers extend above and below 1.5 times the interquartile range.  
+Outliers can be identified using the `anlzMWRoutlier()` function.  Evaluating data for outliers is a critical step of quality control, and this function allows a user to quickly identify them for removal or additional follow-up.  Outliers are defined using the standard definition of 1.5 times the interquartile range (the 25th to 75th percentile) of a parameter, depending on the grouping used for the function.  They are visually identified as points above or below the whiskers in the boxplots that describe distribution of the data, i.e., the box defines the interquartile range, the horizontal line is the median, and the whiskers extend above and below 1.5 times the interquartile range.  
 
 ```{r boxplotex, out.width = '65%', fig.align = 'center', echo = F, fig.cap = 'A summary of the distribution statistics shown with a standard boxplot.  Outliers extend beyond the whiskers and are 1.5 times the interquartile range.'}
 knitr::include_graphics("boxplotex.PNG")
