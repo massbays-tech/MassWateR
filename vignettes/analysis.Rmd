@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 library(ggplot2)
 ```
 
-The analysis functions in MassWateR can be used to evaluate trends, summaries, and maps once the required data are successfully imported into R (see the [data input and checks vignette](articles/MassWateR.html) for an overview).  The results data file that describes the monitoring data for surface waters is required.  The data quality objectives file for accuracy is also required to automatically determine plot axis scaling as arithmetic (linear) or logarithmic and to fill results data that are below detection or above quantitation limits. The site metadata file is used to create maps. The example data included with the package are imported here to demonstrate how to use the analysis functions:
+The analysis functions in MassWateR can be used to evaluate trends, summaries, and maps once the required data are successfully imported into R (see the [data input and checks vignette](articles/MassWateR.html) for an overview).  The results data file with the monitoring data is required.  The data quality objectives file for accuracy is also required to automatically determine plot axis scaling as arithmetic (linear) or logarithmic and to fill results data that are below detection or above quantitation limits. The site metadata file is used to create maps. The example data included with the package are imported here to demonstrate how to use the analysis functions:
 
 ```{r, message = T}
 library(MassWateR)
