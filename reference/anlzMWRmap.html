@@ -77,6 +77,8 @@
 <span>  crs <span class="op">=</span> <span class="fl">4326</span>,</span>
 <span>  zoom <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>  maptype <span class="op">=</span> <span class="st">"terrain-background"</span>,</span>
+<span>  addvector <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  vectcol <span class="op">=</span> <span class="st">"lightblue"</span>,</span>
 <span>  buffdist <span class="op">=</span> <span class="fl">0.02</span>,</span>
 <span>  northloc <span class="op">=</span> <span class="st">"tl"</span>,</span>
 <span>  scaleloc <span class="op">=</span> <span class="st">"br"</span>,</span>
@@ -151,6 +153,14 @@
 <dd><p>character string for the base map type, see details</p></dd>
 
 
+<dt>addvector</dt>
+<dd><p>logical indicating if vector objects of water bodies are added to the map, see details</p></dd>
+
+
+<dt>vectcol</dt>
+<dd><p>character string of color for vector objects if <code>addvector = TRUE</code></p></dd>
+
+
 <dt>buffdist</dt>
 <dd><p>numeric for buffer around the bounding box for the selected sites, see details</p></dd>
 
@@ -184,6 +194,7 @@
 <p>The default value for <code>crs</code> is EPSG 4326 for the WGS 84 projection in decimal degrees.  The <code>crs</code> argument is passed to <code><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></code> and any acceptable CRS appropriate for the data can be used.</p>
 <p>The results shown on the map represent the parameter average for each site within the date range provided by <code>dtrng</code>.  The average may differ depending on the value provided to the <code>yscl</code> argument.  Log10-distributed parameters use the geometric mean and normally-distributed parameters use the arithmetic mean.  The distribution is determined from the <code>ycsl</code> argument. If <code>yscl = "auto"</code> (default), the distribution is determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are summarized with the geometric mean, otherwise arithmetic. Setting <code>yscl = "linear"</code> or <code>yscl = "log"</code> will the use arithmetic or geometric summaries, respectively, regardless of the information in the data quality objective file for accuracy.</p>
 <p>The base map is obtained from the <code><a href="https://rdrr.io/pkg/ggmap/man/get_stamenmap.html" class="external-link">get_stamenmap</a></code> function.  The <code>zoom</code> value specifies the resolution of the map.  Use higher values to download map tiles with greater resolution, although this increases the download time.  The <code>maptype</code> argument describes the type of base map to download. Acceptable options include <code>"terrain"</code>, <code>"terrain-background"</code>, <code>"terrain-labels"</code>, <code>"terrain-lines"</code>, <code>"toner"</code>, <code>"toner-2010"</code>, <code>"toner-2011"</code>, <code>"toner-background"</code>, <code>"toner-hybrid"</code>, <code>"toner-labels"</code>, <code>"toner-lines"</code>, <code>"toner-lite"</code>, or <code>"watercolor"</code>. Use <code>maptype = NULL</code> to suppress the base map.</p>
+<p>Using <code>addvector = TRUE</code> will include lines and polygons of natural water bodies from the OpenStreetMap (<a href="https://www.openstreetmap.org/" class="external-link">OSM</a>) project, downloaded using the <a href="https://docs.ropensci.org/osmdata" class="external-link">osmdata</a> package.  The downloaded objects are plotted as simple features on top of the base map specified with the <code>maptype</code> argument.Use <code>maptype = NULL</code> to show only the vector objects.</p>
 <p>The area around the summarized points can be increased or decreased using the <code>buffdist</code> argument.  This creates a buffered area around the bounding box for the points, where the units are degrees.</p>
 <p>A north arrow and scale bar are also placed on the map as defined by the <code>northloc</code> and <code>scaleloc</code> arguments.  The placement for both can be chosen as <code>"tl"</code>, <code>"tr"</code>, <code>"bl"</code>, or <code>"br"</code> for top-left, top-right, bottom-left, or bottom-right respectively.  Setting either of the arguments to <code>NULL</code> will suppress the placement on the map.</p>
     </div>
@@ -253,6 +264,18 @@
 <span class="r-in"><span><span class="fu">anlzMWRmap</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>No spatial information for sites: CND-036, HBS-031, HBS-057, HBS-057P, HBS-076, HBS-080P, HBS-085, HBS-088P, HBS-095P, HBS-098, LND-007, SUD-236, SUD-293</span>
 <span class="r-plt img"><img src="anlzMWRmap-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># map with OpenStreetMap water bodies</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRmap</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, addvector <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>No spatial information for sites: CND-036, HBS-031, HBS-057, HBS-057P, HBS-076, HBS-080P, HBS-085, HBS-088P, HBS-095P, HBS-098, LND-007, SUD-236, SUD-293</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span>
+<span class="r-plt img"><img src="anlzMWRmap-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># map with only OpenStreetMap water bodies</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRmap</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, addvector <span class="op">=</span> <span class="cn">TRUE</span>, </span></span>
+<span class="r-in"><span>   maptype <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>No spatial information for sites: CND-036, HBS-031, HBS-057, HBS-057P, HBS-076, HBS-080P, HBS-085, HBS-088P, HBS-095P, HBS-098, LND-007, SUD-236, SUD-293</span>
+<span class="r-plt img"><img src="anlzMWRmap-3.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
