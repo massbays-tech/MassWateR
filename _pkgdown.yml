@@ -12,6 +12,7 @@ articles:
   - qcoverview
   - outlierchecks
   - analysis
+  - modifying
 reference:
 - title: Read, check, and format data
   contents:
