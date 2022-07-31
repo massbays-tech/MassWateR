@@ -133,7 +133,7 @@ The results averaged across all sites in the results file can be plotted by omit
 anlzMWRdate(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "all")
 ```
 
-Confidence intervals at 95% for the barplots can be shown by setting `confint = TRUE`.
+Confidence intervals at 95% for the points can be shown when `group = "all"` or `"location"` by setting `confint = TRUE`.
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRdate(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "all", confint = TRUE)
