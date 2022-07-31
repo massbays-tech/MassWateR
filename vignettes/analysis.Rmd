@@ -265,3 +265,15 @@ The base map can be suppressed with `maptype = NULL`.
 ```{r, fig.height = 7, fig.width = 6}
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = NULL, warn = F)
 ```
+
+Finally, using `addvector = TRUE` will include lines and polygons of natural water bodies from the OpenStreetMap ([OSM](https://www.openstreetmap.org) project, downloaded using the [osmdata](https://docs.ropensci.org/osmdata) package.  The downloaded objects are plotted as simple features on top of the base map specified with the `maptype` argument.  
+
+```{r, fig.height = 7, fig.width = 6}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addvector = T, warn = F)
+```
+
+Use `maptype = NULL` to show only the water body objects.
+
+```{r, fig.height = 7, fig.width = 6}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addvector = T, maptype = NULL, warn = F)
+```

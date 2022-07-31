@@ -4,7 +4,7 @@ test_that("Checking output format", {
 })
 
 test_that("Checking output format, one site", {
-  result <- anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, warn = FALSE, site = 'CND-110')
+  result <- anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, warn = FALSE, site = 'CND-110', addvector = T)
   expect_s3_class(result, 'ggplot')
 })
 

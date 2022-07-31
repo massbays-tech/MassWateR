@@ -16,6 +16,8 @@
 #' @param crs numeric as a four-digit EPSG number for the coordinate reference system, see details
 #' @param zoom numeric indicating resolution of the base map, see details
 #' @param maptype character string for the base map type, see details
+#' @param addvector logical indicating if vector objects of water bodies are added to the map, see details
+#' @param vectcol character string of color for vector objects if \code{addvector = TRUE}
 #' @param buffdist numeric for buffer around the bounding box for the selected sites, see details
 #' @param northloc character string indicating location of the north arrow, see details
 #' @param scaleloc character string indicating location of the scale bar, see details
@@ -35,6 +37,8 @@
 #' The results shown on the map represent the parameter average for each site within the date range provided by \code{dtrng}.  The average may differ depending on the value provided to the \code{yscl} argument.  Log10-distributed parameters use the geometric mean and normally-distributed parameters use the arithmetic mean.  The distribution is determined from the \code{ycsl} argument. If \code{yscl = "auto"} (default), the distribution is determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are summarized with the geometric mean, otherwise arithmetic. Setting \code{yscl = "linear"} or \code{yscl = "log"} will the use arithmetic or geometric summaries, respectively, regardless of the information in the data quality objective file for accuracy. 
 #' 
 #' The base map is obtained from the \code{\link[ggmap]{get_stamenmap}} function.  The \code{zoom} value specifies the resolution of the map.  Use higher values to download map tiles with greater resolution, although this increases the download time.  The \code{maptype} argument describes the type of base map to download. Acceptable options include \code{"terrain"}, \code{"terrain-background"}, \code{"terrain-labels"}, \code{"terrain-lines"}, \code{"toner"}, \code{"toner-2010"}, \code{"toner-2011"}, \code{"toner-background"}, \code{"toner-hybrid"}, \code{"toner-labels"}, \code{"toner-lines"}, \code{"toner-lite"}, or \code{"watercolor"}. Use \code{maptype = NULL} to suppress the base map.
+#' 
+#' Using \code{addvector = TRUE} will include lines and polygons of natural water bodies from the OpenStreetMap (\href{https://www.openstreetmap.org/}{OSM}) project, downloaded using the \href{https://docs.ropensci.org/osmdata}{osmdata} package.  The downloaded objects are plotted as simple features on top of the base map specified with the \code{maptype} argument.Use \code{maptype = NULL} to show only the vector objects.
 #' 
 #' The area around the summarized points can be increased or decreased using the \code{buffdist} argument.  This creates a buffered area around the bounding box for the points, where the units are degrees.  
 #' 
@@ -61,7 +65,14 @@
 #' 
 #' # map 
 #' anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat)
-anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', yscl = c('auto', 'log', 'linear'), crs = 4326, zoom = 11, maptype = 'terrain-background', buffdist = 0.02, northloc = 'tl', scaleloc = 'br', runchk = TRUE, warn = TRUE){
+#' 
+#' # map with OpenStreetMap water bodies
+#' anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addvector = TRUE)
+#' 
+#' # map with only OpenStreetMap water bodies
+#' anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addvector = TRUE, 
+#'    maptype = NULL)
+anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', yscl = c('auto', 'log', 'linear'), crs = 4326, zoom = 11, maptype = 'terrain-background', addvector = FALSE,  vectcol = 'lightblue', buffdist = 0.02, northloc = 'tl', scaleloc = 'br', runchk = TRUE, warn = TRUE){
   
   if(!requireNamespace('ggmap', quietly = TRUE))
     stop("Package \"ggmap\" needed for this function to work. Please install it.", call. = FALSE)
@@ -138,7 +149,7 @@ anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgr
   ylab <- unique(resdat$`Result Unit`)
   
   m <- ggplot2::ggplot()
-  
+
   if(!is.null(maptype)){
     
     bsmap <- suppressMessages(ggmap::get_stamenmap(bbox = dat_ext, maptype = maptype, zoom = zoom))
@@ -146,6 +157,30 @@ anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgr
     
   }
 
+  if(addvector){
+    
+    vect_sf <- osmdata::opq(bbox = as.numeric(dat_ext)) %>% 
+      osmdata::add_osm_feature(key = 'natural', value = 'water') %>%
+      osmdata::osmdata_sf()
+
+    if(!is.null(vect_sf$osm_lines))
+      m <- m + 
+        ggplot2::geom_sf(data = vect_sf$osm_lines, col = vectcol, fill = vectcol, inherit.aes = FALSE) 
+    
+    if(!is.null(vect_sf$osm_polygons))
+      m <- m +
+        ggplot2::geom_sf(data = vect_sf$osm_polygons, col = vectcol, fill = vectcol, inherit.aes = FALSE) 
+    
+    if(!is.null(vect_sf$osm_multilines))
+      m <- m + 
+        ggplot2::geom_sf(data = vect_sf$osm_multilines, col = vectcol, fill = vectcol, inherit.aes = FALSE)
+    
+    if(!is.null(vect_sf$osm_multipolygons))
+      m <- m + 
+        ggplot2::geom_sf(data = vect_sf$osm_multipolygons, col = vectcol, fill = vectcol, inherit.aes = FALSE) 
+    
+  }
+  
   suppressMessages({
     m <-  m +
       ggplot2::geom_sf(data = tomap, ggplot2::aes(fill = `Result Value`), color = 'black', pch = 21, inherit.aes = F, size = ptsize) +
@@ -179,6 +214,10 @@ anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgr
     m <- m  +
       ggplot2::geom_sf_text(data = tomap, ggplot2::aes(label = `Monitoring Location ID`), inherit.aes = F, size = labsize)
 
+  # set coordinates because vector not clipped
+  m <- m +
+    ggplot2::coord_sf(xlim = dat_ext[c(1, 3)], ylim = dat_ext[c(2, 4)])
+  
   return(suppressWarnings(print(m)))
   
 }
