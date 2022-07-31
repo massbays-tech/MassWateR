@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The default format for plots created from any of the [analyze](articles/analysis.html) functions, including the [outlier plots](articles/outlierchecks.html), should be sufficient in most cases.  However, the plot outputs are `ggplot()` objects and can be modified using common `ggplot()` plot functions (see the [ggplot2](https://ggplot2.tidyverse.org/index.html) page for details).  Additional components can be added using the `+` notation as for a standard `ggplot()` object. This is distinct from using any of the default arguments for the plots to change the appearance (e.g., `fill = "red"`).  Overriding some of the existing plot components may also significantly alter the appearance, so use caution. 
+The default format for plots created from any of the [analyze](https://massbays-tech.github.io/MassWateR/articles/analysis.html) functions, including the [outlier plots](https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html), should be sufficient in most cases.  However, the plot outputs are `ggplot()` objects and can be modified using common `ggplot()` plot functions (see the [ggplot2](https://ggplot2.tidyverse.org/index.html) page for details).  Additional components can be added using the `+` notation as for a standard `ggplot()` object. This is distinct from using any of the default arguments for the plots to change the appearance (e.g., `fill = "red"`).  Overriding some of the existing plot components may also significantly alter the appearance, so use caution. 
 
 First, `ggplot2` is loaded. 
 
