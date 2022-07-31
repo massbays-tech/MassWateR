@@ -43,15 +43,18 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
+  <a class="nav-link" href="../articles/MassWateR.html">Get started</a>
+</li>
+<li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/datainput.html">MassWateR data input and checks</a>
     <a class="dropdown-item" href="../articles/qcoverview.html">MassWateR quality control functions</a>
     <a class="dropdown-item" href="../articles/outlierchecks.html">MassWateR outlier checks</a>
     <a class="dropdown-item" href="../articles/analysis.html">MassWateR analyses</a>
+    <a class="dropdown-item" href="../articles/modifying.html">Modifying plots</a>
   </div>
 </li>
       </ul>
@@ -75,7 +78,8 @@
 
 
 
-<script src="analysis_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>MassWateR analyses</h1>
             
@@ -86,7 +90,7 @@
 
     
     
-<p>The analysis functions in MassWateR can be used to evaluate trends, summaries, and maps once the required data are successfully imported into R (see the <a href="https://massbays-tech.github.io/MassWateR/articles/datainput.html">data input and checks vignette</a> for an overview). The results data file that describes the monitoring data for surface waters is required. The data quality objectives file for accuracy is also required to automatically determine plot axis scaling as arithmetic (linear) or logarithmic and to fill results data that are below detection or above quantitation limits. The site metadata file is used to create maps. The example data included with the package are imported here to demonstrate how to use the analysis functions:</p>
+<p>The analysis functions in MassWateR can be used to evaluate trends, summaries, and maps once the required data are successfully imported into R (see the <a href="articles/MassWateR.html">data input and checks vignette</a> for an overview). The results data file with the monitoring data is required. The data quality objectives file for accuracy is also required to automatically determine plot axis scaling as arithmetic (linear) or logarithmic and to fill results data that are below detection or above quantitation limits. The site metadata file is used to create maps. The example data included with the package are imported here to demonstrate how to use the analysis functions:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/massbays-tech/MassWateR" class="external-link">MassWateR</a></span><span class="op">)</span></span>
 <span></span>
@@ -211,7 +215,7 @@
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRdate.html">anlzMWRdate</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysis_files/figure-html/unnamed-chunk-17-1.png" width="768"></p>
-<p>Confidence intervals at 95% for the barplots can be shown by setting <code>confint = TRUE</code>.</p>
+<p>Confidence intervals at 95% for the points can be shown when <code>group = "all"</code> or <code>"location"</code> by setting <code>confint = TRUE</code>.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRdate.html">anlzMWRdate</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"all"</span>, confint <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysis_files/figure-html/unnamed-chunk-18-1.png" width="768"></p>
@@ -308,36 +312,6 @@
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, maptype <span class="op">=</span> <span class="cn">NULL</span>, warn <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysis_files/figure-html/unnamed-chunk-37-1.png" width="576"></p>
-</div>
-<div class="section level2">
-<h2 id="modifying-the-plots">Modifying the plots<a class="anchor" aria-label="anchor" href="#modifying-the-plots"></a>
-</h2>
-<p>The default plot format should be sufficient in most cases, but it can be modified using common <code>ggplot()</code> plot functions (see the <a href="https://ggplot2.tidyverse.org/index.html" class="external-link">ggplot2</a> page for details). Each plot returned is a <code>ggplot()</code> plot object and additional components can be added using the <code>+</code> notation. Note that overriding some of the existing plot components may significantly alter the appearance, so use caution.</p>
-<p>Below are a few examples of minimal additions to change the standard plot, using <code><a href="../reference/anlzMWRseason.html">anlzMWRseason()</a></code> for demonstration. A single plot object for the original plot is created as <code>p</code> and is modified differently in each example.</p>
-<p>Modify plot labels:</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"month"</span><span class="op">)</span></span>
-<span><span class="va">p</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span></span>
-<span>    x <span class="op">=</span> <span class="st">"Month"</span>, </span>
-<span>    y <span class="op">=</span> <span class="st">"Dissolved oxygen (mg/L)"</span>, </span>
-<span>    title <span class="op">=</span> <span class="st">"Seasonal summaries for dissolved oxygen"</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-38-1.png" width="768"></p>
-<p>Modify theme elements:</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> </span>
-<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme</span><span class="op">(</span></span>
-<span>    axis.text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">14</span><span class="op">)</span>, </span>
-<span>    legend.position <span class="op">=</span> <span class="st">"bottom"</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-39-1.png" width="700"></p>
-<p>Change the y-axis scale limits:</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> </span>
-<span>  <span class="fu">scale_y_continuous</span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-40-1.png" width="700"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

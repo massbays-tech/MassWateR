@@ -18,16 +18,19 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item">
+      <ul class="navbar-nav me-auto"><li class="nav-item">
+  <a class="nav-link" href="../articles/MassWateR.html">Get started</a>
+</li>
+<li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/datainput.html">MassWateR data input and checks</a>
     <a class="dropdown-item" href="../articles/qcoverview.html">MassWateR quality control functions</a>
     <a class="dropdown-item" href="../articles/outlierchecks.html">MassWateR outlier checks</a>
     <a class="dropdown-item" href="../articles/analysis.html">MassWateR analyses</a>
+    <a class="dropdown-item" href="../articles/modifying.html">Modifying plots</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -50,7 +53,7 @@
     </div>
 
     <div class="section level2">
-      <h2 id="all-functions">All functions<a class="anchor" aria-label="anchor" href="#all-functions"></a></h2>
+      <h2 id="read-check-and-format-data">Read, check, and format data<a class="anchor" aria-label="anchor" href="#read-check-and-format-data"></a></h2>
       
       
 
@@ -62,39 +65,9 @@
 
       <dl><dt>
           
-          <code><a href="anlzMWRdate.html">anlzMWRdate()</a></code> 
+          <code><a href="readMWRresults.html">readMWRresults()</a></code> 
         </dt>
-        <dd>Analyze trends by date in results file</dd>
-      </dl><dl><dt>
-          
-          <code><a href="anlzMWRmap.html">anlzMWRmap()</a></code> 
-        </dt>
-        <dd>Analyze results with maps</dd>
-      </dl><dl><dt>
-          
-          <code><a href="anlzMWRoutlier.html">anlzMWRoutlier()</a></code> 
-        </dt>
-        <dd>Analyze outliers in results file</dd>
-      </dl><dl><dt>
-          
-          <code><a href="anlzMWRseason.html">anlzMWRseason()</a></code> 
-        </dt>
-        <dd>Analyze seasonal trends in results file</dd>
-      </dl><dl><dt>
-          
-          <code><a href="anlzMWRsite.html">anlzMWRsite()</a></code> 
-        </dt>
-        <dd>Analyze site trends in results file</dd>
-      </dl><dl><dt>
-          
-          <code><a href="checkMWRacc.html">checkMWRacc()</a></code> 
-        </dt>
-        <dd>Check data quality objective accuracy data</dd>
-      </dl><dl><dt>
-          
-          <code><a href="checkMWRfrecom.html">checkMWRfrecom()</a></code> 
-        </dt>
-        <dd>Check data quality objective frequency and completeness data</dd>
+        <dd>Read water quality monitoring results from an external file</dd>
       </dl><dl><dt>
           
           <code><a href="checkMWRresults.html">checkMWRresults()</a></code> 
@@ -102,49 +75,9 @@
         <dd>Check water quality monitoring results</dd>
       </dl><dl><dt>
           
-          <code><a href="checkMWRsites.html">checkMWRsites()</a></code> 
-        </dt>
-        <dd>Check site metadata file</dd>
-      </dl><dl><dt>
-          
-          <code><a href="formMWRacc.html">formMWRacc()</a></code> 
-        </dt>
-        <dd>Format data quality objective accuracy data</dd>
-      </dl><dl><dt>
-          
-          <code><a href="formMWRfrecom.html">formMWRfrecom()</a></code> 
-        </dt>
-        <dd>Format data quality objective frequency and completeness data</dd>
-      </dl><dl><dt>
-          
           <code><a href="formMWRresults.html">formMWRresults()</a></code> 
         </dt>
         <dd>Format water quality monitoring results</dd>
-      </dl><dl><dt>
-          
-          <code><a href="paramsMWR.html">paramsMWR</a></code> 
-        </dt>
-        <dd>Master parameter list and units for Characteristic Name column in results data</dd>
-      </dl><dl><dt>
-          
-          <code><a href="qcMWRacc.html">qcMWRacc()</a></code> 
-        </dt>
-        <dd>Run quality control accuracy checks for water quality monitoring results</dd>
-      </dl><dl><dt>
-          
-          <code><a href="qcMWRcom.html">qcMWRcom()</a></code> 
-        </dt>
-        <dd>Run quality control completeness checks for water quality monitoring results</dd>
-      </dl><dl><dt>
-          
-          <code><a href="qcMWRfre.html">qcMWRfre()</a></code> 
-        </dt>
-        <dd>Run quality control frequency checks for water quality monitoring results</dd>
-      </dl><dl><dt>
-          
-          <code><a href="qcMWRreview.html">qcMWRreview()</a></code> 
-        </dt>
-        <dd>Create the quality control review report</dd>
       </dl><dl><dt>
           
           <code><a href="readMWRacc.html">readMWRacc()</a></code> 
@@ -152,14 +85,29 @@
         <dd>Read data quality objectives for accuracy from an external file</dd>
       </dl><dl><dt>
           
+          <code><a href="checkMWRacc.html">checkMWRacc()</a></code> 
+        </dt>
+        <dd>Check data quality objective accuracy data</dd>
+      </dl><dl><dt>
+          
+          <code><a href="formMWRacc.html">formMWRacc()</a></code> 
+        </dt>
+        <dd>Format data quality objective accuracy data</dd>
+      </dl><dl><dt>
+          
           <code><a href="readMWRfrecom.html">readMWRfrecom()</a></code> 
         </dt>
         <dd>Read data quality objectives for frequency and completeness from an external file</dd>
       </dl><dl><dt>
           
-          <code><a href="readMWRresults.html">readMWRresults()</a></code> 
+          <code><a href="checkMWRfrecom.html">checkMWRfrecom()</a></code> 
         </dt>
-        <dd>Read water quality monitoring results from an external file</dd>
+        <dd>Check data quality objective frequency and completeness data</dd>
+      </dl><dl><dt>
+          
+          <code><a href="formMWRfrecom.html">formMWRfrecom()</a></code> 
+        </dt>
+        <dd>Format data quality objective frequency and completeness data</dd>
       </dl><dl><dt>
           
           <code><a href="readMWRsites.html">readMWRsites()</a></code> 
@@ -167,14 +115,40 @@
         <dd>Read site metadata from an external file</dd>
       </dl><dl><dt>
           
+          <code><a href="checkMWRsites.html">checkMWRsites()</a></code> 
+        </dt>
+        <dd>Check site metadata file</dd>
+      </dl></div><div class="section level2">
+      <h2 id="quality-control-checks-table-and-report-creation">Quality control checks, table and report creation<a class="anchor" aria-label="anchor" href="#quality-control-checks-table-and-report-creation"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="qcMWRreview.html">qcMWRreview()</a></code> 
+        </dt>
+        <dd>Create the quality control review report</dd>
+      </dl><dl><dt>
+          
+          <code><a href="qcMWRacc.html">qcMWRacc()</a></code> 
+        </dt>
+        <dd>Run quality control accuracy checks for water quality monitoring results</dd>
+      </dl><dl><dt>
+          
           <code><a href="tabMWRacc.html">tabMWRacc()</a></code> 
         </dt>
         <dd>Create a formatted table of quality control accuracy checks</dd>
       </dl><dl><dt>
           
-          <code><a href="tabMWRcom.html">tabMWRcom()</a></code> 
+          <code><a href="qcMWRfre.html">qcMWRfre()</a></code> 
         </dt>
-        <dd>Create a formatted table of quality control completeness checks</dd>
+        <dd>Run quality control frequency checks for water quality monitoring results</dd>
       </dl><dl><dt>
           
           <code><a href="tabMWRfre.html">tabMWRfre()</a></code> 
@@ -182,10 +156,73 @@
         <dd>Create a formatted table of quality control frequency checks</dd>
       </dl><dl><dt>
           
-          <code><a href="thresholdMWR.html">thresholdMWR</a></code> 
+          <code><a href="qcMWRcom.html">qcMWRcom()</a></code> 
         </dt>
-        <dd>Master thresholds list for analysis of results data</dd>
+        <dd>Run quality control completeness checks for water quality monitoring results</dd>
       </dl><dl><dt>
+          
+          <code><a href="tabMWRcom.html">tabMWRcom()</a></code> 
+        </dt>
+        <dd>Create a formatted table of quality control completeness checks</dd>
+      </dl></div><div class="section level2">
+      <h2 id="outlier-analysis">Outlier analysis<a class="anchor" aria-label="anchor" href="#outlier-analysis"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="anlzMWRoutlier.html">anlzMWRoutlier()</a></code> 
+        </dt>
+        <dd>Analyze outliers in results file</dd>
+      </dl></div><div class="section level2">
+      <h2 id="general-analysis">General analysis<a class="anchor" aria-label="anchor" href="#general-analysis"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="anlzMWRseason.html">anlzMWRseason()</a></code> 
+        </dt>
+        <dd>Analyze seasonal trends in results file</dd>
+      </dl><dl><dt>
+          
+          <code><a href="anlzMWRdate.html">anlzMWRdate()</a></code> 
+        </dt>
+        <dd>Analyze trends by date in results file</dd>
+      </dl><dl><dt>
+          
+          <code><a href="anlzMWRsite.html">anlzMWRsite()</a></code> 
+        </dt>
+        <dd>Analyze site trends in results file</dd>
+      </dl><dl><dt>
+          
+          <code><a href="anlzMWRmap.html">anlzMWRmap()</a></code> 
+        </dt>
+        <dd>Analyze results with maps</dd>
+      </dl></div><div class="section level2">
+      <h2 id="utility-functions-used-by-all-other-functions">Utility functions used by all other functions<a class="anchor" aria-label="anchor" href="#utility-functions-used-by-all-other-functions"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
           
           <code><a href="utilMWRconfint.html">utilMWRconfint()</a></code> 
         </dt>
@@ -207,11 +244,6 @@
         <dd>Fill results data as BDL or AQL with appropriate values</dd>
       </dl><dl><dt>
           
-          <code><a href="utilMWRoutlier.html">utilMWRoutlier()</a></code> 
-        </dt>
-        <dd>Identify outliers in a numeric vector</dd>
-      </dl><dl><dt>
-          
           <code><a href="utilMWRthresh.html">utilMWRthresh()</a></code> 
         </dt>
         <dd>Get threshold lines from thresholdMWR</dd>
@@ -220,8 +252,35 @@
           <code><a href="utilMWRyscale.html">utilMWRyscale()</a></code> 
         </dt>
         <dd>Get logical value for y axis scaling</dd>
+      </dl><dl><dt>
+          
+          <code><a href="utilMWRoutlier.html">utilMWRoutlier()</a></code> 
+        </dt>
+        <dd>Identify outliers in a numeric vector</dd>
+      </dl></div><div class="section level2">
+      <h2 id="lookup-tables">Lookup tables<a class="anchor" aria-label="anchor" href="#lookup-tables"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="paramsMWR.html">paramsMWR</a></code> 
+        </dt>
+        <dd>Master parameter list and units for Characteristic Name column in results data</dd>
+      </dl><dl><dt>
+          
+          <code><a href="thresholdMWR.html">thresholdMWR</a></code> 
+        </dt>
+        <dd>Master thresholds list for analysis of results data</dd>
       </dl></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
