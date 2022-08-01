@@ -21,8 +21,8 @@ anlzMWRmap(
   crs = 4326,
   zoom = 11,
   maptype = "terrain-background",
-  addvector = FALSE,
-  vectcol = "lightblue",
+  addwater = FALSE,
+  watercol = "lightblue",
   buffdist = 0.02,
   northloc = "tl",
   scaleloc = "br",
@@ -63,9 +63,9 @@ anlzMWRmap(
 
 \item{maptype}{character string for the base map type, see details}
 
-\item{addvector}{logical indicating if vector objects of water bodies are added to the map, see details}
+\item{addwater}{logical indicating if water bodies are added to the map, see details}
 
-\item{vectcol}{character string of color for vector objects if \code{addvector = TRUE}}
+\item{watercol}{character string of color for water objects if \code{addwater = TRUE}}
 
 \item{buffdist}{numeric for buffer around the bounding box for the selected sites, see details}
 
@@ -94,7 +94,7 @@ The results shown on the map represent the parameter average for each site withi
 
 The base map is obtained from the \code{\link[ggmap]{get_stamenmap}} function.  The \code{zoom} value specifies the resolution of the map.  Use higher values to download map tiles with greater resolution, although this increases the download time.  The \code{maptype} argument describes the type of base map to download. Acceptable options include \code{"terrain"}, \code{"terrain-background"}, \code{"terrain-labels"}, \code{"terrain-lines"}, \code{"toner"}, \code{"toner-2010"}, \code{"toner-2011"}, \code{"toner-background"}, \code{"toner-hybrid"}, \code{"toner-labels"}, \code{"toner-lines"}, \code{"toner-lite"}, or \code{"watercolor"}. Use \code{maptype = NULL} to suppress the base map.
 
-Using \code{addvector = TRUE} will include lines and polygons of natural water bodies from the OpenStreetMap (\href{https://www.openstreetmap.org/}{OSM}) project, downloaded using the \href{https://docs.ropensci.org/osmdata}{osmdata} package.  The downloaded objects are plotted as simple features on top of the base map specified with the \code{maptype} argument.Use \code{maptype = NULL} to show only the vector objects.
+Using \code{addwater = TRUE} will include lines and polygons of natural water bodies from the OpenStreetMap (\href{https://www.openstreetmap.org/}{OSM}) project, downloaded using the \href{https://docs.ropensci.org/osmdata}{osmdata} package.  The downloaded objects are plotted as simple features on top of the base map specified with the \code{maptype} argument. Use \code{maptype = NULL} to show only the water objects.
 
 The area around the summarized points can be increased or decreased using the \code{buffdist} argument.  This creates a buffered area around the bounding box for the points, where the units are degrees.
 
@@ -123,9 +123,9 @@ sitdat <- readMWRsites(sitpth)
 anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat)
 
 # map with OpenStreetMap water bodies
-anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addvector = TRUE)
+anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = TRUE)
 
 # map with only OpenStreetMap water bodies
-anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addvector = TRUE, 
+anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = TRUE, 
    maptype = NULL)
 }
