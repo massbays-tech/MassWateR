@@ -77,7 +77,7 @@
 <span>  alpha <span class="op">=</span> <span class="fl">0.8</span>,</span>
 <span>  width <span class="op">=</span> <span class="fl">0.8</span>,</span>
 <span>  yscl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"auto"</span>, <span class="st">"log"</span>, <span class="st">"linear"</span><span class="op">)</span>,</span>
-<span>  fecalgrp <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  byresultatt <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  runchk <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  warn <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -149,8 +149,8 @@
 <dd><p>character indicating one of <code>"auto"</code> (default), <code>"log"</code>, or <code>"linear"</code>, see details</p></dd>
 
 
-<dt>fecalgrp</dt>
-<dd><p>logical indicating if fecal indicator data have sites grouped separately by result attributes, applies if <code>param</code> is <code>"E.coli"</code>, <code>"Enterococcus"</code>, or <code>"Fecal Coliform"</code>, see details</p></dd>
+<dt>byresultatt</dt>
+<dd><p>logical indicating if the plot has sites grouped separately by result attributes, see details</p></dd>
 
 
 <dt>runchk</dt>
@@ -173,7 +173,7 @@
 <p>Threshold lines applicable to marine or freshwater environments can be included in the plot by using the <code>thresh</code> argument.  These thresholds are specific to each parameter and can be found in the <code><a href="thresholdMWR.html">thresholdMWR</a></code> file.  Threshold lines are plotted only for those parameters with entries in <code><a href="thresholdMWR.html">thresholdMWR</a></code> and only if the value in <code>`Result Unit`</code> matches those in <code><a href="thresholdMWR.html">thresholdMWR</a></code>. The threshold lines can be suppressed by setting <code>thresh = 'none'</code>.</p>
 <p>The y-axis scaling as arithmetic (linear) or logarithmic can be set with the <code>yscl</code> argument.  If <code>yscl = "auto"</code> (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting <code>yscl = "linear"</code> or <code>yscl = "log"</code> will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy. The means and confidence intervals will vary between arithmetic and log-scaling if <code>type = "bar"</code>.</p>
 <p>Any entries in <code>resdat</code> in the <code>"Result Value"</code> column as <code>"BDL"</code> or <code>"AQL"</code> are replaced with appropriate values in the <code>"Quantitation Limit"</code> column, if present, otherwise the <code>"MDL"</code> or <code>"UQL"</code> columns from the data quality objectives file for accuracy are used.  Values as <code>"BDL"</code> use one half of the appropriate limit.</p>
-<p>The <code>fecalgrp</code> argument can be used to group sites separately by result attributes as plot facets and applies only if <code>param</code> is <code>"E.coli"</code>, <code>"Enterococcus"</code>, or <code>"Fecal Coliform"</code>.  For example, sites can be grouped by <code>"Dry"</code> or <code>"Wet"</code> conditions if present in the <code>"Result Attrbute"</code> column.</p>
+<p>The <code>byresultatt</code> argument can be used to group sites separately by result attributes.  For example, sites with E. coli samples can be grouped by <code>"Dry"</code> or <code>"Wet"</code> conditions if present in the <code>"Result Attribute"</code> column.</p>
     </div>
 
     <div class="section level2">
@@ -251,16 +251,16 @@
 <span class="r-in"><span>     dtrng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2021-05-01'</span>, <span class="st">'2021-07-31'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="anlzMWRsite-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span>     </span></span>
-<span class="r-in"><span><span class="co"># fecal grouping</span></span></span>
+<span class="r-in"><span><span class="co"># grouping by result attribute</span></span></span>
 <span class="r-in"><span><span class="fu">anlzMWRsite</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'E.coli'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'box'</span>, thresh <span class="op">=</span> <span class="st">'fresh'</span>,</span></span>
 <span class="r-in"><span>     site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'ABT-077'</span>, <span class="st">'ABT-162'</span>, <span class="st">'CND-009'</span>, <span class="st">'CND-110'</span>, <span class="st">'HBS-016'</span>, <span class="st">'HBS-031'</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>     fecalgrp <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="anlzMWRsite-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span>     byresultatt <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in anlzMWRsite(res = resdat, param = "E.coli", acc = accdat, type = "box",     thresh = "fresh", site = c("ABT-077", "ABT-162", "CND-009",         "CND-110", "HBS-016", "HBS-031"), byresultatt = TRUE):</span> Must supply values to resultatt if byresultatt = TRUE</span>
 <span class="r-in"><span>     </span></span>
 <span class="r-in"><span><span class="co"># site trends by location group, requires sitdat</span></span></span>
 <span class="r-in"><span><span class="fu">anlzMWRsite</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, type <span class="op">=</span> <span class="st">'box'</span>, </span></span>
 <span class="r-in"><span>     thresh <span class="op">=</span> <span class="st">'fresh'</span>, locgroup <span class="op">=</span> <span class="st">'Concord'</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="anlzMWRsite-5.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="anlzMWRsite-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span>     </span></span>
 </code></pre></div>
     </div>
