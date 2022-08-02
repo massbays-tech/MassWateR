@@ -21,6 +21,7 @@
 #' @param buffdist numeric for buffer around the bounding box for the selected sites, see details
 #' @param northloc character string indicating location of the north arrow, see details
 #' @param scaleloc character string indicating location of the scale bar, see details
+#' @param latlon logical to include latitude and longitude labels on the plot, default \code{TRUE}
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, or \code{\link{checkMWRsites}}, applies only if \code{res}, \code{acc}, or \code{sit} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
@@ -72,7 +73,7 @@
 #' # map with only OpenStreetMap water bodies
 #' anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = TRUE, 
 #'    maptype = NULL)
-anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', yscl = c('auto', 'log', 'linear'), crs = 4326, zoom = 11, maptype = 'terrain-background', addwater = FALSE,  watercol = 'lightblue', buffdist = 0.02, northloc = 'tl', scaleloc = 'br', runchk = TRUE, warn = TRUE){
+anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', yscl = c('auto', 'log', 'linear'), crs = 4326, zoom = 11, maptype = 'terrain-background', addwater = FALSE,  watercol = 'lightblue', buffdist = 0.02, northloc = 'tl', scaleloc = 'br', latlon = TRUE, runchk = TRUE, warn = TRUE){
   
   if(!requireNamespace('ggmap', quietly = TRUE))
     stop("Package \"ggmap\" needed for this function to work. Please install it.", call. = FALSE)
@@ -205,7 +206,7 @@ anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgr
     m <- m +
       ggspatial::annotation_north_arrow(location = northloc, which_north = "true", height = grid::unit(0.75, "cm"), 
                                                 width = grid::unit(0.75, "cm"))
-
+  
   if(repel & !is.null(labsize))
     m <- m  +
       ggrepel::geom_text_repel(data = tomap, ggplot2::aes(label = `Monitoring Location ID`, geometry = geometry), stat = 'sf_coordinates', inherit.aes = F, size = labsize)
@@ -214,6 +215,14 @@ anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgr
     m <- m  +
       ggplot2::geom_sf_text(data = tomap, ggplot2::aes(label = `Monitoring Location ID`), inherit.aes = F, size = labsize)
 
+  if(!latlon)
+    m <- m + 
+      ggplot2::theme(
+        axis.text.x = element_blank(), 
+        axis.text.y = element_blank(),
+        axis.ticks = element_blank()
+      )
+  
   # set coordinates because vector not clipped
   m <- m +
     ggplot2::coord_sf(xlim = dat_ext[c(1, 3)], ylim = dat_ext[c(2, 4)])

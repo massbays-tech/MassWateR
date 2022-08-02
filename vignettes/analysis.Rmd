@@ -216,6 +216,12 @@ Locations of the north arrow and scale bar can be changed with the same argument
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, northloc = "br", scaleloc = "tl", warn = F)
 ```
 
+The latitude and longitude text on the plot axes can be suppressed using `latlon = FALSE`.
+
+```{r, fig.height = 7, fig.width = 6}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, latlon = F, warn = F)
+```
+
 The color palette for the average values can also be changed.  Any palette from [RColorBrewer](https://r-graph-gallery.com/38-rcolorbrewers-palettes.html) can be used. 
 
 ```{r, fig.height = 7, fig.width = 6}

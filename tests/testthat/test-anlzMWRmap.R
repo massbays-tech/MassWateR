@@ -1,5 +1,5 @@
 test_that("Checking output format", {
-  result <- anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, warn = FALSE)
+  result <- anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, warn = FALSE, latlon = FALSE)
   expect_s3_class(result, 'ggplot')
 })
 

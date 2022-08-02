@@ -26,6 +26,7 @@ anlzMWRmap(
   buffdist = 0.02,
   northloc = "tl",
   scaleloc = "br",
+  latlon = TRUE,
   runchk = TRUE,
   warn = TRUE
 )
@@ -72,6 +73,8 @@ anlzMWRmap(
 \item{northloc}{character string indicating location of the north arrow, see details}
 
 \item{scaleloc}{character string indicating location of the scale bar, see details}
+
+\item{latlon}{logical to include latitude and longitude labels on the plot, default \code{TRUE}}
 
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, or \code{\link{checkMWRsites}}, applies only if \code{res}, \code{acc}, or \code{sit} are file paths}
 
