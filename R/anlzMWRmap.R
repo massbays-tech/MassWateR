@@ -218,9 +218,9 @@ anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgr
   if(!latlon)
     m <- m + 
       ggplot2::theme(
-        axis.text.x = element_blank(), 
-        axis.text.y = element_blank(),
-        axis.ticks = element_blank()
+        axis.text.x = ggplot2::element_blank(), 
+        axis.text.y = ggplot2::element_blank(),
+        axis.ticks = ggplot2::element_blank()
       )
   
   # set coordinates because vector not clipped
