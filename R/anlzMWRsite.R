@@ -86,13 +86,16 @@ anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox'
     stop('param must be one of ', paste(fec, collapse = ', '), ' if fecalgrp = TRUE')
   
   # inputs
-  inp <- utilMWRinput(res = res, acc = acc, runchk = runchk, warn = warn)
+  inp <- utilMWRinput(res = res, acc = acc, sit = sit, runchk = runchk, warn = warn)
   
   # results data
   resdat <- inp$resdat 
   
   # accuracy data
   accdat <- inp$accdat
+  
+  # site data
+  sitdat <- inp$sitdat
   
   # filter
   resdat <- utilMWRfilter(resdat = resdat, sitdat = sitdat, param = param, dtrng = dtrng, site = site, resultatt = resultatt, locgroup = locgroup)
