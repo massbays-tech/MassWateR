@@ -18,7 +18,7 @@
 #' @param alpha numeric from 0 to 1 indicating transparency of fill color
 #' @param width numeric for width of boxplots or barplots
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
-#' @param fecalgrp logical indicating if fecal indicator data have sites grouped separately by result attributes, applies if \code{param} is \code{"E.coli"}, \code{"Enterococcus"}, or \code{"Fecal Coliform"}, see details
+#' @param byresultatt logical indicating if the plot has sites grouped separately by result attributes, see details
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
@@ -32,7 +32,7 @@
 #' 
 #' Any entries in \code{resdat} in the \code{"Result Value"} column as \code{"BDL"} or \code{"AQL"} are replaced with appropriate values in the \code{"Quantitation Limit"} column, if present, otherwise the \code{"MDL"} or \code{"UQL"} columns from the data quality objectives file for accuracy are used.  Values as \code{"BDL"} use one half of the appropriate limit.
 #' 
-#' The \code{fecalgrp} argument can be used to group sites separately by result attributes as plot facets and applies only if \code{param} is \code{"E.coli"}, \code{"Enterococcus"}, or \code{"Fecal Coliform"}.  For example, sites can be grouped by \code{"Dry"} or \code{"Wet"} conditions if present in the \code{"Result Attrbute"} column.  
+#' The \code{byresultatt} argument can be used to group sites separately by result attributes.  For example, sites with E. coli samples can be grouped by \code{"Dry"} or \code{"Wet"} conditions if present in the \code{"Result Attribute"} column.  
 #' 
 #' @export
 #'
@@ -66,24 +66,22 @@
 #' anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'box', thresh = 'fresh',
 #'      dtrng = c('2021-05-01', '2021-07-31'))
 #'      
-#' # fecal grouping
+#' # grouping by result attribute
 #' anlzMWRsite(res = resdat, param = 'E.coli', acc = accdat, type = 'box', thresh = 'fresh',
 #'      site = c('ABT-077', 'ABT-162', 'CND-009', 'CND-110', 'HBS-016', 'HBS-031'),
-#'      fecalgrp = TRUE)
+#'      byresultatt = TRUE)
 #'      
 #' # site trends by location group, requires sitdat
 #' anlzMWRsite(res = resdat, param = 'DO', acc = accdat, sit = sitdat, type = 'box', 
 #'      thresh = 'fresh', locgroup = 'Concord')
 #'      
-anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox', 'bar', 'jitterbar', 'jitter'), thresh, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, confint = FALSE, fill = 'lightgreen', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), fecalgrp = FALSE, runchk = TRUE, warn = TRUE){
+anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox', 'bar', 'jitterbar', 'jitter'), thresh, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, confint = FALSE, fill = 'lightgreen', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), byresultatt = FALSE, runchk = TRUE, warn = TRUE){
   
-  fec <- c('E.coli', 'Enterococcus', 'Fecal Coliform')
   type <- match.arg(type)
-
-  # check if param is in fec if fecalgrp is true 
-  chk <- param %in% fec
-  if(!chk & fecalgrp)
-    stop('param must be one of ', paste(fec, collapse = ', '), ' if fecalgrp = TRUE')
+  
+  # check if resultatt is NULL if byresultatt is TRUE
+  if(byresultatt & is.null(resultatt))
+    stop("Must supply values to resultatt if byresultatt = TRUE")
   
   # inputs
   inp <- utilMWRinput(res = res, acc = acc, sit = sit, runchk = runchk, warn = warn)
@@ -140,8 +138,8 @@ anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox'
     
   }
   
-  # boxplot, no fecal group
-  if((type == 'box' | type == 'jitterbox') & !fecalgrp){
+  # boxplot, not by result attribute
+  if((type == 'box' | type == 'jitterbox') & !byresultatt){
     
     toplo <- toplo %>% 
       dplyr::group_by(`Monitoring Location ID`) %>% 
@@ -156,8 +154,8 @@ anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox'
     
   }
   
-  # boxplot, fecal group
-  if((type == 'box' | type == 'jitterbox') & fecalgrp){
+  # boxplot, by result attribute
+  if((type == 'box' | type == 'jitterbox') & byresultatt){
     
     toplo <- toplo %>% 
       dplyr::group_by(`Monitoring Location ID`, `Result Attribute`) %>% 
@@ -173,8 +171,8 @@ anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox'
     
   }
   
-  # jitter if box, not fecal group
-  if(type == 'jitterbox' & !fecalgrp){
+  # jitter if box, not by result attribute
+  if(type == 'jitterbox' & !byresultatt){
     
     jitplo <- toplo %>% 
       dplyr::filter(!outlier)
@@ -184,8 +182,8 @@ anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox'
     
   }
   
-  # jitter if box, fecalgroup
-  if(type == 'jitterbox' & fecalgrp){
+  # jitter if box, by result attribute
+  if(type == 'jitterbox' & byresultatt){
     
     jitplo <- toplo %>% 
       dplyr::filter(!outlier)
@@ -196,7 +194,7 @@ anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox'
   }
   
   # barplot
-  if((type == 'bar' | type == 'jitterbar') & !fecalgrp){
+  if((type == 'bar' | type == 'jitterbar') & !byresultatt){
     
     toplo <- toplo %>% 
       dplyr::group_by(`Monitoring Location ID`)
@@ -214,8 +212,8 @@ anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox'
     
   }
   
-  # barplot, fecal group
-  if((type == 'bar' | type == 'jitterbar') & fecalgrp){
+  # barplot, by result attribute
+  if((type == 'bar' | type == 'jitterbar') & byresultatt){
     
     toplo <- toplo %>% 
       dplyr::group_by(`Monitoring Location ID`, `Result Attribute`)
@@ -234,14 +232,14 @@ anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox'
     
   }
   
-  if(type %in% c('jitterbar', 'jitter') & !fecalgrp){
+  if(type %in% c('jitterbar', 'jitter') & !byresultatt){
     
     p <- p + 
       ggplot2::geom_point(data = toplo, ggplot2::aes(x = `Monitoring Location ID`, y = `Result Value`), position = ggplot2::position_dodge2(width = 0.7 * width), alpha = 0.5, size = 1)
     
   }
   
-  if(type %in% c('jitterbar', 'jitter') & fecalgrp){
+  if(type %in% c('jitterbar', 'jitter') & byresultatt){
     
     p <- p +
       ggplot2::geom_point(data = toplo, ggplot2::aes(x = `Result Attribute`, y = `Result Value`), position = ggplot2::position_dodge2(width = 0.7 * width), alpha = 0.5, size = 1) + 
@@ -263,7 +261,8 @@ anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox'
       x = NULL
     )
   
-  if(fecalgrp)
+  # add panel box if by result attribute
+  if(byresultatt)
     p <- p  + 
       ggplot2::theme(
         panel.background = ggplot2::element_rect(fill = NA)

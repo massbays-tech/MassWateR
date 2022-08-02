@@ -186,12 +186,12 @@ Setting `type = "jitter"` will show only the jittered points.
 anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "jitter")
 ```
 
-Results data for fecal coliform indicators can be grouped by entries in the `Result Atribute` column using `fecalgrp = TRUE`.   For example, sites can be grouped by `"Dry"` or `"Wet"` conditions.  This option can only be used if the `param` argument is `"E.coli"`, `"Enterococcus"`, or `"Fecal Coliform"`.  Filtering by sites first is advised to reduce the amount of data that are plotted. 
+Results can be grouped by entries in the `Result Atribute` column using `byresultatt = TRUE`.  Values must be supplied to the `resultatt` argument to use this option and they must be valid result attributes from the site metadata file.  For example, sites with E. coli samples can be grouped by `"Dry"` or `"Wet"` conditions.  Filtering by sites first is advised to reduce the amount of data that are plotted. Note that specifying result attributes with `resultatt` and setting `byresultatt = FALSE` will filter the plot data by the result attributes but will not plot the results separately. 
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRsite(res = resdat, param = "E.coli", acc = accdat, thresh = "fresh", type = "box", 
                         site = c("ABT-077", "ABT-162", "CND-009", "CND-110", "HBS-016", "HBS-031"),
-                        fecalgrp = TRUE)
+                        resultatt = c('Dry', 'Wet'), byresultatt = TRUE)
 ```
 
 ## Analyze results with maps

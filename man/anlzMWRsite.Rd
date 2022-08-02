@@ -21,7 +21,7 @@ anlzMWRsite(
   alpha = 0.8,
   width = 0.8,
   yscl = c("auto", "log", "linear"),
-  fecalgrp = FALSE,
+  byresultatt = FALSE,
   runchk = TRUE,
   warn = TRUE
 )
@@ -59,7 +59,7 @@ anlzMWRsite(
 
 \item{yscl}{character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details}
 
-\item{fecalgrp}{logical indicating if fecal indicator data have sites grouped separately by result attributes, applies if \code{param} is \code{"E.coli"}, \code{"Enterococcus"}, or \code{"Fecal Coliform"}, see details}
+\item{byresultatt}{logical indicating if the plot has sites grouped separately by result attributes, see details}
 
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths}
 
@@ -80,7 +80,7 @@ The y-axis scaling as arithmetic (linear) or logarithmic can be set with the \co
 
 Any entries in \code{resdat} in the \code{"Result Value"} column as \code{"BDL"} or \code{"AQL"} are replaced with appropriate values in the \code{"Quantitation Limit"} column, if present, otherwise the \code{"MDL"} or \code{"UQL"} columns from the data quality objectives file for accuracy are used.  Values as \code{"BDL"} use one half of the appropriate limit.
 
-The \code{fecalgrp} argument can be used to group sites separately by result attributes as plot facets and applies only if \code{param} is \code{"E.coli"}, \code{"Enterococcus"}, or \code{"Fecal Coliform"}.  For example, sites can be grouped by \code{"Dry"} or \code{"Wet"} conditions if present in the \code{"Result Attrbute"} column.
+The \code{byresultatt} argument can be used to group sites separately by result attributes.  For example, sites with E. coli samples can be grouped by \code{"Dry"} or \code{"Wet"} conditions if present in the \code{"Result Attribute"} column.
 }
 \examples{
 # results data path
@@ -112,10 +112,10 @@ anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'bar', thresh = 'fr
 anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'box', thresh = 'fresh',
      dtrng = c('2021-05-01', '2021-07-31'))
      
-# fecal grouping
+# grouping by result attribute
 anlzMWRsite(res = resdat, param = 'E.coli', acc = accdat, type = 'box', thresh = 'fresh',
      site = c('ABT-077', 'ABT-162', 'CND-009', 'CND-110', 'HBS-016', 'HBS-031'),
-     fecalgrp = TRUE)
+     byresultatt = TRUE)
      
 # site trends by location group, requires sitdat
 anlzMWRsite(res = resdat, param = 'DO', acc = accdat, sit = sitdat, type = 'box', 
