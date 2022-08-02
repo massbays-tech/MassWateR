@@ -76,11 +76,11 @@ p +
   )
 ```
 
-Changing the axis limits can be done two ways.  Note the difference between using `scale_y_continuous()` and `coord_cartesian()`.  Using `scale_y_continuous()` will omit any data beyond the range provided and rescale the boxplots accordingly.  The `coord_cartesian()` function will not omit any data used to create the boxplots in the original plot.    
+The axis limits can changed using `coord_cartesian()`.  Changing the y-axis requires only the numeric range.  Because the month values on the x-axis are [factors](https://r4ds.had.co.nz/factors.html), the ranges can be changed using integer values starting at one for the first month on the plot. For example, June through August can be filtered using 3 to 5. 
 
 ```{r, fig.height = 4, fig.width = 8}
-p + scale_y_continuous(limits = c(0, 8))
 p + coord_cartesian(ylim = c(0, 8))
+p + coord_cartesian(xlim = c(3, 5))
 ```
 
 A plot with facets for each site:
