@@ -263,6 +263,12 @@ anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox'
       x = NULL
     )
   
+  if(fecalgrp)
+    p <- p  + 
+      ggplot2::theme(
+        panel.background = ggplot2::element_rect(fill = NA)
+      )
+  
   return(p)
   
 }
