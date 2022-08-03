@@ -15,17 +15,17 @@
 #' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, default all
 #' @param ptsize numeric indicating size of the points
 #' @param repel logical indicating if overlapping site labels are offset
-#' @param labsize numeric indicating font size for the site labels, only if \code{group = "site"} or \code{group = "location"}
-#' @param expand numeric of length two indicating expansion proportions on the x-axis to include labels outside of the plot range if \code{repel = F} and \code{group = "site"} or \code{group = "location"}
+#' @param labsize numeric indicating font size for the site labels, only if \code{group = "site"} or \code{group = "locgroup"}
+#' @param expand numeric of length two indicating expansion proportions on the x-axis to include labels outside of the plot range if \code{repel = F} and \code{group = "site"} or \code{group = "locgroup"}
 #' @param confint logical indicating if confidence intervals are shown, only applies if \code{type = "bar"}
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
-#' @param colleg logical indicating if a color legend for sites or locations is included if \code{group = "site"} or \code{group = "location"}
+#' @param colleg logical indicating if a color legend for sites or location groups is included if \code{group = "site"} or \code{group = "locgroup"}
 #' @param warn logical to return warnings to the console (default)
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object that can be further modified.
 #' 
-#' @details Results are shown for the selected parameter as continuous line plots over time. Specifying \code{group = "site"} plot a separate line for each site.  Specifying \code{group = "location"} will average results across sites in the `locgroup` argument.  The site metadata file must be passed to the \code{`sit`} argument to use this option.  Specifying \code{group = "all"} will average results across sites for each date.
+#' @details Results are shown for the selected parameter as continuous line plots over time. Specifying \code{group = "site"} plot a separate line for each site.  Specifying \code{group = "locgroup"} will average results across sites in the `locgroup` argument.  The site metadata file must be passed to the \code{`sit`} argument to use this option.  Specifying \code{group = "all"} will average results across sites for each date.
 #'
 #' Threshold lines applicable to marine or freshwater environments can be included in the plot by using the \code{thresh} argument.  These thresholds are specific to each parameter and can be found in the \code{\link{thresholdMWR}} file.  Threshold lines are plotted only for those parameters with entries in \code{\link{thresholdMWR}} and only if the value in \code{`Result Unit`} matches those in \code{\link{thresholdMWR}}. The threshold lines can be suppressed by setting \code{thresh = 'none'}. 
 #'  
@@ -68,13 +68,13 @@
 #'      thresh = 'fresh', locgroup = 'Concord')
 #'      
 #' # sites by location group averaged by group, requires sitdat
-#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'location', 
+#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'locgroup', 
 #'      thresh = 'fresh', locgroup = c('Lower Assabet', 'Upper Assabet'))
 #'
 #' # sites by location group (unspecified) averaged by group, requires sitdat
-#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'location', 
+#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'locgroup', 
 #'      thresh = 'fresh')
-anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', 'location', 'all'), threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 2, repel = TRUE, labsize = 3, expand = c(0.05, 0.1), confint = FALSE, yscl = c('auto', 'log', 'linear'), colleg = TRUE, runchk = TRUE, warn = TRUE){
+anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', 'locgroup', 'all'), threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 2, repel = TRUE, labsize = 3, expand = c(0.05, 0.1), confint = FALSE, yscl = c('auto', 'log', 'linear'), colleg = TRUE, runchk = TRUE, warn = TRUE){
   
   group <- match.arg(group)
 
@@ -89,9 +89,9 @@ anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', '
   
   sitdat <- inp$sitdat
   
-  # use all location groups if group is location and locgroup is NULL
+  # use all location groups if group is locgroup and locgroup is NULL
   alllocgroup <- FALSE
-  if(group == 'location' & is.null(locgroup))
+  if(group == 'locgroup' & is.null(locgroup))
      alllocgroup <- TRUE
   
   # filter
@@ -170,7 +170,7 @@ anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', '
       
   }
   
-  if(group == 'location'){
+  if(group == 'locgroup'){
     
     toplo <- toplo %>% 
       dplyr::group_by(`Activity Start Date`, `Location Group`) 

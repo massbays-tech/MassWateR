@@ -10,7 +10,7 @@ anlzMWRdate(
   acc,
   sit = NULL,
   thresh,
-  group = c("site", "location", "all"),
+  group = c("site", "locgroup", "all"),
   threshcol = "tan",
   site = NULL,
   resultatt = NULL,
@@ -54,15 +54,15 @@ anlzMWRdate(
 
 \item{repel}{logical indicating if overlapping site labels are offset}
 
-\item{labsize}{numeric indicating font size for the site labels, only if \code{group = "site"} or \code{group = "location"}}
+\item{labsize}{numeric indicating font size for the site labels, only if \code{group = "site"} or \code{group = "locgroup"}}
 
-\item{expand}{numeric of length two indicating expansion proportions on the x-axis to include labels outside of the plot range if \code{repel = F} and \code{group = "site"} or \code{group = "location"}}
+\item{expand}{numeric of length two indicating expansion proportions on the x-axis to include labels outside of the plot range if \code{repel = F} and \code{group = "site"} or \code{group = "locgroup"}}
 
 \item{confint}{logical indicating if confidence intervals are shown, only applies if \code{type = "bar"}}
 
 \item{yscl}{character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details}
 
-\item{colleg}{logical indicating if a color legend for sites or locations is included if \code{group = "site"} or \code{group = "location"}}
+\item{colleg}{logical indicating if a color legend for sites or location groups is included if \code{group = "site"} or \code{group = "locgroup"}}
 
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths}
 
@@ -75,7 +75,7 @@ A \code{\link[ggplot2]{ggplot}} object that can be further modified.
 Analyze trends by date in results file
 }
 \details{
-Results are shown for the selected parameter as continuous line plots over time. Specifying \code{group = "site"} plot a separate line for each site.  Specifying \code{group = "location"} will average results across sites in the \code{locgroup} argument.  The site metadata file must be passed to the \code{`sit`} argument to use this option.  Specifying \code{group = "all"} will average results across sites for each date.
+Results are shown for the selected parameter as continuous line plots over time. Specifying \code{group = "site"} plot a separate line for each site.  Specifying \code{group = "locgroup"} will average results across sites in the \code{locgroup} argument.  The site metadata file must be passed to the \code{`sit`} argument to use this option.  Specifying \code{group = "all"} will average results across sites for each date.
 
 Threshold lines applicable to marine or freshwater environments can be included in the plot by using the \code{thresh} argument.  These thresholds are specific to each parameter and can be found in the \code{\link{thresholdMWR}} file.  Threshold lines are plotted only for those parameters with entries in \code{\link{thresholdMWR}} and only if the value in \code{`Result Unit`} matches those in \code{\link{thresholdMWR}}. The threshold lines can be suppressed by setting \code{thresh = 'none'}.
 
@@ -116,10 +116,10 @@ anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'sit
      thresh = 'fresh', locgroup = 'Concord')
      
 # sites by location group averaged by group, requires sitdat
-anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'location', 
+anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'locgroup', 
      thresh = 'fresh', locgroup = c('Lower Assabet', 'Upper Assabet'))
 
 # sites by location group (unspecified) averaged by group, requires sitdat
-anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'location', 
+anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'locgroup', 
      thresh = 'fresh')
 }
