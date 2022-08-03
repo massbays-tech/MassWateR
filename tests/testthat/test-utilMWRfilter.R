@@ -33,7 +33,7 @@ test_that("Check error if result attribute not found", {
 
 test_that("Check error if location group provided with no sitdat", {
   expect_error(utilMWRfilter(resdat = resdat, param = 'DO', locgroup = 'Concord'), 
-               'Site metadata file required if locgroup is not NULL')
+               'Site metadata file required if filtering by location group')
 })
 
 test_that("Check error if location group not found", {

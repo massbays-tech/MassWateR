@@ -150,7 +150,7 @@ anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', '
       dplyr::group_by(`Monitoring Location ID`) %>% 
       dplyr::filter(`Activity Start Date` == max(`Activity Start Date`)) %>% 
       dplyr::select(`Monitoring Location ID`, `Activity Start Date`, `Result Value`)
-    
+
     p <- p +
       ggplot2::geom_line(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`, color = `Monitoring Location ID`), show.legend = FALSE) + 
       ggplot2::geom_point(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`, color = `Monitoring Location ID`), size = ptsize, show.legend = colleg)
@@ -228,11 +228,11 @@ anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', '
   
   if(logscl)
     p <- p + ggplot2::scale_y_log10()
-  
+
   p <- p +  
     thm +
     ggplot2::guides(
-      linetype = ggplot2::guide_legend(order = 1),
+      linetype = ggplot2::guide_legend(order = 1, override.aes = list(shape = NA)),
       size = ggplot2::guide_legend(order = 1),
       color = ggplot2::guide_legend(order = 2)
     ) +
@@ -244,7 +244,7 @@ anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', '
       color = NULL,
       alpha = NULL,
       x = NULL
-    )
+    ) 
   
   return(p)
   
