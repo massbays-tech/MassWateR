@@ -75,9 +75,8 @@ accdat <- readMWRacc(accpth)
 # frequency and completeness data, only needed if type = "percent"
 frecomdat <- readMWRfrecom(frecompth)
 
+\dontrun{
 # create report in working directory
 qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat, output_dir = getwd())
-
-# remove file when done
-file.remove(list.files(getwd(), 'qcreview'))
+}
 }

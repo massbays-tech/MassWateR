@@ -44,11 +44,10 @@
 #' # frequency and completeness data, only needed if type = "percent"
 #' frecomdat <- readMWRfrecom(frecompth)
 #' 
+#' \dontrun{
 #' # create report in working directory
 #' qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat, output_dir = getwd())
-#' 
-#' # remove file when done
-#' file.remove(list.files(getwd(), 'qcreview'))
+#' }
 qcMWRreview <- function(res, acc, frecom, output_dir, output_file = NULL, rawdata = TRUE, dqofontsize = 7.5, tabfontsize = 9, padding = 0,warn = TRUE, runchk = TRUE) {
 
   # rmd template
