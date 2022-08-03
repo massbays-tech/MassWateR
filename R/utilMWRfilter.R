@@ -7,6 +7,7 @@
 #' @param site character string of sites to include, default all
 #' @param resultatt character string of result attributes to include, default all
 #' @param locgroup character string of location groups to include from the \code{"Location Group"} column in the site metadata file
+#' @param alllocgroup logical indicating if results data are filtered by all location groups in \code{"Location Group"} in the site metadata file if \code{locgroup = NULL}, used only in \code{\link{anlzMWRdate}}
 #'
 #' @return \code{resdat} filtered by \code{dtrng}, \code{site}, \code{resultatt}, and/or \code{locgroup}, otherwise \code{resdat} unfiltered if arguments are \code{NULL}
 #' @export
@@ -36,7 +37,7 @@
 #' # filter by location group
 #' utilMWRfilter(resdat, param = 'DO', sitdat = sitdat, 
 #'      locgroup = c('Concord', 'Headwater & Tribs'), dtrng = c('2021-06-01', '2021-06-30'))
-utilMWRfilter <- function(resdat, sitdat = NULL, param, dtrng = NULL, site = NULL, resultatt = NULL, locgroup = NULL){
+utilMWRfilter <- function(resdat, sitdat = NULL, param, dtrng = NULL, site = NULL, resultatt = NULL, locgroup = NULL, alllocgroup = FALSE){
   
   resdat <- resdat %>% 
     dplyr::filter(`Activity Type` %in% c('Field Msr/Obs', 'Sample-Routine'))
@@ -123,10 +124,10 @@ utilMWRfilter <- function(resdat, sitdat = NULL, param, dtrng = NULL, site = NUL
   ##
   # filter by location group
   
-  if(!is.null(locgroup)){
+  if(!is.null(locgroup) | alllocgroup){
     
     if(is.null(sitdat))
-      stop('Site metadata file required if locgroup is not NULL', call. = FALSE)
+      stop('Site metadata file required if filtering by location group', call. = FALSE)
     
     sitdat <- sitdat %>% 
       dplyr::select(`Monitoring Location ID`, `Location Group`) %>% 
@@ -134,6 +135,13 @@ utilMWRfilter <- function(resdat, sitdat = NULL, param, dtrng = NULL, site = NUL
     
     resdat <- resdat %>% 
       dplyr::left_join(sitdat, by = c('Monitoring Location ID'))
+    
+    if(is.null(locgroup))
+      locgroup <- resdat %>% 
+        dplyr::pull(`Location Group`) %>% 
+        unique() %>% 
+        sort() %>% 
+        na.omit()
     
     # run checks if location group in resdat
     reslocgroup <- sort(unique(resdat$`Location Group`))

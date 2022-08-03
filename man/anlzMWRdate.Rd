@@ -112,4 +112,8 @@ anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'sit
 # sites by location group averaged by group, requires sitdat
 anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'location', 
      thresh = 'fresh', locgroup = c('Lower Assabet', 'Upper Assabet'))
+
+# sites by location group (unspecified) averaged by group, requires sitdat
+anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'location', 
+     thresh = 'fresh')
 }

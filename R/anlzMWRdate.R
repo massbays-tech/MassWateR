@@ -68,6 +68,10 @@
 #' # sites by location group averaged by group, requires sitdat
 #' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'location', 
 #'      thresh = 'fresh', locgroup = c('Lower Assabet', 'Upper Assabet'))
+#'
+#' # sites by location group (unspecified) averaged by group, requires sitdat
+#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'location', 
+#'      thresh = 'fresh')
 anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', 'location', 'all'), threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 2, repel = TRUE, labsize = 3, confint = FALSE, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
   
   group <- match.arg(group)
@@ -83,8 +87,13 @@ anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', '
   
   sitdat <- inp$sitdat
   
+  # use all location groups if group is location and locgroup is NULL
+  alllocgroup <- FALSE
+  if(group == 'location' & is.null(locgroup))
+     alllocgroup <- TRUE
+  
   # filter
-  resdat <- utilMWRfilter(resdat = resdat, sitdat = sitdat, param = param, dtrng = dtrng, site = site, resultatt = resultatt, locgroup = locgroup)
+  resdat <- utilMWRfilter(resdat = resdat, sitdat = sitdat, param = param, dtrng = dtrng, site = site, resultatt = resultatt, locgroup = locgroup, alllocgroup = alllocgroup)
   
   # fill BDL, AQL
   resdat <- utilMWRlimits(resdat = resdat, accdat = accdat, param = param, warn = warn)

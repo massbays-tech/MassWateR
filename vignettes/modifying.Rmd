@@ -2,7 +2,7 @@
 title: "Modifying plots"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{modifying}
+  %\VignetteIndexEntry{Modifying plots}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
