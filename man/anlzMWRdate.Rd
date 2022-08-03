@@ -19,6 +19,7 @@ anlzMWRdate(
   ptsize = 2,
   repel = TRUE,
   labsize = 3,
+  expand = c(0.05, 0.1),
   confint = FALSE,
   yscl = c("auto", "log", "linear"),
   runchk = TRUE,
@@ -52,7 +53,9 @@ anlzMWRdate(
 
 \item{repel}{logical indicating if overlapping site labels are offset}
 
-\item{labsize}{numeric indicating font size for the site labels, only if \code{group = "site"}}
+\item{labsize}{numeric indicating font size for the site labels, only if \code{group = "site"} or \code{group = "location"}}
+
+\item{expand}{numeric of length two indicating expansion proportions on the x-axis to include labels outside of the plot range if \code{repel = F} and \code{group = "site"} or \code{group = "location"}}
 
 \item{confint}{logical indicating if confidence intervals are shown, only applies if \code{type = "bar"}}
 

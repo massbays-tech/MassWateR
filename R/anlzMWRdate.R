@@ -15,7 +15,8 @@
 #' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, default all
 #' @param ptsize numeric indicating size of the points
 #' @param repel logical indicating if overlapping site labels are offset
-#' @param labsize numeric indicating font size for the site labels, only if \code{group = "site"}
+#' @param labsize numeric indicating font size for the site labels, only if \code{group = "site"} or \code{group = "location"}
+#' @param expand numeric of length two indicating expansion proportions on the x-axis to include labels outside of the plot range if \code{repel = F} and \code{group = "site"} or \code{group = "location"}
 #' @param confint logical indicating if confidence intervals are shown, only applies if \code{type = "bar"}
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
@@ -72,7 +73,7 @@
 #' # sites by location group (unspecified) averaged by group, requires sitdat
 #' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'location', 
 #'      thresh = 'fresh')
-anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', 'location', 'all'), threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 2, repel = TRUE, labsize = 3, confint = FALSE, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
+anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', 'location', 'all'), threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 2, repel = TRUE, labsize = 3, expand = c(0.05, 0.1), confint = FALSE, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
   
   group <- match.arg(group)
 
@@ -162,7 +163,8 @@ anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', '
       p <- p + 
         ggplot2::geom_text(data = sitelb, 
           ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`, label = `Monitoring Location ID`, color = `Monitoring Location ID`), 
-          na.rm = T, size = labsize, hjust = 0, nudge_x = 3, show.legend = FALSE)
+          na.rm = T, size = labsize, hjust = 0, nudge_x = 3, show.legend = FALSE) + 
+        ggplot2::scale_x_date(expand = ggplot2::expansion(mult = expand))
       
   }
   
@@ -194,7 +196,8 @@ anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', '
       p <- p + 
       ggplot2::geom_text(data = grplb, 
         ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Location Group`, label = `Location Group`, color = `Location Group`), 
-        na.rm = T, size = labsize, hjust = 0, nudge_x = 3, show.legend = FALSE)
+        na.rm = T, size = labsize, hjust = 0, nudge_x = 3, show.legend = FALSE) +
+        ggplot2::scale_x_date(expand = ggplot2::expansion(mult = expand))
     
     if(confint)
       p <- p + 
