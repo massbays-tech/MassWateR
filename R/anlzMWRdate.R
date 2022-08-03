@@ -20,6 +20,7 @@
 #' @param confint logical indicating if confidence intervals are shown, only applies if \code{type = "bar"}
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
+#' @param colleg logical indicating if a color legend for sites or locations is included if \code{group = "site"} or \code{group = "location"}
 #' @param warn logical to return warnings to the console (default)
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object that can be further modified.
@@ -73,7 +74,7 @@
 #' # sites by location group (unspecified) averaged by group, requires sitdat
 #' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'location', 
 #'      thresh = 'fresh')
-anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', 'location', 'all'), threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 2, repel = TRUE, labsize = 3, expand = c(0.05, 0.1), confint = FALSE, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
+anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', 'location', 'all'), threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 2, repel = TRUE, labsize = 3, expand = c(0.05, 0.1), confint = FALSE, yscl = c('auto', 'log', 'linear'), colleg = TRUE, runchk = TRUE, warn = TRUE){
   
   group <- match.arg(group)
 
@@ -116,6 +117,7 @@ anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', '
       axis.text.x = ggplot2::element_text(angle = 45, size = 10, hjust = 1), 
       legend.position = 'top',
       legend.key.width = ggplot2::unit(1.05, "cm"), 
+      legend.spacing.y = ggplot2::unit(0, 'cm'),
       legend.box = "vertical"
     )
   
@@ -151,7 +153,7 @@ anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', '
     
     p <- p +
       ggplot2::geom_line(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`, color = `Monitoring Location ID`), show.legend = FALSE) + 
-      ggplot2::geom_point(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`, color = `Monitoring Location ID`), size = ptsize)
+      ggplot2::geom_point(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`, color = `Monitoring Location ID`), size = ptsize, show.legend = colleg)
     
     if(repel)
       p <- p +
@@ -184,7 +186,7 @@ anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', '
     
     p <- p +
       ggplot2::geom_line(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Location Group`, color = `Location Group`), show.legend = FALSE) + 
-      ggplot2::geom_point(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Location Group`, color = `Location Group`), size = ptsize)
+      ggplot2::geom_point(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Location Group`, color = `Location Group`), size = ptsize, show.legend = colleg)
     
     if(repel)
       p <- p +
@@ -201,7 +203,7 @@ anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', '
     
     if(confint)
       p <- p + 
-       ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Activity Start Date`, ymin = lov, ymax = hiv, group = `Location Group`, color = `Location Group`), width = 1)
+       ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Activity Start Date`, ymin = lov, ymax = hiv, group = `Location Group`, color = `Location Group`), width = 1, show.legend = colleg)
     
   }
   
@@ -220,7 +222,7 @@ anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', '
     
     if(confint)
       p <- p + 
-        ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Activity Start Date`, ymin = lov, ymax = hiv), width = 1)
+        ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Activity Start Date`, ymin = lov, ymax = hiv), width = 1, show.legend = colleg)
     
   }
   

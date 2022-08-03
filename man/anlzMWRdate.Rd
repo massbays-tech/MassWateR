@@ -22,6 +22,7 @@ anlzMWRdate(
   expand = c(0.05, 0.1),
   confint = FALSE,
   yscl = c("auto", "log", "linear"),
+  colleg = TRUE,
   runchk = TRUE,
   warn = TRUE
 )
@@ -60,6 +61,8 @@ anlzMWRdate(
 \item{confint}{logical indicating if confidence intervals are shown, only applies if \code{type = "bar"}}
 
 \item{yscl}{character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details}
+
+\item{colleg}{logical indicating if a color legend for sites or locations is included if \code{group = "site"} or \code{group = "location"}}
 
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths}
 
