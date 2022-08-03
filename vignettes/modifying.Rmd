@@ -76,11 +76,10 @@ p +
   )
 ```
 
-The axis limits can changed using `coord_cartesian()`.  Changing the y-axis requires only the numeric range.  Because the month values on the x-axis are [factors](https://r4ds.had.co.nz/factors.html), the ranges can be changed using integer values starting at one for the first month on the plot. For example, June through August can be filtered using 3 to 5. 
+The axis limits can be changed using `coord_cartesian()`.  Changing the y-axis requires only the numeric range using the `ylim` argument. 
 
 ```{r, fig.height = 4, fig.width = 8}
 p + coord_cartesian(ylim = c(0, 8))
-p + coord_cartesian(xlim = c(3, 5))
 ```
 
 A plot with facets for each site:
