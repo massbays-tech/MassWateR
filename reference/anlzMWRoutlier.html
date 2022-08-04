@@ -65,7 +65,7 @@
 <span>  <span class="va">param</span>,</span>
 <span>  <span class="va">acc</span>,</span>
 <span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"box"</span>, <span class="st">"jitterbox"</span>, <span class="st">"jitter"</span><span class="op">)</span>,</span>
-<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"month"</span>, <span class="st">"site"</span>, <span class="st">"week"</span><span class="op">)</span>,</span>
+<span>  <span class="va">group</span>,</span>
 <span>  dtrng <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  repel <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  outliers <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -98,7 +98,7 @@
 
 
 <dt>group</dt>
-<dd><p>character indicating whether the summaries are grouped by month (default), site, or week of year</p></dd>
+<dd><p>character indicating whether the summaries are grouped by month, site, or week of year</p></dd>
 
 
 <dt>dtrng</dt>
@@ -214,6 +214,14 @@
 <span class="r-in"><span><span class="fu">anlzMWRoutlier</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'site'</span>, </span></span>
 <span class="r-in"><span>     dtrng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2021-05-01'</span>, <span class="st">'2021-07-31'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="anlzMWRoutlier-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># outliers by month, type as jitterbox</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRoutlier</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'month'</span>, type <span class="op">=</span> <span class="st">'jitterbox'</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="anlzMWRoutlier-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># outliers by month, type as jitter</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRoutlier</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'month'</span>, type <span class="op">=</span> <span class="st">'jitter'</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="anlzMWRoutlier-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># data frame output</span></span></span>
 <span class="r-in"><span><span class="fu">anlzMWRoutlier</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'month'</span>, outliers <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
