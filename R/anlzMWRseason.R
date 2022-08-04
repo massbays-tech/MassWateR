@@ -124,7 +124,7 @@ anlzMWRseason <- function(res, param, acc, sit = NULL, thresh, group = c('month'
   toplo <- resdat
   
   ylab <- unique(toplo$`Result Unit`)
-  ttl <- param
+  ttl <- utilMWRtitle(param = param, dtrng = dtrng, locgroup = locgroup, resultatt = resultatt)
   
   p <- ggplot2::ggplot()
   

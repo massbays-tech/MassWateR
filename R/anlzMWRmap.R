@@ -148,7 +148,8 @@ anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgr
       unname
   
   ylab <- unique(resdat$`Result Unit`)
-  
+  ttl <- utilMWRtitle(param = paste('Average', param), dtrng = dtrng, locgroup = locgroup, resultatt = resultatt)
+    
   m <- ggplot2::ggplot()
 
   if(!is.null(maptype)){
@@ -194,7 +195,7 @@ anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgr
         axis.ticks = ggplot2::element_line(colour = 'grey'),
       ) +
       ggplot2::labs(
-        title = param
+        title = ttl
       ) 
   })
 

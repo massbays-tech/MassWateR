@@ -96,7 +96,8 @@ anlzMWRoutlier <- function(res, param, acc, type = c('box', 'jitterbox', 'jitter
   toplo <- resdat
 
   ylab <- unique(toplo$`Result Unit`)
-
+  ttl <- utilMWRtitle(param = param, dtrng = dtrng)
+  
   # plot by month
   if(group == 'month'){
    
@@ -195,7 +196,7 @@ anlzMWRoutlier <- function(res, param, acc, type = c('box', 'jitterbox', 'jitter
     thm +
     ggplot2::labs(
       y = ylab, 
-      title = param, 
+      title = ttl, 
       x = NULL
     )
   

@@ -127,6 +127,7 @@ anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', '
     )
   
   ylab <- unique(toplo$`Result Unit`)
+  ttl <- utilMWRtitle(param = param, dtrng = dtrng, locgroup = locgroup, resultatt = resultatt)
   
   p <- ggplot2::ggplot()
   
@@ -238,7 +239,7 @@ anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', '
     ) +
     ggplot2::labs(
       y = ylab, 
-      title = param, 
+      title = ttl, 
       linetype = NULL,
       size = NULL, 
       color = NULL,
