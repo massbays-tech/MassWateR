@@ -1,6 +1,16 @@
 url: https://massbays-tech.github.io/MassWateR
 template:
   bootstrap: 5
+
+navbar:
+  structure:
+    left:  [intro, reference, articles, tutorials, news]
+    right: [search, github]
+  components:
+    reference:
+      text: Functions
+      href: reference/index.html
+
 articles: 
 - title: Get Started
   navbar: ~
@@ -13,8 +23,8 @@ articles:
   - outlierchecks
   - analysis
   - modifying
+
 reference:
-- text: Functions
 - title: Read, check, and format data
   contents:
   - readMWRresults
