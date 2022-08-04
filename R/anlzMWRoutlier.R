@@ -56,6 +56,12 @@
 #' anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'site', 
 #'      dtrng = c('2021-05-01', '2021-07-31'))
 #' 
+#' # outliers by month, type as jitterbox
+#' anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month', type = 'jitterbox')
+#' 
+#' # outliers by month, type as jitter
+#' anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month', type = 'jitter')
+#' 
 #' # data frame output
 #' anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month', outliers = TRUE)
 #' 
@@ -157,27 +163,24 @@ anlzMWRoutlier <- function(res, param, acc, type = c('box', 'jitterbox', 'jitter
     
   }
   
-  if(type == 'box' | type == 'jitterbox')
+  if(type == 'box')
     p <- p + 
       ggplot2::geom_boxplot(outlier.color = 'tomato1', fill = fill, alpha = alpha, width = width)
+  
+  if(type == 'jitterbox')
+    p <- p + 
+      ggplot2::geom_boxplot(outlier.color = NA, fill = fill, alpha = alpha, width = width)
   
   if(type == 'jitter' | type == 'jitterbox'){
     
     outplo <- toplo %>% 
       dplyr::filter(is.na(outlier))
-    
-    p <- p + 
-      ggplot2::geom_point(data = outplo, position = ggplot2::position_dodge2(width = 0.7 * width), alpha = 0.5, size = 1)
-    
-  }
-  
-  if(type == 'jitter'){
-    
     jitplo <- toplo %>% 
       dplyr::filter(!is.na(outlier))
-
-    p <- p +
-      ggplot2::geom_point(data = jitplo, color = 'tomato1', )
+    
+    p <- p + 
+      ggplot2::geom_point(data = outplo, position = ggplot2::position_dodge2(width = 0.7 * width), alpha = 0.5, size = 1) +
+      ggplot2::geom_point(data = jitplo, color = 'tomato1', position = ggplot2::position_dodge2(width = 0.7 * width))
     
   }
   
