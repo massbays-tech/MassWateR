@@ -52,6 +52,7 @@ reference:
   - utilMWRinput
   - utilMWRlimits
   - utilMWRthresh
+  - utilMWRtitle
   - utilMWRyscale
   - utilMWRoutlier
 - title: Lookup tables
