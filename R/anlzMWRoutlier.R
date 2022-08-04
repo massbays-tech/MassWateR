@@ -6,7 +6,7 @@
 #' @param param character string of the parameter to plot, must conform to entries in the \code{"Simple Parameter"} column of \code{\link{paramsMWR}}
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
 #' @param type character indicating \code{"box"}, \code{"jitterbox"}, or \code{"jitter"}, see details
-#' @param group character indicating whether the summaries are grouped by month (default), site, or week of year
+#' @param group character indicating whether the summaries are grouped by month, site, or week of year
 #' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, optional
 #' @param repel logical indicating if overlapping outlier labels are offset
 #' @param outliers logical indicating if outliers are returned to the console instead of plotting
@@ -65,10 +65,10 @@
 #' # data frame output
 #' anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month', outliers = TRUE)
 #' 
-anlzMWRoutlier <- function(res, param, acc, type = c('box', 'jitterbox', 'jitter'), group = c('month', 'site', 'week'), dtrng = NULL, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
+anlzMWRoutlier <- function(res, param, acc, type = c('box', 'jitterbox', 'jitter'), group, dtrng = NULL, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
   
   type <- match.arg(type)
-  group <- match.arg(group)
+  group <- match.arg(group, choices = c('month', 'site', 'week'))
   
   # inputs
   inp <- utilMWRinput(res = res, acc = acc, runchk = runchk, warn = warn)

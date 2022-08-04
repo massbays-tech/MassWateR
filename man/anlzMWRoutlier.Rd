@@ -9,7 +9,7 @@ anlzMWRoutlier(
   param,
   acc,
   type = c("box", "jitterbox", "jitter"),
-  group = c("month", "site", "week"),
+  group,
   dtrng = NULL,
   repel = TRUE,
   outliers = FALSE,
@@ -31,7 +31,7 @@ anlzMWRoutlier(
 
 \item{type}{character indicating \code{"box"}, \code{"jitterbox"}, or \code{"jitter"}, see details}
 
-\item{group}{character indicating whether the summaries are grouped by month (default), site, or week of year}
+\item{group}{character indicating whether the summaries are grouped by month, site, or week of year}
 
 \item{dtrng}{character string of length two for the date ranges as YYYY-MM-DD, optional}
 
@@ -93,6 +93,12 @@ anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'site')
 # outliers by site, May through July 2021 only
 anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'site', 
      dtrng = c('2021-05-01', '2021-07-31'))
+
+# outliers by month, type as jitterbox
+anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month', type = 'jitterbox')
+
+# outliers by month, type as jitter
+anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month', type = 'jitter')
 
 # data frame output
 anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month', outliers = TRUE)
