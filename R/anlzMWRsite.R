@@ -123,6 +123,7 @@ anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox'
   toplo <- resdat
   
   ylab <- unique(toplo$`Result Unit`)
+  ttl <- param
   
   p <- ggplot2::ggplot()
   
@@ -196,6 +197,8 @@ anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox'
   # barplot
   if((type == 'bar' | type == 'jitterbar') & !byresultatt){
     
+    ttl <- paste('Average', ttl)
+    
     toplo <- toplo %>% 
       dplyr::group_by(`Monitoring Location ID`)
     
@@ -214,6 +217,8 @@ anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox'
   
   # barplot, by result attribute
   if((type == 'bar' | type == 'jitterbar') & byresultatt){
+    
+    ttl <- paste('Average', ttl)
     
     toplo <- toplo %>% 
       dplyr::group_by(`Monitoring Location ID`, `Result Attribute`)
@@ -254,7 +259,7 @@ anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox'
     thm +
     ggplot2::labs(
       y = ylab, 
-      title = param, 
+      title = ttl, 
       linetype = NULL,
       size = NULL, 
       alpha = NULL,

@@ -124,6 +124,7 @@ anlzMWRseason <- function(res, param, acc, sit = NULL, thresh, group = c('month'
   toplo <- resdat
   
   ylab <- unique(toplo$`Result Unit`)
+  ttl <- param
   
   p <- ggplot2::ggplot()
   
@@ -189,6 +190,8 @@ anlzMWRseason <- function(res, param, acc, sit = NULL, thresh, group = c('month'
   # barplot
   if(type == 'bar' | type == 'jitterbar'){
     
+    ttl <- paste('Average', ttl)
+    
     toplo <- toplo %>% 
       dplyr::group_by(grpvar)
     
@@ -228,7 +231,7 @@ anlzMWRseason <- function(res, param, acc, sit = NULL, thresh, group = c('month'
     thm +
     ggplot2::labs(
       y = ylab, 
-      title = param,
+      title = ttl,
       linetype = NULL, 
       alpha = NULL,
       size = NULL, 
