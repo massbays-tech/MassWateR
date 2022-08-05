@@ -26,6 +26,8 @@ articles:
 
 reference:
 - title: Read, check, and format data
+  desc: >
+    Functions for importing, checking, and formatting the results and data quality objectives data.
   contents:
   - readMWRresults
   - checkMWRresults
@@ -39,6 +41,8 @@ reference:
   - readMWRsites
   - checkMWRsites
 - title: Quality control checks, table and report creation
+  desc: >
+    Functions for running quality control checks, generating tables, and creating the overall report. 
   contents:
   - qcMWRreview
   - qcMWRacc
@@ -48,15 +52,21 @@ reference:
   - qcMWRcom
   - tabMWRcom
 - title: Outlier analysis
+  desc: > 
+    Functions for evaluating outliers as plots and geneating tabular output.
   contents:
   - anlzMWRoutlier
 - title: General analysis
+  desc: >
+    Functions for creating analysis plots of the results data.
   contents: 
   - anlzMWRseason
   - anlzMWRdate
   - anlzMWRsite
   - anlzMWRmap
-- title: Utility functions used by all other functions
+- title: Utility functions
+  desc: >
+    This is a collection of functions used internally by all other functions.  They are not to be called directly. 
   contents: 
   - utilMWRconfint
   - utilMWRfilter
@@ -67,6 +77,8 @@ reference:
   - utilMWRyscale
   - utilMWRoutlier
 - title: Lookup tables
+  desc: >
+    Supplementary datasets used as lookup tables for the read, quality control, and analysis functions.
   contents:
   - paramsMWR
   - thresholdMWR
