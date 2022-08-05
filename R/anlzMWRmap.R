@@ -161,9 +161,21 @@ anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgr
 
   if(addwater){
     
-    wat_sf <- osmdata::opq(bbox = as.numeric(dat_ext)) %>% 
+    wat_sf <- try({osmdata::opq(bbox = as.numeric(dat_ext)) %>% 
       osmdata::add_osm_feature(key = 'natural', value = 'water') %>%
       osmdata::osmdata_sf()
+    }, silent = TRUE)
+    
+    # try again if gateway error
+    while(inherits(wat_sf, 'try-error')){
+      
+      Sys.sleep(1)
+      wat_sf <- try({osmdata::opq(bbox = as.numeric(dat_ext)) %>% 
+          osmdata::add_osm_feature(key = 'natural', value = 'water') %>%
+          osmdata::osmdata_sf()
+      }, silent = TRUE)
+      
+    }
 
     if(!is.null(wat_sf$osm_lines))
       m <- m + 
