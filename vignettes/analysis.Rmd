@@ -200,7 +200,7 @@ Setting `type = "jitter"` will show only the jittered points.
 anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "jitter")
 ```
 
-Results can be grouped by entries in the `Result Atribute` column using `byresultatt = TRUE`.  Values must be supplied to the `resultatt` argument to use this option and they must be valid result attributes from the site metadata file.  For example, sites with E. coli samples can be grouped by `"Dry"` or `"Wet"` conditions.  Filtering by sites first is advised to reduce the amount of data that are plotted. Note that specifying result attributes with `resultatt` and setting `byresultatt = FALSE` will filter the plot data by the result attributes but will not plot the results separately. 
+Results can be grouped by entries in the `Result Atribute` column using `byresultatt = TRUE`. For example, sites with E. coli samples can be grouped by `"Dry"` or `"Wet"` conditions.  Filtering by sites first using the `site` argument is advised to reduce the amount of data that are plotted. The grouping can be filtered further by passing appropriate values in the `Result Attribute` column to the `resultatt` argument. Note that specifying result attributes with `resultatt` and setting `byresultatt = FALSE` will filter the plot data by the result attributes but will not plot the results separately. 
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRsite(res = resdat, param = "E.coli", acc = accdat, thresh = "fresh", type = "box", 

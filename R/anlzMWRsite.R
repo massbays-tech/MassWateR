@@ -32,7 +32,7 @@
 #' 
 #' Any entries in \code{resdat} in the \code{"Result Value"} column as \code{"BDL"} or \code{"AQL"} are replaced with appropriate values in the \code{"Quantitation Limit"} column, if present, otherwise the \code{"MDL"} or \code{"UQL"} columns from the data quality objectives file for accuracy are used.  Values as \code{"BDL"} use one half of the appropriate limit.
 #' 
-#' The \code{byresultatt} argument can be used to group sites separately by result attributes.  For example, sites with E. coli samples can be grouped by \code{"Dry"} or \code{"Wet"} conditions if present in the \code{"Result Attribute"} column.  
+#' The \code{byresultatt} argument can be used to group sites separately by result attributes.  For example, sites with E. coli samples can be grouped by \code{"Dry"} or \code{"Wet"} conditions if present in the \code{"Result Attribute"} column.   Filtering by sites first using the \code{site} argument is advised to reduce the amount of data that are plotted. The grouping can be filtered further by passing appropriate values in the \code{"Result Attribute"} column to the \code{resultatt} argument. Note that specifying result attributes with \code{resultatt} and setting \code{byresultatt = FALSE} will filter the plot data by the result attributes but will not plot the results separately. 
 #' 
 #' @export
 #'
@@ -69,7 +69,7 @@
 #' # grouping by result attribute
 #' anlzMWRsite(res = resdat, param = 'E.coli', acc = accdat, type = 'box', thresh = 'fresh',
 #'      site = c('ABT-077', 'ABT-162', 'CND-009', 'CND-110', 'HBS-016', 'HBS-031'),
-#'      byresultatt = TRUE, resultatt = c('Dry', 'Wet'))
+#'      byresultatt = TRUE)
 #'      
 #' # site trends by location group, requires sitdat
 #' anlzMWRsite(res = resdat, param = 'DO', acc = accdat, sit = sitdat, type = 'box', 
@@ -78,10 +78,6 @@
 anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox', 'bar', 'jitterbar', 'jitter'), thresh, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, confint = FALSE, fill = 'lightgreen', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), byresultatt = FALSE, runchk = TRUE, warn = TRUE){
   
   type <- match.arg(type)
-  
-  # check if resultatt is NULL if byresultatt is TRUE
-  if(byresultatt & is.null(resultatt))
-    stop("Must supply values to resultatt if byresultatt = TRUE")
   
   # inputs
   inp <- utilMWRinput(res = res, acc = acc, sit = sit, runchk = runchk, warn = warn)
@@ -96,7 +92,7 @@ anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox'
   sitdat <- inp$sitdat
   
   # filter
-  resdat <- utilMWRfilter(resdat = resdat, sitdat = sitdat, param = param, dtrng = dtrng, site = site, resultatt = resultatt, locgroup = locgroup)
+  resdat <- utilMWRfilter(resdat = resdat, sitdat = sitdat, param = param, dtrng = dtrng, site = site, resultatt = resultatt, locgroup = locgroup, allresultatt = byresultatt)
   
   # fill BDL, AQL
   resdat <- utilMWRlimits(resdat = resdat, accdat = accdat, param = param, warn = warn)

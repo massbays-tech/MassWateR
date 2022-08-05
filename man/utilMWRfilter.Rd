@@ -12,7 +12,8 @@ utilMWRfilter(
   site = NULL,
   resultatt = NULL,
   locgroup = NULL,
-  alllocgroup = FALSE
+  alllocgroup = FALSE,
+  allresultatt = FALSE
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ utilMWRfilter(
 \item{locgroup}{character string of location groups to include from the \code{"Location Group"} column in the site metadata file}
 
 \item{alllocgroup}{logical indicating if results data are filtered by all location groups in \code{"Location Group"} in the site metadata file if \code{locgroup = NULL}, used only in \code{\link{anlzMWRdate}}}
+
+\item{allresultatt}{logical indicating if results data are filtered by all result attributes if \code{resultatt = NULL}, used only in \code{\link{anlzMWRsite}}}
 }
 \value{
 \code{resdat} filtered by \code{dtrng}, \code{site}, \code{resultatt}, and/or \code{locgroup}, otherwise \code{resdat} unfiltered if arguments are \code{NULL}

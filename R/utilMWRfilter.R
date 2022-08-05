@@ -8,6 +8,7 @@
 #' @param resultatt character string of result attributes to include, default all
 #' @param locgroup character string of location groups to include from the \code{"Location Group"} column in the site metadata file
 #' @param alllocgroup logical indicating if results data are filtered by all location groups in \code{"Location Group"} in the site metadata file if \code{locgroup = NULL}, used only in \code{\link{anlzMWRdate}}
+#' @param allresultatt logical indicating if results data are filtered by all result attributes if \code{resultatt = NULL}, used only in \code{\link{anlzMWRsite}}
 #'
 #' @return \code{resdat} filtered by \code{dtrng}, \code{site}, \code{resultatt}, and/or \code{locgroup}, otherwise \code{resdat} unfiltered if arguments are \code{NULL}
 #' @export
@@ -37,7 +38,7 @@
 #' # filter by location group
 #' utilMWRfilter(resdat, param = 'DO', sitdat = sitdat, 
 #'      locgroup = c('Concord', 'Headwater & Tribs'), dtrng = c('2021-06-01', '2021-06-30'))
-utilMWRfilter <- function(resdat, sitdat = NULL, param, dtrng = NULL, site = NULL, resultatt = NULL, locgroup = NULL, alllocgroup = FALSE){
+utilMWRfilter <- function(resdat, sitdat = NULL, param, dtrng = NULL, site = NULL, resultatt = NULL, locgroup = NULL, alllocgroup = FALSE, allresultatt = FALSE){
   
   resdat <- resdat %>% 
     dplyr::filter(`Activity Type` %in% c('Field Msr/Obs', 'Sample-Routine'))
@@ -71,7 +72,7 @@ utilMWRfilter <- function(resdat, sitdat = NULL, param, dtrng = NULL, site = NUL
     
     if(anyNA(dtflt)){
       chk <- dtrng[is.na(dtflt)]
-      stop('Dates not entered as YYYY-mm-dd: ', paste(chk, collapse = ', '), call. = FALSE)
+      stop('Dates not entered as YYYY-MM-DD: ', paste(chk, collapse = ', '), call. = FALSE)
     } 
     
     dtflt <- sort(dtflt)
@@ -105,7 +106,15 @@ utilMWRfilter <- function(resdat, sitdat = NULL, param, dtrng = NULL, site = NUL
   ##
   # filter by result attribute
   
-  if(!is.null(resultatt)){
+  if(!is.null(resultatt) | allresultatt){
+    
+    # get all result attributes if resultatt NULL
+    if(is.null(resultatt))
+      resultatt <- resdat %>% 
+        dplyr::pull(`Result Attribute`) %>% 
+        unique() %>% 
+        sort() %>% 
+        na.omit()
     
     # run checks if result attribute in resdat
     resatt <- sort(unique(resdat$`Result Attribute`))

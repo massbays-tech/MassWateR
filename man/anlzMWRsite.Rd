@@ -80,7 +80,7 @@ The y-axis scaling as arithmetic (linear) or logarithmic can be set with the \co
 
 Any entries in \code{resdat} in the \code{"Result Value"} column as \code{"BDL"} or \code{"AQL"} are replaced with appropriate values in the \code{"Quantitation Limit"} column, if present, otherwise the \code{"MDL"} or \code{"UQL"} columns from the data quality objectives file for accuracy are used.  Values as \code{"BDL"} use one half of the appropriate limit.
 
-The \code{byresultatt} argument can be used to group sites separately by result attributes.  For example, sites with E. coli samples can be grouped by \code{"Dry"} or \code{"Wet"} conditions if present in the \code{"Result Attribute"} column.
+The \code{byresultatt} argument can be used to group sites separately by result attributes.  For example, sites with E. coli samples can be grouped by \code{"Dry"} or \code{"Wet"} conditions if present in the \code{"Result Attribute"} column.   Filtering by sites first using the \code{site} argument is advised to reduce the amount of data that are plotted. The grouping can be filtered further by passing appropriate values in the \code{"Result Attribute"} column to the \code{resultatt} argument. Note that specifying result attributes with \code{resultatt} and setting \code{byresultatt = FALSE} will filter the plot data by the result attributes but will not plot the results separately.
 }
 \examples{
 # results data path
@@ -115,7 +115,7 @@ anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'box', thresh = 'fr
 # grouping by result attribute
 anlzMWRsite(res = resdat, param = 'E.coli', acc = accdat, type = 'box', thresh = 'fresh',
      site = c('ABT-077', 'ABT-162', 'CND-009', 'CND-110', 'HBS-016', 'HBS-031'),
-     byresultatt = TRUE, resultatt = c('Dry', 'Wet'))
+     byresultatt = TRUE)
      
 # site trends by location group, requires sitdat
 anlzMWRsite(res = resdat, param = 'DO', acc = accdat, sit = sitdat, type = 'box', 
