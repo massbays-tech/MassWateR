@@ -112,16 +112,14 @@ utilMWRfilter <- function(resdat, sitdat = NULL, param, dtrng = NULL, site = NUL
     if(is.null(resultatt))
       resultatt <- resdat %>% 
         dplyr::pull(`Result Attribute`) %>% 
-        unique() %>% 
-        sort() %>% 
-        na.omit()
-    
+        unique()
+        
     # run checks if result attribute in resdat
-    resatt <- sort(unique(resdat$`Result Attribute`))
+    resatt <- unique(resdat$`Result Attribute`)
     chk <- !resultatt %in% resatt
     if(any(chk)){
       msg <- resultatt[chk]
-      resatt <- ifelse(length(na.omit(resatt)) == 0, 'none available', paste('should be any of', paste(resatt, collapse = ', ')))
+      resatt <- ifelse(length(na.omit(resatt)) == 0, 'none available', paste('should be any of', paste(sort(resatt), collapse = ', ')))
       stop('Result attributes not found in results file for ', param, ': ', paste(msg, collapse = ', '), ', ', resatt, call. = FALSE)
     }
     
