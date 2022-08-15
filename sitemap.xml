@@ -79,6 +79,9 @@
     <loc>https://massbays-tech.github.io/MassWateR/reference/paramsMWR.html</loc>
   </url>
   <url>
+    <loc>https://massbays-tech.github.io/MassWateR/reference/pondsMWR.html</loc>
+  </url>
+  <url>
     <loc>https://massbays-tech.github.io/MassWateR/reference/qcMWRacc.html</loc>
   </url>
   <url>
@@ -101,6 +104,12 @@
   </url>
   <url>
     <loc>https://massbays-tech.github.io/MassWateR/reference/readMWRsites.html</loc>
+  </url>
+  <url>
+    <loc>https://massbays-tech.github.io/MassWateR/reference/riversMWR.html</loc>
+  </url>
+  <url>
+    <loc>https://massbays-tech.github.io/MassWateR/reference/streamsMWR.html</loc>
   </url>
   <url>
     <loc>https://massbays-tech.github.io/MassWateR/reference/tabMWRacc.html</loc>
