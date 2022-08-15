@@ -76,9 +76,12 @@ reference:
   - utilMWRtitle
   - utilMWRyscale
   - utilMWRoutlier
-- title: Lookup tables
+- title: Supplementary datasets
   desc: >
-    Supplementary datasets used as lookup tables for the read, quality control, and analysis functions.
+    Supplementary datasets for the read, quality control, and analysis functions.
   contents:
   - paramsMWR
+  - pondsMWR
+  - riversMWR
+  - streamsMWR
   - thresholdMWR
