@@ -21,7 +21,7 @@ anlzMWRmap(
   crs = 4326,
   zoom = 11,
   maptype = "terrain-background",
-  addwater = FALSE,
+  addwater = NULL,
   watercol = "lightblue",
   buffdist = 0.02,
   northloc = "tl",
@@ -64,9 +64,9 @@ anlzMWRmap(
 
 \item{maptype}{character string for the base map type, see details}
 
-\item{addwater}{logical indicating if water bodies are added to the map, see details}
+\item{addwater}{character string as \code{"nhd"} or \code{"osm"} to include water bodies as lines or polygons added to the map, see details (default as \code{NULL})}
 
-\item{watercol}{character string of color for water objects if \code{addwater = TRUE}}
+\item{watercol}{character string of color for water objects if \code{addwater = "nhd"} or \code{addwater = "osm"}}
 
 \item{buffdist}{numeric for buffer around the bounding box for the selected sites, see details}
 
@@ -97,7 +97,7 @@ The results shown on the map represent the parameter average for each site withi
 
 The base map is obtained from the \code{\link[ggmap]{get_stamenmap}} function.  The \code{zoom} value specifies the resolution of the map.  Use higher values to download map tiles with greater resolution, although this increases the download time.  The \code{maptype} argument describes the type of base map to download. Acceptable options include \code{"terrain"}, \code{"terrain-background"}, \code{"terrain-labels"}, \code{"terrain-lines"}, \code{"toner"}, \code{"toner-2010"}, \code{"toner-2011"}, \code{"toner-background"}, \code{"toner-hybrid"}, \code{"toner-labels"}, \code{"toner-lines"}, \code{"toner-lite"}, or \code{"watercolor"}. Use \code{maptype = NULL} to suppress the base map.
 
-Using \code{addwater = TRUE} will include lines and polygons of natural water bodies from the OpenStreetMap (\href{https://www.openstreetmap.org/}{OSM}) project, downloaded using the \href{https://docs.ropensci.org/osmdata}{osmdata} package.  The downloaded objects are plotted as simple features on top of the base map specified with the \code{maptype} argument. Use \code{maptype = NULL} to show only the water objects.
+Using \code{addwater = "nhd"} will include lines and polygons of natural water bodies defined using the National Hydrography Dataset and included as data files with the package as \code{\link{pondsMWR}}, \code{\link{riversMWR}}, and \code{\link{streamsMWR}}. Using \code{addwater = "osm"} will include lines and polygons of natural water bodies from the OpenStreetMap (\href{https://www.openstreetmap.org/}{OSM}) project, downloaded using the \href{https://docs.ropensci.org/osmdata}{osmdata} package.    The former may be preferred for more accurate display of water bodies in Massachusetts, whereas the latter option will also include water bodies outside of the state. For both options, the spatial objects are plotted as simple features on top of the base map specified with the \code{maptype} argument. Use \code{maptype = NULL} to show only the water objects.
 
 The area around the summarized points can be increased or decreased using the \code{buffdist} argument.  This creates a buffered area around the bounding box for the points, where the units are degrees.
 

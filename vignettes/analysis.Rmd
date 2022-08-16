@@ -286,14 +286,16 @@ The base map can be suppressed with `maptype = NULL`.
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = NULL, warn = F)
 ```
 
-Finally, using `addwater = TRUE` will include lines and polygons of natural water bodies from the OpenStreetMap ([OSM](https://www.openstreetmap.org) project, downloaded using the [osmdata](https://docs.ropensci.org/osmdata) package.  The downloaded objects are plotted as simple features on top of the base map specified with the `maptype` argument.  
+Finally, using `addwater = "nhd"` will include lines and polygons of natural water bodies defined using the National Hydrography Dataset and included as data files with the package as `pondsMWR`, `riversMWR`, and `streamsMWR`. Using `addwater = "osm"` will include lines and polygons of natural water bodies from the OpenStreetMap ([OSM]{https://www.openstreetmap.org/}) project, downloaded using the [osmdata]{https://docs.ropensci.org/osmdata} package.  The former may be preferred for more accurate display of water bodies in Massachusetts, whereas the latter option will also include water bodies outside of the state. For both options, the spatial objects are plotted as simple features on top of the base map specified with the `maptype` argument. Use `maptype = NULL` to show only the water objects.
+
+Using `addwater = "nhd"`:
 
 ```{r, fig.height = 7, fig.width = 6}
-anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = T, warn = F)
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "nhd", maptype = NULL, warn = F)
 ```
 
-Use `maptype = NULL` to show only the water body objects.
+Using `addwater = "osm"`:
 
 ```{r, fig.height = 7, fig.width = 6}
-anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = T, maptype = NULL, warn = F)
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "osm", maptype = NULL, warn = F)
 ```
