@@ -125,10 +125,12 @@ sitdat <- readMWRsites(sitpth)
 # map 
 anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat)
 
-# map with OpenStreetMap water bodies
-anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = TRUE)
+# map with NHD water bodies
+anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = "nhd", 
+  maptype = NULL)
 
-# map with only OpenStreetMap water bodies
-anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = TRUE, 
-   maptype = NULL)
+# map with OpenStreetMap water bodies
+anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = "osm", 
+  maptype = NULL)
+
 }
