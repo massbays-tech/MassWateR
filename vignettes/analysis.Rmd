@@ -121,11 +121,11 @@ The default plot for `anlzMWRdate()` will show separate lines for each site, y-a
 anlzMWRdate(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "site", site = c("ABT-026", "ABT-077"))
 ```
 
-The color legend for the sites can be suppressed by setting `colleg = FALSE`.
+A color legend for the sites can be included by setting `colleg = TRUE`.
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRdate(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "site", site = c("ABT-026", "ABT-077"),
-            colleg = F)
+            colleg = T)
 ```
 
 The results averaged across the selected sites can be plotted using `group = "all"`.

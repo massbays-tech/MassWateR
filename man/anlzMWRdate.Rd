@@ -17,12 +17,12 @@ anlzMWRdate(
   locgroup = NULL,
   dtrng = NULL,
   ptsize = 2,
-  repel = TRUE,
+  repel = FALSE,
   labsize = 3,
   expand = c(0.05, 0.1),
   confint = FALSE,
   yscl = c("auto", "log", "linear"),
-  colleg = TRUE,
+  colleg = FALSE,
   ttlsize = 1.2,
   runchk = TRUE,
   warn = TRUE
@@ -53,7 +53,7 @@ anlzMWRdate(
 
 \item{ptsize}{numeric indicating size of the points}
 
-\item{repel}{logical indicating if overlapping site labels are offset}
+\item{repel}{logical indicating if overlapping site labels are offset, default \code{FALSE}}
 
 \item{labsize}{numeric indicating font size for the site labels, only if \code{group = "site"} or \code{group = "locgroup"}}
 
