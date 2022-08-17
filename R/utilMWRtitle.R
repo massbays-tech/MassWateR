@@ -28,8 +28,12 @@ utilMWRtitle <- function(param, site = NULL, dtrng = NULL, resultatt = NULL, loc
   if(!is.null(site))
     site <- 'sites'
     
-  if(!is.null(dtrng))
-    dtrng <- 'dates'
+  if(!is.null(dtrng)){
+    dtrng <- format(as.Date(dtrng), '%e %B, %Y')
+    dtrng <- gsub('^\\s', '', dtrng)
+    dtrng <- paste(dtrng, collapse = ' to ')
+    dtrng <- paste0('dates (', dtrng, ')')
+  }
   
   if(!is.null(resultatt))
     resultatt <- 'result attributes'
