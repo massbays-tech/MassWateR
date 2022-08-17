@@ -4,10 +4,18 @@
 \alias{utilMWRtitle}
 \title{Format the title for analyze functions}
 \usage{
-utilMWRtitle(param, dtrng = NULL, resultatt = NULL, locgroup = NULL)
+utilMWRtitle(
+  param,
+  site = NULL,
+  dtrng = NULL,
+  resultatt = NULL,
+  locgroup = NULL
+)
 }
 \arguments{
 \item{param}{character string of the parameter to plot}
+
+\item{site}{character string of sites to include}
 
 \item{dtrng}{character string of length two for the date ranges as YYYY-MM-DD}
 
@@ -32,5 +40,6 @@ utilMWRtitle(param = 'DO')
 utilMWRtitle(param = 'DO', dtrng = 'test')
 
 # filter by all
-utilMWRtitle(param = 'DO', dtrng = 'test', resultatt = 'test', locgroup = 'test')
+utilMWRtitle(param = 'DO', site = 'test', dtrng = 'test', 
+     resultatt = 'test', locgroup = 'test')
 }

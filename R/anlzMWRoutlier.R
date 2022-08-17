@@ -102,7 +102,7 @@ anlzMWRoutlier <- function(res, param, acc, type = c('box', 'jitterbox', 'jitter
   toplo <- resdat
 
   ylab <- unique(toplo$`Result Unit`)
-  ttl <- utilMWRtitle(param = param, dtrng = dtrng)
+  ttl <- utilMWRtitle(param = param, site = site, dtrng = dtrng)
   
   # plot by month
   if(group == 'month'){

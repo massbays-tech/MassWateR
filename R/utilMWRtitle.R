@@ -1,6 +1,7 @@
 #' Format the title for analyze functions
 #'
 #' @param param character string of the parameter to plot
+#' @param site character string of sites to include
 #' @param dtrng character string of length two for the date ranges as YYYY-MM-DD
 #' @param resultatt character string of result attributes to plot
 #' @param locgroup character string of location groups to plot from the \code{"Location Group"} column in the site metadata file
@@ -18,13 +19,17 @@
 #' utilMWRtitle(param = 'DO', dtrng = 'test')
 #' 
 #' # filter by all
-#' utilMWRtitle(param = 'DO', dtrng = 'test', resultatt = 'test', locgroup = 'test')
-utilMWRtitle <- function(param, dtrng = NULL, resultatt = NULL, locgroup = NULL){
+#' utilMWRtitle(param = 'DO', site = 'test', dtrng = 'test', 
+#'      resultatt = 'test', locgroup = 'test')
+utilMWRtitle <- function(param, site = NULL, dtrng = NULL, resultatt = NULL, locgroup = NULL){
   
   out <- param
   
+  if(!is.null(site))
+    site <- 'sites'
+    
   if(!is.null(dtrng))
-    dtrng <- 'date'
+    dtrng <- 'dates'
   
   if(!is.null(resultatt))
     resultatt <- 'result attributes'
@@ -32,7 +37,7 @@ utilMWRtitle <- function(param, dtrng = NULL, resultatt = NULL, locgroup = NULL)
   if(!is.null(locgroup))
     locgroup <- 'location groups'
 
-  addtxt <- paste(c(dtrng, resultatt, locgroup), collapse  = ', ')
+  addtxt <- paste(c(site, dtrng, resultatt, locgroup), collapse  = ', ')
   
   if(nchar(addtxt) > 0)
     out <- paste0(out, ', data filtered by ', addtxt)

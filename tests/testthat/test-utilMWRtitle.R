@@ -5,10 +5,11 @@ test_that("title with parameter only", {
 
 test_that("title with parameter, date filter only", {
   result <- utilMWRtitle(param = 'DO', dtrng = 'test')
-  expect_equal(result, 'DO, data filtered by date')
+  expect_equal(result, 'DO, data filtered by dates')
 })
 
 test_that("title with parameter and all filters", {
-  result <- utilMWRtitle(param = 'DO', dtrng = 'test', resultatt = 'test', locgroup = 'test')
-  expect_equal(result, 'DO, data filtered by date, result attributes, location groups')
+  result <- utilMWRtitle(param = 'DO', site = 'test', dtrng = 'test', resultatt = 'test', 
+                         locgroup = 'test')
+  expect_equal(result, 'DO, data filtered by sites, dates, result attributes, location groups')
 })
