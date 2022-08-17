@@ -15,6 +15,7 @@
 #' @param alpha numeric from 0 to 1 indicating transparency of fill color
 #' @param width numeric for width of boxplots
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
+#' @param ttlsize numeric value indicating font size of the title relative to other text in the plot
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
@@ -65,7 +66,7 @@
 #' # data frame output
 #' anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month', outliers = TRUE)
 #' 
-anlzMWRoutlier <- function(res, param, acc, type = c('box', 'jitterbox', 'jitter'), group, dtrng = NULL, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
+anlzMWRoutlier <- function(res, param, acc, type = c('box', 'jitterbox', 'jitter'), group, dtrng = NULL, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), ttlsize = 1.2, runchk = TRUE, warn = TRUE){
   
   type <- match.arg(type)
   group <- match.arg(group, choices = c('month', 'site', 'week'))
@@ -96,7 +97,8 @@ anlzMWRoutlier <- function(res, param, acc, type = c('box', 'jitterbox', 'jitter
       panel.grid.major.x = ggplot2::element_blank(), 
       panel.grid.minor.x = ggplot2::element_blank(),
       panel.grid.minor.y = ggplot2::element_blank(), 
-      axis.text.x = ggplot2::element_text(angle = 45, size = 8, hjust = 1)
+      axis.text.x = ggplot2::element_text(angle = 45, size = 8, hjust = 1),
+      plot.title = ggplot2::element_text(size = ggplot2::rel(ttlsize))
     )
 
   toplo <- resdat

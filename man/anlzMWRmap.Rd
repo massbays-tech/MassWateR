@@ -27,6 +27,7 @@ anlzMWRmap(
   northloc = "tl",
   scaleloc = "br",
   latlon = TRUE,
+  ttlsize = 1.2,
   runchk = TRUE,
   warn = TRUE
 )
@@ -75,6 +76,8 @@ anlzMWRmap(
 \item{scaleloc}{character string indicating location of the scale bar, see details}
 
 \item{latlon}{logical to include latitude and longitude labels on the plot, default \code{TRUE}}
+
+\item{ttlsize}{numeric value indicating font size of the title relative to other text in the plot}
 
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, or \code{\link{checkMWRsites}}, applies only if \code{res}, \code{acc}, or \code{sit} are file paths}
 

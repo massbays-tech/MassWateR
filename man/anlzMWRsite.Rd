@@ -22,6 +22,7 @@ anlzMWRsite(
   width = 0.8,
   yscl = c("auto", "log", "linear"),
   byresultatt = FALSE,
+  ttlsize = 1.2,
   runchk = TRUE,
   warn = TRUE
 )
@@ -60,6 +61,8 @@ anlzMWRsite(
 \item{yscl}{character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details}
 
 \item{byresultatt}{logical indicating if the plot has sites grouped separately by result attributes, see details}
+
+\item{ttlsize}{numeric value indicating font size of the title relative to other text in the plot}
 
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths}
 

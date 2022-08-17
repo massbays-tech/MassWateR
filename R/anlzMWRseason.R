@@ -19,6 +19,7 @@
 #' @param alpha numeric from 0 to 1 indicating transparency of fill color
 #' @param width numeric for width of boxplots or barplots
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
+#' @param ttlsize numeric value indicating font size of the title relative to other text in the plot
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
@@ -79,7 +80,7 @@
 #' # seasonal trends by location group, requires sitdat
 #' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, sit = sitdat, thresh = 'fresh', 
 #'      group = 'month', type = 'box', locgroup = 'Concord')
-anlzMWRseason <- function(res, param, acc, sit = NULL, thresh, group = c('month', 'week'), type = c('box', 'jitterbox', 'bar', 'jitterbar', 'jitter'), threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, confint = FALSE, fill = 'lightblue', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), runchk = TRUE, warn = TRUE){
+anlzMWRseason <- function(res, param, acc, sit = NULL, thresh, group = c('month', 'week'), type = c('box', 'jitterbox', 'bar', 'jitterbar', 'jitter'), threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, confint = FALSE, fill = 'lightblue', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), ttlsize = 1.2, runchk = TRUE, warn = TRUE){
   
   group <- match.arg(group)
   type <- match.arg(type)
@@ -118,7 +119,8 @@ anlzMWRseason <- function(res, param, acc, sit = NULL, thresh, group = c('month'
       panel.grid.minor.y = ggplot2::element_blank(), 
       axis.text.x = ggplot2::element_text(angle = 45, size = 8, hjust = 1), 
       legend.position = 'top',
-      legend.key.width = ggplot2::unit(1.05, "cm")
+      legend.key.width = ggplot2::unit(1.05, "cm"), 
+      plot.title = ggplot2::element_text(size = ggplot2::rel(ttlsize))
     )
   
   toplo <- resdat

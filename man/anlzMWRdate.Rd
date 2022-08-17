@@ -23,6 +23,7 @@ anlzMWRdate(
   confint = FALSE,
   yscl = c("auto", "log", "linear"),
   colleg = TRUE,
+  ttlsize = 1.2,
   runchk = TRUE,
   warn = TRUE
 )
@@ -63,6 +64,8 @@ anlzMWRdate(
 \item{yscl}{character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details}
 
 \item{colleg}{logical indicating if a color legend for sites or location groups is included if \code{group = "site"} or \code{group = "locgroup"}}
+
+\item{ttlsize}{numeric value indicating font size of the title relative to other text in the plot}
 
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths}
 

@@ -19,6 +19,7 @@
 #' @param width numeric for width of boxplots or barplots
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
 #' @param byresultatt logical indicating if the plot has sites grouped separately by result attributes, see details
+#' @param ttlsize numeric value indicating font size of the title relative to other text in the plot
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
@@ -75,7 +76,7 @@
 #' anlzMWRsite(res = resdat, param = 'DO', acc = accdat, sit = sitdat, type = 'box', 
 #'      thresh = 'fresh', locgroup = 'Concord')
 #'      
-anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox', 'bar', 'jitterbar', 'jitter'), thresh, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, confint = FALSE, fill = 'lightgreen', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), byresultatt = FALSE, runchk = TRUE, warn = TRUE){
+anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox', 'bar', 'jitterbar', 'jitter'), thresh, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, confint = FALSE, fill = 'lightgreen', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), byresultatt = FALSE, ttlsize =  1.2, runchk = TRUE, warn = TRUE){
   
   type <- match.arg(type)
   
@@ -113,7 +114,8 @@ anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox'
       panel.grid.minor.y = ggplot2::element_blank(), 
       axis.text.x = ggplot2::element_text(angle = 45, size = 8, hjust = 1), 
       legend.position = 'top',
-      legend.key.width = ggplot2::unit(1.05, "cm")
+      legend.key.width = ggplot2::unit(1.05, "cm"),
+      plot.title = ggplot2::element_text(size = ggplot2::rel(ttlsize))
     )
   
   toplo <- resdat

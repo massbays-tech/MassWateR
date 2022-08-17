@@ -22,6 +22,7 @@
 #' @param northloc character string indicating location of the north arrow, see details
 #' @param scaleloc character string indicating location of the scale bar, see details
 #' @param latlon logical to include latitude and longitude labels on the plot, default \code{TRUE}
+#' @param ttlsize numeric value indicating font size of the title relative to other text in the plot
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, or \code{\link{checkMWRsites}}, applies only if \code{res}, \code{acc}, or \code{sit} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
@@ -75,7 +76,7 @@
 #' anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = "osm", 
 #'   maptype = NULL)
 #'
-anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', yscl = c('auto', 'log', 'linear'), crs = 4326, zoom = 11, maptype = 'terrain-background', addwater = NULL,  watercol = 'lightblue', buffdist = 0.02, northloc = 'tl', scaleloc = 'br', latlon = TRUE, runchk = TRUE, warn = TRUE){
+anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', yscl = c('auto', 'log', 'linear'), crs = 4326, zoom = 11, maptype = 'terrain-background', addwater = NULL,  watercol = 'lightblue', buffdist = 0.02, northloc = 'tl', scaleloc = 'br', latlon = TRUE, ttlsize = 1.2, runchk = TRUE, warn = TRUE){
   
   if(!requireNamespace('ggmap', quietly = TRUE))
     stop("Package \"ggmap\" needed for this function to work. Please install it.", call. = FALSE)
@@ -222,6 +223,7 @@ anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgr
         axis.text.y = ggplot2::element_text(size = 8), 
         axis.text.x = ggplot2::element_text(size = 8, angle = 30, hjust = 1),
         axis.ticks = ggplot2::element_line(colour = 'grey'),
+        plot.title = ggplot2::element_text(size = ggplot2::rel(ttlsize))
       ) +
       ggplot2::labs(
         title = ttl
