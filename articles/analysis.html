@@ -207,10 +207,10 @@
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRdate.html">anlzMWRdate</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"site"</span>, site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ABT-026"</span>, <span class="st">"ABT-077"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysis_files/figure-html/unnamed-chunk-15-1.png" width="768"></p>
-<p>The color legend for the sites can be suppressed by setting <code>colleg = FALSE</code>.</p>
+<p>A color legend for the sites can be included by setting <code>colleg = TRUE</code>.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRdate.html">anlzMWRdate</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"site"</span>, site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ABT-026"</span>, <span class="st">"ABT-077"</span><span class="op">)</span>,</span>
-<span>            colleg <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
+<span>            colleg <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysis_files/figure-html/unnamed-chunk-16-1.png" width="768"></p>
 <p>The results averaged across the selected sites can be plotted using <code>group = "all"</code>.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
