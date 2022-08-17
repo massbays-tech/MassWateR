@@ -37,9 +37,9 @@ All arguments are optional except \code{param}, appropriate text strings are app
 utilMWRtitle(param = 'DO')
 
 # filter by date only
-utilMWRtitle(param = 'DO', dtrng = 'test')
+utilMWRtitle(param = 'DO', dtrng = c('2021-05-01', '2021-07-31'))
 
 # filter by all
-utilMWRtitle(param = 'DO', site = 'test', dtrng = 'test', 
+utilMWRtitle(param = 'DO', site = 'test', dtrng = c('2021-05-01', '2021-07-31'), 
      resultatt = 'test', locgroup = 'test')
 }
