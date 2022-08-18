@@ -4,7 +4,7 @@ test_that("Checking output format group as site", {
 })
 
 test_that("Checking output format group as site, repel = FALSE", {
-  result <- anlzMWRdate(res = resdat, param = 'DO', acc = accdat, thresh = "fresh", group = 'site', repel = FALSE)
+  result <- anlzMWRdate(res = resdat, param = 'DO', acc = accdat, thresh = "fresh", group = 'site', repel = TRUE)
   expect_s3_class(result, 'ggplot')
 })
 
