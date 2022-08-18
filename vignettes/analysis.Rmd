@@ -215,10 +215,18 @@ The `anlzMWRmap()` function can be used to create a map of summarized results fo
 A map of dissolved oxygen averages across all dates can be created as follows. The required inputs are the results data, the data quality objective file for accuracy, and the site metadata file with the site locations. The warning message indicates some sites in the results file do not have spatial data in the site metadata file.
 
 ```{r, fig.height = 7, fig.width = 6}
-anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat)
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "nhd")
 ```
 
-By default, a north arrow, scale bar, and labels are plotted.  These can be suppressed by setting the appropriate arguments to `NULL`.
+By default, lines and polygons of natural water bodies defined using the National Hydrography Dataset are plotted using the `addwater = "nhd"` argument.  These are are inc;uded as data files with the package as `pondsMWR`, `riversMWR`, and `streamsMWR`. Using `addwater = "osm"` will include lines and polygons of natural water bodies from the OpenStreetMap ([OSM](https://www.openstreetmap.org/)) project, downloaded using the [osmdata](https://docs.ropensci.org/osmdata) package. The former may be preferred for more accurate display of water bodies in Massachusetts, whereas the latter option will also include water bodies outside of the state. Use `addwater = NULL` to suppress.
+
+Using `addwater = "osm"` (warnings suppressed):
+
+```{r, fig.height = 7, fig.width = 6}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "osm", warn = F)
+```
+
+A north arrow, scale bar, and labels are also plotted.  These can be suppressed by setting the appropriate arguments to `NULL`.
 
 ```{r, fig.height = 7, fig.width = 6}
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, northloc = NULL, scaleloc = NULL, labsize = NULL, warn = F)
@@ -242,60 +250,40 @@ The color palette for the average values can also be changed.  Any palette from 
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, palcol = "Spectral", warn = F)
 ```
 
-The base map can be modified as well.  First, the size of the bounding box around the points and map resolution can be changed with the `buffdist` and `zoom` arguments, respectively.  The default value for `buffdist` is 0.2 in decimal degrees.  The default `zoom` argument is set to 11 and decreasing the number will download a base map with lower resolution.
+The buffered distance around the points can be increased uzing the `buffdist` argument. 
 
 ```{r, fig.height = 7, fig.width = 7}
-anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, buffdist = 0.3, zoom = 10, warn = F)
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, buffdist = 0.3, warn = F)
 ```
 
-The type of base map can be changed with the `maptype` argument. Options include any stamen map as `"terrain"`, `"terrain-background"` (default), `"terrain-labels"`, `"terrain-lines"`, `"toner"`, `"toner-2010"`, `"toner-2011"`, `"toner-background"`, `"toner-hybrid"`, `"toner-labels"`, `"toner-lines"`, `"toner-lite"`, or `"watercolor"`.
+A base map can be included as well using the `maptype` argument. Options include any stamen map as `"terrain"`, `"terrain-background"` (default), `"terrain-labels"`, `"terrain-lines"`, `"toner"`, `"toner-2010"`, `"toner-2011"`, `"toner-background"`, `"toner-hybrid"`, `"toner-labels"`, `"toner-lines"`, `"toner-lite"`, or `"watercolor"`.  The `zoom` argument can be helpful when using a basemap. The default `zoom` argument is set to 11 and decreasing the number will download a base map with lower resolution.  This can decrease map processing times for large areas.
 
 A `"terrain"` base map: 
 
 ```{r, fig.height = 7, fig.width = 6}
-anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "terrain", warn = F)
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "terrain", warn = F, addwater = NULL)
 ```
 
 A `"terrain-lines"` base map: 
 
 ```{r, fig.height = 7, fig.width = 6}
-anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "terrain-lines", warn = F)
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "terrain-lines", warn = F, addwater = NULL)
 ```
 
 A `"toner"` base map:
 
 ```{r, fig.height = 7, fig.width = 6}
-anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "toner", warn = F)
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "toner", warn = F, addwater = NULL)
 ```
 
 A `"toner-labels"` base map:
 
 ```{r, fig.height = 7, fig.width = 6}
-anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "toner-labels", warn = F)
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "toner-labels", warn = F, addwater = NULL)
 ```
 
 A `"watercolor"` base map:
 
 ```{r, fig.height = 7, fig.width = 6}
-anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "watercolor", warn = F)
-```
-
-The base map can be suppressed with `maptype = NULL`.
-
-```{r, fig.height = 7, fig.width = 6}
-anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = NULL, warn = F)
-```
-
-Finally, using `addwater = "nhd"` will include lines and polygons of natural water bodies defined using the National Hydrography Dataset and included as data files with the package as `pondsMWR`, `riversMWR`, and `streamsMWR`. Using `addwater = "osm"` will include lines and polygons of natural water bodies from the OpenStreetMap ([OSM]{https://www.openstreetmap.org/}) project, downloaded using the [osmdata]{https://docs.ropensci.org/osmdata} package.  The former may be preferred for more accurate display of water bodies in Massachusetts, whereas the latter option will also include water bodies outside of the state. For both options, the spatial objects are plotted as simple features on top of the base map specified with the `maptype` argument. Use `maptype = NULL` to show only the water objects.
-
-Using `addwater = "nhd"`:
-
-```{r, fig.height = 7, fig.width = 6}
-anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "nhd", maptype = NULL, warn = F)
-```
-
-Using `addwater = "osm"`:
-
-```{r, fig.height = 7, fig.width = 6}
-anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "osm", maptype = NULL, warn = F)
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "watercolor", warn = F, addwater = NULL)
 ```
