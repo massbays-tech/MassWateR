@@ -81,7 +81,9 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>A logical value indicating <code>TRUE</code> if a log10-scale should be used, <code>FALSE</code> for arithmetic (linear)</p>
+<p>If thresholds are available for <code>param</code>, a <code>data.frame</code> of relevant marine or freshwater thresholds, otherwise <code>NULL</code></p>
+
+
     </div>
 
     <div class="section level2">
@@ -115,10 +117,10 @@
 <span class="r-in"><span><span class="co"># get threshold lines</span></span></span>
 <span class="r-in"><span><span class="fu">utilMWRthresh</span><span class="op">(</span>resdat <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'E.coli'</span>, thresh <span class="op">=</span> <span class="st">'fresh'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   num   thresh label                      size linetype</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2       <span style="text-decoration: underline;">1</span>260 EPA STV Secondary contact  0.75 dashed  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 1        235 EPA BAV Primary contact    0.73 longdash</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   num   thresh label                        size linetype</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2       <span style="text-decoration: underline;">1</span>260 STV Secondary contact (EPA)  0.75 dashed  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 1        235 BAV Primary contact (EPA)    0.73 longdash</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
