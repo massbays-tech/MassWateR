@@ -20,10 +20,10 @@ test_that("Checking error if unit mismatch",{
   resdatchk <- resdat %>% 
     mutate(
       `Result Unit` = case_when(
-        `Characteristic Name` == 'Nitrate' ~ 'ug/l', 
+        `Characteristic Name` == 'TP' ~ 'mmol/l', 
         TRUE ~ `Result Unit`
       )
     )
-  expect_error(utilMWRthresh(resdatchk, param = 'Nitrate', thresh = 'marine'))
+  expect_error(utilMWRthresh(resdatchk, param = 'TP', thresh = 'marine'))
   
 })

@@ -4,7 +4,7 @@
 #' @param param character string to first filter results by a parameter in \code{"Characteristic Name"}
 #' @param thresh character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}
 #'
-#' @return A logical value indicating \code{TRUE} if a log10-scale should be used, \code{FALSE} for arithmetic (linear)
+#' @return If thresholds are available for \code{param}, a \code{data.frame} of relevant marine or freshwater thresholds, otherwise \code{NULL}
 #' @export
 #'
 #' @examples
@@ -19,7 +19,7 @@
 utilMWRthresh <- function(resdat, param, thresh = c('fresh', 'marine', 'none')){
   
   thresh <- match.arg(thresh)
-  
+
   if(thresh == 'none')
     return(NULL)
 
@@ -28,6 +28,9 @@ utilMWRthresh <- function(resdat, param, thresh = c('fresh', 'marine', 'none')){
     dplyr::filter(`Characteristic Name` %in% param) %>% 
     dplyr::pull(`Result Unit`) %>% 
     unique
+  
+  if(param == 'pH' & (is.na(resuni) | resuni == 's.u.'))
+    resuni <- 'blank'
   
   # filter thresholdMWR by param
   out <- thresholdMWR %>% 
@@ -38,20 +41,18 @@ utilMWRthresh <- function(resdat, param, thresh = c('fresh', 'marine', 'none')){
   
   # threshold units
   thruni <- out %>% 
-    dplyr::mutate(
-      uom = dplyr::case_when(
-        `Simple Parameter` == 'pH' ~ 's.u.', 
-        T ~ uom
-      )
-    ) %>% 
     dplyr::pull(uom)
 
-  # check if threshold units same as resdat units
-  chk <- !resuni == thruni
-  if(chk)
-    stop('Unit mismatch for ', param, ' in results and threshold file: results ', resuni, ', threshold file ', thruni)
+  # check if resdat unit in threshold units
+  chk <- resuni %in% thruni
+  if(!chk){
+    msg <- paste(thruni, collapse = ', ')
+    msg <- paste0('Unit mismatch for ', param, ' in results and threshold file: results ', resuni, ', threshold file ', msg)
+    stop(msg)
+  }
   
   out <- out %>% 
+    dplyr::filter(uom == resuni) %>% 
     dplyr::select(dplyr::matches(toupper(thresh))) 
   
   names(out) <- c('val_1', 'lab_1', 'val_2', 'lab_2')

@@ -14,7 +14,7 @@ utilMWRthresh(resdat, param, thresh = c("fresh", "marine", "none"))
 \item{thresh}{character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}}
 }
 \value{
-A logical value indicating \code{TRUE} if a log10-scale should be used, \code{FALSE} for arithmetic (linear)
+If thresholds are available for \code{param}, a \code{data.frame} of relevant marine or freshwater thresholds, otherwise \code{NULL}
 }
 \description{
 Get threshold lines from thresholdMWR

@@ -11,10 +11,10 @@
 #' library(readxl)
 #' library(dplyr)
 #' 
-#' thresholdMWR <- read_excel('inst/extdata/ThresholdMapping.xlsx') %>% 
+#' thresholdMWR <- read_excel('inst/extdata/ThresholdMapping.xlsx', na = 'NA') %>% 
 #'   rename(
-#'   `Simple Parameter` = Simple_Parameter,
-#'   uom = UOM
+#'     `Simple Parameter` = Simple_Parameter,
+#'     uom = UOM
 #'   )
 #' 
 #' save(thresholdMWR, file = 'data/threhsoldMWR.RData', compress = 'xz')
