@@ -203,15 +203,19 @@ anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgr
     
     if(addwater == 'nhd'){
       
+      streamscrop <- sf::st_crop(streamsMWR, dat_ext)
+      riverscrop <- sf::st_crop(riversMWR, dat_ext)
+      pondscrop <- sf::st_crop(pondsMWR, dat_ext)
+      
       m <- m +
-        ggplot2::geom_sf(data = streamsMWR, col = watercol, fill = watercol, inherit.aes = FALSE) +
-        ggplot2::geom_sf(data = riversMWR, col = watercol, fill = watercol, inherit.aes = FALSE) +
-        ggplot2::geom_sf(data = pondsMWR, col = watercol, fill = watercol, inherit.aes = FALSE)
+        ggplot2::geom_sf(data = streamscrop, col = watercol, fill = watercol, inherit.aes = FALSE) +
+        ggplot2::geom_sf(data = riverscrop, col = watercol, fill = watercol, inherit.aes = FALSE) +
+        ggplot2::geom_sf(data = pondscrop, col = watercol, fill = watercol, inherit.aes = FALSE)
 
     }
     
   }
-  
+
   suppressMessages({
     m <-  m +
       ggplot2::geom_sf(data = tomap, ggplot2::aes(fill = `Result Value`), color = 'black', pch = 21, inherit.aes = F, size = ptsize) +
@@ -222,7 +226,8 @@ anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgr
         axis.text.y = ggplot2::element_text(size = 8), 
         axis.text.x = ggplot2::element_text(size = 8, angle = 30, hjust = 1),
         axis.ticks = ggplot2::element_line(colour = 'grey'),
-        plot.title = ggplot2::element_text(size = ggplot2::rel(ttlsize))
+        plot.title = ggplot2::element_text(size = ggplot2::rel(ttlsize)), 
+        panel.background = ggplot2::element_rect(fill = NA)
       ) +
       ggplot2::labs(
         title = ttl

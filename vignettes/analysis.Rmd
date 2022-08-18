@@ -287,3 +287,9 @@ A `"watercolor"` base map:
 ```{r, fig.height = 7, fig.width = 6}
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "watercolor", warn = F, addwater = NULL)
 ```
+
+A map with no base map or water bodies:
+
+```{r, fig.height = 7, fig.width = 6}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = NULL, warn = F, addwater = NULL)
+```
