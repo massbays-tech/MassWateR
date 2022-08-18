@@ -227,7 +227,7 @@ anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgr
         axis.text.x = ggplot2::element_text(size = 8, angle = 30, hjust = 1),
         axis.ticks = ggplot2::element_line(colour = 'grey'),
         plot.title = ggplot2::element_text(size = ggplot2::rel(ttlsize)), 
-        panel.background = ggplot2::element_rect(fill = NA)
+        panel.background = ggplot2::element_rect(fill = NA, color = 'black')
       ) +
       ggplot2::labs(
         title = ttl
