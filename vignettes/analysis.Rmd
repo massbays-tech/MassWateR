@@ -218,7 +218,21 @@ A map of dissolved oxygen averages across all dates can be created as follows. T
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "nhd")
 ```
 
-By default, lines and polygons of natural water bodies defined using the National Hydrography Dataset are plotted using the `addwater = "nhd"` argument.  These are are inc;uded as data files with the package as `pondsMWR`, `riversMWR`, and `streamsMWR`. Using `addwater = "osm"` will include lines and polygons of natural water bodies from the OpenStreetMap ([OSM](https://www.openstreetmap.org/)) project, downloaded using the [osmdata](https://docs.ropensci.org/osmdata) package. The former may be preferred for more accurate display of water bodies in Massachusetts, whereas the latter option will also include water bodies outside of the state. Use `addwater = NULL` to suppress.
+By default, lines and polygons of natural water bodies defined using the National Hydrography Dataset (NHD) are plotted using the `addwater = "nhd"` argument.  These are are included as data files with the package as `pondsMWR`, `riversMWR`, and `streamsMWR`. The level of detail for the water bodies is defined by the `dLevel` argument as `"low"`, `"medium"` (default), or `"high"`.  The detail level only applies for the NHD data. 
+
+Water body detail as low: 
+
+```{r, fig.height = 7, fig.width = 6}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "nhd", dLevel = "low")
+```
+
+Water body detail as high: 
+
+```{r, fig.height = 7, fig.width = 6}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "nhd", dLevel = "high")
+```
+
+Using `addwater = "osm"` will include lines and polygons of natural water bodies from the OpenStreetMap ([OSM](https://www.openstreetmap.org/)) project, downloaded using the [osmdata](https://docs.ropensci.org/osmdata) package. The former may be preferred for more accurate display of water bodies in Massachusetts, whereas the latter option will also include water bodies outside of the state. Use `addwater = NULL` to suppress.
 
 Using `addwater = "osm"` (warnings suppressed):
 

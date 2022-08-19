@@ -22,6 +22,7 @@ anlzMWRmap(
   zoom = 11,
   addwater = "nhd",
   watercol = "lightblue",
+  dLevel = "medium",
   maptype = NULL,
   buffdist = 0.02,
   northloc = "tl",
@@ -67,6 +68,8 @@ anlzMWRmap(
 
 \item{watercol}{character string of color for water objects if \code{addwater = "nhd"} or \code{addwater = "osm"}}
 
+\item{dLevel}{character string indicating \code("low"), \code{"medium"} (default), or \code{"high"} for the level of detail if \code{addwater = "nhd"}, see details}
+
 \item{maptype}{character string for the base map type, see details}
 
 \item{buffdist}{numeric for buffer around the bounding box for the selected sites, see details}
@@ -98,7 +101,9 @@ The default value for \code{crs} is EPSG 4326 for the WGS 84 projection in decim
 
 The results shown on the map represent the parameter average for each site within the date range provided by \code{dtrng}.  The average may differ depending on the value provided to the \code{yscl} argument.  Log10-distributed parameters use the geometric mean and normally-distributed parameters use the arithmetic mean.  The distribution is determined from the \code{ycsl} argument. If \code{yscl = "auto"} (default), the distribution is determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are summarized with the geometric mean, otherwise arithmetic. Setting \code{yscl = "linear"} or \code{yscl = "log"} will the use arithmetic or geometric summaries, respectively, regardless of the information in the data quality objective file for accuracy.
 
-Using \code{addwater = "nhd"} (default) will include lines and polygons of natural water bodies defined using the National Hydrography Dataset and included as data files with the package as \code{\link{pondsMWR}}, \code{\link{riversMWR}}, and \code{\link{streamsMWR}}. Using \code{addwater = "osm"} will include lines and polygons of natural water bodies from the OpenStreetMap (\href{https://www.openstreetmap.org/}{OSM}) project, downloaded using the \href{https://docs.ropensci.org/osmdata}{osmdata} package. The former may be preferred for more accurate display of water bodies in Massachusetts, whereas the latter option will also include water bodies outside of the state. Use \code{addwater = NULL} to suppress.
+Using \code{addwater = "nhd"} (default) will include lines and polygons of natural water bodies defined using the National Hydrography Dataset (NHD) and included as data files with the package as \code{\link{pondsMWR}}, \code{\link{riversMWR}}, and \code{\link{streamsMWR}}. The level of detail for the water bodies is defined by \code{dLevel} as \code{"low"}, \code{"medium"} (default), or \code{"high"}. The detail level only applies for the NHD data.
+
+Using \code{addwater = "osm"} will include lines and polygons of natural water bodies from the OpenStreetMap (\href{https://www.openstreetmap.org/}{OSM}) project, downloaded using the \href{https://docs.ropensci.org/osmdata}{osmdata} package. The former may be preferred for more accurate display of water bodies in Massachusetts, whereas the latter option will also include water bodies outside of the state. Use \code{addwater = NULL} to suppress.
 
 A base map can be plotted using the \code{maptype} argument and is obtained from the \code{\link[ggmap]{get_stamenmap}} function of ggmap.  The \code{zoom} value specifies the resolution of the map.  Use higher values to download map tiles with greater resolution, although this increases the download time.  The \code{maptype} argument describes the type of base map to download. Acceptable options include \code{"terrain"}, \code{"terrain-background"}, \code{"terrain-labels"}, \code{"terrain-lines"}, \code{"toner"}, \code{"toner-2010"}, \code{"toner-2011"}, \code{"toner-background"}, \code{"toner-hybrid"}, \code{"toner-labels"}, \code{"toner-lines"}, \code{"toner-lite"}, or \code{"watercolor"}. Use \code{maptype = NULL} to suppress the base map.
 
