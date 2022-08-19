@@ -3,15 +3,18 @@
 \docType{data}
 \name{streamsMWR}
 \alias{streamsMWR}
-\title{A geometry set of streams in Massachusetts}
+\title{A simple features object of streams in Massachusetts}
 \format{
-A geometry set of linestring geometries
+A simple features object of linestring geometries with one attribute called \code{dLevel} specifying the level of detail.
 }
 \usage{
 streamsMWR
 }
 \description{
-A geometry set of streams in Massachusetts
+A simple features object of streams in Massachusetts
+}
+\details{
+All geometries are simplified using a tolerance of ten meters.
 }
 \examples{
 \dontrun{
@@ -22,7 +25,7 @@ streamsMWR <- st_read('~/Desktop/NHD/NHDFlowline_fcode_46006_vis_101k_noattr.shp
  st_zm() \%>\% 
  st_simplify(dTolerance = 10, preserveTopology = TRUE) \%>\% 
  st_transform(crs = 4326) \%>\% 
- st_geometry()
+ select(dLevel)
 
 save(streamsMWR, file = 'data/streamsMWR.RData', compress = 'xz')
 }

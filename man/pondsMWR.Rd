@@ -3,26 +3,29 @@
 \docType{data}
 \name{pondsMWR}
 \alias{pondsMWR}
-\title{A geometry set of ponds in Massachusetts}
+\title{A simple features object of ponds in Massachusetts}
 \format{
-A geometry set
+A simple features object
 }
 \usage{
 pondsMWR
 }
 \description{
-A geometry set of ponds in Massachusetts
+A simple features object of ponds in Massachusetts
+}
+\details{
+All geometries are simplified using a tolerance of ten meters.
 }
 \examples{
 \dontrun{
 library(sf)
 library(dplyr)
 
-pondsMWR <- st_read('~/Desktop/NHD/NHDWaterbody_ftype_390_vis_101k_noattr.shp') \%>\% 
+pondsMWR <- st_read('~/Desktop/NHD/NHDWaterbody_ftype_390-493_vis_101k_noattr.shp') \%>\% 
  st_make_valid() \%>\% 
  st_simplify(dTolerance = 10, preserveTopology = TRUE) \%>\% 
  st_transform(crs = 4326) \%>\% 
- st_geometry()
+ select(dLevel)
 
 save(pondsMWR, file = 'data/pondsMWR.RData', compress = 'xz')
 }

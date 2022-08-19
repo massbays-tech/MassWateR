@@ -1,9 +1,11 @@
-#' A geometry set of streams in Massachusetts
+#' A simple features object of streams in Massachusetts
 #' 
-#' A geometry set of streams in Massachusetts
+#' A simple features object of streams in Massachusetts
 #' 
-#' @format A geometry set of linestring geometries
+#' @format A simple features object of linestring geometries with one attribute called \code{dLevel} specifying the level of detail.
 #' 
+#' @details All geometries are simplified using a tolerance of ten meters. 
+#"
 #' @examples 
 #' \dontrun{
 #' library(sf)
@@ -13,7 +15,7 @@
 #'  st_zm() %>% 
 #'  st_simplify(dTolerance = 10, preserveTopology = TRUE) %>% 
 #'  st_transform(crs = 4326) %>% 
-#'  st_geometry()
+#'  select(dLevel)
 #' 
 #' save(streamsMWR, file = 'data/streamsMWR.RData', compress = 'xz')
 #' }
