@@ -26,7 +26,7 @@ test_that("Checking output format group as location", {
 
 test_that("Checking output format group as location no location group specified", {
   result <- anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'locgroup', 
-                        thresh = 'fresh', confint = TRUE)
+                        thresh = 'fresh', confint = TRUE, repel = TRUE)
   expect_s3_class(result, 'ggplot')
 })
 

@@ -3,6 +3,11 @@ test_that("Checking output format", {
   expect_s3_class(result, 'tbl_df')
 })
 
+test_that("Checking output format, pH exception", {
+  result <- utilMWRthresh(resdat, param = 'pH', thresh = 'fresh')
+  expect_s3_class(result, 'tbl_df')
+})
+
 test_that("Checking output format no marine threshold", {
   expect_null(utilMWRthresh(resdat, param = 'TP', thresh = 'marine'))
 })
