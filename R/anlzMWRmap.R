@@ -17,7 +17,7 @@
 #' @param zoom numeric indicating resolution of the base map, see details
 #' @param addwater character string as \code{"nhd"} or \code{"osm"} (or \code{NULL} to suppress) to include water bodies as lines or polygons added to the map, see details
 #' @param watercol character string of color for water objects if \code{addwater = "nhd"} or \code{addwater = "osm"}
-#' @param dLevel character string indicating \code("low"), \code{"medium"} (default), or \code{"high"} for the level of detail if \code{addwater = "nhd"}, see details
+#' @param dLevel character string indicating \code{"low"}, \code{"medium"} (default), or \code{"high"} for the level of detail if \code{addwater = "nhd"}, see details
 #' @param maptype character string for the base map type, see details
 #' @param buffdist numeric for buffer around the bounding box for the selected sites, see details
 #' @param northloc character string indicating location of the north arrow, see details

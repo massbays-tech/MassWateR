@@ -68,7 +68,7 @@ anlzMWRmap(
 
 \item{watercol}{character string of color for water objects if \code{addwater = "nhd"} or \code{addwater = "osm"}}
 
-\item{dLevel}{character string indicating \code("low"), \code{"medium"} (default), or \code{"high"} for the level of detail if \code{addwater = "nhd"}, see details}
+\item{dLevel}{character string indicating \code{"low"}, \code{"medium"} (default), or \code{"high"} for the level of detail if \code{addwater = "nhd"}, see details}
 
 \item{maptype}{character string for the base map type, see details}
 
