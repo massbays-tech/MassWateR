@@ -1,7 +1,7 @@
 ---
 output: 
   word_document:
-    reference_docx: !expr system.file("rmd", "template.docx", package = "MassWateR")
+    reference_docx: !expr system.file("rmd", "qctemplate.docx", package = "MassWateR")
 params: 
   resdatdt: resdatdt
   accdat: accdat 

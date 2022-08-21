@@ -12,7 +12,7 @@
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths
 #' @param warn logical indicating if warnings from the table functions are included in the file output
 #'
-#' @return A compiled review report named \code{qcreview.docx} will be saved in the directory specified by \code{output_dir}
+#' @return A compiled review report named \code{qcreview.docx} (or name passed to \code{output_file}) will be saved in the directory specified by \code{output_dir}
 #' @export
 #'
 #' @details 
@@ -48,7 +48,7 @@
 #' # create report in working directory
 #' qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat, output_dir = getwd())
 #' }
-qcMWRreview <- function(res, acc, frecom, output_dir, output_file = NULL, rawdata = TRUE, dqofontsize = 7.5, tabfontsize = 9, padding = 0,warn = TRUE, runchk = TRUE) {
+qcMWRreview <- function(res, acc, frecom, output_dir, output_file = NULL, rawdata = TRUE, dqofontsize = 7.5, tabfontsize = 9, padding = 0, warn = TRUE, runchk = TRUE) {
 
   # rmd template
   qcreview <- system.file('rmd', 'qcreview.Rmd', package = 'MassWateR')

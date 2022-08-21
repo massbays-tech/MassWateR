@@ -36,7 +36,7 @@ utilMWRlimits <- function(resdat, param, accdat, warn = TRUE){
   if(chk){
     
     if(warn)
-      warning(param, ' in results not found in quality control objectives for accuracy')
+      warning(param, ' in results not found in quality control objectives for accuracy', call. = FALSE)
   
     out <- resdat %>% 
       dplyr::mutate(

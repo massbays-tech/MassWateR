@@ -42,7 +42,7 @@ qcMWRreview(
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths}
 }
 \value{
-A compiled review report named \code{qcreview.docx} will be saved in the directory specified by \code{output_dir}
+A compiled review report named \code{qcreview.docx} (or name passed to \code{output_file}) will be saved in the directory specified by \code{output_dir}
 }
 \description{
 Create the quality control review report

@@ -18,3 +18,6 @@ globalVariables(c("Activity Start Date", "Activity Start Time", "QC Reference Va
 
 #' @importFrom stats IQR na.omit quantile t.test
 NULL
+
+#' @importFrom grDevices dev.off png
+NULL 
