@@ -4,7 +4,7 @@ test_that("Verifying message output for Word report creation", {
 })
 
 test_that("Verifying message output for png creation", {
-  expect_message(anlzMWRoutlierall(resdat, accdat, group = 'month', format = 'png', output_dir = getwd(), warn = FALSE))
-  fls <- list.files(pattern = '\\.png$')
-  file.remove(fls)
+  outpth <- file.path(getwd(), 'figs')
+  expect_message(anlzMWRoutlierall(resdat, accdat, group = 'month', format = 'png', output_dir = outpth, warn = FALSE))
+  file.remove(outpth, recursive = TRUE)
 })
