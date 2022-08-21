@@ -189,7 +189,20 @@ A summary of the distribution statistics shown with a standard boxplot. Outliers
 <span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​`Activity Start Time`,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   ²​`Characteristic Name`, ³​`Result Value`, ⁴​`Result Unit`</span></span></span></code></pre></div>
 </div>
-  </main>
+<div class="section level2">
+<h2 id="save-all-outlier-results">Save all outlier results<a class="anchor" aria-label="anchor" href="#save-all-outlier-results"></a>
+</h2>
+<p>Outlier plots for all parameters in the results data file can be created using the <code>anlzMWRoutlierall</code> function. This can be used to create a word document with all plots embedded in the file or as separate png images saved to a specified directory. The relevant arguments required for the function include <code>format = "word"</code> or <code>format = "png"</code> to specify the output type, <code>fig_height</code> and <code>fig_width</code> for the plot dimensions (default as 4 and 8, respectively), and <code>output_dir</code> and <code>output_file</code> for the output directory and file name. The rest of the arguments are all those required for <code>anlzMWRoutlier</code>, except the <code>param</code> argument because plots for all parameters are created in the output.</p>
+<p>Create a word document for all outlier plots in the current working directory:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlierall.html">anlzMWRoutlierall</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'month'</span>, format <span class="op">=</span> <span class="st">'word'</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Create the same output but as separate png plots for each parameter:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlierall.html">anlzMWRoutlierall</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'month'</span>, format <span class="op">=</span> <span class="st">'png'</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Once the function is done running, a message indicating success and where the file(s) is located is returned.</p>
+</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
