@@ -11,15 +11,37 @@ params:
 ```{r setup, echo = F}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 suppressWarnings(suppressMessages(library(ggplot2, warn.conflicts = FALSE, quietly = TRUE)))
+suppressWarnings(suppressMessages(library(flextable, warn.conflicts = FALSE, quietly = TRUE)))
 
 # user parameters
 pall <- params$pall
 fig_height <- params$fig_height
 fig_width <- params$fig_width
+
+addline <- function(wd = 6.5){
+  
+  tab <- data.frame(
+    x = c(NA, NA)
+  )
+
+  flextable::flextable(tab) %>% 
+    flextable::align(align = 'left', part = 'all') %>%
+    flextable::border_remove() %>%
+    flextable::width(width = wd) %>% 
+    flextable::hline(i = 1, part = 'body') %>%
+    flextable::padding(padding = 1.5, part = 'all') %>% 
+    flextable::delete_part(part = 'header')
+  
+}
 ```
 
 # Outlier analysis
 
-```{r, fig.height = fig_height, fig.width = fig_width}
-for(p in pall) print(p)
+```{r, fig.height = fig_height, fig.width = fig_width, results = 'asis'}
+for(p in pall){
+  print(p)
+  cat(knitr::knit_print(addline()))
+}
 ```
+
+
