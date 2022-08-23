@@ -190,7 +190,7 @@ A summary of the distribution statistics shown with a standard boxplot. Outliers
 <span><span class="co">#&gt; <span style="color: #949494;">#   ²​`Characteristic Name`, ³​`Result Value`, ⁴​`Result Unit`</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="save-all-outlier-results">Save all outlier results<a class="anchor" aria-label="anchor" href="#save-all-outlier-results"></a>
+<h2 id="output-all-outlier-results">Output all outlier results<a class="anchor" aria-label="anchor" href="#output-all-outlier-results"></a>
 </h2>
 <p>Outlier plots for all parameters in the results data file can be created using the <code><a href="../reference/anlzMWRoutlierall.html">anlzMWRoutlierall()</a></code> function. This can be used to create a word document with all plots embedded in the file or as separate png images saved to a specified directory. The relevant arguments required for the function include <code>format = "word"</code> or <code>format = "png"</code> to specify the output type, <code>fig_height</code> and <code>fig_width</code> for the plot dimensions (default as 4 and 8, respectively), and <code>output_dir</code> and <code>output_file</code> for the output directory and file name. The rest of the arguments are all those required for <code><a href="../reference/anlzMWRoutlier.html">anlzMWRoutlier()</a></code>, except the <code>param</code> argument because plots for all parameters are created in the output.</p>
 <p>Create a word document for all outlier plots in the current working directory:</p>
