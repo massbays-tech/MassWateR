@@ -36,7 +36,7 @@ tabMWRacc(
 
 \item{fail_col}{character string for the cell color of checks that fail, applies only if \code{type = 'percent'}}
 
-\item{frecom}{character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}, applies only if \code{type = "percent"}}
+\item{frecom}{character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}, applies only if \code{type = "summary"} or \code{type = "percent"}}
 
 \item{suffix}{character string indicating suffix to append to percentage values}
 

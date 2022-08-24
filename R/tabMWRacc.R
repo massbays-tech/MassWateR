@@ -4,7 +4,7 @@
 #' @param type character string indicating \code{individual}, \code{summary} or \code{percent} tabular output, see details
 #' @param pass_col character string for the cell color of checks that pass, applies only if \code{type = 'percent'}
 #' @param fail_col character string for the cell color of checks that fail, applies only if \code{type = 'percent'} 
-#' @param frecom character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}, applies only if \code{type = "percent"}
+#' @param frecom character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}, applies only if \code{type = "summary"} or \code{type = "percent"}
 #' @param caption logical to include a caption from \code{accchk}, only applies if \code{type = "individual"}
 #'
 #' @return A \code{\link{flextable}} object with formatted results.
