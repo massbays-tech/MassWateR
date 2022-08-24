@@ -112,7 +112,7 @@ Several checks are run automatically when the data are imported. These file chec
 
 -   **Column name spelling**: Should be the following: Monitoring Location ID, Activity Type, Activity Start Date, Activity Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit, Activity Relative Depth Name, Characteristic Name, Result Value, Result Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier, Result Attribute.
 -   **Columns present**: All columns from the previous should be present, Result Attribute is optional
--   **Activity Type**: Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike
+-   **Activity Type**: Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike, Quality Control Field Calibration Check
 -   **Date formats**: Should be mm/dd/yyyy and parsed correctly on import
 -   **Time formats**: Should be HH:MM and parsed correctly on import, missing entries okay
 -   **Non-numeric Activity Depth/Height Measure**: All depth values should be numbers, excluding missing values
