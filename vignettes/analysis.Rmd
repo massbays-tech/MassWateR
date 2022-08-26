@@ -232,7 +232,7 @@ Water body detail as high:
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "nhd", dLevel = "high", warn = F)
 ```
 
-Using `addwater = "osm"` will include lines and polygons of natural water bodies from the OpenStreetMap ([OSM](https://www.openstreetmap.org/)) project, downloaded using the [osmdata](https://docs.ropensci.org/osmdata) package. The former may be preferred for more accurate display of water bodies in Massachusetts, whereas the latter option will also include water bodies outside of the state. Use `addwater = NULL` to suppress.
+Using `addwater = "osm"` will include lines and polygons of natural water bodies from the OpenStreetMap ([OSM](https://www.openstreetmap.org/)) project, downloaded using the [osmdata](https://docs.ropensci.org/osmdata) package. Using `addwater = "nhd"` may be preferred for more accurate display of water bodies in Massachusetts, whereas `addwater = "osm"` will include water bodies outside of the state. Use `addwater = NULL` to suppress both.
 
 Using `addwater = "osm"` (warnings suppressed):
 
