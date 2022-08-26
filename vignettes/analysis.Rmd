@@ -160,9 +160,9 @@ anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'loc
       thresh = 'fresh')
 ```
 
-## Analyze trends by site
+## Analyze data by site
 
-Trends by site for selected parameters can be evaluated using the `anlzMWRsite()` function.  This function summarizes results for a single parameter using boxplots or barplots separately for each site on the x-axis. Boxplots or barplots can also include jittered points of the observations on top or only the jittered points can be shown. Many of the options described for the `anlzMWRseason()` function also apply and will not be repeated here. As before, the required data are a results file and data quality objective file for accuracy.  
+Result data by site for selected parameters can be evaluated using the `anlzMWRsite()` function.  This function summarizes results for a single parameter using boxplots or barplots separately for each site on the x-axis. Boxplots or barplots can also include jittered points of the observations on top or only the jittered points can be shown. Many of the options described for the `anlzMWRseason()` function also apply and will not be repeated here. As before, the required data are a results file and data quality objective file for accuracy.  
 
 The default plot for `anlzMWRsite()` will show boxplots of results for each site and y-axis scaling determined automatically from the data quality objectives file. 
 
