@@ -1,6 +1,6 @@
-#' Analyze site trends in results file
+#' Analyze data by sites in results file
 #' 
-#' Analyze site trends in results file
+#' Analyze data by sites in results file
 #'
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param param character string of the parameter to plot, must conform to entries in the \code{"Simple Parameter"} column of \code{\link{paramsMWR}}

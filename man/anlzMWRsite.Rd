@@ -2,7 +2,7 @@
 % Please edit documentation in R/anlzMWRsite.R
 \name{anlzMWRsite}
 \alias{anlzMWRsite}
-\title{Analyze site trends in results file}
+\title{Analyze data by sites in results file}
 \usage{
 anlzMWRsite(
   res,
@@ -72,7 +72,7 @@ anlzMWRsite(
 A \code{\link[ggplot2]{ggplot}} object that can be further modified.
 }
 \description{
-Analyze site trends in results file
+Analyze data by sites in results file
 }
 \details{
 Summaries of a parameter for each site are shown as boxplots if \code{type = "box"} or as barplots if \code{type = "bar"}.  Points can be jittered over the boxplots by setting \code{type = "jitterbox"} or jittered over the barplots by setting \code{type = "jitterbar"}.  Setting \code{type = "jitter"} will show only only the jittered points.  For \code{type = "bar"} or \code{type = "jitterbar"}, 95\% confidence intervals can also be shown if \code{confint = TRUE} and they can be estimated (i.e., more than one result value per bar).
