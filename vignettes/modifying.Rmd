@@ -16,15 +16,50 @@ knitr::opts_chunk$set(
 )
 ```
 
-The default format for plots created from any of the [analyze](https://massbays-tech.github.io/MassWateR/articles/analysis.html) functions, including the [outlier plots](https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html), should be sufficient in most cases.  However, the plot outputs are `ggplot()` objects and can be modified using common `ggplot()` plot functions (see the [ggplot2](https://ggplot2.tidyverse.org/index.html) page for details).  Additional components can be added using the `+` notation as for a standard `ggplot()` object. This is distinct from using any of the default arguments for the plots to change the appearance (e.g., `fill = "red"`).  Overriding some of the existing plot components may also significantly alter the appearance, so use caution. 
+The default format for plots created from any of the [analyze](https://massbays-tech.github.io/MassWateR/articles/analysis.html) functions, including the [outlier plots](https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html), should be sufficient in most cases.  However, the plot outputs are `ggplot()` objects and can be modified using common `ggplot()` plot functions (see the [ggplot2](https://ggplot2.tidyverse.org/index.html) page for details).  A brief overview of ggplot2 is provided here as context to the MassWateR plot modifications below. 
 
-First, `ggplot2` is loaded. 
+## ggplot2
+
+The ggplot2 package was developed following a strict philosophy known as the grammar of graphics.  This philosophy was designed to make thinking, reasoning, and communicating about graphs easier by following a few simple rules. 
+
+First, ggplot2 is loaded.
 
 ```{r}
 library(ggplot2)
 ```
 
-Then, the required input files for the MassWateR analyze functions are imported, using the files included with the package for the examples.  The checks and warnings are suppressed because we know the files are formatted correctly.
+A plot can be created with the function `ggplot()`. This creates an empty coordinate system for adding layers. The first argument of `ggplot()` is the dataset to use in the graph. The following creates an empty base graph for the `mpg` dataset included with ggplot2.
+
+```{r, eval = F}
+ggplot(data = mpg)
+```
+
+The next step is to add one or more layers (aka `geoms`) to the `ggplot()` function. The function `geom_point()` adds a layer of points to the plot. The ggplot2 package includes many geom functions that each add a different type of layer to a plot.  Note the use of the `+` syntax to build the plot - this is a distinct style of coding that is only used with ggplot2.
+
+```{r, eval = F}
+ggplot(data = mpg) +
+  geom_point()
+```
+
+Each geom function in ggplot2 requires a `mapping` argument. This defines how variables in a dataset are mapped to visual properties. The `mapping` argument is defined with `aes()`, and the `x` and `y` arguments of `aes()` specify which variables to map to the x and y axes. The `ggplot()` function looks for the mapped variable in the `data` argument, in this case, `mpg`.
+
+```{r, eval = T}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point()
+```
+
+Every ggplot follows these rules:
+
+* Each plot starts with the `ggplot()` function
+* Each plot needs three pieces of information: the data, how the data are mapped to the plot aesthetics, and a geom layer
+
+Please visit the [ggplot2](https://ggplot2.tidyverse.org/index.html) website for more information. 
+
+## Modifying MassWateR plots
+
+For plots in MassWateR, additional components can be added using the `+` notation as for a standard `ggplot()` object. This is distinct from using any of the default arguments for the plots to change the appearance (e.g., `fill = "red"`).  Overriding some of the existing plot components may also significantly alter the appearance, so use caution.  Also note that adding ggplot2 components to an existing MassWateR plot may or may not work based on how the plot is setup.
+
+Before we can modify any plots, the required input files for the MassWateR analyze functions are imported, using the files included with the package for the examples.  The checks and warnings are suppressed because we know the files are formatted correctly.
 
 ```{r}
 library(MassWateR)
@@ -93,3 +128,11 @@ Switch the axes:
 ```{r, fig.height = 4, fig.width = 8}
 p + coord_flip()
 ```
+
+Add a custom reference line: 
+
+```{r}
+p +
+  geom_hline(yintercept = 10, linetype = 'solid', color = 'green', size = 2)
+```
+
