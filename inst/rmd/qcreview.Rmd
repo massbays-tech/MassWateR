@@ -55,7 +55,7 @@ indlabdup <- params$indlabdup
 indlabspk <- params$indlabspk
 indinschk <- params$indinschk
 
-dt <- format(Sys.Date(), "%B %d, %Y") 
+dt <- format(Sys.Date(), "%b %d, %Y") 
 
 set_flextable_defaults(font.size = tabfontsize, padding = padding)
 
