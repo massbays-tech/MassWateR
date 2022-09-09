@@ -18,10 +18,10 @@ params:
   tabaccsum: tabaccsum
   tabaccper: tabaccper
   tabcom: tabcom
-  indfldblk: indfldblk
-  indlabblk : indlabblk
   indflddup: indflddup
   indlabdup: indlabdup
+  indfldblk: indfldblk
+  indlabblk : indlabblk
   indlabspk: indlabspk
   indinschk: indinschk
 ---
@@ -47,11 +47,10 @@ tabfreper <- params$tabfreper
 tabaccsum <- params$tabaccsum
 tabaccper <- params$tabaccper
 tabcom <- params$tabcom
-indfldblk <- params$indfldblk
-indfldblk <- params$indfldblk
-indlabblk <- params$indlabblk
 indflddup <- params$indflddup
 indlabdup <- params$indlabdup
+indfldblk <- params$indfldblk
+indlabblk <- params$indlabblk
 indlabspk <- params$indlabspk
 indinschk <- params$indinschk
 
@@ -211,34 +210,6 @@ notes(wd, fontname)
 
 `r if(rawdata){paste0("### QC Raw Data for ", resdatdt, "\n<br>")}`
 
-`r if(rawdata){"#### Field Blanks\n"}`
-
-```{r, eval = rawdata}
-indfldblk
-```
-
-`r if(rawdata){"<br>"}`
-
-```{r, eval = rawdata}
-notes(wd, fontname)
-```
-
-`r if(rawdata){"<br>"}`
-
-`r if(rawdata){"#### Lab Blanks\n"}`
-
-```{r, eval = rawdata}
-indlabblk
-```
-
-`r if(rawdata){"<br>"}`
-
-```{r, eval = rawdata}
-notes(wd, fontname)
-```
-
-`r if(rawdata){"<br>"}`
-
 `r if (rawdata){"#### Field Duplicates\n"}`
 
 ```{r, eval = rawdata}
@@ -257,6 +228,34 @@ notes(wd, fontname)
 
 ```{r, eval = rawdata}
 indlabdup
+```
+
+`r if(rawdata){"<br>"}`
+
+```{r, eval = rawdata}
+notes(wd, fontname)
+```
+
+`r if(rawdata){"<br>"}`
+
+`r if(rawdata){"#### Field Blanks\n"}`
+
+```{r, eval = rawdata}
+indfldblk
+```
+
+`r if(rawdata){"<br>"}`
+
+```{r, eval = rawdata}
+notes(wd, fontname)
+```
+
+`r if(rawdata){"<br>"}`
+
+`r if(rawdata){"#### Lab Blanks\n"}`
+
+```{r, eval = rawdata}
+indlabblk
 ```
 
 `r if(rawdata){"<br>"}`

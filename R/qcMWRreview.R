@@ -98,20 +98,20 @@ qcMWRreview <- function(res, acc, frecom, output_dir, output_file = NULL, rawdat
     flextable::font(fontname = fontname, part = 'all')
 
   # individual accuracy checks for raw data
-  indfldblk <- NULL
-  indlabblk <- NULL
   indflddup <- NULL
   indlabdup <- NULL
+  indfldblk <- NULL
+  indlabblk <- NULL
   indlabspk <- NULL
   indinschk <- NULL
   if(rawdata){
-    indfldblk <- tabMWRacc(res = res, acc = acc, type = 'individual', accchk = 'Field Blanks', warn = warn, caption = FALSE) %>% 
-      thmsum(wd = wd, fontname = fontname)
-    indlabblk <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Blanks', warn = warn, caption = FALSE) %>% 
-      thmsum(wd = wd, fontname = fontname)
     indflddup <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Duplicates', warn = warn, caption = FALSE) %>% 
       thmsum(wd = wd, fontname = fontname)
     indlabdup <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Duplicates', warn = warn, caption = FALSE) %>%
+      thmsum(wd = wd, fontname = fontname)
+    indfldblk <- tabMWRacc(res = res, acc = acc, type = 'individual', accchk = 'Field Blanks', warn = warn, caption = FALSE) %>% 
+      thmsum(wd = wd, fontname = fontname)
+    indlabblk <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Blanks', warn = warn, caption = FALSE) %>% 
       thmsum(wd = wd, fontname = fontname)
     indlabspk <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Spikes', warn = warn, caption = FALSE) %>% 
       thmsum(wd = wd, fontname = fontname)
@@ -139,10 +139,10 @@ qcMWRreview <- function(res, acc, frecom, output_dir, output_file = NULL, rawdat
       tabaccsum = tabaccsum, 
       tabaccper = tabaccper,
       tabcom = tabcom,
-      indfldblk = indfldblk,
-      indlabblk = indlabblk,
       indflddup = indflddup,
       indlabdup = indlabdup,
+      indfldblk = indfldblk,
+      indlabblk = indlabblk,
       indlabspk = indlabspk,
       indinschk = indinschk
     ), 
