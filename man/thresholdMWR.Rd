@@ -5,7 +5,7 @@
 \alias{thresholdMWR}
 \title{Master thresholds list for analysis of results data}
 \format{
-A \code{data.frame} of 39 rows and 6 columns
+A \code{data.frame} of 28 rows and 10 columns
 }
 \usage{
 thresholdMWR
@@ -25,7 +25,8 @@ thresholdMWR <- read_excel('inst/extdata/ThresholdMapping.xlsx', na = 'NA') \%>\
   rename(
     `Simple Parameter` = Simple_Parameter,
     uom = UOM
-  )
+  ) \%>\% 
+  mutate_if(is.numeric, round, 2)
 
 save(thresholdMWR, file = 'data/threhsoldMWR.RData', compress = 'xz')
 }
