@@ -64,7 +64,7 @@
 <span>  <span class="va">res</span>,</span>
 <span>  <span class="va">acc</span>,</span>
 <span>  <span class="va">frecom</span>,</span>
-<span>  <span class="va">output_dir</span>,</span>
+<span>  output_dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  output_file <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rawdata <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  dqofontsize <span class="op">=</span> <span class="fl">7.5</span>,</span>
@@ -90,7 +90,7 @@
 
 
 <dt>output_dir</dt>
-<dd><p>character string of the output directory for the rendered file</p></dd>
+<dd><p>character string of the output directory for the rendered file, default is the working directory</p></dd>
 
 
 <dt>output_file</dt>
@@ -125,9 +125,7 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>A compiled review report named <code>qcreview.docx</code> (or name passed to <code>output_file</code>) will be saved in the directory specified by <code>output_dir</code></p>
-
-
+<p>A compiled review report named <code>qcreview.docx</code> (or name passed to <code>output_file</code>) will be saved in the directory specified by <code>output_dir</code> (default is the working directory)</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -198,7 +196,7 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># create report in working directory</span></span></span>
-<span class="r-in"><span><span class="fu">qcMWRreview</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, frecom <span class="op">=</span> <span class="va">frecomdat</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">qcMWRreview</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, frecom <span class="op">=</span> <span class="va">frecomdat</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
