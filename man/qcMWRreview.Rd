@@ -8,7 +8,7 @@ qcMWRreview(
   res,
   acc,
   frecom,
-  output_dir,
+  output_dir = NULL,
   output_file = NULL,
   rawdata = TRUE,
   dqofontsize = 7.5,
@@ -25,7 +25,7 @@ qcMWRreview(
 
 \item{frecom}{character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}}
 
-\item{output_dir}{character string of the output directory for the rendered file}
+\item{output_dir}{character string of the output directory for the rendered file, default is the working directory}
 
 \item{output_file}{optional character string for the file name}
 
@@ -42,7 +42,7 @@ qcMWRreview(
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths}
 }
 \value{
-A compiled review report named \code{qcreview.docx} (or name passed to \code{output_file}) will be saved in the directory specified by \code{output_dir}
+A compiled review report named \code{qcreview.docx} (or name passed to \code{output_file}) will be saved in the directory specified by \code{output_dir} (default is the working directory)
 }
 \description{
 Create the quality control review report
@@ -77,6 +77,6 @@ frecomdat <- readMWRfrecom(frecompth)
 
 \dontrun{
 # create report in working directory
-qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat, output_dir = getwd())
+qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat)
 }
 }
