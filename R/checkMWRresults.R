@@ -211,7 +211,7 @@ checkMWRresults <- function(resdat, warn = TRUE){
     stop(msg, '\n\tMissing Result Unit in rows ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
-  
+
   # check different units for each parameter
   msg <- '\tChecking if more than one unit per Characteristic Name...'
   typ <- resdat[, c('Characteristic Name', 'Result Unit')]
@@ -244,7 +244,7 @@ checkMWRresults <- function(resdat, warn = TRUE){
   typ <- dplyr::filter(typ, !(is.na(`Units of measure.x`) & is.na(`Units of measure.y`)))
   typ <- dplyr::rowwise(typ)
   typ <- dplyr::mutate(typ, 
-    `Units of measure` = na.omit(unique(`Units of measure.x`, `Units of measure.y`))
+    `Units of measure` = na.omit(unique(c(`Units of measure.x`, `Units of measure.y`)))
   )
   chk <- dplyr::mutate(typ, 
     fnd = grepl(`Result Unit`, `Units of measure`, fixed = TRUE)
