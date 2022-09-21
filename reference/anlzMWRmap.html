@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">MassWateR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -137,7 +137,7 @@
 
 
 <dt>palcol</dt>
-<dd><p>character string indicating the color palette to be used, see details</p></dd>
+<dd><p>character string indicating the color palette to be used from <a href="https://r-graph-gallery.com/38-rcolorbrewers-palettes.html" class="external-link">RColorBrewer</a>, see details</p></dd>
 
 
 <dt>yscl</dt>
@@ -205,7 +205,7 @@
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This function creates a map of summarized results for a selected parameter at each monitoring site.  By default, all dates for the parameter are averaged. Options to filter by site, date range, and result attribute are provided.  Only sites with spatial information in the site metadata file are plotted and a warning is returned for those that do not have this information. The site labels are also plotted next to each point.  The labels can be suppressed by setting <code>labsize = NULL</code>.</p>
-<p>Any acceptable color palette from RColorBrewer can be used for <code>palcol</code>, which is passed to the <code>palette</code> argment in <code><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></code>.</p>
+<p>Any acceptable color palette from <a href="https://r-graph-gallery.com/38-rcolorbrewers-palettes.html" class="external-link">RColorBrewer</a> can be used for <code>palcol</code>, which is passed to the <code>palette</code> argument in <code><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></code>. These could include any of the sequential color palettes, e.g., <code>"Greens"</code>, <code>"Blues"</code>, etc.  The diverging and qualitative palettes will also work, but may return uninterpretable color scales.</p>
 <p>The default value for <code>crs</code> is EPSG 4326 for the WGS 84 projection in decimal degrees.  The <code>crs</code> argument is passed to <code><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></code> and any acceptable CRS appropriate for the data can be used.</p>
 <p>The results shown on the map represent the parameter average for each site within the date range provided by <code>dtrng</code>.  The average may differ depending on the value provided to the <code>yscl</code> argument.  Log10-distributed parameters use the geometric mean and normally-distributed parameters use the arithmetic mean.  The distribution is determined from the <code>ycsl</code> argument. If <code>yscl = "auto"</code> (default), the distribution is determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are summarized with the geometric mean, otherwise arithmetic. Setting <code>yscl = "linear"</code> or <code>yscl = "log"</code> will the use arithmetic or geometric summaries, respectively, regardless of the information in the data quality objective file for accuracy.</p>
 <p>Using <code>addwater = "nhd"</code> (default) will include lines and polygons of natural water bodies defined using the National Hydrography Dataset (NHD) and included as data files with the package as <code><a href="pondsMWR.html">pondsMWR</a></code>, <code><a href="riversMWR.html">riversMWR</a></code>, and <code><a href="streamsMWR.html">streamsMWR</a></code>. The level of detail for the water bodies is defined by <code>dLevel</code> as <code>"low"</code>, <code>"medium"</code> (default), or <code>"high"</code>. The detail level only applies for the NHD data.</p>
