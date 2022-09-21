@@ -85,6 +85,8 @@ system.file("extdata/ExampleSites.xlsx", package = "MassWateR")
 
 The example files are provided to demonstrate how the functions in MassWateR are used. In practice, alternative data files that follow the same format as the examples will be used with the functions. There are several checks included in the data import functions to ensure the files are formatted correctly for downstream use. If any of the checks fail, an error message will be returned that prompts the necessary changes that must be made to the Excel file before the data can be used.  The checks can be suppressed by setting `runchk = FALSE` in the import functions.  These checks are described in the next section.
 
+**Make sure to close any data files on your desktop before importing them in MassWateR**.  Some operating systems may require the file to be closed for successful import.  
+
 ## Data import and checks
 
 The MassWateR package is developed for quality control and exploratory analysis of surface water quality data. Before these analyses can occur, the data must be formatted correctly. This section describes how to import data and the expectations that are checked automatically by the functions.
