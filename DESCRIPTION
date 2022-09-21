@@ -1,6 +1,6 @@
 Package: MassWateR
 Title: Tools for QAQC and Exploratory Analysis of Massachusetts Surface Water Quality Data
-Version: 1.0.0
+Version: 1.0.0.9000
 Authors@R: c(
     person(given = "Marcus",
       family = "Beck",

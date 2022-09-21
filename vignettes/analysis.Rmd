@@ -258,7 +258,7 @@ The latitude and longitude text on the plot axes can be suppressed using `latlon
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, latlon = F, warn = F)
 ```
 
-The color palette for the average values can also be changed.  Any palette from [RColorBrewer](https://r-graph-gallery.com/38-rcolorbrewers-palettes.html) can be used. 
+The color palette for the average values can also be changed.  Any palette from [RColorBrewer](https://r-graph-gallery.com/38-rcolorbrewers-palettes.html) can be used. These could include any of the sequential color palettes, e.g., `"Greens"`, `"Blues"`, etc.  The diverging and qualitative palettes will also work, but may return uninterpretable color scales. In the following example, the diverging `"Spectral"` palette is used. 
 
 ```{r, fig.height = 7, fig.width = 6}
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, palcol = "Spectral", warn = F)

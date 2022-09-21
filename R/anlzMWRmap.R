@@ -11,7 +11,7 @@
 #' @param ptsize numeric for size of the points, use a negative value to omit the points
 #' @param repel logical indicating if overlapping site labels are offset
 #' @param labsize numeric for size of the site labels
-#' @param palcol character string indicating the color palette to be used, see details
+#' @param palcol character string indicating the color palette to be used from \href{https://r-graph-gallery.com/38-rcolorbrewers-palettes.html}{RColorBrewer}, see details
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
 #' @param crs numeric as a four-digit EPSG number for the coordinate reference system, see details
 #' @param zoom numeric indicating resolution of the base map, see details
@@ -33,7 +33,7 @@
 #' @details 
 #' This function creates a map of summarized results for a selected parameter at each monitoring site.  By default, all dates for the parameter are averaged. Options to filter by site, date range, and result attribute are provided.  Only sites with spatial information in the site metadata file are plotted and a warning is returned for those that do not have this information. The site labels are also plotted next to each point.  The labels can be suppressed by setting \code{labsize = NULL}.
 #' 
-#' Any acceptable color palette from RColorBrewer can be used for \code{palcol}, which is passed to the \code{palette} argment in \code{\link[ggplot2]{scale_fill_distiller}}. 
+#' Any acceptable color palette from \href{https://r-graph-gallery.com/38-rcolorbrewers-palettes.html}{RColorBrewer} can be used for \code{palcol}, which is passed to the \code{palette} argument in \code{\link[ggplot2]{scale_fill_distiller}}. These could include any of the sequential color palettes, e.g., \code{"Greens"}, \code{"Blues"}, etc.  The diverging and qualitative palettes will also work, but may return uninterpretable color scales. 
 #' 
 #' The default value for \code{crs} is EPSG 4326 for the WGS 84 projection in decimal degrees.  The \code{crs} argument is passed to \code{\link[sf]{st_as_sf}} and any acceptable CRS appropriate for the data can be used. 
 #' 
