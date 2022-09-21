@@ -137,6 +137,7 @@ Functions in MassWateR are organized around these topics.
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleSites.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span></code></pre></div>
 <p>The example files are provided to demonstrate how the functions in MassWateR are used. In practice, alternative data files that follow the same format as the examples will be used with the functions. There are several checks included in the data import functions to ensure the files are formatted correctly for downstream use. If any of the checks fail, an error message will be returned that prompts the necessary changes that must be made to the Excel file before the data can be used. The checks can be suppressed by setting <code>runchk = FALSE</code> in the import functions. These checks are described in the next section.</p>
+<p><strong>Make sure to close any data files on your desktop before importing them in MassWateR</strong>. Some operating systems may require the file to be closed for successful import.</p>
 </div>
 <div class="section level2">
 <h2 id="data-import-and-checks">Data import and checks<a class="anchor" aria-label="anchor" href="#data-import-and-checks"></a>
