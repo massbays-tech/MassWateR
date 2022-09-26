@@ -80,8 +80,8 @@
 #'
 anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', yscl = c('auto', 'log', 'linear'), crs = 4326, zoom = 11, addwater = "nhd", watercol = 'lightblue', dLevel = 'medium', maptype = NULL, buffdist = 0.02, northloc = 'tl', scaleloc = 'br', latlon = TRUE, ttlsize = 1.2, runchk = TRUE, warn = TRUE){
   
-  if(!requireNamespace('ggmap', quietly = TRUE))
-    stop("Package \"ggmap\" needed for this function to work. Please install it.", call. = FALSE)
+  # if(!requireNamespace('ggmap', quietly = TRUE))
+  #   stop("Package \"ggmap\" needed for this function to work. Please install it.", call. = FALSE)
   
   # inputs
   inp <- utilMWRinput(res = res, acc = acc, sit = sit, runchk = F, warn = warn)

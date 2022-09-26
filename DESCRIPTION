@@ -35,6 +35,7 @@ Depends:
 Imports:
   dplyr, 
   flextable,
+  ggmap,
   ggplot2,
   ggrepel,
   ggspatial,
@@ -57,7 +58,6 @@ LazyDataCompression: xz
 Suggests: 
     knitr,
     covr,
-    ggmap,
     testthat (>= 3.0.0),
     rmarkdown
 Config/testthat/edition: 3
