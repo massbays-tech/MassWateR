@@ -130,7 +130,7 @@ anlzMWRdate(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = 
 
 The color palette for the site points and lines can also be changed.  Any palette from [RColorBrewer](https://r-graph-gallery.com/38-rcolorbrewers-palettes.html) can be used. These could include any of the qualitative color palettes, e.g., `"Set1"`, `"Set2"`, etc.   The continuous and diverging palettes will also work, but may return color scales for points and lines that are difficult to distinguish.  The `palcol` argument does not apply if `group = "all"`. In the following example, the qualitative `"Set1"` palette is used. 
 
-```{r, fig.height = 7, fig.width = 6}
+```{r, fig.height = 4, fig.width = 8}
 anlzMWRdate(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "site", site = c("ABT-026", "ABT-077"), palcol = "Set1")
 ```
 
