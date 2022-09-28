@@ -77,6 +77,7 @@
 <span>  labsize <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  expand <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="fl">0.1</span><span class="op">)</span>,</span>
 <span>  confint <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  palcol <span class="op">=</span> <span class="st">"Set2"</span>,</span>
 <span>  yscl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"auto"</span>, <span class="st">"log"</span>, <span class="st">"linear"</span><span class="op">)</span>,</span>
 <span>  colleg <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  ttlsize <span class="op">=</span> <span class="fl">1.2</span>,</span>
@@ -151,6 +152,10 @@
 <dd><p>logical indicating if confidence intervals are shown, only applies if <code>type = "bar"</code></p></dd>
 
 
+<dt>palcol</dt>
+<dd><p>character string indicating the color palette for points and lines from <a href="https://r-graph-gallery.com/38-rcolorbrewers-palettes.html" class="external-link">RColorBrewer</a>, see details</p></dd>
+
+
 <dt>yscl</dt>
 <dd><p>character indicating one of <code>"auto"</code> (default), <code>"log"</code>, or <code>"linear"</code>, see details</p></dd>
 
@@ -181,6 +186,7 @@
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Results are shown for the selected parameter as continuous line plots over time. Specifying <code>group = "site"</code> plot a separate line for each site.  Specifying <code>group = "locgroup"</code> will average results across sites in the <code>locgroup</code> argument.  The site metadata file must be passed to the <code>`sit`</code> argument to use this option.  Specifying <code>group = "all"</code> will average results across sites for each date.</p>
 <p>Threshold lines applicable to marine or freshwater environments can be included in the plot by using the <code>thresh</code> argument.  These thresholds are specific to each parameter and can be found in the <code><a href="thresholdMWR.html">thresholdMWR</a></code> file.  Threshold lines are plotted only for those parameters with entries in <code><a href="thresholdMWR.html">thresholdMWR</a></code> and only if the value in <code>`Result Unit`</code> matches those in <code><a href="thresholdMWR.html">thresholdMWR</a></code>. The threshold lines can be suppressed by setting <code>thresh = 'none'</code>.</p>
+<p>Any acceptable color palette for from <a href="https://r-graph-gallery.com/38-rcolorbrewers-palettes.html" class="external-link">RColorBrewer</a> for the points and lines can be used for <code>palcol</code>, which is passed to the <code>palette</code> argument in <code><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_color_brewer</a></code>. These could include any of the qualitative color palettes, e.g., <code>"Set1"</code>, <code>"Set2"</code>, etc.  The continuous and diverging palettes will also work, but may return color scales for points and lines that are difficult to distinguish.  The <code>palcol</code> argument does not apply if <code>group = "all"</code>.</p>
 <p>The y-axis scaling as arithmetic (linear) or logarithmic can be set with the <code>yscl</code> argument.  If <code>yscl = "auto"</code> (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting <code>yscl = "linear"</code> or <code>yscl = "log"</code> will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy.</p>
 <p>Any entries in <code>resdat</code> in the <code>"Result Value"</code> column as <code>"BDL"</code> or <code>"AQL"</code> are replaced with appropriate values in the <code>"Quantitation Limit"</code> column, if present, otherwise the <code>"MDL"</code> or <code>"UQL"</code> columns from the data quality objectives file for accuracy are used.  Values as <code>"BDL"</code> use one half of the appropriate limit.</p>
     </div>
