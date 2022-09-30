@@ -21,6 +21,13 @@ options(repos = c(
 # Install the package
 install.packages("MassWateR")
 ```
+
+A separate installation of RTools may be needed for Windows if you receive the following message when installing MassWateR.  Following the instructions [here](https://cran.rstudio.com/bin/windows/Rtools/) to install RTools, then reinstall MassWateR. 
+
+```r
+WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding: https://cran.rstudio.com/bin/windows/Rtools/
+```
+
 ## Using the package
 
 Please see the vignette articles for an overview of how to use functions in the MassWateR package.  The vignettes are organized topically as follows: 
