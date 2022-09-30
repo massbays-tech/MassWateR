@@ -120,21 +120,23 @@ Functions in MassWateR are organized around these topics.
 <span></span>
 <span><span class="co"># Install the package</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"MassWateR"</span><span class="op">)</span></span></code></pre></div>
+<p>A separate installation of RTools may be needed for Windows if you receive the following message when installing MassWateR. Following the instructions <a href="https://cran.rstudio.com/bin/windows/Rtools/" class="external-link">here</a> to install RTools, then reinstall MassWateR.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>WARNING<span class="sc">:</span> Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding<span class="sc">:</span> https<span class="sc">:</span><span class="er">//</span>cran.rstudio.com<span class="sc">/</span>bin<span class="sc">/</span>windows<span class="sc">/</span>Rtools<span class="sc">/</span></span></code></pre></div>
 <p>Load the package in an R session after installation:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/massbays-tech/MassWateR" class="external-link">MassWateR</a></span><span class="op">)</span></span></code></pre></div>
 <p>The example files for the package can be viewed by navigating to their location in the package installation. These are available as Excel files. Running the code below will show where the files are located.</p>
 <p>The surface water quality results files:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleResults.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span></code></pre></div>
 <p>The data quality objectives file for accuracy:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleDQOAccuracy.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span></code></pre></div>
 <p>The data quality objectives file for completeness:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleDQOFrequencyCompleteness.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span></code></pre></div>
 <p>The site metadata file:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleSites.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span></code></pre></div>
 <p>The example files are provided to demonstrate how the functions in MassWateR are used. In practice, alternative data files that follow the same format as the examples will be used with the functions. There are several checks included in the data import functions to ensure the files are formatted correctly for downstream use. If any of the checks fail, an error message will be returned that prompts the necessary changes that must be made to the Excel file before the data can be used. The checks can be suppressed by setting <code>runchk = FALSE</code> in the import functions. These checks are described in the next section.</p>
 <p><strong>Make sure to close any data files on your desktop before importing them in MassWateR</strong>. Some operating systems may require the file to be closed for successful import.</p>
@@ -357,7 +359,7 @@ Functions in MassWateR are organized around these topics.
 <h3 id="surface-water-quality-results">Surface water quality results<a class="anchor" aria-label="anchor" href="#surface-water-quality-results"></a>
 </h3>
 <p>First, the surface water quality results can be imported with the <code><a href="../reference/readMWRresults.html">readMWRresults()</a></code> function. This is designed to import an Excel file external to R, run checks on the data, and provide some minor formatting for downstream quality control or exploratory analysis. In this example, the system file <code>ExampleResults.xlsx</code> is imported. In practice, the <code>pth</code> argument will point to an external file in the WQX format. Note that <code>runchk = TRUE</code> is set to run the checks on data import. This is the default setting and it is not necessary to explicitly set this argument on import.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleResults.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
 <span><span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRresults.html">readMWRresults</a></span><span class="op">(</span><span class="va">respth</span>, runchk <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Running checks on results data...</span></span>
@@ -433,7 +435,7 @@ Functions in MassWateR are organized around these topics.
 </ul>
 <p>An informative error is returned if the input data fail any of the checks. The input data should be corrected by hand in the Excel file by altering the appropriate rows or column names indicated in the error. Checks with warnings can be fixed at the discretion of the user before proceeding.</p>
 <p>Here is an example of an error that might be returned for an incorrect data entry (using the <code><a href="../reference/checkMWRresults.html">checkMWRresults()</a></code> function, which is used inside of <code><a href="../reference/readMWRresults.html">readMWRresults()</a></code>). To remedy the issue, change the entries in row 4 and 135 in the Activity Type column to Sample-Routine and Field Msr/Obs, respectively. This must be done in the original Excel file. Import the data again in R to verify the data are corrected.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">chk</span> <span class="op">&lt;-</span> <span class="va">resdat</span></span>
 <span><span class="va">chk</span><span class="op">[</span><span class="fl">4</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Sample"</span></span>
 <span><span class="va">chk</span><span class="op">[</span><span class="fl">135</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Field"</span></span>
@@ -457,7 +459,7 @@ Functions in MassWateR are organized around these topics.
 <h3 id="data-quality-objectives">Data quality objectives<a class="anchor" aria-label="anchor" href="#data-quality-objectives"></a>
 </h3>
 <p>To use the quality control functions in MassWateR, Excel files that describe the data quality objectives for accuracy, frequency, and completeness must be provided. The system files included with the package, described above, demonstrate the required information and format for these files. They can be imported into R using the <code><a href="../reference/readMWRacc.html">readMWRacc()</a></code> and <code><a href="../reference/readMWRfrecom.html">readMWRfrecom()</a></code> functions for the accuracy, frequency, and completeness files. The <code>pth</code> argument will point to the location of the external files on your computer. As above, the system files included with the package are used for the examples.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import data quality objectives for accuracy</span></span>
 <span><span class="va">accpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleDQOAccuracy.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
 <span><span class="va">accdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRacc.html">readMWRacc</a></span><span class="op">(</span><span class="va">accpth</span><span class="op">)</span></span>
@@ -484,7 +486,7 @@ Functions in MassWateR are organized around these topics.
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Sp Conducta… uS/cm   1      <span style="color: #BB0000;">NA</span> &gt;= 250  &lt;= 20%  &lt;= 10%  &lt; 25    &lt; 25    &lt;= 50  </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​`Value Range`, ²​`Field Duplicate`,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   ³​`Lab Duplicate`, ⁴​`Field Blank`, ⁵​`Lab Blank`, ⁶​`Spike/Check Accuracy`</span></span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import data quality objectives for frequency and completeness</span></span>
 <span><span class="va">frecompth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleDQOFrequencyCompleteness.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
 <span><span class="va">frecomdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRfrecom.html">readMWRfrecom</a></span><span class="op">(</span><span class="va">frecompth</span><span class="op">)</span></span>
@@ -555,7 +557,7 @@ Functions in MassWateR are organized around these topics.
 <h3 id="site-metadata">Site metadata<a class="anchor" aria-label="anchor" href="#site-metadata"></a>
 </h3>
 <p>An Excel file for site metadata that describes spatial location and any other grouping factors for the sites in the results file can be imported using <code><a href="../reference/readMWRsites.html">readMWRsites()</a></code>. The system file included with the package, described above, demonstrates the required information and format for the file. The <code>pth</code> argument will point to the location of the external file on your computer. As above, the system file included with the package is used for the example.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import site metadata</span></span>
 <span><span class="va">sitpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleSites.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
 <span><span class="va">sitdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRsites.html">readMWRsites</a></span><span class="op">(</span><span class="va">sitpth</span><span class="op">)</span></span>
