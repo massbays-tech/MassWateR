@@ -94,8 +94,6 @@ notes <- function(wd, fontname){
 
 ## Organization Name
 
-<br>
-
 ```{r, ft.align = 'left'}
 tab <- data.frame(
   x = c(dt, 'Prepared by:', 'QAPP version:'),
@@ -117,8 +115,6 @@ flextable::flextable(tab) %>%
 <br>
 
 ### Data Quality Objectives
-
-<br>
 
 ```{r}
 frecomdat %>% 
@@ -150,8 +146,6 @@ notes(wd, fontname)
 
 ### QC Frequencies for `r resdatdt`
 
-<br>
-
 ```{r}
 tabfresum
 ```
@@ -171,8 +165,6 @@ tabfreper
 \newpage
 
 ### QC Accuracy Summary for `r resdatdt`
-
-<br>
 
 ```{r}
 tabaccsum
@@ -194,8 +186,6 @@ tabaccper
 
 ### Data Completeness for `r resdatdt`
 
-<br>
-
 ```{r, warning = T}
 tabcom
 ```
@@ -208,7 +198,7 @@ notes(wd, fontname)
 
 `r if(rawdata){"\\newpage"}`
 
-`r if(rawdata){paste0("### QC Raw Data for ", resdatdt, "\n<br>")}`
+`r if(rawdata){paste0("### QC Raw Data for ", resdatdt)}`
 
 `r if (rawdata){"#### Field Duplicates\n"}`
 
