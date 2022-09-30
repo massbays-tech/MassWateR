@@ -134,7 +134,7 @@ The color palette for the site points and lines can also be changed.  Any palett
 anlzMWRdate(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "site", site = c("ABT-026", "ABT-077"), palcol = "Set1")
 ```
 
-The results averaged across the selected sites can be plotted using `group = "all"`.
+The results averaged across the selected sites can be plotted using `group = "all"`.  The point and line color defaults to black. 
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRdate(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "all", site = c("ABT-026", "ABT-077"))
