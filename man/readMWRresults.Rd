@@ -30,3 +30,6 @@ respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 resdat <- readMWRresults(respth)
 head(resdat)
 }
+\seealso{
+\code{\link{readMWRresultspivot}}
+}

@@ -10,6 +10,8 @@
 #' @details Date are imported with \code{\link[readxl]{read_excel}}, checked with \code{\link{checkMWRresults}}, and formatted with \code{\link{formMWRresults}}.
 #' 
 #' @export
+#' 
+#' @seealso \code{\link{readMWRresultspivot}}
 #'
 #' @examples
 #' respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
