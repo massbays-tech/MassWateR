@@ -4,7 +4,7 @@ template:
 
 navbar:
   structure:
-    left:  [intro, reference, articles, resources, tutorials, news]
+    left:  [intro, reference, articles, tutorials, news]
     right: [search, github]
   components:
     reference:
@@ -23,13 +23,11 @@ articles:
   - outlierchecks
   - analysis
   - modifying
-
-resources: 
 - title: Resources
   navbar: ~
-  content: 
+  contents: 
   - resources
-  
+
 reference:
 - title: Read, check, and format data
   desc: >
