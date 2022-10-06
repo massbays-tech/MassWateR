@@ -10,8 +10,8 @@ tabMWRfre(
   runchk = TRUE,
   warn = TRUE,
   type = c("summary", "percent"),
-  pass_col = "green",
-  fail_col = "red",
+  pass_col = "#57C4AD",
+  fail_col = "#DB4325",
   digits = 0,
   suffix = "\%"
 )
@@ -27,9 +27,9 @@ tabMWRfre(
 
 \item{type}{character string indicating \code{summary} or \code{percent} tabular output, see datails}
 
-\item{pass_col}{character string for the cell color of checks that pass, applies only if \code{type = 'percent'}}
+\item{pass_col}{character string (as hex code) for the cell color of checks that pass, applies only if \code{type = 'percent'}}
 
-\item{fail_col}{character string for the cell color of checks that fail, applies only if \code{type = 'percent'}}
+\item{fail_col}{character string (as hex code) for the cell color of checks that fail, applies only if \code{type = 'percent'}}
 
 \item{digits}{numeric indicating number of significant digits to report for percentages}
 

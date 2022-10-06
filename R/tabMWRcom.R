@@ -1,8 +1,8 @@
 #' Create a formatted table of quality control completeness checks
 #'
 #' @inheritParams qcMWRcom 
-#' @param pass_col character string for the cell color of checks that pass
-#' @param fail_col character string for the cell color of checks that fail
+#' @param pass_col character string (as hex code) for the cell color of checks that pass
+#' @param fail_col character string (as hex code) for the cell color of checks that fail
 #' @param digits numeric indicating number of significant digits to report for percentages
 #' @param suffix character string indicating suffix to append to percentage values
 #' @param parameterwd numeric indicating width of the parameter column
@@ -42,7 +42,7 @@
 #' 
 #' tabMWRcom(res = resdat, frecom = frecomdat)
 #' 
-tabMWRcom <- function(res, frecom, runchk = TRUE, warn = TRUE, pass_col = 'green', fail_col = 'red', digits = 0, suffix = '%', parameterwd = 1.15, noteswd = 3){
+tabMWRcom <- function(res, frecom, runchk = TRUE, warn = TRUE, pass_col = '#57C4AD', fail_col = '#DB4325', digits = 0, suffix = '%', parameterwd = 1.15, noteswd = 3){
 
   # table theme
   thm <- function(x, ...){

@@ -9,8 +9,8 @@ tabMWRcom(
   frecom,
   runchk = TRUE,
   warn = TRUE,
-  pass_col = "green",
-  fail_col = "red",
+  pass_col = "#57C4AD",
+  fail_col = "#DB4325",
   digits = 0,
   suffix = "\%",
   parameterwd = 1.15,
@@ -26,9 +26,9 @@ tabMWRcom(
 
 \item{warn}{logical to return warnings to the console (default)}
 
-\item{pass_col}{character string for the cell color of checks that pass}
+\item{pass_col}{character string (as hex code) for the cell color of checks that pass}
 
-\item{fail_col}{character string for the cell color of checks that fail}
+\item{fail_col}{character string (as hex code) for the cell color of checks that fail}
 
 \item{digits}{numeric indicating number of significant digits to report for percentages}
 

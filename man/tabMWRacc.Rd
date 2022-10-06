@@ -12,8 +12,8 @@ tabMWRacc(
   accchk = c("Field Blanks", "Lab Blanks", "Field Duplicates", "Lab Duplicates",
     "Lab Spikes", "Instrument Checks"),
   type = c("individual", "summary", "percent"),
-  pass_col = "green",
-  fail_col = "red",
+  pass_col = "#57C4AD",
+  fail_col = "#DB4325",
   frecom = NULL,
   suffix = "\%",
   caption = TRUE
@@ -32,9 +32,9 @@ tabMWRacc(
 
 \item{type}{character string indicating \code{individual}, \code{summary} or \code{percent} tabular output, see details}
 
-\item{pass_col}{character string for the cell color of checks that pass, applies only if \code{type = 'percent'}}
+\item{pass_col}{character string (as hex code) for the cell color of checks that pass, applies only if \code{type = 'percent'}}
 
-\item{fail_col}{character string for the cell color of checks that fail, applies only if \code{type = 'percent'}}
+\item{fail_col}{character string (as hex code) for the cell color of checks that fail, applies only if \code{type = 'percent'}}
 
 \item{frecom}{character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}, applies only if \code{type = "summary"} or \code{type = "percent"}}
 
