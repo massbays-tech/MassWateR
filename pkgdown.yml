@@ -7,7 +7,8 @@ articles:
   modifying: modifying.html
   outlierchecks: outlierchecks.html
   qcoverview: qcoverview.html
-last_built: 2022-10-06T12:35Z
+  resources: resources.html
+last_built: 2022-10-06T14:11Z
 urls:
   reference: https://massbays-tech.github.io/MassWateR/reference
   article: https://massbays-tech.github.io/MassWateR/articles
