@@ -1,0 +1,21 @@
+---
+title: "Resources"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Resources}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE, message = F, warning = F}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  warning = T, 
+  message = F
+)
+```
+
+Some resources:
+
+
