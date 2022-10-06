@@ -28,7 +28,7 @@ Windows PC users may encounter the following warning when installing MassWateR.
 WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding: https://cran.rstudio.com/bin/windows/Rtools/
 ```
 
-This warning can be ignored.  If desired, RTools can be obtained following the instructions [here](https://cran.rstudio.com/bin/windows/Rtools/).
+This warning can be ignored for the MassWateR solution.  If desired, RTools can be obtained following the instructions [here](https://cran.rstudio.com/bin/windows/Rtools/).
 
 ## Using the package
 
