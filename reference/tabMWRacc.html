@@ -68,8 +68,8 @@
 <span>  accchk <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Field Blanks"</span>, <span class="st">"Lab Blanks"</span>, <span class="st">"Field Duplicates"</span>, <span class="st">"Lab Duplicates"</span>,</span>
 <span>    <span class="st">"Lab Spikes"</span>, <span class="st">"Instrument Checks"</span><span class="op">)</span>,</span>
 <span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"individual"</span>, <span class="st">"summary"</span>, <span class="st">"percent"</span><span class="op">)</span>,</span>
-<span>  pass_col <span class="op">=</span> <span class="st">"green"</span>,</span>
-<span>  fail_col <span class="op">=</span> <span class="st">"red"</span>,</span>
+<span>  pass_col <span class="op">=</span> <span class="st">"#57C4AD"</span>,</span>
+<span>  fail_col <span class="op">=</span> <span class="st">"#DB4325"</span>,</span>
 <span>  frecom <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  suffix <span class="op">=</span> <span class="st">"%"</span>,</span>
 <span>  caption <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -103,11 +103,11 @@
 
 
 <dt>pass_col</dt>
-<dd><p>character string for the cell color of checks that pass, applies only if <code>type = 'percent'</code></p></dd>
+<dd><p>character string (as hex code) for the cell color of checks that pass, applies only if <code>type = 'percent'</code></p></dd>
 
 
 <dt>fail_col</dt>
-<dd><p>character string for the cell color of checks that fail, applies only if <code>type = 'percent'</code></p></dd>
+<dd><p>character string (as hex code) for the cell color of checks that fail, applies only if <code>type = 'percent'</code></p></dd>
 
 
 <dt>frecom</dt>
