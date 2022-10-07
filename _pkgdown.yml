@@ -10,7 +10,10 @@ navbar:
     reference:
       text: Functions
       href: reference/index.html
-
+    resources:
+      text: Resources
+      href: resources.html
+    
 articles: 
 - title: Get Started
   navbar: ~
@@ -23,10 +26,6 @@ articles:
   - outlierchecks
   - analysis
   - modifying
-- title: Resources
-  navbar: ~
-  contents: 
-  - resources
 
 reference:
 - title: Read, check, and format data
