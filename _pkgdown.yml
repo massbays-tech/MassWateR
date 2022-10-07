@@ -1,6 +1,7 @@
 url: https://massbays-tech.github.io/MassWateR
 template:
   bootstrap: 5
+  assets: inst/extdata
 
 navbar:
   structure:
@@ -12,7 +13,7 @@ navbar:
       href: reference/index.html
     resources:
       text: Resources
-      href: resources.html
+      href: RESOURCES.html
     
 articles: 
 - title: Get Started
