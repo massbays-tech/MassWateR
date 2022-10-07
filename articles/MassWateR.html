@@ -58,7 +58,7 @@
   </div>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="../resources.html">Resources</a>
+  <a class="nav-link" href="../RESOURCES.html">Resources</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -359,13 +359,13 @@ Functions in MassWateR are organized around these topics.
 </tr>
 </tbody>
 </table>
-<p>The <code><a href="../reference/readMWRresultsview.html">readMWRresultsview()</a></code> function can be used to help troubleshoot import issues that are encountered with the water quality results file (next section). This function can be used to view unique observations in select columns of the results file to verify if they conform to the requirements for the data import checks, including acceptable values for the table above. The example below returns a table where the rows are the unique parameters (<code>"Characteristic Name"</code>) and the columns are the unique units (<code>"Result Unit"</code>) found in the results file. The numbers in the table show the unique observations that correspond to each parameter and result unit combination. Visually evaluating these entries for conformance to the package requirements and manually editing the input file can help with the import checks, described below. See the help file for <code><a href="../reference/readMWRresultsview.html">readMWRresultsview()</a></code> for more information.</p>
+<p>The <code><a href="../reference/readMWRresultstable.html">readMWRresultstable()</a></code> function can be used to help troubleshoot import issues that are encountered with the water quality results file (next section). This function can be used to view unique observations in select columns of the results file to verify if they conform to the requirements for the data import checks, including acceptable values for the table above. The example below returns a table where the rows are the unique parameters (<code>"Characteristic Name"</code>) and the columns are the unique units (<code>"Result Unit"</code>) found in the results file. The numbers in the table show the unique observations that correspond to each parameter and result unit combination. Visually evaluating these entries for conformance to the package requirements and manually editing the input file can help with the import checks, described below. See the help file for <code><a href="../reference/readMWRresultstable.html">readMWRresultstable()</a></code> for more information.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># find path to the file included with the package, replace with a path to your file as needed</span></span>
 <span><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleResults.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># summary table of unique counts for parameters and their units in the file</span></span>
-<span><span class="fu"><a href="../reference/readMWRresultsview.html">readMWRresultsview</a></span><span class="op">(</span><span class="va">respth</span>, columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Characteristic Name'</span>, <span class="st">'Result Unit'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/readMWRresultstable.html">readMWRresultstable</a></span><span class="op">(</span><span class="va">respth</span>, columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Characteristic Name'</span>, <span class="st">'Result Unit'</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;                    Result Unit</span></span>
 <span><span class="co">#&gt; Characteristic Name   % cfs cfu/100ml deg C  ft mg/l s.u. ug/l uS/cm</span></span>
 <span><span class="co">#&gt;      Air Temp         0   0         0   211   0    0    0    0     0</span></span>

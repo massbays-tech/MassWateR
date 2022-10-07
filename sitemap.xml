@@ -13,6 +13,9 @@
     <loc>https://massbays-tech.github.io/MassWateR/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://massbays-tech.github.io/MassWateR/RESOURCES.html</loc>
+  </url>
+  <url>
     <loc>https://massbays-tech.github.io/MassWateR/articles/MassWateR.html</loc>
   </url>
   <url>
@@ -106,7 +109,7 @@
     <loc>https://massbays-tech.github.io/MassWateR/reference/readMWRresults.html</loc>
   </url>
   <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/readMWRresultsview.html</loc>
+    <loc>https://massbays-tech.github.io/MassWateR/reference/readMWRresultstable.html</loc>
   </url>
   <url>
     <loc>https://massbays-tech.github.io/MassWateR/reference/readMWRsites.html</loc>
@@ -152,8 +155,5 @@
   </url>
   <url>
     <loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRyscale.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/resources.html</loc>
   </url>
 </urlset>
