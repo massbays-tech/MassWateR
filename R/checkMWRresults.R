@@ -170,7 +170,7 @@ checkMWRresults <- function(resdat, warn = TRUE){
   if(any(!chk)){
     tochk <- unique(typ[!chk])
     if(warn)
-      warning(msg, '\n\tCharacteristic Name not used for quality control: ', paste(tochk, collapse = ', '), call. = FALSE)
+      warning(msg, '\n\tCharacteristic Name not included in approved parameters: ', paste(tochk, collapse = ', '), call. = FALSE)
     wrn <- wrn + 1
     message(paste(msg, 'WARNING'))
   } else {
