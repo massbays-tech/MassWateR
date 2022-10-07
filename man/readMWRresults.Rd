@@ -31,5 +31,5 @@ resdat <- readMWRresults(respth)
 head(resdat)
 }
 \seealso{
-\code{\link{readMWRresultsview}}
+\code{\link{readMWRresultstable}}
 }

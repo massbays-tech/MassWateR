@@ -34,7 +34,7 @@ reference:
     Functions for importing, checking, and formatting the results and data quality objectives data.
   contents:
   - readMWRresults
-  - readMWRresultsview
+  - readMWRresultstable
   - checkMWRresults
   - formMWRresults
   - readMWRacc

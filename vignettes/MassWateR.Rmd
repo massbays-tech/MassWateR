@@ -108,14 +108,14 @@ paramsMWR %>%
   knitr::kable(.)
 ```
 
-The `readMWRresultsview()` function can be used to help troubleshoot import issues that are encountered with the water quality results file (next section).  This function can be used to view unique observations in select columns of the results file to verify if they conform to the requirements for the data import checks, including acceptable values for the table above. The example below returns a table where the rows are the unique parameters (`"Characteristic Name"`) and the columns are the unique units (`"Result Unit"`) found in the results file. The numbers in the table show the unique observations that correspond to each parameter and result unit combination.  Visually evaluating these entries for conformance to the package requirements and manually editing the input file can help with the import checks, described below.  See the help file for `readMWRresultsview()` for more information.
+The `readMWRresultstable()` function can be used to help troubleshoot import issues that are encountered with the water quality results file (next section).  This function can be used to view unique observations in select columns of the results file to verify if they conform to the requirements for the data import checks, including acceptable values for the table above. The example below returns a table where the rows are the unique parameters (`"Characteristic Name"`) and the columns are the unique units (`"Result Unit"`) found in the results file. The numbers in the table show the unique observations that correspond to each parameter and result unit combination.  Visually evaluating these entries for conformance to the package requirements and manually editing the input file can help with the import checks, described below.  See the help file for `readMWRresultstable()` for more information.
 
 ```{r}
 # find path to the file included with the package, replace with a path to your file as needed
 respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 
 # summary table of unique counts for parameters and their units in the file
-readMWRresultsview(respth, columns = c('Characteristic Name', 'Result Unit'))
+readMWRresultstable(respth, columns = c('Characteristic Name', 'Result Unit'))
 ```
 
 ### Surface water quality results

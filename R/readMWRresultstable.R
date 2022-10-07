@@ -19,14 +19,14 @@
 #' respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 #' 
 #' # parameters only
-#' readMWRresultsview(respth, columns = 'Characteristic Name')
+#' readMWRresultstable(respth, columns = 'Characteristic Name')
 #' 
 #' # parameters and units
-#' readMWRresultsview(respth, columns = c('Characteristic Name', 'Result Unit'))
+#' readMWRresultstable(respth, columns = c('Characteristic Name', 'Result Unit'))
 #' 
 #' # activity types and parameters
-#' readMWRresultsview(respth, columns = c('Activity Type', 'Characteristic Name'))
-readMWRresultsview <- function(respth, columns){
+#' readMWRresultstable(respth, columns = c('Activity Type', 'Characteristic Name'))
+readMWRresultstable <- function(respth, columns){
 
   # only one or two entires for columns allowed
   chk <- length(columns) > 2
