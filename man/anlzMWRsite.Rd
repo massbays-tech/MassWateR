@@ -11,6 +11,7 @@ anlzMWRsite(
   sit = NULL,
   type = c("box", "jitterbox", "bar", "jitterbar", "jitter"),
   thresh,
+  threshlab = NULL,
   threshcol = "tan",
   site = NULL,
   resultatt = NULL,
@@ -38,7 +39,9 @@ anlzMWRsite(
 
 \item{type}{character indicating \code{"box"}, \code{"jitterbox"}, \code{"bar"}, \code{"jitterbar"} or \code{"jitter"}, see details}
 
-\item{thresh}{character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}}
+\item{thresh}{character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}, or a single numeric value to override the values included with the package}
+
+\item{threshlab}{optional character string indicating legend label for the threshold, required only if \code{thresh} is numeric}
 
 \item{threshcol}{character indicating color of threshold lines if available}
 
@@ -77,7 +80,7 @@ Analyze data by sites in results file
 \details{
 Summaries of a parameter for each site are shown as boxplots if \code{type = "box"} or as barplots if \code{type = "bar"}.  Points can be jittered over the boxplots by setting \code{type = "jitterbox"} or jittered over the barplots by setting \code{type = "jitterbar"}.  Setting \code{type = "jitter"} will show only only the jittered points.  For \code{type = "bar"} or \code{type = "jitterbar"}, 95\% confidence intervals can also be shown if \code{confint = TRUE} and they can be estimated (i.e., more than one result value per bar).
 
-Threshold lines applicable to marine or freshwater environments can be included in the plot by using the \code{thresh} argument.  These thresholds are specific to each parameter and can be found in the \code{\link{thresholdMWR}} file.  Threshold lines are plotted only for those parameters with entries in \code{\link{thresholdMWR}} and only if the value in \code{`Result Unit`} matches those in \code{\link{thresholdMWR}}. The threshold lines can be suppressed by setting \code{thresh = 'none'}.
+Threshold lines applicable to marine or freshwater environments can be included in the plot by using the \code{thresh} argument.  These thresholds are specific to each parameter and can be found in the \code{\link{thresholdMWR}} file.  Threshold lines are plotted only for those parameters with entries in \code{\link{thresholdMWR}} and only if the value in \code{`Result Unit`} matches those in \code{\link{thresholdMWR}}. The threshold lines can be suppressed by setting \code{thresh = 'none'}. A user-supplied numeric value can also be used for the \code{thresh} argument to override the default values. An appropriate label must also be supplied to \code{threshlab} if \code{thresh} is numeric.
 
 The y-axis scaling as arithmetic (linear) or logarithmic can be set with the \code{yscl} argument.  If \code{yscl = "auto"} (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting \code{yscl = "linear"} or \code{yscl = "log"} will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy. The means and confidence intervals will vary between arithmetic and log-scaling if \code{type = "bar"}.
 

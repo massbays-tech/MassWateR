@@ -2,9 +2,11 @@
 #'
 #' @param resdat results data as returned by \code{\link{readMWRresults}}
 #' @param param character string to first filter results by a parameter in \code{"Characteristic Name"}
-#' @param thresh character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}
+#' @param thresh character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}, or a single numeric value to override the values included with the package
+#' @param threshlab optional character string indicating legend label for the threshold, required only if \code{thresh} is numeric
 #'
-#' @return If thresholds are available for \code{param}, a \code{data.frame} of relevant marine or freshwater thresholds, otherwise \code{NULL}
+#' @return If \code{thresh} is not numeric and thresholds are available for \code{param}, a \code{data.frame} of relevant marine or freshwater thresholds, otherwise \code{NULL}.  If \code{thresh} is numeric, a \code{data.frame} of the threshold with the appropriate label from \code{threshlabel}.
+#' 
 #' @export
 #'
 #' @examples
@@ -16,9 +18,20 @@
 #' 
 #' # get threshold lines
 #' utilMWRthresh(resdat = resdat, param = 'E.coli', thresh = 'fresh')
-utilMWRthresh <- function(resdat, param, thresh = c('fresh', 'marine', 'none')){
+#' 
+#' # user-defined numeric threshold line
+#' utilMWRthresh(resdat = resdat, param = 'TP', thresh = 5, threshlab = 'My threshold')
+utilMWRthresh <- function(resdat, param, thresh, threshlab = NULL){
   
-  thresh <- match.arg(thresh)
+  if(is.numeric(thresh)){
+    if(is.null(threshlab))
+      stop('threshlab required if thresh is numeric')
+    out <- data.frame(num = 1, thresh = thresh, label = threshlab, size = 0.73, linetype = 'longdash')
+    return(out)
+  }
+  
+  if(!is.numeric(thresh))
+    thresh <- match.arg(thresh, choices = c('fresh', 'marine', 'none'))
 
   if(thresh == 'none')
     return(NULL)

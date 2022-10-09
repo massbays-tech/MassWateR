@@ -6,9 +6,10 @@
 #' @param param character string of the parameter to plot, must conform to entries in the \code{"Simple Parameter"} column of \code{\link{paramsMWR}}
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
 #' @param sit optional character string of path to the site metadata file or \code{data.frame} of site metadata returned by \code{\link{readMWRsites}}, required if \code{locgroup} is not \code{NULL} 
-#' @param thresh character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}
+#' @param thresh character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}, or a single numeric value to override the values included with the package
 #' @param group character indicating whether the summaries are grouped by month (default) or week of year
 #' @param type character indicating \code{"box"}, \code{"jitterbox"}, \code{"bar"}, \code{"jitterbar"} or \code{"jitter"}, see details
+#' @param threshlab optional character string indicating legend label for the threshold, required only if \code{thresh} is numeric
 #' @param threshcol character indicating color of threshold lines if available
 #' @param site character string of sites to include, default all
 #' @param resultatt character string of result attributes to plot, default all
@@ -29,7 +30,7 @@
 #' 
 #' Specifying \code{group = "week"} will group the samples by week of year using an integer specifying the week.  Note that there can be no common month/day indicating the start of the week between years and an integer is the only way to compare summaries if the results data span multiple years.
 #'
-#' Threshold lines applicable to marine or freshwater environments can be included in the plot by using the \code{thresh} argument.  These thresholds are specific to each parameter and can be found in the \code{\link{thresholdMWR}} file.  Threshold lines are plotted only for those parameters with entries in \code{\link{thresholdMWR}} and only if the value in \code{`Result Unit`} matches those in \code{\link{thresholdMWR}}. The threshold lines can be suppressed by setting \code{thresh = 'none'}. 
+#' Threshold lines applicable to marine or freshwater environments can be included in the plot by using the \code{thresh} argument.  These thresholds are specific to each parameter and can be found in the \code{\link{thresholdMWR}} file.  Threshold lines are plotted only for those parameters with entries in \code{\link{thresholdMWR}} and only if the value in \code{`Result Unit`} matches those in \code{\link{thresholdMWR}}. The threshold lines can be suppressed by setting \code{thresh = 'none'}. A user-supplied numeric value can also be used for the \code{thresh} argument to override the default values. An appropriate label must also be supplied to \code{threshlab} if \code{thresh} is numeric.
 #'  
 #' The y-axis scaling as arithmetic (linear) or logarithmic can be set with the \code{yscl} argument.  If \code{yscl = "auto"} (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting \code{yscl = "linear"} or \code{yscl = "log"} will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy. The means and confidence intervals will vary between arithmetic and log-scaling if \code{type = "bar"}.
 #' 
@@ -80,7 +81,7 @@
 #' # seasonal trends by location group, requires sitdat
 #' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, sit = sitdat, thresh = 'fresh', 
 #'      group = 'month', type = 'box', locgroup = 'Concord')
-anlzMWRseason <- function(res, param, acc, sit = NULL, thresh, group = c('month', 'week'), type = c('box', 'jitterbox', 'bar', 'jitterbar', 'jitter'), threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, confint = FALSE, fill = 'lightblue', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), ttlsize = 1.2, runchk = TRUE, warn = TRUE){
+anlzMWRseason <- function(res, param, acc, sit = NULL, thresh, group = c('month', 'week'), type = c('box', 'jitterbox', 'bar', 'jitterbar', 'jitter'), threshlab = NULL, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, confint = FALSE, fill = 'lightblue', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), ttlsize = 1.2, runchk = TRUE, warn = TRUE){
   
   group <- match.arg(group)
   type <- match.arg(type)
@@ -104,7 +105,7 @@ anlzMWRseason <- function(res, param, acc, sit = NULL, thresh, group = c('month'
   resdat <- utilMWRlimits(resdat = resdat, accdat = accdat, param = param, warn = warn)
   
   # get thresholds
-  threshln <- utilMWRthresh(resdat = resdat, param = param, thresh = thresh)
+  threshln <- utilMWRthresh(resdat = resdat, param = param, thresh = thresh, threshlab = threshlab)
 
   # get y axis scaling
   logscl <- utilMWRyscale(accdat = accdat, param = param, yscl = yscl)

@@ -4,17 +4,19 @@
 \alias{utilMWRthresh}
 \title{Get threshold lines from thresholdMWR}
 \usage{
-utilMWRthresh(resdat, param, thresh = c("fresh", "marine", "none"))
+utilMWRthresh(resdat, param, thresh, threshlab = NULL)
 }
 \arguments{
 \item{resdat}{results data as returned by \code{\link{readMWRresults}}}
 
 \item{param}{character string to first filter results by a parameter in \code{"Characteristic Name"}}
 
-\item{thresh}{character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}}
+\item{thresh}{character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}, or a single numeric value to override the values included with the package}
+
+\item{threshlab}{optional character string indicating legend label for the threshold, required only if \code{thresh} is numeric}
 }
 \value{
-If thresholds are available for \code{param}, a \code{data.frame} of relevant marine or freshwater thresholds, otherwise \code{NULL}
+If \code{thresh} is not numeric and thresholds are available for \code{param}, a \code{data.frame} of relevant marine or freshwater thresholds, otherwise \code{NULL}.  If \code{thresh} is numeric, a \code{data.frame} of the threshold with the appropriate label from \code{threshlabel}.
 }
 \description{
 Get threshold lines from thresholdMWR
@@ -28,4 +30,7 @@ resdat <- readMWRresults(respth)
 
 # get threshold lines
 utilMWRthresh(resdat = resdat, param = 'E.coli', thresh = 'fresh')
+
+# user-defined numeric threshold line
+utilMWRthresh(resdat = resdat, param = 'TP', thresh = 5, threshlab = 'My threshold')
 }

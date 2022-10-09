@@ -11,6 +11,7 @@ anlzMWRdate(
   sit = NULL,
   thresh,
   group = c("site", "locgroup", "all"),
+  threshlab = NULL,
   threshcol = "tan",
   site = NULL,
   resultatt = NULL,
@@ -38,9 +39,11 @@ anlzMWRdate(
 
 \item{sit}{optional character string of path to the site metadata file or \code{data.frame} of site metadata returned by \code{\link{readMWRsites}}, required if \code{locgroup} is not \code{NULL}}
 
-\item{thresh}{character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}}
+\item{thresh}{character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}, or a single numeric value to override the values included with the package}
 
 \item{group}{character indicating whether the results are grouped by site (default), combined across location groups, or combined across sites, see details}
+
+\item{threshlab}{optional character string indicating legend label for the threshold, required only if \code{thresh} is numeric}
 
 \item{threshcol}{character indicating color of threshold lines if available}
 
@@ -83,7 +86,7 @@ Analyze trends by date in results file
 \details{
 Results are shown for the selected parameter as continuous line plots over time. Specifying \code{group = "site"} plot a separate line for each site.  Specifying \code{group = "locgroup"} will average results across sites in the \code{locgroup} argument.  The site metadata file must be passed to the \code{`sit`} argument to use this option.  Specifying \code{group = "all"} will average results across sites for each date.
 
-Threshold lines applicable to marine or freshwater environments can be included in the plot by using the \code{thresh} argument.  These thresholds are specific to each parameter and can be found in the \code{\link{thresholdMWR}} file.  Threshold lines are plotted only for those parameters with entries in \code{\link{thresholdMWR}} and only if the value in \code{`Result Unit`} matches those in \code{\link{thresholdMWR}}. The threshold lines can be suppressed by setting \code{thresh = 'none'}.
+Threshold lines applicable to marine or freshwater environments can be included in the plot by using the \code{thresh} argument.  These thresholds are specific to each parameter and can be found in the \code{\link{thresholdMWR}} file.  Threshold lines are plotted only for those parameters with entries in \code{\link{thresholdMWR}} and only if the value in \code{`Result Unit`} matches those in \code{\link{thresholdMWR}}. The threshold lines can be suppressed by setting \code{thresh = 'none'}. A user-supplied numeric value can also be used for the \code{thresh} argument to override the default values. An appropriate label must also be supplied to \code{threshlab} if \code{thresh} is numeric.
 
 Any acceptable color palette for from \href{https://r-graph-gallery.com/38-rcolorbrewers-palettes.html}{RColorBrewer} for the points and lines can be used for \code{palcol}, which is passed to the \code{palette} argument in \code{\link[ggplot2]{scale_color_brewer}}. These could include any of the qualitative color palettes, e.g., \code{"Set1"}, \code{"Set2"}, etc.  The continuous and diverging palettes will also work, but may return color scales for points and lines that are difficult to distinguish.  The \code{palcol} argument does not apply if \code{group = "all"}.
 

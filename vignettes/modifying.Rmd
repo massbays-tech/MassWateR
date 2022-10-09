@@ -129,7 +129,7 @@ Switch the axes:
 p + coord_flip()
 ```
 
-Add a custom reference line: 
+Add a custom reference line (although the `thresh` argument can also be used with a numeric value): 
 
 ```{r}
 p +

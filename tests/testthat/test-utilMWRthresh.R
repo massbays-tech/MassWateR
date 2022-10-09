@@ -32,3 +32,12 @@ test_that("Checking error if unit mismatch",{
   expect_error(utilMWRthresh(resdatchk, param = 'TP', thresh = 'marine'))
   
 })
+
+test_that("Checking output numeric", {
+  result <- utilMWRthresh(resdat, param = 'TP', thresh = 5, threshlab = 'test')
+  expect_s3_class(result, 'data.frame')
+})
+
+test_that("Checking error if output numeric and no threshlab", {
+  expect_error(utilMWRthresh(resdat, param = 'TP', thresh = 5))
+})

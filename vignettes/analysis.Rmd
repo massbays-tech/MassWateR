@@ -87,6 +87,12 @@ The threshold lines shown on each plot are determined from the `thresholdMWR` fi
 anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "marine", group = "month", type = "bar")
 ```
 
+A user-supplied numeric value can also be used for the `thresh` argument.  The `threshlab` argument must also be used to label the custom threshold in the plot legend. 
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = 8, threshlab = "Custom threshold", group = "month", type = "bar")
+```
+
 The y-axis scaling as arithmetic (linear) or logarithmic can be set with the `yscl` argument.  If `yscl = "auto"` (default), the scaling is determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting `yscl = "linear"` or `yscl = "log"` will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy. Below, the axis for E. Coli is plotted on the log-10 scale automatically.  The y-axis scaling does not need to specified explicitly in the function call because the default setting is `yscl = "auto"`.
 
 ```{r, fig.height = 4, fig.width = 8}

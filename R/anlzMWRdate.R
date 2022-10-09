@@ -6,8 +6,9 @@
 #' @param param character string of the parameter to plot, must conform to entries in the \code{"Simple Parameter"} column of \code{\link{paramsMWR}}
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
 #' @param sit optional character string of path to the site metadata file or \code{data.frame} of site metadata returned by \code{\link{readMWRsites}}, required if \code{locgroup} is not \code{NULL} 
-#' @param thresh character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}
+#' @param thresh character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}, or a single numeric value to override the values included with the package
 #' @param group character indicating whether the results are grouped by site (default), combined across location groups, or combined across sites, see details
+#' @param threshlab optional character string indicating legend label for the threshold, required only if \code{thresh} is numeric
 #' @param threshcol character indicating color of threshold lines if available
 #' @param site character string of sites to include, default all
 #' @param resultatt character string of result attributes to plot, default all
@@ -29,7 +30,7 @@
 #' 
 #' @details Results are shown for the selected parameter as continuous line plots over time. Specifying \code{group = "site"} plot a separate line for each site.  Specifying \code{group = "locgroup"} will average results across sites in the `locgroup` argument.  The site metadata file must be passed to the \code{`sit`} argument to use this option.  Specifying \code{group = "all"} will average results across sites for each date.
 #'
-#' Threshold lines applicable to marine or freshwater environments can be included in the plot by using the \code{thresh} argument.  These thresholds are specific to each parameter and can be found in the \code{\link{thresholdMWR}} file.  Threshold lines are plotted only for those parameters with entries in \code{\link{thresholdMWR}} and only if the value in \code{`Result Unit`} matches those in \code{\link{thresholdMWR}}. The threshold lines can be suppressed by setting \code{thresh = 'none'}. 
+#' Threshold lines applicable to marine or freshwater environments can be included in the plot by using the \code{thresh} argument.  These thresholds are specific to each parameter and can be found in the \code{\link{thresholdMWR}} file.  Threshold lines are plotted only for those parameters with entries in \code{\link{thresholdMWR}} and only if the value in \code{`Result Unit`} matches those in \code{\link{thresholdMWR}}. The threshold lines can be suppressed by setting \code{thresh = 'none'}. A user-supplied numeric value can also be used for the \code{thresh} argument to override the default values. An appropriate label must also be supplied to \code{threshlab} if \code{thresh} is numeric.
 #'  
 #' Any acceptable color palette for from \href{https://r-graph-gallery.com/38-rcolorbrewers-palettes.html}{RColorBrewer} for the points and lines can be used for \code{palcol}, which is passed to the \code{palette} argument in \code{\link[ggplot2]{scale_color_brewer}}. These could include any of the qualitative color palettes, e.g., \code{"Set1"}, \code{"Set2"}, etc.  The continuous and diverging palettes will also work, but may return color scales for points and lines that are difficult to distinguish.  The \code{palcol} argument does not apply if \code{group = "all"}. 
 #' 
@@ -78,7 +79,7 @@
 #' # sites by location group (unspecified) averaged by group, requires sitdat
 #' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'locgroup', 
 #'      thresh = 'fresh')
-anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', 'locgroup', 'all'), threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 2, repel = FALSE, labsize = 3, expand = c(0.05, 0.1), confint = FALSE, palcol = 'Set2', yscl = c('auto', 'log', 'linear'), colleg = FALSE, ttlsize = 1.2, runchk = TRUE, warn = TRUE){
+anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', 'locgroup', 'all'), threshlab = NULL, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 2, repel = FALSE, labsize = 3, expand = c(0.05, 0.1), confint = FALSE, palcol = 'Set2', yscl = c('auto', 'log', 'linear'), colleg = FALSE, ttlsize = 1.2, runchk = TRUE, warn = TRUE){
   
   group <- match.arg(group)
 
@@ -105,7 +106,7 @@ anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', '
   resdat <- utilMWRlimits(resdat = resdat, accdat = accdat, param = param, warn = warn)
   
   # get thresholds
-  threshln <- utilMWRthresh(resdat = resdat, param = param, thresh = thresh)
+  threshln <- utilMWRthresh(resdat = resdat, param = param, thresh = thresh, threshlab = threshlab)
   
   # get y axis scaling
   logscl <- utilMWRyscale(accdat = accdat, param = param, yscl = yscl)

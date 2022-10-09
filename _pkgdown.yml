@@ -35,6 +35,7 @@ reference:
   contents:
   - readMWRresults
   - readMWRresultstable
+  - readMWRresultsview
   - checkMWRresults
   - formMWRresults
   - readMWRacc
