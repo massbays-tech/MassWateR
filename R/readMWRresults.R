@@ -11,7 +11,7 @@
 #' 
 #' @export
 #' 
-#' @seealso \code{\link{readMWRresultstable}}
+#' @seealso \code{\link{readMWRresultstable}}, \code{\link{readMWRresultsview}} for troubleshooting import checks
 #'
 #' @examples
 #' respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')

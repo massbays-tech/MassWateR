@@ -21,3 +21,6 @@ NULL
 
 #' @importFrom grDevices dev.off png
 NULL 
+
+#' @importFrom utils View
+NULL

@@ -31,5 +31,5 @@ resdat <- readMWRresults(respth)
 head(resdat)
 }
 \seealso{
-\code{\link{readMWRresultstable}}
+\code{\link{readMWRresultstable}}, \code{\link{readMWRresultsview}} for troubleshooting import checks
 }

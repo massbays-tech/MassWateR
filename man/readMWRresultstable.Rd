@@ -2,7 +2,7 @@
 % Please edit documentation in R/readMWRresultstable.R
 \name{readMWRresultstable}
 \alias{readMWRresultstable}
-\title{View summary tables of the water quality monitoring results}
+\title{Create summary tables of the water quality monitoring results}
 \usage{
 readMWRresultstable(respth, columns)
 }
@@ -15,7 +15,7 @@ readMWRresultstable(respth, columns)
 A summary table of counts of observations in the water quality monitoring results for the selected column(s)
 }
 \description{
-View summary tables of columns in the water quality monitoring results to troubleshoot checks with \code{\link{readMWRresults}}
+Create summary tables of columns in the water quality monitoring results to troubleshoot checks with \code{\link{readMWRresults}}
 }
 \details{
 Acceptable options for the \code{columns} argument include one or two of the column names in the results file. An error is returned indicating acceptable values if the column names are not found.

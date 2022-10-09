@@ -1,6 +1,6 @@
-#' View summary tables of the water quality monitoring results
+#' Create summary tables of the water quality monitoring results
 #'
-#' View summary tables of columns in the water quality monitoring results to troubleshoot checks with \code{\link{readMWRresults}}
+#' Create summary tables of columns in the water quality monitoring results to troubleshoot checks with \code{\link{readMWRresults}}
 #' 
 #' @param respth character string of path to the results file
 #' @param columns character string indicating which columns to view, can be one or two column names, see details
