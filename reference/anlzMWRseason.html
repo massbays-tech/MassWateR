@@ -71,6 +71,7 @@
 <span>  <span class="va">thresh</span>,</span>
 <span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"month"</span>, <span class="st">"week"</span><span class="op">)</span>,</span>
 <span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"box"</span>, <span class="st">"jitterbox"</span>, <span class="st">"bar"</span>, <span class="st">"jitterbar"</span>, <span class="st">"jitter"</span><span class="op">)</span>,</span>
+<span>  threshlab <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  threshcol <span class="op">=</span> <span class="st">"tan"</span>,</span>
 <span>  site <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  resultatt <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -106,7 +107,7 @@
 
 
 <dt>thresh</dt>
-<dd><p>character indicating if relevant freshwater or marine threshold lines are included, one of <code>"fresh"</code>, <code>"marine"</code>, or <code>"none"</code></p></dd>
+<dd><p>character indicating if relevant freshwater or marine threshold lines are included, one of <code>"fresh"</code>, <code>"marine"</code>, or <code>"none"</code>, or a single numeric value to override the values included with the package</p></dd>
 
 
 <dt>group</dt>
@@ -115,6 +116,10 @@
 
 <dt>type</dt>
 <dd><p>character indicating <code>"box"</code>, <code>"jitterbox"</code>, <code>"bar"</code>, <code>"jitterbar"</code> or <code>"jitter"</code>, see details</p></dd>
+
+
+<dt>threshlab</dt>
+<dd><p>optional character string indicating legend label for the threshold, required only if <code>thresh</code> is numeric</p></dd>
 
 
 <dt>threshcol</dt>
@@ -179,7 +184,7 @@
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Summaries of a parameter are shown as boxplots if <code>type = "box"</code> or as barplots if <code>type = "bar"</code>.  Points can be jittered over the boxplots by setting <code>type = "jitterbox"</code> or jittered over the barplots by setting <code>type = "jitterbar"</code>.  Setting <code>type = "jitter"</code> will show only only the jittered points.  For <code>type = "bar"</code> or <code>type = "jitterbar"</code>, 95% confidence intervals can also be shown if <code>confint = TRUE</code> and they can be estimated (i.e., more than one result value per bar).</p>
 <p>Specifying <code>group = "week"</code> will group the samples by week of year using an integer specifying the week.  Note that there can be no common month/day indicating the start of the week between years and an integer is the only way to compare summaries if the results data span multiple years.</p>
-<p>Threshold lines applicable to marine or freshwater environments can be included in the plot by using the <code>thresh</code> argument.  These thresholds are specific to each parameter and can be found in the <code><a href="thresholdMWR.html">thresholdMWR</a></code> file.  Threshold lines are plotted only for those parameters with entries in <code><a href="thresholdMWR.html">thresholdMWR</a></code> and only if the value in <code>`Result Unit`</code> matches those in <code><a href="thresholdMWR.html">thresholdMWR</a></code>. The threshold lines can be suppressed by setting <code>thresh = 'none'</code>.</p>
+<p>Threshold lines applicable to marine or freshwater environments can be included in the plot by using the <code>thresh</code> argument.  These thresholds are specific to each parameter and can be found in the <code><a href="thresholdMWR.html">thresholdMWR</a></code> file.  Threshold lines are plotted only for those parameters with entries in <code><a href="thresholdMWR.html">thresholdMWR</a></code> and only if the value in <code>`Result Unit`</code> matches those in <code><a href="thresholdMWR.html">thresholdMWR</a></code>. The threshold lines can be suppressed by setting <code>thresh = 'none'</code>. A user-supplied numeric value can also be used for the <code>thresh</code> argument to override the default values. An appropriate label must also be supplied to <code>threshlab</code> if <code>thresh</code> is numeric.</p>
 <p>The y-axis scaling as arithmetic (linear) or logarithmic can be set with the <code>yscl</code> argument.  If <code>yscl = "auto"</code> (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting <code>yscl = "linear"</code> or <code>yscl = "log"</code> will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy. The means and confidence intervals will vary between arithmetic and log-scaling if <code>type = "bar"</code>.</p>
 <p>Any entries in <code>resdat</code> in the <code>"Result Value"</code> column as <code>"BDL"</code> or <code>"AQL"</code> are replaced with appropriate values in the <code>"Quantitation Limit"</code> column, if present, otherwise the <code>"MDL"</code> or <code>"UQL"</code> columns from the data quality objectives file for accuracy are used.  Values as <code>"BDL"</code> use one half of the appropriate limit.</p>
     </div>

@@ -63,7 +63,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">utilMWRthresh</span><span class="op">(</span><span class="va">resdat</span>, <span class="va">param</span>, thresh <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fresh"</span>, <span class="st">"marine"</span>, <span class="st">"none"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">utilMWRthresh</span><span class="op">(</span><span class="va">resdat</span>, <span class="va">param</span>, <span class="va">thresh</span>, threshlab <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -77,16 +77,18 @@
 
 
 <dt>thresh</dt>
-<dd><p>character indicating if relevant freshwater or marine threshold lines are included, one of <code>"fresh"</code>, <code>"marine"</code>, or <code>"none"</code></p></dd>
+<dd><p>character indicating if relevant freshwater or marine threshold lines are included, one of <code>"fresh"</code>, <code>"marine"</code>, or <code>"none"</code>, or a single numeric value to override the values included with the package</p></dd>
+
+
+<dt>threshlab</dt>
+<dd><p>optional character string indicating legend label for the threshold, required only if <code>thresh</code> is numeric</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>If thresholds are available for <code>param</code>, a <code>data.frame</code> of relevant marine or freshwater thresholds, otherwise <code>NULL</code></p>
-
-
+<p>If <code>thresh</code> is not numeric and thresholds are available for <code>param</code>, a <code>data.frame</code> of relevant marine or freshwater thresholds, otherwise <code>NULL</code>.  If <code>thresh</code> is numeric, a <code>data.frame</code> of the threshold with the appropriate label from <code>threshlabel</code>.</p>
     </div>
 
     <div class="section level2">
@@ -124,6 +126,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> 2       <span style="text-decoration: underline;">1</span>260 STV Secondary contact (EPA)  0.75 dashed  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> 1        235 BAV Primary contact (EPA)    0.73 longdash</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># user-defined numeric threshold line</span></span></span>
+<span class="r-in"><span><span class="fu">utilMWRthresh</span><span class="op">(</span>resdat <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'TP'</span>, thresh <span class="op">=</span> <span class="fl">5</span>, threshlab <span class="op">=</span> <span class="st">'My threshold'</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   num thresh        label size linetype</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1      5 My threshold 0.73 longdash</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
