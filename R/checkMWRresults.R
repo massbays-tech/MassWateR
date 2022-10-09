@@ -145,15 +145,15 @@ checkMWRresults <- function(resdat, warn = TRUE){
   } else {
     message(paste(msg, 'OK'))
   }
-  
+
   # check for depth out of range
   msg <- '\tChecking values in Activity Depth/Height Measure > 1 m / 3.3 ft...'
-  typ <- resdat[, c('Activity Depth/Height Measure', 'Activity Depth/Height Unit')]
-  typft <- typ$`Activity Depth/Height Measure` <= 3.3 & typ$`Activity Depth/Height Unit` == 'ft'
-  typm <- typ$`Activity Depth/Height Measure` <= 1 & typ$`Activity Depth/Height Unit` == 'm'
+  typ <- resdat[, c('Activity Depth/Height Measure', 'Activity Depth/Height Unit', 'Activity Relative Depth Name')]
+  typft <- as.numeric(typ$`Activity Depth/Height Measure`) > 3.3 & typ$`Activity Depth/Height Unit` == 'ft' & (is.na(typ$`Activity Relative Depth Name`) | typ$`Activity Relative Depth Name` != 'Surface')
+  typm <- as.numeric(typ$`Activity Depth/Height Measure`) > 1 & typ$`Activity Depth/Height Unit` == 'm' & (is.na(typ$`Activity Relative Depth Name`) | typ$`Activity Relative Depth Name` != 'Surface')
   chk <- typm | typft
-  if(any(!chk, na.rm = TRUE)){
-    rws <- which(!chk)
+  if(any(chk, na.rm = TRUE)){
+    rws <- which(chk)
     if(warn)
       warning(msg, '\n\tValues in Activity Depth/Height Measure > 1 m / 3.3 ft found on row(s): ', paste(rws, collapse = ', '), call. = FALSE)
     wrn <- wrn + 1
