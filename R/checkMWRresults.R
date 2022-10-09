@@ -11,11 +11,10 @@
 #'  \item{Columns present: }{All columns from the previous check should be present, Result Attribute is optional}
 #'  \item{Activity Type: }{Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike, Quality Control Field Calibration Check}
 #'  \item{Date formats: }{Should be mm/dd/yyyy and parsed correctly on import}
-#'  \item{Time formats: }{Should be HH:MM and parsed correctly on import, missing entries okay}
 #'  \item{Non-numeric Activity Depth/Height Measure: }{All depth values should be numbers, excluding missing values}
 #'  \item{Activity Depth/Height Unit: }{All entries should be \code{ft}, \code{m}, or blank}
-#'  \item{Activity Depth/Height Measure out of range: }{All depth values should be less than or equal to 1 meter or 3.3 feet (warning only)}
 #'  \item{Activity Relative Depth Name: }{Should be either Surface, Bottom, Midwater, Near Bottom, or blank (warning only)}
+#'  \item{Activity Depth/Height Measure out of range: }{All depth values should be less than or equal to 1 meter or 3.3 feet (warning only)}
 #'  \item{Characteristic Name: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{paramsMWR}} data (warning only)}
 #'  \item{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
 #'  \item{QC Reference Value: }{Should be a numeric value or a text value as AQL or BDL}
@@ -132,6 +131,21 @@ checkMWRresults <- function(resdat, warn = TRUE){
   }
   message(paste(msg, 'OK'))
 
+  # check depth categories
+  msg <- '\tChecking Activity Relative Depth Name formats...'
+  dps <- resdat$`Activity Relative Depth Name`
+  chk <- dps %in% dpstyp
+  if(any(!chk)){
+    rws <- which(!dps %in% dpstyp)
+    tochk <- unique(dps[!chk])
+    if(warn)
+      warning(msg, '\n\tIncorrect Activity Relative Depth Name format found: ', paste(tochk, collapse = ', '), ' on row(s) ', paste(rws, collapse = ', '), call. = FALSE)
+    wrn <- wrn + 1
+    message(paste(msg, 'WARNING'))
+  } else {
+    message(paste(msg, 'OK'))
+  }
+  
   # check for depth out of range
   msg <- '\tChecking values in Activity Depth/Height Measure > 1 m / 3.3 ft...'
   typ <- resdat[, c('Activity Depth/Height Measure', 'Activity Depth/Height Unit')]
@@ -142,21 +156,6 @@ checkMWRresults <- function(resdat, warn = TRUE){
     rws <- which(!chk)
     if(warn)
       warning(msg, '\n\tValues in Activity Depth/Height Measure > 1 m / 3.3 ft found on row(s): ', paste(rws, collapse = ', '), call. = FALSE)
-    wrn <- wrn + 1
-    message(paste(msg, 'WARNING'))
-  } else {
-    message(paste(msg, 'OK'))
-  }
-  
-  # check depth categories
-  msg <- '\tChecking Activity Relative Depth Name formats...'
-  dps <- resdat$`Activity Relative Depth Name`
-  chk <- dps %in% dpstyp
-  if(any(!chk)){
-    rws <- which(!dps %in% dpstyp)
-    tochk <- unique(dps[!chk])
-    if(warn)
-      warning(msg, '\n\tIncorrect Activity Relative Depth Name format found: ', paste(tochk, collapse = ', '), ' on row(s) ', paste(rws, collapse = ', '), call. = FALSE)
     wrn <- wrn + 1
     message(paste(msg, 'WARNING'))
   } else {

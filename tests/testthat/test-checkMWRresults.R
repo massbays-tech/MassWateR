@@ -26,14 +26,6 @@ test_that("Checking date formats", {
   expect_error(checkMWRresults(chk))
 })
 
-test_that("Checking time formats", {
-  chk <- resdat
-  chk$`Activity Start Time` <- as.character(chk$`Activity Start Time`)
-  chk[120, 4] <- 'aaaaa'
-  chk[125, 4] <- '1899-12-31 55:08:00'
-  expect_error(checkMWRresults(chk))
-})
-
 test_that("Checking non-numeric Activity Depth/Height Measure", {
   chk <- resdat
   chk$`Activity Depth/Height Measure`[5] <- 'a'

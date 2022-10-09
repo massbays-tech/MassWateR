@@ -144,11 +144,10 @@ Several checks are run automatically when the data are imported. These file chec
 -   **Columns present**: All columns from the previous should be present, Result Attribute is optional
 -   **Activity Type**: Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike, Quality Control Field Calibration Check
 -   **Date formats**: Should be mm/dd/yyyy and parsed correctly on import
--   **Time formats**: Should be HH:MM and parsed correctly on import, missing entries okay
 -   **Non-numeric Activity Depth/Height Measure**: All depth values should be numbers, excluding missing values
 -   **Activity Depth/Height Unit**: All entries should be `ft`, `m`, or blank
--   **Activity Depth/Height Measure out of range**: All depth values should be less than or equal to 1 meter or 3.3 feet (warning only)
 -   **Activity Relative Depth Name**: Should be either Surface, Bottom, Midwater, Near Bottom, or blank (warning only)
+-   **Activity Depth/Height Measure out of range**: All depth values should be less than or equal to 1 meter or 3.3 feet (warning only)
 -   **Characteristic Name**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` column of the `paramsMWR` data (warning only)
 -   **Result Value**: Should be a numeric value or a text value as AQL or BDL
 -   **QC Reference Value**: Any entered values should be numeric or a text value as AQL or BDL
