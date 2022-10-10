@@ -59,14 +59,14 @@ qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bla
   chk <- accprm %in% resdatprm
   if(any(!chk) & warn){
     tochk <- accprm[!chk]
-    warning('Parameters in quality control objectives for accuracy not found in results data: ', paste(tochk, collapse = ', '))
+    warning('Parameters in quality control objectives for accuracy not found in results data: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
 
   # check parameters in results can be found in accuracy
   chk <- resdatprm %in% accprm
   if(any(!chk) & warn){
     tochk <- resdatprm[!chk]
-    warning('Parameters in results not found in  quality control objectives for accuracy: ', paste(tochk, collapse = ', '))
+    warning('Parameters in results not found in  quality control objectives for accuracy: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
   
   # parameters for accuracy checks

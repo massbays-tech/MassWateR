@@ -56,14 +56,14 @@ qcMWRfre <- function(res, frecom, runchk = TRUE, warn = TRUE){
   chk <- frecomprm %in% resdatprm
   if(any(!chk) & warn){
     tochk <- frecomprm[!chk]
-    warning('Parameters in quality control objectives for frequency and completeness not found in results data: ', paste(tochk, collapse = ', '))
+    warning('Parameters in quality control objectives for frequency and completeness not found in results data: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
   
   # check parameters in results can be found in completeness
   chk <- resdatprm %in% frecomprm
   if(any(!chk) & warn){
     tochk <- resdatprm[!chk]
-    warning('Parameters in results not found in quality control objectives for frequency and completeness: ', paste(tochk, collapse = ', '))
+    warning('Parameters in results not found in quality control objectives for frequency and completeness: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
   
   # parameters for completeness checks

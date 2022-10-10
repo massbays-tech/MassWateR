@@ -81,12 +81,14 @@ qcMWRreview <- function(res, acc, frecom, output_dir = NULL, output_file = NULL,
   
   flextable::set_flextable_defaults(font.size = tabfontsize, padding = padding)
 
+  # warnings only needed for tabaccsum and tabcom, the rest are duplicates
+  
   # frequency summary table
-  tabfresum <- tabMWRfre(res = resdat, frecom = frecomdat, type = 'summary', warn = warn) %>% 
+  tabfresum <- tabMWRfre(res = resdat, frecom = frecomdat, type = 'summary', warn = F) %>% 
     thmsum(wd = wd, fontname = fontname)
   
   # frequency table percent
-  tabfreper <- tabMWRfre(res = resdat, frecom = frecomdat, type = 'percent', warn = warn) %>% 
+  tabfreper <- tabMWRfre(res = resdat, frecom = frecomdat, type = 'percent', warn = F) %>% 
     thmsum(wd = wd, fontname = fontname)
   
   # accuracy table summary
@@ -94,7 +96,7 @@ qcMWRreview <- function(res, acc, frecom, output_dir = NULL, output_file = NULL,
     thmsum(wd = wd, fontname = fontname)
   
   # accuracy table percent
-  tabaccper <- tabMWRacc(res = resdat, acc = accdat, type = 'percent', warn = warn, frecom = frecomdat) %>% 
+  tabaccper <- tabMWRacc(res = resdat, acc = accdat, type = 'percent', warn = F, frecom = frecomdat) %>% 
     thmsum(wd = wd, fontname = fontname)
     
   # completeness table
@@ -102,20 +104,58 @@ qcMWRreview <- function(res, acc, frecom, output_dir = NULL, output_file = NULL,
     flextable::width(width = (wd - 3.15) / (flextable::ncol_keys(.) - 2), j = 2:(flextable::ncol_keys(.) - 1)) %>%
     flextable::font(fontname = fontname, part = 'all')
 
+  # warning for empty dqo columns
+  if(warn){
+    
+    # frecom
+    chk <- frecomdat %>% 
+      dplyr::select(-Parameter) %>% 
+      lapply(function(x) ifelse(all(is.na(x)), F, T)) %>% 
+      unlist
+    if(any(!chk)){
+      nms <- names(chk)[which(!chk)]
+      warning('No data quality obectives in frequency and completeness file for ', paste(nms, collapse = ', '), call. = FALSE)
+    }
+      
+    # acc  
+    chk <- accdat %>% 
+      dplyr::select(-Parameter, -uom, -MDL, -UQL, -`Value Range`) %>% 
+      lapply(function(x) ifelse(all(is.na(x)), F, T)) %>% 
+      unlist
+    if(any(!chk)){
+      nms <- names(chk)[which(!chk)]
+      warning('No data quality obectives in accuracy file for ', paste(nms, collapse = ', '), call. = FALSE)
+    }
+    
+  }
+
   # individual accuracy checks for raw data
+  indflddup <- NULL
+  indlabdup <- NULL
+  indfldblk <- NULL
+  indlabblk <- NULL
+  indlabspk <- NULL
+  indinschk <- NULL
   if(rawdata){
-    indflddup <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Duplicates', warn = warn, caption = FALSE) %>% 
-      thmsum(wd = wd, fontname = fontname)
-    indlabdup <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Duplicates', warn = warn, caption = FALSE) %>%
-      thmsum(wd = wd, fontname = fontname)
-    indfldblk <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Blanks', warn = warn, caption = FALSE) %>% 
-      thmsum(wd = wd, fontname = fontname)
-    indlabblk <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Blanks', warn = warn, caption = FALSE) %>% 
-      thmsum(wd = wd, fontname = fontname)
-    indlabspk <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Spikes', warn = warn, caption = FALSE) %>% 
-      thmsum(wd = wd, fontname = fontname)
-    indinschk <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Instrument Checks', warn = warn, caption = FALSE) %>% 
-      thmsum(wd = wd, fontname = fontname)
+    accind <- list(
+      indflddup = 'Field Duplicates', 
+      indlabdup = 'Lab Duplicates', 
+      indfldblk = 'Field Blanks', 
+      indlabblk = 'Lab Blanks', 
+      indlabspk = 'Lab Spikes', 
+      indinschk = 'Instrument Checks'
+    )
+    for(i in seq_along(accind)){
+      
+      accchk <- accind[[i]]
+      accnms <- names(accind)[i]
+      tab <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = accchk, warn = F, caption = FALSE) %>% 
+        thmsum(wd = wd, fontname = fontname)
+      
+      assign(accnms, tab)
+    
+    }
+    
   }
 
   suppressMessages(rmarkdown::render(

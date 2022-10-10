@@ -96,19 +96,6 @@ checkMWRresults <- function(resdat, warn = TRUE){
   }
   message(paste(msg, 'OK'))
 
-  # check time formats
-  msg <- '\tChecking Activity Start Time formats...'
-  tms <- resdat$`Activity Start Time`
-  bln <- which(is.na(tms))
-  tms <- lubridate::ymd_hms(tms, quiet = TRUE)
-  rws <- which(is.na(tms))
-  rws <- rws[!rws %in% bln]
-  chk <- length(rws) == 0
-  if(!chk){
-    stop(msg, '\n\tCheck time on row(s) ', paste(rws, collapse = ', '), call. = FALSE)
-  }
-  message(paste(msg, 'OK'))
-
   # check for non-numeric depth
   msg <- '\tChecking for non-numeric values in Activity Depth/Height Measure...'
   typ <- resdat$`Activity Depth/Height Measure`
