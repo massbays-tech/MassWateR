@@ -63,7 +63,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">readMWRacc</span><span class="op">(</span><span class="va">accpth</span>, runchk <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">readMWRacc</span><span class="op">(</span><span class="va">accpth</span>, runchk <span class="op">=</span> <span class="cn">TRUE</span>, warn <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -74,6 +74,10 @@
 
 <dt>runchk</dt>
 <dd><p>logical to run data checks with <code><a href="checkMWRacc.html">checkMWRacc</a></code></p></dd>
+
+
+<dt>warn</dt>
+<dd><p>logical to return warnings to the console (default)</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -101,6 +105,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for unit (uom)... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit (uom) per Parameter... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking acceptable units (uom) for each entry in Parameter... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking empty columns... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">accdat</span><span class="op">)</span></span></span>

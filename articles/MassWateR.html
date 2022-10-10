@@ -505,6 +505,7 @@ Functions in MassWateR are organized around these topics.
 <span><span class="co">#&gt;  Checking for missing entries for unit (uom)... OK</span></span>
 <span><span class="co">#&gt;  Checking if more than one unit (uom) per Parameter... OK</span></span>
 <span><span class="co">#&gt;  Checking acceptable units (uom) for each entry in Parameter... OK</span></span>
+<span><span class="co">#&gt;  Checking empty columns... OK</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; All checks passed!</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">accdat</span><span class="op">)</span></span>
@@ -529,6 +530,7 @@ Functions in MassWateR are organized around these topics.
 <span><span class="co">#&gt;  Checking for non-numeric values... OK</span></span>
 <span><span class="co">#&gt;  Checking for values outside of 0 and 100... OK</span></span>
 <span><span class="co">#&gt;  Checking Parameter formats... OK</span></span>
+<span><span class="co">#&gt;  Checking empty columns... OK</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; All checks passed!</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">frecomdat</span><span class="op">)</span></span>
@@ -562,6 +564,8 @@ Functions in MassWateR are organized around these topics.
 <strong>Single unit</strong>: Each unique <code>Parameter</code> should have only one type for the units (<code>uom</code>)</li>
 <li>
 <strong>Correct units</strong>: Each unique <code>Parameter</code> should have an entry in the units (<code>uom</code>) that matches one of the acceptable values in the <code>Units of measure</code> column of the <code>paramsMWR</code> data, see the table above.</li>
+<li>
+<strong>Empty columns</strong>: Columns with all missing or <code>NA</code> values will return a warning</li>
 </ul>
 <p>File checks for frequency and completeness:</p>
 <ul>
@@ -575,6 +579,8 @@ Functions in MassWateR are organized around these topics.
 <strong>Values outside of 0 - 100</strong>: Values entered in columns other than the first should not be outside of 0 and 100</li>
 <li>
 <strong>Parameter</strong>: Should match parameter names in the <code>Simple Parameter</code> or <code>WQX Parameter</code> columns of the <code>paramsMWR</code> data</li>
+<li>
+<strong>Empty columns</strong>: Columns with all missing or <code>NA</code> values will return a warning</li>
 </ul>
 <p>Minor formatting of the input files is also done to address a few minor issues for downstream analysis. This formatting includes:</p>
 <ul>

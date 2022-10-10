@@ -63,13 +63,17 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">checkMWRfrecom</span><span class="op">(</span><span class="va">frecomdat</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">checkMWRfrecom</span><span class="op">(</span><span class="va">frecomdat</span>, warn <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>frecomdat</dt>
 <dd><p>input data frame</p></dd>
+
+
+<dt>warn</dt>
+<dd><p>logical to return warnings to the console (default)</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -86,6 +90,7 @@
 <li><p>Non-numeric values: Values entered in columns other than the first should be numeric</p></li>
 <li><p>Values outside of 0 - 100: Values entered in columns other than the first should not be outside of 0 and 100</p></li>
 <li><p>Parameter: Should match parameter names in the <code>Simple Parameter</code> or <code>WQX Parameter</code> columns of the <code><a href="paramsMWR.html">paramsMWR</a></code> data</p></li>
+<li><p>Empty columns: Columns with all missing or NA values will return a warning</p></li>
 </ul></div>
 
     <div class="section level2">
@@ -116,6 +121,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for values outside of 0 and 100... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Parameter formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking empty columns... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 11 × 7</span></span>

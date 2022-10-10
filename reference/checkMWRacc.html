@@ -63,13 +63,17 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">checkMWRacc</span><span class="op">(</span><span class="va">accdat</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">checkMWRacc</span><span class="op">(</span><span class="va">accdat</span>, warn <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>accdat</dt>
 <dd><p>input data frame</p></dd>
+
+
+<dt>warn</dt>
+<dd><p>logical to return warnings to the console (default)</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -89,6 +93,7 @@
 <li><p>Units: No missing entries in units (<code>uom</code>), except pH which can be blank</p></li>
 <li><p>Single unit: Each unique <code>Parameter</code> should have only one type for the units (<code>uom</code>)</p></li>
 <li><p>Correct units: Each unique <code>Parameter</code> should have an entry in the units (<code>uom</code>) that matches one of the acceptable values in the <code>Units of measure</code> column of the <code><a href="paramsMWR.html">paramsMWR</a></code> data</p></li>
+<li><p>Empty columns: Columns with all missing or NA values will return a warning</p></li>
 </ul></div>
 
     <div class="section level2">
@@ -107,6 +112,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for unit (uom)... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit (uom) per Parameter... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking acceptable units (uom) for each entry in Parameter... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking empty columns... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 21 × 10</span></span>
