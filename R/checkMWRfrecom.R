@@ -1,6 +1,7 @@
 #' Check data quality objective frequency and completeness data
 #'
 #' @param frecomdat input data frame
+#' @param warn logical to return warnings to the console (default)
 #'
 #' @details This function is used internally within \code{\link{readMWRfrecom}} to run several checks on the input data for frequency and completeness and conformance to WQX requirements
 #' 
@@ -11,6 +12,7 @@
 #'  \item{Non-numeric values: }{Values entered in columns other than the first should be numeric}
 #'  \item{Values outside of 0 - 100: }{Values entered in columns other than the first should not be outside of 0 and 100}
 #'  \item{Parameter: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{paramsMWR}} data}
+#'  \item{Empty columns: }{Columns with all missing or NA values will return a warning}
 #' }
 #' 
 #' @return \code{frecomdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. 
@@ -30,9 +32,10 @@
 #'     rename(`% Completeness` = `...7`)
 #'     
 #' checkMWRfrecom(frecomdat)
-checkMWRfrecom <- function(frecomdat){
+checkMWRfrecom <- function(frecomdat, warn = TRUE){
   
   message('Running checks on data quality objectives for frequency and completeness...\n')
+  wrn <- 0
   
   # globals
   colnms <- c("Parameter", "Field Duplicate", "Lab Duplicate", "Field Blank", 
@@ -66,22 +69,29 @@ checkMWRfrecom <- function(frecomdat){
     dplyr::select(-Parameter) %>% 
     lapply(class) %>% 
     unlist
+  typ <- typ[typ != 'logical']
   chk <- typ %in% 'numeric'
   if(any(!chk)){
     tochk <- names(typ)[!chk]
     stop(msg, '\n\tNon-numeric values found in columns: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
-  
+
   # check for values not between 0 and 100
   msg <- '\tChecking for values outside of 0 and 100...'
   typ <- frecomdat %>% 
     dplyr::select(-Parameter) %>% 
-    lapply(range, na.rm = TRUE)
+    lapply(function(x){ 
+      if(all(is.na(x)))
+        c(NA, NA)
+      else
+        range(x, na.rm = T)
+      }
+    )
   chk <- lapply(typ, function(x) x < 0 | x > 100) %>%
     lapply(any) %>% 
     unlist
-  if(any(chk)){
+  if(any(chk, na.rm = T)){
     tochk <- names(chk)[chk]
     stop(msg, '\n\tValues less than 0 or greater than 100 found in columns: ', paste(tochk, collapse = ', ', call. = FALSE))
   }
@@ -97,8 +107,28 @@ checkMWRfrecom <- function(frecomdat){
     stop(msg, '\n\tIncorrect Parameter found: ', paste(tochk, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
-  
-  message('\nAll checks passed!')
+
+  # check empty columns
+  msg <- '\tChecking empty columns...'
+  chk <- frecomdat %>% 
+    lapply(function(x) ifelse(all(is.na(x)), F, T)) %>% 
+    unlist
+  if(any(!chk)){
+    nms <- names(chk)[which(!chk)]
+    if(warn)
+      warning(msg, '\n\tEmpty columns found: ', paste(nms, collapse = ', '), call. = FALSE)
+    wrn <- wrn + 1
+    message(paste(msg, 'WARNING'))
+  } else {
+    message(paste(msg, 'OK'))
+  }
+
+  # final out message
+  outmsg <- '\nAll checks passed'
+  if(wrn > 0)
+    outmsg <- paste0(outmsg, ' (', wrn, ' WARNING(s))')
+  outmsg <- paste0(outmsg, '!')
+  message(outmsg)
   
   return(frecomdat)
   

@@ -2,6 +2,7 @@
 #'
 #' @param frecompth character string of path to the data quality objectives file for frequency and completeness
 #' @param runchk logical to run data checks with \code{\link{checkMWRfrecom}}
+#' @param warn logical to return warnings to the console (default)
 #'
 #' @return A formatted data frame of data quality objectives for frequency and completeness that can be used for downstream analysis
 #' 
@@ -15,7 +16,7 @@
 #' 
 #' frecomdat <- readMWRfrecom(frecompth)
 #' head(frecomdat)
-readMWRfrecom <- function(frecompth, runchk = TRUE){
+readMWRfrecom <- function(frecompth, runchk = TRUE, warn = TRUE){
   
   frecomdat <- suppressMessages(readxl::read_excel(frecompth, 
       skip = 1, na = c('NA', 'na', ''), 
@@ -25,7 +26,7 @@ readMWRfrecom <- function(frecompth, runchk = TRUE){
   
   # run checks
   if(runchk)
-    frecomdat <- checkMWRfrecom(frecomdat)
+    frecomdat <- checkMWRfrecom(frecomdat, warn = warn)
   
   # format frecom
   out <- formMWRfrecom(frecomdat)

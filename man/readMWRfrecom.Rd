@@ -4,12 +4,14 @@
 \alias{readMWRfrecom}
 \title{Read data quality objectives for frequency and completeness from an external file}
 \usage{
-readMWRfrecom(frecompth, runchk = TRUE)
+readMWRfrecom(frecompth, runchk = TRUE, warn = TRUE)
 }
 \arguments{
 \item{frecompth}{character string of path to the data quality objectives file for frequency and completeness}
 
 \item{runchk}{logical to run data checks with \code{\link{checkMWRfrecom}}}
+
+\item{warn}{logical to return warnings to the console (default)}
 }
 \value{
 A formatted data frame of data quality objectives for frequency and completeness that can be used for downstream analysis

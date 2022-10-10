@@ -5,10 +5,12 @@
 \alias{checkMWRacc}
 \title{Check data quality objective accuracy data}
 \usage{
-checkMWRacc(accdat)
+checkMWRacc(accdat, warn = TRUE)
 }
 \arguments{
 \item{accdat}{input data frame}
+
+\item{warn}{logical to return warnings to the console (default)}
 }
 \value{
 \code{accdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding.
@@ -29,6 +31,7 @@ The following checks are made:
 \item{Units: }{No missing entries in units (\code{uom}), except pH which can be blank}
 \item{Single unit: }{Each unique \code{Parameter} should have only one type for the units (\code{uom})}
 \item{Correct units: }{Each unique \code{Parameter} should have an entry in the units (\code{uom}) that matches one of the acceptable values in the \code{Units of measure} column of the \code{\link{paramsMWR}} data}
+\item{Empty columns: }{Columns with all missing or NA values will return a warning}
 }
 }
 \examples{

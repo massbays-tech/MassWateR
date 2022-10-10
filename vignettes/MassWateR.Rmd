@@ -202,6 +202,7 @@ File checks for accuracy:
 -   **Units**: No missing entries in units (`uom`), except pH which can be blank
 -   **Single unit**: Each unique `Parameter` should have only one type for the units (`uom`)
 -   **Correct units**: Each unique `Parameter` should have an entry in the units (`uom`) that matches one of the acceptable values in the `Units of measure` column of the `paramsMWR` data, see the table above.
+-   **Empty columns**: Columns with all missing or `NA` values will return a warning 
 
 File checks for frequency and completeness:
 
@@ -210,6 +211,7 @@ File checks for frequency and completeness:
 -   **Non-numeric values**: Values entered in columns other than the first should be numeric
 -   **Values outside of 0 - 100**: Values entered in columns other than the first should not be outside of 0 and 100
 -   **Parameter**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` columns of the `paramsMWR` data
+-   **Empty columns**: Columns with all missing or `NA` values will return a warning 
 
 Minor formatting of the input files is also done to address a few minor issues for downstream analysis. This formatting includes:
 

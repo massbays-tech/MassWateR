@@ -4,10 +4,12 @@
 \alias{checkMWRfrecom}
 \title{Check data quality objective frequency and completeness data}
 \usage{
-checkMWRfrecom(frecomdat)
+checkMWRfrecom(frecomdat, warn = TRUE)
 }
 \arguments{
 \item{frecomdat}{input data frame}
+
+\item{warn}{logical to return warnings to the console (default)}
 }
 \value{
 \code{frecomdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding.
@@ -25,6 +27,7 @@ The following checks are made:
 \item{Non-numeric values: }{Values entered in columns other than the first should be numeric}
 \item{Values outside of 0 - 100: }{Values entered in columns other than the first should not be outside of 0 and 100}
 \item{Parameter: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{paramsMWR}} data}
+\item{Empty columns: }{Columns with all missing or NA values will return a warning}
 }
 }
 \examples{

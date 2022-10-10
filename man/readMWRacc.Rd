@@ -4,12 +4,14 @@
 \alias{readMWRacc}
 \title{Read data quality objectives for accuracy from an external file}
 \usage{
-readMWRacc(accpth, runchk = TRUE)
+readMWRacc(accpth, runchk = TRUE, warn = TRUE)
 }
 \arguments{
 \item{accpth}{character string of path to the data quality objectives file for accuracy}
 
 \item{runchk}{logical to run data checks with \code{\link{checkMWRacc}}}
+
+\item{warn}{logical to return warnings to the console (default)}
 }
 \value{
 A formatted data frame of data quality objectives for completeness that can be used for downstream analysis

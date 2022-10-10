@@ -30,3 +30,9 @@ test_that("Checking correct Parameters", {
   chk[7, 1] <- 'ortho-p'
   expect_error(checkMWRfrecom(chk))
 })
+
+test_that("Checking empty column", {
+  chk <- frecomdat
+  chk[[4]] <- NA
+  expect_warning(checkMWRfrecom(chk))
+})

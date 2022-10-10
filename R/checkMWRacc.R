@@ -1,6 +1,7 @@
 #' Check data quality objective accuracy data
 #'
 #' @param accdat input data frame
+#' @param warn logical to return warnings to the console (default)
 #'
 #' @details This function is used internally within \code{\link{readMWRacc}} to run several checks on the input data for completeness and conformance to WQX requirements
 #' 
@@ -14,6 +15,7 @@
 #'  \item{Units: }{No missing entries in units (\code{uom}), except pH which can be blank}
 #'  \item{Single unit: }{Each unique \code{Parameter} should have only one type for the units (\code{uom})}
 #'  \item{Correct units: }{Each unique \code{Parameter} should have an entry in the units (\code{uom}) that matches one of the acceptable values in the \code{Units of measure} column of the \code{\link{paramsMWR}} data}
+#'  \item{Empty columns: }{Columns with all missing or NA values will return a warning}
 #' }
 #'
 #' @return \code{accdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. 
@@ -28,10 +30,11 @@
 #' accdat <- readxl::read_excel(accpth, na = c('NA', 'na', '')) 
 #'       
 #' checkMWRacc(accdat)
-checkMWRacc <- function(accdat){
-  
-  message('Running checks on data quality objectives for accuracy...\n')
+checkMWRacc <- function(accdat, warn = TRUE){
 
+  message('Running checks on data quality objectives for accuracy...\n')
+  wrn <- 0
+  
   # globals
   colnms <- c("Parameter", "uom", "MDL", "UQL", "Value Range", "Field Duplicate", 
               "Lab Duplicate", "Field Blank", "Lab Blank", "Spike/Check Accuracy")
@@ -66,6 +69,9 @@ checkMWRacc <- function(accdat){
   typ <- accdat %>% 
     lapply(class) %>% 
     unlist
+  typ <- ifelse(
+    typ == 'logical' & names(typ) %in% c('MDL', 'UQL'), 'numeric', 
+    ifelse(typ == 'logical' & !names(typ) %in% c('MDL', 'UQL'), 'character', typ))
   chk <- typ == coltyp
   if(any(!chk)){
     tochk <- names(typ)[!chk]
@@ -156,7 +162,27 @@ checkMWRacc <- function(accdat){
   }
   message(paste(msg, 'OK'))
   
-  message('\nAll checks passed!')
+  # check empty columns
+  msg <- '\tChecking empty columns...'
+  chk <- accdat %>% 
+    lapply(function(x) ifelse(all(is.na(x)), F, T)) %>% 
+    unlist
+  if(any(!chk)){
+    nms <- names(chk)[which(!chk)]
+    if(warn)
+      warning(msg, '\n\tEmpty columns found: ', paste(nms, collapse = ', '), call. = FALSE)
+    wrn <- wrn + 1
+    message(paste(msg, 'WARNING'))
+  } else {
+    message(paste(msg, 'OK'))
+  }
+  
+  # final out message
+  outmsg <- '\nAll checks passed'
+  if(wrn > 0)
+    outmsg <- paste0(outmsg, ' (', wrn, ' WARNING(s))')
+  outmsg <- paste0(outmsg, '!')
+  message(outmsg)
   
   return(accdat)
   

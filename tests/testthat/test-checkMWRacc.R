@@ -53,3 +53,8 @@ test_that("Checking incorrect unit type per parameter", {
   expect_error(checkMWRacc(chk))
 })
 
+test_that("Checking empty column", {
+  chk <- accdat
+  chk[[4]] <- NA
+  expect_warning(checkMWRacc(chk))
+})
