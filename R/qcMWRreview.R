@@ -70,8 +70,9 @@ qcMWRreview <- function(res, acc, frecom, output_dir = NULL, output_file = NULL,
   
   # dqo summary table theme
   thmsum <- function(x, wd, fontname){
-    flextable::width(x, width = wd / flextable::ncol_keys(x)) %>% 
-      flextable::font(fontname = fontname, part = 'all')
+    if(!is.null(x))
+      flextable::width(x, width = wd / flextable::ncol_keys(x)) %>% 
+        flextable::font(fontname = fontname, part = 'all')
   }
   
   # table width and font for flextable in rmd
@@ -79,7 +80,7 @@ qcMWRreview <- function(res, acc, frecom, output_dir = NULL, output_file = NULL,
   fontname <- 'Calibri (Body)'
   
   flextable::set_flextable_defaults(font.size = tabfontsize, padding = padding)
-  
+
   # frequency summary table
   tabfresum <- tabMWRfre(res = resdat, frecom = frecomdat, type = 'summary', warn = warn) %>% 
     thmsum(wd = wd, fontname = fontname)
@@ -102,18 +103,12 @@ qcMWRreview <- function(res, acc, frecom, output_dir = NULL, output_file = NULL,
     flextable::font(fontname = fontname, part = 'all')
 
   # individual accuracy checks for raw data
-  indflddup <- NULL
-  indlabdup <- NULL
-  indfldblk <- NULL
-  indlabblk <- NULL
-  indlabspk <- NULL
-  indinschk <- NULL
   if(rawdata){
     indflddup <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Duplicates', warn = warn, caption = FALSE) %>% 
       thmsum(wd = wd, fontname = fontname)
     indlabdup <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Duplicates', warn = warn, caption = FALSE) %>%
       thmsum(wd = wd, fontname = fontname)
-    indfldblk <- tabMWRacc(res = res, acc = acc, type = 'individual', accchk = 'Field Blanks', warn = warn, caption = FALSE) %>% 
+    indfldblk <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Blanks', warn = warn, caption = FALSE) %>% 
       thmsum(wd = wd, fontname = fontname)
     indlabblk <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Lab Blanks', warn = warn, caption = FALSE) %>% 
       thmsum(wd = wd, fontname = fontname)
@@ -122,7 +117,7 @@ qcMWRreview <- function(res, acc, frecom, output_dir = NULL, output_file = NULL,
     indinschk <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Instrument Checks', warn = warn, caption = FALSE) %>% 
       thmsum(wd = wd, fontname = fontname)
   }
-  
+
   suppressMessages(rmarkdown::render(
     input = qcreview,
     output_dir = output_dir, 

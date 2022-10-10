@@ -93,8 +93,11 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
     totab <- accsum[[1]]
     
     # stop if no data to use for table
-    if(is.null(totab))
-      stop(paste('No data to check for', accchk))
+    if(is.null(totab)){
+      if(warn)
+        warning(paste('No data to check for', accchk), call. = FALSE)
+      return(NULL)
+    }
     
     # change caption for instrument checks
     if(names(accsum) == 'Instrument Checks')
@@ -238,7 +241,7 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
     }
 
     if(type == 'percent'){
-      
+
       # table theme
       thm <- function(x, ...){
         x <- flextable::colformat_double(x, na_str = '-', digits = 0, suffix = suffix)
@@ -299,10 +302,12 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
             levels = c("Field Duplicates", "Lab Duplicates", "Field Blanks", "Lab Blanks", "Spike/Check Accuracy"), 
             labels = c("Field Duplicate", "Lab Duplicate", "Field Blank", "Lab Blank", "Spike/Check Accuracy")
           ),
+          Parameter = factor(Parameter),
           percent = as.numeric(gsub(suffix, '', percent)), 
           met = as.numeric(percent > `% Completeness`)
         ) %>% 
         dplyr::select(-`% Completeness`) %>% 
+        tidyr::complete(check, Parameter) %>% 
         tidyr::pivot_longer(cols = c('percent', 'met')) %>%
         tidyr::unite('check', check, name) %>%
         dplyr::mutate(
@@ -319,8 +324,8 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
         flextable::bg(i = ~ `Lab Duplicate_met` == 1, j = 'Lab Duplicate', bg = pass_col) %>% 
         flextable::bg(i = ~ `Field Blank_met` == 0, j = 'Field Blank', bg = fail_col) %>% 
         flextable::bg(i = ~ `Field Blank_met` == 1, j = 'Field Blank', bg = pass_col)%>% 
-        flextable::bg(i = ~ `Lab Blank_met` == 0, j = 'Lab Blank', bg  = fail_col) %>% 
-        flextable::bg(i = ~ `Lab Blank_met` == 1, j = 'Lab Blank', bg = pass_col) %>% 
+        flextable::bg(i = ~ `Lab Blank_met` == 0, j = 'Lab Blank', bg  = fail_col) %>%
+        flextable::bg(i = ~ `Lab Blank_met` == 1, j = 'Lab Blank', bg = pass_col) %>%
         flextable::bg(i = ~ `Spike/Check Accuracy_met` == 0, j = 'Spike/Check Accuracy', bg = fail_col) %>% 
         flextable::bg(i = ~ `Spike/Check Accuracy_met` == 1, j = 'Spike/Check Accuracy', bg = pass_col) %>% 
         thm %>% 

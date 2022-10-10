@@ -2,10 +2,14 @@ test_that("Checking output format type error if individual and more than one tab
   expect_error(tabMWRacc(resdat, accdat, runchk = F, warn = F, type = 'individual'))
 })
 
-test_that("Checking output format type error if individual and no table", {
+test_that("Checking output format type warning if individual and no table", {
   chk <- resdat %>% 
     filter(!`Activity Type` == 'Quality Control Sample-Field Blank')
-  expect_error(tabMWRacc(chk, accdat, runchk = F, warn = F, type = 'individual', accchk = 'Field Blanks'))
+  expect_warning(
+    expect_null(
+      tabMWRacc(chk, accdat, runchk = F, warn = T, type = 'individual', accchk = 'Field Blanks')
+    )
+  )
 })
 
 test_that("Checking output format type as individual", {

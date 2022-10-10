@@ -200,87 +200,51 @@ notes(wd, fontname)
 
 `r if(rawdata){paste0("### QC Raw Data for ", resdatdt)}`
 
-`r if (rawdata){"#### Field Duplicates\n"}`
-
-```{r, eval = rawdata}
+```{r, eval = rawdata & !is.null(indflddup), results = 'asis'}
+cat("#### Field Duplicates\n")
 indflddup
-```
-
-`r if(rawdata){"<br>"}`
-
-```{r, eval = rawdata}
+cat("<br>")
 notes(wd, fontname)
+cat("<br>")
 ```
 
-`r if(rawdata){"<br>"}`
-
-`r if(rawdata){"#### Lab Duplicates\n"}`
-
-```{r, eval = rawdata}
+```{r, eval = rawdata & !is.null(indlabdup), results = 'asis'}
+cat("#### Lab Duplicates\n")
 indlabdup
-```
-
-`r if(rawdata){"<br>"}`
-
-```{r, eval = rawdata}
+cat("<br>")
 notes(wd, fontname)
+cat("<br>")
 ```
 
-`r if(rawdata){"<br>"}`
-
-`r if(rawdata){"#### Field Blanks\n"}`
-
-```{r, eval = rawdata}
+```{r, eval = rawdata & !is.null(indfldblk), results = 'asis'}
+cat("#### Field Blanks\n")
 indfldblk
-```
-
-`r if(rawdata){"<br>"}`
-
-```{r, eval = rawdata}
+cat("<br>")
 notes(wd, fontname)
+cat("<br>")
 ```
 
-`r if(rawdata){"<br>"}`
-
-`r if(rawdata){"#### Lab Blanks\n"}`
-
-```{r, eval = rawdata}
+```{r, eval = rawdata & !is.null(indlabblk), results = 'asis'}
+cat("#### Lab Blanks\n")
 indlabblk
-```
-
-`r if(rawdata){"<br>"}`
-
-```{r, eval = rawdata}
+cat("<br>")
 notes(wd, fontname)
+cat("<br>")
 ```
 
-`r if(rawdata){"<br>"}`
-
-`r if(rawdata){"#### Lab Spikes\n"}`
-
-```{r, eval = rawdata}
+```{r, eval = rawdata & !is.null(indlabspk), results = 'asis'}
+cat("#### Lab Spikes\n")
 indlabspk
-```
-
-`r if(rawdata){"<br>"}`
-
-```{r, eval = rawdata}
+cat("<br>")
 notes(wd, fontname)
+cat("<br>")
 ```
 
-`r if(rawdata){"<br>"}`
-
-`r if(rawdata){"#### Instrument Checks (post sampling)"}`
-
-```{r, eval = rawdata}
+```{r, eval = rawdata & !is.null(indinschk), results = 'asis'}
+cat("#### Instrument Checks (post sampling)")
 indinschk
-```
-
-`r if(rawdata){"<br>"}`
-
-```{r, eval = rawdata}
+cat("<br>")
 notes(wd, fontname)
+cat("<br>")
 ```
-
-`r if(rawdata){"<br>"}`
 
