@@ -144,11 +144,11 @@
 A summary of the distribution statistics shown with a standard boxplot. Outliers extend beyond the whiskers and are 1.5 times the interquartile range.
 </p>
 </div>
-<p>The <code><a href="../reference/anlzMWRoutlier.html">anlzMWRoutlier()</a></code> function uses the results data as a file path or data frame as input. The results for a selected parameter are shown as boxplots, with the outliers labelled accordingly. Outliers can be shown by month using <code>group = "month"</code>, by site using <code>group = "site"</code>, or by week of year using <code>group = "week"</code>. Below, outliers are shown for dissolved oxygen grouped by month.</p>
+<p>The <code><a href="../reference/anlzMWRoutlier.html">anlzMWRoutlier()</a></code> function uses the results data as a file path or data frame as input. The data quality objectives for accuracy is also required. The input files are passed to the function using the <code>res</code> and <code>acc</code> arguments, but a named list with the same arguments can also be used with the <code>fset</code> argument for convenience. The results for a selected parameter are shown as boxplots, with the outliers labelled accordingly.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlier.html">anlzMWRoutlier</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">"month"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="outlierchecks_files/figure-html/unnamed-chunk-3-1.png" width="768"></p>
-<p>The same data are also grouped by site.</p>
+<p>Outliers can be shown by month using <code>group = "month"</code>, by site using <code>group = "site"</code>, or by week of year using <code>group = "week"</code>. Above, outliers are shown for dissolved oxygen grouped by month. The same data can also grouped by site.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlier.html">anlzMWRoutlier</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">"site"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="outlierchecks_files/figure-html/unnamed-chunk-4-1.png" width="768"></p>
@@ -202,6 +202,15 @@ A summary of the distribution statistics shown with a standard boxplot. Outliers
 <p>Create the same output but as separate png plots for each parameter:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlierall.html">anlzMWRoutlierall</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'month'</span>, format <span class="op">=</span> <span class="st">'png'</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>The inputs can also be passed to the <code>fset</code> argument as a named list for convenience.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># names list of inputs</span></span>
+<span><span class="va">fsetls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  res <span class="op">=</span> <span class="va">resdat</span>, </span>
+<span>  acc <span class="op">=</span> <span class="va">accdat</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/anlzMWRoutlierall.html">anlzMWRoutlierall</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span>, group <span class="op">=</span> <span class="st">'month'</span>, format <span class="op">=</span> <span class="st">'word'</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Once the function is done running, a message indicating success and where the file(s) is located is returned.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

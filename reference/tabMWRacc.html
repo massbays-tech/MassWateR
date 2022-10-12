@@ -64,8 +64,9 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tabMWRacc</span><span class="op">(</span></span>
-<span>  <span class="va">res</span>,</span>
-<span>  <span class="va">acc</span>,</span>
+<span>  res <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  acc <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fset <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  runchk <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  warn <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  accchk <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Field Blanks"</span>, <span class="st">"Lab Blanks"</span>, <span class="st">"Field Duplicates"</span>, <span class="st">"Lab Duplicates"</span>,</span>
@@ -87,6 +88,10 @@
 
 <dt>acc</dt>
 <dd><p>character string of path to the data quality objectives file for accuracy or <code>data.frame</code> returned by <code><a href="readMWRacc.html">readMWRacc</a></code></p></dd>
+
+
+<dt>fset</dt>
+<dd><p>optional list of inputs with elements named <code>res</code>, <code>acc</code>, <code>frecom</code>, or <code>sit</code>, overrides the other arguments</p></dd>
 
 
 <dt>runchk</dt>
@@ -133,7 +138,8 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The function can be used with inputs as paths to the relevant files or as data frames returned by <code><a href="readMWRresults.html">readMWRresults</a></code> and <code><a href="readMWRacc.html">readMWRacc</a></code>.  For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. Also note that accuracy is only evaluated on parameters that are shared between the results file and data quality objectives file for accuracy.  A warning is returned for parameters that do not match between the files. This warning can be suppressed by setting <code>warn = FALSE</code>.</p>
+    <p>The function can be used with inputs as paths to the relevant files or as data frames returned by <code><a href="readMWRresults.html">readMWRresults</a></code> and <code><a href="readMWRacc.html">readMWRacc</a></code>.  For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the <code>fset</code> argument instead. See the help file for <code><a href="utilMWRinput.html">utilMWRinput</a></code>.</p>
+<p>Also note that accuracy is only evaluated on parameters that are shared between the results file and data quality objectives file for accuracy.  A warning is returned for parameters that do not match between the files. This warning can be suppressed by setting <code>warn = FALSE</code>.</p>
 <p>The function can return three types of tables as specified with the <code>type</code> argument: <code>"individual"</code>, <code>"summary"</code>, or <code>"percent"</code>.  The individual tables are specific to each type of accuracy check for each parameter (e.g., field blanks, lab blanks, etc.).  The summary table summarizes all accuracy checks by the number of checks and how many hit/misses are returned for each across all parameters.  The percent table is similar to the summary table, but showing only percentages with appropriate color-coding for hit/misses. The data quality objectives file for frequency and completeness is required if <code>type = "summary"</code> or <code>type = "percent"</code>.</p>
 <p>For <code>type = "individual"</code>, the quality control tables for accuracy are retrieved by specifying the check with the <code>accchk</code> argument.  The <code>accchk</code> argument can be used to specify one of the following values to retrieve the relevant tables: <code>"Field Blanks"</code>, <code>"Lab Blanks"</code>, <code>"Field Duplicates"</code>, <code>"Lab Duplicates"</code>, <code>"Lab Spikes"</code>, or <code>"Instrument Checks"</code>.</p>
 <p>For <code>type = "summary"</code>, the function summarizes all accuracy checks by counting the number of quality control checks, number of misses, and percent acceptance for each parameter. All accuracy checks are used and the <code>accchk</code> argument does not apply.</p>

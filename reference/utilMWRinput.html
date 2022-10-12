@@ -68,6 +68,7 @@
 <span>  acc <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  frecom <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  sit <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  fset <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  runchk <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  warn <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -91,6 +92,10 @@
 <dd><p>character string of path to the site metadata file or <code>data.frame</code> for site metadata returned by <code><a href="readMWRsites.html">readMWRsites</a></code></p></dd>
 
 
+<dt>fset</dt>
+<dd><p>optional list of inputs with elements named <code>res</code>, <code>acc</code>, <code>frecom</code>, or <code>sit</code>, overrides the other arguments, see details</p></dd>
+
+
 <dt>runchk</dt>
 <dd><p>logical to run data checks with <code><a href="checkMWRresults.html">checkMWRresults</a></code>, <code><a href="checkMWRacc.html">checkMWRacc</a></code>, <code><a href="checkMWRfrecom.html">checkMWRfrecom</a></code>, applies only if <code>res</code>, <code>acc</code>, or <code>frecom</code> are file paths</p></dd>
 
@@ -108,6 +113,7 @@
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The function is used internally by others to import data from paths to the relevant files or as data frames returned by <code><a href="readMWRresults.html">readMWRresults</a></code>, <code><a href="readMWRacc.html">readMWRacc</a></code>, <code><a href="readMWRfrecom.html">readMWRfrecom</a></code>, and <code><a href="readMWRsites.html">readMWRsites</a></code>.  For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>.</p>
+<p>The <code>fset</code> argument can used in place of the preceding arguments. The argument accepts a list with named elements as <code>res</code>, <code>acc</code>, <code>frecom</code>, or <code>sit</code>, where the elements are either character strings of the path or data frames to the corresponding inputs. Missing elements will be interpreted as <code>NULL</code> values.  This argument is provided as convenience to apply a single list as input versus separate inputs for each argument.</p>
 <p>Any of the arguments for the data files can be <code>NULL</code>, used as a convenience for downstream functions that do not require all.</p>
     </div>
 
@@ -391,6 +397,144 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 48 more rows, and abbreviated variable names</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ¹​`Monitoring Location Latitude`, ²​`Monitoring Location Longitude`,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ³​`Location Group`</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">##</span></span></span>
+<span class="r-in"><span><span class="co"># using fset as list input</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># input with paths to files</span></span></span>
+<span class="r-in"><span><span class="va">fset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  res <span class="op">=</span> <span class="va">respth</span>, </span></span>
+<span class="r-in"><span>  acc <span class="op">=</span> <span class="va">accpth</span>, </span></span>
+<span class="r-in"><span>  frecom <span class="op">=</span> <span class="va">frecompth</span>,</span></span>
+<span class="r-in"><span>  sit <span class="op">=</span> <span class="va">sitpth</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">utilMWRinput</span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fset</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on results data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking valid Activity Types... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Start Date formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in Activity Depth/Height Measure... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Depth/Height Unit... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Relative Depth Name formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft... OK</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>	Checking Characteristic Name formats...</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> 	Characteristic Name not included in approved parameters: Air Temp, Gage</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Characteristic Name formats... WARNING</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Result Values... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking QC Reference Values... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for Result Unit... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit per Characteristic Name... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking acceptable units for each entry in Characteristic Name... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed (1 WARNING(s))!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on data quality objectives for accuracy...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column types... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for text other than &lt;=, ≤, &lt;, &gt;=, ≥, &gt;, ±, %, AQL, BQL, log, or all... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Parameter formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for unit (uom)... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit (uom) per Parameter... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking acceptable units (uom) for each entry in Parameter... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking empty columns... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on data quality objectives for frequency and completeness...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for values outside of 0 and 100... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Parameter formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking empty columns... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on site metadata...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing latitude or longitude values... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in latitude... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in longitude... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for positive values in longitude... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for Monitoring Location ID... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $resdat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2,652 × 14</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Monitori…¹ Activ…² Activity…³ Activ…⁴ Activ…⁵ Activ…⁶ Activ…⁷ Chara…⁸ Resul…⁹</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> HBS-016    Field … 2021-01-14 09:22   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 2      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> LND-007    Field … 2021-01-14 09:50   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 2      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> HBS-031    Field … 2021-01-14 10:05   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 2      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> HBS-057    Field … 2021-01-14 10:30   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 3      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> HBS-065    Field … 2021-01-14 10:40   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 3      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> CRN-002    Field … 2021-01-14 11:30   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 2      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> HBS-076    Field … 2021-01-14 11:58   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 4      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> HBS-085    Field … 2021-01-14 12:10   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 3.5    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> HBS-095    Field … 2021-01-14 12:20   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 3      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> HBS-016    Field … 2021-02-15 08:50   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 0.5    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 2,642 more rows, 5 more variables: `Result Unit` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Quantitation Limit` &lt;chr&gt;, `QC Reference Value` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Measure Qualifier` &lt;chr&gt;, `Result Attribute` &lt;chr&gt;, and abbreviated</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   variable names ¹​`Monitoring Location ID`, ²​`Activity Type`,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ³​`Activity Start Date`, ⁴​`Activity Start Time`,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁵​`Activity Depth/Height Measure`, ⁶​`Activity Depth/Height Unit`,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁷​`Activity Relative Depth Name`, ⁸​`Characteristic Name`, ⁹​`Result Value`</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $accdat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 21 × 10</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter   uom     MDL   UQL Value…¹ Field…² Lab D…³ Field…⁴ Lab B…⁵ Spike…⁶</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Water Temp  deg C <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span> all     &lt;= 10%  &lt;= 10%  <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> pH          <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span> all     &lt;= 0.5  &lt;= 0.5  <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      &lt;= 0.2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> DO          mg/l   0.1     <span style="color: #BB0000;">NA</span> &lt; 4     &lt;= 20%  &lt;= 20%  &lt; 0.1   &lt; 0.1   &lt;= 5%  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> DO          mg/l   0.1     <span style="color: #BB0000;">NA</span> &gt;= 4    &lt;= 10%  &lt;= 10%  &lt; 0.1   &lt; 0.1   &lt;= 5%  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Sp Conduct… uS/cm  1       <span style="color: #BB0000;">NA</span> &lt; 250   &lt;= 30%  &lt;= 20%  &lt; 25    &lt; 25    &lt;= 50  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Sp Conduct… uS/cm  1       <span style="color: #BB0000;">NA</span> &gt;= 250  &lt;= 20%  &lt;= 10%  &lt; 25    &lt; 25    &lt;= 50  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> TSS         mg/l   1       <span style="color: #BB0000;">NA</span> &lt; 3     &lt;= 1    &lt;= 20%  BDL     BDL     <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> TSS         mg/l   1       <span style="color: #BB0000;">NA</span> &gt;= 3    &lt;= 30%  &lt;= 20%  BDL     BDL     <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> TP          mg/l   0.01    <span style="color: #BB0000;">NA</span> &lt; 0.05  &lt;= 0.02 &lt;= 0.01 BDL     BDL     &lt;= 0.01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> TP          mg/l   0.01    <span style="color: #BB0000;">NA</span> &gt;= 0.05 &lt;= 30%  &lt;= 20%  BDL     BDL     &lt;= 15% </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 11 more rows, and abbreviated variable names ¹​`Value Range`,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​`Field Duplicate`, ³​`Lab Duplicate`, ⁴​`Field Blank`, ⁵​`Lab Blank`,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁶​`Spike/Check Accuracy`</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $frecomdat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 11 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter    `Field Duplicate` Lab Duplicat…¹ Field…² Lab B…³ Spike…⁴ % Com…⁵</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Water Temp                  10             10      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> pH                          10             10      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      10      90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> DO                          10             10      <span style="color: #BB0000;">NA</span>      10      10      90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Conductivity                10             10      <span style="color: #BB0000;">NA</span>      10      10      90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> TSS                         10              5      10       5       5      90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> TP                          10              5      10       5       5      90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Ortho P                     10              5      10       5       5      90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Nitrate                     10              5      10       5       5      90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Ammonia                     10              5      10       5       5      90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Chloride                    10              5      10       5       5      90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> Chl a                       10              5      10       5       5      90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with abbreviated variable names ¹​`Lab Duplicate`, ²​`Field Blank`,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ³​`Lab Blank`, ⁴​`Spike/Check Accuracy`, ⁵​`% Completeness`</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $sitdat</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 58 × 5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    `Monitoring Location ID` `Monitoring Location Name`   Monit…¹ Monit…² Locat…³</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> ABT-010                  477 Lowell Rd, Concord          42.5   -<span style="color: #BB0000;">71.4</span> Lower …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> ABT-026                  Rte 2, Concord                  42.5   -<span style="color: #BB0000;">71.4</span> Lower …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> ABT-033                  Rte 62, W Concord               42.5   -<span style="color: #BB0000;">71.4</span> Lower …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> ABT-044                  Rte 62 (Damonmill), W Conco…    42.5   -<span style="color: #BB0000;">71.4</span> Lower …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> ABT-047                  Damonmill dam                   42.5   -<span style="color: #BB0000;">71.4</span> Lower …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> ABT-062                  Rte 62, Acton                   42.4   -<span style="color: #BB0000;">71.4</span> Lower …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> ABT-063                  Rte 62, Acton upstream          42.4   -<span style="color: #BB0000;">71.4</span> Lower …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> ABT-077                  Rte 27/USGS, Maynard            42.4   -<span style="color: #BB0000;">71.4</span> Lower …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> ABT-095                  White Pond Rd, Stow             42.4   -<span style="color: #BB0000;">71.5</span> Impoun…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> ABT-134                  Sudbury Rd, Stow                42.4   -<span style="color: #BB0000;">71.5</span> Impoun…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 48 more rows, and abbreviated variable names</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ¹​`Monitoring Location Latitude`, ²​`Monitoring Location Longitude`,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ³​`Location Group`</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

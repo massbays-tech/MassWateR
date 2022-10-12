@@ -67,6 +67,7 @@
 <span>  <span class="va">res</span>,</span>
 <span>  <span class="va">acc</span>,</span>
 <span>  <span class="va">frecom</span>,</span>
+<span>  fset <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  output_dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  output_file <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rawdata <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -90,6 +91,10 @@
 
 <dt>frecom</dt>
 <dd><p>character string of path to the data quality objectives file for frequency and completeness or <code>data.frame</code> returned by <code><a href="readMWRfrecom.html">readMWRfrecom</a></code></p></dd>
+
+
+<dt>fset</dt>
+<dd><p>optional list of inputs with elements named <code>res</code>, <code>acc</code>, <code>frecom</code>, or <code>sit</code>, overrides the other arguments</p></dd>
 
 
 <dt>output_dir</dt>
@@ -135,7 +140,7 @@
     <p>The function compiles a review report as a Word document for all quality control checks included in the MassWateR package.  The report shows several tables, including the data quality objectives files for accuracy, frequency, and completeness, summary results for all accuracy checks, summary results for all frequency checks, summary results for all completeness checks, and individual results for all accuracy checks.  The report uses the individual table functions (which can be used separately) to return the results, which include <code><a href="tabMWRacc.html">tabMWRacc</a></code>, <code><a href="tabMWRfre.html">tabMWRfre</a></code>, and <code><a href="tabMWRcom.html">tabMWRcom</a></code>.  The help files for each of these functions can be consulted for a more detailed explanation of the quality control checks.</p>
 <p>The workflow for using this function is to import the required data (results and data quality objective files) and to fix any errors noted on import prior to creating the review report.  Additional warnings that may be of interest as returned by the individual table functions can be returned in the console by setting <code>warn = TRUE</code>.</p>
 <p>Optional arguments that can be changed as needed include specifying the file name with <code>output_file</code>, suppressing the raw data summaries at the end of the report with <code>rawdata = FALSE</code>, and changing the table font sizes (<code>dqofontsize</code> for the data quality objectives on the first page, <code>tabfontsize</code> for the remainder).</p>
-<p>The function can be used with inputs as paths to the relevant files or as data frames returned by <code><a href="readMWRresults.html">readMWRresults</a></code>, <code><a href="readMWRacc.html">readMWRacc</a></code>, and <code><a href="readMWRfrecom.html">readMWRfrecom</a></code>.  For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly.</p>
+<p>The function can be used with inputs as paths to the relevant files or as data frames returned by <code><a href="readMWRresults.html">readMWRresults</a></code>, <code><a href="readMWRacc.html">readMWRacc</a></code>, and <code><a href="readMWRfrecom.html">readMWRfrecom</a></code>.  For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the <code>fset</code> argument instead. See the help file for <code><a href="utilMWRinput.html">utilMWRinput</a></code>.</p>
     </div>
 
     <div class="section level2">
