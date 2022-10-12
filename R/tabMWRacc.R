@@ -9,7 +9,9 @@
 #'
 #' @return A \code{\link{flextable}} object with formatted results.
 #' 
-#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRacc}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. Also note that accuracy is only evaluated on parameters that are shared between the results file and data quality objectives file for accuracy.  A warning is returned for parameters that do not match between the files. This warning can be suppressed by setting \code{warn = FALSE}. 
+#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRacc}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.
+#' 
+#' Also note that accuracy is only evaluated on parameters that are shared between the results file and data quality objectives file for accuracy.  A warning is returned for parameters that do not match between the files. This warning can be suppressed by setting \code{warn = FALSE}. 
 #' 
 #' The function can return three types of tables as specified with the \code{type} argument: \code{"individual"}, \code{"summary"}, or \code{"percent"}.  The individual tables are specific to each type of accuracy check for each parameter (e.g., field blanks, lab blanks, etc.).  The summary table summarizes all accuracy checks by the number of checks and how many hit/misses are returned for each across all parameters.  The percent table is similar to the summary table, but showing only percentages with appropriate color-coding for hit/misses. The data quality objectives file for frequency and completeness is required if \code{type = "summary"} or \code{type = "percent"}.   
 #'
@@ -68,7 +70,7 @@
 #' 
 #' # table as percent
 #' tabMWRacc(res = resdat, acc = accdat, type = 'percent', frecom = frecomdat)
-tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks'), type = c('individual', 'summary', 'percent'), pass_col = '#57C4AD', fail_col = '#DB4325', frecom = NULL, suffix = '%', caption = TRUE){
+tabMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks'), type = c('individual', 'summary', 'percent'), pass_col = '#57C4AD', fail_col = '#DB4325', frecom = NULL, suffix = '%', caption = TRUE){
   
   type <- match.arg(type)
   
@@ -83,7 +85,7 @@ tabMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Bl
   }
   
   # get accuracy summary
-  accsum <- qcMWRacc(res = res, acc = acc, runchk = runchk, warn = warn, accchk = accchk, suffix = suffix)
+  accsum <- qcMWRacc(res = res, acc = acc, fset = fset, runchk = runchk, warn = warn, accchk = accchk, suffix = suffix)
   
   if(type == 'individual'){
 

@@ -8,6 +8,11 @@ test_that("Checking data frame input for res, acc, frecom, and sit", {
   expect_type(result, 'list')
 })
 
+test_that("Checking fset input", {
+  result <- utilMWRinput(fset = list(res = resdat, acc = accdat, frecom = frecomdat, sit = sitdat))
+  expect_type(result, 'list')
+})
+
 test_that("Checking  NULL inputs for all", {
   result <- utilMWRinput()
   expect_type(result, 'list')

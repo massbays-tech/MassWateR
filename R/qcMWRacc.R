@@ -2,12 +2,13 @@
 #'
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
+#' @param fset optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, or \code{sit}, overrides the other arguments
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}} and \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param warn logical to return warnings to the console (default)
 #' @param accchk character string indicating which accuracy check to return, one to any of \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, \code{"Lab Spikes"}, or \code{"Instrument Checks"}
 #' @param suffix character string indicating suffix to append to percentage values
 #' 
-#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRacc}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly.
+#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRacc}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.
 #' 
 #' Note that accuracy is only evaluated on parameters in the \code{Parameter} column in the data quality objectives accuracy file.  A warning is returned if there are parameters in \code{Parameter} in the accuracy file that are not in \code{Characteristic Name} in the results file. 
 #' 
@@ -40,13 +41,13 @@
 #' 
 #' qcMWRacc(res = resdat, acc = accdat)
 #' 
-qcMWRacc <- function(res, acc, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks'), suffix = '%'){
+qcMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks'), suffix = '%'){
   
   colsym <- c('<=', '<', '>=', '>', '\u00b1', '\u2265', '\u2264', '%', 'AQL', 'BDL', 'log', 'all')
   
   ##
   # get user inputs
-  inp <- utilMWRinput(res = res, acc = acc, runchk = runchk, warn = warn)
+  inp <- utilMWRinput(res = res, acc = acc, fset = fset, runchk = runchk, warn = warn)
   resdat <- inp$resdat
   accdat <- inp$accdat
   

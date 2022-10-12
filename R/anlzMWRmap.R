@@ -5,6 +5,7 @@
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
 #' @param sit character string of path to the site metadata file or \code{data.frame} of site metadata returned by \code{\link{readMWRsites}}
 #' @param site character string of sites to include, default all
+#' @param fset optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, or \code{sit}, overrides the other arguments
 #' @param resultatt character string of result attributes to plot, default all
 #' @param locgroup character string of location groups to plot from the \code{"Location Group"} column in the site metadata file, default all
 #' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, default all
@@ -78,13 +79,13 @@
 #' anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, maptype = 'terrain', 
 #'   addwater = NULL)
 #'
-anlzMWRmap<- function(res, param, acc, sit, site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', yscl = c('auto', 'log', 'linear'), crs = 4326, zoom = 11, addwater = "nhd", watercol = 'lightblue', dLevel = 'medium', maptype = NULL, buffdist = 0.02, northloc = 'tl', scaleloc = 'br', latlon = TRUE, ttlsize = 1.2, runchk = TRUE, warn = TRUE){
+anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', yscl = c('auto', 'log', 'linear'), crs = 4326, zoom = 11, addwater = "nhd", watercol = 'lightblue', dLevel = 'medium', maptype = NULL, buffdist = 0.02, northloc = 'tl', scaleloc = 'br', latlon = TRUE, ttlsize = 1.2, runchk = TRUE, warn = TRUE){
   
   # if(!requireNamespace('ggmap', quietly = TRUE))
   #   stop("Package \"ggmap\" needed for this function to work. Please install it.", call. = FALSE)
   
   # inputs
-  inp <- utilMWRinput(res = res, acc = acc, sit = sit, runchk = F, warn = warn)
+  inp <- utilMWRinput(res = res, acc = acc, sit = sit, fset = fset, runchk = F, warn = warn)
   
   # results data
   resdat <- inp$resdat 

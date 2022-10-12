@@ -3,6 +3,7 @@
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
 #' @param frecom character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}
+#' @param fset optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, or \code{sit}, overrides the other arguments
 #' @param output_dir character string of the output directory for the rendered file, default is the working directory
 #' @param output_file optional character string for the file name
 #' @param rawdata logical to include quality control accuracy summaries for raw data, e.g., field blanks, etc.
@@ -23,7 +24,7 @@
 #' 
 #' Optional arguments that can be changed as needed include specifying the file name with \code{output_file}, suppressing the raw data summaries at the end of the report with \code{rawdata = FALSE}, and changing the table font sizes (\code{dqofontsize} for the data quality objectives on the first page, \code{tabfontsize} for the remainder).
 #' 
-#' The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRacc}}, and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. 
+#' The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRacc}}, and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.
 #' 
 #' @examples
 #' # results data path
@@ -48,7 +49,7 @@
 #' # create report in working directory
 #' qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat)
 #' }
-qcMWRreview <- function(res, acc, frecom, output_dir = NULL, output_file = NULL, rawdata = TRUE, dqofontsize = 7.5, tabfontsize = 9, padding = 0, warn = TRUE, runchk = TRUE) {
+qcMWRreview <- function(res, acc, frecom, fset = NULL, output_dir = NULL, output_file = NULL, rawdata = TRUE, dqofontsize = 7.5, tabfontsize = 9, padding = 0, warn = TRUE, runchk = TRUE) {
 
   # rmd template
   qcreview <- system.file('rmd', 'qcreview.Rmd', package = 'MassWateR')
@@ -58,7 +59,7 @@ qcMWRreview <- function(res, acc, frecom, output_dir = NULL, output_file = NULL,
     output_dir <- getwd()
   
   # get input 
-  inp <- utilMWRinput(res = res, acc = acc, frecom = frecom, runchk = runchk, warn = warn)
+  inp <- utilMWRinput(res = res, acc = acc, frecom = frecom, fset = fset, runchk = runchk, warn = warn)
   resdat <- inp$resdat
   accdat <- inp$accdat
   frecomdat <- inp$frecomdat

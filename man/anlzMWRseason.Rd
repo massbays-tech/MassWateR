@@ -5,10 +5,11 @@
 \title{Analyze seasonal trends in results file}
 \usage{
 anlzMWRseason(
-  res,
+  res = NULL,
   param,
-  acc,
+  acc = NULL,
   sit = NULL,
+  fset = NULL,
   thresh,
   group = c("month", "week"),
   type = c("box", "jitterbox", "bar", "jitterbar", "jitter"),
@@ -36,6 +37,8 @@ anlzMWRseason(
 \item{acc}{character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}}
 
 \item{sit}{optional character string of path to the site metadata file or \code{data.frame} of site metadata returned by \code{\link{readMWRsites}}, required if \code{locgroup} is not \code{NULL}}
+
+\item{fset}{optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, or \code{sit}, overrides the other arguments}
 
 \item{thresh}{character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}, or a single numeric value to override the values included with the package}
 

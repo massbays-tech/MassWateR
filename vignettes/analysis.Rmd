@@ -39,7 +39,7 @@ sitdat <- readMWRsites(sitpth)
 
 Seasonal trends can be evaluated using the `anlzMWRseason()` function.  This function summarizes results for a single parameter using boxplots or barplots with seasonal groups assigned to months or weeks of the year.  Boxplots or barplots can also include jittered points of the observations on top or only the jittered points can be shown.  Threshold lines are also shown on the plot to determine if results are near thresholds of interest.  The data that are plotted can be filtered by sites, dates, result attributes, or location groups (from the site metadata file).
 
-The `anlzMWRseason()` function uses the results data as a file path or data frame as input. Below, the results for dissolved oxygen (`param = "DO"`) are grouped by month using `group = "month"` and as boxplots using `type = "box"`.  A description of the summary statistics shown by a boxplot is provided in the [outlier checks](https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html#analyzing-outliers) vignette.  The relevant threshold lines for freshwater environments are shown using `thresh = "fresh"`.  
+The `anlzMWRseason()` function uses the results data as a file path or data frame as input. The input files are passed to the function using the `res` and `acc` arguments, but a named list with the same arguments can also be used with the `fset` argument for convenience. Below, the results for dissolved oxygen (`param = "DO"`) are grouped by month using `group = "month"` and as boxplots using `type = "box"`.  A description of the summary statistics shown by a boxplot is provided in the [outlier checks](https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html#analyzing-outliers) vignette.  The relevant threshold lines for freshwater environments are shown using `thresh = "fresh"`.  
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "month", type = "box")
@@ -119,7 +119,7 @@ anlzMWRseason(res = resdat, param = "E.coli", acc = accdat, sit = sitdat, thresh
 
 ## Analyze trends by date
 
-Trends by date for selected parameters can be evaluated using the `anlzMWRdate()` function.  The plot shows results continuously over time as line plots, with the lines separated by site, combined across sites, or combined across location groups as an average with 95% confidence intervals.  For location groups, the site metadata file must be supplied.  Many of the options described for the `anlzMWRseason()` function also apply and will not be repeated here. As before, the required data are a results file and data quality objective file for accuracy.  
+Trends by date for selected parameters can be evaluated using the `anlzMWRdate()` function.  The plot shows results continuously over time as line plots, with the lines separated by site, combined across sites, or combined across location groups as an average with 95% confidence intervals.  For location groups, the site metadata file must be supplied.  Many of the options described for the `anlzMWRseason()` function also apply and will not be repeated here. As before, the required data are a results file and data quality objective file for accuracy.  These can be passed to the function with the separate arguments or as a named list using the `fset` argument.   
 
 The default plot for `anlzMWRdate()` will show separate lines for each site, y-axis scaling determined automatically from the data quality objectives file, and site labels at the end of each line.  All sites in the results file will be plotted, which can be difficult to visualize. Selecting specific sites with the `site` argument is recommended. 
 
@@ -174,7 +174,7 @@ anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'loc
 
 ## Analyze data by site
 
-Result data by site for selected parameters can be evaluated using the `anlzMWRsite()` function.  This function summarizes results for a single parameter using boxplots or barplots separately for each site on the x-axis. Boxplots or barplots can also include jittered points of the observations on top or only the jittered points can be shown. Many of the options described for the `anlzMWRseason()` function also apply and will not be repeated here. As before, the required data are a results file and data quality objective file for accuracy.  
+Result data by site for selected parameters can be evaluated using the `anlzMWRsite()` function.  This function summarizes results for a single parameter using boxplots or barplots separately for each site on the x-axis. Boxplots or barplots can also include jittered points of the observations on top or only the jittered points can be shown. Many of the options described for the `anlzMWRseason()` function also apply and will not be repeated here. As before, the required data are a results file and data quality objective file for accuracy. These can be passed to the function with the separate arguments or as a named list using the `fset` argument.    
 
 The default plot for `anlzMWRsite()` will show boxplots of results for each site and y-axis scaling determined automatically from the data quality objectives file. 
 
@@ -224,7 +224,7 @@ anlzMWRsite(res = resdat, param = "E.coli", acc = accdat, thresh = "fresh", type
 
 The `anlzMWRmap()` function can be used to create a map of summarized results for a selected parameter at each monitoring site.  By default, all dates for the parameter are averaged. Options to filter by site, date range, and result attribute are provided.  Only sites with spatial information in the site metadata file are plotted and a warning is returned for those that do not have this information. The site labels are also plotted next to each point. 
 
-A map of dissolved oxygen averages across all dates can be created as follows. The required inputs are the results data, the data quality objective file for accuracy, and the site metadata file with the site locations. The warning message indicates some sites in the results file do not have spatial data in the site metadata file.
+A map of dissolved oxygen averages across all dates can be created as follows. The required inputs are the results data, the data quality objective file for accuracy, and the site metadata file with the site locations. These can be passed to the function with the separate arguments or as a named list using the `fset` argument. The warning message indicates some sites in the results file do not have spatial data in the site metadata file.
 
 ```{r, fig.height = 7, fig.width = 6}
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "nhd")

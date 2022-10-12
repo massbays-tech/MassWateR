@@ -5,7 +5,8 @@
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param param character string of the parameter to plot, must conform to entries in the \code{"Simple Parameter"} column of \code{\link{paramsMWR}}
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
-#' @param sit optional character string of path to the site metadata file or \code{data.frame} of site metadata returned by \code{\link{readMWRsites}}, required if \code{locgroup} is not \code{NULL} 
+#' @param sit optional character string of path to the site metadata file or \code{data.frame} of site metadata returned by \code{\link{readMWRsites}}, required if \code{locgroup} is not \code{NULL}
+#' @param fset optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, or \code{sit}, overrides the other arguments 
 #' @param thresh character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}, or a single numeric value to override the values included with the package
 #' @param type character indicating \code{"box"}, \code{"jitterbox"}, \code{"bar"}, \code{"jitterbar"} or \code{"jitter"}, see details
 #' @param threshlab optional character string indicating legend label for the threshold, required only if \code{thresh} is numeric
@@ -77,12 +78,12 @@
 #' anlzMWRsite(res = resdat, param = 'DO', acc = accdat, sit = sitdat, type = 'box', 
 #'      thresh = 'fresh', locgroup = 'Concord')
 #'      
-anlzMWRsite <- function(res, param, acc, sit = NULL, type = c('box', 'jitterbox', 'bar', 'jitterbar', 'jitter'), thresh, threshlab = NULL, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, confint = FALSE, fill = 'lightgreen', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), byresultatt = FALSE, ttlsize =  1.2, runchk = TRUE, warn = TRUE){
+anlzMWRsite <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, type = c('box', 'jitterbox', 'bar', 'jitterbar', 'jitter'), thresh, threshlab = NULL, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, confint = FALSE, fill = 'lightgreen', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), byresultatt = FALSE, ttlsize =  1.2, runchk = TRUE, warn = TRUE){
   
   type <- match.arg(type)
   
   # inputs
-  inp <- utilMWRinput(res = res, acc = acc, sit = sit, runchk = runchk, warn = warn)
+  inp <- utilMWRinput(res = res, acc = acc, sit = sit, fset = fset, runchk = runchk, warn = warn)
   
   # results data
   resdat <- inp$resdat 

@@ -5,6 +5,7 @@
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param param character string of the parameter to plot, must conform to entries in the \code{"Simple Parameter"} column of \code{\link{paramsMWR}}
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
+#' @param fset optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, or \code{sit}, overrides the other arguments
 #' @param type character indicating \code{"box"}, \code{"jitterbox"}, or \code{"jitter"}, see details
 #' @param group character indicating whether the summaries are grouped by month, site, or week of year
 #' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, optional
@@ -66,13 +67,13 @@
 #' # data frame output
 #' anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month', outliers = TRUE)
 #' 
-anlzMWRoutlier <- function(res, param, acc, type = c('box', 'jitterbox', 'jitter'), group, dtrng = NULL, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), ttlsize = 1.2, runchk = TRUE, warn = TRUE){
+anlzMWRoutlier <- function(res = NULL, param, acc = NULL, fset = NULL, type = c('box', 'jitterbox', 'jitter'), group, dtrng = NULL, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), ttlsize = 1.2, runchk = TRUE, warn = TRUE){
   
   type <- match.arg(type)
   group <- match.arg(group, choices = c('month', 'site', 'week'))
   
   # inputs
-  inp <- utilMWRinput(res = res, acc = acc, runchk = runchk, warn = warn)
+  inp <- utilMWRinput(res = res, acc = acc, fset = fset, runchk = runchk, warn = warn)
   
   # results data
   resdat <- inp$resdat 

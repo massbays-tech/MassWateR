@@ -5,8 +5,9 @@
 \title{Create a formatted table of quality control frequency checks}
 \usage{
 tabMWRfre(
-  res,
-  frecom,
+  res = NULL,
+  frecom = NULL,
+  fset = NULL,
   runchk = TRUE,
   warn = TRUE,
   type = c("summary", "percent"),
@@ -20,6 +21,8 @@ tabMWRfre(
 \item{res}{character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}}
 
 \item{frecom}{character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}}
+
+\item{fset}{optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, or \code{sit}, overrides the other arguments}
 
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}} and \code{\link{checkMWRfrecom}}, applies only if \code{res} or \code{frecom} are file paths}
 
@@ -42,7 +45,9 @@ A \code{\link{flextable}} object with formatted results.
 Create a formatted table of quality control frequency checks
 }
 \details{
-The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly.  Also note that completeness is only evaluated on parameters that are shared between the results file and data quality objectives file for frequency and completeness.  A warning is returned for parameters that do not match between the files. This warning can be suppressed by setting \code{warn = FALSE}.
+The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.
+
+Also note that completeness is only evaluated on parameters that are shared between the results file and data quality objectives file for frequency and completeness.  A warning is returned for parameters that do not match between the files. This warning can be suppressed by setting \code{warn = FALSE}.
 
 The quality control tables for frequency show the number of records that apply to a given check (e.g., Lab Blank, Field Blank, etc.) relative to the number of "regular" data records (e.g., field samples or measures) for each parameter.  A summary of all frequency checks for each parameter is provided if \code{type = "summary"} or a color-coded table showing similar information as percentages for each parameter is provided if \code{type = "percent"}.
 

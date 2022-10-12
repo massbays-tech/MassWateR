@@ -39,13 +39,13 @@ Outliers can be identified using the `anlzMWRoutlier()` function.  Evaluating da
 knitr::include_graphics("boxplotex.PNG")
 ```
 
-The `anlzMWRoutlier()` function uses the results data as a file path or data frame as input. The results for a selected parameter are shown as boxplots, with the outliers labelled accordingly. Outliers can be shown by month using `group = "month"`, by site using `group = "site"`, or by week of year using `group = "week"`.  Below, outliers are shown for dissolved oxygen grouped by month.   
+The `anlzMWRoutlier()` function uses the results data as a file path or data frame as input. The data quality objectives for accuracy is also required.  The input files are passed to the function using the `res` and `acc` arguments, but a named list with the same arguments can also be used with the `fset` argument for convenience. The results for a selected parameter are shown as boxplots, with the outliers labelled accordingly.
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, group = "month")
 ```
 
-The same data are also grouped by site.
+Outliers can be shown by month using `group = "month"`, by site using `group = "site"`, or by week of year using `group = "week"`. Above, outliers are shown for dissolved oxygen grouped by month. The same data can also grouped by site.
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, group = "site")
@@ -107,6 +107,18 @@ Create the same output but as separate png plots for each parameter:
 
 ```{r, eval = F}
 anlzMWRoutlierall(res = resdat, acc = accdat, group = 'month', format = 'png', output_dir = getwd())
+```
+
+The inputs can also be passed to the `fset` argument as a named list for convenience.
+
+```{r, eval = F}
+# names list of inputs
+fsetls <- list(
+  res = resdat, 
+  acc = accdat
+)
+
+anlzMWRoutlierall(fset = fsetls, group = 'month', format = 'word', output_dir = getwd())
 ```
 
 Once the function is done running, a message indicating success and where the file(s) is located is returned.

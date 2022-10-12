@@ -9,6 +9,7 @@ utilMWRinput(
   acc = NULL,
   frecom = NULL,
   sit = NULL,
+  fset = NULL,
   runchk = TRUE,
   warn = TRUE
 )
@@ -22,6 +23,8 @@ utilMWRinput(
 
 \item{sit}{character string of path to the site metadata file or \code{data.frame} for site metadata returned by \code{\link{readMWRsites}}}
 
+\item{fset}{optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, or \code{sit}, overrides the other arguments, see details}
+
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths}
 
 \item{warn}{logical to return warnings to the console (default)}
@@ -34,6 +37,8 @@ Utility function to import data as paths or data frames
 }
 \details{
 The function is used internally by others to import data from paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRacc}}, \code{\link{readMWRfrecom}}, and \code{\link{readMWRsites}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.
+
+The \code{fset} argument can used in place of the preceding arguments. The argument accepts a list with named elements as \code{res}, \code{acc}, \code{frecom}, or \code{sit}, where the elements are either character strings of the path or data frames to the corresponding inputs. Missing elements will be interpreted as \code{NULL} values.  This argument is provided as convenience to apply a single list as input versus separate inputs for each argument.
 
 Any of the arguments for the data files can be \code{NULL}, used as a convenience for downstream functions that do not require all.
 }
@@ -80,4 +85,16 @@ inp$resdat
 inp$accdat
 inp$frecomdat
 inp$sitdat
+
+##
+# using fset as list input
+
+# input with paths to files
+fset <- list(
+  res = respth, 
+  acc = accpth, 
+  frecom = frecompth,
+  sit = sitpth
+)
+utilMWRinput(fset = fset)
 }

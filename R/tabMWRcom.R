@@ -10,7 +10,9 @@
 #'
 #' @return A \code{\link{flextable}} object with formatted results showing summary counts for all completeness checks for each parameter.
 #' 
-#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly.  Also note that completeness is only evaluated on parameters that are shared between the results file and data quality objectives file for frequency and completeness. A warning is returned for parameters that do not match between the files. This warning can be suppressed by setting \code{warn = FALSE}. 
+#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.  
+#' 
+#' Also note that completeness is only evaluated on parameters that are shared between the results file and data quality objectives file for frequency and completeness. A warning is returned for parameters that do not match between the files. This warning can be suppressed by setting \code{warn = FALSE}. 
 #' 
 #' A summary table showing the number of data records, number of qualified records, and percent completeness is created.  The \code{% Completeness} column shows cells as green or red if the required percentage of observations for completeness are present as specified in the data quality objectives file.  The \code{Hit/ Miss} column shows similar information but in text format, i.e., \code{MISS} is shown if the quality control standard for completeness is not met.
 #' 
@@ -42,7 +44,7 @@
 #' 
 #' tabMWRcom(res = resdat, frecom = frecomdat)
 #' 
-tabMWRcom <- function(res, frecom, runchk = TRUE, warn = TRUE, pass_col = '#57C4AD', fail_col = '#DB4325', digits = 0, suffix = '%', parameterwd = 1.15, noteswd = 3){
+tabMWRcom <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn = TRUE, pass_col = '#57C4AD', fail_col = '#DB4325', digits = 0, suffix = '%', parameterwd = 1.15, noteswd = 3){
 
   # table theme
   thm <- function(x, ...){
@@ -51,7 +53,7 @@ tabMWRcom <- function(res, frecom, runchk = TRUE, warn = TRUE, pass_col = '#57C4
   }
   
   # get completeness summary
-  res <- qcMWRcom(res = res, frecom = frecom, runchk = runchk, warn = warn)
+  res <- qcMWRcom(res = res, frecom = frecom, fset = fset, runchk = runchk, warn = warn)
 
   # get summary table
   totab <- res %>% 

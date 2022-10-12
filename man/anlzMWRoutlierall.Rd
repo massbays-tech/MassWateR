@@ -5,8 +5,9 @@
 \title{Analyze outliers in results file for all parameters}
 \usage{
 anlzMWRoutlierall(
-  res,
-  acc,
+  res = NULL,
+  acc = NULL,
+  fset = NULL,
   fig_height = 4,
   fig_width = 8,
   format = c("word", "png"),
@@ -31,6 +32,8 @@ anlzMWRoutlierall(
 \item{res}{character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}}
 
 \item{acc}{character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}}
+
+\item{fset}{optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, or \code{sit}, overrides the other arguments}
 
 \item{fig_height}{numeric for plot heights in inches}
 

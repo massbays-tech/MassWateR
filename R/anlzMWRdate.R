@@ -6,6 +6,7 @@
 #' @param param character string of the parameter to plot, must conform to entries in the \code{"Simple Parameter"} column of \code{\link{paramsMWR}}
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
 #' @param sit optional character string of path to the site metadata file or \code{data.frame} of site metadata returned by \code{\link{readMWRsites}}, required if \code{locgroup} is not \code{NULL} 
+#' @param fset optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, or \code{sit}, overrides the other arguments
 #' @param thresh character indicating if relevant freshwater or marine threshold lines are included, one of \code{"fresh"}, \code{"marine"}, or \code{"none"}, or a single numeric value to override the values included with the package
 #' @param group character indicating whether the results are grouped by site (default), combined across location groups, or combined across sites, see details
 #' @param threshlab optional character string indicating legend label for the threshold, required only if \code{thresh} is numeric
@@ -79,12 +80,12 @@
 #' # sites by location group (unspecified) averaged by group, requires sitdat
 #' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'locgroup', 
 #'      thresh = 'fresh')
-anlzMWRdate <- function(res, param, acc, sit = NULL, thresh, group = c('site', 'locgroup', 'all'), threshlab = NULL, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 2, repel = FALSE, labsize = 3, expand = c(0.05, 0.1), confint = FALSE, palcol = 'Set2', yscl = c('auto', 'log', 'linear'), colleg = FALSE, ttlsize = 1.2, runchk = TRUE, warn = TRUE){
+anlzMWRdate <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, thresh, group = c('site', 'locgroup', 'all'), threshlab = NULL, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 2, repel = FALSE, labsize = 3, expand = c(0.05, 0.1), confint = FALSE, palcol = 'Set2', yscl = c('auto', 'log', 'linear'), colleg = FALSE, ttlsize = 1.2, runchk = TRUE, warn = TRUE){
   
   group <- match.arg(group)
 
   # inputs
-  inp <- utilMWRinput(res = res, acc = acc, sit = sit, runchk = runchk, warn = warn)
+  inp <- utilMWRinput(res = res, acc = acc, sit = sit, fset = fset, runchk = runchk, warn = warn)
   
   # results data
   resdat <- inp$resdat 

@@ -5,9 +5,10 @@
 \title{Analyze outliers in results file}
 \usage{
 anlzMWRoutlier(
-  res,
+  res = NULL,
   param,
-  acc,
+  acc = NULL,
+  fset = NULL,
   type = c("box", "jitterbox", "jitter"),
   group,
   dtrng = NULL,
@@ -29,6 +30,8 @@ anlzMWRoutlier(
 \item{param}{character string of the parameter to plot, must conform to entries in the \code{"Simple Parameter"} column of \code{\link{paramsMWR}}}
 
 \item{acc}{character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}}
+
+\item{fset}{optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, or \code{sit}, overrides the other arguments}
 
 \item{type}{character indicating \code{"box"}, \code{"jitterbox"}, or \code{"jitter"}, see details}
 

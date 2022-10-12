@@ -5,8 +5,9 @@
 \title{Run quality control accuracy checks for water quality monitoring results}
 \usage{
 qcMWRacc(
-  res,
-  acc,
+  res = NULL,
+  acc = NULL,
+  fset = NULL,
   runchk = TRUE,
   warn = TRUE,
   accchk = c("Field Blanks", "Lab Blanks", "Field Duplicates", "Lab Duplicates",
@@ -18,6 +19,8 @@ qcMWRacc(
 \item{res}{character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}}
 
 \item{acc}{character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}}
+
+\item{fset}{optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, or \code{sit}, overrides the other arguments}
 
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}} and \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths}
 
@@ -34,7 +37,7 @@ The output shows the accuracy checks from the input files returned as a list, wi
 Run quality control accuracy checks for water quality monitoring results
 }
 \details{
-The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRacc}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly.
+The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRacc}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.
 
 Note that accuracy is only evaluated on parameters in the \code{Parameter} column in the data quality objectives accuracy file.  A warning is returned if there are parameters in \code{Parameter} in the accuracy file that are not in \code{Characteristic Name} in the results file.
 

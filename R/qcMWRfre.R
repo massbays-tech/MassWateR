@@ -2,10 +2,11 @@
 #'
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param frecom character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}
+#' @param fset optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, or \code{sit}, overrides the other arguments
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}} and \code{\link{checkMWRfrecom}}, applies only if \code{res} or \code{frecom} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
-#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly.
+#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.
 #' 
 #' Note that frequency is only evaluated on parameters in the \code{Parameter} column in the data quality objectives frequency and completeness file.  A warning is returned if there are parameters in \code{Parameter} in the frequency and completeness file that are not in \code{Characteristic Name} in the results file. 
 #' 
@@ -39,11 +40,11 @@
 #' 
 #' qcMWRfre(res = resdat, frecom = frecomdat)
 #' 
-qcMWRfre <- function(res, frecom, runchk = TRUE, warn = TRUE){
+qcMWRfre <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn = TRUE){
   
   ##
   # get user inputs
-  inp <- utilMWRinput(res = res, frecom = frecom, runchk = runchk, warn = warn)
+  inp <- utilMWRinput(res = res, frecom = frecom, fset = fset, runchk = runchk, warn = warn)
   resdat <- inp$resdat
   frecomdat <- inp$frecomdat
   

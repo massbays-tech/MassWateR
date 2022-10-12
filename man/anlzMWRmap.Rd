@@ -5,10 +5,11 @@
 \title{Analyze results with maps}
 \usage{
 anlzMWRmap(
-  res,
+  res = NULL,
   param,
-  acc,
-  sit,
+  acc = NULL,
+  sit = NULL,
+  fset = NULL,
   site = NULL,
   resultatt = NULL,
   locgroup = NULL,
@@ -41,6 +42,8 @@ anlzMWRmap(
 \item{acc}{character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}}
 
 \item{sit}{character string of path to the site metadata file or \code{data.frame} of site metadata returned by \code{\link{readMWRsites}}}
+
+\item{fset}{optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, or \code{sit}, overrides the other arguments}
 
 \item{site}{character string of sites to include, default all}
 

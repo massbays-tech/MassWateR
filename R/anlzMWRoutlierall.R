@@ -4,6 +4,7 @@
 #'
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
+#' @param fset optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, or \code{sit}, overrides the other arguments
 #' @param fig_height numeric for plot heights in inches
 #' @param fig_width numeric for plot width in inches
 #' @param format character string indicating if results are placed in a word file or as separate png files in \code{output_dir}
@@ -49,7 +50,7 @@
 #' # create png output
 #' anlzMWRoutlierall(resdat, accdat, group = 'month', format = 'png', output_dir = getwd())
 #' }
-anlzMWRoutlierall <- function(res, acc, fig_height = 4, fig_width = 8, format = c('word' ,'png'), output_dir = NULL, output_file = NULL, type = c('box', 'jitterbox', 'jitter'), group, dtrng = NULL, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), ttlsize = 1.2, runchk = TRUE, warn = TRUE){
+anlzMWRoutlierall <- function(res = NULL, acc = NULL, fset = NULL, fig_height = 4, fig_width = 8, format = c('word' ,'png'), output_dir = NULL, output_file = NULL, type = c('box', 'jitterbox', 'jitter'), group, dtrng = NULL, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), ttlsize = 1.2, runchk = TRUE, warn = TRUE){
   
   format <- match.arg(format)
   
@@ -58,7 +59,7 @@ anlzMWRoutlierall <- function(res, acc, fig_height = 4, fig_width = 8, format = 
     output_dir <- getwd()
   
   # inputs
-  inp <- utilMWRinput(res = res, acc = acc, runchk = runchk, warn = warn)
+  inp <- utilMWRinput(res = res, acc = acc, fset = fset, runchk = runchk, warn = warn)
   resdat <- inp$resdat
   accdat <- inp$accdat
   
