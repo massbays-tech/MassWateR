@@ -13,11 +13,6 @@ test_that("Checking fset input", {
   expect_type(result, 'list')
 })
 
-test_that("Checking  NULL inputs for all", {
-  result <- utilMWRinput()
-  expect_type(result, 'list')
-})
-
 test_that("Checking missing file for path for res", {
   expect_error(utilMWRinput(res = '~/test'))
 })
