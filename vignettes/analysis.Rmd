@@ -276,10 +276,10 @@ The color palette for the average values can also be changed.  Any palette from 
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, palcol = "Spectral", warn = F)
 ```
 
-The buffered distance around the points can be increased uzing the `buffdist` argument. 
+The buffered distance around the points can be increased using the `buffdist` argument (in kilometers). 
 
 ```{r, fig.height = 7, fig.width = 7}
-anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, buffdist = 0.3, warn = F)
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, buffdist = 20, warn = F)
 ```
 
 A base map can be included as well using the `maptype` argument. Options include any stamen map as `"terrain"`, `"terrain-background"` (default), `"terrain-labels"`, `"terrain-lines"`, `"toner"`, `"toner-2010"`, `"toner-2011"`, `"toner-background"`, `"toner-hybrid"`, `"toner-labels"`, `"toner-lines"`, `"toner-lite"`, or `"watercolor"`.  The `zoom` argument can be helpful when using a basemap. The default `zoom` argument is set to 11 and decreasing the number will download a base map with lower resolution.  This can decrease map processing times for large areas.

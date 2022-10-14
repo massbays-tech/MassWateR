@@ -25,7 +25,7 @@ anlzMWRmap(
   watercol = "lightblue",
   dLevel = "medium",
   maptype = NULL,
-  buffdist = 0.02,
+  buffdist = 2,
   northloc = "tl",
   scaleloc = "br",
   latlon = TRUE,
@@ -110,7 +110,7 @@ Using \code{addwater = "osm"} will include lines and polygons of natural water b
 
 A base map can be plotted using the \code{maptype} argument and is obtained from the \code{\link[ggmap]{get_stamenmap}} function of ggmap.  The \code{zoom} value specifies the resolution of the map.  Use higher values to download map tiles with greater resolution, although this increases the download time.  The \code{maptype} argument describes the type of base map to download. Acceptable options include \code{"terrain"}, \code{"terrain-background"}, \code{"terrain-labels"}, \code{"terrain-lines"}, \code{"toner"}, \code{"toner-2010"}, \code{"toner-2011"}, \code{"toner-background"}, \code{"toner-hybrid"}, \code{"toner-labels"}, \code{"toner-lines"}, \code{"toner-lite"}, or \code{"watercolor"}. Use \code{maptype = NULL} to suppress the base map.
 
-The area around the summarized points can be increased or decreased using the \code{buffdist} argument.  This creates a buffered area around the bounding box for the points, where the units are degrees.
+The area around the summarized points can be increased or decreased using the \code{buffdist} argument.  This creates a buffered area around the bounding box for the points, where the units are kilometers.
 
 A north arrow and scale bar are also placed on the map as defined by the \code{northloc} and \code{scaleloc} arguments.  The placement for both can be chosen as \code{"tl"}, \code{"tr"}, \code{"bl"}, or \code{"br"} for top-left, top-right, bottom-left, or bottom-right respectively.  Setting either of the arguments to \code{NULL} will suppress the placement on the map.
 }

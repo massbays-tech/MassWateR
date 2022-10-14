@@ -46,7 +46,7 @@
 #' 
 #' A base map can be plotted using the \code{maptype} argument and is obtained from the \code{\link[ggmap]{get_stamenmap}} function of ggmap.  The \code{zoom} value specifies the resolution of the map.  Use higher values to download map tiles with greater resolution, although this increases the download time.  The \code{maptype} argument describes the type of base map to download. Acceptable options include \code{"terrain"}, \code{"terrain-background"}, \code{"terrain-labels"}, \code{"terrain-lines"}, \code{"toner"}, \code{"toner-2010"}, \code{"toner-2011"}, \code{"toner-background"}, \code{"toner-hybrid"}, \code{"toner-labels"}, \code{"toner-lines"}, \code{"toner-lite"}, or \code{"watercolor"}. Use \code{maptype = NULL} to suppress the base map.
 #' 
-#' The area around the summarized points can be increased or decreased using the \code{buffdist} argument.  This creates a buffered area around the bounding box for the points, where the units are degrees.  
+#' The area around the summarized points can be increased or decreased using the \code{buffdist} argument.  This creates a buffered area around the bounding box for the points, where the units are kilometers.  
 #' 
 #' A north arrow and scale bar are also placed on the map as defined by the \code{northloc} and \code{scaleloc} arguments.  The placement for both can be chosen as \code{"tl"}, \code{"tr"}, \code{"bl"}, or \code{"br"} for top-left, top-right, bottom-left, or bottom-right respectively.  Setting either of the arguments to \code{NULL} will suppress the placement on the map.  
 #'  
@@ -79,7 +79,7 @@
 #' anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, maptype = 'terrain', 
 #'   addwater = NULL)
 #'
-anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', yscl = c('auto', 'log', 'linear'), crs = 4326, zoom = 11, addwater = "nhd", watercol = 'lightblue', dLevel = 'medium', maptype = NULL, buffdist = 0.02, northloc = 'tl', scaleloc = 'br', latlon = TRUE, ttlsize = 1.2, runchk = TRUE, warn = TRUE){
+anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', yscl = c('auto', 'log', 'linear'), crs = 4326, zoom = 11, addwater = "nhd", watercol = 'lightblue', dLevel = 'medium', maptype = NULL, buffdist = 2, northloc = 'tl', scaleloc = 'br', latlon = TRUE, ttlsize = 1.2, runchk = TRUE, warn = TRUE){
   
   # if(!requireNamespace('ggmap', quietly = TRUE))
   #   stop("Package \"ggmap\" needed for this function to work. Please install it.", call. = FALSE)
@@ -131,11 +131,11 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
     warning('No spatial information for sites: ', paste(msg, collapse = ', '))
     
   }
-  
+
   tomap <- tomap %>% 
     dplyr::filter(!naloc) %>% 
     sf::st_as_sf(coords = c('Monitoring Location Longitude', 'Monitoring Location Latitude'), crs = crs) %>% 
-    sf::st_transform(crs = 4326) %>% 
+    sf::st_transform(crs = 26986) %>% 
     sf::st_zm()
 
   # layer extent as bbox plus buffer
@@ -143,13 +143,15 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
     dat_ext <- tomap %>% 
       sf::st_bbox() %>% 
       sf::st_as_sfc() %>% 
-      sf::st_buffer(dist = units::set_units(buffdist, degree)) %>%
+      sf::st_buffer(dist = units::set_units(buffdist, kilometer)) %>%
+      sf::st_transform(crs = 4326) %>% 
       sf::st_bbox() %>% 
       unname
   if(nrow(tomap) == 1)
     dat_ext <- tomap %>% 
       sf::st_as_sfc() %>% 
-      sf::st_buffer(dist = units::set_units(buffdist, degree)) %>%
+      sf::st_buffer(dist = units::set_units(buffdist, kilometer)) %>%
+      sf::st_transform(crs = 4326) %>% 
       sf::st_bbox() %>% 
       unname
   
@@ -159,7 +161,7 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
   m <- ggplot2::ggplot()
 
   if(!is.null(maptype)){
-    
+
     bsmap <- suppressMessages(ggmap::get_stamenmap(bbox = dat_ext, maptype = maptype, zoom = zoom))
     m <- ggmap::ggmap(bsmap)
     
@@ -188,21 +190,25 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
       }
   
       if(!is.null(wat_sf$osm_lines))
-        m <- m + 
-          ggplot2::geom_sf(data = wat_sf$osm_lines, col = watercol, fill = watercol, inherit.aes = FALSE) 
-      
+        suppressMessages({
+          m <- m + 
+            ggplot2::geom_sf(data = wat_sf$osm_lines, col = watercol, fill = watercol, inherit.aes = FALSE) 
+        })
       if(!is.null(wat_sf$osm_polygons))
-        m <- m +
-          ggplot2::geom_sf(data = wat_sf$osm_polygons, col = watercol, fill = watercol, inherit.aes = FALSE) 
-      
+        suppressMessages({
+          m <- m +
+            ggplot2::geom_sf(data = wat_sf$osm_polygons, col = watercol, fill = watercol, inherit.aes = FALSE) 
+        })
       if(!is.null(wat_sf$osm_multilines))
-        m <- m + 
-          ggplot2::geom_sf(data = wat_sf$osm_multilines, col = watercol, fill = watercol, inherit.aes = FALSE)
-      
+        suppressMessages({
+          m <- m + 
+            ggplot2::geom_sf(data = wat_sf$osm_multilines, col = watercol, fill = watercol, inherit.aes = FALSE)
+        })
       if(!is.null(wat_sf$osm_multipolygons))
-        m <- m + 
-          ggplot2::geom_sf(data = wat_sf$osm_multipolygons, col = watercol, fill = watercol, inherit.aes = FALSE) 
-      
+        suppressMessages({
+          m <- m + 
+            ggplot2::geom_sf(data = wat_sf$osm_multipolygons, col = watercol, fill = watercol, inherit.aes = FALSE) 
+        })
     }
     
     if(addwater == 'nhd'){
@@ -210,30 +216,42 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
       dLevel <- match.arg(dLevel, choices = c('low', 'medium', 'high'))
       dtl <- list('low' = 'low', 'medium' = c('low', 'medium'), 'high' = c('low', 'medium', 'high'))
       dtl <- dtl[[dLevel]]
+   
+      dat_ext <- dat_ext %>% 
+        sf::st_as_sfc() %>% 
+        sf::st_transform(crs = 26986) %>% 
+        sf::st_bbox()
       
       streamscrop <- suppressWarnings({streamsMWR %>% 
         dplyr::filter(dLevel %in% dtl) %>% 
-        sf::st_crop(dat_ext)
+        sf::st_crop(dat_ext) %>% 
+        sf::st_transform(crs = 4326)
       })
       riverscrop <- suppressWarnings({riversMWR %>% 
         dplyr::filter(dLevel %in% dtl) %>% 
-        sf::st_crop(dat_ext)
+        sf::st_crop(dat_ext) %>% 
+        sf::st_transform(crs = 4326)
       })
       pondscrop <- suppressWarnings({pondsMWR %>% 
         dplyr::filter(dLevel %in% dtl) %>% 
-        sf::st_crop(dat_ext)
+        sf::st_crop(dat_ext) %>% 
+        sf::st_transform(crs = 4326)
         })
-      
-      m <- m +
-        ggplot2::geom_sf(data = streamscrop, col = watercol, fill = watercol, inherit.aes = FALSE) +
-        ggplot2::geom_sf(data = riverscrop, col = watercol, fill = watercol, inherit.aes = FALSE) +
-        ggplot2::geom_sf(data = pondscrop, col = watercol, fill = watercol, inherit.aes = FALSE)
+    
+      suppressMessages({
+        m <- m +
+          ggplot2::geom_sf(data = streamscrop, col = watercol, fill = watercol, inherit.aes = FALSE) +
+          ggplot2::geom_sf(data = riverscrop, col = watercol, fill = watercol, inherit.aes = FALSE) +
+          ggplot2::geom_sf(data = pondscrop, col = watercol, fill = watercol, inherit.aes = FALSE)
+      })
       
     }
     
   }
+  
+  tomap <- tomap %>% 
+    sf::st_transform(crs = 4326)
 
-  suppressMessages({
     m <-  m +
       ggplot2::geom_sf(data = tomap, ggplot2::aes(fill = `Result Value`), color = 'black', pch = 21, inherit.aes = F, size = ptsize) +
       ggplot2::scale_fill_distiller(name = ylab, palette = palcol, direction = 1) +
@@ -249,7 +267,6 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
       ggplot2::labs(
         title = ttl
       ) 
-  })
 
   if(!is.null(scaleloc))
     m <- m +
@@ -265,8 +282,10 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
       ggrepel::geom_text_repel(data = tomap, ggplot2::aes(label = `Monitoring Location ID`, geometry = geometry), stat = 'sf_coordinates', inherit.aes = F, size = labsize)
 
   if(!repel & !is.null(labsize))
-    m <- m  +
+    suppressWarnings({
+      m <- m  +
       ggplot2::geom_sf_text(data = tomap, ggplot2::aes(label = `Monitoring Location ID`), inherit.aes = F, size = labsize)
+    })
 
   if(!latlon)
     m <- m + 
@@ -275,6 +294,11 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
         axis.text.y = ggplot2::element_blank(),
         axis.ticks = ggplot2::element_blank()
       )
+  
+  dat_ext <- dat_ext %>% 
+    sf::st_as_sfc(dat_ext) %>% 
+    sf::st_transform(crs = 4326) %>% 
+    sf::st_bbox()
   
   # set coordinates because vector not clipped
   m <- m +

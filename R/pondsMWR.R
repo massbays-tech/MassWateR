@@ -14,7 +14,7 @@
 #' pondsMWR <- st_read('~/Desktop/NHD/NHDWaterbody_ftype_390-493_vis_101k_noattr.shp') %>% 
 #'  st_make_valid() %>% 
 #'  st_simplify(dTolerance = 10, preserveTopology = TRUE) %>% 
-#'  st_transform(crs = 4326) %>% 
+#'  # st_transform(crs = 4326) %>% 
 #'  select(dLevel)
 #' 
 #' save(pondsMWR, file = 'data/pondsMWR.RData', compress = 'xz')
