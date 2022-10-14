@@ -49,7 +49,7 @@
 #' # create report in working directory
 #' qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat)
 #' }
-qcMWRreview <- function(res, acc, frecom, fset = NULL, output_dir = NULL, output_file = NULL, rawdata = TRUE, dqofontsize = 7.5, tabfontsize = 9, padding = 0, warn = TRUE, runchk = TRUE) {
+qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, output_dir = NULL, output_file = NULL, rawdata = TRUE, dqofontsize = 7.5, tabfontsize = 9, padding = 0, warn = TRUE, runchk = TRUE) {
 
   # rmd template
   qcreview <- system.file('rmd', 'qcreview.Rmd', package = 'MassWateR')

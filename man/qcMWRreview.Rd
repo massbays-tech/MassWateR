@@ -5,9 +5,9 @@
 \title{Create the quality control review report}
 \usage{
 qcMWRreview(
-  res,
-  acc,
-  frecom,
+  res = NULL,
+  acc = NULL,
+  frecom = NULL,
   fset = NULL,
   output_dir = NULL,
   output_file = NULL,
