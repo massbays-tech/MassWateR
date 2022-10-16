@@ -18,6 +18,6 @@
 #'   ) %>% 
 #'   mutate_if(is.numeric, round, 2)
 #' 
-#' save(thresholdMWR, file = 'data/threhsoldMWR.RData', compress = 'xz')
+#' save(thresholdMWR, file = 'data/thresholdMWR.RData', compress = 'xz')
 #' }
 "thresholdMWR"
