@@ -78,6 +78,7 @@ reference:
   - utilMWRconfint
   - utilMWRfilter
   - utilMWRinput
+  - utilMWRinputcheck
   - utilMWRlimits
   - utilMWRthresh
   - utilMWRtitle
