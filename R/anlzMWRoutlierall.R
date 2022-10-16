@@ -52,6 +52,8 @@
 #' }
 anlzMWRoutlierall <- function(res = NULL, acc = NULL, fset = NULL, fig_height = 4, fig_width = 8, format = c('word' ,'png'), output_dir = NULL, output_file = NULL, type = c('box', 'jitterbox', 'jitter'), group, dtrng = NULL, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), ttlsize = 1.2, runchk = TRUE, warn = TRUE){
   
+  utilMWRinputcheck(mget(ls()))
+  
   format <- match.arg(format)
   
   # default output directory is working directory

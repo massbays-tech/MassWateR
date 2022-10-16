@@ -46,6 +46,8 @@
 #' 
 tabMWRcom <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn = TRUE, pass_col = '#57C4AD', fail_col = '#DB4325', digits = 0, suffix = '%', parameterwd = 1.15, noteswd = 3){
 
+  utilMWRinputcheck(mget(ls()))
+  
   # table theme
   thm <- function(x, ...){
     x <- flextable::colformat_double(x, digits = digits, na_str = '-', suffix = suffix)

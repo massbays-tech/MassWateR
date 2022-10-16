@@ -43,6 +43,8 @@
 #' 
 qcMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks'), suffix = '%'){
   
+  utilMWRinputcheck(mget(ls()))
+  
   colsym <- c('<=', '<', '>=', '>', '\u00b1', '\u2265', '\u2264', '%', 'AQL', 'BDL', 'log', 'all')
   
   ##

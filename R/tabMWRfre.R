@@ -53,6 +53,8 @@
 #' tabMWRfre(res = resdat, frecom = frecomdat, type = 'percent')
 tabMWRfre <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn = TRUE, type = c('summary', 'percent'), pass_col = '#57C4AD', fail_col = '#DB4325', digits = 0, suffix = '%'){
   
+  utilMWRinputcheck(mget(ls()))
+  
   type <- match.arg(type)
   
   # get frequency summary

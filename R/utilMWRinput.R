@@ -83,10 +83,12 @@ utilMWRinput <- function(res = NULL, acc = NULL, frecom = NULL, sit = NULL, fset
   ##
   # fset argument for list of files inputs
   if(!is.null(fset)){
+    
     res <- fset$res
     acc <- fset$acc
     frecom <- fset$frecom
     sit <- fset$sit
+  
   }
   
   ##

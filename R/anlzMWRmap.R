@@ -84,6 +84,8 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
   # if(!requireNamespace('ggmap', quietly = TRUE))
   #   stop("Package \"ggmap\" needed for this function to work. Please install it.", call. = FALSE)
   
+  utilMWRinputcheck(mget(ls()))
+  
   # inputs
   inp <- utilMWRinput(res = res, acc = acc, sit = sit, fset = fset, runchk = F, warn = warn)
   

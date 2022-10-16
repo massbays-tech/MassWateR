@@ -42,6 +42,8 @@
 #' 
 qcMWRcom <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn = TRUE){
   
+  utilMWRinputcheck(mget(ls()))
+  
   ##
   # get user inputs
   inp <- utilMWRinput(res = res, frecom = frecom, fset = fset, runchk = runchk, warn = warn)
