@@ -41,6 +41,7 @@ Imports:
   ggspatial,
   lubridate, 
   osmdata,
+  RColorBrewer, 
   readxl,
   sf,
   tidyr, 

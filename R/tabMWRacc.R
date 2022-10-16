@@ -72,7 +72,14 @@
 #' tabMWRacc(res = resdat, acc = accdat, type = 'percent', frecom = frecomdat)
 tabMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks'), type = c('individual', 'summary', 'percent'), pass_col = '#57C4AD', fail_col = '#DB4325', frecom = NULL, suffix = '%', caption = TRUE){
   
-  utilMWRinputcheck(mget(ls()))
+  if(type == 'individual'){
+    chkin <- mget(ls())
+    chkin <- chkin[!names(chkin) %in% 'frecom']
+    utilMWRinputcheck(chkin)
+  }
+  
+  if(type != 'individual')
+    utilMWRinputcheck(mget(ls()))
   
   type <- match.arg(type)
   

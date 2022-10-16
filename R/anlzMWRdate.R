@@ -40,7 +40,8 @@
 #' Any entries in \code{resdat} in the \code{"Result Value"} column as \code{"BDL"} or \code{"AQL"} are replaced with appropriate values in the \code{"Quantitation Limit"} column, if present, otherwise the \code{"MDL"} or \code{"UQL"} columns from the data quality objectives file for accuracy are used.  Values as \code{"BDL"} use one half of the appropriate limit.
 #' 
 #' @export
-#'
+#' @import RColorBrewer
+
 #' @examples
 #' # results data path
 #' respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
@@ -164,6 +165,8 @@ anlzMWRdate <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
       dplyr::filter(`Activity Start Date` == max(`Activity Start Date`)) %>% 
       dplyr::select(`Monitoring Location ID`, `Activity Start Date`, `Result Value`)
 
+    ncol <- nrow(sitelb)
+    
     p <- p +
       ggplot2::geom_line(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`, color = `Monitoring Location ID`), show.legend = FALSE) + 
       ggplot2::geom_point(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`, color = `Monitoring Location ID`), size = ptsize, show.legend = colleg)
@@ -181,6 +184,16 @@ anlzMWRdate <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
           na.rm = T, size = labsize, hjust = 0, nudge_x = 3, show.legend = FALSE) + 
         ggplot2::scale_x_date(expand = ggplot2::expansion(mult = expand))
       
+    # add color palette
+    maxcol <- brewer.pal.info[palcol, 'maxcolors']
+    if(is.na(maxcol))
+      maxcol <- 3
+    if(maxcol >= ncol)
+      maxcol <- pmax(3, ncol)
+    cols <- grDevices::colorRampPalette(brewer.pal(n = maxcol, name = palcol))(ncol)
+    p <- p + 
+      ggplot2::scale_color_manual(values = cols)
+    
   }
   
   if(group == 'locgroup'){
@@ -196,6 +209,8 @@ anlzMWRdate <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
       dplyr::group_by(`Location Group`) %>% 
       dplyr::filter(`Activity Start Date` == max(`Activity Start Date`)) %>% 
       dplyr::select(`Location Group`, `Activity Start Date`, `Result Value`)
+    
+    ncol <- nrow(grplb)
     
     p <- p +
       ggplot2::geom_line(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Location Group`, color = `Location Group`), show.legend = FALSE) + 
@@ -217,6 +232,16 @@ anlzMWRdate <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
     if(confint)
       p <- p + 
        ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Activity Start Date`, ymin = lov, ymax = hiv, group = `Location Group`, color = `Location Group`), width = 1, show.legend = colleg)
+    
+    # add color palette
+    maxcol <- brewer.pal.info[palcol, 'maxcolors']
+    if(is.na(maxcol))
+      maxcol <- 3
+    if(maxcol >= ncol)
+      maxcol <- pmax(3, ncol)
+    cols <- grDevices::colorRampPalette(brewer.pal(n = maxcol, name = palcol))(ncol)
+    p <- p + 
+      ggplot2::scale_color_manual(values = cols)
     
   }
   
@@ -242,8 +267,7 @@ anlzMWRdate <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
   if(logscl)
     p <- p + ggplot2::scale_y_log10()
 
-  p <- p +  
-    ggplot2::scale_color_brewer(palette = palcol) + 
+  p <- p +
     thm +
     ggplot2::guides(
       linetype = ggplot2::guide_legend(order = 1, override.aes = list(shape = NA)),
