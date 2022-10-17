@@ -39,6 +39,7 @@ Imports:
   ggplot2,
   ggrepel,
   ggspatial,
+  knitr,
   lubridate, 
   osmdata,
   RColorBrewer, 
@@ -57,7 +58,6 @@ BugReports: https://github.com/massbays-tech/MassWateR/issues
 LazyData: true
 LazyDataCompression: xz
 Suggests: 
-    knitr,
     covr,
     testthat (>= 3.0.0),
     rmarkdown

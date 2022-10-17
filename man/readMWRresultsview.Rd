@@ -2,23 +2,35 @@
 % Please edit documentation in R/readMWRresultsview.R
 \name{readMWRresultsview}
 \alias{readMWRresultsview}
-\title{Create summary views of the water quality monitoring results}
+\title{Create summary PDF of the water quality monitoring results}
 \usage{
-readMWRresultsview(respth, columns = NULL)
+readMWRresultsview(
+  respth,
+  columns = NULL,
+  output_dir = NULL,
+  output_file = NULL,
+  maxlen = 8
+)
 }
 \arguments{
 \item{respth}{character string of path to the results file}
 
 \item{columns}{character string indicating which columns to view, defaults to all}
+
+\item{output_dir}{character string of the output directory for the rendered file, default is the working directory}
+
+\item{output_file}{optional character string for the file name}
+
+\item{maxlen}{numeric to truncate numeric values to the specified length}
 }
 \value{
-Data viewers (from \code{\link[utils]{View}}) for the selected columns, one per column showing the unique values in the column.
+Creates a PDF at the location specified by \code{output_dir}, defaults to working directory if none specified. Each column shows the unique values.
 }
 \description{
-Create summary views of unique values in columns in the water quality monitoring results to troubleshoot checks with \code{\link{readMWRresults}}
+Create summary PDF of unique values in columns in the water quality monitoring results to troubleshoot checks with \code{\link{readMWRresults}}
 }
 \details{
-Acceptable options for the \code{columns} argument include any of the column names in the results file. The default setting (\code{NULL}) will open data viewers for every column in the results file (fourteen windows total).
+Acceptable options for the \code{columns} argument include any of the column names in the results file. The default setting (\code{NULL}) will show every column in the results file.
 
 The output of this function can be useful to troubleshoot the checks when importing the water quality monitoring result file with \code{readMWRresults} (see \href{https://massbays-tech.github.io/MassWateR/articles/MassWateR.html#data-import-and-checks}{https://massbays-tech.github.io/MassWateR/articles/MassWateR.html#data-import-and-checks}).
 }
