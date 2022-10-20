@@ -1,14 +1,14 @@
-#' Create summary PDF of the water quality monitoring results
+#' Create summary spreadsheet of the water quality monitoring results
 #'
-#' Create summary PDF of unique values in columns in the water quality monitoring results to troubleshoot checks with \code{\link{readMWRresults}}
+#' Create summary spreadhseet of unique values in columns in the water quality monitoring results to troubleshoot checks with \code{\link{readMWRresults}}
 #' 
 #' @param respth character string of path to the results file
 #' @param columns character string indicating which columns to view, defaults to all
 #' @param output_dir character string of the output directory for the rendered file, default is the working directory
-#' @param output_file optional character string for the file name
+#' @param output_file optional character string for the name of the .csv file output, must include the file extension
 #' @param maxlen numeric to truncate numeric values to the specified length
 #'
-#' @return Creates a PDF at the location specified by \code{output_dir}, defaults to working directory if none specified. Each column shows the unique values.
+#' @return Creates a spreadsheet at the location specified by \code{output_dir}, defaults to working directory if none specified. Each column shows the unique values.
 #' 
 #' @details Acceptable options for the \code{columns} argument include any of the column names in the results file. The default setting (\code{NULL}) will show every column in the results file.
 #' 
@@ -74,27 +74,19 @@ readMWRresultsview <- function(respth, columns = NULL, output_dir = NULL, output
   resultsviewtab <- data.frame(lapply(out, `length<-`, max(lengths(out))))
   names(resultsviewtab) <- names(out)
 
-  # rmd template
-  resultsview <- system.file('rmd', 'resultsview.Rmd', package = 'MassWateR')
-
   # default output directory is working directory
   if(is.null(output_dir))
     output_dir <- getwd()
   
-  suppressMessages(rmarkdown::render(
-    input = resultsview,
-    output_dir = output_dir, 
-    output_file = output_file, 
-    params = list(
-      resultsviewtab = resultsviewtab
-    ), 
-    quiet = TRUE
-  ))
-  
+  # default output file name
   if(is.null(output_file))
-    output_file <- gsub('\\.Rmd$', '.pdf', basename(resultsview))
+    output_file <- 'resultsview.csv'
+
+  # save file
+  write.csv(resultsviewtab, file = paste(output_dir, output_file, sep = '/'), row.names = FALSE , na = '')
+  
   file_loc <- list.files(path = output_dir, pattern = output_file, full.names = TRUE)
-  msg <- paste("PDF created successfully! File located at", file_loc)
+  msg <- paste("csv created successfully! File located at", file_loc)
   message(msg)
 
 }

@@ -1,6 +1,6 @@
 test_that("Verifying message output for report creation", {
   expect_message(readMWRresultsview(respth, columns = 'Characteristic Name'))
-  file.remove(file.path(getwd(), 'resultsview.pdf'))
+  file.remove(file.path(getwd(), 'resultsview.csv'))
 })
 
 

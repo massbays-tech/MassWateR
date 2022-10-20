@@ -2,7 +2,7 @@
 % Please edit documentation in R/readMWRresultsview.R
 \name{readMWRresultsview}
 \alias{readMWRresultsview}
-\title{Create summary PDF of the water quality monitoring results}
+\title{Create summary spreadsheet of the water quality monitoring results}
 \usage{
 readMWRresultsview(
   respth,
@@ -19,15 +19,15 @@ readMWRresultsview(
 
 \item{output_dir}{character string of the output directory for the rendered file, default is the working directory}
 
-\item{output_file}{optional character string for the file name}
+\item{output_file}{optional character string for the name of the .csv file output, must include the file extension}
 
 \item{maxlen}{numeric to truncate numeric values to the specified length}
 }
 \value{
-Creates a PDF at the location specified by \code{output_dir}, defaults to working directory if none specified. Each column shows the unique values.
+Creates a spreadsheet at the location specified by \code{output_dir}, defaults to working directory if none specified. Each column shows the unique values.
 }
 \description{
-Create summary PDF of unique values in columns in the water quality monitoring results to troubleshoot checks with \code{\link{readMWRresults}}
+Create summary spreadhseet of unique values in columns in the water quality monitoring results to troubleshoot checks with \code{\link{readMWRresults}}
 }
 \details{
 Acceptable options for the \code{columns} argument include any of the column names in the results file. The default setting (\code{NULL}) will show every column in the results file.
