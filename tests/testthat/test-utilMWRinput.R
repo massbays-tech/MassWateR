@@ -29,7 +29,3 @@ test_that("Checking missing file for path for sit", {
   expect_error(utilMWRinput(sit = '~/test'))
 })
 
-test_that("Checking NULL entries for all relevant input", {
-  expect_error(utilMWRinput(res = NULL, acc = NULL, frecom = NULL, fset = NULL))
-})
-
