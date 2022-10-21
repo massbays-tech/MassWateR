@@ -90,7 +90,7 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
   inp <- utilMWRinput(res = res, acc = acc, sit = sit, fset = fset, runchk = F, warn = warn)
   
   # results data
-  resdat <- inp$resdat 
+  resdat <- utilMWRfiltersurface(inp$resdat) 
   
   # accuracy data
   accdat <- inp$accdat

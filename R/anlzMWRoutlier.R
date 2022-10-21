@@ -78,7 +78,7 @@ anlzMWRoutlier <- function(res = NULL, param, acc = NULL, fset = NULL, type = c(
   inp <- utilMWRinput(res = res, acc = acc, fset = fset, runchk = runchk, warn = warn)
   
   # results data
-  resdat <- inp$resdat 
+  resdat <- utilMWRfiltersurface(inp$resdat)
 
   # accuracy data
   accdat <- inp$accdat
