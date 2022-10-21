@@ -75,11 +75,6 @@
 #' utilMWRinput(fset = fset)
 utilMWRinput <- function(res = NULL, acc = NULL, frecom = NULL, sit = NULL, fset = NULL, runchk = TRUE, warn = TRUE){
   
-  # error if no input data
-  if(is.null(res) & is.null(acc) & is.null(frecom) & is.null(fset)){
-    stop('No input data defined')
-  }
-  
   ##
   # fset argument for list of files inputs
   if(!is.null(fset)){
@@ -159,7 +154,7 @@ utilMWRinput <- function(res = NULL, acc = NULL, frecom = NULL, sit = NULL, fset
 
   ##
   # site data
-  
+
   # data frame
   if(inherits(sit, 'data.frame'))
     sitdat <- sit

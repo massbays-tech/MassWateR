@@ -209,7 +209,7 @@ anlzMWRdate <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
       dplyr::group_by(`Location Group`) %>% 
       dplyr::filter(`Activity Start Date` == max(`Activity Start Date`)) %>% 
       dplyr::select(`Location Group`, `Activity Start Date`, `Result Value`)
-    
+
     ncol <- nrow(grplb)
     
     p <- p +

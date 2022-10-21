@@ -132,9 +132,6 @@ tabMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn =
   
   if(type %in% c('summary', 'percent')){
     
-    if(is.null(frecom))
-      stop('frecom needed for type = "summary" or type = "percent"')
-    
     # get frecomdat, checks should follow runchk since not done above
     frecomdat <- utilMWRinput(frecom = frecom, runchk = runchk, warn = warn)$frecomdat
     
