@@ -49,7 +49,7 @@ checkMWRresults <- function(resdat, warn = TRUE){
   acttyp <- c("Field Msr/Obs", "Sample-Routine", "Quality Control Sample-Field Blank", 
               "Quality Control Sample-Lab Blank", "Quality Control Sample-Lab Duplicate", 
               "Quality Control Sample-Lab Spike", "Quality Control Field Calibration Check")
-  dpstyp <- c('Surface', 'Bottom', 'Midwater', 'Bottom', NA)
+  dpstyp <- c('Surface', 'Bottom', 'Midwater', NA)
   chntyp <- sort(unique(c(paramsMWR$`Simple Parameter`, paramsMWR$`WQX Parameter`)))
   unityp <- c('ft', 'm')
   restyp <- c('AQL', 'BDL')
@@ -136,6 +136,8 @@ checkMWRresults <- function(resdat, warn = TRUE){
   # check for depth out of range
   msg <- '\tChecking values in Activity Depth/Height Measure > 1 m / 3.3 ft...'
   typ <- resdat[, c('Activity Depth/Height Measure', 'Activity Depth/Height Unit', 'Activity Relative Depth Name')]
+  typ <- typ %>%
+    dplyr::filter(!`Activity Relative Depth Name` %in% c('Bottom', 'MidWater'))
   typft <- as.numeric(typ$`Activity Depth/Height Measure`) > 3.3 & typ$`Activity Depth/Height Unit` == 'ft' & (is.na(typ$`Activity Relative Depth Name`) | typ$`Activity Relative Depth Name` != 'Surface')
   typm <- as.numeric(typ$`Activity Depth/Height Measure`) > 1 & typ$`Activity Depth/Height Unit` == 'm' & (is.na(typ$`Activity Relative Depth Name`) | typ$`Activity Relative Depth Name` != 'Surface')
   chk <- typm | typft
