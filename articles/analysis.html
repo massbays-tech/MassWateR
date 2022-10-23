@@ -304,7 +304,42 @@
 <p>Using <code>addwater = "osm"</code> will include lines and polygons of natural water bodies from the OpenStreetMap (<a href="https://www.openstreetmap.org/" class="external-link">OSM</a>) project, downloaded using the <a href="https://docs.ropensci.org/osmdata" class="external-link">osmdata</a> package. Using <code>addwater = "nhd"</code> may be preferred for more accurate display of water bodies in Massachusetts, whereas <code>addwater = "osm"</code> will include water bodies outside of the state. Use <code>addwater = NULL</code> to suppress both.</p>
 <p>Using <code>addwater = "osm"</code> (warnings suppressed):</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, addwater <span class="op">=</span> <span class="st">"osm"</span>, warn <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, addwater <span class="op">=</span> <span class="st">"osm"</span>, warn <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in CPL_transform(x, crs, aoi, pipeline, reverse, desired_accuracy, :</span></span>
+<span><span class="co">#&gt; GDAL Error 1: PROJ: proj_as_wkt: DatumEnsemble can only be exported to WKT2:2019</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in CPL_transform(x, crs, aoi, pipeline, reverse, desired_accuracy, :</span></span>
+<span><span class="co">#&gt; GDAL Error 1: PROJ: proj_as_wkt: DatumEnsemble can only be exported to WKT2:2019</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in CPL_transform(x, crs, aoi, pipeline, reverse, desired_accuracy, :</span></span>
+<span><span class="co">#&gt; GDAL Error 1: PROJ: proj_as_wkt: DatumEnsemble can only be exported to WKT2:2019</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in CPL_transform(x, crs, aoi, pipeline, reverse, desired_accuracy, :</span></span>
+<span><span class="co">#&gt; GDAL Error 1: PROJ: proj_as_wkt: DatumEnsemble can only be exported to WKT2:2019</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in CPL_transform(x, crs, aoi, pipeline, reverse, desired_accuracy, :</span></span>
+<span><span class="co">#&gt; GDAL Error 1: PROJ: proj_as_wkt: DatumEnsemble can only be exported to WKT2:2019</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in CPL_transform(x, crs, aoi, pipeline, reverse, desired_accuracy, :</span></span>
+<span><span class="co">#&gt; GDAL Error 1: PROJ: proj_as_wkt: DatumEnsemble can only be exported to WKT2:2019</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in CPL_transform(x, crs, aoi, pipeline, reverse, desired_accuracy, :</span></span>
+<span><span class="co">#&gt; GDAL Error 1: PROJ: proj_as_wkt: DatumEnsemble can only be exported to WKT2:2019</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in CPL_transform(x, crs, aoi, pipeline, reverse, desired_accuracy, :</span></span>
+<span><span class="co">#&gt; GDAL Error 1: PROJ: proj_as_wkt: DatumEnsemble can only be exported to WKT2:2019</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in CPL_transform(x, crs, aoi, pipeline, reverse, desired_accuracy, :</span></span>
+<span><span class="co">#&gt; GDAL Error 1: PROJ: proj_as_wkt: DatumEnsemble can only be exported to WKT2:2019</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in CPL_transform(x, crs, aoi, pipeline, reverse, desired_accuracy, :</span></span>
+<span><span class="co">#&gt; GDAL Error 1: PROJ: proj_as_wkt: DatumEnsemble can only be exported to WKT2:2019</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in CPL_transform(x, crs, aoi, pipeline, reverse, desired_accuracy, :</span></span>
+<span><span class="co">#&gt; GDAL Error 1: PROJ: proj_as_wkt: DatumEnsemble can only be exported to WKT2:2019</span></span>
+<span></span>
+<span><span class="co">#&gt; Warning in CPL_transform(x, crs, aoi, pipeline, reverse, desired_accuracy, :</span></span>
+<span><span class="co">#&gt; GDAL Error 1: PROJ: proj_as_wkt: DatumEnsemble can only be exported to WKT2:2019</span></span></code></pre></div>
 <p><img src="analysis_files/figure-html/unnamed-chunk-34-1.png" width="576"></p>
 <p>A north arrow, scale bar, and labels are also plotted. These can be suppressed by setting the appropriate arguments to <code>NULL</code>.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
