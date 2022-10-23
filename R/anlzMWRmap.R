@@ -278,16 +278,24 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
     m <- m +
       ggspatial::annotation_north_arrow(location = northloc, which_north = "true", height = grid::unit(0.75, "cm"), 
                                                 width = grid::unit(0.75, "cm"))
+
+  # labels must not be sf to prevent warning
+  tolab <- tomap %>% 
+    sf::st_transform(crs = 4326) %>% 
+    dplyr::mutate(
+      x = sf::st_coordinates(.)[, 1],
+      y = sf::st_coordinates(.)[, 2]
+    ) %>% 
+    dplyr::select(`Monitoring Location ID`, x, y) %>% 
+    sf::st_set_geometry(NULL)
   
   if(repel & !is.null(labsize))
     m <- m  +
-      ggrepel::geom_text_repel(data = tomap, ggplot2::aes(label = `Monitoring Location ID`, geometry = geometry), stat = 'sf_coordinates', inherit.aes = F, size = labsize)
-
+      ggrepel::geom_text_repel(data = tolab, ggplot2::aes(label = `Monitoring Location ID`, x = x, y = y), size = labsize)
+  
   if(!repel & !is.null(labsize))
-    suppressWarnings({
       m <- m  +
-      ggplot2::geom_sf_text(data = tomap, ggplot2::aes(label = `Monitoring Location ID`), inherit.aes = F, size = labsize)
-    })
+        ggplot2::geom_text(data = tolab, ggplot2::aes(label = `Monitoring Location ID`, x = x, y = y), size = labsize)
 
   if(!latlon)
     m <- m + 
@@ -306,6 +314,6 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
   m <- m +
     ggplot2::coord_sf(xlim = dat_ext[c(1, 3)], ylim = dat_ext[c(2, 4)], expand = FALSE)
   
-  return(suppressWarnings(print(m)))
+  return(m)
   
 }
