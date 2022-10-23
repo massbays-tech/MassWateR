@@ -364,7 +364,7 @@ qcMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = 
   # joining one to many of results to accuracy, then filtering results by range values in accuracy
   # comparing recovered and standards to accepted range in accuracy file
   labinstyp <- c('Quality Control Sample-Lab Spike', 'Quality Control Field Calibration Check')
-  if(any(labinstyp %in% resdat$`Activity Type`) & 'Lab Spikes / Instrument Checks' %in% accchk){
+  if(any(labinstyp %in% resdat$`Activity Type`) & 'Lab Spikes / Instrument Checks' %in% accchk & any(!is.na(accdat$`Spike/Check Accuracy`))){
 
     labins <- resdat %>% 
       dplyr::filter(`Activity Type` %in% labinstyp) %>% 
