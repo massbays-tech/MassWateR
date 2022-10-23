@@ -67,13 +67,13 @@ tabMWRfre <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, war
       x <- flextable::colformat_double(x, digits = digits, suffix = suffix)
       flextable::autofit(x)
     }
-    
+
     # levels to use
-    levs <- c('Field Duplicate', 'Lab Duplicate', 'Field Blank', 'Lab Blank', 'Lab Spike', 'Instrument Check')
+    levs <- c('Field Duplicate', 'Lab Duplicate', 'Field Blank', 'Lab Blank', 'Spike/Check Accuracy')
+    labs <- c('Field Duplicates', 'Lab Duplicates', 'Field Blanks', 'Lab Blanks', 'Lab Spikes / Instrument Checks')
     
     # format for the table
     totab <- res %>% 
-      dplyr::filter(!check %in% 'Spike/Check Accuracy') %>% 
       dplyr::select(
         Type = check, 
         Parameter, 
@@ -83,7 +83,7 @@ tabMWRfre <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, war
         `Hit/Miss` = met
         ) %>% 
       dplyr::mutate(
-        Type = factor(Type, levels = levs, labels = paste0(levs, 's')), 
+        Type = factor(Type, levels = levs, labels = labs), 
         `Hit/Miss` = dplyr::case_when(
           !`Hit/Miss` ~ 'MISS', 
           T ~ ''
@@ -112,7 +112,6 @@ tabMWRfre <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, war
     
     # format for the table
     totab <- res %>% 
-      dplyr::filter(!check %in% c('Lab Spike', 'Instrument Check')) %>% 
       dplyr::select(Parameter, check, percent, met) %>%
       dplyr::mutate(met = as.numeric(met)) %>% 
       tidyr::pivot_longer(cols = c('percent', 'met')) %>% 

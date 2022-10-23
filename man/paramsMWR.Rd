@@ -5,7 +5,7 @@
 \alias{paramsMWR}
 \title{Master parameter list and units for Characteristic Name column in results data}
 \format{
-A \code{data.frame} of 39 rows and 6 columns
+A \code{data.frame}
 }
 \usage{
 paramsMWR
@@ -14,15 +14,14 @@ paramsMWR
 Master parameter list and units for Characteristic Name column in results data
 }
 \details{
-This information is used to verify the correct format of input data and for minor formatting of output data for upload to WQX.  A column showing the corresponding WQX names is also included.
+This information is used to verify the correct format of input data and for formatting output data for upload to WQX.  A column showing the corresponding WQX names is also included.
 }
 \examples{
 \dontrun{
 library(readxl)
 library(dplyr)
 
-paramsMWR <- read_excel('inst/extdata/ParameterMapping.xlsx') \%>\% 
-  rename(Note = `...6`)
+paramsMWR <- read_excel('inst/extdata/ParameterMapping.xlsx')
 
 save(paramsMWR, file = 'data/paramsMWR.RData', compress = 'xz')
 }

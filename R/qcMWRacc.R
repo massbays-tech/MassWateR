@@ -5,7 +5,7 @@
 #' @param fset optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, or \code{sit}, overrides the other arguments
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}} and \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param warn logical to return warnings to the console (default)
-#' @param accchk character string indicating which accuracy check to return, one to any of \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, \code{"Lab Spikes"}, or \code{"Instrument Checks"}
+#' @param accchk character string indicating which accuracy check to return, one to any of \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, or \code{"Lab Spikes / Instrument Checks"}
 #' @param suffix character string indicating suffix to append to percentage values
 #' 
 #' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRacc}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.
@@ -41,7 +41,7 @@
 #' 
 #' qcMWRacc(res = resdat, acc = accdat)
 #' 
-qcMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks'), suffix = '%'){
+qcMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes / Instrument Checks'), suffix = '%'){
   
   utilMWRinputcheck(mget(ls()))
   
@@ -102,8 +102,7 @@ qcMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = 
   labblk <- NULL
   flddup <- NULL
   labdup <- NULL
-  labspk <- NULL
-  inschk <- NULL
+  labins <- NULL
   
   # field and lab blank
   blktyp <- c('Quality Control Sample-Field Blank', 'Quality Control Sample-Lab Blank')
@@ -365,8 +364,8 @@ qcMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = 
   # joining one to many of results to accuracy, then filtering results by range values in accuracy
   # comparing recovered and standards to accepted range in accuracy file
   labinstyp <- c('Quality Control Sample-Lab Spike', 'Quality Control Field Calibration Check')
-  if(any(labinstyp %in% resdat$`Activity Type`) & any(c('Lab Spikes', 'Instrument Checks') %in% accchk)){
- 
+  if(any(labinstyp %in% resdat$`Activity Type`) & 'Lab Spikes / Instrument Checks' %in% accchk){
+
     labins <- resdat %>% 
       dplyr::filter(`Activity Type` %in% labinstyp) %>% 
       dplyr::mutate(ind = 1:n()) %>% 
@@ -428,84 +427,42 @@ qcMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = 
       dplyr::filter(ifelse(is.na(rngflt), T, max(rngflt) == rngflt)) %>% 
       dplyr::ungroup() %>% 
       mutate(
-        diffv = abs(Recovered2 - Standard2),
+        diffv = Recovered2 - Standard2,
         percv = 100 * diffv / Standard2,
         recov = 100 * Recovered2 / Standard2,
         `Spike/Check Accuracy2` = gsub('%|log', '', `Spike/Check Accuracy`),
       ) %>% 
-      dplyr::arrange(Parameter, -dplyr::desc(Date))
+      dplyr::arrange(Parameter, -dplyr::desc(Date)) %>% 
+      dplyr::rowwise() %>% 
+      dplyr::mutate(
+        `Hit/Miss` = dplyr::case_when(
+          grepl('%|log', `Spike/Check Accuracy`) ~ eval(parse(text = paste(percv, `Spike/Check Accuracy2`))), 
+          !grepl('%|log', `Spike/Check Accuracy`) ~ eval(parse(text = paste(abs(diffv), `Spike/Check Accuracy2`)))
+        ),
+        `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
+        recov = paste0(round(recov, 0), suffix),
+        signv = ifelse(sign(diffv) %in% c(1,0), '+', ''),
+        diffv = ifelse(Parameter == 'Sp Conductance',
+                       paste(paste0(signv, round(diffv, 1)), `Result Unit`),
+                       paste(paste0(signv, round(diffv, 3)), `Result Unit`)
+        ), 
+        `Diff./Accuracy` = dplyr::case_when(
+          grepl('%|log', `Spike/Check Accuracy`) ~ recov,
+          !grepl('%|log', `Spike/Check Accuracy`) ~ diffv
+        )
+      ) %>% 
+      dplyr::select(
+        Parameter, 
+        Date, 
+        `Sample ID`, 
+        `Spike/Standard` = Standard, 
+        Result = Recovered, 
+        `Diff./Accuracy` = `Diff./Accuracy`, 
+        `Hit/Miss`
+      ) %>% 
+      dplyr::ungroup() %>% 
+      dplyr::arrange(Parameter)
 
-    # lab spike
-    if('Quality Control Sample-Lab Spike' %in% labins$`Activity Type` & 'Lab Spikes' %in% accchk & any(!is.na(labins$`Spike/Check Accuracy`))){
-
-      # get parameters relevant for lab spikes
-      labpar <- paramsMWR %>% 
-        dplyr::filter(Method == 'Lab') %>% 
-        dplyr::pull(`Simple Parameter`) %>% 
-        unique
-
-      labspk <- labins %>% 
-        dplyr::filter(`Activity Type` %in% 'Quality Control Sample-Lab Spike') %>% 
-        dplyr::filter(`Parameter` %in% labpar) %>% 
-        dplyr::rowwise() %>% 
-        dplyr::mutate(
-          `Hit/Miss` = dplyr::case_when(
-            grepl('%|log', `Spike/Check Accuracy`) ~ eval(parse(text = paste(percv, `Spike/Check Accuracy2`))), 
-            !grepl('%|log', `Spike/Check Accuracy`) ~ eval(parse(text = paste(diffv, `Spike/Check Accuracy2`)))
-          ),
-          `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
-          recov = paste0(round(recov, 0), suffix)
-        ) %>% 
-        dplyr::select(
-          Parameter, 
-          Date, 
-          `Sample ID`, 
-          Spike = Standard, 
-          `Amt Recovered` = Recovered, 
-          `% Recovery` = recov, 
-          `Hit/Miss`
-        ) %>% 
-        dplyr::ungroup()
-      
-    }
-    
-    # instrument checks
-    if('Quality Control Field Calibration Check' %in% labins$`Activity Type` & 'Instrument Checks' %in% accchk & any(!is.na(labins$`Spike/Check Accuracy`))){
-      
-      # get parameters relevant for instrument checks
-      inspar <- paramsMWR %>% 
-        dplyr::filter(Method == 'InSitu') %>% 
-        dplyr::pull(`Simple Parameter`) %>% 
-        unique
-      
-      inschk <- labins %>% 
-        dplyr::filter(`Activity Type` %in% 'Quality Control Field Calibration Check') %>% 
-        dplyr::filter(Parameter %in% inspar) %>% 
-        dplyr::rowwise() %>% 
-        dplyr::mutate(
-          `Hit/Miss` = dplyr::case_when(
-            grepl('%|log', `Spike/Check Accuracy`) ~ eval(parse(text = paste(percv, `Spike/Check Accuracy2`))), 
-            !grepl('%|log', `Spike/Check Accuracy`) ~ eval(parse(text = paste(diffv, `Spike/Check Accuracy2`)))
-          ),
-          `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
-          diffv = ifelse(Parameter == 'Sp Conductance',
-                         paste(round(diffv, 1), `Result Unit`),
-                         paste(round(diffv, 3), `Result Unit`)
-          )
-        ) %>% 
-        dplyr::select(
-          Parameter, 
-          Date, 
-          `Sample ID`, 
-          `Calibration Standard` = Standard, 
-          `Instrument Reading` = Recovered, 
-          `Accuracy` = diffv, 
-          `Hit/Miss`
-        ) %>% 
-        dplyr::ungroup()
-      
-    }
-   
   }
 
   # compile all as list since columns differ
@@ -514,8 +471,7 @@ qcMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = 
     `Lab Blanks` = labblk,
     `Field Duplicates` = flddup,
     `Lab Duplicates` = labdup, 
-    `Lab Spikes` = labspk,
-    `Instrument Checks` = inschk
+    `Lab Spikes / Instrument Checks` = labins
   )
   out <- out[accchk]
   

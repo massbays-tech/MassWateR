@@ -11,7 +11,7 @@ qcMWRacc(
   runchk = TRUE,
   warn = TRUE,
   accchk = c("Field Blanks", "Lab Blanks", "Field Duplicates", "Lab Duplicates",
-    "Lab Spikes", "Instrument Checks"),
+    "Lab Spikes / Instrument Checks"),
   suffix = "\%"
 )
 }
@@ -26,7 +26,7 @@ qcMWRacc(
 
 \item{warn}{logical to return warnings to the console (default)}
 
-\item{accchk}{character string indicating which accuracy check to return, one to any of \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, \code{"Lab Spikes"}, or \code{"Instrument Checks"}}
+\item{accchk}{character string indicating which accuracy check to return, one to any of \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, or \code{"Lab Spikes / Instrument Checks"}}
 
 \item{suffix}{character string indicating suffix to append to percentage values}
 }

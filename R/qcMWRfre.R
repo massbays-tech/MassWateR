@@ -76,7 +76,7 @@ qcMWRfre <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn
   
   # run completeness checks
   for(prm in prms){
-    
+
     # subset dqo data
     frecomdattmp <- frecomdat %>% 
       dplyr::filter(Parameter == prm)
@@ -108,16 +108,9 @@ qcMWRfre <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn
     acts <- 'Quality Control Sample-Lab Blank'
     labblnk <- sum(resdattmp$`Activity Type` %in% acts)
 
-    # lab spikes
-    acts <- 'Quality Control Sample-Lab Spike'
-    spikes <- sum(resdattmp$`Activity Type` %in% acts)
-    
-    # instrument checks
-    acts <- 'Quality Control Field Calibration Check'
-    instchks <- sum(resdattmp$`Activity Type` %in% acts)
-    
-    # spikes and checks total (for summary table)
-    spkchk <- sum(spikes, instchks)
+    # lab spikes or instrument checks
+    acts <- c('Quality Control Sample-Lab Spike', 'Quality Control Field Calibration Check')
+    spikesinstchks <- sum(resdattmp$`Activity Type` %in% acts, na.rm = TRUE)
     
     # compile results
     res <- tibble::tibble(
@@ -127,9 +120,7 @@ qcMWRfre <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn
       `Lab Duplicate` = labdup, 
       `Field Blank` = fieldblnk,
       `Lab Blank` = labblnk,
-      `Lab Spike`= spikes,
-      `Instrument Check` = instchks,
-      `Spike/Check Accuracy` = spkchk
+      `Spike/Check Accuracy`= spikesinstchks
     )
     
     resall <- dplyr::bind_rows(resall, res)
@@ -147,14 +138,9 @@ qcMWRfre <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn
   # summary results long format
   resall <- resall %>% 
     tidyr::pivot_longer(cols = -dplyr::matches('^Parameter$|^obs$'), names_to = 'check', values_to = 'count')
-
-  # get parameters relevant for instrument checks and lab spikes, used in filter below
-  inspar <- split(paramsMWR$`Simple Parameter`, paramsMWR$Method)
   
   # combine and create summaries
   out <- resall %>% 
-    dplyr::filter(!(check == 'Instrument Check' & Parameter %in% inspar$Lab)) %>% 
-    dplyr::filter(!(check == 'Lab Spike' & Parameter %in% inspar$InSitu)) %>% 
     dplyr::left_join(frecomdat, by = c('Parameter', 'check')) %>% 
     dplyr::mutate(
       percent = dplyr::case_when(

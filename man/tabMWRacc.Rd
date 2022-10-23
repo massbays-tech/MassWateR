@@ -11,7 +11,7 @@ tabMWRacc(
   runchk = TRUE,
   warn = TRUE,
   accchk = c("Field Blanks", "Lab Blanks", "Field Duplicates", "Lab Duplicates",
-    "Lab Spikes", "Instrument Checks"),
+    "Lab Spikes / Instrument Checks"),
   type = c("individual", "summary", "percent"),
   pass_col = "#57C4AD",
   fail_col = "#DB4325",
@@ -31,7 +31,7 @@ tabMWRacc(
 
 \item{warn}{logical to return warnings to the console (default)}
 
-\item{accchk}{character string indicating which accuracy check to return, one to any of \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, \code{"Lab Spikes"}, or \code{"Instrument Checks"}}
+\item{accchk}{character string indicating which accuracy check to return, one to any of \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, or \code{"Lab Spikes / Instrument Checks"}}
 
 \item{type}{character string indicating \code{individual}, \code{summary} or \code{percent} tabular output, see details}
 
@@ -58,7 +58,7 @@ Also note that accuracy is only evaluated on parameters that are shared between 
 
 The function can return three types of tables as specified with the \code{type} argument: \code{"individual"}, \code{"summary"}, or \code{"percent"}.  The individual tables are specific to each type of accuracy check for each parameter (e.g., field blanks, lab blanks, etc.).  The summary table summarizes all accuracy checks by the number of checks and how many hit/misses are returned for each across all parameters.  The percent table is similar to the summary table, but showing only percentages with appropriate color-coding for hit/misses. The data quality objectives file for frequency and completeness is required if \code{type = "summary"} or \code{type = "percent"}.
 
-For \code{type = "individual"}, the quality control tables for accuracy are retrieved by specifying the check with the \code{accchk} argument.  The \code{accchk} argument can be used to specify one of the following values to retrieve the relevant tables: \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, \code{"Lab Spikes"}, or \code{"Instrument Checks"}.
+For \code{type = "individual"}, the quality control tables for accuracy are retrieved by specifying the check with the \code{accchk} argument.  The \code{accchk} argument can be used to specify one of the following values to retrieve the relevant tables: \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, or \code{"Lab Spikes / Instrument Checks"}.
 
 For \code{type = "summary"}, the function summarizes all accuracy checks by counting the number of quality control checks, number of misses, and percent acceptance for each parameter. All accuracy checks are used and the \code{accchk} argument does not apply.
 

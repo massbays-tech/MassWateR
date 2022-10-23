@@ -15,7 +15,7 @@
 #' 
 #' The function can return three types of tables as specified with the \code{type} argument: \code{"individual"}, \code{"summary"}, or \code{"percent"}.  The individual tables are specific to each type of accuracy check for each parameter (e.g., field blanks, lab blanks, etc.).  The summary table summarizes all accuracy checks by the number of checks and how many hit/misses are returned for each across all parameters.  The percent table is similar to the summary table, but showing only percentages with appropriate color-coding for hit/misses. The data quality objectives file for frequency and completeness is required if \code{type = "summary"} or \code{type = "percent"}.   
 #'
-#'For \code{type = "individual"}, the quality control tables for accuracy are retrieved by specifying the check with the \code{accchk} argument.  The \code{accchk} argument can be used to specify one of the following values to retrieve the relevant tables: \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, \code{"Lab Spikes"}, or \code{"Instrument Checks"}.
+#'For \code{type = "individual"}, the quality control tables for accuracy are retrieved by specifying the check with the \code{accchk} argument.  The \code{accchk} argument can be used to specify one of the following values to retrieve the relevant tables: \code{"Field Blanks"}, \code{"Lab Blanks"}, \code{"Field Duplicates"}, \code{"Lab Duplicates"}, or \code{"Lab Spikes / Instrument Checks"}.
 #' 
 #' For \code{type = "summary"}, the function summarizes all accuracy checks by counting the number of quality control checks, number of misses, and percent acceptance for each parameter. All accuracy checks are used and the \code{accchk} argument does not apply.
 #'
@@ -70,7 +70,7 @@
 #' 
 #' # table as percent
 #' tabMWRacc(res = resdat, acc = accdat, type = 'percent', frecom = frecomdat)
-tabMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks'), type = c('individual', 'summary', 'percent'), pass_col = '#57C4AD', fail_col = '#DB4325', frecom = NULL, suffix = '%', caption = TRUE){
+tabMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes / Instrument Checks'), type = c('individual', 'summary', 'percent'), pass_col = '#57C4AD', fail_col = '#DB4325', frecom = NULL, suffix = '%', caption = TRUE){
   
   if(type == 'individual'){
     chkin <- mget(ls())
@@ -90,7 +90,7 @@ tabMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn =
   }
   
   if(type %in% c('summary', 'percent')){
-    accchk <- c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes', 'Instrument Checks')
+    accchk <- c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes / Instrument Checks')
   }
   
   # get accuracy summary
@@ -109,11 +109,7 @@ tabMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn =
         warning(paste('No data to check for', accchk), call. = FALSE)
       return(NULL)
     }
-    
-    # change caption for instrument checks
-    if(names(accsum) == 'Instrument Checks')
-      names(accsum) <- 'Instrument Checks (post sampling)'
-    
+
     totab <- totab %>% 
       dplyr::mutate(Date = as.character(Date)) %>% 
       flextable::as_grouped_data(groups = 'Parameter')
@@ -137,7 +133,7 @@ tabMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn =
     
     # get resdat, checks should have been run or not run as for call with qcMWRacc
     resdat <- utilMWRinput(res = res, runchk = FALSE, warn = FALSE)$resdat
-    
+
     # results parameters with Field Msr/Obs, Sample-Routine
     resdatprm <- resdat %>% 
       dplyr::filter(`Activity Type` %in% c('Field Msr/Obs', 'Sample-Routine')) %>% 
@@ -157,10 +153,10 @@ tabMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn =
       dplyr::mutate(
         `% Acceptance` = 100 * (`Number of QC Checks` - `Number of Misses`) / `Number of QC Checks`, 
         Type = factor(Type, 
-          levels = c("Field Duplicates", "Lab Duplicates", "Field Blanks", "Lab Blanks", "Lab Spikes", "Instrument Checks")
+          levels = c("Field Duplicates", "Lab Duplicates", "Field Blanks", "Lab Blanks", "Lab Spikes / Instrument Checks")
         )
       ) %>% 
-      dplyr::arrange(Type)
+      dplyr::arrange(Type, Parameter)
 
     ##
     # create parameter list for all
@@ -172,18 +168,6 @@ tabMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn =
       tidyr::nest() %>% 
       tibble::deframe() %>% 
       lapply(dplyr::pull)
-    
-    # get parameters relevant for lab spikes
-    labpar <- paramsMWR %>% 
-      dplyr::filter(Method == 'Lab') %>% 
-      dplyr::pull(`Simple Parameter`) %>% 
-      unique
-    
-    # get parameters relevant for instrument checks
-    inspar <- paramsMWR %>% 
-      dplyr::filter(Method == 'InSitu') %>% 
-      dplyr::pull(`Simple Parameter`) %>% 
-      unique
     
     # get master parameter list to fill all, specific to each check
     fldblkprm <- sumtabprm$`Field Blanks` %>% 
@@ -198,14 +182,9 @@ tabMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn =
     labdupprm <- sumtabprm$`Lab Duplicates` %>% 
       union(., na.omit(frecomdat[, c('Parameter', 'Lab Duplicate')])$Parameter) %>% 
       sort
-    labspkprm <- sumtabprm$`Lab Spikes` %>% 
+    spkchkprm <- sumtabprm$`Lab Spikes / Instrument Checks` %>% 
       union(., na.omit(frecomdat[, c('Parameter', 'Spike/Check Accuracy')])$Parameter) %>% 
-      sort %>% 
-      .[. %in% labpar]
-    inschkprm <- sumtabprm$`Instrument Checks` %>% 
-      union(., na.omit(frecomdat[, c('Parameter', 'Spike/Check Accuracy')])$Parameter) %>% 
-      sort %>% 
-      .[. %in% inspar]
+      sort
 
     # all parameters by check, then filter by those in resdat
     allprm <- list(
@@ -213,8 +192,7 @@ tabMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn =
         `Lab Duplicates` = labdupprm,
         `Field Blanks` = fldblkprm,
         `Lab Blanks` = labblkprm, 
-        `Lab Spikes` = labspkprm,
-        `Instrument Checks` = inschkprm
+        `Lab Spikes / Instrument Checks` = spkchkprm
       ) %>% 
       tibble::enframe('Type', 'Parameter') %>% 
       tidyr::unnest('Parameter') %>% 
@@ -264,13 +242,13 @@ tabMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn =
       allprm <- allprm %>% 
         dplyr::mutate(
           Type = as.character(Type),
-          Type = ifelse(Type %in% c('Lab Spikes', 'Instrument Checks'), 'Spike/Check Accuracy', Type)
+          Type = ifelse(Type %in% c('Lab Spikes / Instrument Checks'), 'Spike/Check Accuracy', Type)
         ) %>% 
         unique
       
       # get lab and ins checks only for total
-      labinssum <- sumtab %>% 
-        dplyr::filter(Type %in% c("Lab Spikes", "Instrument Checks")) %>% 
+      spkchksum <- sumtab %>% 
+        dplyr::filter(Type %in% "Lab Spikes / Instrument Checks") %>% 
         dplyr::group_by(Parameter) %>% 
         dplyr::summarise(
           `Number of QC Checks` = sum(`Number of QC Checks`), 
@@ -286,8 +264,7 @@ tabMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn =
       # combine all
       totab <- sumtab %>% 
         dplyr::select(Type, Parameter, percent = `% Acceptance`) %>% 
-        dplyr::filter(!Type %in% c("Lab Spikes", "Instrument Checks")) %>% 
-        dplyr::bind_rows(labinssum) %>% 
+        dplyr::bind_rows(spkchksum) %>% 
         dplyr::left_join(allprm, ., by = c('Type', 'Parameter')) %>% 
         dplyr::left_join(frecomdat, by = 'Parameter') %>% 
         dplyr::rename(check = Type) 
@@ -300,7 +277,7 @@ tabMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn =
         sort
       chk <- length(nocol) == 0
       if(!chk & warn){
-        warning('Parameters in table not found in quality control objectives for frequency and completeness (no color): ', paste(nocol, collapse = ', '))
+        warning('Parameters in table not found in quality control objectives for frequency and completeness (no color): ', paste(nocol, collapse = ', '), call. = FALSE)
       }
       
       totab <- totab %>% 
