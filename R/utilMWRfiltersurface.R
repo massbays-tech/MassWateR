@@ -8,6 +8,13 @@
 #' @details This function is used internally for all analysis functions
 #' 
 #' @examples
+#' # results file path
+#' respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
+#' 
+#' # results data
+#' resdat <- readMWRresults(respth)
+#'
+#' # filter surface data
 #' utilMWRfiltersurface(resdat)
 utilMWRfiltersurface <- function(resdat){
   
