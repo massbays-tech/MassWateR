@@ -136,3 +136,23 @@ p +
   geom_hline(yintercept = 10, linetype = 'solid', color = 'green', size = 2)
 ```
 
+Additional layers can also be added to maps created with `anlzMWRmap`. For example, a watershed shapefile can be imported as a simple features object using the [sf](https://r-spatial.github.io/sf/) package, then added using `geom_sf` from ggplot. 
+
+```{r, eval = F}
+library(sf)
+library(ggplot2)
+
+# import shapefile as sf object
+sudburyMWR <- st_read('sudburyMWR.shp')
+
+# use geom_sf to add watershed
+anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = "nhd", locgroup = 'Sudbury', dLevel = 'high') + 
+  geom_sf(data = sudburyMWR)
+```
+```{r, fig.height = 7, fig.width = 7, echo = F, warn = F, message = F}
+# use geom_sf to add watershed
+anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = "nhd", locgroup = 'Sudbury', dLevel = 'high') + 
+  geom_sf(data = sudburyMWR)
+```
+
+
