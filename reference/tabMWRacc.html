@@ -70,7 +70,7 @@
 <span>  runchk <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  warn <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  accchk <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Field Blanks"</span>, <span class="st">"Lab Blanks"</span>, <span class="st">"Field Duplicates"</span>, <span class="st">"Lab Duplicates"</span>,</span>
-<span>    <span class="st">"Lab Spikes"</span>, <span class="st">"Instrument Checks"</span><span class="op">)</span>,</span>
+<span>    <span class="st">"Lab Spikes / Instrument Checks"</span><span class="op">)</span>,</span>
 <span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"individual"</span>, <span class="st">"summary"</span>, <span class="st">"percent"</span><span class="op">)</span>,</span>
 <span>  pass_col <span class="op">=</span> <span class="st">"#57C4AD"</span>,</span>
 <span>  fail_col <span class="op">=</span> <span class="st">"#DB4325"</span>,</span>
@@ -103,7 +103,7 @@
 
 
 <dt>accchk</dt>
-<dd><p>character string indicating which accuracy check to return, one to any of <code>"Field Blanks"</code>, <code>"Lab Blanks"</code>, <code>"Field Duplicates"</code>, <code>"Lab Duplicates"</code>, <code>"Lab Spikes"</code>, or <code>"Instrument Checks"</code></p></dd>
+<dd><p>character string indicating which accuracy check to return, one to any of <code>"Field Blanks"</code>, <code>"Lab Blanks"</code>, <code>"Field Duplicates"</code>, <code>"Lab Duplicates"</code>, or <code>"Lab Spikes / Instrument Checks"</code></p></dd>
 
 
 <dt>type</dt>
@@ -141,7 +141,7 @@
     <p>The function can be used with inputs as paths to the relevant files or as data frames returned by <code><a href="readMWRresults.html">readMWRresults</a></code> and <code><a href="readMWRacc.html">readMWRacc</a></code>.  For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the <code>fset</code> argument instead. See the help file for <code><a href="utilMWRinput.html">utilMWRinput</a></code>.</p>
 <p>Also note that accuracy is only evaluated on parameters that are shared between the results file and data quality objectives file for accuracy.  A warning is returned for parameters that do not match between the files. This warning can be suppressed by setting <code>warn = FALSE</code>.</p>
 <p>The function can return three types of tables as specified with the <code>type</code> argument: <code>"individual"</code>, <code>"summary"</code>, or <code>"percent"</code>.  The individual tables are specific to each type of accuracy check for each parameter (e.g., field blanks, lab blanks, etc.).  The summary table summarizes all accuracy checks by the number of checks and how many hit/misses are returned for each across all parameters.  The percent table is similar to the summary table, but showing only percentages with appropriate color-coding for hit/misses. The data quality objectives file for frequency and completeness is required if <code>type = "summary"</code> or <code>type = "percent"</code>.</p>
-<p>For <code>type = "individual"</code>, the quality control tables for accuracy are retrieved by specifying the check with the <code>accchk</code> argument.  The <code>accchk</code> argument can be used to specify one of the following values to retrieve the relevant tables: <code>"Field Blanks"</code>, <code>"Lab Blanks"</code>, <code>"Field Duplicates"</code>, <code>"Lab Duplicates"</code>, <code>"Lab Spikes"</code>, or <code>"Instrument Checks"</code>.</p>
+<p>For <code>type = "individual"</code>, the quality control tables for accuracy are retrieved by specifying the check with the <code>accchk</code> argument.  The <code>accchk</code> argument can be used to specify one of the following values to retrieve the relevant tables: <code>"Field Blanks"</code>, <code>"Lab Blanks"</code>, <code>"Field Duplicates"</code>, <code>"Lab Duplicates"</code>, or <code>"Lab Spikes / Instrument Checks"</code>.</p>
 <p>For <code>type = "summary"</code>, the function summarizes all accuracy checks by counting the number of quality control checks, number of misses, and percent acceptance for each parameter. All accuracy checks are used and the <code>accchk</code> argument does not apply.</p>
 <p>For <code>type = "percent"</code>, the function returns a similar table as for the summary option, except only the percentage of checks that pass for each parameter are shown in wide format. Cells are color-coded based on the percentage of checks that have passed using the percent thresholds from the <code>% Completeness</code> column of the data quality objectives file for frequency and completeness. Parameters without an entry for <code>% Completeness</code> are not color-coded and an appropriate warning is returned. All accuracy checks are used and the <code>accchk</code> argument does not apply.</p>
 <p>Inputs for the results and data quality objectives for accuracy are processed internally with <code><a href="qcMWRacc.html">qcMWRacc</a></code> and the same arguments are accepted for this function, in addition to others listed above.</p>
@@ -258,14 +258,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Type`, `Parameter`, `Number of QC Checks`, `Number of Misses`, `% Acceptance` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 51 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> body has 50 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                Type Parameter Number of QC Checks Number of Misses % Acceptance</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Field Duplicates      &lt;NA&gt;                &lt;NA&gt;             &lt;NA&gt;         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7              &lt;NA&gt;   Ammonia                   0                -            -</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8              &lt;NA&gt;     Chl a                   0                -            -</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9              &lt;NA&gt;        DO                   0                -            -</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10             &lt;NA&gt;    E.coli                  22                8         64 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               Type Parameter Number of QC Checks Number of Misses % Acceptance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Field Duplicates      &lt;NA&gt;                &lt;NA&gt;             &lt;NA&gt;         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6             &lt;NA&gt;   Ammonia                   0                -            -</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7             &lt;NA&gt;     Chl a                   0                -            -</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8             &lt;NA&gt;        DO                   0                -            -</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9             &lt;NA&gt;    E.coli                  22                8         64 %</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># table as percent</span></span></span>
 <span class="r-in"><span><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">respth</span>, acc <span class="op">=</span> <span class="va">accpth</span>, type <span class="op">=</span> <span class="st">'percent'</span>, frecom <span class="op">=</span> <span class="va">frecompth</span><span class="op">)</span></span></span>
@@ -328,7 +328,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2          NA              NA        NA            NA                   NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3          NA              NA        NA            NA             50.00000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4    33.33333              NA        NA            NA                   NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          NA              NA        NA            NA             66.66667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          NA              NA        NA            NA             83.33333</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Spike/Check Accuracy_met</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                       NA</span>
@@ -411,14 +411,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Type`, `Parameter`, `Number of QC Checks`, `Number of Misses`, `% Acceptance` </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 51 row(s) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> body has 50 row(s) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                Type Parameter Number of QC Checks Number of Misses % Acceptance</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Field Duplicates      &lt;NA&gt;                &lt;NA&gt;             &lt;NA&gt;         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7              &lt;NA&gt;   Ammonia                   0                -            -</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8              &lt;NA&gt;     Chl a                   0                -            -</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9              &lt;NA&gt;        DO                   0                -            -</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10             &lt;NA&gt;    E.coli                  22                8         64 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               Type Parameter Number of QC Checks Number of Misses % Acceptance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Field Duplicates      &lt;NA&gt;                &lt;NA&gt;             &lt;NA&gt;         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6             &lt;NA&gt;   Ammonia                   0                -            -</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7             &lt;NA&gt;     Chl a                   0                -            -</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8             &lt;NA&gt;        DO                   0                -            -</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9             &lt;NA&gt;    E.coli                  22                8         64 %</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># table as percent</span></span></span>
 <span class="r-in"><span><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, type <span class="op">=</span> <span class="st">'percent'</span>, frecom <span class="op">=</span> <span class="va">frecomdat</span><span class="op">)</span></span></span>
@@ -441,7 +441,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2          NA              NA        NA            NA                   NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3          NA              NA        NA            NA             50.00000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4    33.33333              NA        NA            NA                   NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          NA              NA        NA            NA             66.66667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          NA              NA        NA            NA             83.33333</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Spike/Check Accuracy_met</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                       NA</span>

@@ -70,7 +70,7 @@
 <span>  runchk <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  warn <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  accchk <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Field Blanks"</span>, <span class="st">"Lab Blanks"</span>, <span class="st">"Field Duplicates"</span>, <span class="st">"Lab Duplicates"</span>,</span>
-<span>    <span class="st">"Lab Spikes"</span>, <span class="st">"Instrument Checks"</span><span class="op">)</span>,</span>
+<span>    <span class="st">"Lab Spikes / Instrument Checks"</span><span class="op">)</span>,</span>
 <span>  suffix <span class="op">=</span> <span class="st">"%"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -98,7 +98,7 @@
 
 
 <dt>accchk</dt>
-<dd><p>character string indicating which accuracy check to return, one to any of <code>"Field Blanks"</code>, <code>"Lab Blanks"</code>, <code>"Field Duplicates"</code>, <code>"Lab Duplicates"</code>, <code>"Lab Spikes"</code>, or <code>"Instrument Checks"</code></p></dd>
+<dd><p>character string indicating which accuracy check to return, one to any of <code>"Field Blanks"</code>, <code>"Lab Blanks"</code>, <code>"Field Duplicates"</code>, <code>"Lab Duplicates"</code>, or <code>"Lab Spikes / Instrument Checks"</code></p></dd>
 
 
 <dt>suffix</dt>
@@ -236,39 +236,22 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 25 more rows, and abbreviated variable names ¹​`Dup. Result`,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​`Diff./RPD`, ³​`Hit/Miss`</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`Lab Spikes`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 35 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       `Sample ID` Spike     `Amt Recovered` % Recove…¹ Hit/M…²</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Nitrate   2021-05-16 NO3-1       0.8 mg/l  0.9 mg/l        112%       <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Nitrate   2021-05-16 NO3-2       0.3 mg/l  0.3 mg/l        100%       <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Nitrate   2021-05-16 NO3-3       0.45 mg/l 0.3 mg/l        67%        MISS   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Nitrate   2021-05-16 NO3-4       0.8 mg/l  0.82 mg/l       102%       <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Nitrate   2021-05-16 NO3-5       0.12 mg/l 0.15 mg/l       125%       MISS   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Nitrate   2021-05-16 NO3-6       0.34 mg/l 0.38 mg/l       112%       <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Ortho P   2021-02-12 <span style="color: #BB0000;">NA</span>          BDL       BDL             100%       <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Ortho P   2021-02-13 <span style="color: #BB0000;">NA</span>          0.02 mg/l BDL             50%        <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Ortho P   2021-02-14 <span style="color: #BB0000;">NA</span>          0.05 mg/l 0.04 mg/l       80%        <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Ortho P   2021-02-15 <span style="color: #BB0000;">NA</span>          0.06 mg/l 0.04 mg/l       67%        MISS   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 25 more rows, and abbreviated variable names ¹​`% Recovery`,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Lab Spikes / Instrument Checks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 57 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       `Sample ID` `Spike/Standard` Result    Diff./A…¹ Hit/M…²</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> DO        2021-10-15 <span style="color: #BB0000;">NA</span>          6 mg/l           6.4 mg/l  107%      MISS   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> DO        2021-10-16 <span style="color: #BB0000;">NA</span>          6 mg/l           6.2 mg/l  103%      <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Nitrate   2021-05-16 NO3-1       0.8 mg/l         0.9 mg/l  112%      <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Nitrate   2021-05-16 NO3-2       0.3 mg/l         0.3 mg/l  100%      <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Nitrate   2021-05-16 NO3-3       0.45 mg/l        0.3 mg/l  67%       <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Nitrate   2021-05-16 NO3-4       0.8 mg/l         0.82 mg/l 102%      <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Nitrate   2021-05-16 NO3-5       0.12 mg/l        0.15 mg/l 125%      MISS   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Nitrate   2021-05-16 NO3-6       0.34 mg/l        0.38 mg/l 112%      <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Ortho P   2021-02-12 <span style="color: #BB0000;">NA</span>          BDL              BDL       +0 mg/l   <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Ortho P   2021-02-13 <span style="color: #BB0000;">NA</span>          0.02 mg/l        BDL       -0.01 mg… <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 47 more rows, and abbreviated variable names ¹​`Diff./Accuracy`,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​`Hit/Miss`</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`Instrument Checks`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 22 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter      Date       `Sample ID` Calibration S…¹ Instr…² Accur…³ Hit/M…⁴</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> DO             2021-10-15 <span style="color: #BB0000;">NA</span>          6 mg/l          6.4 mg… 0.4 mg… MISS   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> DO             2021-10-16 <span style="color: #BB0000;">NA</span>          6 mg/l          6.2 mg… 0.2 mg… <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Sp Conductance 2021-08-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm      986.2 … 13.8 u… <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Sp Conductance 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm      1010 u… 10 uS/… <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Sp Conductance 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm      950 uS… 50 uS/… <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Sp Conductance 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm      1001 u… 1 uS/cm <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Sp Conductance 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm      1040 u… 40 uS/… <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Sp Conductance 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm      1100 u… 100 uS… MISS   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Sp Conductance 2021-09-12 <span style="color: #BB0000;">NA</span>          100 uS/cm       165 uS… 65 uS/… MISS   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Sp Conductance 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm      750 uS… 250 uS… MISS   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 12 more rows, and abbreviated variable names ¹​`Calibration Standard`,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​`Instrument Reading`, ³​Accuracy, ⁴​`Hit/Miss`</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##</span></span></span>
@@ -387,39 +370,22 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 25 more rows, and abbreviated variable names ¹​`Dup. Result`,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​`Diff./RPD`, ³​`Hit/Miss`</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`Lab Spikes`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 35 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       `Sample ID` Spike     `Amt Recovered` % Recove…¹ Hit/M…²</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Nitrate   2021-05-16 NO3-1       0.8 mg/l  0.9 mg/l        112%       <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Nitrate   2021-05-16 NO3-2       0.3 mg/l  0.3 mg/l        100%       <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Nitrate   2021-05-16 NO3-3       0.45 mg/l 0.3 mg/l        67%        MISS   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Nitrate   2021-05-16 NO3-4       0.8 mg/l  0.82 mg/l       102%       <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Nitrate   2021-05-16 NO3-5       0.12 mg/l 0.15 mg/l       125%       MISS   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Nitrate   2021-05-16 NO3-6       0.34 mg/l 0.38 mg/l       112%       <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Ortho P   2021-02-12 <span style="color: #BB0000;">NA</span>          BDL       BDL             100%       <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Ortho P   2021-02-13 <span style="color: #BB0000;">NA</span>          0.02 mg/l BDL             50%        <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Ortho P   2021-02-14 <span style="color: #BB0000;">NA</span>          0.05 mg/l 0.04 mg/l       80%        <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Ortho P   2021-02-15 <span style="color: #BB0000;">NA</span>          0.06 mg/l 0.04 mg/l       67%        MISS   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 25 more rows, and abbreviated variable names ¹​`% Recovery`,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`Lab Spikes / Instrument Checks`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 57 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       `Sample ID` `Spike/Standard` Result    Diff./A…¹ Hit/M…²</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> DO        2021-10-15 <span style="color: #BB0000;">NA</span>          6 mg/l           6.4 mg/l  107%      MISS   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> DO        2021-10-16 <span style="color: #BB0000;">NA</span>          6 mg/l           6.2 mg/l  103%      <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Nitrate   2021-05-16 NO3-1       0.8 mg/l         0.9 mg/l  112%      <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Nitrate   2021-05-16 NO3-2       0.3 mg/l         0.3 mg/l  100%      <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Nitrate   2021-05-16 NO3-3       0.45 mg/l        0.3 mg/l  67%       <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Nitrate   2021-05-16 NO3-4       0.8 mg/l         0.82 mg/l 102%      <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Nitrate   2021-05-16 NO3-5       0.12 mg/l        0.15 mg/l 125%      MISS   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Nitrate   2021-05-16 NO3-6       0.34 mg/l        0.38 mg/l 112%      <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Ortho P   2021-02-12 <span style="color: #BB0000;">NA</span>          BDL              BDL       +0 mg/l   <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Ortho P   2021-02-13 <span style="color: #BB0000;">NA</span>          0.02 mg/l        BDL       -0.01 mg… <span style="color: #BB0000;">NA</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 47 more rows, and abbreviated variable names ¹​`Diff./Accuracy`,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​`Hit/Miss`</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`Instrument Checks`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 22 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter      Date       `Sample ID` Calibration S…¹ Instr…² Accur…³ Hit/M…⁴</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> DO             2021-10-15 <span style="color: #BB0000;">NA</span>          6 mg/l          6.4 mg… 0.4 mg… MISS   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> DO             2021-10-16 <span style="color: #BB0000;">NA</span>          6 mg/l          6.2 mg… 0.2 mg… <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Sp Conductance 2021-08-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm      986.2 … 13.8 u… <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Sp Conductance 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm      1010 u… 10 uS/… <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Sp Conductance 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm      950 uS… 50 uS/… <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Sp Conductance 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm      1001 u… 1 uS/cm <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Sp Conductance 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm      1040 u… 40 uS/… <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Sp Conductance 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm      1100 u… 100 uS… MISS   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Sp Conductance 2021-09-12 <span style="color: #BB0000;">NA</span>          100 uS/cm       165 uS… 65 uS/… MISS   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Sp Conductance 2021-09-12 <span style="color: #BB0000;">NA</span>          1000 uS/cm      750 uS… 250 uS… MISS   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 12 more rows, and abbreviated variable names ¹​`Calibration Standard`,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​`Instrument Reading`, ³​Accuracy, ⁴​`Hit/Miss`</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
