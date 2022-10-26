@@ -6,8 +6,12 @@ test_that("Checking output format type warning if individual and no table", {
   chk <- resdat %>% 
     filter(!`Activity Type` == 'Quality Control Sample-Field Blank')
   expect_warning(
-    expect_null(
-      tabMWRacc(chk, accdat, runchk = F, warn = T, type = 'individual', accchk = 'Field Blanks')
+    expect_warning(
+      expect_warning(
+        expect_null(
+          tabMWRacc(chk, accdat, runchk = F, warn = T, type = 'individual', accchk = 'Field Blanks')
+        )
+      )
     )
   )
 })
