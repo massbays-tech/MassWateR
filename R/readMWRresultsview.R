@@ -1,6 +1,6 @@
 #' Create summary spreadsheet of the water quality monitoring results
 #'
-#' Create summary spreadhseet of unique values in columns in the water quality monitoring results to troubleshoot checks with \code{\link{readMWRresults}}
+#' Create summary spreadsheet of unique values for each column in the water quality results file to check for data mistakes prior to running the \code{\link{readMWRresults}} function
 #' 
 #' @param respth character string of path to the results file
 #' @param columns character string indicating which columns to view, defaults to all
