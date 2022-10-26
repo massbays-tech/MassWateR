@@ -4,10 +4,10 @@ Below are links to resources for using or learning about MassWateR.
 
 ## Templates
 
--   Water quality monitoring results: [link](MassWateR_Results_Template_10-5-22.xlsx)
--   Data quality objectives for frequency and completeness: [link](MassWateR_DQOFreqComp_Template_10-5-22.xlsx)
--   Data quality objectives for accuracy: [link](MassWateR_DQOAccuracy_Template_10-5-22.xlsx)
--   Site metadata: [link](MassWateR_Sites_Template_10-5-22.xlsx)
+-   Water quality monitoring results: [link](MassWateR_Results_Template.xlsx)
+-   Data quality objectives for frequency and completeness: [link](MassWateR_DQOFreqComp_Template.xlsx)
+-   Data quality objectives for accuracy: [link](MassWateR_DQOAccuracy_Template.xlsx)
+-   Site metadata: [link](MassWateR_Sites_Template.xlsx)
 
 ## Training materials
 
