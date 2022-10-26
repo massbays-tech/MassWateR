@@ -118,16 +118,6 @@ respth <- system.file("extdata/ExampleResults.xlsx", package = "MassWateR")
 readMWRresultsview(respth, columns = c("Characteristic Name", "Result Unit"))
 ```
 
-The `readMWRresultstable()` function can also be used to help troubleshoot import issues.  This function can be used to view counts of unique values in select columns of the results file. The example below returns a table where the rows are the unique parameters (`"Characteristic Name"`) and the columns are the unique units (`"Result Unit"`) found in the results file. The numbers in the table show the unique observations that correspond to each parameter and result unit combination. A single column or two columns can be viewed with this function.
-
-```{r}
-# find path to the file included with the package, replace with a path to your file as needed
-respth <- system.file("extdata/ExampleResults.xlsx", package = "MassWateR")
-
-# summary table of unique counts for parameters and their units in the file
-readMWRresultstable(respth, columns = c('Characteristic Name', 'Result Unit'))
-```
-
 ### Surface water quality results
 
 First, the surface water quality results can be imported with the `readMWRresults()` function. This is designed to import an Excel file external to R, run checks on the data, and provide some minor formatting for downstream quality control or exploratory analysis. In this example, the system file `ExampleResults.xlsx` is imported. In practice, the `pth` argument will point to an external file in the WQX format. See the [Resources tab](/MassWateR/RESOURCES.md) for the Excel file template and detailed instructions. Note that `runchk = TRUE` is set to run the checks on data import.  This is the default setting and it is not necessary to explicitly set this argument on import.

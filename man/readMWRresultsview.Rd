@@ -27,7 +27,7 @@ readMWRresultsview(
 Creates a spreadsheet at the location specified by \code{output_dir}, defaults to working directory if none specified. Each column shows the unique values.
 }
 \description{
-Create summary spreadhseet of unique values in columns in the water quality monitoring results to troubleshoot checks with \code{\link{readMWRresults}}
+Create summary spreadsheet of unique values for each column in the water quality results file to check for data mistakes prior to running the \code{\link{readMWRresults}} function
 }
 \details{
 Acceptable options for the \code{columns} argument include any of the column names in the results file. The default setting (\code{NULL}) will show every column in the results file.
