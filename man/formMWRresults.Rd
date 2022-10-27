@@ -26,8 +26,8 @@ This function is used internally within \code{\link{readMWRresults}} to format t
 \examples{
 respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 
-resdat <- readxl::read_excel(respth, 
-  col_types = c('text', 'text', 'date', 'date', 'text', 'text', 'text', 'text', 'text', 'text', 
-             'text', 'text', 'text', 'text', 'text', 'text', 'text'))
+resdat <- suppressWarnings(readxl::read_excel(respth, na = c('NA', 'na', ''), guess_max = Inf)) \%>\% 
+  dplyr::mutate_if(function(x) !is.POSIXct(x), as.character)
+  
 formMWRresults(resdat)
 }

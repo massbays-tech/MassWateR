@@ -20,9 +20,8 @@
 #' head(resdat)
 readMWRresults <- function(respth, runchk = TRUE, warn = TRUE, tzone = 'America/Jamaica'){
 
-  resdat <- suppressWarnings(readxl::read_excel(respth, na = c('NA', 'na', ''), 
-    col_types = c('text', 'text', 'date', 'date', 'text', 'text', 'text', 'text', 'text', 'text', 
-                  'text', 'text', 'text', 'text', 'text', 'text', 'text')))
+  resdat <- suppressWarnings(readxl::read_excel(respth, na = c('NA', 'na', ''), guess_max = Inf)) %>% 
+    dplyr::mutate_if(function(x) !lubridate::is.POSIXct(x), as.character)
   
   # run checks
   if(runchk)

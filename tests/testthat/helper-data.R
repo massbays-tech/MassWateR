@@ -3,9 +3,8 @@ library(dplyr)
 
 # results data
 respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
-resdat <- readxl::read_excel(respth, na = c('NA', 'na', ''), 
-                             col_types = c('text', 'text', 'date', 'date', 'text', 'text', 'text', 'text', 'text', 'text',
-                                           'text', 'text', 'text', 'text', 'text', 'text', 'text'))
+resdat <- suppressWarnings(readxl::read_excel(respth, na = c('NA', 'na', ''), guess_max = Inf)) %>% 
+  dplyr::mutate_if(function(x) !lubridate::is.POSIXct(x), as.character)
 
 # dqo accuracy data
 accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')

@@ -31,9 +31,8 @@
 #' }
 readMWRresultsview <- function(respth, columns = NULL, output_dir = NULL, output_file = NULL, maxlen = 8){
   
-  resdat <- suppressWarnings(readxl::read_excel(respth, na = c('NA', 'na', ''), 
-                                                col_types = c('text', 'text', 'date', 'date', 'text', 'text', 'text', 'text', 'text', 'text', 
-                                                              'text', 'text', 'text', 'text', 'text', 'text', 'text')))
+  resdat <- suppressWarnings(readxl::read_excel(respth, na = c('NA', 'na', ''), guess_max = Inf)) %>% 
+    dplyr::mutate_if(function(x) !lubridate::is.POSIXct(x), as.character)
 
   resdat <- resdat %>% 
     dplyr::mutate(
