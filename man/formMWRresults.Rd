@@ -28,6 +28,6 @@ respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 
 resdat <- readxl::read_excel(respth, 
   col_types = c('text', 'text', 'date', 'date', 'text', 'text', 'text', 'text', 'text', 'text', 
-             'text', 'text', 'text', 'text'))
+             'text', 'text', 'text', 'text', 'text', 'text', 'text'))
 formMWRresults(resdat)
 }

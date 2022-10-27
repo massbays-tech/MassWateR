@@ -42,7 +42,7 @@
 #' # accuracy data
 #' accdat <- readMWRacc(accpth)
 #' 
-#' # frequency and completeness data, only needed if type = "percent"
+#' # frequency and completeness data
 #' frecomdat <- readMWRfrecom(frecompth)
 #' 
 #' \dontrun{

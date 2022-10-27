@@ -32,7 +32,7 @@
 #' 
 #' resdat <- readxl::read_excel(respth, 
 #'   col_types = c('text', 'text', 'date', 'date', 'text', 'text', 'text', 'text', 'text', 'text', 
-#'              'text', 'text', 'text', 'text'))
+#'              'text', 'text', 'text', 'text', 'text', 'text', 'text'))
 #'              
 #' checkMWRresults(resdat)
 checkMWRresults <- function(resdat, warn = TRUE){
@@ -56,7 +56,7 @@ checkMWRresults <- function(resdat, warn = TRUE){
 
   # check field names
   msg <- '\tChecking column names...'
-  nms <- names(resdat) 
+  nms <- names(resdat)[!names(resdat) %in% c('Sample Collection Method ID', 'Project ID', 'Result Comment')] 
   chk <- nms %in% colnms
   if(any(!chk)){
     tochk <- nms[!chk]

@@ -22,7 +22,7 @@ readMWRresults <- function(respth, runchk = TRUE, warn = TRUE, tzone = 'America/
 
   resdat <- suppressWarnings(readxl::read_excel(respth, na = c('NA', 'na', ''), 
     col_types = c('text', 'text', 'date', 'date', 'text', 'text', 'text', 'text', 'text', 'text', 
-                  'text', 'text', 'text', 'text')))
+                  'text', 'text', 'text', 'text', 'text', 'text', 'text')))
   
   # run checks
   if(runchk)

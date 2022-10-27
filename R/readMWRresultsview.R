@@ -33,7 +33,7 @@ readMWRresultsview <- function(respth, columns = NULL, output_dir = NULL, output
   
   resdat <- suppressWarnings(readxl::read_excel(respth, na = c('NA', 'na', ''), 
                                                 col_types = c('text', 'text', 'date', 'date', 'text', 'text', 'text', 'text', 'text', 'text', 
-                                                              'text', 'text', 'text', 'text')))
+                                                              'text', 'text', 'text', 'text', 'text', 'text', 'text')))
 
   resdat <- resdat %>% 
     dplyr::mutate(

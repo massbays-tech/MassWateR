@@ -5,7 +5,7 @@ library(dplyr)
 respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 resdat <- readxl::read_excel(respth, na = c('NA', 'na', ''), 
                              col_types = c('text', 'text', 'date', 'date', 'text', 'text', 'text', 'text', 'text', 'text',
-                                           'text', 'text', 'text', 'text'))
+                                           'text', 'text', 'text', 'text', 'text', 'text', 'text'))
 
 # dqo accuracy data
 accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
