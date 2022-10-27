@@ -54,7 +54,7 @@ checkMWRresults <- function(resdat, warn = TRUE){
   unityp <- c('ft', 'm')
   restyp <- c('AQL', 'BDL')
 
-  # check field names
+  # check field names, minus those for wqx
   msg <- '\tChecking column names...'
   nms <- names(resdat)[!names(resdat) %in% c('Sample Collection Method ID', 'Project ID', 'Result Comment')] 
   chk <- nms %in% colnms

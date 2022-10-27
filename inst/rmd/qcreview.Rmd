@@ -21,9 +21,8 @@ params:
   indflddup: indflddup
   indlabdup: indlabdup
   indfldblk: indfldblk
-  indlabblk : indlabblk
-  indlabspk: indlabspk
-  indinschk: indinschk
+  indlabblk: indlabblk
+  indlabins: indlabins
 ---
 
 ```{r setup, echo = F}
@@ -51,8 +50,7 @@ indflddup <- params$indflddup
 indlabdup <- params$indlabdup
 indfldblk <- params$indfldblk
 indlabblk <- params$indlabblk
-indlabspk <- params$indlabspk
-indinschk <- params$indinschk
+indlabins <- params$indlabins
 
 dt <- format(Sys.Date(), "%b %d, %Y") 
 
@@ -232,19 +230,10 @@ notes(wd, fontname)
 cat("<br>")
 ```
 
-```{r, eval = rawdata & !is.null(indlabspk), results = 'asis'}
-cat("#### Lab Spikes\n")
-indlabspk
+```{r, eval = rawdata & !is.null(indlabins), results = 'asis'}
+cat("#### Lab Spikes / Instrument Checks\n")
+indlabins
 cat("<br>")
 notes(wd, fontname)
 cat("<br>")
 ```
-
-```{r, eval = rawdata & !is.null(indinschk), results = 'asis'}
-cat("#### Instrument Checks (post sampling)")
-indinschk
-cat("<br>")
-notes(wd, fontname)
-cat("<br>")
-```
-

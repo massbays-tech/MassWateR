@@ -137,16 +137,14 @@ qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, outp
   indlabdup <- NULL
   indfldblk <- NULL
   indlabblk <- NULL
-  indlabspk <- NULL
-  indinschk <- NULL
+  indlabins <- NULL
   if(rawdata){
     accind <- list(
       indflddup = 'Field Duplicates', 
       indlabdup = 'Lab Duplicates', 
       indfldblk = 'Field Blanks', 
       indlabblk = 'Lab Blanks', 
-      indlabspk = 'Lab Spikes', 
-      indinschk = 'Instrument Checks'
+      indlabins = 'Lab Spikes / Instrument Checks'
     )
     for(i in seq_along(accind)){
       
@@ -185,8 +183,7 @@ qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, outp
       indlabdup = indlabdup,
       indfldblk = indfldblk,
       indlabblk = indlabblk,
-      indlabspk = indlabspk,
-      indinschk = indinschk
+      indlabins = indlabins
     ), 
     quiet = TRUE
   ))
