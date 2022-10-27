@@ -44,7 +44,7 @@ library(dplyr)
 respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 
 resdat <- suppressWarnings(readxl::read_excel(respth, na = c('NA', 'na', ''), guess_max = Inf)) \%>\% 
-  dplyr::mutate_if(function(x) !is.POSIXct(x), as.character)
+  dplyr::mutate_if(function(x) !lubridate::is.POSIXct(x), as.character)
              
 checkMWRresults(resdat)
 }

@@ -9,7 +9,9 @@
 #' library(sf)
 #' library(dplyr)
 #' 
-#' sudburyMWR <- st_read('~/Desktop/Sudbury_watershed_singleboundary/Sudbury_watershed_singleboundary.shp') %>% 
+#' sudburyMWR <- st_read(
+#'   '~/Desktop/Sudbury_watershed_singleboundary/Sudbury_watershed_singleboundary.shp'
+#'  ) %>% 
 #'  st_zm()
 #' 
 #' save(sudburyMWR, file = 'data/subdburyMWR.RData', compress = 'xz')
