@@ -476,7 +476,7 @@ it is not necessary to explicitly set this argument on import.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; All checks passed (1 WARNING(s))!</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">resdat</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 14</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 17</span></span></span>
 <span><span class="co">#&gt;   Monitorin…¹ Activ…² Activity…³ Activ…⁴ Activ…⁵ Activ…⁶ Activ…⁷ Chara…⁸ Resul…⁹</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> HBS-016     Field … 2021-01-14 09:22   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 2      </span></span>
@@ -485,13 +485,13 @@ it is not necessary to explicitly set this argument on import.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> HBS-057     Field … 2021-01-14 10:30   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 3      </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> HBS-065     Field … 2021-01-14 10:40   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 3      </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> CRN-002     Field … 2021-01-14 11:30   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 2      </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: `Result Unit` &lt;chr&gt;, `Quantitation Limit` &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 8 more variables: `Result Unit` &lt;chr&gt;, `Quantitation Limit` &lt;chr&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   `QC Reference Value` &lt;chr&gt;, `Result Measure Qualifier` &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   `Result Attribute` &lt;chr&gt;, and abbreviated variable names</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Result Attribute` &lt;chr&gt;, `Sample Collection Method ID` &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Project ID` &lt;chr&gt;, `Result Comment` &lt;chr&gt;, and abbreviated variable names</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   ¹​`Monitoring Location ID`, ²​`Activity Type`, ³​`Activity Start Date`,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   ⁴​`Activity Start Time`, ⁵​`Activity Depth/Height Measure`,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁶​`Activity Depth/Height Unit`, ⁷​`Activity Relative Depth Name`,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁸​`Characteristic Name`, ⁹​`Result Value`</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ⁶​`Activity Depth/Height Unit`, ⁷​`Activity Relative Depth Name`, …</span></span></span></code></pre></div>
 <p>Several checks are run automatically when the data are imported.
 These file checks are as follows (also viewed from the help file for
 <code><a href="../reference/checkMWRresults.html">checkMWRresults()</a></code>:</p>
