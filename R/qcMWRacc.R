@@ -436,7 +436,7 @@ qcMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = 
       dplyr::rowwise() %>% 
       dplyr::mutate(
         `Hit/Miss` = dplyr::case_when(
-          grepl('%|log', `Spike/Check Accuracy`) ~ eval(parse(text = paste(percv, `Spike/Check Accuracy2`))), 
+          grepl('%|log', `Spike/Check Accuracy`) ~ eval(parse(text = paste(abs(percv), `Spike/Check Accuracy2`))), 
           !grepl('%|log', `Spike/Check Accuracy`) ~ eval(parse(text = paste(abs(diffv), `Spike/Check Accuracy2`)))
         ),
         `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
