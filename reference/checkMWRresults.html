@@ -92,7 +92,7 @@
 <li><p>Non-numeric Activity Depth/Height Measure: All depth values should be numbers, excluding missing values</p></li>
 <li><p>Activity Depth/Height Unit: All entries should be <code>ft</code>, <code>m</code>, or blank</p></li>
 <li><p>Activity Relative Depth Name: Should be either Surface, Bottom, Midwater, Near Bottom, or blank (warning only)</p></li>
-<li><p>Activity Depth/Height Measure out of range: All depth values should be less than or equal to 1 meter or 3.3 feet (warning only)</p></li>
+<li><p>Activity Depth/Height Measure out of range: All depth values should be less than or equal to 1 meter / 3.3 feet or entered as Surface in the Activity Relative Depth Name column (warning only)</p></li>
 <li><p>Characteristic Name: Should match parameter names in the <code>Simple Parameter</code> or <code>WQX Parameter</code> columns of the <code><a href="paramsMWR.html">paramsMWR</a></code> data (warning only)</p></li>
 <li><p>Result Value: Should be a numeric value or a text value as AQL or BDL</p></li>
 <li><p>QC Reference Value: Should be a numeric value or a text value as AQL or BDL</p></li>
@@ -119,7 +119,9 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in Activity Depth/Height Measure... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Depth/Height Unit... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Relative Depth Name formats... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft... OK</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>	Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft...</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> 	Bottom values found in Activity Relative Depth Name on row(s): 1499, 1500, 1501</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft... WARNING</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>	Checking Characteristic Name formats...</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> 	Characteristic Name not included in approved parameters: Air Temp, Gage</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Characteristic Name formats... WARNING</span>
@@ -129,7 +131,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit per Characteristic Name... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking acceptable units for each entry in Characteristic Name... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed (1 WARNING(s))!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed (2 WARNING(s))!</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 2,652 × 17</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Monitoring …¹ Activ…² Activity Start Da…³ Activity Start Ti…⁴ Activ…⁵ Activ…⁶</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
