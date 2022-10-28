@@ -136,7 +136,7 @@ p +
   geom_hline(yintercept = 10, linetype = 'solid', color = 'green', size = 2)
 ```
 
-Additional layers can also be added to maps created with `anlzMWRmap()`. For example, a watershed shapefile can be imported as a simple features object using the [sf](https://r-spatial.github.io/sf/) package, then added using `geom_sf()` from ggplot. Any warnings about the coordinate system can be ignored.  The water features will also be clipped to the extent of the sites and will not show the entire watershed. 
+Additional layers can also be added to maps created with `anlzMWRmap()`. For example, a watershed shapefile can be imported as a simple features object using the [sf](https://r-spatial.github.io/sf/) package, then added using `geom_sf()` from ggplot. Any warnings about the coordinate system can be ignored.  The water features will also be clipped to the extent of the sites and will likely not show the entire watershed. 
 
 ```{r, eval = F}
 library(sf)

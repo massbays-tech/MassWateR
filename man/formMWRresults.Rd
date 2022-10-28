@@ -24,6 +24,8 @@ This function is used internally within \code{\link{readMWRresults}} to format t
 }
 }
 \examples{
+library(dplyr)
+
 respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 
 resdat <- suppressWarnings(readxl::read_excel(respth, na = c('NA', 'na', ''), guess_max = Inf)) \%>\% 

@@ -29,7 +29,7 @@ The following checks are made:
 \item{Non-numeric Activity Depth/Height Measure: }{All depth values should be numbers, excluding missing values}
 \item{Activity Depth/Height Unit: }{All entries should be \code{ft}, \code{m}, or blank}
 \item{Activity Relative Depth Name: }{Should be either Surface, Bottom, Midwater, Near Bottom, or blank (warning only)}
-\item{Activity Depth/Height Measure out of range: }{All depth values should be less than or equal to 1 meter or 3.3 feet (warning only)}
+\item{Activity Depth/Height Measure out of range: }{All depth values should be less than or equal to 1 meter / 3.3 feet or entered as Surface in the Activity Relative Depth Name column (warning only)}
 \item{Characteristic Name: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{paramsMWR}} data (warning only)}
 \item{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
 \item{QC Reference Value: }{Should be a numeric value or a text value as AQL or BDL}

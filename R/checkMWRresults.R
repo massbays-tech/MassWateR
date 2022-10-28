@@ -14,7 +14,7 @@
 #'  \item{Non-numeric Activity Depth/Height Measure: }{All depth values should be numbers, excluding missing values}
 #'  \item{Activity Depth/Height Unit: }{All entries should be \code{ft}, \code{m}, or blank}
 #'  \item{Activity Relative Depth Name: }{Should be either Surface, Bottom, Midwater, Near Bottom, or blank (warning only)}
-#'  \item{Activity Depth/Height Measure out of range: }{All depth values should be less than or equal to 1 meter or 3.3 feet (warning only)}
+#'  \item{Activity Depth/Height Measure out of range: }{All depth values should be less than or equal to 1 meter / 3.3 feet or entered as Surface in the Activity Relative Depth Name column (warning only)}
 #'  \item{Characteristic Name: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{paramsMWR}} data (warning only)}
 #'  \item{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
 #'  \item{QC Reference Value: }{Should be a numeric value or a text value as AQL or BDL}
@@ -137,15 +137,21 @@ checkMWRresults <- function(resdat, warn = TRUE){
   # check for depth out of range
   msg <- '\tChecking values in Activity Depth/Height Measure > 1 m / 3.3 ft...'
   typ <- resdat[, c('Activity Depth/Height Measure', 'Activity Depth/Height Unit', 'Activity Relative Depth Name')]
-  typ <- typ %>%
-    dplyr::filter(!`Activity Relative Depth Name` %in% c('Bottom', 'MidWater'))
-  typft <- as.numeric(typ$`Activity Depth/Height Measure`) > 3.3 & typ$`Activity Depth/Height Unit` == 'ft' & (is.na(typ$`Activity Relative Depth Name`) | typ$`Activity Relative Depth Name` != 'Surface')
-  typm <- as.numeric(typ$`Activity Depth/Height Measure`) > 1 & typ$`Activity Depth/Height Unit` == 'm' & (is.na(typ$`Activity Relative Depth Name`) | typ$`Activity Relative Depth Name` != 'Surface')
-  chk <- typm | typft
+  typsrft <- as.numeric(typ$`Activity Depth/Height Measure`) > 3.3 & typ$`Activity Depth/Height Unit` == 'ft' & is.na(typ$`Activity Relative Depth Name`)
+  typsrm <- as.numeric(typ$`Activity Depth/Height Measure`) > 1 & typ$`Activity Depth/Height Unit` == 'm' & is.na(typ$`Activity Relative Depth Name`)
+  typmid <- typ$`Activity Relative Depth Name` %in% 'Midwater'
+  typbot <- typ$`Activity Relative Depth Name` %in% 'Bottom'
+  chk <- typsrm | typsrft | typmid | typbot
   if(any(chk, na.rm = TRUE)){
-    rws <- which(chk)
+    rwssrf <- unique(sort(c(which(typsrm), which(typsrft))))
+    rwsmid <- which(typmid)
+    rwsbot <- which(typbot)
+    rwssrfmsg <- ifelse(length(rwssrf) > 0, paste0('\n\tValues in Activity Depth/Height Measure > 1 m / 3.3 ft for Surface values found on row(s): ', paste(rwssrf, collapse = ', ')), '')
+    rwsmidmsg <- ifelse(length(rwsmid) > 0, paste0('\n\tMidwater values found in Activity Relative Depth Name on row(s): ', paste(rwsmid, collapse = ', ')), '')
+    rwsbotmsg <- ifelse(length(rwsbot) > 0, paste0('\n\tBottom values found in Activity Relative Depth Name on row(s): ', paste(rwsbot, collapse = ', ')), '')
+    rws <- paste0(rwssrfmsg, rwsmidmsg, rwsbotmsg)
     if(warn)
-      warning(msg, '\n\tValues in Activity Depth/Height Measure > 1 m / 3.3 ft found on row(s): ', paste(rws, collapse = ', '), call. = FALSE)
+      warning(msg, rws, call. = FALSE)
     wrn <- wrn + 1
     message(paste(msg, 'WARNING'))
   } else {
