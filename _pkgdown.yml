@@ -45,6 +45,8 @@ reference:
   - formMWRfrecom
   - readMWRsites
   - checkMWRsites
+  - readMWRwqx
+  - checkMWRwqx
 - title: Quality control checks, table and report creation
   desc: >
     Functions for running quality control checks, generating tables, and creating the overall report. 
