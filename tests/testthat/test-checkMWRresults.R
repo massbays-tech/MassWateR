@@ -54,7 +54,7 @@ test_that("Checking Activity Relative Depth Name entries", {
   chk <- resdat
   chk[6, 7] <- 'Surf'
   chk[387, 7] <- 'nearbottom'
-  expect_warning(expect_warning(checkMWRresults(chk)))
+  expect_warning(expect_warning(expect_warning(checkMWRresults(chk))))
 })
 
 test_that("Checking correct Characteristic Names", {
@@ -62,7 +62,7 @@ test_that("Checking correct Characteristic Names", {
   chk[12, 8] <- 'chla'
   chk[200, 8] <- 'chla'
   chk[2500, 8] <- 'nitrogne'
-  expect_warning(checkMWRresults(chk))
+  expect_warning(expect_warning(checkMWRresults(chk)))
 })
 
 test_that("Checking entries in Result Value", {
@@ -105,7 +105,8 @@ test_that("Checking incorrect unit type per parameter in Characteristic Name", {
 test_that("Checking tests if all Characteristic Name is correct", {
   chk <- resdat
   chk <- chk %>% 
-    filter(!`Characteristic Name`%in% c('Air Temp', 'Gage'))
+    filter(!`Characteristic Name`%in% c('Air Temp', 'Gage')) %>% 
+    filter(!`Activity Relative Depth Name` %in% 'Bottom')
   expect_message(checkMWRresults(chk), 'All checks passed!')
 })
 
