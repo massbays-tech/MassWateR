@@ -16,7 +16,7 @@
 #' head(wqxdat)
 readMWRwqx <- function(wqxpth, runchk = TRUE){
   
-  wqxdat <- suppressWarnings(readxl::read_excel(respth, na = c('NA', 'na', ''), col_types = 'text'))
+  wqxdat <- suppressWarnings(readxl::read_excel(wqxpth, na = c('NA', 'na', ''), col_types = 'text'))
   
   # run checks
   if(runchk)
