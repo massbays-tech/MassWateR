@@ -29,7 +29,7 @@ library(dplyr)
 
 wqxpth <- system.file('extdata/ExampleWQX.xlsx', package = 'MassWateR')
 
-wqxdat <- readxl::read_excel(sitpth, na = c('NA', 'na', ''), col_types = 'text')
+wqxdat <- readxl::read_excel(wqxpth, na = c('NA', 'na', ''), col_types = 'text')
     
 checkMWRwqx(wqxdat)
 }
