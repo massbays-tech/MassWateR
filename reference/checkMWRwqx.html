@@ -63,7 +63,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">checkMWRwqx</span><span class="op">(</span><span class="va">wqxdat</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">checkMWRwqx</span><span class="op">(</span><span class="va">wqxdat</span>, warn <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -71,18 +71,23 @@
     <dl><dt>wqxdat</dt>
 <dd><p>input data frame</p></dd>
 
+
+<dt>warn</dt>
+<dd><p>logical to return warnings to the console (default)</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p><code>wqxdat</code> is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding.</p>
+<p><code>wqxdat</code> is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. Checks with warnings can be fixed at the discretion of the user before proceeding.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This function is used internally within <code><a href="readMWRwqx.html">readMWRwqx</a></code> to run several checks on the input data for conformance with downstream functions</p>
-<p>The following checks are made:</p><ul><li><p>Column name spelling: Should be the following: Monitoring Location ID, Monitoring Location Name, Monitoring Location Latitude, Monitoring Location Longitude, Location Group</p></li>
+<p>The following checks are made:</p><ul><li><p>Column name spelling: Should be the following: Parameter, Sampling Method Context, Method Speciation, Result Sample Fraction, Analytical Method, Analytical Method Context</p></li>
 <li><p>Columns present: All columns from the previous check should be present</p></li>
+<li><p>Parameter: Should match parameter names in the <code>Simple Parameter</code> or <code>WQX Parameter</code> columns of the <code><a href="paramsMWR.html">paramsMWR</a></code> data (warning only)</p></li>
 </ul></div>
 
     <div class="section level2">
@@ -95,6 +100,11 @@
 <span class="r-in"><span>    </span></span>
 <span class="r-in"><span><span class="fu">checkMWRwqx</span><span class="op">(</span><span class="va">wqxdat</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on WQX metadata...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Parameter formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 6</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Parameter `Sampling Method Context` Method Speciatio…¹ Resul…² Analy…³ Analy…⁴</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
