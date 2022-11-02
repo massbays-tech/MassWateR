@@ -255,3 +255,30 @@ The `readMWRwqx()` function runs a few checks on the file using the `checkMWRwqx
 -   **Parameter**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` column of the `paramsMWR` data (warning only)
 
 An informative error is returned if the input data fail any of the checks. The input data should be corrected by hand in the Excel file by altering the appropriate rows or column names indicated in the error. Checks with warnings can be fixed at the discretion of the user before proceeding.
+
+## Using the fset argument
+
+All of the outlier, analysis, and wqx functions in MassWateR require the inputs described above, depending on the function.  These are generally passed to each function using the appropriate arguments, e.g., `res` for the surface water quality results, `acc` and `frecom` for the data quality objective files for accuracy, frequency, and completeness, `sit` for the site metadata, and `wqx` for the wqx metadata. The values passed to these functions can be file paths that specify the location of the file (either as a full path or relative path based on the working directory) or as data frames returned by the relevant import functions (i.e., `readMWRresults()`, `readMWRacc()`, `readMWRfrecom()`, `readMWRsites()`, `readMWRwqx()`).
+
+Because it can be tedious to specify each of the input files in the arguments for the MassWateR functions, the `fset` (file set) argument can be used as an alternative method.  The `fset` argument for each function accepts a named list with the relevant input file locations or data frames.  This can be created at the top of a script and recycled as necessary for an analysis workflow.  The examples below demonstrate creating the list as file paths or as exported data frames from the import functions.  Examples in the vignettes show how this list can be used as alternative input using the `fset` argument.   
+
+```{r}
+# a list of input file paths
+fsetls <- list(
+  res = respth, 
+  acc = accpth,
+  frecom = frecompth,
+  sit = sitpth, 
+  wqx = wqxpth
+)
+
+# a list of input data frames
+fsetls <- list(
+  res = resdat, 
+  acc = accdat,
+  frecom = frecomdat,
+  sit = sitdat, 
+  wqx = wqxdat
+)
+```
+
