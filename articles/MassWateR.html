@@ -871,6 +871,51 @@ Checks with warnings can be fixed at the discretion of the user before
 proceeding.</p>
 </div>
 </div>
+<div class="section level2">
+<h2 id="using-the-fset-argument">Using the fset argument<a class="anchor" aria-label="anchor" href="#using-the-fset-argument"></a>
+</h2>
+<p>All of the outlier, analysis, and wqx functions in MassWateR require
+the inputs described above, depending on the function. These are
+generally passed to each function using the appropriate arguments, e.g.,
+<code>res</code> for the surface water quality results, <code>acc</code>
+and <code>frecom</code> for the data quality objective files for
+accuracy, frequency, and completeness, <code>sit</code> for the site
+metadata, and <code>wqx</code> for the wqx metadata. The values passed
+to these functions can be file paths that specify the location of the
+file (either as a full path or relative path based on the working
+directory) or as data frames returned by the relevant import functions
+(i.e., <code><a href="../reference/readMWRresults.html">readMWRresults()</a></code>, <code><a href="../reference/readMWRacc.html">readMWRacc()</a></code>,
+<code><a href="../reference/readMWRfrecom.html">readMWRfrecom()</a></code>, <code><a href="../reference/readMWRsites.html">readMWRsites()</a></code>,
+<code><a href="../reference/readMWRwqx.html">readMWRwqx()</a></code>).</p>
+<p>Because it can be tedious to specify each of the input files in the
+arguments for the MassWateR functions, the <code>fset</code> (file set)
+argument can be used as an alternative method. The <code>fset</code>
+argument for each function accepts a named list with the relevant input
+file locations or data frames. This can be created at the top of a
+script and recycled as necessary for an analysis workflow. The examples
+below demonstrate creating the list as file paths or as exported data
+frames from the import functions. Examples in the vignettes show how
+this list can be used as alternative input using the <code>fset</code>
+argument.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># a list of input file paths</span></span>
+<span><span class="va">fsetls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  res <span class="op">=</span> <span class="va">respth</span>, </span>
+<span>  acc <span class="op">=</span> <span class="va">accpth</span>,</span>
+<span>  frecom <span class="op">=</span> <span class="va">frecompth</span>,</span>
+<span>  sit <span class="op">=</span> <span class="va">sitpth</span>, </span>
+<span>  wqx <span class="op">=</span> <span class="va">wqxpth</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># a list of input data frames</span></span>
+<span><span class="va">fsetls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  res <span class="op">=</span> <span class="va">resdat</span>, </span>
+<span>  acc <span class="op">=</span> <span class="va">accdat</span>,</span>
+<span>  frecom <span class="op">=</span> <span class="va">frecomdat</span>,</span>
+<span>  sit <span class="op">=</span> <span class="va">sitdat</span>, </span>
+<span>  wqx <span class="op">=</span> <span class="va">wqxdat</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+</div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
 </div>
