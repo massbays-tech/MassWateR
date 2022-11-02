@@ -4,17 +4,18 @@
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
 #' @param frecom character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}
 #' @param sit character string of path to the site metadata file or \code{data.frame} for site metadata returned by \code{\link{readMWRsites}}
-#' @param fset optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, or \code{sit}, overrides the other arguments, see details
-#' @param runchk  logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths
+#' @param wqx character string of path to the wqx metadata file or \code{data.frame} for wqx metadata returned by \code{\link{readMWRwqx}}
+#' @param fset optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, \code{sit}, or \code{wqx}, overrides the other arguments, see details
+#' @param runchk  logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, \code{\link{checkMWRsites}}, or \code{\link{checkMWRwqx}}, applies only if \code{res}, \code{acc}, \code{frecom}, \code{sit}, or \code{wqx} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
-#' @details The function is used internally by others to import data from paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRacc}}, \code{\link{readMWRfrecom}}, and \code{\link{readMWRsites}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.
+#' @details The function is used internally by others to import data from paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRacc}}, \code{\link{readMWRfrecom}}, \code{\link{readMWRsites}}, or \code{\link{readMWRwqx}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.
 #' 
-#' The \code{fset} argument can used in place of the preceding arguments. The argument accepts a list with named elements as \code{res}, \code{acc}, \code{frecom}, or \code{sit}, where the elements are either character strings of the path or data frames to the corresponding inputs. Missing elements will be interpreted as \code{NULL} values.  This argument is provided as convenience to apply a single list as input versus separate inputs for each argument. 
+#' The \code{fset} argument can used in place of the preceding arguments. The argument accepts a list with named elements as \code{res}, \code{acc}, \code{frecom}, \code{sit}, or \code{wqx}, where the elements are either character strings of the path or data frames to the corresponding inputs. Missing elements will be interpreted as \code{NULL} values.  This argument is provided as convenience to apply a single list as input versus separate inputs for each argument. 
 #' 
 #' Any of the arguments for the data files can be \code{NULL}, used as a convenience for downstream functions that do not require all. 
 #'
-#' @return A four element list with the imported results, data quality objective files, and site metadata file named \code{"resdat"}, \code{"accdat"}, \code{"frecomdat"}, and \code{"sitdat"}, respectively.
+#' @return A five element list with the imported results, data quality objective files, site metadata, and wqx metadata, named \code{"resdat"}, \code{"accdat"}, \code{"frecomdat"}, \code{"sitdat"}, and \code{"wqxdat"}, respectively.
 #' 
 #' @export
 #'
@@ -35,11 +36,15 @@
 #' # site path
 #' sitpth <- system.file('extdata/ExampleSites.xlsx', package = 'MassWateR')
 #' 
-#' inp <- utilMWRinput(res = respth, acc = accpth, frecom = frecompth, sit = sitpth)
+#' # wqx path
+#' wqxpth <- system.file('extdata/ExampleWQX.xlsx', package = 'MassWateR')
+#' 
+#' inp <- utilMWRinput(res = respth, acc = accpth, frecom = frecompth, sit = sitpth, wqx = wqxpth)
 #' inp$resdat
 #' inp$accdat
 #' inp$frecomdat
 #' inp$sitdat
+#' inp$wqxdat
 #' 
 #' ##
 #' # using data frames
@@ -56,11 +61,15 @@
 #' # site data
 #' sitdat <- readMWRsites(sitpth)
 #' 
-#' inp <- utilMWRinput(res = resdat, acc = accdat, frecom = frecomdat, sit = sitdat)
+#' # wqx data
+#' wqxdat <- readMWRwqx(wqxpth)
+#' 
+#' inp <- utilMWRinput(res = resdat, acc = accdat, frecom = frecomdat, sit = sitdat, wqx = wqxpth)
 #' inp$resdat
 #' inp$accdat
 #' inp$frecomdat
 #' inp$sitdat
+#' inp$wqxdat
 #' 
 #' ##
 #' # using fset as list input
@@ -70,10 +79,11 @@
 #'   res = respth, 
 #'   acc = accpth, 
 #'   frecom = frecompth,
-#'   sit = sitpth
+#'   sit = sitpth, 
+#'   wqx = wqxpth
 #' )
 #' utilMWRinput(fset = fset)
-utilMWRinput <- function(res = NULL, acc = NULL, frecom = NULL, sit = NULL, fset = NULL, runchk = TRUE, warn = TRUE){
+utilMWRinput <- function(res = NULL, acc = NULL, frecom = NULL, sit = NULL, wqx = NULL, fset = NULL, runchk = TRUE, warn = TRUE){
   
   ##
   # fset argument for list of files inputs
@@ -83,6 +93,7 @@ utilMWRinput <- function(res = NULL, acc = NULL, frecom = NULL, sit = NULL, fset
     acc <- fset$acc
     frecom <- fset$frecom
     sit <- fset$sit
+    wqx <- fset$wqx
   
   }
   
@@ -123,7 +134,7 @@ utilMWRinput <- function(res = NULL, acc = NULL, frecom = NULL, sit = NULL, fset
     if(!chk)
       stop('File specified with acc not found')
     
-    accdat <- readMWRacc(accpth, runchk = runchk)
+    accdat <- readMWRacc(accpth, runchk = runchk, warn = warn)
     
   }
   
@@ -145,7 +156,7 @@ utilMWRinput <- function(res = NULL, acc = NULL, frecom = NULL, sit = NULL, fset
     if(!chk)
       stop('File specified with frecom not found')
     
-    frecomdat <- readMWRfrecom(frecompth, runchk = runchk)
+    frecomdat <- readMWRfrecom(frecompth, runchk = runchk, warn = warn)
     
   }
   
@@ -175,13 +186,36 @@ utilMWRinput <- function(res = NULL, acc = NULL, frecom = NULL, sit = NULL, fset
     sitdat <- NULL
   
   ##
+  # wqx data
+  
+  # data frame
+  if(inherits(wqx, 'data.frame'))
+    wqxdat <- wqx
+  
+  # import from path
+  if(inherits(wqx, 'character')){
+    
+    wqxpth <- wqx
+    chk <- file.exists(wqxpth)
+    if(!chk)
+      stop('File specified with wqx not found')
+    
+    wqxdat <- readMWRwqx(wqxpth, runchk = runchk, warn = warn)
+    
+  }
+  
+  if(inherits(wqx, 'NULL'))
+    wqxdat <- NULL
+  
+  ##
   # output
   
   out <- list(
     resdat = resdat,
     accdat = accdat,
     frecomdat = frecomdat,
-    sitdat = sitdat
+    sitdat = sitdat,
+    wqxdat = wqxdat
   )
   
   return(out)

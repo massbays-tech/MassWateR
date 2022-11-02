@@ -21,3 +21,7 @@ frecomdat <- suppressMessages(readxl::read_excel(frecompth,
 # site metadata
 sitpth <- system.file('extdata/ExampleSites.xlsx', package = 'MassWateR')
 sitdat <- readxl::read_excel(sitpth, na = c('NA', 'na', ''))
+
+# wqx metadata
+wqxpth <- system.file('extdata/ExampleWQX.xlsx', package = 'MassWateR')
+wqxdat <- readxl::read_excel(wqxpth, na = c('NA', 'na', ''), col_types = 'text')

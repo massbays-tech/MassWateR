@@ -4,12 +4,14 @@
 \alias{readMWRwqx}
 \title{Read water quality exchange (wqx) metadata input from an external file}
 \usage{
-readMWRwqx(wqxpth, runchk = TRUE)
+readMWRwqx(wqxpth, runchk = TRUE, warn = TRUE)
 }
 \arguments{
 \item{wqxpth}{character string of path to the wqx metadata file}
 
 \item{runchk}{logical to run data checks with \code{\link{checkMWRwqx}}}
+
+\item{warn}{logical to return warnings to the console (default)}
 }
 \value{
 A formatted data frame that can be used for downstream analysis

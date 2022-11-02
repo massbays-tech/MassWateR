@@ -2,6 +2,7 @@
 #'
 #' @param wqxpth character string of path to the wqx metadata file
 #' @param runchk logical to run data checks with \code{\link{checkMWRwqx}}
+#' @param warn logical to return warnings to the console (default)
 #'
 #' @return A formatted data frame that can be used for downstream analysis
 #' 
@@ -14,13 +15,13 @@
 #' 
 #' wqxdat <- readMWRwqx(wqxpth)
 #' head(wqxdat)
-readMWRwqx <- function(wqxpth, runchk = TRUE){
+readMWRwqx <- function(wqxpth, runchk = TRUE, warn = TRUE){
   
   wqxdat <- suppressWarnings(readxl::read_excel(wqxpth, na = c('NA', 'na', ''), col_types = 'text'))
   
   # run checks
   if(runchk)
-    wqxdat <- checkMWRwqx(wqxdat)
+    wqxdat <- checkMWRwqx(wqxdat, warn = warn)
   
   out <- wqxdat
   
