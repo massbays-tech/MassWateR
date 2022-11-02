@@ -146,7 +146,7 @@ library(ggplot2)
 sudburyMWR <- st_read('sudburyMWR.shp')
 
 # use geom_sf to add watershed
-anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = "nhd", locgroup = 'Sudbury', dLevel = 'high') + 
+anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = "nhd", site = c("SUD-005","SUD-293","SUD-096","SUD-144"), dLevel = 'high') + 
   geom_sf(data = sudburyMWR)
 ```
 ```{r, fig.height = 7, fig.width = 7, echo = F, warning = F, message = F}
