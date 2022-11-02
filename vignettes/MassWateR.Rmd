@@ -21,9 +21,9 @@ library(dplyr)
 
 ## Overview
 
-The MassWateR R package is developed to work with surface water monitoring data collected by watershed associations and citizen science groups in Massachusetts. The package is created in collaboration with the [Massachusetts Bays National Estuary Partnership](https://www.mass.gov/orgs/massachusetts-bays-national-estuary-partnership) with funding from an EPA Exchange Network Grant.
+The MassWateR R package is developed for surface water monitoring data collected by watershed associations and citizen science groups in Massachusetts. The package is created in collaboration with the [Massachusetts Bays National Estuary Partnership](https://www.mass.gov/orgs/massachusetts-bays-national-estuary-partnership) with funding from an EPA Exchange Network Grant.
 
-The objective of the package is to automate and facilitate quality control and exploratory analysis of data intended for upload to the EPA [Water Quality Exchange](https://www.epa.gov/waterdata/water-quality-data) (WQX). The functions provide a streamlined and repeatable means of 1) screening data for quality control, 2) interpreting data, and 3) creating graphics for analysis and reports to stakeholders. Miscellaneous formatting tools are also available to facilitate data upload to WQX. The functions are organized around these topics, shown below.
+The objective of the package is to automate and facilitate quality control and exploratory analysis of data intended for upload to the EPA [Water Quality Exchange](https://www.epa.gov/waterdata/water-quality-data) (WQX). The functions provide a streamlined and repeatable means of 1) screening data for quality control, 2) interpreting data, and 3) creating graphics for analysis and reports to stakeholders. Additional formatting tools are also available to facilitate data upload to WQX. The functions are organized around these topics, shown below.
 
 ```{r workflow, out.width = '100%', echo = F, fig.cap = 'Functions in MassWateR are organized around these topics.'}
 knitr::include_graphics("workflow.PNG")
@@ -31,9 +31,10 @@ knitr::include_graphics("workflow.PNG")
 
 Three types of data are used with the package. All types should be provided to make best use of the functions:
 
-1.  Water quality **results** organized by sample location and date.
-2.  Summary of data quality objectives that describe quality control **accuracy**, **frequency**, and **completeness** measures for data in the results file.
-3.  A **site metadata** file, including location names, latitude, longitude, and additional grouping factors for sites.
+1. Water quality **results** organized by sample location and date.
+2. Summary of data quality objectives that describe quality control **accuracy**, **frequency**, and **completeness** measures for data in the results file.
+3. A **site metadata** file, including location names, latitude, longitude, and additional grouping factors for sites.
+4. A **wqx metadata** file required for generating output to facilitate data upload to WQX 
 
 Templates and instructions for each of the types of input data are available for download in the [Resources tab](/MassWateR/RESOURCES.md). Additionally, example files, described below, are provided with the package to demonstrate and test the functions.
 
@@ -91,6 +92,12 @@ The site metadata file:
 system.file("extdata/ExampleSites.xlsx", package = "MassWateR")
 ```
 
+The wqx metadata file: 
+
+```{r, eval = F}
+system.file("extdata/ExampleWQX.xlsx", package = "MassWateR")
+```
+
 The example files are provided to demonstrate how the functions in MassWateR are used. In practice, alternative data files that follow the same format as the examples will be used with the functions. There are several checks included in the data import functions to ensure the files are formatted correctly for downstream use. If any of the checks fail, an error message will be returned that prompts the necessary changes that must be made to the Excel file before the data can be used.  The checks can be suppressed by setting `runchk = FALSE` in the import functions.  These checks are described in the next section.
 
 **Make sure to close any data files on your desktop before importing them in MassWateR**.  Some operating systems may require the file to be closed for successful import.  
@@ -108,7 +115,7 @@ paramsMWR %>%
   knitr::kable(.)
 ```
 
-The `readMWRresultsview()` function can be used to help troubleshoot import issues that are encountered with the water quality results file (next section). This function can be used to create a .csv spreadsheet that shows the unique values within columns of the results file.  This information can be used to verify if the values in each conform to the requirements for the data import checks, including acceptable values for the table above.  By default, a PDF is created for all columns (fourteen in total).  The `columns` argument can be used to select columns of interest.  Below shows how to view the unique entries for parameters (`"Characteristic Name"`) and units (`"Result Unit"`). By default, the PDF is created in the working directory. The location where the file is saved can be changed using the `output_dir` argument. Visually evaluating the results for conformance to the package requirements and manually editing the input file can help with the import checks, described below.
+The `readMWRresultsview()` function can be used to help troubleshoot issues that are encountered importing the water quality results file (next section). This function can be used to create a .csv spreadsheet that shows the unique values within columns of the results file.  This information can be used to verify if the values in each conform to the requirements for the data import checks, including acceptable values for the table above.  By default, a .csv is created for all columns.  The `columns` argument can be used to select columns of interest.  Below shows how to view the unique entries for parameters (`"Characteristic Name"`) and units (`"Result Unit"`). By default, the .csv is created in the working directory. The location where the file is saved can be changed using the `output_dir` argument. Visually evaluating the results for conformance to the package requirements and manually editing the input file can help with the import checks, described below.
 
 ```{r, eval = F}
 # find path to the file included with the package, replace with a path to your file as needed
@@ -220,7 +227,7 @@ sitdat <- readMWRsites(sitpth)
 head(sitdat)
 ```
 
-The `readMWRsites()` functions runs several checks on the file using the `checkMWRsites()` function. Most of the checks are to ensure the latitude and longitude data are present and properly formatted. It is assumed that latitude and longitude data are entered in decimal degrees.  The projection can be entered in other functions used in exploratory analysis. Details on the file checks are as follows:
+The `readMWRsites()` function runs several checks on the file using the `checkMWRsites()` function. Most of the checks are to ensure the latitude and longitude data are present and properly formatted. It is assumed that latitude and longitude data are entered in decimal degrees.  The projection can be entered in other functions used in exploratory analysis. Details on the file checks are as follows:
 
 -   **Column name spelling**: Should be the following: Monitoring Location ID, Monitoring Location Name, Monitoring Location Latitude, Monitoring Location Longitude, Location Group
 -   **Columns present**: All columns from the previous check should be present
@@ -229,3 +236,22 @@ The `readMWRsites()` functions runs several checks on the file using the `checkM
 -   **Non-numeric longitude values**: Values entered in Monitoring Location Longitude must be numeric
 -   **Positive longitude values**: Values in Monitoring Location Longitude must be negative
 -   **Missing Location ID**: No missing entries for Monitoring Location ID
+
+### WQX metadata
+
+An Excel file for wqx metadata that is required to generate output for upload to WQX can be imported using `readMWRwqx()`. The system file included with the package, described above, demonstrates the required information and format for the file. The `pth` argument will point to the location of the external file on your computer. See the [Resources tab](/MassWateR/RESOURCES.md) for the Excel file template and detailed instructions. As above, the system file included with the package is used for the example.
+
+```{r, message = T}
+# import wqx metadata
+wqxpth <- system.file("extdata/ExampleWQX.xlsx", package = "MassWateR")
+wqxdat <- readMWRwqx(wqxpth)
+head(wqxdat)
+```
+
+The `readMWRwqx()` function runs a few checks on the file using the `checkMWRwqx()` function. Details on the file checks are as follows:
+
+-   **Column name spelling**: Should be the following: Parameter, Sampling Method Context, Method Speciation, Result Sample Fraction, Analytical Method, Analytical Method Context.
+-   **Columns present**: All columns from the previous should be present, Result Attribute is optional
+-   **Parameter**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` column of the `paramsMWR` data (warning only)
+
+An informative error is returned if the input data fail any of the checks. The input data should be corrected by hand in the Excel file by altering the appropriate rows or column names indicated in the error. Checks with warnings can be fixed at the discretion of the user before proceeding.

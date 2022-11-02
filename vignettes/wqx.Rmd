@@ -1,0 +1,39 @@
+---
+title: "Water Quality Exchange output"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Water Quality Exchange output}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE, message = F, warning = F}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  warning = T, 
+  message = F
+)
+```
+
+The MassWateR packages includes additional functions for generating output that will facilitate upload of data to the EPA [Water Quality Exchange](https://www.epa.gov/waterdata/water-quality-data) (WQX).  The functions for generating the WQX output can be used once the required data are successfully imported into R (see the [data input and checks vignette](https://massbays-tech.github.io/MassWateR/articles/MassWateR.html) for an overview).  The results data file, the data quality objectives file for accuracy, and the wqx metadata file are required to use these functions.  The example data included with the package are imported here to demonstrate how to use the analysis functions:
+
+```{r}
+library(MassWateR)
+
+# import results data
+respth <- system.file("extdata/ExampleResults.xlsx", package = "MassWateR")
+resdat <- readMWRresults(respth)
+
+# import accuracy data
+accpth <- system.file("extdata/ExampleDQOAccuracy.xlsx", package = "MassWateR")
+accdat <- readMWRacc(accpth)
+
+# import wqx metadata
+wqxpth <- system.file("extdata/ExampleWQX.xlsx", package = "MassWateR")
+wqxdat <- readMWRwqx(wqxpth)
+```
+
+## Generating output for WQX
+
+Details forthcoming...
