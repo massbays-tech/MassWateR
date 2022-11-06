@@ -23,7 +23,8 @@ readMWRwqx <- function(wqxpth, runchk = TRUE, warn = TRUE){
   if(runchk)
     wqxdat <- checkMWRwqx(wqxdat, warn = warn)
   
-  out <- wqxdat
+  # format results
+  out <- formMWRwqx(wqxdat)
   
   return(out)
   

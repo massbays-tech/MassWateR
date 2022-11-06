@@ -36,30 +36,6 @@ formMWRresults <- function(resdat, tzone = 'America/Jamaica'){
       `Activity Start Time` = gsub(':00$', '', `Activity Start Time`)
     )
 
-  # # create quality control rows found in QC Reference Value
-  # qrws <- out %>%
-  #   filter(!is.na(`QC Reference Value`)) %>%
-  #   mutate(
-  #     `Result Value` = `QC Reference Value`,
-  #     `Activity Type` = case_when(
-  #       `Activity Type` == 'Field Msr/Obs' ~ 'Quality Control Field Replicate Msr/Obs',
-  #       `Activity Type` == 'Sample-Routine' ~ 'Quality Control Sample-Field Replicate',
-  #       `Activity Type` == 'Quality Control Sample-Field Blank' ~ NA_character_, # to remove
-  #       `Activity Type` == 'Quality Control Sample-Lab Duplicate' ~ 'Quality Control Sample-Lab Duplicate',
-  #       `Activity Type` == 'Quality Control Sample-Lab Blank' ~ NA_character_, # to remove
-  #       `Activity Type` == 'Quality Control Sample-Lab Spike' ~ 'Quality Control Sample-Reference Sample'
-  #     ),
-  #     `QC Reference Value` = gsub('[[:digit:]]+', NA_character_, `QC Reference Value`)
-  #   ) %>%
-  #   filter!is.na(`Activity Type`) # remove those not needed
-  # 
-  # # append new quality control rows, remove values in QC Reference Value
-  # out <- out %>%
-  #   mutate(
-  #     `QC Reference Value` = NA_character_
-  #   ) %>%
-  #   bind_rows(qrws)
-  
   # convert ph s.u. to NA, salinity ppt to ppth 
   out <- out %>% 
     mutate(
