@@ -11,7 +11,9 @@ tabMWRwqx(
   wqx = NULL,
   fset = NULL,
   output_dir = NULL,
-  output_file = NULL
+  output_file = NULL,
+  warn = TRUE,
+  runchk = TRUE
 )
 }
 \arguments{
@@ -28,10 +30,43 @@ tabMWRwqx(
 \item{output_dir}{character string of the output directory for the results, default is the working directory}
 
 \item{output_file}{optional character string for the file name, must include .xlsx suffix}
+
+\item{warn}{logical to return warnings to the console (default)}
+
+\item{runchk}{logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRsites}}, \code{\link{checkMWRwqx}}, applies only if \code{res}, \code{acc}, \code{sit}, or \code{wqx} are file paths}
 }
 \value{
-An Excel workbook is saved to location defined in \code{output_dir} with the name \code{output_file} as default
+An Excel workbook named \code{wqxtab.xlsx} (or name passed to \code{output_file}) will be saved in the directory specified by \code{output_dir} (default is the working directory)
 }
 \description{
 Create and save tables in a single workbook for WQX upload
+}
+\examples{
+# results data path
+respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
+
+# dqo accuracy data path
+accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
+
+# site data path
+sitpth <- system.file('extdata/ExampleSites.xlsx', package = 'MassWateR')
+
+# wqx data path
+wqxpth <- system.file('extdata/ExampleWQX.xlsx', package = 'MassWateR')
+# results data
+resdat <- readMWRresults(respth)
+
+# accuracy data
+accdat <- readMWRacc(accpth)
+
+# site data
+sitdat <- readMWRsites(sitpth)
+
+# wqx data
+wqxdat <- readMWRwqx(wqxpth)
+
+\dontrun{
+# create workbook working directory
+tabMWRwqx(res = resdat, acc = accdat, sit = sitdat, wqx = wqxdat)
+}
 }

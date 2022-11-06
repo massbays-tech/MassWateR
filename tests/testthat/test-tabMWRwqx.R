@@ -1,3 +1,4 @@
-test_that("multiplication works", {
-  expect_equal(2 * 2, 4)
+test_that("Verifying message output for wqx table creation", {
+  expect_message(tabMWRwqx(resdat, accdat, sitdat, wqxdat, warn = FALSE))
+  file.remove(file.path(getwd(), 'wqxtab.xlsx'))
 })
