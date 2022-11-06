@@ -1,10 +1,10 @@
 #' Create and save tables in a single workbook for WQX upload
 #'
-#' @param res 
-#' @param acc 
-#' @param sit 
-#' @param wqx 
-#' @param fset 
+#' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
+#' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
+#' @param sit character string of path to the site metadata file or \code{data.frame} for site metadata returned by \code{\link{readMWRsites}}
+#' @param wqx character string of path to the wqx metadata file or \code{data.frame} for wqx metadata returned by \code{\link{readMWRwqx}}
+#' @param fset optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, \code{sit}, or \code{wqx} overrides the other arguments
 #' @param output_dir character string of the output directory for the results, default is the working directory
 #' @param output_file optional character string for the file name, must include .xlsx suffix
 #'

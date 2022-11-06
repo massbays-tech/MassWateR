@@ -5,7 +5,7 @@
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param param character string of the parameter to plot, must conform to entries in the \code{"Simple Parameter"} column of \code{\link{paramsMWR}}
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
-#' @param fset optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, or \code{sit}, overrides the other arguments
+#' @param fset optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, \code{sit}, or \code{wqx} overrides the other arguments
 #' @param type character indicating \code{"box"}, \code{"jitterbox"}, or \code{"jitter"}, see details
 #' @param group character indicating whether the summaries are grouped by month, site, or week of year
 #' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, optional

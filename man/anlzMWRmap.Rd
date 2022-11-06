@@ -43,7 +43,7 @@ anlzMWRmap(
 
 \item{sit}{character string of path to the site metadata file or \code{data.frame} of site metadata returned by \code{\link{readMWRsites}}}
 
-\item{fset}{optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, or \code{sit}, overrides the other arguments}
+\item{fset}{optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, \code{sit}, or \code{wqx} overrides the other arguments}
 
 \item{site}{character string of sites to include, default all}
 

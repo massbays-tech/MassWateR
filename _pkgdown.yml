@@ -59,6 +59,7 @@ reference:
   - tabMWRfre
   - qcMWRcom
   - tabMWRcom
+  - tabMWRwqx
 - title: Outlier analysis
   desc: > 
     Functions for evaluating outliers as plots and generating tabular output.

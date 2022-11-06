@@ -5,7 +5,7 @@
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
 #' @param sit character string of path to the site metadata file or \code{data.frame} of site metadata returned by \code{\link{readMWRsites}}
 #' @param site character string of sites to include, default all
-#' @param fset optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, or \code{sit}, overrides the other arguments
+#' @param fset optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, \code{sit}, or \code{wqx} overrides the other arguments
 #' @param resultatt character string of result attributes to plot, default all
 #' @param locgroup character string of location groups to plot from the \code{"Location Group"} column in the site metadata file, default all
 #' @param dtrng character string of length two for the date ranges as YYYY-MM-DD, default all
