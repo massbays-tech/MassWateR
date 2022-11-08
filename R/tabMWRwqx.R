@@ -260,8 +260,54 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
       )
     )
   
-  # final row selection for results
+  browser()
+  # add quantitation limit from dqo accuracy file
+  
+  colsym <- c('<=', '<', '>=', '>', '\u00b1', '\u2265', '\u2264', '%', 'AQL', 'BDL', 'log', 'all')
+  
+  # combining with dqo acc requires multiple filters
+  # first 1 to many left_join
+  # then filter values where the accuracy values are binary (above below)
+  # then filter values where the accuracy values are many (a range)
+  # then filter values where there is no result value but more than one dqo accuracy range
   resu <- resu %>% 
+    mutate(
+      ind = 1:dplyr::n()
+    ) %>% 
+    left_join(accdat, by = 'WQX Parameter') %>% 
+    dplyr::mutate(
+      `Result Value2` = dplyr::case_when(
+        `Result Value` == 'AQL' ~ 'Inf', 
+        `Result Value` == 'BDL' ~ '-Inf', 
+        T ~ `Result Value`
+      )
+    ) %>% 
+    tidyr::unite('flt', `Result Value2`, `Value Range`, sep = ' ', remove = FALSE) %>%
+    dplyr::rowwise() %>%
+    dplyr::mutate(
+      flt = ifelse(grepl('all|NA', flt), T, eval(parse(text = flt))) # filte
+    ) %>%
+    dplyr::filter(flt) %>% 
+    dplyr::group_by(ind) %>% 
+    dplyr::mutate(
+      `rngflt` = as.numeric(gsub(paste(colsym, collapse = '|'), '', `Value Range`))
+    ) %>% 
+    dplyr::filter(ifelse(is.na(rngflt), T, max(rngflt) == rngflt)) %>% 
+    dplyr::ungroup() %>% 
+    filter(!(duplicated(ind) & is.na(`Result Value2`))) %>% 
+    dplyr::select(-ind, -`Value Range`, -`Result Value2`, -`rngflt`, -flt) %>% 
+    dplyr::mutate(
+      `Result Detection/Quantitation Limit Measure` = dplyr::case_when(
+        `Result Value` == 'BDL' & is.na(`Quantitation Limit`) ~ as.character(MDL), 
+        `Result Value` == 'BDL' & !is.na(`Quantitation Limit`) ~ as.character(`Quantitation Limit`), 
+        `Result Value` == 'AQL' & is.na(`Quantitation Limit`) ~ as.character(UQL),
+        `Result Value` == 'AQL' & !is.na(`Quantitation Limit`) ~ as.character(`Quantitation Limit`),
+        T ~ NA_character_
+      )
+    )
+  
+  # final row selection for results
+  resu <- resu %>%
     dplyr::select(
       `Project ID`,
       `Monitoring Location ID`,
@@ -290,7 +336,7 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
       # `Result Analytical Method ID`,
       # `Result Analytical Method Context`,
       `Result Detection/Quantitation Limit Type`,
-      # `Result Detection/Quantitation Limit Measure`,
+      `Result Detection/Quantitation Limit Measure`,
       `Result Detection/Quantitation Limit Unit`,
       `Result Comment`
     )
