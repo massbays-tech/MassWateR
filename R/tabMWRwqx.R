@@ -164,7 +164,8 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
       `Result Value`, 
       `Result Unit`, 
       `Result Measure Qualifier`, 
-      `Result Comment`
+      `Result Comment`, 
+      `Quantitation Limit`
       ) %>% 
     dplyr::group_by(`Activity Start Date`, `Characteristic Name`, `Activity Type`) %>% 
     dplyr::mutate(
@@ -259,12 +260,11 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
         T ~ NA_character_
       )
     )
-  
-  browser()
+
   # add quantitation limit from dqo accuracy file
   
   colsym <- c('<=', '<', '>=', '>', '\u00b1', '\u2265', '\u2264', '%', 'AQL', 'BDL', 'log', 'all')
-  
+
   # combining with dqo acc requires multiple filters
   # first 1 to many left_join
   # then filter values where the accuracy values are binary (above below)
@@ -305,6 +305,27 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
         T ~ NA_character_
       )
     )
+
+  # add columns from wqx meta
+  resu <- resu %>% 
+    left_join(wqxdat, by = 'WQX Parameter') %>% 
+    dplyr::mutate(
+      `Sample Collection Method Context` = dplyr::case_when(
+        !is.na(`Sample Collection Method ID`) ~ `Sampling Method Context`, 
+        T ~ NA_character_
+      ),
+      `Result Sample Fraction` = ifelse(`Activity Type` == 'Sample-Routine', 
+                                        `Result Sample Fraction`, 
+                                        NA_character_), 
+      `Result Analytical Method ID` = dplyr::case_when(
+        grepl('Lab|Routine|Reference', `Activity Type`) ~ `Analytical Method`, 
+        T ~ NA_character_
+      ),
+      `Result Analytical Method Context` = dplyr::case_when(
+        grepl('Lab|Routine|Reference', `Activity Type`) ~ `Analytical Method Context`, 
+        T ~ NA_character_
+      )
+    )
   
   # final row selection for results
   resu <- resu %>%
@@ -321,20 +342,20 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
       `Activity Depth/Height Unit`,
       `Activity Relative Depth Name`,
       `Sample Collection Method ID`,
-      # `Sample Collection Method Context`,
+      `Sample Collection Method Context`,
       `Sample Collection Equipment Name`,
       `Characteristic Name`,
       `Characteristic Name User Supplied`,
-      # `Method Speciation`,
+      `Method Speciation`,
       `Result Detection Condition`,
       `Result Value`,
       `Result Unit`,
       `Result Measure Qualifier`,
-      # `Result Sample Fraction`,
+      `Result Sample Fraction`,
       `Result Status ID`,
       `Result Value Type`,
-      # `Result Analytical Method ID`,
-      # `Result Analytical Method Context`,
+      `Result Analytical Method ID`,
+      `Result Analytical Method Context`,
       `Result Detection/Quantitation Limit Type`,
       `Result Detection/Quantitation Limit Measure`,
       `Result Detection/Quantitation Limit Unit`,
