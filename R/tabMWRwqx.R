@@ -86,11 +86,11 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
       `Monitoring Location ID`,
       `Monitoring Location Name`,
       `Monitoring Location Type`,
-      `Tribal Land Indicator (Yes/No)`,
-      `Tribal Land Name`,
+      `Tribal Land Indicator (Yes/No) (optional)`,
+      `Tribal Land Name (optional)`,
       `Monitoring Location Latitude (DD.DDDD)`,
       `Monitoring Location Longitude (-DDD.DDDD)`,
-      `Monitoring Location Source Map Scale`,
+      `Monitoring Location Source Map Scale (conditional)`,
       `Monitoring Location Horizontal Collection Method`,
       `Monitoring Location Horizontal Coordinate Reference System`
     )
@@ -98,14 +98,10 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
   ##
   # Results
   
-  # format characteristic name in resdat to wqx parameter
-  resdat <- resdat %>% 
-    dplyr::mutate(
-      `WQX Parameter` = dplyr::case_when(
-                    `Characteristic Name` %in% paramsMWR$`Simple Parameter` ~ paramsMWR$`WQX Parameter`[match(`Characteristic Name`, paramsMWR$`Simple Parameter`)], 
-                    T ~ `Characteristic Name`
-                  )
-    )
+  # new activity types for quality control rows where QC Reference Value is not blank
+  qcrws <- c('Quality Control Field Replicate Msr/Obs', 'Quality Control Sample-Field Replicate',
+             'Quality Control Sample-Lab Duplicate 2', 'Quality Control Sample-Reference Sample',
+             'Quality Control Sample-Measurement Precision Sample')
   
   # format parameter in accdat to wqx parameter
   accdat <- accdat %>% 
@@ -117,8 +113,42 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
     ) %>% 
     dplyr::select(`WQX Parameter`, MDL, UQL, `Value Range`)
 
-  # create output
+  # format characteristic name in resdat to wqx parameter
   resu <- resdat %>% 
+    dplyr::mutate(
+      `WQX Parameter` = dplyr::case_when(
+        `Characteristic Name` %in% paramsMWR$`Simple Parameter` ~ paramsMWR$`WQX Parameter`[match(`Characteristic Name`, paramsMWR$`Simple Parameter`)], 
+        T ~ `Characteristic Name`
+      )
+    )
+  
+  # create quality control rows where QC Reference Value is not NA
+  qrws <- resu %>%
+    filter(!is.na(`QC Reference Value`)) %>%
+    mutate(
+      `Result Value` = `QC Reference Value`,
+      `Activity Type` = case_when(
+        `Activity Type` == 'Field Msr/Obs' ~ 'Quality Control Field Replicate Msr/Obs',
+        `Activity Type` == 'Sample-Routine' ~ 'Quality Control Sample-Field Replicate',
+        `Activity Type` == 'Quality Control Sample-Field Blank' ~ NA_character_, # to remove
+        `Activity Type` == 'Quality Control Sample-Lab Blank' ~ NA_character_, # to remove
+        `Activity Type` == 'Quality Control Sample-Lab Duplicate' ~ 'Quality Control Sample-Lab Duplicate 2',
+        `Activity Type` == 'Quality Control Sample-Lab Spike' ~ 'Quality Control Sample-Reference Sample',
+        `Activity Type` == 'Quality Control Field Calibration Check' ~ 'Quality Control Sample-Measurement Precision Sample'
+      ),
+      `QC Reference Value` = gsub('[[:digit:]]+', NA_character_, `QC Reference Value`)
+    ) %>%
+    filter(!is.na(`Activity Type`))
+
+  # append new quality control rows, remove values in QC Reference Value
+  resu <- resu %>%
+    mutate(
+      `QC Reference Value` = NA_character_
+    ) %>%
+    bind_rows(qrws)
+
+  # add unique time to QC rows that don't have time
+  resu <- resu %>% 
     dplyr::select(
       `Project ID`, 
       `Monitoring Location ID`, 
@@ -136,51 +166,134 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
       `Result Measure Qualifier`, 
       `Result Comment`
       ) %>% 
-    dplyr::left_join(wqxdat, by = 'WQX Parameter') %>% 
+    dplyr::group_by(`Activity Start Date`, `Characteristic Name`, `Activity Type`) %>% 
     dplyr::mutate(
-      `Sample Collection Equipment Name` = ifelse(`Activity Type` == 'Sample-Routine', 'Water Bottle', ifelse(`Activity Type` == 'Field Msr/Obs', 'Probe/Sensor', '')), 
+      actstrtm = dplyr::case_when(
+        !`Activity Type` %in% c('Field Msr/Obs', 'Sample-Routine') & is.na(`Activity Start Time`) ~ 1,
+        T ~ NA_real_
+      ), 
+      actstrtm = cumsum(actstrtm)
+    ) %>% 
+    dplyr::rowwise() %>% 
+    dplyr::mutate(
+      actstrtm = paste0(c(sprintf("%02d", actstrtm %/% 60), sprintf('%02d', actstrtm %% 60)), collapse = ':'),
+      actstrtm = ifelse(actstrtm == 'NA:NA', NA, actstrtm)
+    ) %>% 
+    dplyr::ungroup() %>% 
+    dplyr::mutate(
+      `Activity Start Time` = ifelse(is.na(`Activity Start Time`), actstrtm, `Activity Start Time`)
+    ) %>% 
+    dplyr::select(-actstrtm)
+  
+  # add activity id
+  resu <- resu %>% 
+    dplyr::mutate(
+      `Monitoring Location ID` = ifelse(
+        `Activity Type` %in% c('Field Msr/Obs', 'Sample-Routine'), 
+        `Monitoring Location ID`, 
+        NA_character_
+        ), 
       moniaid = ifelse(is.na(`Monitoring Location ID`), '', `Monitoring Location ID`),
       dateaid = gsub('-', '', as.character(lubridate::ymd(`Activity Start Date`))),
       timeaid = gsub(':', '', as.character(`Activity Start Time`)),
-      actyaid = ifelse(`Activity Type` == 'Sample-Routine', 'SR', ifelse(`Activity Type` == 'Field Msr/Obs', 'FM', '')),
-      eqnmaic = ifelse(`Sample Collection Equipment Name` == 'Water Bottle', 'WB', ifelse(`Sample Collection Equipment Name` == 'Probe/Sensor', 'PS', '')),
-      deptaid = ifelse(is.na(`Activity Depth/Height Measure`), '', round(as.numeric(`Activity Depth/Height Measure`), 2)), 
+      actyaid = dplyr::case_when(
+        `Activity Type` == 'Sample-Routine' ~ 'SR',
+        `Activity Type` == 'Field Msr/Obs' ~ 'FM',
+        `Activity Type` == 'Quality Control Sample-Lab Duplicate' ~ 'LD',
+        `Activity Type` == 'Quality Control Field Replicate Msr/Obs' ~ 'FM2',
+        `Activity Type` == 'Quality Control Sample-Field Replicate' ~ 'SR2',
+        `Activity Type` == 'Quality Control Sample-Lab Duplicate 2' ~ 'LD2',
+        `Activity Type` == 'Quality Control Sample-Lab Spike' ~ 'LS',
+        `Activity Type` == 'Quality Control Sample-Reference Sample' ~ 'LSR',
+        `Activity Type` == 'Quality Control Field Calibration Check' ~ 'CC',
+        `Activity Type` == 'Quality Control Sample-Measurement Precision Sample' ~ 'CCR',
+        T ~ ''
+      ),
+      deptaid = ifelse(is.na(`Activity Depth/Height Measure`), `Activity Relative Depth Name`, round(as.numeric(`Activity Depth/Height Measure`), 2)), 
+      deptaid = ifelse(is.na(deptaid), '', deptaid)
+    ) %>%
+    tidyr::unite('Activity ID', moniaid, dateaid, timeaid, actyaid, deptaid, sep = ':', remove = T)
+
+  # add remaining columns that depend only on results file
+  resu <- resu %>% 
+    # dplyr::left_join(wqxdat, by = 'WQX Parameter') %>%
+    dplyr::mutate(
+      `Project ID` = ifelse(is.na(`Project ID`), 'Water Quality', `Project ID`),
       `Activity Media Name` = 'Water',
       `Activity Start Time Zone` = 'EDT',
-      `Project ID` = ifelse(is.na(`Project ID`), 'Water Quality', `Project ID`),
-      `Monitoring Location ID` = ifelse(
-        `Activity Type` %in% c('Quality Control Sample-Lab Blank', 'Quality Control Sample-Lab Duplicate', 'Quality Control Sample-Lab Spike', 'Quality Control Field Calibration Check'),
-        'LAB', `Monitoring Location ID`), 
       `Activity Depth/Height Measure` = ifelse(is.na(`Activity Relative Depth Name`), `Activity Depth/Height Measure`, NA), 
-      `Activity Depth/Height Unite` = ifelse(is.na(`Activity Relative Depth Name`), `Activity Depth/Height Unit`, NA), 
-      `Sample Collection Method Context` = ifelse(!is.na(`Sample Collection Method ID`), `Sampling Method Context`, NA), 
-      `Characteristic Name User Supplied` = ifelse(`Characteristic Name` == `WQX Parameter`, '', `Characteristic Name`)
-    ) %>%
-    tidyr::unite('Activity ID', moniaid, dateaid, timeaid, actyaid, eqnmaic, deptaid, sep = ':', remove = T)
-    
-  # # create quality control rows found in QC Reference Value
-  # qrws <- out %>%
-  #   filter(!is.na(`QC Reference Value`)) %>%
-  #   mutate(
-  #     `Result Value` = `QC Reference Value`,
-  #     `Activity Type` = case_when(
-  #       `Activity Type` == 'Field Msr/Obs' ~ 'Quality Control Field Replicate Msr/Obs',
-  #       `Activity Type` == 'Sample-Routine' ~ 'Quality Control Sample-Field Replicate',
-  #       `Activity Type` == 'Quality Control Sample-Field Blank' ~ NA_character_, # to remove
-  #       `Activity Type` == 'Quality Control Sample-Lab Duplicate' ~ 'Quality Control Sample-Lab Duplicate',
-  #       `Activity Type` == 'Quality Control Sample-Lab Blank' ~ NA_character_, # to remove
-  #       `Activity Type` == 'Quality Control Sample-Lab Spike' ~ 'Quality Control Sample-Reference Sample'
-  #     ),
-  #     `QC Reference Value` = gsub('[[:digit:]]+', NA_character_, `QC Reference Value`)
-  #   ) %>%
-  #   filter!is.na(`Activity Type`) # remove those not needed
-  # 
-  # # append new quality control rows, remove values in QC Reference Value
-  # out <- out %>%
-  #   mutate(
-  #     `QC Reference Value` = NA_character_
-  #   ) %>%
-  #   bind_rows(qrws)
+      `Activity Depth/Height Unit` = ifelse(is.na(`Activity Relative Depth Name`), `Activity Depth/Height Unit`, NA), 
+      `Sample Collection Method ID` = dplyr::case_when(
+        `Activity Type` == 'Sample-Routine' & !is.na(`Sample Collection Method ID`) ~ `Sample Collection Method ID`,
+        `Activity Type` == 'Sample-Routine' & is.na(`Sample Collection Method ID`) ~ 'Grab', 
+        T ~ NA_character_
+      ),
+      `Sample Collection Equipment Name` = ifelse(`Activity Type` == 'Sample-Routine', 'Water Bottle', NA_character_), 
+      `Characteristic Name User Supplied` = `Characteristic Name`, 
+      `Characteristic Name` = `WQX Parameter`, 
+      `Result Detection Condition` = dplyr::case_when(
+        `Result Value` == 'BDL' ~ 'Not Detected',
+        `Result Value` == 'AQL' ~ 'Present Above Quantitation Limit', 
+        T ~ NA_character_
+      ), 
+      `Result Value` = dplyr::case_when(
+        `Activity Type` %in% qcrws ~ `Result Value`,
+        !`Activity Type` %in% qcrws & `Result Value` %in% c('BDL', 'AQL') ~ NA_character_,
+        T ~ `Result Value`
+      ),
+      `Result Unit` = dplyr::case_when(
+        `Result Value` %in% c('BDL', 'AQL') ~ NA_character_, 
+        `Characteristic Name` == 'pH' ~ 'blank', 
+        `Characteristic Name` == 'Salinity' ~ 'ppth', 
+        T ~ `Result Unit`
+      ), 
+      `Result Status ID` = 'Final', 
+      `Result Value Type` = 'Actual', 
+      `Result Detection/Quantitation Limit Type` = dplyr::case_when(
+        `Result Value` == 'BDL' ~ 'Method Detection Level',
+        `Result Value` == 'AQL' ~ 'Upper Quantitation Limit', 
+        T ~ NA_character_
+      ), 
+      `Result Detection/Quantitation Limit Unit` = dplyr::case_when(
+        `Result Value` %in% c('BDL', 'AQL') ~ `Result Unit`,
+        T ~ NA_character_
+      )
+    )
+  
+  # final row selection for results
+  resu <- resu %>% 
+    dplyr::select(
+      `Project ID`,
+      `Monitoring Location ID`,
+      `Activity ID`,
+      `Activity Type`,
+      `Activity Media Name`,
+      `Activity Start Date`,
+      `Activity Start Time`,
+      `Activity Start Time Zone`,
+      `Activity Depth/Height Measure`,
+      `Activity Depth/Height Unit`,
+      `Activity Relative Depth Name`,
+      `Sample Collection Method ID`,
+      # `Sample Collection Method Context`,
+      `Sample Collection Equipment Name`,
+      `Characteristic Name`,
+      `Characteristic Name User Supplied`,
+      # `Method Speciation`,
+      `Result Detection Condition`,
+      `Result Value`,
+      `Result Unit`,
+      `Result Measure Qualifier`,
+      # `Result Sample Fraction`,
+      `Result Status ID`,
+      `Result Value Type`,
+      # `Result Analytical Method ID`,
+      # `Result Analytical Method Context`,
+      `Result Detection/Quantitation Limit Type`,
+      # `Result Detection/Quantitation Limit Measure`,
+      `Result Detection/Quantitation Limit Unit`,
+      `Result Comment`
+    )
   
   ##
   # save output
@@ -194,8 +307,8 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
   
   out <- list(
     Projects = prjs,
-    Locations = locs#,
-    # Results = resu
+    Locations = locs,
+    Results = resu
   )
   
   # save
