@@ -10,6 +10,12 @@ test_that("Checking required column names are present", {
   expect_error(checkMWRwqx(chk))
 })
 
+test_that("Checking duplicate parameters", {
+  chk <- wqxdat
+  chk[1, 1] <- 'DO'
+  expect_error(checkMWRwqx(chk))
+})
+
 test_that("Checking correct parameters", {
   chk <- wqxdat
   chk[2, 1] <- 'chla'

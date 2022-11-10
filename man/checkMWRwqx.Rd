@@ -24,6 +24,7 @@ The following checks are made:
 \itemize{
 \item{Column name spelling: }{Should be the following: Parameter, Sampling Method Context, Method Speciation, Result Sample Fraction, Analytical Method, Analytical Method Context}
 \item{Columns present: }{All columns from the previous check should be present}
+\item{Unique parameters: }{Values in \code{Parameter} should be unique (no duplicates)}
 \item{Parameter: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{paramsMWR}} data (warning only)}
 }
 }

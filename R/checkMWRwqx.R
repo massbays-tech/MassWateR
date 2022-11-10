@@ -9,6 +9,7 @@
 #' \itemize{
 #'  \item{Column name spelling: }{Should be the following: Parameter, Sampling Method Context, Method Speciation, Result Sample Fraction, Analytical Method, Analytical Method Context}
 #'  \item{Columns present: }{All columns from the previous check should be present}
+#'  \item{Unique parameters: }{Values in \code{Parameter} should be unique (no duplicates)}
 #'  \item{Parameter: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{paramsMWR}} data (warning only)}
 #' }
 #' 
@@ -54,6 +55,15 @@ checkMWRwqx <- function(wqxdat, warn = TRUE){
   }
   message(paste(msg, 'OK'))
 
+  # check unique parameters
+  msg <- '\tChecking unique parameters...'
+  typ <- wqxdat$Parameter
+  chk <- !duplicated(typ)
+  if(any(!chk)){
+    tochk <- sort(typ[!chk])
+    stop(msg, '\n\tDuplicate parameters found in the Parameter column: ', paste(tochk, collapse = ', '), call. = FALSE)
+  }
+  
   # check parameters
   msg <- '\tChecking Parameter formats...'
   typ <- wqxdat$Parameter

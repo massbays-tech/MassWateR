@@ -252,6 +252,7 @@ The `readMWRwqx()` function runs a few checks on the file using the `checkMWRwqx
 
 -   **Column name spelling**: Should be the following: Parameter, Sampling Method Context, Method Speciation, Result Sample Fraction, Analytical Method, Analytical Method Context.
 -   **Columns present**: All columns from the previous should be present, Result Attribute is optional
+-   **Unique parameters**: Values in `Parameter` should be unique (no duplicates)
 -   **Parameter**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` column of the `paramsMWR` data (warning only)
 
 An informative error is returned if the input data fail any of the checks. The input data should be corrected by hand in the Excel file by altering the appropriate rows or column names indicated in the error. Checks with warnings can be fixed at the discretion of the user before proceeding.

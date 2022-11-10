@@ -305,10 +305,10 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
         T ~ NA_character_
       )
     )
-
+  
   # add columns from wqx meta
   resu <- resu %>% 
-    left_join(wqxdat, by = 'WQX Parameter') %>% 
+    left_join(wqxdat, by = c('Characteristic Name' = 'Parameter')) %>% 
     dplyr::mutate(
       `Sample Collection Method Context` = dplyr::case_when(
         !is.na(`Sample Collection Method ID`) ~ `Sampling Method Context`, 
