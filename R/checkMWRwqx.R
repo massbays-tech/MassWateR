@@ -63,6 +63,7 @@ checkMWRwqx <- function(wqxdat, warn = TRUE){
     tochk <- sort(typ[!chk])
     stop(msg, '\n\tDuplicate parameters found in the Parameter column: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
+  message(paste(msg, 'OK'))
   
   # check parameters
   msg <- '\tChecking Parameter formats...'
