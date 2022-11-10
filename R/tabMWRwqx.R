@@ -55,14 +55,17 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
   ##
   # Projects
   prjs <- dplyr::tibble(
-      `Project ID` = sort(unique(resdat$`Project ID`))
+      `Project ID` = c(
+        sort(unique(resdat$`Project ID`)), 
+        ifelse(anyNA(resdat$`Project ID`), 'Water Quality', NA)
+        )
     ) %>% 
     dplyr::mutate(
       `Project Name` = NA_character_,
       `Project Description` = NA_character_,
       `QAPP Approved Indicator (Yes/No)` = NA_character_,
       `Project Attachment File Name (optional)` = NA_character_,
-      `Project Attachment Type (optional)` = NA_character_,
+      `Project Attachment Type (optional)` = NA_character_
     )
 
   ##
