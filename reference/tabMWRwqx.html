@@ -119,7 +119,13 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>An Excel workbook named <code>wqxtab.xlsx</code> (or name passed to <code>output_file</code>) will be saved in the directory specified by <code>output_dir</code> (default is the working directory)</p>
+<p>An Excel workbook named <code>wqxtab.xlsx</code> (or name passed to <code>output_file</code>) will be saved in the directory specified by <code>output_dir</code> (default is the working directory). The workbook will include three sheets names "Projects", "Locations", and "Results".</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>This function will export a single Excel workbook with three sheets, named "Project", "Locations", and "Results". The output is populated with as much content as possible based on information in the input files.  The remainder of the information not included in the output will need to be manually entered before uploading the data to WQX.  All required columns are present, but individual rows will need to be verified for completeness.  It is the responsibility of the user to verify this information is complete and correct before uploading the data.</p>
+<p>The workflow for using this function is to import the required data (results, data quality objectives file for accuracy, site metadata, and wqx metadata) and to fix any errors noted on import prior to creating the output. The function can be used with inputs as paths to the relevant files or as data frames returned by <code><a href="readMWRresults.html">readMWRresults</a></code>, <code><a href="readMWRacc.html">readMWRacc</a></code>, <code><a href="readMWRsites.html">readMWRsites</a></code>, and <code><a href="readMWRwqx.html">readMWRwqx</a></code>.  For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the <code>fset</code> argument instead. See the help file for <code><a href="utilMWRinput.html">utilMWRinput</a></code>.</p>
+<p>The name of the output file can also be changed using the <code>output_file</code> argument, the default being <code>wqxtab.xlsx</code>.  Warnings can also be turned off or on (default) using the <code>warn</code> argument.  This returns any warnings when data are imported and only applies if the file inputs are paths.</p>
     </div>
 
     <div class="section level2">
