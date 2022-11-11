@@ -550,14 +550,15 @@ numeric or a text value as AQL or BDL</li>
 <li>
 <strong>Single Result Unit</strong>: Each unique parameter in
 <code>Characteristic Name</code> should have only one entry in
-<code>Result Unit</code>
-</li>
+<code>Result Unit</code> (excludes entries for lab spikes reported as
+<code>%</code> or <code>% recovery</code>)</li>
 <li>
 <strong>Correct Result Unit</strong>: Each unique parameter in
 <code>Characteristic Name</code> should have an entry in
 <code>Result Unit</code> that matches one of the acceptable values in
 the <code>Units of measure</code> column of the <code>paramsMWR</code>
-data, see the table above.</li>
+data (excludes entries for lab spikes reported as <code>%</code> or
+<code>% recovery</code>), see the table above.</li>
 </ul>
 <p>An informative error is returned if the input data fail any of the
 checks. The input data should be corrected by hand in the Excel file by
