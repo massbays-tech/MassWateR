@@ -42,6 +42,7 @@ Imports:
   lubridate, 
   osmdata,
   RColorBrewer, 
+  rmarkdown,
   readxl,
   sf,
   tidyr, 
@@ -60,7 +61,6 @@ LazyDataCompression: xz
 Suggests: 
     covr,
     knitr,
-    testthat (>= 3.0.0),
-    rmarkdown
+    testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
