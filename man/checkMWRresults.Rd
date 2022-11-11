@@ -34,8 +34,8 @@ The following checks are made:
 \item{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
 \item{QC Reference Value: }{Should be a numeric value or a text value as AQL or BDL}
 \item{Result Unit: }{No missing entries in \code{Result Unit}, except pH which can be blank}
-\item{Single Result Unit: }{Each unique parameter in \code{Characteristic Name} should have only one entry in \code{Result Unit}}
-\item{Correct Result Unit: }{Each unique parameter in \code{Characteristic Name} should have an entry in \code{Result Unit} that matches one of the acceptable values in the \code{Units of measure} column of the \code{\link{paramsMWR}} data}
+\item{Single Result Unit: }{Each unique parameter in \code{Characteristic Name} should have only one entry in \code{Result Unit} (excludes entries for lab spikes reported as \code{\%} or \code{\% recovery})}
+\item{Correct Result Unit: }{Each unique parameter in \code{Characteristic Name} should have an entry in \code{Result Unit} that matches one of the acceptable values in the \code{Units of measure} column of the \code{\link{paramsMWR}} data (excludes entries for lab spikes reported as \code{\%} or \code{\% recovery})}
 }
 }
 \examples{

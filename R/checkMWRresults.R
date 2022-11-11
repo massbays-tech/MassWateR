@@ -19,8 +19,8 @@
 #'  \item{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
 #'  \item{QC Reference Value: }{Should be a numeric value or a text value as AQL or BDL}
 #'  \item{Result Unit: }{No missing entries in \code{Result Unit}, except pH which can be blank}
-#'  \item{Single Result Unit: }{Each unique parameter in \code{Characteristic Name} should have only one entry in \code{Result Unit}}
-#'  \item{Correct Result Unit: }{Each unique parameter in \code{Characteristic Name} should have an entry in \code{Result Unit} that matches one of the acceptable values in the \code{Units of measure} column of the \code{\link{paramsMWR}} data}
+#'  \item{Single Result Unit: }{Each unique parameter in \code{Characteristic Name} should have only one entry in \code{Result Unit} (excludes entries for lab spikes reported as \code{\%} or \code{\% recovery})}
+#'  \item{Correct Result Unit: }{Each unique parameter in \code{Characteristic Name} should have an entry in \code{Result Unit} that matches one of the acceptable values in the \code{Units of measure} column of the \code{\link{paramsMWR}} data (excludes entries for lab spikes reported as \code{\%} or \code{\% recovery})}
 #' }
 #' 
 #' @return \code{resdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. Checks with warnings can be fixed at the discretion of the user before proceeding.
@@ -209,7 +209,9 @@ checkMWRresults <- function(resdat, warn = TRUE){
 
   # check different units for each parameter
   msg <- '\tChecking if more than one unit per Characteristic Name...'
-  typ <- resdat[, c('Characteristic Name', 'Result Unit')]
+  typ <- resdat[, c('Characteristic Name', 'Result Unit', 'Activity Type')] %>% 
+    dplyr::filter(!(`Activity Type` %in% 'Quality Control Sample-Lab Spike' & `Result Unit` %in% c('%', '% recovery'))) %>% 
+    dplyr::select(-`Activity Type`)
   typ <- unique(typ)
   chk <- !duplicated(typ$`Characteristic Name`)
   if(any(!chk)){
@@ -227,7 +229,9 @@ checkMWRresults <- function(resdat, warn = TRUE){
   # check acceptable units for each parameter, must check all parameter names simple or wqx in paramsMWR
   # does not check those in Characteristic Name not found in parameter names in simple or wqx in paramsMWR
   msg <- '\tChecking acceptable units for each entry in Characteristic Name...'
-  typ <- resdat[, c('Characteristic Name', 'Result Unit')]
+  typ <- resdat[, c('Characteristic Name', 'Result Unit', 'Activity Type')] %>% 
+    dplyr::filter(!(`Activity Type` %in% 'Quality Control Sample-Lab Spike' & `Result Unit` %in% c('%', '% recovery'))) %>% 
+    dplyr::select(-`Activity Type`)
   typ <- unique(typ)
   typ$`Result Unit`[(is.na(typ$`Result Unit`) | typ$`Result Unit` == 's.u.') & typ$`Characteristic Name` == 'pH'] <- 'blank'
   tojn <- paramsMWR[, c('Simple Parameter', 'Units of measure')]

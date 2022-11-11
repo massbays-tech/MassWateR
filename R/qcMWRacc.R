@@ -74,15 +74,18 @@ qcMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = 
   
   # parameters for accuracy checks
   prms <- accprm[chk]
-  
-  # check units in resdat match those in accuracy file
+
+  # check units in resdat match those in accuracy file (excludes % or % recovery in spikes for resdat)
   accuni <- accdat %>% 
     dplyr::select(
       `Characteristic Name` = Parameter, 
       `uom`
     ) %>% 
     unique
-  resdatuni <- unique(resdat[, c('Characteristic Name', 'Result Unit')])
+  resdatuni <- resdat[, c('Characteristic Name', 'Result Unit', 'Activity Type')] %>% 
+    dplyr::filter(!(`Activity Type` %in% 'Quality Control Sample-Lab Spike' & `Result Unit` %in% c('%', '% recovery'))) %>% 
+    dplyr::select(-`Activity Type`) %>% 
+    unique()
   jndat <- inner_join(resdatuni, accuni, by = 'Characteristic Name') %>% 
     dplyr::mutate(
       `Result Unit` = ifelse(is.na(`Result Unit`), 'blank', `Result Unit`),

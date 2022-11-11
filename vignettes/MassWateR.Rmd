@@ -149,8 +149,8 @@ Several checks are run automatically when the data are imported. These file chec
 -   **Result Value**: Should be a numeric value or a text value as AQL or BDL
 -   **QC Reference Value**: Any entered values should be numeric or a text value as AQL or BDL
 -   **Result Unit**: No missing entries in `Result Unit`, except pH which can be blank
--   **Single Result Unit**: Each unique parameter in `Characteristic Name` should have only one entry in `Result Unit`
--   **Correct Result Unit**: Each unique parameter in `Characteristic Name` should have an entry in `Result Unit` that matches one of the acceptable values in the `Units of measure` column of the `paramsMWR` data, see the table above.
+-   **Single Result Unit**: Each unique parameter in `Characteristic Name` should have only one entry in `Result Unit` (excludes entries for lab spikes reported as `%` or `% recovery`)
+-   **Correct Result Unit**: Each unique parameter in `Characteristic Name` should have an entry in `Result Unit` that matches one of the acceptable values in the `Units of measure` column of the `paramsMWR` data (excludes entries for lab spikes reported as `%` or `% recovery`), see the table above.
 
 An informative error is returned if the input data fail any of the checks. The input data should be corrected by hand in the Excel file by altering the appropriate rows or column names indicated in the error. Checks with warnings can be fixed at the discretion of the user before proceeding.
 
