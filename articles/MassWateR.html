@@ -833,21 +833,22 @@ system file included with the package is used for the example.</p>
 <span><span class="co">#&gt; Running checks on WQX metadata...</span></span>
 <span><span class="co">#&gt;  Checking column names... OK</span></span>
 <span><span class="co">#&gt;  Checking all required columns are present... OK</span></span>
+<span><span class="co">#&gt;  Checking unique parameters... OK</span></span>
 <span><span class="co">#&gt;  Checking Parameter formats... OK</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; All checks passed!</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">wqxdat</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 6</span></span></span>
-<span><span class="co">#&gt;   `WQX Parameter`               Sampling Metho…¹ Metho…² Resul…³ Analy…⁴ Analy…⁵</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> pH                            <span style="color: #BB0000;">NA</span>               <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Dissolved oxygen (DO)         <span style="color: #BB0000;">NA</span>               <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Total Phosphorus, mixed forms MassBays         as P    Unfilt… 4500-P… APHA   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Total Phosphorus, mixed forms MassBays         as P    Filter… 4500-P… APHA   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Escherichia coli              MassBays         <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      EPA 16… USEPA  </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​`Sampling Method Context`,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ²​`Method Speciation`, ³​`Result Sample Fraction`, ⁴​`Analytical Method`,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁵​`Analytical Method Context`</span></span></span></code></pre></div>
+<span><span class="co">#&gt;   Parameter `Sampling Method Context` Method Speciatio…¹ Resul…² Analy…³ Analy…⁴</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> pH        <span style="color: #BB0000;">NA</span>                        <span style="color: #BB0000;">NA</span>                 <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> DO        <span style="color: #BB0000;">NA</span>                        <span style="color: #BB0000;">NA</span>                 <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> TP        MassBays                  as P               Unfilt… 4500-P… APHA   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> TDP       MassBays                  as P               Filter… 4500-P… APHA   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> E.coli    MassBays                  <span style="color: #BB0000;">NA</span>                 <span style="color: #BB0000;">NA</span>      EPA 16… USEPA  </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​`Method Speciation`,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ²​`Result Sample Fraction`, ³​`Analytical Method`,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ⁴​`Analytical Method Context`</span></span></span></code></pre></div>
 <p>The <code><a href="../reference/readMWRwqx.html">readMWRwqx()</a></code> function runs a few checks on the file
 using the <code><a href="../reference/checkMWRwqx.html">checkMWRwqx()</a></code> function. Details on the file
 checks are as follows:</p>
@@ -859,6 +860,9 @@ Fraction, Analytical Method, Analytical Method Context.</li>
 <li>
 <strong>Columns present</strong>: All columns from the previous
 should be present, Result Attribute is optional</li>
+<li>
+<strong>Unique parameters</strong>: Values in <code>Parameter</code>
+should be unique (no duplicates)</li>
 <li>
 <strong>Parameter</strong>: Should match parameter names in the
 <code>Simple Parameter</code> or <code>WQX Parameter</code> column of
