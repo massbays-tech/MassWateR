@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The MassWateR packages includes additional functions for generating output that will facilitate upload of data to the EPA [Water Quality Exchange](https://www.epa.gov/waterdata/water-quality-data) (WQX).  The functions for generating the WQX output can be used once the required data are successfully imported into R (see the [data input and checks vignette](https://massbays-tech.github.io/MassWateR/articles/MassWateR.html) for an overview).  The results data file, the data quality objectives file for accuracy, and the wqx metadata file are required to use these functions.  The example data included with the package are imported here to demonstrate how to use the analysis functions:
+The MassWateR packages includes additional tools for generating output that will facilitate upload of data to the EPA [Water Quality Exchange](https://www.epa.gov/waterdata/water-quality-data) (WQX).  The function for generating the WQX output can be used once the required data are successfully imported into R (see the [data input and checks vignette](https://massbays-tech.github.io/MassWateR/articles/MassWateR.html) for an overview).  The results data file, the data quality objectives file for accuracy, the site metadata, and the wqx metadata files are required to use these functions.  The example data included with the package are imported here to demonstrate how to use the analysis functions:
 
 ```{r, message = T}
 library(MassWateR)
@@ -29,6 +29,10 @@ resdat <- readMWRresults(respth)
 accpth <- system.file("extdata/ExampleDQOAccuracy.xlsx", package = "MassWateR")
 accdat <- readMWRacc(accpth)
 
+# import site metadata
+sitpth <- system.file("extdata/ExampleSites.xlsx", package = "MassWateR")
+sitdat <- readMWRsites(sitpth)
+
 # import wqx metadata
 wqxpth <- system.file("extdata/ExampleWQX.xlsx", package = "MassWateR")
 wqxdat <- readMWRwqx(wqxpth)
@@ -36,4 +40,32 @@ wqxdat <- readMWRwqx(wqxpth)
 
 ## Generating output for WQX
 
-Details forthcoming...
+The single function for generating output for upload to WQX is `tabMWRwqx()`.  This function will export a single Excel workbook with three sheets, named "Project", "Locations", and "Results". The output is populated with as much content as possible based on information in the input files.  The remainder of the information not included in the output will need to be manually entered before uploading the data to WQX.  All required columns are present, but individual rows will need to be verified for completeness.  It is the responsibility of the user to verify this information is complete and correct before uploading the data. 
+
+The workflow for using this function is to import the required data (results, data quality objectives file for accuracy, site metadata, and wqx metadata, as above) and to fix any errors noted on import prior to creating the output. The function can be used with inputs as paths to the relevant files or as data frames returned by `readMWRresults()`, `readMWRacc()`, `readMWRsites()`, and `readMWRwqx()`.  For the former, the full suite of data checks can be evaluated with `runkchk = T` (default) or suppressed with `runchk = F`, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. 
+
+The workbook can be created as follows by including the required files and specifying an output directory where the Excel file is saved (default is the user's working directory). Once the function is done running, a message indicating success and where the file is located is returned. The Excel file can be further edited by hand as needed.  
+
+```{r, message = T}
+tabMWRwqx(res = resdat, acc = accdat, sit = sitdat, wqx = wqxdat, output_dir = getwd())
+```
+
+```{r, echo = FALSE, results = 'hide'}
+file.remove(list.files(getwd(), "wqxtab"))
+```
+
+As a convenience, the input files can also be passed to the `tabMWRwqx()` function as a named list using the `fset` argument.  This eliminates the need to individually specify the input arguments. 
+
+```{r, eval = F}
+# names list of inputs
+fsetls <- list(
+  res = resdat, 
+  acc = accdat, 
+  sit = sitdat,
+  wqx = wqxdat
+)
+
+tabMWRwqx(fset = fsetls, output_dir = getwd())
+```
+
+The name of the output file can also be changed using the `output_file` argument, the default being `wqxtab.xlsx`.  Warnings can also be turned off or on (default) using the `warn` argument.  This returns any warnings when data are imported and only applies if the file inputs are paths.
