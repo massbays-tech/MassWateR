@@ -16,9 +16,8 @@
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
 #' @param crs numeric as a four-digit EPSG number for the coordinate reference system, see details
 #' @param zoom numeric indicating resolution of the base map, see details
-#' @param addwater character string as \code{"nhd"} or \code{"osm"} (or \code{NULL} to suppress) to include water bodies as lines or polygons added to the map, see details
+#' @param addwater character string as \code{"low"}, \code{"medium"} (default), \code{"high"}, or \code{NULL} (to supress) to include water features with varying detail from the National Hydrography dataset, see details
 #' @param watercol character string of color for water objects if \code{addwater = "nhd"} or \code{addwater = "osm"}
-#' @param dLevel character string indicating \code{"low"}, \code{"medium"} (default), or \code{"high"} for the level of detail if \code{addwater = "nhd"}, see details
 #' @param maptype character string for the base map type, see details
 #' @param buffdist numeric for buffer around the bounding box for the selected sites, see details
 #' @param northloc character string indicating location of the north arrow, see details
@@ -40,9 +39,7 @@
 #' 
 #' The results shown on the map represent the parameter average for each site within the date range provided by \code{dtrng}.  The average may differ depending on the value provided to the \code{yscl} argument.  Log10-distributed parameters use the geometric mean and normally-distributed parameters use the arithmetic mean.  The distribution is determined from the \code{ycsl} argument. If \code{yscl = "auto"} (default), the distribution is determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are summarized with the geometric mean, otherwise arithmetic. Setting \code{yscl = "linear"} or \code{yscl = "log"} will the use arithmetic or geometric summaries, respectively, regardless of the information in the data quality objective file for accuracy. 
 #' 
-#' Using \code{addwater = "nhd"} (default) will include lines and polygons of natural water bodies defined using the National Hydrography Dataset (NHD) and included as data files with the package as \code{\link{pondsMWR}}, \code{\link{riversMWR}}, and \code{\link{streamsMWR}}. The level of detail for the water bodies is defined by \code{dLevel} as \code{"low"}, \code{"medium"} (default), or \code{"high"}. The detail level only applies for the NHD data. 
-#' 
-#' Using \code{addwater = "osm"} will include lines and polygons of natural water bodies from the OpenStreetMap (\href{https://www.openstreetmap.org/}{OSM}) project, downloaded using the \href{https://docs.ropensci.org/osmdata}{osmdata} package. Using \code{addwater = "nhd"} may be preferred for more accurate display of water bodies in Massachusetts, whereas \code{addwater = "osm"} will include water bodies outside of the state. Use \code{addwater = NULL} to suppress both.
+#' Using \code{addwater = "medium"} (default) will include lines and polygons of natural water bodies defined using the National Hydrography Dataset (NHD) that are included as data files with the package as \code{\link{pondsMWR}}, \code{\link{riversMWR}}, and \code{\link{streamsMWR}}. The level of detail can be changed to low or high using \code{addwater = "low"} or \code{addwater = "high"}, respectively.  Use \code{addwater = NULL} to not show any water features.
 #' 
 #' A base map can be plotted using the \code{maptype} argument and is obtained from the \code{\link[ggmap]{get_stamenmap}} function of ggmap.  The \code{zoom} value specifies the resolution of the map.  Use higher values to download map tiles with greater resolution, although this increases the download time.  The \code{maptype} argument describes the type of base map to download. Acceptable options include \code{"terrain"}, \code{"terrain-background"}, \code{"terrain-labels"}, \code{"terrain-lines"}, \code{"toner"}, \code{"toner-2010"}, \code{"toner-2011"}, \code{"toner-background"}, \code{"toner-hybrid"}, \code{"toner-labels"}, \code{"toner-lines"}, \code{"toner-lite"}, or \code{"watercolor"}. Use \code{maptype = NULL} to suppress the base map.
 #' 
@@ -70,17 +67,14 @@
 #' sitdat <- readMWRsites(sitpth)
 #' 
 #' # map with NHD water bodies
-#' anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = "nhd")
+#' anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = "medium")
 #'
 #' \dontrun{
-#' # map with OpenStreetMap water bodies
-#' anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = "osm")
-#'
 #' # map without water bodies, base map included
 #' anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, maptype = 'terrain', 
 #'   addwater = NULL)
 #' }
-anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', yscl = c('auto', 'log', 'linear'), crs = 4326, zoom = 11, addwater = "nhd", watercol = 'lightblue', dLevel = 'medium', maptype = NULL, buffdist = 2, northloc = 'tl', scaleloc = 'br', latlon = TRUE, ttlsize = 1.2, runchk = TRUE, warn = TRUE){
+anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', yscl = c('auto', 'log', 'linear'), crs = 4326, zoom = 11, addwater = "medium", watercol = 'lightblue', maptype = NULL, buffdist = 2, northloc = 'tl', scaleloc = 'br', latlon = TRUE, ttlsize = 1.2, runchk = TRUE, warn = TRUE){
   
   # if(!requireNamespace('ggmap', quietly = TRUE))
   #   stop("Package \"ggmap\" needed for this function to work. Please install it.", call. = FALSE)
@@ -112,7 +106,7 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
     dplyr::group_by(`Monitoring Location ID`)
   
   tomap <- utilMWRconfint(tomap, logscl = logscl)
-  
+    
   # prep map
   
   tomap <- tomap %>% 
@@ -172,83 +166,40 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
 
   if(!is.null(addwater)){
     
-    addwater <- match.arg(addwater, choices = c('osm', 'nhd'))
+    chk <- addwater %in% c('low', 'medium', 'high')
+    if(!chk)
+      stop('addwater argument must be "low", "medium", "high", or NULL')
     
-    if(addwater == 'osm'){
-      
-      wat_sf <- try({osmdata::opq(bbox = as.numeric(dat_ext)) %>% 
-        osmdata::add_osm_feature(key = 'natural', value = 'water') %>%
-        osmdata::osmdata_sf()
-      }, silent = TRUE)
-      
-      # try again if gateway error
-      while(inherits(wat_sf, 'try-error')){
-        
-        Sys.sleep(1)
-        wat_sf <- try({osmdata::opq(bbox = as.numeric(dat_ext)) %>% 
-            osmdata::add_osm_feature(key = 'natural', value = 'water') %>%
-            osmdata::osmdata_sf()
-        }, silent = TRUE)
-        
-      }
+    dtl <- list('low' = 'low', 'medium' = c('low', 'medium'), 'high' = c('low', 'medium', 'high'))
+    dtl <- dtl[[addwater]]
+ 
+    dat_ext <- dat_ext %>% 
+      sf::st_as_sfc() %>% 
+      sf::st_transform(crs = 26986) %>% 
+      sf::st_bbox()
+    
+    streamscrop <- suppressWarnings({streamsMWR %>% 
+      dplyr::filter(dLevel %in% dtl) %>% 
+      sf::st_crop(dat_ext) %>% 
+      sf::st_transform(crs = 4326)
+    })
+    riverscrop <- suppressWarnings({riversMWR %>% 
+      dplyr::filter(dLevel %in% dtl) %>% 
+      sf::st_crop(dat_ext) %>% 
+      sf::st_transform(crs = 4326)
+    })
+    pondscrop <- suppressWarnings({pondsMWR %>% 
+      dplyr::filter(dLevel %in% dtl) %>% 
+      sf::st_crop(dat_ext) %>% 
+      sf::st_transform(crs = 4326)
+      })
   
-      if(!is.null(wat_sf$osm_lines))
-        suppressMessages({
-          m <- m + 
-            ggplot2::geom_sf(data = wat_sf$osm_lines, col = watercol, fill = watercol, inherit.aes = FALSE) 
-        })
-      if(!is.null(wat_sf$osm_polygons))
-        suppressMessages({
-          m <- m +
-            ggplot2::geom_sf(data = wat_sf$osm_polygons, col = watercol, fill = watercol, inherit.aes = FALSE) 
-        })
-      if(!is.null(wat_sf$osm_multilines))
-        suppressMessages({
-          m <- m + 
-            ggplot2::geom_sf(data = wat_sf$osm_multilines, col = watercol, fill = watercol, inherit.aes = FALSE)
-        })
-      if(!is.null(wat_sf$osm_multipolygons))
-        suppressMessages({
-          m <- m + 
-            ggplot2::geom_sf(data = wat_sf$osm_multipolygons, col = watercol, fill = watercol, inherit.aes = FALSE) 
-        })
-    }
-    
-    if(addwater == 'nhd'){
-      
-      dLevel <- match.arg(dLevel, choices = c('low', 'medium', 'high'))
-      dtl <- list('low' = 'low', 'medium' = c('low', 'medium'), 'high' = c('low', 'medium', 'high'))
-      dtl <- dtl[[dLevel]]
-   
-      dat_ext <- dat_ext %>% 
-        sf::st_as_sfc() %>% 
-        sf::st_transform(crs = 26986) %>% 
-        sf::st_bbox()
-      
-      streamscrop <- suppressWarnings({streamsMWR %>% 
-        dplyr::filter(dLevel %in% dtl) %>% 
-        sf::st_crop(dat_ext) %>% 
-        sf::st_transform(crs = 4326)
-      })
-      riverscrop <- suppressWarnings({riversMWR %>% 
-        dplyr::filter(dLevel %in% dtl) %>% 
-        sf::st_crop(dat_ext) %>% 
-        sf::st_transform(crs = 4326)
-      })
-      pondscrop <- suppressWarnings({pondsMWR %>% 
-        dplyr::filter(dLevel %in% dtl) %>% 
-        sf::st_crop(dat_ext) %>% 
-        sf::st_transform(crs = 4326)
-        })
-    
-      suppressMessages({
-        m <- m +
-          ggplot2::geom_sf(data = streamscrop, col = watercol, fill = watercol, inherit.aes = FALSE) +
-          ggplot2::geom_sf(data = riverscrop, col = watercol, fill = watercol, inherit.aes = FALSE) +
-          ggplot2::geom_sf(data = pondscrop, col = watercol, fill = watercol, inherit.aes = FALSE)
-      })
-      
-    }
+    suppressMessages({
+      m <- m +
+        ggplot2::geom_sf(data = streamscrop, col = watercol, fill = watercol, inherit.aes = FALSE) +
+        ggplot2::geom_sf(data = riverscrop, col = watercol, fill = watercol, inherit.aes = FALSE) +
+        ggplot2::geom_sf(data = pondscrop, col = watercol, fill = watercol, inherit.aes = FALSE)
+    })
     
   }
   

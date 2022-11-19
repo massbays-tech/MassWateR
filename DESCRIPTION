@@ -40,7 +40,6 @@ Imports:
   ggrepel,
   ggspatial,
   lubridate, 
-  osmdata,
   RColorBrewer, 
   rmarkdown,
   readxl,
