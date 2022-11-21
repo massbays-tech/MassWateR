@@ -241,8 +241,7 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
         T ~ NA_character_
       ),
       `Sample Collection Equipment Name` = ifelse(`Activity Type` == 'Sample-Routine', 'Water Bottle', NA_character_), 
-      `Characteristic Name User Supplied` = `Characteristic Name`, 
-      `Characteristic Name` = `WQX Parameter`, 
+      `Characteristic Name User Supplied` = `Characteristic Name`,
       `Result Detection Condition` = dplyr::case_when(
         `Result Value` == 'BDL' ~ 'Not Detected',
         `Result Value` == 'AQL' ~ 'Present Above Quantitation Limit', 
@@ -321,25 +320,29 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
   resu <- resu %>% 
     left_join(wqxdat, by = c('Characteristic Name' = 'Parameter')) %>% 
     dplyr::mutate(
-      `Sample Collection Method Context` = dplyr::case_when(
-        !is.na(`Sample Collection Method ID`) ~ `Sampling Method Context`, 
-        T ~ NA_character_
-      ),
-      `Result Sample Fraction` = ifelse(`Activity Type` == 'Sample-Routine', 
+      `Sample Collection Method Context` = ifelse(!is.na(`Sample Collection Method ID`),
+                                                  `Sampling Method Context`, 
+                                                  NA_character_
+                                                  ),
+      `Result Sample Fraction` = ifelse(`Activity Type` %in% c('Sample-Routine', 'Quality Control Sample-Field Blank', 'Quality Control Sample-Field Replicate', 'Quality Control Field Replicate Msr/Obs'),
                                         `Result Sample Fraction`, 
-                                        NA_character_), 
-      `Result Analytical Method ID` = dplyr::case_when(
-        grepl('Lab|Routine|Reference', `Activity Type`) ~ `Analytical Method`, 
-        T ~ NA_character_
-      ),
-      `Result Analytical Method Context` = dplyr::case_when(
-        grepl('Lab|Routine|Reference', `Activity Type`) ~ `Analytical Method Context`, 
-        T ~ NA_character_
-      )
+                                        NA_character_
+                                        ), 
+      `Result Analytical Method ID` = ifelse(`Activity Type` %in% c('Sample-Routine', 'Quality Control Sample-Lab Duplicate', 'Quality Control Sample-Lab Duplicate 2', 'Quality Control Sample-Lab Spike', 'Quality Control Sample-Reference Sample'),
+                                               `Analytical Method`, 
+                                               NA_character_
+                                             ),
+      `Result Analytical Method Context` = ifelse(`Activity Type` %in% c('Sample-Routine', 'Quality Control Sample-Lab Duplicate', 'Quality Control Sample-Lab Duplicate 2', 'Quality Control Sample-Lab Spike', 'Quality Control Sample-Reference Sample'),
+                                                  `Analytical Method Context`, 
+                                                  NA_character_
+                                                  )
     )
   
   # final row selection for results
   resu <- resu %>%
+    dplyr::mutate(
+      `Characteristic Name` = `WQX Parameter` 
+    ) %>% 
     dplyr::select(
       `Project ID`,
       `Monitoring Location ID`,
