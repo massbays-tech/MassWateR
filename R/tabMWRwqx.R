@@ -246,31 +246,30 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
         `Result Value` == 'BDL' ~ 'Not Detected',
         `Result Value` == 'AQL' ~ 'Present Above Quantitation Limit', 
         T ~ NA_character_
-      ), 
-      `Result Value` = dplyr::case_when(
-        `Activity Type` %in% qcrws ~ `Result Value`,
-        !`Activity Type` %in% qcrws & `Result Value` %in% c('BDL', 'AQL') ~ NA_character_,
-        T ~ `Result Value`
       ),
-      `Result Unit` = dplyr::case_when(
-        `Result Value` %in% c('BDL', 'AQL') ~ NA_character_, 
-        `Characteristic Name` == 'pH' ~ 'blank', 
-        `Characteristic Name` == 'Salinity' ~ 'ppth', 
-        T ~ `Result Unit`
-      ), 
       `Result Status ID` = 'Final', 
       `Result Value Type` = 'Actual', 
       `Result Detection/Quantitation Limit Type` = dplyr::case_when(
         `Result Value` == 'BDL' ~ 'Method Detection Level',
         `Result Value` == 'AQL' ~ 'Upper Quantitation Limit', 
         T ~ NA_character_
-      ), 
-      `Result Detection/Quantitation Limit Unit` = dplyr::case_when(
-        `Result Value` %in% c('BDL', 'AQL') ~ `Result Unit`,
-        T ~ NA_character_
+      ),
+      `Result Unit` = dplyr::case_when(
+        `Characteristic Name` == 'pH' ~ 'blank', 
+        `Characteristic Name` == 'Salinity' ~ 'ppth', 
+        T ~ `Result Unit`
+      ),
+      `Result Detection/Quantitation Limit Unit` = ifelse(
+        `Result Value` %in% c('BDL', 'AQL'), 
+        `Result Unit`,
+        NA_character_
+      ),
+      `Result Unit` = dplyr::case_when(
+        `Result Value` %in% c('BDL', 'AQL') ~ NA_character_,
+        T ~ `Result Unit`
       )
     )
-
+  
   # add quantitation limit from dqo accuracy file
   
   colsym <- c('<=', '<', '>=', '>', '\u00b1', '\u2265', '\u2264', '%', 'AQL', 'BDL', 'log', 'all')
@@ -295,7 +294,7 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
     tidyr::unite('flt', `Result Value2`, `Value Range`, sep = ' ', remove = FALSE) %>%
     dplyr::rowwise() %>%
     dplyr::mutate(
-      flt = ifelse(grepl('all|NA', flt), T, eval(parse(text = flt))) # filte
+      flt = ifelse(grepl('all|NA', flt), T, eval(parse(text = flt)))
     ) %>%
     dplyr::filter(flt) %>% 
     dplyr::group_by(ind) %>% 
@@ -339,9 +338,14 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
     )
   
   # final row selection for results
+  # characeristic name and result value must be done last
   resu <- resu %>%
     dplyr::mutate(
-      `Characteristic Name` = `WQX Parameter` 
+      `Characteristic Name` = `WQX Parameter`, 
+      `Result Value` = dplyr::case_when(
+        `Result Value` %in% c('BDL', 'AQL') ~ NA_character_,
+        T ~ `Result Value`
+      )
     ) %>% 
     dplyr::select(
       `Project ID`,
