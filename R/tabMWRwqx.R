@@ -196,12 +196,12 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
       `Activity Start Time` = ifelse(is.na(`Activity Start Time`), actstrtm, `Activity Start Time`)
     ) %>% 
     dplyr::select(-actstrtm)
-  
+
   # add activity id
   resu <- resu %>% 
     dplyr::mutate(
       `Monitoring Location ID` = ifelse(
-        `Activity Type` %in% c('Field Msr/Obs', 'Sample-Routine'), 
+        !`Activity Type` %in% c('Quality Control Sample-Lab Duplicate', 'Quality Control Sample-Lab Duplicate 2', 'Quality Control Sample-Lab Blank', 'Quality Control Sample-Lab Spike', 'Quality Control Field Calibration Check'), 
         `Monitoring Location ID`, 
         NA_character_
         ), 
