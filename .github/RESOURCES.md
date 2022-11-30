@@ -9,6 +9,7 @@ Below are links to resources for using or learning about MassWateR.
 -   Data quality objectives for accuracy: [link](MassWateR_DQOAccuracy_Template.xlsx)
 -   Site metadata: [link](MassWateR_Sites_Template.xlsx)
 -   WQX metadata: [link](MassWateR_WQXMeta_Template.xlsx)
+-   WQX upload template: [link](WQX_Phys-Chem_Template_for_MassWateR.xlsx)
 
 ## Training materials
 
