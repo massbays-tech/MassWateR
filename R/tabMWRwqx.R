@@ -236,11 +236,11 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
       `Activity Depth/Height Measure` = ifelse(is.na(`Activity Relative Depth Name`), `Activity Depth/Height Measure`, NA), 
       `Activity Depth/Height Unit` = ifelse(is.na(`Activity Relative Depth Name`), `Activity Depth/Height Unit`, NA), 
       `Sample Collection Method ID` = dplyr::case_when(
-        `Activity Type` == 'Sample-Routine' & !is.na(`Sample Collection Method ID`) ~ `Sample Collection Method ID`,
-        `Activity Type` == 'Sample-Routine' & is.na(`Sample Collection Method ID`) ~ 'Grab', 
+        `Activity Type` %in% c('Sample-Routine', 'Quality Control Sample-Field Blank', 'Quality Control Sample-Field Replicate') & !is.na(`Sample Collection Method ID`) ~ `Sample Collection Method ID`,
+        `Activity Type` %in% c('Sample-Routine', 'Quality Control Sample-Field Blank', 'Quality Control Sample-Field Replicate') & is.na(`Sample Collection Method ID`) ~ 'Grab', 
         T ~ NA_character_
       ),
-      `Sample Collection Equipment Name` = ifelse(`Activity Type` == 'Sample-Routine', 'Water Bottle', NA_character_), 
+      `Sample Collection Equipment Name` = ifelse(`Activity Type` %in% c('Sample-Routine', 'Quality Control Sample-Field Blank', 'Quality Control Sample-Field Replicate'), 'Water Bottle', NA_character_), 
       `Characteristic Name User Supplied` = `Characteristic Name`,
       `Result Detection Condition` = dplyr::case_when(
         `Result Value` == 'BDL' ~ 'Not Detected',
@@ -314,15 +314,13 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
         T ~ NA_character_
       )
     )
-  
+
   # add columns from wqx meta
   resu <- resu %>% 
     left_join(wqxdat, by = c('Characteristic Name' = 'Parameter')) %>% 
     dplyr::mutate(
-      `Sample Collection Method Context` = ifelse(!is.na(`Sample Collection Method ID`),
-                                                  `Sampling Method Context`, 
-                                                  NA_character_
-                                                  ),
+      `Sample Collection Method Context` = ifelse(!is.na(`Sample Collection Method ID`), `Sampling Method Context`, NA_character_),
+      `Sample Collection Method Context` = ifelse(`Sample Collection Method ID` == 'Grab', 'MassWateR', `Sample Collection Method Context`),
       `Result Sample Fraction` = ifelse(`Activity Type` %in% c('Sample-Routine', 'Quality Control Sample-Field Blank', 'Quality Control Sample-Field Replicate', 'Quality Control Field Replicate Msr/Obs'),
                                         `Result Sample Fraction`, 
                                         NA_character_
