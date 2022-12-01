@@ -219,6 +219,8 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
         `Activity Type` == 'Quality Control Sample-Reference Sample' ~ 'LSR',
         `Activity Type` == 'Quality Control Field Calibration Check' ~ 'CC',
         `Activity Type` == 'Quality Control Sample-Measurement Precision Sample' ~ 'CCR',
+        `Activity Type` == 'Quality Control Sample-Field Blank' ~ 'FB', 
+        `Activity Type` == 'Quality Control Sample-Lab Blank' ~ 'LB',
         T ~ ''
       ),
       deptaid = ifelse(is.na(`Activity Depth/Height Measure`), `Activity Relative Depth Name`, round(as.numeric(`Activity Depth/Height Measure`), 2)), 
@@ -321,18 +323,9 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
     dplyr::mutate(
       `Sample Collection Method Context` = ifelse(!is.na(`Sample Collection Method ID`), `Sampling Method Context`, NA_character_),
       `Sample Collection Method Context` = ifelse(`Sample Collection Method ID` == 'Grab', 'MassWateR', `Sample Collection Method Context`),
-      `Result Sample Fraction` = ifelse(`Activity Type` %in% c('Sample-Routine', 'Quality Control Sample-Field Blank', 'Quality Control Sample-Field Replicate', 'Quality Control Field Replicate Msr/Obs'),
-                                        `Result Sample Fraction`, 
-                                        NA_character_
-                                        ), 
-      `Result Analytical Method ID` = ifelse(`Activity Type` %in% c('Sample-Routine', 'Quality Control Sample-Lab Duplicate', 'Quality Control Sample-Lab Duplicate 2', 'Quality Control Sample-Lab Spike', 'Quality Control Sample-Reference Sample'),
-                                               `Analytical Method`, 
-                                               NA_character_
-                                             ),
-      `Result Analytical Method Context` = ifelse(`Activity Type` %in% c('Sample-Routine', 'Quality Control Sample-Lab Duplicate', 'Quality Control Sample-Lab Duplicate 2', 'Quality Control Sample-Lab Spike', 'Quality Control Sample-Reference Sample'),
-                                                  `Analytical Method Context`, 
-                                                  NA_character_
-                                                  )
+      `Result Sample Fraction` = `Result Sample Fraction`, 
+      `Result Analytical Method ID` = `Analytical Method`, 
+      `Result Analytical Method Context` = `Analytical Method Context`
     )
   
   # final row selection for results
