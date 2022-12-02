@@ -23,6 +23,7 @@ articles:
 - title: Articles
   navbar: ~
   contents: 
+  - inputs
   - qcoverview
   - outlierchecks
   - analysis
