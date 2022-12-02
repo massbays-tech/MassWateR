@@ -2,7 +2,7 @@
 title: "MassWateR quick start"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{MassWateR data input and checks}
+  %\VignetteIndexEntry{MassWateR quick start}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
