@@ -32,7 +32,9 @@ globalVariables(c("Activity Start Date", "Activity Start Time", "QC Reference Va
                   "Result Value2", "Sample Collection Equipment Name", 
                   "Sample Collection Method Context", "Sample Collection Method ID", 
                   "Tribal Land Indicator (Yes/No) (optional)", "Tribal Land Name (optional)",
-                  "actstrtm", "actyaid", "dateaid", "deptaid", "moniaid", "timeaid"))
+                  "actstrtm", "actyaid", "dateaid", "deptaid", "moniaid", "timeaid", "dLevel",
+                  "Analytical Method", "Analytical Method Context"
+                  ))
 
 #' @importFrom stats IQR na.omit quantile t.test
 NULL
