@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="MassWateR">
-<title>MassWateR data input and checks • MassWateR</title>
+<title>MassWateR quick start • MassWateR</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="MassWateR data input and checks">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="MassWateR quick start">
 <meta property="og:description" content="MassWateR">
 <meta property="og:image" content="https://massbays-tech.github.io/MassWateR/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -51,6 +51,7 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/inputs.html">MassWateR data input and checks</a>
     <a class="dropdown-item" href="../articles/qcoverview.html">MassWateR quality control functions</a>
     <a class="dropdown-item" href="../articles/outlierchecks.html">MassWateR outlier checks</a>
     <a class="dropdown-item" href="../articles/analysis.html">MassWateR analyses</a>
@@ -85,7 +86,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>MassWateR data input and checks</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>MassWateR quick start</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/massbays-tech/MassWateR/blob/HEAD/vignettes/MassWateR.Rmd" class="external-link"><code>vignettes/MassWateR.Rmd</code></a></small>
@@ -116,27 +117,9 @@ below.</p>
 Functions in MassWateR are organized around these topics.
 </p>
 </div>
-<p>Three types of data are used with the package. All types should be
-provided to make best use of the functions:</p>
-<ol style="list-style-type: decimal">
-<li>Water quality <strong>results</strong> organized by sample location
-and date.</li>
-<li>Summary of data quality objectives that describe quality control
-<strong>accuracy</strong>, <strong>frequency</strong>, and
-<strong>completeness</strong> measures for data in the results
-file.</li>
-<li>A <strong>site metadata</strong> file, including location names,
-latitude, longitude, and additional grouping factors for sites.</li>
-<li>A <strong>wqx metadata</strong> file required for generating output
-to facilitate data upload to WQX</li>
-</ol>
-<p>Templates and instructions for each of the types of input data are
-available for download in the <a href="/MassWateR/RESOURCES.html">Resources tab</a>. Additionally, example
-files, described below, are provided with the package to demonstrate and
-test the functions.</p>
 </div>
 <div class="section level2">
-<h2 id="installation-and-example-data-files">Installation and example data files<a class="anchor" aria-label="anchor" href="#installation-and-example-data-files"></a>
+<h2 id="package-installation">Package installation<a class="anchor" aria-label="anchor" href="#package-installation"></a>
 </h2>
 <p>Install the package as follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -150,771 +133,53 @@ test the functions.</p>
 <p>Windows PC users may encounter the following warning when installing
 MassWateR.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>WARNING<span class="sc">:</span> Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding<span class="sc">:</span> https<span class="sc">:</span><span class="er">//</span>cran.rstudio.com<span class="sc">/</span>bin<span class="sc">/</span>windows<span class="sc">/</span>Rtools<span class="sc">/</span></span></code></pre></div>
-<p>This warning can be ignored for the MassWateR solution. If desired,
-RTools can be obtained following the instructions <a href="https://cran.rstudio.com/bin/windows/Rtools/" class="external-link">here</a>.</p>
+<p>This warning can be ignored. If desired, RTools can be obtained
+following the instructions <a href="https://cran.rstudio.com/bin/windows/Rtools/" class="external-link">here</a>.</p>
 <p>Load the package in an R session after installation:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/massbays-tech/MassWateR" class="external-link">MassWateR</a></span><span class="op">)</span></span></code></pre></div>
-<p>The example files for the package can be viewed by navigating to
-their location in the package installation. These are available as Excel
-files. Running the code below will show where the files are located.</p>
-<p>The surface water quality results files:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleResults.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span></code></pre></div>
-<p>The data quality objectives file for accuracy:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleDQOAccuracy.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span></code></pre></div>
-<p>The data quality objectives file for completeness:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleDQOFrequencyCompleteness.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span></code></pre></div>
-<p>The site metadata file:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleSites.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span></code></pre></div>
-<p>The wqx metadata file:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleWQX.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span></code></pre></div>
-<p>The example files are provided to demonstrate how the functions in
-MassWateR are used. In practice, alternative data files that follow the
-same format as the examples will be used with the functions. There are
-several checks included in the data import functions to ensure the files
-are formatted correctly for downstream use. If any of the checks fail,
-an error message will be returned that prompts the necessary changes
-that must be made to the Excel file before the data can be used. The
-checks can be suppressed by setting <code>runchk = FALSE</code> in the
-import functions. These checks are described in the next section.</p>
-<p><strong>Make sure to close any data files on your desktop before
-importing them in MassWateR</strong>. Some operating systems may require
-the file to be closed for successful import.</p>
 </div>
 <div class="section level2">
-<h2 id="data-import-and-checks">Data import and checks<a class="anchor" aria-label="anchor" href="#data-import-and-checks"></a>
+<h2 id="data-inputs">Data inputs<a class="anchor" aria-label="anchor" href="#data-inputs"></a>
 </h2>
-<p>The MassWateR package is developed for quality control and
-exploratory analysis of surface water quality data. Before these
-analyses can occur, the data must be formatted correctly. This section
-describes how to import data and the expectations that are checked
-automatically by the functions.</p>
-<p>For many of the checks, parameter names and units need to match the
-following columns in the <code>paramsMWR</code> file included with the
-package. Specifically parameter names (either
-<code>Characteristic Name</code> in the results file, or
-<code>Parameter</code> in the data quality objectives files) can be the
-simple or WQX format as below. The units can be any that apply for a
-given parameter, although only one is allowed per parameter. All entries
-are case-sensitive. This file is also available in the <a href="/MassWateR/RESOURCES.html">Resources tab</a>.</p>
-<table class="table">
-<colgroup>
-<col width="15%">
-<col width="43%">
-<col width="41%">
-</colgroup>
-<thead><tr class="header">
-<th align="left">Simple Parameter</th>
-<th align="left">WQX Parameter</th>
-<th align="left">Units of measure</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">Ammonia</td>
-<td align="left">Ammonia</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="even">
-<td align="left">Ammonium</td>
-<td align="left">Ammonium</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="odd">
-<td align="left">Chl a</td>
-<td align="left">Chlorophyll a</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="even">
-<td align="left">Chl a (probe)</td>
-<td align="left">Chlorophyll a (probe)</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="odd">
-<td align="left">Chloride</td>
-<td align="left">Chloride</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="even">
-<td align="left">Conductivity</td>
-<td align="left">Conductivity</td>
-<td align="left">uS/cm, mS/cm, S/m</td>
-</tr>
-<tr class="odd">
-<td align="left">Cyanobacteria (lab)</td>
-<td align="left">Algae, blue-green (phylum cyanophyta) density</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="even">
-<td align="left">Cyanobacteria (probe)</td>
-<td align="left">Chlorophyll a (probe) concentration, Cyanobacteria
-(bluegreen)</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="odd">
-<td align="left">Depth</td>
-<td align="left">Depth</td>
-<td align="left">m, cm, ft</td>
-</tr>
-<tr class="even">
-<td align="left">DO</td>
-<td align="left">Dissolved oxygen (DO)</td>
-<td align="left">mg/l, ug/l</td>
-</tr>
-<tr class="odd">
-<td align="left">DO saturation</td>
-<td align="left">Dissolved oxygen saturation</td>
-<td align="left">%</td>
-</tr>
-<tr class="even">
-<td align="left">E.coli</td>
-<td align="left">Escherichia coli</td>
-<td align="left">cfu/100ml, MPN/100ml, #/100ml</td>
-</tr>
-<tr class="odd">
-<td align="left">Enterococcus</td>
-<td align="left">Enterococcus</td>
-<td align="left">cfu/100ml, MPN/100ml, #/100ml</td>
-</tr>
-<tr class="even">
-<td align="left">Fecal Coliform</td>
-<td align="left">Fecal Coliform</td>
-<td align="left">cfu/100ml, MPN/100ml, #/100ml</td>
-</tr>
-<tr class="odd">
-<td align="left">Flow</td>
-<td align="left">Flow</td>
-<td align="left">cfs, cfm, mgd, l/sec, l/min,</td>
-</tr>
-<tr class="even">
-<td align="left">Metals</td>
-<td align="left">Metals</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="odd">
-<td align="left">Microcystins</td>
-<td align="left">Microcystins</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="even">
-<td align="left">Nitrate</td>
-<td align="left">Nitrate</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="odd">
-<td align="left">Nitrate + Nitrite</td>
-<td align="left">Nitrate + Nitrite</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="even">
-<td align="left">Nitrite</td>
-<td align="left">Nitrite</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="odd">
-<td align="left">Ortho P</td>
-<td align="left">Orthophosphate</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="even">
-<td align="left">pH</td>
-<td align="left">pH</td>
-<td align="left">blank, s.u.</td>
-</tr>
-<tr class="odd">
-<td align="left">Pheophytin</td>
-<td align="left">Pheophytin a</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="even">
-<td align="left">POC</td>
-<td align="left">Particulate organic carbon</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="odd">
-<td align="left">PON</td>
-<td align="left">Total Nitrogen, mixed forms</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="even">
-<td align="left">POP</td>
-<td align="left">Phosphorus, Particulate Organic</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="odd">
-<td align="left">Salinity</td>
-<td align="left">Salinity</td>
-<td align="left">ppth, PSU, PSS, g/kg, ppt</td>
-</tr>
-<tr class="even">
-<td align="left">Secchi Depth</td>
-<td align="left">Depth, Secchi disk depth</td>
-<td align="left">m, cm, ft</td>
-</tr>
-<tr class="odd">
-<td align="left">Silicate</td>
-<td align="left">Silicate</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="even">
-<td align="left">Sp Conductance</td>
-<td align="left">Specific conductance</td>
-<td align="left">uS/cm, mS/cm, S/m</td>
-</tr>
-<tr class="odd">
-<td align="left">Sulfate</td>
-<td align="left">Sulfate</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="even">
-<td align="left">Surfactants</td>
-<td align="left">Surfactants</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="odd">
-<td align="left">TDN</td>
-<td align="left">Total Nitrogen, mixed forms</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="even">
-<td align="left">TDP</td>
-<td align="left">Total Phosphorus, mixed forms</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="odd">
-<td align="left">TDS</td>
-<td align="left">Total dissolved solids</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="even">
-<td align="left">TKN</td>
-<td align="left">Total Kjeldahl nitrogen</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="odd">
-<td align="left">TN</td>
-<td align="left">Total Nitrogen, mixed forms</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="even">
-<td align="left">TP</td>
-<td align="left">Total Phosphorus, mixed forms</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="odd">
-<td align="left">TSS</td>
-<td align="left">Total suspended solids</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
-</tr>
-<tr class="even">
-<td align="left">Turbidity</td>
-<td align="left">Turbidity</td>
-<td align="left">FTU, FNU, JTU, NTU, AU, BU, FAU, FBU, FNMU, FNRU, NTMU,
-NTRU</td>
-</tr>
-<tr class="odd">
-<td align="left">Water Temp</td>
-<td align="left">Temperature, water</td>
-<td align="left">deg C, deg F</td>
-</tr>
-</tbody>
-</table>
-<p>The <code><a href="../reference/readMWRresultsview.html">readMWRresultsview()</a></code> function can be used to help
-troubleshoot issues that are encountered importing the water quality
-results file (next section). This function can be used to create a .csv
-spreadsheet that shows the unique values within columns of the results
-file. This information can be used to verify if the values in each
-conform to the requirements for the data import checks, including
-acceptable values for the table above. By default, a .csv is created for
-all columns. The <code>columns</code> argument can be used to select
-columns of interest. Below shows how to view the unique entries for
-parameters (<code>"Characteristic Name"</code>) and units
-(<code>"Result Unit"</code>). By default, the .csv is created in the
-working directory. The location where the file is saved can be changed
-using the <code>output_dir</code> argument. Visually evaluating the
-results for conformance to the package requirements and manually editing
-the input file can help with the import checks, described below.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># find path to the file included with the package, replace with a path to your file as needed</span></span>
+<p>Please view the <a href="https://massbays-tech.github.io/MassWateR/articles/inputs.html">data
+inputs and checks</a> vignette for a complete description of the data
+requirements for MassWateR.</p>
+<p>Four types of data are used with the MassWateR package: surface water
+quality results, data quality objectives for accuracy, frequency, and
+completeness, site metadata, and wqx metadata.</p>
+<p>The example files included with the package are imported below for
+demonstration in this vignette. Templates and instructions for each of
+the types of input data are available for download in the <a href="/MassWateR/RESOURCES.html">Resources tab</a>. A series of checks are
+run on each file on import.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># results data</span></span>
 <span><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleResults.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
+<span><span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRresults.html">readMWRresults</a></span><span class="op">(</span><span class="va">respth</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># create a .csv file for the two columns that show unique values in each</span></span>
-<span><span class="fu"><a href="../reference/readMWRresultsview.html">readMWRresultsview</a></span><span class="op">(</span><span class="va">respth</span>, columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Characteristic Name"</span>, <span class="st">"Result Unit"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="section level3">
-<h3 id="surface-water-quality-results">Surface water quality results<a class="anchor" aria-label="anchor" href="#surface-water-quality-results"></a>
-</h3>
-<p>First, the surface water quality results can be imported with the
-<code><a href="../reference/readMWRresults.html">readMWRresults()</a></code> function. This is designed to import an
-Excel file external to R, run checks on the data, and provide some minor
-formatting for downstream quality control or exploratory analysis. In
-this example, the system file <code>ExampleResults.xlsx</code> is
-imported. In practice, the <code>pth</code> argument will point to an
-external file in the WQX format. See the <a href="/MassWateR/RESOURCES.html">Resources tab</a> for the Excel file
-template and detailed instructions. Note that <code>runchk = TRUE</code>
-is set to run the checks on data import. This is the default setting and
-it is not necessary to explicitly set this argument on import.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleResults.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
-<span><span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRresults.html">readMWRresults</a></span><span class="op">(</span><span class="va">respth</span>, runchk <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Running checks on results data...</span></span>
-<span><span class="co">#&gt;  Checking column names... OK</span></span>
-<span><span class="co">#&gt;  Checking all required columns are present... OK</span></span>
-<span><span class="co">#&gt;  Checking valid Activity Types... OK</span></span>
-<span><span class="co">#&gt;  Checking Activity Start Date formats... OK</span></span>
-<span><span class="co">#&gt;  Checking for non-numeric values in Activity Depth/Height Measure... OK</span></span>
-<span><span class="co">#&gt;  Checking Activity Depth/Height Unit... OK</span></span>
-<span><span class="co">#&gt;  Checking Activity Relative Depth Name formats... OK</span></span>
-<span><span class="co">#&gt; Warning:     Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft...</span></span>
-<span><span class="co">#&gt;  Bottom values found in Activity Relative Depth Name on row(s): 1499, 1500, 1501</span></span>
-<span><span class="co">#&gt;  Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft... WARNING</span></span>
-<span><span class="co">#&gt; Warning:     Checking Characteristic Name formats...</span></span>
-<span><span class="co">#&gt;  Characteristic Name not included in approved parameters: Air Temp, Gage</span></span>
-<span><span class="co">#&gt;  Checking Characteristic Name formats... WARNING</span></span>
-<span><span class="co">#&gt;  Checking Result Values... OK</span></span>
-<span><span class="co">#&gt;  Checking QC Reference Values... OK</span></span>
-<span><span class="co">#&gt;  Checking for missing entries for Result Unit... OK</span></span>
-<span><span class="co">#&gt;  Checking if more than one unit per Characteristic Name... OK</span></span>
-<span><span class="co">#&gt;  Checking acceptable units for each entry in Characteristic Name... OK</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; All checks passed (2 WARNING(s))!</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">resdat</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 17</span></span></span>
-<span><span class="co">#&gt;   Monitorin…¹ Activ…² Activity…³ Activ…⁴ Activ…⁵ Activ…⁶ Activ…⁷ Chara…⁸ Resul…⁹</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> HBS-016     Field … 2021-01-14 09:22   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 2      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> LND-007     Field … 2021-01-14 09:50   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 2      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> HBS-031     Field … 2021-01-14 10:05   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 2      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> HBS-057     Field … 2021-01-14 10:30   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 3      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> HBS-065     Field … 2021-01-14 10:40   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 3      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> CRN-002     Field … 2021-01-14 11:30   3       ft      <span style="color: #BB0000;">NA</span>      Air Te… 2      </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 8 more variables: `Result Unit` &lt;chr&gt;, `Quantitation Limit` &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   `QC Reference Value` &lt;chr&gt;, `Result Measure Qualifier` &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   `Result Attribute` &lt;chr&gt;, `Sample Collection Method ID` &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   `Project ID` &lt;chr&gt;, `Result Comment` &lt;chr&gt;, and abbreviated variable names</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ¹​`Monitoring Location ID`, ²​`Activity Type`, ³​`Activity Start Date`,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁴​`Activity Start Time`, ⁵​`Activity Depth/Height Measure`,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁶​`Activity Depth/Height Unit`, ⁷​`Activity Relative Depth Name`, …</span></span></span></code></pre></div>
-<p>Several checks are run automatically when the data are imported.
-These file checks are as follows (also viewed from the help file for
-<code><a href="../reference/checkMWRresults.html">checkMWRresults()</a></code>:</p>
-<ul>
-<li>
-<strong>Column name spelling</strong>: Should be the following:
-Monitoring Location ID, Activity Type, Activity Start Date, Activity
-Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit,
-Activity Relative Depth Name, Characteristic Name, Result Value, Result
-Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier,
-Result Attribute.</li>
-<li>
-<strong>Columns present</strong>: All columns from the previous
-should be present, Result Attribute is optional</li>
-<li>
-<strong>Activity Type</strong>: Should be one of Field Msr/Obs,
-Sample-Routine, Quality Control Sample-Field Blank, Quality Control
-Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control
-Sample-Lab Spike, Quality Control Field Calibration Check</li>
-<li>
-<strong>Date formats</strong>: Should be mm/dd/yyyy and parsed
-correctly on import</li>
-<li>
-<strong>Non-numeric Activity Depth/Height Measure</strong>: All
-depth values should be numbers, excluding missing values</li>
-<li>
-<strong>Activity Depth/Height Unit</strong>: All entries should be
-<code>ft</code>, <code>m</code>, or blank</li>
-<li>
-<strong>Activity Relative Depth Name</strong>: Should be either
-Surface, Bottom, Midwater, Near Bottom, or blank (warning only)</li>
-<li>
-<strong>Activity Depth/Height Measure out of range</strong>: All
-depth values should be less than or equal to 1 meter / 3.3 feet or
-entered as Surface in the Activity Relative Depth Name column (warning
-only)</li>
-<li>
-<strong>Characteristic Name</strong>: Should match parameter names
-in the <code>Simple Parameter</code> or <code>WQX Parameter</code>
-column of the <code>paramsMWR</code> data (warning only)</li>
-<li>
-<strong>Result Value</strong>: Should be a numeric value or a text
-value as AQL or BDL</li>
-<li>
-<strong>QC Reference Value</strong>: Any entered values should be
-numeric or a text value as AQL or BDL</li>
-<li>
-<strong>Result Unit</strong>: No missing entries in
-<code>Result Unit</code>, except pH which can be blank</li>
-<li>
-<strong>Single Result Unit</strong>: Each unique parameter in
-<code>Characteristic Name</code> should have only one entry in
-<code>Result Unit</code> (excludes entries for lab spikes reported as
-<code>%</code> or <code>% recovery</code>)</li>
-<li>
-<strong>Correct Result Unit</strong>: Each unique parameter in
-<code>Characteristic Name</code> should have an entry in
-<code>Result Unit</code> that matches one of the acceptable values in
-the <code>Units of measure</code> column of the <code>paramsMWR</code>
-data (excludes entries for lab spikes reported as <code>%</code> or
-<code>% recovery</code>), see the table above.</li>
-</ul>
-<p>An informative error is returned if the input data fail any of the
-checks. The input data should be corrected by hand in the Excel file by
-altering the appropriate rows or column names indicated in the error.
-Checks with warnings can be fixed at the discretion of the user before
-proceeding.</p>
-<p>Here is an example of an error that might be returned for an
-incorrect data entry (using the <code><a href="../reference/checkMWRresults.html">checkMWRresults()</a></code> function,
-which is used inside of <code><a href="../reference/readMWRresults.html">readMWRresults()</a></code>). To remedy the
-issue, change the entries in row 4 and 135 in the Activity Type column
-to Sample-Routine and Field Msr/Obs, respectively. This must be done in
-the original Excel file. Import the data again in R to verify the data
-are corrected.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">chk</span> <span class="op">&lt;-</span> <span class="va">resdat</span></span>
-<span><span class="va">chk</span><span class="op">[</span><span class="fl">4</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Sample"</span></span>
-<span><span class="va">chk</span><span class="op">[</span><span class="fl">135</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Field"</span></span>
-<span><span class="fu"><a href="../reference/checkMWRresults.html">checkMWRresults</a></span><span class="op">(</span><span class="va">chk</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Running checks on results data...</span></span>
-<span><span class="co">#&gt;  Checking column names... OK</span></span>
-<span><span class="co">#&gt;  Checking all required columns are present... OK</span></span>
-<span><span class="co">#&gt; Error:   Checking valid Activity Types...</span></span>
-<span><span class="co">#&gt;  Incorrect Activity Type found: Sample, Field in row(s) 4, 135</span></span></code></pre></div>
-<p>Data imported with <code><a href="../reference/readMWRresults.html">readMWRresults()</a></code> are also formatted
-to address a few minor issues for downstream analysis. This formatting
-includes:</p>
-<ul>
-<li>
-<strong>Fix date and time inputs</strong>: Activity Start Date is
-converted to YYYY-MM-DD as a date object, Activity Start Time is
-converted to HH:MM as a character to fix artifacts from Excel
-import.</li>
-<li>
-<strong>Minor formatting for Result Unit</strong>: For conformance
-to WQX, e.g., ppt is changed to ppth, s.u. is changed to
-<code>NA</code>.</li>
-<li>
-<strong>Convert characteristic names</strong>: All parameters in
-<code>Characteristic Name</code> are converted to
-<code>Simple Parameter</code> in <code>paramsMWR</code> as needed.</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="data-quality-objectives">Data quality objectives<a class="anchor" aria-label="anchor" href="#data-quality-objectives"></a>
-</h3>
-<p>To use the quality control functions in MassWateR, Excel files that
-describe the data quality objectives for accuracy, frequency, and
-completeness must be provided. The system files included with the
-package, described above, demonstrate the required information and
-format for these files. They can be imported into R using the
-<code><a href="../reference/readMWRacc.html">readMWRacc()</a></code> and <code><a href="../reference/readMWRfrecom.html">readMWRfrecom()</a></code> functions for
-the accuracy, frequency, and completeness files. The <code>pth</code>
-argument will point to the location of the external files on your
-computer. See the <a href="/MassWateR/RESOURCES.html">Resources tab</a>
-for the Excel file template and detailed instructions. As above, the
-system files included with the package are used for the examples.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># import data quality objectives for accuracy</span></span>
+<span><span class="co"># import results data</span></span>
+<span><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleResults.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
+<span><span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRresults.html">readMWRresults</a></span><span class="op">(</span><span class="va">respth</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># import data quality objectives for accuracy</span></span>
 <span><span class="va">accpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleDQOAccuracy.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
 <span><span class="va">accdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRacc.html">readMWRacc</a></span><span class="op">(</span><span class="va">accpth</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Running checks on data quality objectives for accuracy...</span></span>
-<span><span class="co">#&gt;  Checking column names... OK</span></span>
-<span><span class="co">#&gt;  Checking all required columns are present... OK</span></span>
-<span><span class="co">#&gt;  Checking column types... OK</span></span>
-<span><span class="co">#&gt;  Checking for text other than &lt;=, ≤, &lt;, &gt;=, ≥, &gt;, ±, %, AQL, BQL, log, or all... OK</span></span>
-<span><span class="co">#&gt;  Checking Parameter formats... OK</span></span>
-<span><span class="co">#&gt;  Checking for missing entries for unit (uom)... OK</span></span>
-<span><span class="co">#&gt;  Checking if more than one unit (uom) per Parameter... OK</span></span>
-<span><span class="co">#&gt;  Checking acceptable units (uom) for each entry in Parameter... OK</span></span>
-<span><span class="co">#&gt;  Checking empty columns... OK</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; All checks passed!</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">accdat</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 10</span></span></span>
-<span><span class="co">#&gt;   Parameter    uom     MDL   UQL Value…¹ Field…² Lab D…³ Field…⁴ Lab B…⁵ Spike…⁶</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Water Temp   deg C  <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> all     &lt;= 10%  &lt;= 10%  <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pH           <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> all     &lt;= 0.5  &lt;= 0.5  <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      &lt;= 0.2 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> DO           mg/l    0.1    <span style="color: #BB0000;">NA</span> &lt; 4     &lt;= 20%  &lt;= 20%  &lt; 0.1   &lt; 0.1   &lt;= 5%  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> DO           mg/l    0.1    <span style="color: #BB0000;">NA</span> &gt;= 4    &lt;= 10%  &lt;= 10%  &lt; 0.1   &lt; 0.1   &lt;= 5%  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Sp Conducta… uS/cm   1      <span style="color: #BB0000;">NA</span> &lt; 250   &lt;= 30%  &lt;= 20%  &lt; 25    &lt; 25    &lt;= 50  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Sp Conducta… uS/cm   1      <span style="color: #BB0000;">NA</span> &gt;= 250  &lt;= 20%  &lt;= 10%  &lt; 25    &lt; 25    &lt;= 50  </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​`Value Range`, ²​`Field Duplicate`,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ³​`Lab Duplicate`, ⁴​`Field Blank`, ⁵​`Lab Blank`, ⁶​`Spike/Check Accuracy`</span></span></span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># import data quality objectives for frequency and completeness</span></span>
+<span></span>
+<span><span class="co"># import data quality objectives for frequency and completeness</span></span>
 <span><span class="va">frecompth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleDQOFrequencyCompleteness.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
 <span><span class="va">frecomdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRfrecom.html">readMWRfrecom</a></span><span class="op">(</span><span class="va">frecompth</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Running checks on data quality objectives for frequency and completeness...</span></span>
-<span><span class="co">#&gt;  Checking column names... OK</span></span>
-<span><span class="co">#&gt;  Checking all required columns are present... OK</span></span>
-<span><span class="co">#&gt;  Checking for non-numeric values... OK</span></span>
-<span><span class="co">#&gt;  Checking for values outside of 0 and 100... OK</span></span>
-<span><span class="co">#&gt;  Checking Parameter formats... OK</span></span>
-<span><span class="co">#&gt;  Checking empty columns... OK</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; All checks passed!</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">frecomdat</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
-<span><span class="co">#&gt;   Parameter    `Field Duplicate` `Lab Duplicate` Field…¹ Lab B…² Spike…³ % Com…⁴</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Water Temp                  10              10      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      90</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pH                          10              10      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      10      90</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> DO                          10              10      <span style="color: #BB0000;">NA</span>      10      10      90</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Conductivity                10              10      <span style="color: #BB0000;">NA</span>      10      10      90</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> TSS                         10               5      10       5       5      90</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> TP                          10               5      10       5       5      90</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​`Field Blank`, ²​`Lab Blank`,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ³​`Spike/Check Accuracy`, ⁴​`% Completeness`</span></span></span></code></pre></div>
-<p>Both the <code><a href="../reference/readMWRacc.html">readMWRacc()</a></code> and <code><a href="../reference/readMWRfrecom.html">readMWRfrecom()</a></code>
-functions will run a series of checks to ensure the imported data are
-formatted correctly. The <code><a href="../reference/checkMWRacc.html">checkMWRacc()</a></code> and
-<code><a href="../reference/checkMWRfrecom.html">checkMWRfrecom()</a></code> functions run these checks when the
-<code><a href="../reference/readMWRacc.html">readMWRacc()</a></code> and <code><a href="../reference/readMWRfrecom.html">readMWRfrecom()</a></code> functions are
-executed, respectively. The checks for each are as follows.</p>
-<p>File checks for accuracy:</p>
-<ul>
-<li>
-<strong>Column name spelling</strong>: Should be the following:
-Parameter, uom, MDL, UQL, Value Range, Field Duplicate, Lab Duplicate,
-Field Blank, Lab Blank, Spike/Check Accuracy</li>
-<li>
-<strong>Columns present</strong>: All columns from the previous
-check should be present</li>
-<li>
-<strong>Column types</strong>: All columns should be
-characters/text, except for MDL and UQL</li>
-<li>
-<strong>Unrecognized characters</strong>: Fields describing accuracy
-checks should not include symbols or text other than <span class="math inline">\(&lt;=\)</span>, <span class="math inline">\(\leq\)</span>, <span class="math inline">\(&lt;\)</span>, <span class="math inline">\(&gt;=\)</span>, <span class="math inline">\(\geq\)</span>, <span class="math inline">\(&gt;\)</span>, <span class="math inline">\(\pm\)</span> %, BDL, AQL, log, or all</li>
-<li>
-<strong>Parameter</strong>: Should match parameter names in the
-<code>Simple Parameter</code> or <code>WQX Parameter</code> columns of
-the <code>paramsMWR</code> data</li>
-<li>
-<strong>Units</strong>: No missing entries in units
-(<code>uom</code>), except pH which can be blank</li>
-<li>
-<strong>Single unit</strong>: Each unique <code>Parameter</code>
-should have only one type for the units (<code>uom</code>)</li>
-<li>
-<strong>Correct units</strong>: Each unique <code>Parameter</code>
-should have an entry in the units (<code>uom</code>) that matches one of
-the acceptable values in the <code>Units of measure</code> column of the
-<code>paramsMWR</code> data, see the table above.</li>
-<li>
-<strong>Empty columns</strong>: Columns with all missing or
-<code>NA</code> values will return a warning</li>
-</ul>
-<p>File checks for frequency and completeness:</p>
-<ul>
-<li>
-<strong>Column name spelling</strong>: Should be the following:
-Parameter, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank,
-Spike/Check Accuracy, % Completeness</li>
-<li>
-<strong>Columns present</strong>: All columns from the previous
-check should be present</li>
-<li>
-<strong>Non-numeric values</strong>: Values entered in columns other
-than the first should be numeric</li>
-<li>
-<strong>Values outside of 0 - 100</strong>: Values entered in
-columns other than the first should not be outside of 0 and 100</li>
-<li>
-<strong>Parameter</strong>: Should match parameter names in the
-<code>Simple Parameter</code> or <code>WQX Parameter</code> columns of
-the <code>paramsMWR</code> data</li>
-<li>
-<strong>Empty columns</strong>: Columns with all missing or
-<code>NA</code> values will return a warning</li>
-</ul>
-<p>Minor formatting of the input files is also done to address a few
-minor issues for downstream analysis. This formatting includes:</p>
-<ul>
-<li>
-<strong>Minor formatting for units</strong>: For conformance to WQX,
-e.g., ppt is changed to ppth, s.u. is changed to <code>NA</code> for the
-<code>uom</code> column (<code><a href="../reference/readMWRacc.html">readMWRacc()</a></code> only).</li>
-<li>
-<strong>Convert parameter names</strong>: All parameters in
-<code>Parameter</code> are converted to <code>Simple Parameter</code> in
-<code>paramsMWR</code> as needed.</li>
-<li>
-<strong>Remove unicode</strong>: Remove or replace unicode
-characters with those that can be used in logical expressions in
-<code><a href="../reference/qcMWRacc.html">qcMWRacc()</a></code>, e.g., replace <span class="math inline">\(\geq\)</span> with <span class="math inline">\(&gt;=\)</span>.</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="site-metadata">Site metadata<a class="anchor" aria-label="anchor" href="#site-metadata"></a>
-</h3>
-<p>An Excel file for site metadata that describes spatial location and
-any other grouping factors for the sites in the results file can be
-imported using <code><a href="../reference/readMWRsites.html">readMWRsites()</a></code>. The system file included
-with the package, described above, demonstrates the required information
-and format for the file. The <code>pth</code> argument will point to the
-location of the external file on your computer. See the <a href="/MassWateR/RESOURCES.html">Resources tab</a> for the Excel file
-template and detailed instructions. As above, the system file included
-with the package is used for the example.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># import site metadata</span></span>
+<span></span>
+<span><span class="co"># import site metadata</span></span>
 <span><span class="va">sitpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleSites.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
 <span><span class="va">sitdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRsites.html">readMWRsites</a></span><span class="op">(</span><span class="va">sitpth</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Running checks on site metadata...</span></span>
-<span><span class="co">#&gt;  Checking column names... OK</span></span>
-<span><span class="co">#&gt;  Checking all required columns are present... OK</span></span>
-<span><span class="co">#&gt;  Checking for missing latitude or longitude values... OK</span></span>
-<span><span class="co">#&gt;  Checking for non-numeric values in latitude... OK</span></span>
-<span><span class="co">#&gt;  Checking for non-numeric values in longitude... OK</span></span>
-<span><span class="co">#&gt;  Checking for positive values in longitude... OK</span></span>
-<span><span class="co">#&gt;  Checking for missing entries for Monitoring Location ID... OK</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; All checks passed!</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sitdat</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
-<span><span class="co">#&gt;   `Monitoring Location ID` `Monitoring Location Name`    Monit…¹ Monit…² Locat…³</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ABT-010                  477 Lowell Rd, Concord           42.5   -<span style="color: #BB0000;">71.4</span> Lower …</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ABT-026                  Rte 2, Concord                   42.5   -<span style="color: #BB0000;">71.4</span> Lower …</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ABT-033                  Rte 62, W Concord                42.5   -<span style="color: #BB0000;">71.4</span> Lower …</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ABT-044                  Rte 62 (Damonmill), W Concord    42.5   -<span style="color: #BB0000;">71.4</span> Lower …</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> ABT-047                  Damonmill dam                    42.5   -<span style="color: #BB0000;">71.4</span> Lower …</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ABT-062                  Rte 62, Acton                    42.4   -<span style="color: #BB0000;">71.4</span> Lower …</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​`Monitoring Location Latitude`,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ²​`Monitoring Location Longitude`, ³​`Location Group`</span></span></span></code></pre></div>
-<p>The <code><a href="../reference/readMWRsites.html">readMWRsites()</a></code> function runs several checks on the
-file using the <code><a href="../reference/checkMWRsites.html">checkMWRsites()</a></code> function. Most of the checks
-are to ensure the latitude and longitude data are present and properly
-formatted. It is assumed that latitude and longitude data are entered in
-decimal degrees. The projection can be entered in other functions used
-in exploratory analysis. Details on the file checks are as follows:</p>
-<ul>
-<li>
-<strong>Column name spelling</strong>: Should be the following:
-Monitoring Location ID, Monitoring Location Name, Monitoring Location
-Latitude, Monitoring Location Longitude, Location Group</li>
-<li>
-<strong>Columns present</strong>: All columns from the previous
-check should be present</li>
-<li>
-<strong>Missing longitude or latitude</strong>: No missing entries
-in Monitoring Location Latitude or Monitoring Location Longitude</li>
-<li>
-<strong>Non-numeric latitude values</strong>: Values entered in
-Monitoring Location Latitude must be numeric</li>
-<li>
-<strong>Non-numeric longitude values</strong>: Values entered in
-Monitoring Location Longitude must be numeric</li>
-<li>
-<strong>Positive longitude values</strong>: Values in Monitoring
-Location Longitude must be negative</li>
-<li>
-<strong>Missing Location ID</strong>: No missing entries for
-Monitoring Location ID</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="wqx-metadata">WQX metadata<a class="anchor" aria-label="anchor" href="#wqx-metadata"></a>
-</h3>
-<p>An Excel file for wqx metadata that is required to generate output
-for upload to WQX can be imported using <code><a href="../reference/readMWRwqx.html">readMWRwqx()</a></code>. The
-system file included with the package, described above, demonstrates the
-required information and format for the file. The <code>pth</code>
-argument will point to the location of the external file on your
-computer. See the <a href="/MassWateR/RESOURCES.html">Resources tab</a>
-for the Excel file template and detailed instructions. As above, the
-system file included with the package is used for the example.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># import wqx metadata</span></span>
-<span><span class="va">wqxpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleWQX.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
-<span><span class="va">wqxdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRwqx.html">readMWRwqx</a></span><span class="op">(</span><span class="va">wqxpth</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Running checks on WQX metadata...</span></span>
-<span><span class="co">#&gt;  Checking column names... OK</span></span>
-<span><span class="co">#&gt;  Checking all required columns are present... OK</span></span>
-<span><span class="co">#&gt;  Checking unique parameters... OK</span></span>
-<span><span class="co">#&gt;  Checking Parameter formats... OK</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; All checks passed!</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">wqxdat</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 6</span></span></span>
-<span><span class="co">#&gt;   Parameter `Sampling Method Context` Method Speciatio…¹ Resul…² Analy…³ Analy…⁴</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> pH        <span style="color: #BB0000;">NA</span>                        <span style="color: #BB0000;">NA</span>                 <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> DO        <span style="color: #BB0000;">NA</span>                        <span style="color: #BB0000;">NA</span>                 <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> TP        MassBays                  as P               Unfilt… 4500-P… APHA   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> TDP       MassBays                  as P               Filter… 4500-P… APHA   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> E.coli    MassBays                  <span style="color: #BB0000;">NA</span>                 <span style="color: #BB0000;">NA</span>      EPA 16… USEPA  </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​`Method Speciation`,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ²​`Result Sample Fraction`, ³​`Analytical Method`,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁴​`Analytical Method Context`</span></span></span></code></pre></div>
-<p>The <code><a href="../reference/readMWRwqx.html">readMWRwqx()</a></code> function runs a few checks on the file
-using the <code><a href="../reference/checkMWRwqx.html">checkMWRwqx()</a></code> function. Details on the file
-checks are as follows:</p>
-<ul>
-<li>
-<strong>Column name spelling</strong>: Should be the following:
-Parameter, Sampling Method Context, Method Speciation, Result Sample
-Fraction, Analytical Method, Analytical Method Context.</li>
-<li>
-<strong>Columns present</strong>: All columns from the previous
-should be present, Result Attribute is optional</li>
-<li>
-<strong>Unique parameters</strong>: Values in <code>Parameter</code>
-should be unique (no duplicates)</li>
-<li>
-<strong>Parameter</strong>: Should match parameter names in the
-<code>Simple Parameter</code> or <code>WQX Parameter</code> column of
-the <code>paramsMWR</code> data (warning only)</li>
-</ul>
-<p>An informative error is returned if the input data fail any of the
-checks. The input data should be corrected by hand in the Excel file by
-altering the appropriate rows or column names indicated in the error.
-Checks with warnings can be fixed at the discretion of the user before
-proceeding.</p>
-</div>
-</div>
-<div class="section level2">
-<h2 id="using-the-fset-argument">Using the fset argument<a class="anchor" aria-label="anchor" href="#using-the-fset-argument"></a>
-</h2>
-<p>All of the <a href="/MassWateR/articles/qcoverview.html">quality
-control</a>, <a href="/MassWateR/articles/outlierchecks.html">outlier</a>,
-<a href="/MassWateR/articles/analysis.html">analysis</a>, and <a href="/MassWateR/articles/wqx.html">wqx</a> functions in MassWateR require
-the inputs described above, depending on the function. These are
-generally passed to each function using the appropriate arguments, e.g.,
-<code>res</code> for the surface water quality results, <code>acc</code>
-and <code>frecom</code> for the data quality objective files for
-accuracy, frequency, and completeness, <code>sit</code> for the site
-metadata, and <code>wqx</code> for the wqx metadata. The values passed
-to these functions can be file paths that specify the location of the
-file (either as a full path or relative path based on the working
-directory) or as data frames returned by the relevant import functions
-(i.e., <code><a href="../reference/readMWRresults.html">readMWRresults()</a></code>, <code><a href="../reference/readMWRacc.html">readMWRacc()</a></code>,
-<code><a href="../reference/readMWRfrecom.html">readMWRfrecom()</a></code>, <code><a href="../reference/readMWRsites.html">readMWRsites()</a></code>,
-<code><a href="../reference/readMWRwqx.html">readMWRwqx()</a></code>).</p>
-<p>Because it can be tedious to specify each of the input files in the
-arguments for the MassWateR functions, the <code>fset</code> (file set)
-argument can be used as an alternative method. The <code>fset</code>
-argument for each function accepts a named list with the relevant input
-file locations or data frames. This can be created at the top of a
-script and recycled as necessary for an analysis workflow. The examples
-below demonstrate creating the list as file paths or as exported data
-frames from the import functions. Examples in the vignettes show how
-this list can be used as alternative input using the <code>fset</code>
-argument.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># a list of input file paths</span></span>
-<span><span class="va">fsetls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  res <span class="op">=</span> <span class="va">respth</span>, </span>
-<span>  acc <span class="op">=</span> <span class="va">accpth</span>,</span>
-<span>  frecom <span class="op">=</span> <span class="va">frecompth</span>,</span>
-<span>  sit <span class="op">=</span> <span class="va">sitpth</span>, </span>
-<span>  wqx <span class="op">=</span> <span class="va">wqxpth</span></span>
-<span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># a list of input data frames</span></span>
+<span><span class="co"># import wqx metadata</span></span>
+<span><span class="va">wqxpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleWQX.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
+<span><span class="va">wqxdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRwqx.html">readMWRwqx</a></span><span class="op">(</span><span class="va">wqxpth</span><span class="op">)</span></span></code></pre></div>
+<p>After data are imported, a single data object can be created that can
+be used with all MassWateR functions.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># a list of input data frames</span></span>
 <span><span class="va">fsetls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  res <span class="op">=</span> <span class="va">resdat</span>, </span>
 <span>  acc <span class="op">=</span> <span class="va">accdat</span>,</span>
@@ -922,6 +187,95 @@ argument.</p>
 <span>  sit <span class="op">=</span> <span class="va">sitdat</span>, </span>
 <span>  wqx <span class="op">=</span> <span class="va">wqxdat</span></span>
 <span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="quality-control-functions">Quality control functions<a class="anchor" aria-label="anchor" href="#quality-control-functions"></a>
+</h2>
+<p>Please view the <a href="https://massbays-tech.github.io/MassWateR/articles/qcoverview.html">quality
+control functions</a> vignette for a complete description of the quality
+control functions in MassWateR.</p>
+<p>The <code><a href="../reference/qcMWRreview.html">qcMWRreview()</a></code> function compiles a review report as a
+Word document for all quality control checks included in the MassWateR
+package. The report shows several tables, including the data quality
+objectives files for accuracy, frequency, and completeness, summary
+results for all accuracy checks, summary results for all frequency
+checks, summary results for all completeness checks, and individual
+results for all accuracy checks.</p>
+<p>The report can be created as follows. Once the function is done
+running, a message indicating success and where the file is located is
+returned. The Word file can be further edited by hand as needed.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/qcMWRreview.html">qcMWRreview</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="outlier-checks">Outlier checks<a class="anchor" aria-label="anchor" href="#outlier-checks"></a>
+</h2>
+<p>Please view the <a href="https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html">outlier
+checks</a> vignette for a complete description of the outlier check
+functions in MassWateR.</p>
+<p>The <code><a href="../reference/anlzMWRoutlier.html">anlzMWRoutlier()</a></code> function can identify outliers for
+a selected parameter using boxplots, with the outliers labelled
+accordingly.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlier.html">anlzMWRoutlier</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span>, param <span class="op">=</span> <span class="st">"DO"</span>, group <span class="op">=</span> <span class="st">"month"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="MassWateR_files/figure-html/unnamed-chunk-7-1.png" width="768" style="display: block; margin: auto;"></p>
+<p>Outlier plots for all parameters in the results data file can be
+created using the <code><a href="../reference/anlzMWRoutlierall.html">anlzMWRoutlierall()</a></code> function. This can be
+used to create a word document with all plots embedded in the file or as
+separate png images saved to a specified directory.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlierall.html">anlzMWRoutlierall</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span>, group <span class="op">=</span> <span class="st">'month'</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="analyses">Analyses<a class="anchor" aria-label="anchor" href="#analyses"></a>
+</h2>
+<p>Please view the <a href="https://massbays-tech.github.io/MassWateR/articles/analysis.html">analyses</a>
+vignette for a complete description of the analysis functions in
+MassWateR.</p>
+<p>The analysis functions in MassWateR can be used to evaluate trends,
+summaries, and maps.</p>
+<p>Analyze results by season:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span>, param <span class="op">=</span> <span class="st">"DO"</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="MassWateR_files/figure-html/unnamed-chunk-9-1.png" width="768" style="display: block; margin: auto;"></p>
+<p>Analyze results by date:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRdate.html">anlzMWRdate</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span>, param <span class="op">=</span> <span class="st">"DO"</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ABT-026"</span>, <span class="st">"ABT-077"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="MassWateR_files/figure-html/unnamed-chunk-10-1.png" width="768" style="display: block; margin: auto;"></p>
+<p>Analyze data by site:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRsite.html">anlzMWRsite</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span>, param <span class="op">=</span> <span class="st">"DO"</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="MassWateR_files/figure-html/unnamed-chunk-11-1.png" width="768" style="display: block; margin: auto;"></p>
+<p>Analyze results with maps:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span>, param <span class="op">=</span> <span class="st">"DO"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="MassWateR_files/figure-html/unnamed-chunk-12-1.png" width="576" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level2">
+<h2 id="modifying-plots">Modifying plots<a class="anchor" aria-label="anchor" href="#modifying-plots"></a>
+</h2>
+<p>Please view the <a href="https://massbays-tech.github.io/MassWateR/articles/modifying.html">modifying
+plots</a> vignette for a complete description of how plots created in
+MassWateR can be modified by hand. All of the plots created for the
+outlier and general analysis functions are <a href="https://ggplot2.tidyverse.org/index.html" class="external-link">ggplot2</a> plots and
+can be modified accordingly, in addition to the supplied arguments to
+the core functions.</p>
+</div>
+<div class="section level2">
+<h2 id="water-quality-exchange-output">Water Quality Exchange output<a class="anchor" aria-label="anchor" href="#water-quality-exchange-output"></a>
+</h2>
+<p>Please view the <a href="https://massbays-tech.github.io/MassWateR/articles/inputs.html">Water
+Quality Exchange output</a> vignette for a complete description of
+creating output for WQX upload with MassWateR.</p>
+<p>The single function for generating output for upload to WQX is
+<code><a href="../reference/tabMWRwqx.html">tabMWRwqx()</a></code>. This function will export a single Excel
+workbook with three sheets, named “Project”, “Locations”, and “Results”.
+The output is populated with as much content as possible, but it is the
+responsibility of the user to verify this information is complete and
+correct before uploading the data. Additional information will need to
+be added by hand.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/tabMWRwqx.html">tabMWRwqx</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span><span class="op">)</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

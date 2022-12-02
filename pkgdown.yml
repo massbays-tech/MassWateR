@@ -4,11 +4,12 @@ pkgdown_sha: ~
 articles:
   MassWateR: MassWateR.html
   analysis: analysis.html
+  inputs: inputs.html
   modifying: modifying.html
   outlierchecks: outlierchecks.html
   qcoverview: qcoverview.html
   wqx: wqx.html
-last_built: 2022-12-01T02:51Z
+last_built: 2022-12-02T21:18Z
 urls:
   reference: https://massbays-tech.github.io/MassWateR/reference
   article: https://massbays-tech.github.io/MassWateR/articles
