@@ -34,7 +34,7 @@ This warning can be ignored for the MassWateR solution.  If desired, RTools can 
 
 Please see the vignette articles for an overview of how to use functions in the MassWateR package.  The vignettes are organized topically as follows: 
 
-* [MassWateR quick start](https://massbays-tech.github.io/MassWateR/articles/inputs.html): A quick start guide to importing data and using the various functions in MassWateR. Detailed information is provided in the other vignettes.
+* [MassWateR quick start](https://massbays-tech.github.io/MassWateR/articles/MassWateR.html): A quick start guide to importing data and using the various functions in MassWateR. Detailed information is provided in the other vignettes.
 * [MassWateR data input and checks](https://massbays-tech.github.io/MassWateR/articles/inputs.html): Information on datasets required to use the package, the required formats and how to import them into R, and the checks that are run when the data are imported.
 * [MassWateR quality control functions](https://massbays-tech.github.io/MassWateR/articles/qcoverview.html): Information on using the quality control functions to assess completeness and accuracy of results data for surface water quality and to generate automated reports.
 * [MassWateR outlier checks](https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html): Information on evaluating outliers in the results data for surface water quality.
