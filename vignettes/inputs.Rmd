@@ -24,7 +24,7 @@ Four types of data are used with the MassWateR package.
 1. Water quality **results** organized by sample location and date.
 2. Summary of data quality objectives that describe quality control **accuracy**, **frequency**, and **completeness** measures for data in the results file.
 3. A **site metadata** file, including location names, latitude, longitude, and additional grouping factors for sites.
-4. A **wqx metadata** file required for generating output to facilitate data upload to WQX 
+4. A **wqx metadata** file required for generating output to facilitate data upload to WQX. 
 
 Templates and instructions for each of the types of input data are available for download in the [Resources tab](/MassWateR/RESOURCES.md). Additionally, example files, described below, are provided with the package to demonstrate and test the functions.
 
