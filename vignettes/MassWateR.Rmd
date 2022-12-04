@@ -29,6 +29,8 @@ The objective of the package is to automate and facilitate quality control and e
 knitr::include_graphics("workflow.PNG")
 ```
 
+In addition to the content on this web page, the MassWateR Community of Practice forum is a space for users to find help, share ideas, and suggest improvements for the package.  Please follow the [link](https://massbays.discourse.group/c/masswater-r-tools/5) to register and login to the forum.
+
 ## Package installation
 
 Install the package as follows:

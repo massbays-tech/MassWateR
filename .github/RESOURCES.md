@@ -11,8 +11,9 @@ Below are links to resources for using or learning about MassWateR.
 -   WQX metadata: [link](MassWateR_WQXMeta_Template.xlsx)
 -   WQX upload template: [link](WQX_Phys-Chem_Template_for_MassWateR.xlsx)
 
-## Training materials
+## Community and training materials
 
+-   MassWateR Community of Practice forum: [link](https://massbays.discourse.group/c/masswater-r-tools/5)
 -   Intro to MassWateR: [link](https://massbays-tech.github.io/intro-to-masswater/){target="_blank"}
 -   Intro to R: [link](https://massbays-tech.github.io/intro-to-r/){target="_blank"}
 
