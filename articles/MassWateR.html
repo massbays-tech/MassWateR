@@ -222,9 +222,11 @@ accordingly.</p>
 <p>Outlier plots for all parameters in the results data file can be
 created using the <code><a href="../reference/anlzMWRoutlierall.html">anlzMWRoutlierall()</a></code> function. This can be
 used to create a word document with all plots embedded in the file or as
-separate png images saved to a specified directory.</p>
+separate png images saved to a specified directory. Once the function is
+done running, a message indicating success and where the file(s) is
+located is returned.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlierall.html">anlzMWRoutlierall</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span>, group <span class="op">=</span> <span class="st">'month'</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlierall.html">anlzMWRoutlierall</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span>, group <span class="op">=</span> <span class="st">"month"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="analyses">Analyses<a class="anchor" aria-label="anchor" href="#analyses"></a>
@@ -273,7 +275,8 @@ workbook with three sheets, named “Project”, “Locations”, and “Results
 The output is populated with as much content as possible, but it is the
 responsibility of the user to verify this information is complete and
 correct before uploading the data. Additional information will need to
-be added by hand.</p>
+be added by hand. Once the function is done running, a message
+indicating success and where the file is located is returned.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tabMWRwqx.html">tabMWRwqx</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span><span class="op">)</span></span></code></pre></div>
 </div>
