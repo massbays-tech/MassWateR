@@ -126,10 +126,10 @@ The `anlzMWRoutlier()` function can identify outliers for a selected parameter u
 anlzMWRoutlier(fset = fsetls, param = "DO", group = "month")
 ```
 
-Outlier plots for all parameters in the results data file can be created using the `anlzMWRoutlierall()` function. This can be used to create a word document with all plots embedded in the file or as separate png images saved to a specified directory.  
+Outlier plots for all parameters in the results data file can be created using the `anlzMWRoutlierall()` function. This can be used to create a word document with all plots embedded in the file or as separate png images saved to a specified directory. Once the function is done running, a message indicating success and where the file(s) is located is returned.  
 
 ```{r, message = T, eval = F}
-anlzMWRoutlierall(fset = fsetls, group = 'month')
+anlzMWRoutlierall(fset = fsetls, group = "month")
 ```
 
 ## Analyses
@@ -170,7 +170,7 @@ Please view the [modifying plots](https://massbays-tech.github.io/MassWateR/arti
 
 Please view the [Water Quality Exchange output](https://massbays-tech.github.io/MassWateR/articles/wqx.html) vignette for a complete description of creating output for WQX upload with MassWateR.
 
-The single function for generating output for upload to WQX is `tabMWRwqx()`.  This function will export a single Excel workbook with three sheets, named "Project", "Locations", and "Results". The output is populated with as much content as possible, but it is the responsibility of the user to verify this information is complete and correct before uploading the data. Additional information will need to be added by hand.
+The single function for generating output for upload to WQX is `tabMWRwqx()`.  This function will export a single Excel workbook with three sheets, named "Project", "Locations", and "Results". The output is populated with as much content as possible, but it is the responsibility of the user to verify this information is complete and correct before uploading the data. Additional information will need to be added by hand. Once the function is done running, a message indicating success and where the file is located is returned. 
 
 ```{r, eval = F}
 tabMWRwqx(fset = fsetls)
