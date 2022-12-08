@@ -117,7 +117,7 @@ checkMWRacc <- function(accdat, warn = TRUE){
     stop(msg, '\n\tMissing unit (uom) in rows ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
-  
+
   # check different units for each parameter
   msg <- '\tChecking if more than one unit (uom) per Parameter...'
   typ <- accdat[, c('Parameter', 'uom')]
@@ -150,7 +150,7 @@ checkMWRacc <- function(accdat, warn = TRUE){
   typ <- dplyr::left_join(typ, tojn, by = 'Parameter')
   typ <- dplyr::rowwise(typ)
   typ <- dplyr::mutate(typ, 
-    `Units of measure` = na.omit(unique(`Units of measure.x`, `Units of measure.y`))
+    `Units of measure` = na.omit(unique(c(`Units of measure.x`, `Units of measure.y`)))
   )
   chk <- dplyr::mutate(typ, 
     fnd = grepl(`uom`, `Units of measure`, fixed = TRUE)
