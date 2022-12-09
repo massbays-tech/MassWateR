@@ -55,7 +55,7 @@ qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, outp
 
   # rmd template
   qcreview <- system.file('rmd', 'qcreview.Rmd', package = 'MassWateR')
-  browser()
+
   # default output directory is working directory
   if(is.null(output_dir))
     output_dir <- getwd()

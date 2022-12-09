@@ -315,9 +315,14 @@ qcMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = 
             T ~ 100 * diffv / ((`Initial Result2` + `Dup. Result2`) / 2)
           ),
           `Field Duplicate2` = gsub('%|log', '', `Field Duplicate`),
-          `Hit/Miss` = dplyr::case_when(
-            grepl('%|log', `Field Duplicate`) & !is.na(`Field Duplicate`) ~ eval(parse(text = paste(percv, `Field Duplicate2`))), 
-            !grepl('%|log', `Field Duplicate`) & !is.na(`Field Duplicate`) ~ eval(parse(text = paste(diffv, `Field Duplicate2`)))
+          `Hit/Miss` = ifelse(
+            grepl('%|log', `Field Duplicate`) & !is.na(`Field Duplicate`), 
+            eval(parse(text = paste(percv, `Field Duplicate2`))), 
+              ifelse(
+                !grepl('%|log', `Field Duplicate`) & !is.na(`Field Duplicate`), 
+                eval(parse(text = paste(diffv, `Field Duplicate2`))), 
+                NA
+              )
           ),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'), 
           percv = paste0(round(percv, 0), suffix, ' RPD'), 
@@ -345,9 +350,14 @@ qcMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = 
             T ~ 100 * diffv / ((`Initial Result2` + `Dup. Result2`) / 2)
           ),
           `Lab Duplicate2` = gsub('%|log', '', `Lab Duplicate`),
-          `Hit/Miss` = dplyr::case_when(
-            grepl('%|log', `Lab Duplicate`) & !is.na(`Lab Duplicate`) ~ eval(parse(text = paste(percv, `Lab Duplicate2`))), 
-            !grepl('%|log', `Lab Duplicate`) & !is.na(`Lab Duplicate`) ~ eval(parse(text = paste(diffv, `Lab Duplicate2`)))
+          `Hit/Miss` = ifelse(
+            grepl('%|log', `Lab Duplicate`) & !is.na(`Lab Duplicate`), 
+            eval(parse(text = paste(percv, `Lab Duplicate2`))), 
+            ifelse(
+              !grepl('%|log', `Lab Duplicate`) & !is.na(`Lab Duplicate`), 
+              eval(parse(text = paste(diffv, `Lab Duplicate2`))), 
+              NA
+            )
           ),
           `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
           percv = paste0(round(percv, 0), suffix, ' RPD'),
@@ -438,9 +448,14 @@ qcMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = 
       dplyr::arrange(Parameter, -dplyr::desc(Date)) %>% 
       dplyr::rowwise() %>% 
       dplyr::mutate(
-        `Hit/Miss` = dplyr::case_when(
-          grepl('%|log', `Spike/Check Accuracy`) & !is.na(`Spike/Check Accuracy`) ~ eval(parse(text = paste(abs(percv), `Spike/Check Accuracy2`))), 
-          !grepl('%|log', `Spike/Check Accuracy`) & !is.na(`Spike/Check Accuracy`) ~ eval(parse(text = paste(abs(diffv), `Spike/Check Accuracy2`)))
+        `Hit/Miss` = ifelse(
+          grepl('%|log', `Spike/Check Accuracy`) & !is.na(`Spike/Check Accuracy`), 
+          eval(parse(text = paste(percv, `Spike/Check Accuracy2`))), 
+          ifelse(
+            !grepl('%|log', `Spike/Check Accuracy`) & !is.na(`Spike/Check Accuracy`), 
+            eval(parse(text = paste(diffv, `Spike/Check Accuracy`))), 
+            NA
+          )
         ),
         `Hit/Miss` = ifelse(`Hit/Miss`, NA_character_, 'MISS'),
         recov = paste0(round(recov, 0), suffix),
@@ -449,9 +464,14 @@ qcMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = 
                        paste(paste0(signv, round(diffv, 1)), `Result Unit`),
                        paste(paste0(signv, round(diffv, 3)), `Result Unit`)
         ), 
-        `Diff./Accuracy` = dplyr::case_when(
-          grepl('%|log', `Spike/Check Accuracy`) & !is.na(`Spike/Check Accuracy`) ~ recov,
-          !grepl('%|log', `Spike/Check Accuracy`) & !is.na(`Spike/Check Accuracy`) ~ diffv
+        `Diff./Accuracy` = ifelse(
+          grepl('%|log', `Spike/Check Accuracy`) & !is.na(`Spike/Check Accuracy`), 
+          recov, 
+          ifelse(
+            !grepl('%|log', `Spike/Check Accuracy`) & !is.na(`Spike/Check Accuracy`), 
+            diffv, 
+            NA
+          )
         )
       ) %>% 
       dplyr::select(

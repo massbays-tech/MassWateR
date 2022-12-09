@@ -2,8 +2,8 @@ on:
   push:
     branches:
       - main
-    # paths:
-    #   - inst/extdata/ParameterMapping.xlsx
+    paths:
+      - inst/extdata/ParameterMapping.xlsx
     
 name: parambuild 
 
