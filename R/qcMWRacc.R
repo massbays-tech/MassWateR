@@ -419,12 +419,20 @@ qcMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = 
         `Recovered` = ifelse(
           `Recovered` %in% c('BDL', 'AQL'), 
           `Recovered`,
-          paste(as.numeric(`Recovered`), `Result Unit`)
+          ifelse(
+            Parameter == 'Sp Conductance',
+            paste(round(as.numeric(`Recovered`), 1), `Result Unit`),
+            paste(round(as.numeric(`Recovered`), 3), `Result Unit`)
+          )
         ),
         `Standard` = ifelse(
           `Standard` %in% c('BDL', 'AQL'), 
           `Standard`, 
-          paste(as.numeric(`Standard`), `Result Unit`)
+          ifelse(
+            Parameter == 'Sp Conductance',
+            paste(round(as.numeric(`Standard`), 1), `Result Unit`),
+            paste(round(as.numeric(`Standard`), 3), `Result Unit`)
+          )
         )
       ) %>% 
       tidyr::unite('flt', `Avg. Result`, `Value Range`, sep = ' ', remove = FALSE) %>% 
