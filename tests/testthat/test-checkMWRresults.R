@@ -47,14 +47,14 @@ test_that("Checking Activity Depth/Height Measure range", {
   chk$`Activity Depth/Height Measure`[1] <- 3.4
   chk$`Activity Depth/Height Measure`[3] <- 1.1 
   chk$`Activity Depth/Height Unit`[3] <- 'm' 
-  expect_warning(expect_warning(checkMWRresults(chk)))
+  expect_warning(checkMWRresults(chk))
 })
 
 test_that("Checking Activity Relative Depth Name entries", {
   chk <- resdat
   chk[6, 7] <- 'Surf'
   chk[387, 7] <- 'nearbottom'
-  expect_warning(expect_warning(expect_warning(checkMWRresults(chk))))
+  expect_warning(expect_warning(checkMWRresults(chk)))
 })
 
 test_that("Checking correct Characteristic Names", {
