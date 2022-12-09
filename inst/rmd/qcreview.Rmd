@@ -127,7 +127,8 @@ frecomdat %>%
 
 ```{r}
 accdat %>% 
-  dplyr::mutate_if(is.numeric, as.character) %>%   
+  dplyr::mutate_if(is.numeric, as.character) %>% 
+  dplyr::mutate_all(function(x) ifelse(is.na(x), '-', x)) %>% 
   flextable::flextable() %>% 
   thmdqo(fontname = fontname, dqofontsize = dqofontsize, padding = padding) %>% 
   flextable::width(width = 1, j = 1) %>% 
