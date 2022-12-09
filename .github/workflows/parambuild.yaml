@@ -19,13 +19,12 @@ jobs:
       - name: Install dependencies
         run: |
           install.packages(c("readxl", "remotes"))
-          remotes::install_version('sf', version = '0.9-8')
-          remotes::install_github('tbep-tech/tbeptools')
         shell: Rscript {0}
       - name: Build parameter file
         run: |
-          paramsMWR <- readxl::read_excel('inst/extdata/ParameterMapping.xlsx')
-          save(paramsMWR, file = 'data/paramsMWR.RData', compress = 'xz')
+          paramsMWR <- readxl::read_excel("inst/extdata/ParameterMapping.xlsx")
+          save(paramsMWR, file = "data/paramsMWR.RData", compress = "xz")
+        shell: Rscript {0}
       - name: Commit results
         run: |
           git config --local user.email "actions@github.com"
