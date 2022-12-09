@@ -3,7 +3,7 @@ on:
     branches:
       - main
     paths:
-      - inst/extdata/ParamaterMapping.xlsx
+      - inst/extdata/ParameterMapping.xlsx
     
 name: parambuild 
 
