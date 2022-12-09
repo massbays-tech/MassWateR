@@ -174,80 +174,90 @@ are case-sensitive. This file is also available in the <a href="/MassWateR/RESOU
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">Ammonia</td>
-<td align="left">Ammonia</td>
-<td align="left">mg/l, ug/l, umol/l, ppm</td>
+<td align="left">Air Temp</td>
+<td align="left">Temperature, air</td>
+<td align="left">deg C, deg F</td>
 </tr>
 <tr class="even">
-<td align="left">Ammonium</td>
-<td align="left">Ammonium</td>
+<td align="left">Ammonia</td>
+<td align="left">Ammonia</td>
 <td align="left">mg/l, ug/l, umol/l, ppm</td>
 </tr>
 <tr class="odd">
+<td align="left">Ammonium</td>
+<td align="left">Ammonium</td>
+<td align="left">mg/l, ug/l, umol/l, ppm</td>
+</tr>
+<tr class="even">
 <td align="left">Chl a</td>
 <td align="left">Chlorophyll a</td>
 <td align="left">mg/l, ug/l, umol/l, ppm</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Chl a (probe)</td>
 <td align="left">Chlorophyll a (probe)</td>
 <td align="left">mg/l, ug/l, umol/l, ppm</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Chloride</td>
 <td align="left">Chloride</td>
 <td align="left">mg/l, ug/l, umol/l, ppm</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Conductivity</td>
 <td align="left">Conductivity</td>
 <td align="left">uS/cm, mS/cm, S/m</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Cyanobacteria (lab)</td>
 <td align="left">Algae, blue-green (phylum cyanophyta) density</td>
 <td align="left">mg/l, ug/l, umol/l, ppm</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Cyanobacteria (probe)</td>
 <td align="left">Chlorophyll a (probe) concentration, Cyanobacteria
 (bluegreen)</td>
 <td align="left">mg/l, ug/l, umol/l, ppm</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Depth</td>
 <td align="left">Depth</td>
 <td align="left">m, cm, ft</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">DO</td>
 <td align="left">Dissolved oxygen (DO)</td>
 <td align="left">mg/l, ug/l</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">DO saturation</td>
 <td align="left">Dissolved oxygen saturation</td>
 <td align="left">%</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">E.coli</td>
 <td align="left">Escherichia coli</td>
 <td align="left">cfu/100ml, MPN/100ml, #/100ml</td>
 </tr>
+<tr class="even">
+<td align="left">Enterococcus</td>
+<td align="left">Enterococcus</td>
+<td align="left">cfu/100ml, MPN/100ml, #/100ml</td>
+</tr>
 <tr class="odd">
-<td align="left">Enterococcus</td>
-<td align="left">Enterococcus</td>
+<td align="left">Fecal Coliform</td>
+<td align="left">Fecal Coliform</td>
 <td align="left">cfu/100ml, MPN/100ml, #/100ml</td>
 </tr>
 <tr class="even">
-<td align="left">Fecal Coliform</td>
-<td align="left">Fecal Coliform</td>
-<td align="left">cfu/100ml, MPN/100ml, #/100ml</td>
-</tr>
-<tr class="odd">
 <td align="left">Flow</td>
 <td align="left">Flow</td>
 <td align="left">cfs, cfm, mgd, l/sec, l/min,</td>
+</tr>
+<tr class="odd">
+<td align="left">Gage</td>
+<td align="left">Height, gage</td>
+<td align="left">m, cm, ft</td>
 </tr>
 <tr class="even">
 <td align="left">Metals</td>
@@ -430,16 +440,14 @@ it is not necessary to explicitly set this argument on import.</p>
 <span><span class="co">#&gt; Warning:     Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft...</span></span>
 <span><span class="co">#&gt;  Bottom values found in Activity Relative Depth Name on row(s): 1499, 1500, 1501</span></span>
 <span><span class="co">#&gt;  Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft... WARNING</span></span>
-<span><span class="co">#&gt; Warning:     Checking Characteristic Name formats...</span></span>
-<span><span class="co">#&gt;  Characteristic Name not included in approved parameters: Air Temp, Gage</span></span>
-<span><span class="co">#&gt;  Checking Characteristic Name formats... WARNING</span></span>
+<span><span class="co">#&gt;  Checking Characteristic Name formats... OK</span></span>
 <span><span class="co">#&gt;  Checking Result Values... OK</span></span>
 <span><span class="co">#&gt;  Checking QC Reference Values... OK</span></span>
 <span><span class="co">#&gt;  Checking for missing entries for Result Unit... OK</span></span>
 <span><span class="co">#&gt;  Checking if more than one unit per Characteristic Name... OK</span></span>
 <span><span class="co">#&gt;  Checking acceptable units for each entry in Characteristic Name... OK</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; All checks passed (2 WARNING(s))!</span></span>
+<span><span class="co">#&gt; All checks passed (1 WARNING(s))!</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">resdat</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 17</span></span></span>
 <span><span class="co">#&gt;   Monitorin…¹ Activ…² Activity…³ Activ…⁴ Activ…⁵ Activ…⁶ Activ…⁷ Chara…⁸ Resul…⁹</span></span>
