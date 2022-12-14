@@ -80,9 +80,9 @@ qcMWRcom <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn
     # subset results data
     resdattmp <- resdat %>% 
       dplyr::filter(`Characteristic Name` == prm)
-    
+
     # number of qualified records
-    qualrec <- sum(resdattmp$`Result Measure Qualifier` == 'Q', na.rm = TRUE)
+    qualrec <- sum(!is.na(resdattmp$`Result Measure Qualifier`), na.rm = TRUE)
     
     # number of data records
     datarec <- sum(resdattmp$`Activity Type` %in% c("Field Msr/Obs", "Sample-Routine"), na.rm = T)
