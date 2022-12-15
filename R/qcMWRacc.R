@@ -145,6 +145,7 @@ qcMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = 
     if('Quality Control Sample-Field Blank' %in% blk$`Activity Type` & 'Field Blanks' %in% accchk & any(!is.na(blk$`Field Blank`)))
       fldblk <- blk %>%
         dplyr::filter(`Activity Type` == 'Quality Control Sample-Field Blank') %>% 
+        dplyr::filter(!is.na(`Field Blank`)) %>% 
         dplyr::select(-`Activity Type`) %>% 
         dplyr::select(-`Sample ID`) %>% 
         dplyr::mutate(
@@ -180,6 +181,7 @@ qcMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = 
     if('Quality Control Sample-Lab Blank' %in% blk$`Activity Type` & 'Lab Blanks' %in% accchk & any(!is.na(blk$`Lab Blank`)))
       labblk <- blk %>%
         dplyr::filter(`Activity Type` == 'Quality Control Sample-Lab Blank') %>% 
+        dplyr::filter(!is.na(`Lab Blank`)) %>% 
         dplyr::select(-`Activity Type`) %>% 
         dplyr::select(-`Site`) %>% 
         dplyr::mutate(
@@ -304,6 +306,7 @@ qcMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = 
     if('Field Duplicate' %in% dup$`Activity Type` & 'Field Duplicates' %in% accchk & any(!is.na(dup$`Field Duplicate`)))
       flddup <- dup %>% 
         dplyr::filter(`Activity Type` %in% 'Field Duplicate') %>% 
+        dplyr::filter(!is.na(`Field Duplicate`)) %>% 
         dplyr::rowwise() %>% 
         dplyr::mutate(
           diffv = dplyr::case_when(
@@ -339,6 +342,7 @@ qcMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = 
     if('Quality Control Sample-Lab Duplicate' %in% dup$`Activity Type` & 'Lab Duplicates' %in% accchk & any(!is.na(dup$`Lab Duplicate`)))
       labdup <- dup %>% 
         dplyr::filter(`Activity Type` %in% 'Quality Control Sample-Lab Duplicate') %>% 
+        dplyr::filter(!is.na(`Lab Duplicate`)) %>% 
         dplyr::rowwise() %>% 
         dplyr::mutate(
           diffv = dplyr::case_when(
