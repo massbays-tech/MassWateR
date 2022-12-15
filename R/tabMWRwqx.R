@@ -106,6 +106,20 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
       `Monitoring Location Horizontal Coordinate Reference System`
     )
   
+  # warning or stop if missing lat/lon or no lat/lon
+  naloc <- is.na(locs$`Monitoring Location Longitude (-DDD.DDDD)`) | is.na(locs$`Monitoring Location Latitude (DD.DDDD)`)
+  chk <- any(naloc)
+  
+  if(chk & warn){
+    
+    msg <- locs[naloc, ] %>% 
+      dplyr::pull(`Monitoring Location ID`) %>% 
+      sort
+    
+    warning('No spatial information for sites in the Locations tab: ', paste(msg, collapse = ', '))
+    
+  }
+  
   ##
   # Results
   
