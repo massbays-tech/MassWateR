@@ -271,7 +271,7 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
         T ~ NA_character_
       ),
       `Result Unit` = dplyr::case_when(
-        `Characteristic Name` == 'pH' ~ 'blank', 
+        `Characteristic Name` == 'pH' ~ 'None', 
         `Characteristic Name` == 'Salinity' ~ 'ppth', 
         T ~ `Result Unit`
       ),
