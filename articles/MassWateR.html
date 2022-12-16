@@ -107,11 +107,10 @@ Network Grant.</p>
 control and exploratory analysis of data intended for upload to the EPA
 <a href="https://www.epa.gov/waterdata/water-quality-data" class="external-link">Water Quality
 Exchange</a> (WQX). The functions provide a streamlined and repeatable
-means of 1) screening data for quality control, 2) interpreting data,
-and 3) creating graphics for analysis and reports to stakeholders.
-Additional formatting tools are also available to facilitate data upload
-to WQX. The functions are organized around these topics, shown
-below.</p>
+means of 1) screening data for quality control, 2) summarizing quality
+control results, 3) creating graphics for analysis and reports to
+stakeholders, and 4)formatting data for upload to WQX. The functions are
+organized around these topics, shown below.</p>
 <div class="figure" style="text-align: center">
 <img src="workflow.PNG" alt="Functions in MassWateR are organized around these topics." width="100%"><p class="caption">
 Functions in MassWateR are organized around these topics.
@@ -201,8 +200,8 @@ be used with all MassWateR functions.</p>
 <p>Please view the <a href="https://massbays-tech.github.io/MassWateR/articles/qcoverview.html">quality
 control functions</a> vignette for a complete description of the quality
 control functions in MassWateR.</p>
-<p>The <code><a href="../reference/qcMWRreview.html">qcMWRreview()</a></code> function compiles a review report as a
-Word document for all quality control checks included in the MassWateR
+<p>The <code><a href="../reference/qcMWRreview.html">qcMWRreview()</a></code> function compiles a report as a Word
+document for all quality control checks included in the MassWateR
 package. The report shows several tables, including the data quality
 objectives files for accuracy, frequency, and completeness, summary
 results for all accuracy checks, summary results for all frequency
@@ -281,11 +280,25 @@ creating output for WQX upload with MassWateR.</p>
 workbook with three sheets, named “Project”, “Locations”, and “Results”.
 The output is populated with as much content as possible, but it is the
 responsibility of the user to verify this information is complete and
-correct before uploading the data. Additional information will need to
-be added by hand. Once the function is done running, a message
-indicating success and where the file is located is returned.</p>
+correct before uploading the data. Additional information may need to be
+added by hand. Once the function is done running, a message indicating
+success and where the file is located is returned.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tabMWRwqx.html">tabMWRwqx</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="submitting-data-to-mass-dep">Submitting data to Mass DEP<a class="anchor" aria-label="anchor" href="#submitting-data-to-mass-dep"></a>
+</h2>
+<p>If you are submitting your data to Mass DEP, you must follow all of
+their instructions as described on their <a href="https://www.mass.gov/guides/external-data-submittals-to-the-watershed-planning-program" class="external-link">External
+Data Submittal</a> webpage. Data and QC data can be submitted using
+either the MassDEP data submission template OR by uploading data to WQX.
+If you are submitting through WQX you should complete the submission by
+notifying Mass DEP via email (<a href="mailto:WQData.Submit@mass.gov" class="email">WQData.Submit@mass.gov</a>). The e-mail must include the
+group name / project name under which the data was submitted to WQX, a
+copy of the project QAPP (if not already submitted), a statement of data
+integrity, the Mass WateR QC Report (with the raw data print out), and
+any other supporting data reports.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
