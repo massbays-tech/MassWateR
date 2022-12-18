@@ -52,8 +52,8 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/inputs.html">MassWateR data input and checks</a>
-    <a class="dropdown-item" href="../articles/qcoverview.html">MassWateR quality control functions</a>
     <a class="dropdown-item" href="../articles/outlierchecks.html">MassWateR outlier checks</a>
+    <a class="dropdown-item" href="../articles/qcoverview.html">MassWateR quality control functions</a>
     <a class="dropdown-item" href="../articles/analysis.html">MassWateR analyses</a>
     <a class="dropdown-item" href="../articles/modifying.html">Modifying plots</a>
     <a class="dropdown-item" href="../articles/wqx.html">Water Quality Exchange output</a>
@@ -96,9 +96,9 @@
     
     
 <p>The MassWateR packages includes additional tools for generating
-output that will facilitate upload of data to the EPA <a href="https://www.epa.gov/waterdata/water-quality-data" class="external-link">Water Quality
-Exchange</a> (WQX). The function for generating the WQX output can be
-used once the required data are successfully imported into R (see the <a href="https://massbays-tech.github.io/MassWateR/articles/inputs.html">data
+output that will facilitate upload of data to the EPA <a href="https://www.epa.gov/waterdata/water-quality-data" target="_blank" class="external-link">Water Quality Exchange</a> (WQX). The function for
+generating the WQX output can be used once the required data are
+successfully imported into R (see the <a href="https://massbays-tech.github.io/MassWateR/articles/inputs.html">data
 input and checks vignette</a> for an overview). The results data file,
 the data quality objectives file for accuracy, the site metadata, and
 the wqx metadata files are required to use these functions. The example
@@ -229,7 +229,21 @@ specify the input arguments.</p>
 warnings when data are imported and only applies if the file inputs are
 paths.</p>
 </div>
-  </main>
+<div class="section level2">
+<h2 id="submitting-data-to-mass-dep">Submitting data to Mass DEP<a class="anchor" aria-label="anchor" href="#submitting-data-to-mass-dep"></a>
+</h2>
+<p>If you are submitting your data to Mass DEP, you must follow all of
+their instructions as described on their <a href="https://www.mass.gov/guides/external-data-submittals-to-the-watershed-planning-program" target="_blank" class="external-link">External Data Submittal</a> webpage. Data and QC data
+can be submitted using either the MassDEP data submission template OR by
+uploading data to WQX. If you are submitting through WQX you should
+complete the submission by notifying Mass DEP via email (<a href="mailto:WQData.Submit@mass.gov" target="_blank">WQData.Submit@mass.gov</a>). The e-mail must include the
+group name / project name under which the data was submitted to WQX, a
+copy of the project QAPP (if not already submitted), a statement of data
+integrity, the MassWateR QC Report (with the raw data print out), and
+any other supporting data reports.</p>
+</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

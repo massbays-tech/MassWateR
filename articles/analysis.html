@@ -52,8 +52,8 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/inputs.html">MassWateR data input and checks</a>
-    <a class="dropdown-item" href="../articles/qcoverview.html">MassWateR quality control functions</a>
     <a class="dropdown-item" href="../articles/outlierchecks.html">MassWateR outlier checks</a>
+    <a class="dropdown-item" href="../articles/qcoverview.html">MassWateR quality control functions</a>
     <a class="dropdown-item" href="../articles/analysis.html">MassWateR analyses</a>
     <a class="dropdown-item" href="../articles/modifying.html">Modifying plots</a>
     <a class="dropdown-item" href="../articles/wqx.html">Water Quality Exchange output</a>
@@ -312,14 +312,13 @@ is recommended.</p>
 <span>            colleg <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysis_files/figure-html/unnamed-chunk-17-1.png" width="768"></p>
 <p>The color palette for the site points and lines can also be changed.
-Any palette from <a href="https://r-graph-gallery.com/38-rcolorbrewers-palettes.html" class="external-link">RColorBrewer</a>
-can be used. These could include any of the qualitative color palettes,
-e.g., <code>"Set1"</code>, <code>"Set2"</code>, etc. The continuous and
-diverging palettes will also work, but may return color scales for
-points and lines that are difficult to distinguish. The
-<code>palcol</code> argument does not apply if
-<code>group = "all"</code>. In the following example, the qualitative
-<code>"Set1"</code> palette is used.</p>
+Any palette from <a href="https://r-graph-gallery.com/38-rcolorbrewers-palettes.html" target="_blank" class="external-link">RColorBrewer</a> can be used. These could include any of
+the qualitative color palettes, e.g., <code>"Set1"</code>,
+<code>"Set2"</code>, etc. The continuous and diverging palettes will
+also work, but may return color scales for points and lines that are
+difficult to distinguish. The <code>palcol</code> argument does not
+apply if <code>group = "all"</code>. In the following example, the
+qualitative <code>"Set1"</code> palette is used.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRdate.html">anlzMWRdate</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"site"</span>, site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ABT-026"</span>, <span class="st">"ABT-077"</span><span class="op">)</span>, palcol <span class="op">=</span> <span class="st">"Set1"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysis_files/figure-html/unnamed-chunk-18-1.png" width="768"></p>
@@ -442,7 +441,7 @@ spatial data in the site metadata file.</p>
 <span><span class="co">#&gt; HBS-080P, HBS-085, HBS-088P, HBS-095P, HBS-098, LND-007, SUD-236, SUD-293</span></span></code></pre></div>
 <p><img src="analysis_files/figure-html/unnamed-chunk-31-1.png" width="576"></p>
 <p>By default, lines and polygons of natural water bodies defined using
-the National Hydrography Dataset (NHD) are plotted Using
+the National Hydrography Dataset (NHD) are plotted. Using
 <code>addwater = "medium"</code> (default) will plot water bodies at
 medium detail that are included as data files with the package as
 <code>pondsMWR</code>, <code>riversMWR</code>, and
@@ -477,12 +476,11 @@ using <code>latlon = FALSE</code>.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, latlon <span class="op">=</span> <span class="cn">F</span>, warn <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysis_files/figure-html/unnamed-chunk-36-1.png" width="576"></p>
 <p>The color palette for the average values can also be changed. Any
-palette from <a href="https://r-graph-gallery.com/38-rcolorbrewers-palettes.html" class="external-link">RColorBrewer</a>
-can be used. These could include any of the sequential color palettes,
-e.g., <code>"Greens"</code>, <code>"Blues"</code>, etc. The diverging
-and qualitative palettes will also work, but may return uninterpretable
-color scales. In the following example, the diverging
-<code>"Spectral"</code> palette is used.</p>
+palette from <a href="https://r-graph-gallery.com/38-rcolorbrewers-palettes.html" target="_blank" class="external-link">RColorBrewer</a> can be used. These could include any of
+the sequential color palettes, e.g., <code>"Greens"</code>,
+<code>"Blues"</code>, etc. The diverging and qualitative palettes will
+also work, but may return uninterpretable color scales. In the following
+example, the diverging <code>"Spectral"</code> palette is used.</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, palcol <span class="op">=</span> <span class="st">"Spectral"</span>, warn <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysis_files/figure-html/unnamed-chunk-37-1.png" width="576"></p>

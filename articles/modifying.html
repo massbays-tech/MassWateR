@@ -52,8 +52,8 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/inputs.html">MassWateR data input and checks</a>
-    <a class="dropdown-item" href="../articles/qcoverview.html">MassWateR quality control functions</a>
     <a class="dropdown-item" href="../articles/outlierchecks.html">MassWateR outlier checks</a>
+    <a class="dropdown-item" href="../articles/qcoverview.html">MassWateR quality control functions</a>
     <a class="dropdown-item" href="../articles/analysis.html">MassWateR analyses</a>
     <a class="dropdown-item" href="../articles/modifying.html">Modifying plots</a>
     <a class="dropdown-item" href="../articles/wqx.html">Water Quality Exchange output</a>
@@ -99,9 +99,9 @@
 functions, including the <a href="https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html">outlier
 plots</a>, should be sufficient in most cases. However, the plot outputs
 are <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot()</a></code> objects and can be modified using common
-<code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot()</a></code> plot functions (see the <a href="https://ggplot2.tidyverse.org/index.html" class="external-link">ggplot2</a> page for
-details). A brief overview of ggplot2 is provided here as context to the
-MassWateR plot modifications below.</p>
+<code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot()</a></code> plot functions (see the <a href="https://ggplot2.tidyverse.org/index.html" target="_blank" class="external-link">ggplot2</a> page for details). A brief overview of
+ggplot2 is provided here as context to the MassWateR plot modifications
+below.</p>
 <div class="section level2">
 <h2 id="ggplot2">ggplot2<a class="anchor" aria-label="anchor" href="#ggplot2"></a>
 </h2>
@@ -146,8 +146,7 @@ in the <code>data</code> argument, in this case, <code>mpg</code>.</p>
 <li>Each plot needs three pieces of information: the data, how the data
 are mapped to the plot aesthetics, and a geom layer</li>
 </ul>
-<p>Please visit the <a href="https://ggplot2.tidyverse.org/index.html" class="external-link">ggplot2</a> website for
-more information.</p>
+<p>Please visit the <a href="https://ggplot2.tidyverse.org/index.html" target="_blank" class="external-link">ggplot2</a> website for more information.</p>
 </div>
 <div class="section level2">
 <h2 id="modifying-masswater-plots">Modifying MassWateR plots<a class="anchor" aria-label="anchor" href="#modifying-masswater-plots"></a>
@@ -233,10 +232,11 @@ argument can also be used with a numeric value):</p>
 <p><img src="modifying_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
 <p>Additional layers can also be added to maps created with
 <code><a href="../reference/anlzMWRmap.html">anlzMWRmap()</a></code>. For example, a watershed shapefile can be
-imported as a simple features object using the <a href="https://r-spatial.github.io/sf/" class="external-link">sf</a> package, then added using
-<code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf()</a></code> from ggplot. Any warnings about the coordinate
-system can be ignored. The water features will also be clipped to the
-extent of the sites and will likely not show the entire watershed.</p>
+imported as a simple features object using the <a href="https://r-spatial.github.io/sf/" target="_blank" class="external-link">sf</a> package,
+then added using <code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf()</a></code> from ggplot. Any warnings about
+the coordinate system can be ignored. The water features will also be
+clipped to the extent of the sites and will likely not show the entire
+watershed.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
