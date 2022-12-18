@@ -21,17 +21,17 @@ library(dplyr)
 
 ## Overview
 
-The MassWateR R package is developed for surface water monitoring data collected by watershed associations and citizen science groups in Massachusetts. The package is created in collaboration with the [Massachusetts Bays National Estuary Partnership](https://www.mass.gov/orgs/massachusetts-bays-national-estuary-partnership) with funding from an EPA Exchange Network Grant.
+The MassWateR R package is developed for surface water monitoring data collected by watershed associations and citizen science groups in Massachusetts. The package is created in collaboration with the [Massachusetts Bays National Estuary Partnership](https://www.mass.gov/orgs/massachusetts-bays-national-estuary-partnership){target="_blank"} with funding from an EPA Exchange Network Grant.
 
-The objective of the package is to automate and facilitate quality control and exploratory analysis of data intended for upload to the EPA [Water Quality Exchange](https://www.epa.gov/waterdata/water-quality-data) (WQX). The functions provide a streamlined and repeatable means of 1) screening data for quality control, 2) summarizing quality control results, 3) creating graphics for analysis and reports to stakeholders, and 4)formatting data for upload to WQX. The functions are organized around these topics, shown below.
+The objective of the package is to automate and facilitate quality control and exploratory analysis of data intended for upload to the EPA [Water Quality Exchange](https://www.epa.gov/waterdata/water-quality-data){target="_blank"} (WQX). The functions provide a streamlined and repeatable means of 1) screening data for quality control, 2) summarizing quality control results, 3) creating graphics for analysis and reports to stakeholders, and 4)formatting data for upload to WQX. The functions are organized around these topics, shown below.
 
 ```{r workflow, out.width = '100%', echo = F, fig.cap = 'Functions in MassWateR are organized around these topics.'}
 knitr::include_graphics("workflow.PNG")
 ```
 
-In addition to the content on this web page, the MassWateR Community of Practice forum is a space for users to find help, share ideas, and suggest improvements for the package.  Please follow the [link](https://massbays.discourse.group/c/masswater-r-tools/5) to register and login to the forum.
+In addition to the content on this web page, the MassWateR Community of Practice forum is a space for users to find help, share ideas, and suggest improvements for the package.  Please follow the [link](https://massbays.discourse.group/c/masswater-r-tools/5){target="_blank"} to register and login to the forum.
 
-Instructions on installing R and Rstudio can be found [here](https://massbays-tech.github.io/intro-to-r/setup.html) and on the [Resources](https://massbays-tech.github.io/MassWateR/RESOURCES.html) tab. 
+Instructions on installing R and Rstudio can be found [here](https://massbays-tech.github.io/intro-to-r/setup.html){target="_blank"} and on the [Resources](https://massbays-tech.github.io/MassWateR/RESOURCES.html) tab. 
 
 ## Package installation
 
@@ -53,7 +53,7 @@ Windows PC users may encounter the following warning when installing MassWateR.
 WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding: https://cran.rstudio.com/bin/windows/Rtools/
 ```
 
-This warning can be ignored.  If desired, RTools can be obtained following the instructions [here](https://cran.rstudio.com/bin/windows/Rtools/).
+This warning can be ignored.  If desired, RTools can be obtained following the instructions [here](https://cran.rstudio.com/bin/windows/Rtools/){target="_blank"}.
 
 Load the package in an R session after installation:
 
@@ -182,4 +182,4 @@ tabMWRwqx(fset = fsetls)
 
 ## Submitting data to Mass DEP
 
-If you are submitting your data to Mass DEP, you must follow all of their instructions as described on their [External Data Submittal](https://www.mass.gov/guides/external-data-submittals-to-the-watershed-planning-program) webpage. Data and QC data can be submitted using either the MassDEP data submission template OR by uploading data to WQX. If you are submitting through WQX you should complete the submission by notifying Mass DEP via email (WQData.Submit@mass.gov).  The e-mail must include the group name / project name under which the data was submitted to WQX, a copy of the project QAPP (if not already submitted), a statement of data integrity, the Mass WateR QC Report (with the raw data print out), and any other supporting data reports.
+If you are submitting your data to Mass DEP, you must follow all of their instructions as described on their [External Data Submittal](https://www.mass.gov/guides/external-data-submittals-to-the-watershed-planning-program){target="_blank"} webpage. Data and QC data can be submitted using either the MassDEP data submission template OR by uploading data to WQX. If you are submitting through WQX you should complete the submission by notifying Mass DEP via email ([WQData.Submit@mass.gov](mailto:WQData.Submit@mass.gov){target="_blank"}).  The e-mail must include the group name / project name under which the data was submitted to WQX, a copy of the project QAPP (if not already submitted), a statement of data integrity, the MassWateR QC Report (with the raw data print out), and any other supporting data reports.

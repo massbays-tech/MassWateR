@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The default format for plots created from any of the [analyze](https://massbays-tech.github.io/MassWateR/articles/analysis.html) functions, including the [outlier plots](https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html), should be sufficient in most cases.  However, the plot outputs are `ggplot()` objects and can be modified using common `ggplot()` plot functions (see the [ggplot2](https://ggplot2.tidyverse.org/index.html) page for details).  A brief overview of ggplot2 is provided here as context to the MassWateR plot modifications below. 
+The default format for plots created from any of the [analyze](https://massbays-tech.github.io/MassWateR/articles/analysis.html) functions, including the [outlier plots](https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html), should be sufficient in most cases.  However, the plot outputs are `ggplot()` objects and can be modified using common `ggplot()` plot functions (see the [ggplot2](https://ggplot2.tidyverse.org/index.html){target="_blank"} page for details).  A brief overview of ggplot2 is provided here as context to the MassWateR plot modifications below. 
 
 ## ggplot2
 
@@ -53,7 +53,7 @@ Every ggplot follows these rules:
 * Each plot starts with the `ggplot()` function
 * Each plot needs three pieces of information: the data, how the data are mapped to the plot aesthetics, and a geom layer
 
-Please visit the [ggplot2](https://ggplot2.tidyverse.org/index.html) website for more information. 
+Please visit the [ggplot2](https://ggplot2.tidyverse.org/index.html){target="_blank"} website for more information. 
 
 ## Modifying MassWateR plots
 
@@ -136,7 +136,7 @@ p +
   geom_hline(yintercept = 10, linetype = 'solid', color = 'green', size = 2)
 ```
 
-Additional layers can also be added to maps created with `anlzMWRmap()`. For example, a watershed shapefile can be imported as a simple features object using the [sf](https://r-spatial.github.io/sf/) package, then added using `geom_sf()` from ggplot. Any warnings about the coordinate system can be ignored.  The water features will also be clipped to the extent of the sites and will likely not show the entire watershed. 
+Additional layers can also be added to maps created with `anlzMWRmap()`. For example, a watershed shapefile can be imported as a simple features object using the [sf](https://r-spatial.github.io/sf/){target="_blank"} package, then added using `geom_sf()` from ggplot. Any warnings about the coordinate system can be ignored.  The water features will also be clipped to the extent of the sites and will likely not show the entire watershed. 
 
 ```{r, eval = F}
 library(sf)

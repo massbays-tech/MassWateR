@@ -7,7 +7,7 @@
 [![parambuild](https://github.com/massbays-tech/MassWateR/workflows/parambuild/badge.svg)](https://github.com/massbays-tech/MassWateR/actions)
 <!-- badges: end -->
 
-R package for working with Massachusetts surface water quality data, created in partnership by the [Mass Bays National Estuary Partnership](https://www.mass.gov/orgs/massachusetts-bays-national-estuary-partnership).
+R package for working with Massachusetts surface water quality data, created in partnership by the [Mass Bays National Estuary Partnership](https://www.mass.gov/orgs/massachusetts-bays-national-estuary-partnership){target="_blank"}.
 
 ## Installation
 
@@ -29,7 +29,7 @@ Windows PC users may encounter the following warning when installing MassWateR.
 WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding: https://cran.rstudio.com/bin/windows/Rtools/
 ```
 
-This warning can be ignored for the MassWateR solution.  If desired, RTools can be obtained following the instructions [here](https://cran.rstudio.com/bin/windows/Rtools/).
+This warning can be ignored for the MassWateR solution.  If desired, RTools can be obtained following the instructions [here](https://cran.rstudio.com/bin/windows/Rtools/){target="_blank"}.
 
 ## Using the package
 
@@ -43,11 +43,11 @@ Please see the vignette articles for an overview of how to use functions in the 
 * [Modifying plots](https://massbays-tech.github.io/MassWateR/articles/modifying.html): A short tutorial on modifying plots created with MassWateR.
 * [Water Quality Exchange output](https://massbays-tech.github.io/MassWateR/articles/wqx.html): Information on generating output that will facilitate upload of data to the EPA Water Quality Exchange
 
-In addition to the content on this web page, the MassWateR Community of Practice forum is a space for users to find help, share ideas, and suggest improvements for the package.  Please follow the [link](https://massbays.discourse.group/c/masswater-r-tools/5) to register and login to the forum.
+In addition to the content on this web page, the MassWateR Community of Practice forum is a space for users to find help, share ideas, and suggest improvements for the package.  Please follow the [link](https://massbays.discourse.group/c/masswater-r-tools/5){target="_blank"} to register and login to the forum.
 
 ## Issues and suggestions 
 
-Please report any issues and suggestions on the [issues link](https://github.com/massbays-tech/MassWateR/issues) for the repository.
+Please report any issues and suggestions on the [issues link](https://github.com/massbays-tech/MassWateR/issues){target="_blank"} for the repository.
 
 ## Contributing 
 
@@ -55,4 +55,4 @@ Please view our [contributing](https://github.com/massbays-tech/MassWateR/blob/m
 
 ## Code of Conduct
   
-Please note that the MassWateR project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that the MassWateR project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html){target="_blank"}. By contributing to this project, you agree to abide by its terms.

@@ -134,7 +134,7 @@ anlzMWRdate(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = 
             colleg = T)
 ```
 
-The color palette for the site points and lines can also be changed.  Any palette from [RColorBrewer](https://r-graph-gallery.com/38-rcolorbrewers-palettes.html) can be used. These could include any of the qualitative color palettes, e.g., `"Set1"`, `"Set2"`, etc.   The continuous and diverging palettes will also work, but may return color scales for points and lines that are difficult to distinguish.  The `palcol` argument does not apply if `group = "all"`. In the following example, the qualitative `"Set1"` palette is used. 
+The color palette for the site points and lines can also be changed.  Any palette from [RColorBrewer](https://r-graph-gallery.com/38-rcolorbrewers-palettes.html){target="_blank"} can be used. These could include any of the qualitative color palettes, e.g., `"Set1"`, `"Set2"`, etc.   The continuous and diverging palettes will also work, but may return color scales for points and lines that are difficult to distinguish.  The `palcol` argument does not apply if `group = "all"`. In the following example, the qualitative `"Set1"` palette is used. 
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRdate(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "site", site = c("ABT-026", "ABT-077"), palcol = "Set1")
@@ -230,8 +230,7 @@ A map of dissolved oxygen averages across all dates can be created as follows. T
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "medium")
 ```
 
-By default, lines and polygons of natural water bodies defined using the National Hydrography Dataset (NHD) are plotted 
-Using `addwater = "medium"` (default) will plot water bodies at medium detail that are included as data files with the package as `pondsMWR`, `riversMWR`, and `streamsMWR`. The level of detail can be changed to low or high using `addwater = "low"` or `addwater = "high"`, respectively.  Use `addwater = NULL` to not show any water features.
+By default, lines and polygons of natural water bodies defined using the National Hydrography Dataset (NHD) are plotted. Using `addwater = "medium"` (default) will plot water bodies at medium detail that are included as data files with the package as `pondsMWR`, `riversMWR`, and `streamsMWR`. The level of detail can be changed to low or high using `addwater = "low"` or `addwater = "high"`, respectively.  Use `addwater = NULL` to not show any water features.
 
 Water body detail as low: 
 
@@ -263,7 +262,7 @@ The latitude and longitude text on the plot axes can be suppressed using `latlon
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, latlon = F, warn = F)
 ```
 
-The color palette for the average values can also be changed.  Any palette from [RColorBrewer](https://r-graph-gallery.com/38-rcolorbrewers-palettes.html) can be used. These could include any of the sequential color palettes, e.g., `"Greens"`, `"Blues"`, etc.  The diverging and qualitative palettes will also work, but may return uninterpretable color scales. In the following example, the diverging `"Spectral"` palette is used. 
+The color palette for the average values can also be changed.  Any palette from [RColorBrewer](https://r-graph-gallery.com/38-rcolorbrewers-palettes.html){target="_blank"} can be used. These could include any of the sequential color palettes, e.g., `"Greens"`, `"Blues"`, etc.  The diverging and qualitative palettes will also work, but may return uninterpretable color scales. In the following example, the diverging `"Spectral"` palette is used. 
 
 ```{r, fig.height = 7, fig.width = 6}
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, palcol = "Spectral", warn = F)
