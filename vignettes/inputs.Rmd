@@ -66,7 +66,31 @@ The wqx metadata file:
 system.file("extdata/ExampleWQX.xlsx", package = "MassWateR")
 ```
 
-The example files are provided to demonstrate how the functions in MassWateR are used. In practice, alternative data files that follow the same format as the examples will be used with the functions. There are several checks included in the data import functions to ensure the files are formatted correctly for downstream use. If any of the checks fail, an error message will be returned that prompts the necessary changes that must be made to the Excel file before the data can be used.  The checks can be suppressed by setting `runchk = FALSE` in the import functions.  These checks are described in the next section.
+The example files are provided to demonstrate how the functions in MassWateR are used. In practice, alternative data files that follow the same format as the examples will be used with the functions.  For example, data import in R may look something like the following using actual data files.  Note that all inputs can also be created as a list to pass to any function in MassWateR (see the [very end](https://massbays-tech.github.io/MassWateR/articles/inputs.html#using-the-fset-argument) of this vignette).
+
+```{r, eval = F}
+# import results data
+respth <- "C:/Documents/MassWateR/MyResults.xlsx"
+resdat <- readMWRresults(respth)
+
+# import dqo accuracy data
+accpth <- "C:/Documents/MassWateR/MyDQOAccuracy.xlsx"
+accdat <- readMWRacc(accpth)
+
+# import dqo frequency and completeness data
+frecompth <- "C:/Documents/MassWateR/MyDQOFreCom.xlsx"
+frecomdat <- readMWRfrecom(frecompth)
+
+# import site data
+sitpth <- "C:/Documents/MassWateR/MySites.xlsx"
+sitdat <- readMWRsites(sitpth)
+
+# import WQX meta data
+wqxpth <- "C:/Documents/MassWateR/MyWQXMeta.xlsx"
+wqxdat <- readMWRwqx(wqxpth)
+```
+
+There are several checks included in the data import functions to ensure the files are formatted correctly for downstream use. If any of the checks fail, an error message will be returned that prompts the necessary changes that must be made to the Excel file before the data can be used.  The checks can be suppressed by setting `runchk = FALSE` in the import functions.  These checks are described in the next section.
 
 **Make sure to close any data files on your desktop before importing them in MassWateR**.  Some operating systems may require the file to be closed for successful import.  
 

@@ -37,8 +37,8 @@ Please see the vignette articles for an overview of how to use functions in the 
 
 * [MassWateR quick start](https://massbays-tech.github.io/MassWateR/articles/MassWateR.html): A quick start guide to importing data and using the various functions in MassWateR. Detailed information is provided in the other vignettes.
 * [MassWateR data input and checks](https://massbays-tech.github.io/MassWateR/articles/inputs.html): Information on datasets required to use the package, the required formats and how to import them into R, and the checks that are run when the data are imported.
-* [MassWateR quality control functions](https://massbays-tech.github.io/MassWateR/articles/qcoverview.html): Information on using the quality control functions to assess completeness and accuracy of results data for surface water quality and to generate automated reports.
 * [MassWateR outlier checks](https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html): Information on evaluating outliers in the results data for surface water quality.
+* [MassWateR quality control functions](https://massbays-tech.github.io/MassWateR/articles/qcoverview.html): Information on using the quality control functions to assess completeness and accuracy of results data for surface water quality and to generate automated reports.
 * [MassWateR analysis functions](https://massbays-tech.github.io/MassWateR/articles/analysis.html): Information on using the analysis functions to evaluate trends, summaries, and maps in the results data for surface water quality.
 * [Modifying plots](https://massbays-tech.github.io/MassWateR/articles/modifying.html): A short tutorial on modifying plots created with MassWateR.
 * [Water Quality Exchange output](https://massbays-tech.github.io/MassWateR/articles/wqx.html): Information on generating output that will facilitate upload of data to the EPA Water Quality Exchange

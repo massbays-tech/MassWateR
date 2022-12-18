@@ -24,8 +24,8 @@ articles:
   navbar: ~
   contents: 
   - inputs
-  - qcoverview
   - outlierchecks
+  - qcoverview
   - analysis
   - modifying
   - wqx
@@ -50,6 +50,12 @@ reference:
   - readMWRwqx
   - checkMWRwqx
   - formMWRwqx
+- title: Outlier analysis
+  desc: > 
+    Functions for evaluating outliers as plots and generating tabular output.
+  contents:
+  - anlzMWRoutlier
+  - anlzMWRoutlierall
 - title: Quality control checks, table and report creation
   desc: >
     Functions for running quality control checks, generating tables, and creating the overall report. 
@@ -62,12 +68,6 @@ reference:
   - qcMWRcom
   - tabMWRcom
   - tabMWRwqx
-- title: Outlier analysis
-  desc: > 
-    Functions for evaluating outliers as plots and generating tabular output.
-  contents:
-  - anlzMWRoutlier
-  - anlzMWRoutlierall
 - title: General analysis
   desc: >
     Functions for creating analysis plots of the results data.
