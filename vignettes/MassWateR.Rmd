@@ -95,6 +95,30 @@ wqxpth <- system.file("extdata/ExampleWQX.xlsx", package = "MassWateR")
 wqxdat <- readMWRwqx(wqxpth)
 ```
 
+The example files are provided to demonstrate how the functions in MassWateR are used. In practice, alternative data files that follow the same format as the examples will be used with the functions.  For example, data import in R may look something like the following using actual data files.
+
+```{r, eval = F}
+# import results data
+respth <- "C:/Documents/MassWateR/MyResults.xlsx"
+resdat <- readMWRresults(respth)
+
+# import dqo accuracy data
+accpth <- "C:/Documents/MassWateR/MyDQOAccuracy.xlsx"
+accdat <- readMWRacc(accpth)
+
+# import dqo frequency and completeness data
+frecompth <- "C:/Documents/MassWateR/MyDQOFreCom.xlsx"
+frecomdat <- readMWRfrecom(frecompth)
+
+# import site data
+sitpth <- "C:/Documents/MassWateR/MySites.xlsx"
+sitdat <- readMWRsites(sitpth)
+
+# import WQX meta data
+wqxpth <- "C:/Documents/MassWateR/MyWQXMeta.xlsx"
+wqxdat <- readMWRwqx(wqxpth)
+```
+
 After data are imported, a single data object can be created that can be used with all MassWateR functions. 
 
 ```{r}
@@ -106,6 +130,16 @@ fsetls <- list(
   sit = sitdat, 
   wqx = wqxdat
 )
+```
+
+The `readMWRresultsview()` function can be used to help troubleshoot issues that are encountered importing the water quality results file. This function can be used to create a .csv spreadsheet that shows the unique values within columns of the results file.  This information can be used to verify if the values in each conform to the requirements for the data import checks. 
+
+```{r, eval = F}
+# find path to the file included with the package, replace with a path to your file as needed
+respth <- system.file("extdata/ExampleResults.xlsx", package = "MassWateR")
+
+# create a .csv file for the two columns that show unique values in each
+readMWRresultsview(respth, columns = c("Characteristic Name", "Result Unit"))
 ```
 
 ## Quality control functions
