@@ -7,6 +7,7 @@
 qcMWRacc(
   res = NULL,
   acc = NULL,
+  frecom = NULL,
   fset = NULL,
   runchk = TRUE,
   warn = TRUE,
@@ -19,6 +20,8 @@ qcMWRacc(
 \item{res}{character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}}
 
 \item{acc}{character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}}
+
+\item{frecom}{character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}}
 
 \item{fset}{optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, \code{sit}, or \code{wqx} overrides the other arguments}
 
@@ -42,6 +45,8 @@ The function can be used with inputs as paths to the relevant files or as data f
 Note that accuracy is only evaluated on parameters in the \code{Parameter} column in the data quality objectives accuracy file.  A warning is returned if there are parameters in \code{Parameter} in the accuracy file that are not in \code{Characteristic Name} in the results file.
 
 Similarly, parameters in the results file in the \code{Characteristic Name} column that are not found in the data quality objectives accuracy file are not evaluated.  A warning is returned if there are parameters in \code{Characteristic Name} in the results file that are not in \code{Parameter} in the accuracy file.
+
+The data quality objectives file for frequency and completeness is used to screen parameters in the results file for inclusion in the accuracy tables.  Parameters with empty values in the frequency and completeness table are not returned.
 }
 \examples{
 ##
@@ -53,7 +58,11 @@ respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 # accuracy path
 accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
 
-qcMWRacc(res = respth, acc = accpth)
+# frequency and completeness path
+frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', 
+     package = 'MassWateR')
+
+qcMWRacc(res = respth, acc = accpth, frecom = frecompth)
 
 ##
 # using data frames
@@ -64,6 +73,9 @@ resdat <- readMWRresults(respth)
 # accuracy data
 accdat <- readMWRacc(accpth)
 
-qcMWRacc(res = resdat, acc = accdat)
+# frequency and completeness data
+frecomdat <- readMWRfrecom(frecompth)
+
+qcMWRacc(res = resdat, acc = accdat, frecom = frecomdat)
 
 }

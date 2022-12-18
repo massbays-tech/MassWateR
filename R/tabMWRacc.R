@@ -37,18 +37,19 @@
 #' accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', 
 #'      package = 'MassWateR')
 #' 
-#' # frequency and completeness path, only needed if type = "percent"
+#' # frequency and completeness path
 #' frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', 
 #'      package = 'MassWateR')
 #' 
 #' # table as individual
-#' tabMWRacc(res = respth, acc = accpth, type = 'individual', accchk = 'Field Blanks')
+#' tabMWRacc(res = respth, acc = accpth, frecom = frecompth, type = 'individual', 
+#'      accchk = 'Field Blanks')
 #' 
 #' # table as summary
-#' tabMWRacc(res = respth, acc = accpth, type = 'summary', frecom = frecompth)
+#' tabMWRacc(res = respth, acc = accpth, frecom = frecompth, type = 'summary')
 #' 
 #' # table as percent
-#' tabMWRacc(res = respth, acc = accpth, type = 'percent', frecom = frecompth)
+#' tabMWRacc(res = respth, acc = accpth, frecom = frecompth, type = 'percent')
 #' 
 #' ##
 #' # using data frames
@@ -63,23 +64,17 @@
 #' frecomdat <- readMWRfrecom(frecompth)
 #' 
 #' # table as individual
-#' tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Blanks')
+#' tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'individual', 
+#'      accchk = 'Field Blanks')
 #'
 #' # table as summary
-#' tabMWRacc(res = resdat, acc = accdat, type = 'summary', frecom = frecomdat)
+#' tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'summary')
 #' 
 #' # table as percent
-#' tabMWRacc(res = resdat, acc = accdat, type = 'percent', frecom = frecomdat)
-tabMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes / Instrument Checks'), type = c('individual', 'summary', 'percent'), pass_col = '#57C4AD', fail_col = '#DB4325', frecom = NULL, suffix = '%', caption = TRUE){
-  
-  if(type == 'individual'){
-    chkin <- mget(ls())
-    chkin <- chkin[!names(chkin) %in% 'frecom']
-    utilMWRinputcheck(chkin)
-  }
-  
-  if(type != 'individual')
-    utilMWRinputcheck(mget(ls()))
+#' tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'percent')
+tabMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes / Instrument Checks'), type = c('individual', 'summary', 'percent'), pass_col = '#57C4AD', fail_col = '#DB4325', suffix = '%', caption = TRUE){
+
+  utilMWRinputcheck(mget(ls()))
   
   type <- match.arg(type)
   
@@ -94,7 +89,7 @@ tabMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn =
   }
   
   # get accuracy summary
-  accsum <- qcMWRacc(res = res, acc = acc, fset = fset, runchk = runchk, warn = warn, accchk = accchk, suffix = suffix)
+  accsum <- qcMWRacc(res = res, acc = acc, frecom = frecom, fset = fset, runchk = runchk, warn = warn, accchk = accchk, suffix = suffix)
   
   if(type == 'individual'){
 
@@ -127,13 +122,13 @@ tabMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn =
   }
   
   if(type %in% c('summary', 'percent')){
-    
-    # get frecomdat, checks should follow runchk since not done above
-    frecomdat <- utilMWRinput(frecom = frecom, fset = fset, runchk = runchk, warn = warn)$frecomdat
-    
-    # get resdat, checks should have been run or not run as for call with qcMWRacc
-    resdat <- utilMWRinput(res = res, fset = fset, runchk = FALSE, warn = FALSE)$resdat
 
+    # get inputs resdat and frecom needed for summary and percent tables
+    # warn and runchk applied above, no need here
+    inp <- utilMWRinput(res = res, frecom = frecom, warn = F, runchk = F)
+    resdat <- inp$resdat
+    frecomdat <- inp$frecomdat
+    
     # results parameters with Field Msr/Obs, Sample-Routine
     resdatprm <- resdat %>% 
       dplyr::filter(`Activity Type` %in% c('Field Msr/Obs', 'Sample-Routine')) %>% 
@@ -237,7 +232,7 @@ tabMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn =
       # format frecomdat for comparison
       frecomdat <- frecomdat %>% 
         select(Parameter, `% Completeness`)
-      
+    
       # allprm combine lab spikes and instrument checks
       allprm <- allprm %>% 
         dplyr::mutate(

@@ -95,11 +95,11 @@ qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, outp
     thmsum(wd = wd, fontname = fontname)
   
   # accuracy table summary
-  tabaccsum <- tabMWRacc(res = resdat, acc = accdat, type = 'summary', warn = warn, frecom = frecomdat) %>% 
+  tabaccsum <- tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'summary', warn = warn) %>% 
     thmsum(wd = wd, fontname = fontname)
   
   # accuracy table percent
-  tabaccper <- tabMWRacc(res = resdat, acc = accdat, type = 'percent', warn = F, frecom = frecomdat) %>% 
+  tabaccper <- tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'percent', warn = F) %>% 
     thmsum(wd = wd, fontname = fontname)
     
   # completeness table
@@ -150,7 +150,7 @@ qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, outp
       
       accchk <- accind[[i]]
       accnms <- names(accind)[i]
-      tab <- tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = accchk, warn = F, caption = FALSE) %>% 
+      tab <- tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'individual', accchk = accchk, warn = F, caption = FALSE) %>% 
         thmsum(wd = wd, fontname = fontname)
       
       assign(accnms, tab)

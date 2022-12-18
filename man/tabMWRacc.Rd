@@ -7,6 +7,7 @@
 tabMWRacc(
   res = NULL,
   acc = NULL,
+  frecom = NULL,
   fset = NULL,
   runchk = TRUE,
   warn = TRUE,
@@ -15,7 +16,6 @@ tabMWRacc(
   type = c("individual", "summary", "percent"),
   pass_col = "#57C4AD",
   fail_col = "#DB4325",
-  frecom = NULL,
   suffix = "\%",
   caption = TRUE
 )
@@ -24,6 +24,8 @@ tabMWRacc(
 \item{res}{character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}}
 
 \item{acc}{character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}}
+
+\item{frecom}{character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}, applies only if \code{type = "summary"} or \code{type = "percent"}}
 
 \item{fset}{optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, \code{sit}, or \code{wqx} overrides the other arguments}
 
@@ -38,8 +40,6 @@ tabMWRacc(
 \item{pass_col}{character string (as hex code) for the cell color of checks that pass, applies only if \code{type = 'percent'}}
 
 \item{fail_col}{character string (as hex code) for the cell color of checks that fail, applies only if \code{type = 'percent'}}
-
-\item{frecom}{character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}, applies only if \code{type = "summary"} or \code{type = "percent"}}
 
 \item{suffix}{character string indicating suffix to append to percentage values}
 
@@ -78,18 +78,19 @@ respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', 
      package = 'MassWateR')
 
-# frequency and completeness path, only needed if type = "percent"
+# frequency and completeness path
 frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', 
      package = 'MassWateR')
 
 # table as individual
-tabMWRacc(res = respth, acc = accpth, type = 'individual', accchk = 'Field Blanks')
+tabMWRacc(res = respth, acc = accpth, frecom = frecompth, type = 'individual', 
+     accchk = 'Field Blanks')
 
 # table as summary
-tabMWRacc(res = respth, acc = accpth, type = 'summary', frecom = frecompth)
+tabMWRacc(res = respth, acc = accpth, frecom = frecompth, type = 'summary')
 
 # table as percent
-tabMWRacc(res = respth, acc = accpth, type = 'percent', frecom = frecompth)
+tabMWRacc(res = respth, acc = accpth, frecom = frecompth, type = 'percent')
 
 ##
 # using data frames
@@ -104,11 +105,12 @@ accdat <- readMWRacc(accpth)
 frecomdat <- readMWRfrecom(frecompth)
 
 # table as individual
-tabMWRacc(res = resdat, acc = accdat, type = 'individual', accchk = 'Field Blanks')
+tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'individual', 
+     accchk = 'Field Blanks')
 
 # table as summary
-tabMWRacc(res = resdat, acc = accdat, type = 'summary', frecom = frecomdat)
+tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'summary')
 
 # table as percent
-tabMWRacc(res = resdat, acc = accdat, type = 'percent', frecom = frecomdat)
+tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'percent')
 }

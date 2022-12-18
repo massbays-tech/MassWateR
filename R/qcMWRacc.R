@@ -2,6 +2,7 @@
 #'
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
+#' @param frecom character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}
 #' @param fset optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, \code{sit}, or \code{wqx} overrides the other arguments
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}} and \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param warn logical to return warnings to the console (default)
@@ -13,6 +14,8 @@
 #' Note that accuracy is only evaluated on parameters in the \code{Parameter} column in the data quality objectives accuracy file.  A warning is returned if there are parameters in \code{Parameter} in the accuracy file that are not in \code{Characteristic Name} in the results file. 
 #' 
 #' Similarly, parameters in the results file in the \code{Characteristic Name} column that are not found in the data quality objectives accuracy file are not evaluated.  A warning is returned if there are parameters in \code{Characteristic Name} in the results file that are not in \code{Parameter} in the accuracy file.
+#' 
+#' The data quality objectives file for frequency and completeness is used to screen parameters in the results file for inclusion in the accuracy tables.  Parameters with empty values in the frequency and completeness table are not returned.
 #' 
 #' @return The output shows the accuracy checks from the input files returned as a list, with each element of the list corresponding to a specific accuracy check specified with \code{accchk}.  
 #' 
@@ -28,7 +31,11 @@
 #' # accuracy path
 #' accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
 #' 
-#' qcMWRacc(res = respth, acc = accpth)
+#' # frequency and completeness path
+#' frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', 
+#'      package = 'MassWateR')
+#' 
+#' qcMWRacc(res = respth, acc = accpth, frecom = frecompth)
 #' 
 #' ##
 #' # using data frames
@@ -39,9 +46,12 @@
 #' # accuracy data
 #' accdat <- readMWRacc(accpth)
 #' 
-#' qcMWRacc(res = resdat, acc = accdat)
+#' # frequency and completeness data
+#' frecomdat <- readMWRfrecom(frecompth)
 #' 
-qcMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes / Instrument Checks'), suffix = '%'){
+#' qcMWRacc(res = resdat, acc = accdat, frecom = frecomdat)
+#' 
+qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes / Instrument Checks'), suffix = '%'){
   
   utilMWRinputcheck(mget(ls()))
   
@@ -49,10 +59,28 @@ qcMWRacc <- function(res = NULL, acc = NULL, fset = NULL, runchk = TRUE, warn = 
   
   ##
   # get user inputs
-  inp <- utilMWRinput(res = res, acc = acc, fset = fset, runchk = runchk, warn = warn)
+  inp <- utilMWRinput(res = res, acc = acc, frecom = frecom, fset = fset, runchk = runchk, warn = warn)
   resdat <- inp$resdat
   accdat <- inp$accdat
+  frecomdat <- inp$frecomdat
   
+  # create NA for parameters in accdat that have empty entries in frecomdat
+  frecomdatna <- frecomdat %>% 
+    select(-`% Completeness`)
+  names(frecomdatna) <- paste0(names(frecomdatna), 'na')
+  accdat <- accdat %>% 
+    dplyr::left_join(frecomdatna, by = c('Parameter' = 'Parameterna')) %>% 
+    dplyr::rowwise() %>% 
+    dplyr::mutate(
+      `Field Duplicate` = ifelse(is.na(`Field Duplicatena`), NA, `Field Duplicate`),
+      `Lab Duplicate` = ifelse(is.na(`Lab Duplicatena`), NA, `Lab Duplicate`),
+      `Field Blank` = ifelse(is.na(`Field Blankna`), NA, `Field Blank`),
+      `Lab Blank` = ifelse(is.na(`Lab Blankna`), NA, `Lab Blank`),
+      `Spike/Check Accuracy` = ifelse(is.na(`Spike/Check Accuracyna`), NA, `Spike/Check Accuracy`),
+    ) %>% 
+    dplyr::ungroup() %>% 
+    dplyr::select(-`Field Duplicatena`, -`Lab Duplicatena`, -`Field Blankna`, -`Lab Blankna`, -`Spike/Check Accuracyna`)
+
   ##
   # check parameter matches between results and accuracy
   accprm <- sort(unique(accdat$Parameter))
