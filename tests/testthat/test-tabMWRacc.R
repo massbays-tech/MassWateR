@@ -30,3 +30,14 @@ test_that("Checking output format type as percent", {
   expect_warning(expect_warning(expect_s3_class(tabMWRacc(respth, accpth, frecompth, runchk = F, warn = T, type = 'percent'), 
                   'flextable')))
 })
+
+test_that("Checking output warning if missing completenes data and format type as percent", {
+  chk <- frecomdat
+  chk$`% Completeness`[9] <- NA
+  expect_warning(
+    expect_warning(
+      expect_warning(tabMWRacc(respth, accpth, chk, runchk = F, warn = T, type = 'percent')
+                     )
+      )
+    )
+})
