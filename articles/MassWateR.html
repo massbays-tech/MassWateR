@@ -189,8 +189,7 @@ be used with all MassWateR functions.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Example files included with the package are imported for
 demonstration in this vignette. Your data import code will look more
-like the one above. A series of checks are run on each file on
-import.</p>
+like the code chunk above.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># results data</span></span>
 <span><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleResults.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
@@ -229,6 +228,27 @@ requirements for the data import checks.</p>
 <span><span class="fu"><a href="../reference/readMWRresultsview.html">readMWRresultsview</a></span><span class="op">(</span><span class="va">respth</span>, columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Characteristic Name"</span>, <span class="st">"Result Unit"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
+<h2 id="outlier-checks">Outlier checks<a class="anchor" aria-label="anchor" href="#outlier-checks"></a>
+</h2>
+<p>Please view the <a href="https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html">outlier
+checks</a> vignette for a complete description of the outlier check
+functions in MassWateR.</p>
+<p>The <code><a href="../reference/anlzMWRoutlier.html">anlzMWRoutlier()</a></code> function can identify outliers for
+a selected parameter using boxplots, with the outliers labelled
+accordingly.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlier.html">anlzMWRoutlier</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span>, param <span class="op">=</span> <span class="st">"DO"</span>, group <span class="op">=</span> <span class="st">"month"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="MassWateR_files/figure-html/unnamed-chunk-9-1.png" width="768" style="display: block; margin: auto;"></p>
+<p>Outlier plots for all parameters in the results data file can be
+created using the <code><a href="../reference/anlzMWRoutlierall.html">anlzMWRoutlierall()</a></code> function. This can be
+used to create a word document with all plots embedded in the file or as
+separate png images saved to a specified directory. Once the function is
+done running, a message indicating success and where the file(s) is
+located is returned.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlierall.html">anlzMWRoutlierall</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span>, group <span class="op">=</span> <span class="st">"month"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
 <h2 id="quality-control-functions">Quality control functions<a class="anchor" aria-label="anchor" href="#quality-control-functions"></a>
 </h2>
 <p>Please view the <a href="https://massbays-tech.github.io/MassWateR/articles/qcoverview.html">quality
@@ -244,29 +264,8 @@ results for all accuracy checks.</p>
 <p>The report can be created as follows. Once the function is done
 running, a message indicating success and where the file is located is
 returned. The Word file can be further edited by hand as needed.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/qcMWRreview.html">qcMWRreview</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="outlier-checks">Outlier checks<a class="anchor" aria-label="anchor" href="#outlier-checks"></a>
-</h2>
-<p>Please view the <a href="https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html">outlier
-checks</a> vignette for a complete description of the outlier check
-functions in MassWateR.</p>
-<p>The <code><a href="../reference/anlzMWRoutlier.html">anlzMWRoutlier()</a></code> function can identify outliers for
-a selected parameter using boxplots, with the outliers labelled
-accordingly.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlier.html">anlzMWRoutlier</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span>, param <span class="op">=</span> <span class="st">"DO"</span>, group <span class="op">=</span> <span class="st">"month"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="MassWateR_files/figure-html/unnamed-chunk-10-1.png" width="768" style="display: block; margin: auto;"></p>
-<p>Outlier plots for all parameters in the results data file can be
-created using the <code><a href="../reference/anlzMWRoutlierall.html">anlzMWRoutlierall()</a></code> function. This can be
-used to create a word document with all plots embedded in the file or as
-separate png images saved to a specified directory. Once the function is
-done running, a message indicating success and where the file(s) is
-located is returned.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlierall.html">anlzMWRoutlierall</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span>, group <span class="op">=</span> <span class="st">"month"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/qcMWRreview.html">qcMWRreview</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="analyses">Analyses<a class="anchor" aria-label="anchor" href="#analyses"></a>
@@ -324,7 +323,7 @@ success and where the file is located is returned.</p>
 <h2 id="uploading-data-to-wqx">Uploading data to WQX<a class="anchor" aria-label="anchor" href="#uploading-data-to-wqx"></a>
 </h2>
 <p>If desired, all rows from the WQX output file (created with
-<code>taxMWRwqx()</code>) can be copied and pasted into the <a href="https://massbays-tech.github.io/MassWateR/WQX_Phys-Chem_Template_for_MassWateR.xlsx">WQX
+<code><a href="../reference/tabMWRwqx.html">tabMWRwqx()</a></code>) can be copied and pasted into the <a href="https://massbays-tech.github.io/MassWateR/WQX_Phys-Chem_Template_for_MassWateR.xlsx">WQX
 upload template</a> (also available on the <a href="https://massbays-tech.github.io/MassWateR/RESOURCES.html">Resources</a>
 tab), which offers an enhanced spreadsheet layout with more interactive
 functionality (e.g., drop-down lists, prompts) and additional tabs with
