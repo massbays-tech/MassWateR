@@ -67,7 +67,44 @@ Please view the [data inputs and checks](https://massbays-tech.github.io/MassWat
 
 Four types of data are used with the MassWateR package: surface water quality results, data quality objectives for accuracy, frequency, and completeness, site metadata, and wqx metadata.
 
-The example files included with the package are imported below for demonstration in this vignette. Templates and instructions for each of the types of input data are available for download in the [Resources tab](/MassWateR/RESOURCES.md).  A series of checks are run on each file on import.
+The following shows how to specify a path and import each required data file.  These are hypothetical files and the path will need to be changed to where your data are located on your computer. Templates and instructions for each of the types of input data are available for download in the [Resources tab](/MassWateR/RESOURCES.md).  
+
+```{r, eval = F}
+# import results data
+respth <- "C:/Documents/MassWateR/MyResults.xlsx"
+resdat <- readMWRresults(respth)
+
+# import dqo accuracy data
+accpth <- "C:/Documents/MassWateR/MyDQOAccuracy.xlsx"
+accdat <- readMWRacc(accpth)
+
+# import dqo frequency and completeness data
+frecompth <- "C:/Documents/MassWateR/MyDQOFreCom.xlsx"
+frecomdat <- readMWRfrecom(frecompth)
+
+# import site data
+sitpth <- "C:/Documents/MassWateR/MySites.xlsx"
+sitdat <- readMWRsites(sitpth)
+
+# import WQX meta data
+wqxpth <- "C:/Documents/MassWateR/MyWQXMeta.xlsx"
+wqxdat <- readMWRwqx(wqxpth)
+```
+
+After data are imported, a single data object can be created that can be used with all MassWateR functions. 
+
+```{r, eval = F}
+# a list of input data frames
+fsetls <- list(
+  res = resdat, 
+  acc = accdat,
+  frecom = frecomdat,
+  sit = sitdat, 
+  wqx = wqxdat
+)
+```
+
+Example files included with the package are imported for demonstration in this vignette. Your data import code will look more like the one above.  A series of checks are run on each file on import.
 
 ```{r, warning = F}
 # results data
@@ -94,34 +131,7 @@ sitdat <- readMWRsites(sitpth)
 wqxpth <- system.file("extdata/ExampleWQX.xlsx", package = "MassWateR")
 wqxdat <- readMWRwqx(wqxpth)
 ```
-
-The example files are provided to demonstrate how the functions in MassWateR are used. In practice, alternative data files that follow the same format as the examples will be used with the functions.  For example, data import in R may look something like the following using actual data files.
-
-```{r, eval = F}
-# import results data
-respth <- "C:/Documents/MassWateR/MyResults.xlsx"
-resdat <- readMWRresults(respth)
-
-# import dqo accuracy data
-accpth <- "C:/Documents/MassWateR/MyDQOAccuracy.xlsx"
-accdat <- readMWRacc(accpth)
-
-# import dqo frequency and completeness data
-frecompth <- "C:/Documents/MassWateR/MyDQOFreCom.xlsx"
-frecomdat <- readMWRfrecom(frecompth)
-
-# import site data
-sitpth <- "C:/Documents/MassWateR/MySites.xlsx"
-sitdat <- readMWRsites(sitpth)
-
-# import WQX meta data
-wqxpth <- "C:/Documents/MassWateR/MyWQXMeta.xlsx"
-wqxdat <- readMWRwqx(wqxpth)
-```
-
-After data are imported, a single data object can be created that can be used with all MassWateR functions. 
-
-```{r}
+```{r, eval = T, echo = F}
 # a list of input data frames
 fsetls <- list(
   res = resdat, 
@@ -212,6 +222,16 @@ The single function for generating output for upload to WQX is `tabMWRwqx()`.  T
 
 ```{r, eval = F}
 tabMWRwqx(fset = fsetls)
+```
+
+## Uploading data to WQX
+
+If desired, all rows from the WQX output file (created with `taxMWRwqx()`) can be copied and pasted into the [WQX upload template](https://massbays-tech.github.io/MassWateR/WQX_Phys-Chem_Template_for_MassWateR.xlsx) (also available on the [Resources](https://massbays-tech.github.io/MassWateR/RESOURCES.html) tab), which offers an enhanced spreadsheet layout with more interactive functionality (e.g., drop-down lists, prompts) and additional tabs with supporting information (e.g., instructions, field definitions). This template is especially useful if manual edits to the data are needed prior to WQX upload.
+
+To upload data to WQX, you will need to create or sign into [your WQX account](https://www.epa.gov/waterdata/wqx-web-account-registration){target="_blank"}. From there, you can upload your Projects, Locations, and Results spreadsheets individually. Note that Projects and Locations need only be uploaded once for your organization, unless the data change. For each spreadsheet upload, assign the appropriate MassWateR custom import configuration, check that your Organization ID is assigned, browse to your upload file, and select Import Data (image below). The next screen will notify you of upload status and prompt you to correct any errors or warnings that arise. More information on error resolution can be found in the [WQX User Guide](https://www.epa.gov/sites/default/files/2020-03/documents/wqx_web_user_guide_v3.0.pdf){target="_blank"}.
+
+```{r wqximport, out.width = '100%', echo = F}
+knitr::include_graphics("WQX_import.png")
 ```
 
 ## Submitting data to Mass DEP

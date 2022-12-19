@@ -70,6 +70,16 @@ tabMWRwqx(fset = fsetls, output_dir = getwd())
 
 The name of the output file can also be changed using the `output_file` argument, the default being `wqxtab.xlsx`.  Warnings can also be turned off or on (default) using the `warn` argument.  This returns any warnings when data are imported and only applies if the file inputs are paths.
 
+## Uploading data to WQX
+
+If desired, all rows from the WQX output file (created with `taxMWRwqx()`) can be copied and pasted into the [WQX upload template](https://massbays-tech.github.io/MassWateR/WQX_Phys-Chem_Template_for_MassWateR.xlsx) (also available on the [Resources](https://massbays-tech.github.io/MassWateR/RESOURCES.html) tab), which offers an enhanced spreadsheet layout with more interactive functionality (e.g., drop-down lists, prompts) and additional tabs with supporting information (e.g., instructions, field definitions). This template is especially useful if manual edits to the data are needed prior to WQX upload.
+
+To upload data to WQX, you will need to create or sign into [your WQX account](https://www.epa.gov/waterdata/wqx-web-account-registration){target="_blank"}. From there, you can upload your Projects, Locations, and Results spreadsheets individually. Note that Projects and Locations need only be uploaded once for your organization, unless the data change. For each spreadsheet upload, assign the appropriate MassWateR custom import configuration, check that your Organization ID is assigned, browse to your upload file, and select Import Data (image below). The next screen will notify you of upload status and prompt you to correct any errors or warnings that arise. More information on error resolution can be found in the [WQX User Guide](https://www.epa.gov/sites/default/files/2020-03/documents/wqx_web_user_guide_v3.0.pdf){target="_blank"}.
+
+```{r wqximport, out.width = '100%', echo = F}
+knitr::include_graphics("WQX_import.png")
+```
+
 ## Submitting data to Mass DEP
 
 If you are submitting your data to Mass DEP, you must follow all of their instructions as described on their [External Data Submittal](https://www.mass.gov/guides/external-data-submittals-to-the-watershed-planning-program){target="_blank"} webpage. Data and QC data can be submitted using either the MassDEP data submission template OR by uploading data to WQX. If you are submitting through WQX you should complete the submission by notifying Mass DEP via email ([WQData.Submit@mass.gov](mailto:WQData.Submit@mass.gov){target="_blank"}).  The e-mail must include the group name / project name under which the data was submitted to WQX, a copy of the project QAPP (if not already submitted), a statement of data integrity, the MassWateR QC Report (with the raw data print out), and any other supporting data reports.

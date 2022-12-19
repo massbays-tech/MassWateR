@@ -34,7 +34,31 @@ Load the package in an R session after installation:
 library(MassWateR)
 ```
 
-The example files for the package can be viewed by navigating to their location in the package installation. These are available as Excel files.  Running the code below will show where the files are located.
+The following shows how to specify a path and import each required data file.  These are hypothetical files and the path will need to be changed to where your data are located on your computer.
+
+```{r, eval = F}
+# import results data
+respth <- "C:/Documents/MassWateR/MyResults.xlsx"
+resdat <- readMWRresults(respth)
+
+# import dqo accuracy data
+accpth <- "C:/Documents/MassWateR/MyDQOAccuracy.xlsx"
+accdat <- readMWRacc(accpth)
+
+# import dqo frequency and completeness data
+frecompth <- "C:/Documents/MassWateR/MyDQOFreCom.xlsx"
+frecomdat <- readMWRfrecom(frecompth)
+
+# import site data
+sitpth <- "C:/Documents/MassWateR/MySites.xlsx"
+sitdat <- readMWRsites(sitpth)
+
+# import WQX meta data
+wqxpth <- "C:/Documents/MassWateR/MyWQXMeta.xlsx"
+wqxdat <- readMWRwqx(wqxpth)
+```
+
+Example files included with the package are imported for demonstration in this vignette. Your data import code will look more like the code chunk above. The example files for the package can be viewed by navigating to their location in the package installation. These are available as Excel files.  Running the code below will show where the files are located.  The [Resources tab](/MassWateR/RESOURCES.md) also includes downloadable templates for these files.
 
 The surface water quality results files:
 
