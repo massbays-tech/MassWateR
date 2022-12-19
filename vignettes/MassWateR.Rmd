@@ -104,7 +104,7 @@ fsetls <- list(
 )
 ```
 
-Example files included with the package are imported for demonstration in this vignette. Your data import code will look more like the one above.  A series of checks are run on each file on import.
+Example files included with the package are imported for demonstration in this vignette. Your data import code will look more like the code chunk above.
 
 ```{r, warning = F}
 # results data
@@ -152,18 +152,6 @@ respth <- system.file("extdata/ExampleResults.xlsx", package = "MassWateR")
 readMWRresultsview(respth, columns = c("Characteristic Name", "Result Unit"))
 ```
 
-## Quality control functions
-
-Please view the [quality control functions](https://massbays-tech.github.io/MassWateR/articles/qcoverview.html) vignette for a complete description of the quality control functions in MassWateR.
-
-The `qcMWRreview()` function compiles a report as a Word document for all quality control checks included in the MassWateR package.  The report shows several tables, including the data quality objectives files for accuracy, frequency, and completeness, summary results for all accuracy checks, summary results for all frequency checks, summary results for all completeness checks, and individual results for all accuracy checks.
-
-The report can be created as follows.  Once the function is done running, a message indicating success and where the file is located is returned.  The Word file can be further edited by hand as needed.  
-
-```{r, message = T, eval = F}
-qcMWRreview(fset = fsetls)
-```
-
 ## Outlier checks
 
 Please view the [outlier checks](https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html) vignette for a complete description of the outlier check functions in MassWateR.
@@ -178,6 +166,18 @@ Outlier plots for all parameters in the results data file can be created using t
 
 ```{r, message = T, eval = F}
 anlzMWRoutlierall(fset = fsetls, group = "month")
+```
+
+## Quality control functions
+
+Please view the [quality control functions](https://massbays-tech.github.io/MassWateR/articles/qcoverview.html) vignette for a complete description of the quality control functions in MassWateR.
+
+The `qcMWRreview()` function compiles a report as a Word document for all quality control checks included in the MassWateR package.  The report shows several tables, including the data quality objectives files for accuracy, frequency, and completeness, summary results for all accuracy checks, summary results for all frequency checks, summary results for all completeness checks, and individual results for all accuracy checks.
+
+The report can be created as follows.  Once the function is done running, a message indicating success and where the file is located is returned.  The Word file can be further edited by hand as needed.  
+
+```{r, message = T, eval = F}
+qcMWRreview(fset = fsetls)
 ```
 
 ## Analyses
@@ -226,7 +226,7 @@ tabMWRwqx(fset = fsetls)
 
 ## Uploading data to WQX
 
-If desired, all rows from the WQX output file (created with `taxMWRwqx()`) can be copied and pasted into the [WQX upload template](https://massbays-tech.github.io/MassWateR/WQX_Phys-Chem_Template_for_MassWateR.xlsx) (also available on the [Resources](https://massbays-tech.github.io/MassWateR/RESOURCES.html) tab), which offers an enhanced spreadsheet layout with more interactive functionality (e.g., drop-down lists, prompts) and additional tabs with supporting information (e.g., instructions, field definitions). This template is especially useful if manual edits to the data are needed prior to WQX upload.
+If desired, all rows from the WQX output file (created with `tabMWRwqx()`) can be copied and pasted into the [WQX upload template](https://massbays-tech.github.io/MassWateR/WQX_Phys-Chem_Template_for_MassWateR.xlsx) (also available on the [Resources](https://massbays-tech.github.io/MassWateR/RESOURCES.html) tab), which offers an enhanced spreadsheet layout with more interactive functionality (e.g., drop-down lists, prompts) and additional tabs with supporting information (e.g., instructions, field definitions). This template is especially useful if manual edits to the data are needed prior to WQX upload.
 
 To upload data to WQX, you will need to create or sign into [your WQX account](https://www.epa.gov/waterdata/wqx-web-account-registration){target="_blank"}. From there, you can upload your Projects, Locations, and Results spreadsheets individually. Note that Projects and Locations need only be uploaded once for your organization, unless the data change. For each spreadsheet upload, assign the appropriate MassWateR custom import configuration, check that your Organization ID is assigned, browse to your upload file, and select Import Data (image below). The next screen will notify you of upload status and prompt you to correct any errors or warnings that arise. More information on error resolution can be found in the [WQX User Guide](https://www.epa.gov/sites/default/files/2020-03/documents/wqx_web_user_guide_v3.0.pdf){target="_blank"}.
 

@@ -58,69 +58,13 @@ wqxpth <- "C:/Documents/MassWateR/MyWQXMeta.xlsx"
 wqxdat <- readMWRwqx(wqxpth)
 ```
 
-Example files included with the package are imported for demonstration in this vignette. Your data import code will look more like the code chunk above. The example files for the package can be viewed by navigating to their location in the package installation. These are available as Excel files.  Running the code below will show where the files are located.  The [Resources tab](/MassWateR/RESOURCES.md) also includes downloadable templates for these files.
-
-The surface water quality results files:
-
-```{r, eval = F}
-system.file("extdata/ExampleResults.xlsx", package = "MassWateR")
-```
-
-The data quality objectives file for accuracy:
-
-```{r, eval = F}
-system.file("extdata/ExampleDQOAccuracy.xlsx", package = "MassWateR")
-```
-
-The data quality objectives file for completeness:
-
-```{r, eval = F}
-system.file("extdata/ExampleDQOFrequencyCompleteness.xlsx", package = "MassWateR")
-```
-
-The site metadata file:
-
-```{r, eval = F}
-system.file("extdata/ExampleSites.xlsx", package = "MassWateR")
-```
-
-The wqx metadata file: 
-
-```{r, eval = F}
-system.file("extdata/ExampleWQX.xlsx", package = "MassWateR")
-```
-
-The example files are provided to demonstrate how the functions in MassWateR are used. In practice, alternative data files that follow the same format as the examples will be used with the functions.  For example, data import in R may look something like the following using actual data files.  Note that all inputs can also be created as a list to pass to any function in MassWateR (see the [very end](https://massbays-tech.github.io/MassWateR/articles/inputs.html#using-the-fset-argument) of this vignette).
-
-```{r, eval = F}
-# import results data
-respth <- "C:/Documents/MassWateR/MyResults.xlsx"
-resdat <- readMWRresults(respth)
-
-# import dqo accuracy data
-accpth <- "C:/Documents/MassWateR/MyDQOAccuracy.xlsx"
-accdat <- readMWRacc(accpth)
-
-# import dqo frequency and completeness data
-frecompth <- "C:/Documents/MassWateR/MyDQOFreCom.xlsx"
-frecomdat <- readMWRfrecom(frecompth)
-
-# import site data
-sitpth <- "C:/Documents/MassWateR/MySites.xlsx"
-sitdat <- readMWRsites(sitpth)
-
-# import WQX meta data
-wqxpth <- "C:/Documents/MassWateR/MyWQXMeta.xlsx"
-wqxdat <- readMWRwqx(wqxpth)
-```
-
-There are several checks included in the data import functions to ensure the files are formatted correctly for downstream use. If any of the checks fail, an error message will be returned that prompts the necessary changes that must be made to the Excel file before the data can be used.  The checks can be suppressed by setting `runchk = FALSE` in the import functions.  These checks are described in the next section.
+Example files included with the package are imported for demonstration in this vignette. The paths to these files are identified using the `system.file()` function and used in the examples below.  In practice, alternative data files that follow the same format as the examples will be used with the functions and imported using code similar to above.  
 
 **Make sure to close any data files on your desktop before importing them in MassWateR**.  Some operating systems may require the file to be closed for successful import.  
 
 ## Data import and checks
 
-The MassWateR package is developed for quality control and exploratory analysis of surface water quality data. Before these analyses can occur, the data must be formatted correctly. This section describes how to import data and the expectations that are checked automatically by the functions.
+The MassWateR package is developed for quality control and exploratory analysis of surface water quality data. Before these analyses can occur, the data must be formatted correctly. There are several checks included in the data import functions to ensure the files are formatted correctly for downstream use. If any of the checks fail, an error message will be returned that prompts the necessary changes that must be made to the Excel file before the data can be used.
 
 For many of the checks, parameter names and units need to match the following columns in the `paramsMWR` file included with the package.  Specifically parameter names (either `Characteristic Name` in the results file, or `Parameter` in the data quality objectives files) can be the simple or WQX format as below.  The units can be any that apply for a given parameter, although only one is allowed per parameter.  All entries are case-sensitive.  This file is also available in the [Resources tab](/MassWateR/RESOURCES.md).
 
