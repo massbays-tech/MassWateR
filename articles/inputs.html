@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="MassWateR data input and checks">
 <meta property="og:description" content="MassWateR">
@@ -115,23 +115,50 @@ test the functions.</p>
 <p>Load the package in an R session after installation:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/massbays-tech/MassWateR" class="external-link">MassWateR</a></span><span class="op">)</span></span></code></pre></div>
-<p>The example files for the package can be viewed by navigating to
-their location in the package installation. These are available as Excel
-files. Running the code below will show where the files are located.</p>
-<p>The surface water quality results files:</p>
+<p>The following shows how to specify a path and import each required
+data file. These are hypothetical files and the path will need to be
+changed to where your data are located on your computer.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># import results data</span></span>
+<span><span class="va">respth</span> <span class="op">&lt;-</span> <span class="st">"C:/Documents/MassWateR/MyResults.xlsx"</span></span>
+<span><span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRresults.html">readMWRresults</a></span><span class="op">(</span><span class="va">respth</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># import dqo accuracy data</span></span>
+<span><span class="va">accpth</span> <span class="op">&lt;-</span> <span class="st">"C:/Documents/MassWateR/MyDQOAccuracy.xlsx"</span></span>
+<span><span class="va">accdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRacc.html">readMWRacc</a></span><span class="op">(</span><span class="va">accpth</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># import dqo frequency and completeness data</span></span>
+<span><span class="va">frecompth</span> <span class="op">&lt;-</span> <span class="st">"C:/Documents/MassWateR/MyDQOFreCom.xlsx"</span></span>
+<span><span class="va">frecomdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRfrecom.html">readMWRfrecom</a></span><span class="op">(</span><span class="va">frecompth</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># import site data</span></span>
+<span><span class="va">sitpth</span> <span class="op">&lt;-</span> <span class="st">"C:/Documents/MassWateR/MySites.xlsx"</span></span>
+<span><span class="va">sitdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRsites.html">readMWRsites</a></span><span class="op">(</span><span class="va">sitpth</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># import WQX meta data</span></span>
+<span><span class="va">wqxpth</span> <span class="op">&lt;-</span> <span class="st">"C:/Documents/MassWateR/MyWQXMeta.xlsx"</span></span>
+<span><span class="va">wqxdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRwqx.html">readMWRwqx</a></span><span class="op">(</span><span class="va">wqxpth</span><span class="op">)</span></span></code></pre></div>
+<p>Example files included with the package are imported for
+demonstration in this vignette. Your data import code will look more
+like the code chunk above. The example files for the package can be
+viewed by navigating to their location in the package installation.
+These are available as Excel files. Running the code below will show
+where the files are located. The <a href="/MassWateR/RESOURCES.html">Resources tab</a> also includes
+downloadable templates for these files.</p>
+<p>The surface water quality results files:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleResults.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span></code></pre></div>
 <p>The data quality objectives file for accuracy:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleDQOAccuracy.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span></code></pre></div>
 <p>The data quality objectives file for completeness:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleDQOFrequencyCompleteness.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span></code></pre></div>
 <p>The site metadata file:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleSites.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span></code></pre></div>
 <p>The wqx metadata file:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleWQX.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span></code></pre></div>
 <p>The example files are provided to demonstrate how the functions in
 MassWateR are used. In practice, alternative data files that follow the
@@ -140,7 +167,7 @@ example, data import in R may look something like the following using
 actual data files. Note that all inputs can also be created as a list to
 pass to any function in MassWateR (see the <a href="https://massbays-tech.github.io/MassWateR/articles/inputs.html#using-the-fset-argument">very
 end</a> of this vignette).</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import results data</span></span>
 <span><span class="va">respth</span> <span class="op">&lt;-</span> <span class="st">"C:/Documents/MassWateR/MyResults.xlsx"</span></span>
 <span><span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRresults.html">readMWRresults</a></span><span class="op">(</span><span class="va">respth</span><span class="op">)</span></span>
@@ -432,7 +459,7 @@ working directory. The location where the file is saved can be changed
 using the <code>output_dir</code> argument. Visually evaluating the
 results for conformance to the package requirements and manually editing
 the input file can help with the import checks, described below.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># find path to the file included with the package, replace with a path to your file as needed</span></span>
 <span><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleResults.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
 <span></span>
@@ -451,7 +478,7 @@ external file in the WQX format. See the <a href="/MassWateR/RESOURCES.html">Res
 template and detailed instructions. Note that <code>runchk = TRUE</code>
 is set to run the checks on data import. This is the default setting and
 it is not necessary to explicitly set this argument on import.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleResults.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
 <span><span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRresults.html">readMWRresults</a></span><span class="op">(</span><span class="va">respth</span>, runchk <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Running checks on results data...</span></span>
@@ -564,7 +591,7 @@ issue, change the entries in row 4 and 135 in the Activity Type column
 to Sample-Routine and Field Msr/Obs, respectively. This must be done in
 the original Excel file. Import the data again in R to verify the data
 are corrected.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">chk</span> <span class="op">&lt;-</span> <span class="va">resdat</span></span>
 <span><span class="va">chk</span><span class="op">[</span><span class="fl">4</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Sample"</span></span>
 <span><span class="va">chk</span><span class="op">[</span><span class="fl">135</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Field"</span></span>
@@ -607,7 +634,7 @@ argument will point to the location of the external files on your
 computer. See the <a href="/MassWateR/RESOURCES.html">Resources tab</a>
 for the Excel file template and detailed instructions. As above, the
 system files included with the package are used for the examples.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import data quality objectives for accuracy</span></span>
 <span><span class="va">accpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleDQOAccuracy.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
 <span><span class="va">accdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRacc.html">readMWRacc</a></span><span class="op">(</span><span class="va">accpth</span><span class="op">)</span></span>
@@ -635,7 +662,7 @@ system files included with the package are used for the examples.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Sp Conducta… uS/cm   1      <span style="color: #BB0000;">NA</span> &gt;= 250  &lt;= 20%  &lt;= 10%  &lt; 25    &lt; 25    &lt;= 50  </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​`Value Range`, ²​`Field Duplicate`,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   ³​`Lab Duplicate`, ⁴​`Field Blank`, ⁵​`Lab Blank`, ⁶​`Spike/Check Accuracy`</span></span></span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import data quality objectives for frequency and completeness</span></span>
 <span><span class="va">frecompth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleDQOFrequencyCompleteness.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
 <span><span class="va">frecomdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRfrecom.html">readMWRfrecom</a></span><span class="op">(</span><span class="va">frecompth</span><span class="op">)</span></span>
@@ -751,7 +778,7 @@ and format for the file. The <code>pth</code> argument will point to the
 location of the external file on your computer. See the <a href="/MassWateR/RESOURCES.html">Resources tab</a> for the Excel file
 template and detailed instructions. As above, the system file included
 with the package is used for the example.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import site metadata</span></span>
 <span><span class="va">sitpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleSites.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
 <span><span class="va">sitdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRsites.html">readMWRsites</a></span><span class="op">(</span><span class="va">sitpth</span><span class="op">)</span></span>
@@ -819,7 +846,7 @@ argument will point to the location of the external file on your
 computer. See the <a href="/MassWateR/RESOURCES.html">Resources tab</a>
 for the Excel file template and detailed instructions. As above, the
 system file included with the package is used for the example.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import wqx metadata</span></span>
 <span><span class="va">wqxpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleWQX.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
 <span><span class="va">wqxdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRwqx.html">readMWRwqx</a></span><span class="op">(</span><span class="va">wqxpth</span><span class="op">)</span></span>
@@ -896,7 +923,7 @@ below demonstrate creating the list as file paths or as exported data
 frames from the import functions. Examples in the vignettes show how
 this list can be used as alternative input using the <code>fset</code>
 argument.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># a list of input file paths</span></span>
 <span><span class="va">fsetls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  res <span class="op">=</span> <span class="va">respth</span>, </span>

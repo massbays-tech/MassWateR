@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Water Quality Exchange output">
 <meta property="og:description" content="MassWateR">
@@ -228,6 +228,28 @@ specify the input arguments.</p>
 (default) using the <code>warn</code> argument. This returns any
 warnings when data are imported and only applies if the file inputs are
 paths.</p>
+</div>
+<div class="section level2">
+<h2 id="uploading-data-to-wqx">Uploading data to WQX<a class="anchor" aria-label="anchor" href="#uploading-data-to-wqx"></a>
+</h2>
+<p>If desired, all rows from the WQX output file (created with
+<code>taxMWRwqx()</code>) can be copied and pasted into the <a href="https://massbays-tech.github.io/MassWateR/WQX_Phys-Chem_Template_for_MassWateR.xlsx">WQX
+upload template</a> (also available on the <a href="https://massbays-tech.github.io/MassWateR/RESOURCES.html">Resources</a>
+tab), which offers an enhanced spreadsheet layout with more interactive
+functionality (e.g., drop-down lists, prompts) and additional tabs with
+supporting information (e.g., instructions, field definitions). This
+template is especially useful if manual edits to the data are needed
+prior to WQX upload.</p>
+<p>To upload data to WQX, you will need to create or sign into <a href="https://www.epa.gov/waterdata/wqx-web-account-registration" target="_blank" class="external-link">your WQX account</a>. From there, you can upload your
+Projects, Locations, and Results spreadsheets individually. Note that
+Projects and Locations need only be uploaded once for your organization,
+unless the data change. For each spreadsheet upload, assign the
+appropriate MassWateR custom import configuration, check that your
+Organization ID is assigned, browse to your upload file, and select
+Import Data (image below). The next screen will notify you of upload
+status and prompt you to correct any errors or warnings that arise. More
+information on error resolution can be found in the <a href="https://www.epa.gov/sites/default/files/2020-03/documents/wqx_web_user_guide_v3.0.pdf" target="_blank" class="external-link">WQX User Guide</a>.</p>
+<p><img src="WQX_import.png" width="100%"></p>
 </div>
 <div class="section level2">
 <h2 id="submitting-data-to-mass-dep">Submitting data to Mass DEP<a class="anchor" aria-label="anchor" href="#submitting-data-to-mass-dep"></a>
