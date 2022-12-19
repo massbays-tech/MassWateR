@@ -125,7 +125,7 @@ tabMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk
 
     # get inputs resdat and frecom needed for summary and percent tables
     # warn and runchk applied above, no need here
-    inp <- utilMWRinput(res = res, frecom = frecom, warn = F, runchk = F)
+    inp <- utilMWRinput(res = res, frecom = frecom, fset = fset, warn = F, runchk = F)
     resdat <- inp$resdat
     frecomdat <- inp$frecomdat
     
@@ -275,6 +275,10 @@ tabMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk
         warning('Parameters in table not found in quality control objectives for frequency and completeness (no color): ', paste(nocol, collapse = ', '), call. = FALSE)
       }
       
+      # get unique parameters in results and frecomdat for factor levels
+      allprm <- intersect(unique(resdat$`Characteristic Name`), unique(frecomdat$Parameter)) %>% 
+        sort()
+      
       totab <- totab %>% 
         dplyr::mutate(
           check = factor(
@@ -282,7 +286,7 @@ tabMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk
             levels = c("Field Duplicates", "Lab Duplicates", "Field Blanks", "Lab Blanks", "Spike/Check Accuracy"), 
             labels = c("Field Duplicate", "Lab Duplicate", "Field Blank", "Lab Blank", "Spike/Check Accuracy")
           ),
-          Parameter = factor(Parameter),
+          Parameter = factor(Parameter ,levels = allprm),
           percent = as.numeric(gsub(suffix, '', percent)), 
           met = as.numeric(percent > `% Completeness`)
         ) %>% 
