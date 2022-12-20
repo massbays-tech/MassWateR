@@ -103,14 +103,7 @@ fsetls <- list(
   wqx = wqxdat
 )
 ```
-
-Example files included with the package are imported for demonstration in this vignette. Your data import code will look more like the code chunk above.
-
-```{r, warning = F}
-# results data
-respth <- system.file("extdata/ExampleResults.xlsx", package = "MassWateR")
-resdat <- readMWRresults(respth)
-
+```{r, warning = F, echo = F, message = F}
 # import results data
 respth <- system.file("extdata/ExampleResults.xlsx", package = "MassWateR")
 resdat <- readMWRresults(respth)
@@ -131,7 +124,7 @@ sitdat <- readMWRsites(sitpth)
 wqxpth <- system.file("extdata/ExampleWQX.xlsx", package = "MassWateR")
 wqxdat <- readMWRwqx(wqxpth)
 ```
-```{r, eval = T, echo = F}
+```{r, echo = F}
 # a list of input data frames
 fsetls <- list(
   res = resdat, 
@@ -145,11 +138,7 @@ fsetls <- list(
 The `readMWRresultsview()` function can be used to help troubleshoot issues that are encountered importing the water quality results file. This function can be used to create a .csv spreadsheet that shows the unique values within columns of the results file.  This information can be used to verify if the values in each conform to the requirements for the data import checks. 
 
 ```{r, eval = F}
-# find path to the file included with the package, replace with a path to your file as needed
-respth <- system.file("extdata/ExampleResults.xlsx", package = "MassWateR")
-
-# create a .csv file for the two columns that show unique values in each
-readMWRresultsview(respth, columns = c("Characteristic Name", "Result Unit"))
+readMWRresultsview(respth)
 ```
 
 ## Outlier checks
@@ -224,6 +213,10 @@ The single function for generating output for upload to WQX is `tabMWRwqx()`.  T
 tabMWRwqx(fset = fsetls)
 ```
 
+## Submitting data to Mass DEP
+
+If you are submitting your data to Mass DEP, you must follow all of their instructions as described on their [External Data Submittal](https://www.mass.gov/guides/external-data-submittals-to-the-watershed-planning-program){target="_blank"} webpage. Data and QC data can be submitted using either the MassDEP data submission template OR by uploading data to WQX. If you are submitting through WQX you should complete the submission by notifying Mass DEP via email ([WQData.Submit@mass.gov](mailto:WQData.Submit@mass.gov){target="_blank"}).  The e-mail must include the group name / project name under which the data was submitted to WQX, a copy of the project QAPP (if not already submitted), a statement of data integrity, the MassWateR QC Report (with the raw data print out), and any other supporting data reports.
+
 ## Uploading data to WQX
 
 If desired, all rows from the WQX output file (created with `tabMWRwqx()`) can be copied and pasted into the [WQX upload template](https://massbays-tech.github.io/MassWateR/WQX_Phys-Chem_Template_for_MassWateR.xlsx) (also available on the [Resources](https://massbays-tech.github.io/MassWateR/RESOURCES.html) tab), which offers an enhanced spreadsheet layout with more interactive functionality (e.g., drop-down lists, prompts) and additional tabs with supporting information (e.g., instructions, field definitions). This template is especially useful if manual edits to the data are needed prior to WQX upload.
@@ -233,7 +226,3 @@ To upload data to WQX, you will need to create or sign into [your WQX account](h
 ```{r wqximport, out.width = '100%', echo = F}
 knitr::include_graphics("WQX_import.png")
 ```
-
-## Submitting data to Mass DEP
-
-If you are submitting your data to Mass DEP, you must follow all of their instructions as described on their [External Data Submittal](https://www.mass.gov/guides/external-data-submittals-to-the-watershed-planning-program){target="_blank"} webpage. Data and QC data can be submitted using either the MassDEP data submission template OR by uploading data to WQX. If you are submitting through WQX you should complete the submission by notifying Mass DEP via email ([WQData.Submit@mass.gov](mailto:WQData.Submit@mass.gov){target="_blank"}).  The e-mail must include the group name / project name under which the data was submitted to WQX, a copy of the project QAPP (if not already submitted), a statement of data integrity, the MassWateR QC Report (with the raw data print out), and any other supporting data reports.
