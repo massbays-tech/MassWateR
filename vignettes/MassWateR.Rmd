@@ -65,7 +65,7 @@ library(MassWateR)
 
 Please view the [data inputs and checks](https://massbays-tech.github.io/MassWateR/articles/inputs.html) vignette for a complete description of the data requirements for MassWateR.
 
-Four types of data are used with the MassWateR package: surface water quality results, data quality objectives for accuracy, frequency, and completeness, site metadata, and wqx metadata.
+Four types of data are used with the MassWateR package: surface water quality results, data quality objectives (for accuracy, frequency, and completeness), site metadata, and wqx metadata.
 
 The following shows how to specify a path and import each required data file.  These are hypothetical files and the path will need to be changed to where your data are located on your computer. Templates and instructions for each of the types of input data are available for download in the [Resources tab](/MassWateR/RESOURCES.md).  
 
@@ -228,7 +228,7 @@ tabMWRwqx(fset = fsetls)
 
 If desired, all rows from the WQX output file (created with `tabMWRwqx()`) can be copied and pasted into the [WQX upload template](https://massbays-tech.github.io/MassWateR/WQX_Phys-Chem_Template_for_MassWateR.xlsx) (also available on the [Resources](https://massbays-tech.github.io/MassWateR/RESOURCES.html) tab), which offers an enhanced spreadsheet layout with more interactive functionality (e.g., drop-down lists, prompts) and additional tabs with supporting information (e.g., instructions, field definitions). This template is especially useful if manual edits to the data are needed prior to WQX upload.
 
-To upload data to WQX, you will need to create or sign into [your WQX account](https://www.epa.gov/waterdata/wqx-web-account-registration){target="_blank"}. From there, you can upload your Projects, Locations, and Results spreadsheets individually. Note that Projects and Locations need only be uploaded once for your organization, unless the data change. For each spreadsheet upload, assign the appropriate MassWateR custom import configuration, check that your Organization ID is assigned, browse to your upload file, and select Import Data (image below). The next screen will notify you of upload status and prompt you to correct any errors or warnings that arise. More information on error resolution can be found in the [WQX User Guide](https://www.epa.gov/sites/default/files/2020-03/documents/wqx_web_user_guide_v3.0.pdf){target="_blank"}.
+To upload data to WQX, you will need to create or sign into [your WQX account](https://www.epa.gov/waterdata/wqx-web-account-registration){target="_blank"}. From there, you can upload your Projects, Locations, and Results spreadsheets individually. Note that Projects and Locations need only be uploaded once for your organization, unless the data change. For each spreadsheet upload, use the appropriate MassWateR custom import configuration, check that your Organization ID is assigned, browse to your upload file, and select Import Data (image below). The next screen will notify you of upload status and prompt you to correct any errors or warnings that arise. More information on error resolution can be found in the [WQX User Guide](https://www.epa.gov/sites/default/files/2020-03/documents/wqx_web_user_guide_v3.0.pdf){target="_blank"}.
 
 ```{r wqximport, out.width = '100%', echo = F}
 knitr::include_graphics("WQX_import.png")
