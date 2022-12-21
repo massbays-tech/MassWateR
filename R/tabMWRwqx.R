@@ -122,12 +122,7 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
   
   ##
   # Results
-  
-  # new activity types for quality control rows where QC Reference Value is not blank
-  qcrws <- c('Quality Control Field Replicate Msr/Obs', 'Quality Control Sample-Field Replicate',
-             'Quality Control Sample-Lab Duplicate 2', 'Quality Control Sample-Reference Sample',
-             'Quality Control Sample-Measurement Precision Sample')
-  
+
   # format parameter in accdat to wqx parameter
   accdat <- accdat %>% 
     dplyr::mutate(
