@@ -212,7 +212,7 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
   resu <- resu %>% 
     dplyr::mutate(
       `Monitoring Location ID` = ifelse(
-        !`Activity Type` %in% c('Quality Control Sample-Lab Duplicate', 'Quality Control-Meter Lab Duplicate', 'Quality Control Sample-Lab Duplicate 2', 'Quality Control Sample-Lab Blank', 'Quality Control Sample-Lab Spike', 'Quality Control-Calibration Check'), 
+        !`Activity Type` %in% c('Quality Control Sample-Lab Duplicate', 'Quality Control-Meter Lab Duplicate', 'Quality Control Sample-Lab Duplicate 2', 'Quality Control Sample-Lab Blank', 'Quality Control-Meter Lab Blank', 'Quality Control Sample-Lab Spike', 'Quality Control-Calibration Check'), 
         `Monitoring Location ID`, 
         NA_character_
         ), 
