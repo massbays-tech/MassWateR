@@ -158,8 +158,10 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
         `Activity Type` == 'Quality Control Sample-Field Blank' ~ NA_character_, # to remove
         `Activity Type` == 'Quality Control Sample-Lab Blank' ~ NA_character_, # to remove
         `Activity Type` == 'Quality Control Sample-Lab Duplicate' ~ 'Quality Control Sample-Lab Duplicate 2',
-        `Activity Type` == 'Quality Control Sample-Lab Spike' ~ 'Quality Control Sample-Reference Sample',
-        `Activity Type` == 'Quality Control Field Calibration Check' ~ 'Quality Control Sample-Measurement Precision Sample'
+        `Activity Type` == 'Quality Control Sample-Lab Spike' ~ 'Quality Control Sample-Lab Spike Target',
+        `Activity Type` == 'Quality Control-Calibration Check' ~ 'Quality Control-Calibration Check Buffer', 
+        `Activity Type` == 'Quality Control-Meter Lab Duplicate' ~ 'Quality Control-Meter Lab Duplicate 2', 
+        `Activity Type` == 'Quality Control-Meter Lab Blank' ~ NA_character_ # to remove
       ),
       `QC Reference Value` = gsub('[[:digit:]]+', NA_character_, `QC Reference Value`)
     ) %>%
@@ -215,32 +217,35 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
   resu <- resu %>% 
     dplyr::mutate(
       `Monitoring Location ID` = ifelse(
-        !`Activity Type` %in% c('Quality Control Sample-Lab Duplicate', 'Quality Control Sample-Lab Duplicate 2', 'Quality Control Sample-Lab Blank', 'Quality Control Sample-Lab Spike', 'Quality Control Field Calibration Check'), 
+        !`Activity Type` %in% c('Quality Control Sample-Lab Duplicate', 'Quality Control-Meter Lab Duplicate', 'Quality Control Sample-Lab Duplicate 2', 'Quality Control Sample-Lab Blank', 'Quality Control Sample-Lab Spike', 'Quality Control-Calibration Check'), 
         `Monitoring Location ID`, 
         NA_character_
         ), 
       moniaid = ifelse(is.na(`Monitoring Location ID`), '', `Monitoring Location ID`),
       dateaid = gsub('-', '', as.character(lubridate::ymd(`Activity Start Date`))),
       timeaid = gsub(':', '', as.character(`Activity Start Time`)),
+      deptaid = ifelse(is.na(`Activity Depth/Height Measure`), `Activity Relative Depth Name`, round(as.numeric(`Activity Depth/Height Measure`), 2)), 
+      deptaid = ifelse(is.na(deptaid), '', deptaid),
       actyaid = dplyr::case_when(
         `Activity Type` == 'Sample-Routine' ~ 'SR',
         `Activity Type` == 'Field Msr/Obs' ~ 'FM',
-        `Activity Type` == 'Quality Control Sample-Lab Duplicate' ~ 'LD',
-        `Activity Type` == 'Quality Control Field Replicate Msr/Obs' ~ 'FM2',
         `Activity Type` == 'Quality Control Sample-Field Replicate' ~ 'SR2',
+        `Activity Type` == 'Quality Control Field Replicate Msr/Obs' ~ 'FM2',
+        `Activity Type` == 'Quality Control Sample-Lab Duplicate' ~ 'LD',
         `Activity Type` == 'Quality Control Sample-Lab Duplicate 2' ~ 'LD2',
         `Activity Type` == 'Quality Control Sample-Lab Spike' ~ 'LS',
-        `Activity Type` == 'Quality Control Sample-Reference Sample' ~ 'LSR',
-        `Activity Type` == 'Quality Control Field Calibration Check' ~ 'CC',
-        `Activity Type` == 'Quality Control Sample-Measurement Precision Sample' ~ 'CCR',
-        `Activity Type` == 'Quality Control Sample-Field Blank' ~ 'FB', 
+        `Activity Type` == 'Quality Control Sample-Lab Spike Target' ~ 'LS2',
+        `Activity Type` == 'Quality Control-Calibration Check' ~ 'CC',
+        `Activity Type` == 'Quality Control-Calibration Check Buffer' ~ 'CC2',
+        `Activity Type` == 'Quality Control Sample-Field Blank' ~ 'FB',
         `Activity Type` == 'Quality Control Sample-Lab Blank' ~ 'LB',
+        `Activity Type` == 'Quality Control-Meter Lab Duplicate' ~ 'MLD',
+        `Activity Type` == 'Quality Control-Meter Lab Duplicate 2' ~ 'MLD2',
+        `Activity Type` == 'Quality Control-Meter Lab Blank' ~ 'MLB',
         T ~ ''
-      ),
-      deptaid = ifelse(is.na(`Activity Depth/Height Measure`), `Activity Relative Depth Name`, round(as.numeric(`Activity Depth/Height Measure`), 2)), 
-      deptaid = ifelse(is.na(deptaid), '', deptaid)
+      )
     ) %>%
-    tidyr::unite('Activity ID', moniaid, dateaid, timeaid, actyaid, deptaid, sep = ':', remove = T)
+    tidyr::unite('Activity ID', moniaid, dateaid, timeaid, deptaid, actyaid, sep = ':', remove = T)
 
   # add remaining columns that depend only on results file
   resu <- resu %>% 
@@ -322,7 +327,7 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
     filter(!(duplicated(ind) & is.na(`Result Value2`))) %>% 
     dplyr::select(-ind, -`Value Range`, -`Result Value2`, -`rngflt`, -flt) %>% 
     dplyr::mutate(
-      `Result Detection/Quantitation Limit Measure` = dplyr::case_when(
+      `Result Detection/Quantitation Limit Value` = dplyr::case_when(
         `Result Value` == 'BDL' & is.na(`Quantitation Limit`) ~ as.character(MDL), 
         `Result Value` == 'BDL' & !is.na(`Quantitation Limit`) ~ as.character(`Quantitation Limit`), 
         `Result Value` == 'AQL' & is.na(`Quantitation Limit`) ~ as.character(UQL),
@@ -331,6 +336,14 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
       )
     )
 
+  # check if BDL and AQL in result value and no MDL or UQL if quantitation limit is na
+  chk <- (resu$`Result Value` == 'BDL' & is.na(resu$`Quantitation Limit`) & is.na(resu$MDL)) |
+    (resu$`Result Value` == 'AQL' & is.na(resu$`Quantitation Limit`) & is.na(resu$UQL))
+  if(any(chk) & warn){
+    rows <- which(chk)
+    warning(paste('Empty entries for Result Detection/Quantitation Limit Value from missing MDL or UQL in accuracy file, rows:', paste(rows, collapse = ', ')))
+  }
+  
   # add columns from wqx meta
   resu <- resu %>% 
     left_join(wqxdat, by = c('Characteristic Name' = 'Parameter')) %>% 
@@ -380,7 +393,7 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
       `Result Analytical Method ID`,
       `Result Analytical Method Context`,
       `Result Detection/Quantitation Limit Type`,
-      `Result Detection/Quantitation Limit Measure`,
+      `Result Detection/Quantitation Limit Value`,
       `Result Detection/Quantitation Limit Unit`,
       `Result Comment`
     )

@@ -97,7 +97,7 @@ qcMWRfre <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn
       nrow()
     
     # lab duplicates
-    acts <- 'Quality Control Sample-Lab Duplicate'
+    acts <- c('Quality Control Sample-Lab Duplicate', 'Quality Control-Meter Lab Duplicate')
     labdup <- sum(resdattmp$`Activity Type` %in% acts)
     
     # field blank
@@ -105,11 +105,11 @@ qcMWRfre <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn
     fieldblnk <- sum(resdattmp$`Activity Type` %in% acts)
     
     # lab blank
-    acts <- 'Quality Control Sample-Lab Blank'
+    acts <- c('Quality Control Sample-Lab Blank', 'Quality Control-Meter Lab Blank')
     labblnk <- sum(resdattmp$`Activity Type` %in% acts)
 
     # lab spikes or instrument checks
-    acts <- c('Quality Control Sample-Lab Spike', 'Quality Control Field Calibration Check')
+    acts <- c('Quality Control Sample-Lab Spike', 'Quality Control-Calibration Check')
     spikesinstchks <- sum(resdattmp$`Activity Type` %in% acts, na.rm = TRUE)
     
     # compile results

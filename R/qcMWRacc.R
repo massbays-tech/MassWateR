@@ -136,7 +136,7 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
   labins <- NULL
   
   # field and lab blank
-  blktyp <- c('Quality Control Sample-Field Blank', 'Quality Control Sample-Lab Blank')
+  blktyp <- c('Quality Control Sample-Field Blank', 'Quality Control Sample-Lab Blank', 'Quality Control-Meter Lab Blank')
   if(any(blktyp %in% resdat$`Activity Type`) & any(c('Field Blanks', 'Lab Blanks') %in% accchk)){
 
     # get MDL and uom info from accuracy file
@@ -206,9 +206,9 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
         dplyr::select(-`Field Blank`, -`Lab Blank`, -isnum, -`Quantitation Limit`, -MDL)
       
     # lab blank
-    if('Quality Control Sample-Lab Blank' %in% blk$`Activity Type` & 'Lab Blanks' %in% accchk & any(!is.na(blk$`Lab Blank`)))
+    if(any(c('Quality Control Sample-Lab Blank', 'Quality Control-Meter Lab Blank') %in% blk$`Activity Type`) & 'Lab Blanks' %in% accchk & any(!is.na(blk$`Lab Blank`)))
       labblk <- blk %>%
-        dplyr::filter(`Activity Type` == 'Quality Control Sample-Lab Blank') %>% 
+        dplyr::filter(`Activity Type` %in% c('Quality Control Sample-Lab Blank', 'Quality Control-Meter Lab Blank')) %>% 
         dplyr::filter(!is.na(`Lab Blank`)) %>% 
         dplyr::select(-`Activity Type`) %>% 
         dplyr::select(-`Site`) %>% 
@@ -259,7 +259,7 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
       )
     )
   
-  duptyp <- c('Field Duplicate', 'Quality Control Sample-Lab Duplicate')
+  duptyp <- c('Field Duplicate', 'Quality Control Sample-Lab Duplicate', 'Quality Control-Meter Lab Duplicate')
   if(any(duptyp %in% resdat_dup$`Activity Type`) & any(c('Field Duplicates', 'Lab Duplicates') %in% accchk)){
 
     dup <- resdat_dup %>% 
@@ -367,9 +367,9 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
         ) 
 
     # lab duplicates
-    if('Quality Control Sample-Lab Duplicate' %in% dup$`Activity Type` & 'Lab Duplicates' %in% accchk & any(!is.na(dup$`Lab Duplicate`)))
+    if(any(c('Quality Control Sample-Lab Duplicate', 'Quality Control-Meter Lab Duplicate') %in% dup$`Activity Type`) & 'Lab Duplicates' %in% accchk & any(!is.na(dup$`Lab Duplicate`)))
       labdup <- dup %>% 
-        dplyr::filter(`Activity Type` %in% 'Quality Control Sample-Lab Duplicate') %>% 
+        dplyr::filter(`Activity Type` %in% c('Quality Control Sample-Lab Duplicate', 'Quality Control-Meter Lab Duplicate')) %>% 
         dplyr::filter(!is.na(`Lab Duplicate`)) %>% 
         dplyr::rowwise() %>% 
         dplyr::mutate(
@@ -408,7 +408,7 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
   # steps include replacing any recovered or standards as BDL/AQL with MDL/UQL for comparison
   # joining one to many of results to accuracy, then filtering results by range values in accuracy
   # comparing recovered and standards to accepted range in accuracy file
-  labinstyp <- c('Quality Control Sample-Lab Spike', 'Quality Control Field Calibration Check')
+  labinstyp <- c('Quality Control Sample-Lab Spike', 'Quality Control-Calibration Check')
   if(any(labinstyp %in% resdat$`Activity Type`) & 'Lab Spikes / Instrument Checks' %in% accchk & any(!is.na(accdat$`Spike/Check Accuracy`))){
 
     labins <- resdat %>% 
