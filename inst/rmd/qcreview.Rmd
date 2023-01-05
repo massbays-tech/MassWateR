@@ -13,10 +13,10 @@ params:
   dqofontsize: dqofontsize 
   tabfontsize: tabfontsize
   padding: padding
-  tabfresum: tabfresum
   tabfreper: tabfreper
-  tabaccsum: tabaccsum
+  tabfresum: tabfresum
   tabaccper: tabaccper
+  tabaccsum: tabaccsum
   tabcom: tabcom
   indflddup: indflddup
   indlabdup: indlabdup
@@ -41,10 +41,10 @@ warn <- params$warn
 dqofontsize <- params$dqofontsize
 tabfontsize <- params$tabfontsize
 padding <- params$padding
-tabfresum <- params$tabfresum
 tabfreper <- params$tabfreper
-tabaccsum <- params$tabaccsum
+tabfresum <- params$tabfresum
 tabaccper <- params$tabaccper
+tabaccsum <- params$tabaccsum
 tabcom <- params$tabcom
 indflddup <- params$indflddup
 indlabdup <- params$indlabdup
@@ -149,6 +149,12 @@ notes(wd, fontname)
 ### QC Frequencies for `r resdatdt`
 
 ```{r}
+tabfreper
+```
+
+<br>
+
+```{r}
 tabfresum
 ```
 
@@ -158,15 +164,15 @@ tabfresum
 notes(wd, fontname)
 ```
 
-<br>
-
-```{r}
-tabfreper
-```
-
 \newpage
 
 ### QC Accuracy Summary for `r resdatdt`
+
+```{r}
+tabaccper
+```
+
+<br>
 
 ```{r}
 tabaccsum
@@ -176,12 +182,6 @@ tabaccsum
 
 ```{r}
 notes(wd, fontname)
-```
-
-<br>
-
-```{r}
-tabaccper
 ```
 
 \newpage

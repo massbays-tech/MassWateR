@@ -86,20 +86,20 @@ qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, outp
 
   # warnings only needed for tabaccsum and tabcom, the rest are duplicates
   
+  # frequency table percent
+  tabfreper <- tabMWRfre(res = resdat, frecom = frecomdat, type = 'percent', warn = F) %>% 
+    thmsum(wd = wd, fontname = fontname)
+
   # frequency summary table
   tabfresum <- tabMWRfre(res = resdat, frecom = frecomdat, type = 'summary', warn = F) %>% 
     thmsum(wd = wd, fontname = fontname)
   
-  # frequency table percent
-  tabfreper <- tabMWRfre(res = resdat, frecom = frecomdat, type = 'percent', warn = F) %>% 
+  # accuracy table percent
+  tabaccper <- tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'percent', warn = F) %>% 
     thmsum(wd = wd, fontname = fontname)
   
   # accuracy table summary
   tabaccsum <- tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'summary', warn = warn) %>% 
-    thmsum(wd = wd, fontname = fontname)
-  
-  # accuracy table percent
-  tabaccper <- tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'percent', warn = F) %>% 
     thmsum(wd = wd, fontname = fontname)
     
   # completeness table
@@ -174,10 +174,10 @@ qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, outp
       dqofontsize = dqofontsize, 
       tabfontsize = tabfontsize,
       padding = padding,
-      tabfresum = tabfresum,
       tabfreper = tabfreper,
-      tabaccsum = tabaccsum, 
+      tabfresum = tabfresum,
       tabaccper = tabaccper,
+      tabaccsum = tabaccsum, 
       tabcom = tabcom,
       indflddup = indflddup,
       indlabdup = indlabdup,
