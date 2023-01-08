@@ -67,7 +67,7 @@ Please view the [data inputs and checks](https://massbays-tech.github.io/MassWat
 
 Four types of data are used with the MassWateR package: surface water quality results, data quality objectives (for accuracy, frequency, and completeness), site metadata, and wqx metadata.
 
-The following shows how to specify a path and import each required data file.  These are hypothetical files and the path will need to be changed to where your data are located on your computer. Templates and instructions for each of the types of input data are available for download in the [Resources tab](/MassWateR/RESOURCES.md).  
+The following shows how to specify a path and import each required data file.  These are hypothetical files and the path will need to be changed to where your data are located on your computer. Templates and instructions for each of the types of input data are available for download in the [Resources tab](https://massbays-tech.github.io/MassWateR/RESOURCES.html).  
 
 ```{r, eval = F}
 # import results data

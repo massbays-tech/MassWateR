@@ -1,5 +1,5 @@
 Package: MassWateR
-Title: Tools for QAQC and Exploratory Analysis of Massachusetts Surface Water Quality Data
+Title: Tools for Quality Control and Exploratory Analysis of Massachusetts Surface Water Quality Data
 Version: 1.0.0.9000
 Authors@R: c(
     person(given = "Marcus",
@@ -25,11 +25,11 @@ Authors@R: c(
       email = "pamela.dibona@state.ma.us"
     )
   )
-Description: Methods for QAQC and exploratory analysis of surface water 
-  quality data collected by watershed associations and citizen science 
-  groups in Massachusetts, USA.  Functions are developed to facilitate 
-  data formatting for the Water Quality Exchange Network and reporting 
-  of data quality objectives to state agencies.
+Description: Methods for quality control and exploratory analysis of 
+  surface water quality data collected by watershed associations and 
+  citizen science groups in Massachusetts, USA.  Functions are developed 
+  to facilitate data formatting for the Water Quality Exchange Network 
+  and reporting of data quality objectives to state agencies.
 Depends: 
   R (>= 3.5)
 Imports:

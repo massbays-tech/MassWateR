@@ -51,6 +51,7 @@
 #' # table as percent
 #' tabMWRacc(res = respth, acc = accpth, frecom = frecompth, type = 'percent')
 #' 
+#' \dontrun{
 #' ##
 #' # using data frames
 #' 
@@ -72,6 +73,7 @@
 #' 
 #' # table as percent
 #' tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'percent')
+#' }
 tabMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes / Instrument Checks'), type = c('individual', 'summary', 'percent'), pass_col = '#57C4AD', fail_col = '#DB4325', suffix = '%', caption = TRUE){
 
   utilMWRinputcheck(mget(ls()))

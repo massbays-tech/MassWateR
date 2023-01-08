@@ -92,6 +92,7 @@ tabMWRacc(res = respth, acc = accpth, frecom = frecompth, type = 'summary')
 # table as percent
 tabMWRacc(res = respth, acc = accpth, frecom = frecompth, type = 'percent')
 
+\dontrun{
 ##
 # using data frames
 
@@ -113,4 +114,5 @@ tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'summary')
 
 # table as percent
 tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'percent')
+}
 }

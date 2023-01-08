@@ -26,7 +26,7 @@ Four types of data are used with the MassWateR package.
 3. A **site metadata** file, including location names, latitude, longitude, and additional grouping factors for sites.
 4. A **wqx metadata** file required for generating output to facilitate data upload to WQX. 
 
-Templates and instructions for each of the types of input data are available for download in the [Resources tab](/MassWateR/RESOURCES.md). Additionally, example files, described below, are provided with the package to demonstrate and test the functions.
+Templates and instructions for each of the types of input data are available for download in the [Resources tab](https://massbays-tech.github.io/MassWateR/RESOURCES.html). Additionally, example files, described below, are provided with the package to demonstrate and test the functions.
 
 Load the package in an R session after installation:
 
@@ -66,7 +66,7 @@ Example files included with the package are imported for demonstration in this v
 
 The MassWateR package is developed for quality control and exploratory analysis of surface water quality data. Before these analyses can occur, the data must be formatted correctly. There are several checks included in the data import functions to ensure the files are formatted correctly for downstream use. If any of the checks fail, an error message will be returned that prompts the necessary changes that must be made to the Excel file before the data can be used.
 
-For many of the checks, parameter names and units need to match the following columns in the `paramsMWR` file included with the package.  Specifically parameter names (either `Characteristic Name` in the results file, or `Parameter` in the data quality objectives files) can be the simple or WQX format as below.  The units can be any that apply for a given parameter, although only one is allowed per parameter.  All entries are case-sensitive.  This file is also available in the [Resources tab](/MassWateR/RESOURCES.md).
+For many of the checks, parameter names and units need to match the following columns in the `paramsMWR` file included with the package.  Specifically parameter names (either `Characteristic Name` in the results file, or `Parameter` in the data quality objectives files) can be the simple or WQX format as below.  The units can be any that apply for a given parameter, although only one is allowed per parameter.  All entries are case-sensitive.  This file is also available in the [Resources tab](https://massbays-tech.github.io/MassWateR/RESOURCES.html).
 
 ```{r, echo = F}
 paramsMWR %>% 
@@ -87,7 +87,7 @@ readMWRresultsview(respth, columns = c("Characteristic Name", "Result Unit"))
 
 ### Surface water quality results
 
-First, the surface water quality results can be imported with the `readMWRresults()` function. This is designed to import an Excel file external to R, run checks on the data, and provide some minor formatting for downstream quality control or exploratory analysis. In this example, the system file `ExampleResults.xlsx` is imported. In practice, the `pth` argument will point to an external file in the WQX format. See the [Resources tab](/MassWateR/RESOURCES.md) for the Excel file template and detailed instructions. Note that `runchk = TRUE` is set to run the checks on data import.  This is the default setting and it is not necessary to explicitly set this argument on import.
+First, the surface water quality results can be imported with the `readMWRresults()` function. This is designed to import an Excel file external to R, run checks on the data, and provide some minor formatting for downstream quality control or exploratory analysis. In this example, the system file `ExampleResults.xlsx` is imported. In practice, the `pth` argument will point to an external file in the WQX format. See the [Resources tab](https://massbays-tech.github.io/MassWateR/RESOURCES.html) for the Excel file template and detailed instructions. Note that `runchk = TRUE` is set to run the checks on data import.  This is the default setting and it is not necessary to explicitly set this argument on import.
 
 ```{r, message = T}
 respth <- system.file("extdata/ExampleResults.xlsx", package = "MassWateR")
@@ -131,7 +131,7 @@ Data imported with `readMWRresults()` are also formatted to address a few minor 
 
 ### Data quality objectives
 
-To use the quality control functions in MassWateR, Excel files that describe the data quality objectives for accuracy, frequency, and completeness must be provided. The system files included with the package, described above, demonstrate the required information and format for these files. They can be imported into R using the `readMWRacc()` and `readMWRfrecom()` functions for the accuracy, frequency, and completeness files. The `pth` argument will point to the location of the external files on your computer. See the [Resources tab](/MassWateR/RESOURCES.md) for the Excel file template and detailed instructions. As above, the system files included with the package are used for the examples.
+To use the quality control functions in MassWateR, Excel files that describe the data quality objectives for accuracy, frequency, and completeness must be provided. The system files included with the package, described above, demonstrate the required information and format for these files. They can be imported into R using the `readMWRacc()` and `readMWRfrecom()` functions for the accuracy, frequency, and completeness files. The `pth` argument will point to the location of the external files on your computer. See the [Resources tab](https://massbays-tech.github.io/MassWateR/RESOURCES.html) for the Excel file template and detailed instructions. As above, the system files included with the package are used for the examples.
 
 ```{r, message = T}
 # import data quality objectives for accuracy
@@ -178,7 +178,7 @@ Minor formatting of the input files is also done to address a few minor issues f
 
 ### Site metadata
 
-An Excel file for site metadata that describes spatial location and any other grouping factors for the sites in the results file can be imported using `readMWRsites()`. The system file included with the package, described above, demonstrates the required information and format for the file. The `pth` argument will point to the location of the external file on your computer. See the [Resources tab](/MassWateR/RESOURCES.md) for the Excel file template and detailed instructions. As above, the system file included with the package is used for the example.
+An Excel file for site metadata that describes spatial location and any other grouping factors for the sites in the results file can be imported using `readMWRsites()`. The system file included with the package, described above, demonstrates the required information and format for the file. The `pth` argument will point to the location of the external file on your computer. See the [Resources tab](https://massbays-tech.github.io/MassWateR/RESOURCES.html) for the Excel file template and detailed instructions. As above, the system file included with the package is used for the example.
 
 ```{r, message = T}
 # import site metadata
@@ -199,7 +199,7 @@ The `readMWRsites()` function runs several checks on the file using the `checkMW
 
 ### WQX metadata
 
-An Excel file for wqx metadata that is required to generate output for upload to WQX can be imported using `readMWRwqx()`. The system file included with the package, described above, demonstrates the required information and format for the file. The `pth` argument will point to the location of the external file on your computer. See the [Resources tab](/MassWateR/RESOURCES.md) for the Excel file template and detailed instructions. As above, the system file included with the package is used for the example.
+An Excel file for wqx metadata that is required to generate output for upload to WQX can be imported using `readMWRwqx()`. The system file included with the package, described above, demonstrates the required information and format for the file. The `pth` argument will point to the location of the external file on your computer. See the [Resources tab](https://massbays-tech.github.io/MassWateR/RESOURCES.html) for the Excel file template and detailed instructions. As above, the system file included with the package is used for the example.
 
 ```{r, message = T}
 # import wqx metadata
@@ -219,7 +219,7 @@ An informative error is returned if the input data fail any of the checks. The i
 
 ## Using the fset argument
 
-All of the [quality control](/MassWateR/articles/qcoverview.md), [outlier](/MassWateR/articles/outlierchecks.md), [analysis](/MassWateR/articles/analysis.md), and [wqx](/MassWateR/articles/wqx.md) functions in MassWateR require the inputs described above, depending on the function.  These are generally passed to each function using the appropriate arguments, e.g., `res` for the surface water quality results, `acc` and `frecom` for the data quality objective files for accuracy, frequency, and completeness, `sit` for the site metadata, and `wqx` for the wqx metadata. The values passed to these functions can be file paths that specify the location of the file (either as a full path or relative path based on the working directory) or as data frames returned by the relevant import functions (i.e., `readMWRresults()`, `readMWRacc()`, `readMWRfrecom()`, `readMWRsites()`, `readMWRwqx()`).
+All of the [quality control](https://massbays-tech.github.io/MassWateR/articles/qcoverview.html), [outlier](https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html), [analysis](https://massbays-tech.github.io/MassWateR/articles/analysis.html), and [wqx](https://massbays-tech.github.io/MassWateR/articles/wqx.html) functions in MassWateR require the inputs described above, depending on the function.  These are generally passed to each function using the appropriate arguments, e.g., `res` for the surface water quality results, `acc` and `frecom` for the data quality objective files for accuracy, frequency, and completeness, `sit` for the site metadata, and `wqx` for the wqx metadata. The values passed to these functions can be file paths that specify the location of the file (either as a full path or relative path based on the working directory) or as data frames returned by the relevant import functions (i.e., `readMWRresults()`, `readMWRacc()`, `readMWRfrecom()`, `readMWRsites()`, `readMWRwqx()`).
 
 Because it can be tedious to specify each of the input files in the arguments for the MassWateR functions, the `fset` (file set) argument can be used as an alternative method.  The `fset` argument for each function accepts a named list with the relevant input file locations or data frames.  This can be created at the top of a script and recycled as necessary for an analysis workflow.  The examples below demonstrate creating the list as file paths or as exported data frames from the import functions.  Examples in the vignettes show how this list can be used as alternative input using the `fset` argument.   
 
