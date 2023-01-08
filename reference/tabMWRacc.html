@@ -347,118 +347,29 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5                        1</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co">##</span></span></span>
 <span class="r-in"><span><span class="co"># using data frames</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># results data</span></span></span>
 <span class="r-in"><span><span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="readMWRresults.html">readMWRresults</a></span><span class="op">(</span><span class="va">respth</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on results data...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking valid Activity Types... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Start Date formats... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in Activity Depth/Height Measure... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Depth/Height Unit... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Relative Depth Name formats... OK</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>	Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft...</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> 	Bottom values found in Activity Relative Depth Name on row(s): 1499, 1500, 1501</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft... WARNING</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Characteristic Name formats... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Result Values... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking QC Reference Values... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for Result Unit... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit per Characteristic Name... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking acceptable units for each entry in Characteristic Name... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed (1 WARNING(s))!</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># accuracy data</span></span></span>
 <span class="r-in"><span><span class="va">accdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="readMWRacc.html">readMWRacc</a></span><span class="op">(</span><span class="va">accpth</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on data quality objectives for accuracy...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column types... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for text other than &lt;=, ≤, &lt;, &gt;=, ≥, &gt;, ±, %, AQL, BQL, log, or all... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Parameter formats... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for unit (uom)... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit (uom) per Parameter... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking acceptable units (uom) for each entry in Parameter... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking empty columns... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># frequency and completeness data, only needed if type = "percent"</span></span></span>
 <span class="r-in"><span><span class="va">frecomdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="readMWRfrecom.html">readMWRfrecom</a></span><span class="op">(</span><span class="va">frecompth</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on data quality objectives for frequency and completeness...</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for values outside of 0 and 100... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Parameter formats... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking empty columns... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># table as individual</span></span></span>
 <span class="r-in"><span><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, frecom <span class="op">=</span> <span class="va">frecomdat</span>, type <span class="op">=</span> <span class="st">'individual'</span>, </span></span>
 <span class="r-in"><span>     accchk <span class="op">=</span> <span class="st">'Field Blanks'</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for accuracy not found in results data: Chloride</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in results not found in  quality control objectives for accuracy: Air Temp, DO saturation, Flow, Gage</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Date`, `Site`, `Result`, `Threshold`, `Hit/Miss` </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 18 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Parameter       Date    Site   Result Threshold Hit/Miss</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Ammonia       &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt;     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      &lt;NA&gt; 2021-07-11 ABT-062 0.2 mg/l 0.05 mg/l     MISS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      &lt;NA&gt; 2021-07-11 ABT-237      BDL 0.05 mg/l     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      &lt;NA&gt; 2021-07-11 ABT-301 0.1 mg/l 0.05 mg/l     MISS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      &lt;NA&gt; 2021-07-11 DAN-013      BDL 0.05 mg/l     &lt;NA&gt;</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># table as summary</span></span></span>
 <span class="r-in"><span><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, frecom <span class="op">=</span> <span class="va">frecomdat</span>, type <span class="op">=</span> <span class="st">'summary'</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for accuracy not found in results data: Chloride</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in results not found in  quality control objectives for accuracy: Air Temp, DO saturation, Flow, Gage</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Type`, `Parameter`, `Number of QC Checks`, `Number of Misses`, `% Acceptance` </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 44 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               Type Parameter Number of QC Checks Number of Misses % Acceptance</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Field Duplicates      &lt;NA&gt;                &lt;NA&gt;             &lt;NA&gt;         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2             &lt;NA&gt;   Ammonia                   0                -            -</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3             &lt;NA&gt;     Chl a                   0                -            -</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4             &lt;NA&gt;        DO                   0                -            -</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5             &lt;NA&gt;   Nitrate                   8                2         75 %</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># table as percent</span></span></span>
 <span class="r-in"><span><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, frecom <span class="op">=</span> <span class="va">frecomdat</span>, type <span class="op">=</span> <span class="st">'percent'</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in quality control objectives for accuracy not found in results data: Chloride</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in results not found in  quality control objectives for accuracy: Air Temp, DO saturation, Flow, Gage</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a flextable object.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> col_keys: `Parameter`, `Field Duplicate`, `Lab Duplicate`, `Field Blank`, `Lab Blank`, `Spike/Check Accuracy` </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> header has 1 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> body has 9 row(s) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> original dataset sample: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Parameter Field Duplicate Field Duplicate_met Lab Duplicate Lab Duplicate_met</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Ammonia              NA                  NA            NA                NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     Chl a              NA                  NA            NA                NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3        DO              NA                  NA            NA                NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   Nitrate              75                   0      54.54545                 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   Ortho P              NA                  NA            NA                NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Field Blank Field Blank_met Lab Blank Lab Blank_met Spike/Check Accuracy</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    71.42857               0  77.77778             0                   NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          NA              NA        NA            NA                   NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          NA              NA        NA            NA             50.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          NA              NA        NA            NA             83.33333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          NA              NA        NA            NA            100.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Spike/Check Accuracy_met</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                        1</span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

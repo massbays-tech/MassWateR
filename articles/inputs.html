@@ -109,9 +109,9 @@ latitude, longitude, and additional grouping factors for sites.</li>
 to facilitate data upload to WQX.</li>
 </ol>
 <p>Templates and instructions for each of the types of input data are
-available for download in the <a href="/MassWateR/RESOURCES.html">Resources tab</a>. Additionally, example
-files, described below, are provided with the package to demonstrate and
-test the functions.</p>
+available for download in the <a href="https://massbays-tech.github.io/MassWateR/RESOURCES.html">Resources
+tab</a>. Additionally, example files, described below, are provided with
+the package to demonstrate and test the functions.</p>
 <p>Load the package in an R session after installation:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/massbays-tech/MassWateR" class="external-link">MassWateR</a></span><span class="op">)</span></span></code></pre></div>
@@ -164,7 +164,8 @@ package. Specifically parameter names (either
 <code>Parameter</code> in the data quality objectives files) can be the
 simple or WQX format as below. The units can be any that apply for a
 given parameter, although only one is allowed per parameter. All entries
-are case-sensitive. This file is also available in the <a href="/MassWateR/RESOURCES.html">Resources tab</a>.</p>
+are case-sensitive. This file is also available in the <a href="https://massbays-tech.github.io/MassWateR/RESOURCES.html">Resources
+tab</a>.</p>
 <table class="table">
 <colgroup>
 <col width="15%">
@@ -426,10 +427,11 @@ Excel file external to R, run checks on the data, and provide some minor
 formatting for downstream quality control or exploratory analysis. In
 this example, the system file <code>ExampleResults.xlsx</code> is
 imported. In practice, the <code>pth</code> argument will point to an
-external file in the WQX format. See the <a href="/MassWateR/RESOURCES.html">Resources tab</a> for the Excel file
-template and detailed instructions. Note that <code>runchk = TRUE</code>
-is set to run the checks on data import. This is the default setting and
-it is not necessary to explicitly set this argument on import.</p>
+external file in the WQX format. See the <a href="https://massbays-tech.github.io/MassWateR/RESOURCES.html">Resources
+tab</a> for the Excel file template and detailed instructions. Note that
+<code>runchk = TRUE</code> is set to run the checks on data import. This
+is the default setting and it is not necessary to explicitly set this
+argument on import.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleResults.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
 <span><span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRresults.html">readMWRresults</a></span><span class="op">(</span><span class="va">respth</span>, runchk <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -584,9 +586,10 @@ format for these files. They can be imported into R using the
 <code><a href="../reference/readMWRacc.html">readMWRacc()</a></code> and <code><a href="../reference/readMWRfrecom.html">readMWRfrecom()</a></code> functions for
 the accuracy, frequency, and completeness files. The <code>pth</code>
 argument will point to the location of the external files on your
-computer. See the <a href="/MassWateR/RESOURCES.html">Resources tab</a>
-for the Excel file template and detailed instructions. As above, the
-system files included with the package are used for the examples.</p>
+computer. See the <a href="https://massbays-tech.github.io/MassWateR/RESOURCES.html">Resources
+tab</a> for the Excel file template and detailed instructions. As above,
+the system files included with the package are used for the
+examples.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import data quality objectives for accuracy</span></span>
 <span><span class="va">accpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleDQOAccuracy.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
@@ -728,9 +731,9 @@ any other grouping factors for the sites in the results file can be
 imported using <code><a href="../reference/readMWRsites.html">readMWRsites()</a></code>. The system file included
 with the package, described above, demonstrates the required information
 and format for the file. The <code>pth</code> argument will point to the
-location of the external file on your computer. See the <a href="/MassWateR/RESOURCES.html">Resources tab</a> for the Excel file
-template and detailed instructions. As above, the system file included
-with the package is used for the example.</p>
+location of the external file on your computer. See the <a href="https://massbays-tech.github.io/MassWateR/RESOURCES.html">Resources
+tab</a> for the Excel file template and detailed instructions. As above,
+the system file included with the package is used for the example.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import site metadata</span></span>
 <span><span class="va">sitpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleSites.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
@@ -796,9 +799,9 @@ for upload to WQX can be imported using <code><a href="../reference/readMWRwqx.h
 system file included with the package, described above, demonstrates the
 required information and format for the file. The <code>pth</code>
 argument will point to the location of the external file on your
-computer. See the <a href="/MassWateR/RESOURCES.html">Resources tab</a>
-for the Excel file template and detailed instructions. As above, the
-system file included with the package is used for the example.</p>
+computer. See the <a href="https://massbays-tech.github.io/MassWateR/RESOURCES.html">Resources
+tab</a> for the Excel file template and detailed instructions. As above,
+the system file included with the package is used for the example.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import wqx metadata</span></span>
 <span><span class="va">wqxpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleWQX.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
@@ -851,21 +854,22 @@ proceeding.</p>
 <div class="section level2">
 <h2 id="using-the-fset-argument">Using the fset argument<a class="anchor" aria-label="anchor" href="#using-the-fset-argument"></a>
 </h2>
-<p>All of the <a href="/MassWateR/articles/qcoverview.html">quality
-control</a>, <a href="/MassWateR/articles/outlierchecks.html">outlier</a>,
-<a href="/MassWateR/articles/analysis.html">analysis</a>, and <a href="/MassWateR/articles/wqx.html">wqx</a> functions in MassWateR require
-the inputs described above, depending on the function. These are
-generally passed to each function using the appropriate arguments, e.g.,
-<code>res</code> for the surface water quality results, <code>acc</code>
-and <code>frecom</code> for the data quality objective files for
-accuracy, frequency, and completeness, <code>sit</code> for the site
-metadata, and <code>wqx</code> for the wqx metadata. The values passed
-to these functions can be file paths that specify the location of the
-file (either as a full path or relative path based on the working
-directory) or as data frames returned by the relevant import functions
-(i.e., <code><a href="../reference/readMWRresults.html">readMWRresults()</a></code>, <code><a href="../reference/readMWRacc.html">readMWRacc()</a></code>,
-<code><a href="../reference/readMWRfrecom.html">readMWRfrecom()</a></code>, <code><a href="../reference/readMWRsites.html">readMWRsites()</a></code>,
-<code><a href="../reference/readMWRwqx.html">readMWRwqx()</a></code>).</p>
+<p>All of the <a href="https://massbays-tech.github.io/MassWateR/articles/qcoverview.html">quality
+control</a>, <a href="https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html">outlier</a>,
+<a href="https://massbays-tech.github.io/MassWateR/articles/analysis.html">analysis</a>,
+and <a href="https://massbays-tech.github.io/MassWateR/articles/wqx.html">wqx</a>
+functions in MassWateR require the inputs described above, depending on
+the function. These are generally passed to each function using the
+appropriate arguments, e.g., <code>res</code> for the surface water
+quality results, <code>acc</code> and <code>frecom</code> for the data
+quality objective files for accuracy, frequency, and completeness,
+<code>sit</code> for the site metadata, and <code>wqx</code> for the wqx
+metadata. The values passed to these functions can be file paths that
+specify the location of the file (either as a full path or relative path
+based on the working directory) or as data frames returned by the
+relevant import functions (i.e., <code><a href="../reference/readMWRresults.html">readMWRresults()</a></code>,
+<code><a href="../reference/readMWRacc.html">readMWRacc()</a></code>, <code><a href="../reference/readMWRfrecom.html">readMWRfrecom()</a></code>,
+<code><a href="../reference/readMWRsites.html">readMWRsites()</a></code>, <code><a href="../reference/readMWRwqx.html">readMWRwqx()</a></code>).</p>
 <p>Because it can be tedious to specify each of the input files in the
 arguments for the MassWateR functions, the <code>fset</code> (file set)
 argument can be used as an alternative method. The <code>fset</code>
