@@ -30,3 +30,8 @@ test_that("Checking error for addwater input", {
   expect_error(anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, warn = FALSE, addwater = 'xyz'))
 })
 
+test_that("Checking missing spatial data", {
+  sitdatchk <- sitdat[-4, ]
+  expect_error(anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdatchk, site = 'ABT-144'))
+})
+

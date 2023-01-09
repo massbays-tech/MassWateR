@@ -1,7 +1,13 @@
-test_that("Checking warning if parameters from acc missing in res", {
-  accdatchk <- readMWRacc(accpth)
+test_that("Checking warning if parameters in res missing from acc", {
+  accdatchk <- readMWRacc(accpth, runchk = F, warn = F)
   accdatchk <- accdatchk[-9, ]
   expect_warning(qcMWRacc(respth, accdatchk, frecompth, runchk = F))
+})
+
+test_that("Checking warning if parameters in acc missing from res", {
+  resdatchk <- readMWRresults(respth, runchk = F, warn = F)
+  resdatchk <- resdatchk %>% filter(!`Characteristic Name` %in% 'Nitrate')
+  expect_warning(qcMWRacc(resdatchk, accpth, frecompth, runchk = F))
 })
 
 test_that("Checking error if unit mismatch between results and accuracy file", {

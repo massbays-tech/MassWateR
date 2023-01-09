@@ -46,13 +46,15 @@ utilMWRthresh <- function(resdat, param, thresh, threshlab = NULL){
     dplyr::pull(`Result Unit`) %>% 
     unique
   
-  if(param == 'pH' & (is.na(resuni) | resuni == 's.u.'))
-    resuni <- 'blank'
+  if(param == 'pH'){
+    if(is.na(resuni) | resuni == 's.u.')
+      resuni <- 'blank'
+  }
   
   # filter thresholdMWR by param
   out <- thresholdMWR %>% 
     dplyr::filter(`Simple Parameter` == param)
-    
+
   if(nrow(out) == 0)
     return(NULL)
   

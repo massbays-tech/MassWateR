@@ -1,7 +1,13 @@
-test_that("Checking warning if parameters from frecom missing in res", {
-  frecomdatchk <- readMWRfrecom(frecompth)
+test_that("Checking warning if parameters from res missing in frecom", {
+  frecomdatchk <- readMWRfrecom(frecompth, runchk = F, warn = F)
   frecomdatchk <- frecomdatchk[-6, ]
-  expect_warning(qcMWRfre(resdat, frecomdatchk, runchk = F))
+  expect_warning(qcMWRfre(respth, frecomdatchk, runchk = F))
+})
+
+test_that("Checking warning if parameters from frecom missing in res", {
+  resdatchk <- readMWRresults(respth, runchk = F, warn = F)
+  resdatchk <- resdatchk %>% filter(!`Characteristic Name` %in% 'Nitrate')
+  expect_warning(qcMWRfre(resdatchk, frecompth, runchk = F))
 })
 
 test_that("Checking output format", {

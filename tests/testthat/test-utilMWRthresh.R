@@ -16,6 +16,10 @@ test_that("Checking output format none", {
   expect_null(utilMWRthresh(resdat, param = 'TP', thresh = 'none'))
 })
 
+test_that("Checking output format no parameter", {
+  expect_null(utilMWRthresh(resdat, param = 'asdf', thresh = 'marine'))
+})
+
 test_that("Checking error if unit mismatch",{
   
   resdatchk <- resdat %>% 

@@ -97,7 +97,7 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
   chk <- resdatprm %in% accprm
   if(any(!chk) & warn){
     tochk <- resdatprm[!chk]
-    warning('Parameters in results not found in  quality control objectives for accuracy: ', paste(tochk, collapse = ', '), call. = FALSE)
+    warning('Parameters in results not found in quality control objectives for accuracy: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
   
   # parameters for accuracy checks
