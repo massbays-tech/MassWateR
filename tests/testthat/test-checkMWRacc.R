@@ -28,7 +28,7 @@ test_that("Checking for text other than <=, \u2264, <, >=, \u2265, >, \u00b1, %,
 test_that("Checking missing entries in uom", {
   chk <- accdat
   chk[5, 2] <- NA
-  chk[21, 2] <- NA
+  chk[8, 2] <- NA
   chk[2, 2] <- NA # pH, will not trigger
   expect_error(checkMWRacc(chk))
 })

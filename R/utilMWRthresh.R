@@ -36,6 +36,10 @@ utilMWRthresh <- function(resdat, param, thresh, threshlab = NULL){
   if(thresh == 'none')
     return(NULL)
 
+  # applies only to Field Msr/Obs and Sample-Routine
+  resdat <- resdat %>% 
+    filter(`Activity Type` %in% c('Field Msr/Obs', 'Sample-Routine'))  
+  
   # get resdat units
   resuni <- resdat %>% 
     dplyr::filter(`Characteristic Name` %in% param) %>% 

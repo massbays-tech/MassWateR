@@ -14,15 +14,13 @@ test_that("Checking output format jittered barplot, log scale", {
 })
 
 test_that("Checking output format jittered boxplot, byresultatt", {
-  result <- anlzMWRsite(res = resdat, param = 'E.coli', acc = accdat, thresh = "fresh", type = 'jitterbox', 
-                        site = c('ABT-077', 'ABT-162', 'CND-009', 'CND-110', 'HBS-016', 'HBS-031'),
+  result <- anlzMWRsite(res = resdat, param = 'Ammonia', acc = accdat, thresh = "fresh", type = 'jitterbox', 
                         byresultatt = TRUE)
   expect_s3_class(result, 'ggplot')
 })
 
 test_that("Checking output format jittered barplot, byresultatt", {
-  result <- anlzMWRsite(res = resdat, param = 'E.coli', acc = accdat, thresh = "fresh", type = 'jitterbar', 
-                        site = c('ABT-077', 'ABT-162', 'CND-009', 'CND-110', 'HBS-016', 'HBS-031'),
-                        byresultatt = TRUE, confint = TRUE, resultatt = c('Dry', 'Wet'))
+  result <- anlzMWRsite(res = resdat, param = 'Ammonia', acc = accdat, thresh = "fresh", type = 'jitterbar', 
+                        byresultatt = TRUE, confint = TRUE, resultatt = c('DRY', 'WET'))
   expect_s3_class(result, 'ggplot')
 })

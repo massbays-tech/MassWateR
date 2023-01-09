@@ -54,52 +54,52 @@ test_that("Checking Activity Relative Depth Name entries", {
   chk <- resdat
   chk[6, 7] <- 'Surf'
   chk[387, 7] <- 'nearbottom'
-  expect_warning(expect_warning(checkMWRresults(chk)))
+  expect_warning(checkMWRresults(chk))
 })
 
 test_that("Checking correct Characteristic Names", {
   chk <- resdat
   chk[12, 8] <- 'chla'
   chk[200, 8] <- 'chla'
-  chk[2500, 8] <- 'nitrogne'
-  expect_warning(expect_warning(checkMWRresults(chk)))
+  chk[500, 8] <- 'nitrogne'
+  expect_warning(checkMWRresults(chk))
 })
 
 test_that("Checking entries in Result Value", {
   chk <- resdat
   chk[23, 9] <- '1.a09'
-  chk[1103, 9] <- 'MDL'
-  chk[1204, 9] <- 'MDL'
-  expect_error(suppressWarnings(checkMWRresults(chk)))
+  chk[200, 9] <- 'MDL'
+  chk[250, 9] <- 'MDL'
+  expect_error(checkMWRresults(chk))
 })
 
 test_that("Checking entries in QC Reference Value", {
   chk <- resdat
   chk[27, 12] <- 'a.23'
-  chk[1099, 12] <- 'MDL'
-  chk[1333, 12] <- 'MDL'
-  expect_error(suppressWarnings(checkMWRresults(chk)))
+  chk[200, 12] <- 'MDL'
+  chk[250, 12] <- 'MDL'
+  expect_error(checkMWRresults(chk))
 })
 
 test_that("Checking missing entries in Result Unit", {
   chk <- resdat
   chk[25, 10] <- NA
-  chk[1244, 10] <- NA
+  chk[200, 10] <- NA
   chk[78, 10] <- NA # pH, will not trigger
-  expect_error(suppressWarnings(checkMWRresults(chk)))
+  expect_error(checkMWRresults(chk))
 })
 
 test_that("Checking more than one unit type per parameter in Characteristic Name", {
   chk <- resdat
   chk[13, 10] <- 'F'
-  expect_error(suppressWarnings(checkMWRresults(chk)))
+  expect_error(checkMWRresults(chk))
 })
 
 test_that("Checking incorrect unit type per parameter in Characteristic Name", {
   chk <- resdat
   chk[chk$`Characteristic Name` == 'Chl a', 10] <- 'micrograms/L'
   chk[chk$`Characteristic Name` == 'TP', 10] <- 'mg/L'
-  expect_error(suppressWarnings(checkMWRresults(chk)))
+  expect_error(checkMWRresults(chk))
 })
 
 test_that("Checking tests if all Characteristic Name is correct", {

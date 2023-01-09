@@ -121,7 +121,7 @@ anlzMWRseason(res = resdat, param = 'DO', acc = accdat, thresh = 'fresh', group 
 
 # seasonal trends by month, May to July only
 anlzMWRseason(res = resdat, param = 'DO', acc = accdat, thresh = 'fresh', group = 'month', 
-     type = 'bar', dtrng = c('2021-05-01', '2021-07-31'))
+     type = 'bar', dtrng = c('2022-05-01', '2022-07-31'))
      
 # seasonal trends by month, barplot
 anlzMWRseason(res = resdat, param = 'DO', acc = accdat, thresh = 'fresh', group = 'month', 
@@ -133,5 +133,5 @@ anlzMWRseason(res = resdat, param = 'DO', acc = accdat, thresh = 'fresh', group 
      
 # seasonal trends by location group, requires sitdat
 anlzMWRseason(res = resdat, param = 'DO', acc = accdat, sit = sitdat, thresh = 'fresh', 
-     group = 'month', type = 'box', locgroup = 'Concord')
+     group = 'month', type = 'box', locgroup = 'Assabet')
 }

@@ -69,7 +69,7 @@
 #' 
 #' # seasonal trends by month, May to July only
 #' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, thresh = 'fresh', group = 'month', 
-#'      type = 'bar', dtrng = c('2021-05-01', '2021-07-31'))
+#'      type = 'bar', dtrng = c('2022-05-01', '2022-07-31'))
 #'      
 #' # seasonal trends by month, barplot
 #' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, thresh = 'fresh', group = 'month', 
@@ -81,7 +81,7 @@
 #'      
 #' # seasonal trends by location group, requires sitdat
 #' anlzMWRseason(res = resdat, param = 'DO', acc = accdat, sit = sitdat, thresh = 'fresh', 
-#'      group = 'month', type = 'box', locgroup = 'Concord')
+#'      group = 'month', type = 'box', locgroup = 'Assabet')
 anlzMWRseason <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, thresh, group = c('month', 'week'), type = c('box', 'jitterbox', 'bar', 'jitterbar', 'jitter'), threshlab = NULL, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, confint = FALSE, fill = 'lightblue', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), ttlsize = 1.2, runchk = TRUE, warn = TRUE){
 
   # remove site from input list check because optional

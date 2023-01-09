@@ -27,17 +27,17 @@
 #' sitdat <- readMWRsites(sitpth)
 #' 
 #' # filter by date
-#' utilMWRfilter(resdat, param = 'DO', dtrng = c('2021-06-01', '2021-06-30'))
+#' utilMWRfilter(resdat, param = 'DO', dtrng = c('2022-06-01', '2022-06-30'))
 #' 
 #' # filter by site
 #' utilMWRfilter(resdat, param = 'DO', site = c('ABT-026', 'ABT-062', 'ABT-077'))
 #' 
 #' # filter by result attribute
-#' utilMWRfilter(resdat, param = 'E.coli', resultatt = 'Dry')
+#' utilMWRfilter(resdat, param = 'DO', resultatt = 'DRY')
 #' 
 #' # filter by location group
 #' utilMWRfilter(resdat, param = 'DO', sitdat = sitdat, 
-#'      locgroup = c('Concord', 'Headwater & Tribs'), dtrng = c('2021-06-01', '2021-06-30'))
+#'      locgroup = 'Assabet', dtrng = c('2022-06-01', '2022-06-30'))
 utilMWRfilter <- function(resdat, sitdat = NULL, param, dtrng = NULL, site = NULL, resultatt = NULL, locgroup = NULL, alllocgroup = FALSE, allresultatt = FALSE){
   
   resdat <- resdat %>% 

@@ -98,7 +98,7 @@ anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'site')
 
 # outliers by site, May through July 2021 only
 anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'site', 
-     dtrng = c('2021-05-01', '2021-07-31'))
+     dtrng = c('2022-05-01', '2022-07-31'))
 
 # outliers by month, type as jitterbox
 anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month', type = 'jitterbox')

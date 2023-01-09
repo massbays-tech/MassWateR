@@ -30,7 +30,11 @@
 utilMWRlimits <- function(resdat, param, accdat, warn = TRUE){
   
   colsym <- c('<=', '<', '>=', '>', '\u00b1', '\u2265', '\u2264', '%', 'AQL', 'BDL', 'log', 'all')
-    
+  
+  # applies only to Field Msr/Obs and Sample-Routine
+  resdat <- resdat %>% 
+    filter(`Activity Type` %in% c('Field Msr/Obs', 'Sample-Routine'))  
+  
   # check if parameter in accdat, warn if TRUE, then convert to numeric and exit
   chk <- !param %in% accdat$Parameter
   if(chk){

@@ -108,13 +108,13 @@ anlzMWRseason(res = resdat, param = "E.coli", acc = accdat, thresh = "fresh", gr
 Results can also be filtered by dates using the `dtrng` argument. The date format must be `YYYY-MM-DD` and include two entries. 
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRseason(res = resdat, param = "E.coli", acc = accdat, thresh = "fresh", group = "month", type = "bar", dtrng = c("2021-05-01", "2021-07-31"))
+anlzMWRseason(res = resdat, param = "E.coli", acc = accdat, thresh = "fresh", group = "month", type = "bar", dtrng = c("2022-05-01", "2022-07-31"))
 ```
 
 Finally, the results can be filtered by sites, result attributes, and location groups using the `site`, `resultatt`, and `locgroup` arguments. These options will filter the results data based on values in the `Monitoring Location ID` and `Result Attribute` columns in the results file and by the `Location Group` column in the site metadata file, which must be provided to the `sit` argument if `locgroup` is used.  
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRseason(res = resdat, param = "E.coli", acc = accdat, sit = sitdat, thresh = "fresh", group = "month", site = "ABT-077", resultatt = "Dry", locgroup = "Lower Assabet")
+anlzMWRseason(res = resdat, param = "DO", acc = accdat, sit = sitdat, thresh = "fresh", group = "month", site = "ABT-077", resultatt = "DRY", locgroup = "Assabet")
 ```
 
 ## Analyze trends by date
@@ -162,7 +162,7 @@ Sites can be averaged across location groups using `group = "locgroup"`.  This o
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'locgroup', 
-      thresh = 'fresh', locgroup = c('Lower Assabet', 'Upper Assabet'))
+      thresh = 'fresh', locgroup = 'Assabet')
 ```
 
 All location groups can be used if the `locgroup` argument is omitted. 
@@ -212,21 +212,21 @@ Setting `type = "jitter"` will show only the jittered points.
 anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "jitter")
 ```
 
-Results can be grouped by entries in the `Result Atribute` column using `byresultatt = TRUE`. For example, sites with E. coli samples can be grouped by `"Dry"` or `"Wet"` conditions.  Filtering by sites first using the `site` argument is advised to reduce the amount of data that are plotted. The grouping can be filtered further by passing appropriate values in the `Result Attribute` column to the `resultatt` argument. Note that specifying result attributes with `resultatt` and setting `byresultatt = FALSE` will filter the plot data by the result attributes but will not plot the results separately. 
+Results can be grouped by entries in the `Result Atribute` column using `byresultatt = TRUE`. For example, sites with DO samples can be grouped by `"DRY"` or `"WET"` conditions.  Filtering by sites first using the `site` argument is advised to reduce the amount of data that are plotted. The grouping can be filtered further by passing appropriate values in the `Result Attribute` column to the `resultatt` argument. Note that specifying result attributes with `resultatt` and setting `byresultatt = FALSE` will filter the plot data by the result attributes but will not plot the results separately. 
 
 ```{r, fig.height = 4, fig.width = 8}
-anlzMWRsite(res = resdat, param = "E.coli", acc = accdat, thresh = "fresh", type = "box", 
-                        site = c("ABT-077", "ABT-162", "CND-009", "CND-110", "HBS-016", "HBS-031"),
-                        resultatt = c('Dry', 'Wet'), byresultatt = TRUE)
+anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "box", 
+                        site = c("ABT-026", "ABT-062", "ABT-077", "ABT-144", "ABT-237", "ABT-301"),
+                        resultatt = c('DRY', 'WET'), byresultatt = TRUE)
 ```
 
 ## Analyze results with maps
 
 The `anlzMWRmap()` function can be used to create a map of summarized results for a selected parameter at each monitoring site.  By default, all dates for the parameter are averaged. Options to filter by site, date range, and result attribute are provided.  Only sites with spatial information in the site metadata file are plotted and a warning is returned for those that do not have this information. The site labels are also plotted next to each point. 
 
-A map of dissolved oxygen averages across all dates can be created as follows. The required inputs are the results data, the data quality objective file for accuracy, and the site metadata file with the site locations. These can be passed to the function with the separate arguments or as a named list using the `fset` argument. The warning message indicates some sites in the results file do not have spatial data in the site metadata file.
+A map of dissolved oxygen averages across all dates can be created as follows. The required inputs are the results data, the data quality objective file for accuracy, and the site metadata file with the site locations. These can be passed to the function with the separate arguments or as a named list using the `fset` argument.
 
-```{r, fig.height = 7, fig.width = 6}
+```{r, fig.height = 6, fig.width = 6}
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "medium")
 ```
 
@@ -234,37 +234,37 @@ By default, lines and polygons of natural water bodies defined using the Nationa
 
 Water body detail as low: 
 
-```{r, fig.height = 7, fig.width = 6}
+```{r, fig.height = 6, fig.width = 6}
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "low", warn = F)
 ```
 
 Water body detail as high: 
 
-```{r, fig.height = 7, fig.width = 6}
+```{r, fig.height = 6, fig.width = 6}
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "high", warn = F)
 ```
 
 A north arrow, scale bar, and labels are also plotted.  These can be suppressed by setting the appropriate arguments to `NULL`.
 
-```{r, fig.height = 7, fig.width = 6}
+```{r, fig.height = 6, fig.width = 6}
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, northloc = NULL, scaleloc = NULL, labsize = NULL, warn = F)
 ```
 
 Locations of the north arrow and scale bar can be changed with the same arguments by specifying `"tl"`, `"tr"`, `"bl"`, or `"br"` for top-left, top-right, bottom-left, or bottom-right. 
 
-```{r, fig.height = 7, fig.width = 6}
+```{r, fig.height = 6, fig.width = 6}
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, northloc = "br", scaleloc = "tl", warn = F)
 ```
 
 The latitude and longitude text on the plot axes can be suppressed using `latlon = FALSE`.
 
-```{r, fig.height = 7, fig.width = 6}
+```{r, fig.height = 6, fig.width = 6}
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, latlon = F, warn = F)
 ```
 
 The color palette for the average values can also be changed.  Any palette from [RColorBrewer](https://r-graph-gallery.com/38-rcolorbrewers-palettes.html){target="_blank"} can be used. These could include any of the sequential color palettes, e.g., `"Greens"`, `"Blues"`, etc.  The diverging and qualitative palettes will also work, but may return uninterpretable color scales. In the following example, the diverging `"Spectral"` palette is used. 
 
-```{r, fig.height = 7, fig.width = 6}
+```{r, fig.height = 6, fig.width = 6}
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, palcol = "Spectral", warn = F)
 ```
 
@@ -278,36 +278,36 @@ A base map can be included as well using the `maptype` argument. Options include
 
 A `"terrain"` base map: 
 
-```{r, fig.height = 7, fig.width = 6}
+```{r, fig.height = 6, fig.width = 6}
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "terrain", warn = F, addwater = NULL)
 ```
 
 A `"terrain-lines"` base map: 
 
-```{r, fig.height = 7, fig.width = 6}
+```{r, fig.height = 6, fig.width = 6}
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "terrain-lines", warn = F, addwater = NULL)
 ```
 
 A `"toner"` base map:
 
-```{r, fig.height = 7, fig.width = 6}
+```{r, fig.height = 6, fig.width = 6}
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "toner", warn = F, addwater = NULL)
 ```
 
 A `"toner-labels"` base map:
 
-```{r, fig.height = 7, fig.width = 6}
+```{r, fig.height = 6, fig.width = 6}
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "toner-labels", warn = F, addwater = NULL)
 ```
 
 A `"watercolor"` base map:
 
-```{r, fig.height = 7, fig.width = 6}
+```{r, fig.height = 6, fig.width = 6}
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "watercolor", warn = F, addwater = NULL)
 ```
 
 A map with no base map or water bodies:
 
-```{r, fig.height = 7, fig.width = 6}
+```{r, fig.height = 6, fig.width = 6}
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = NULL, warn = F, addwater = NULL)
 ```

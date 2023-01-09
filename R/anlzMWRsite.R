@@ -67,16 +67,15 @@
 #' 
 #' # site trends, May to July only
 #' anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'box', thresh = 'fresh',
-#'      dtrng = c('2021-05-01', '2021-07-31'))
+#'      dtrng = c('2022-05-01', '2022-07-31'))
 #'      
 #' # grouping by result attribute
-#' anlzMWRsite(res = resdat, param = 'E.coli', acc = accdat, type = 'box', thresh = 'fresh',
-#'      site = c('ABT-077', 'ABT-162', 'CND-009', 'CND-110', 'HBS-016', 'HBS-031'),
-#'      byresultatt = TRUE)
+#' anlzMWRsite(res = resdat, param = 'DO', acc = accdat, type = 'box', thresh = 'fresh',
+#'      site = c('ABT-062', 'ABT-077'), byresultatt = TRUE)
 #'      
 #' # site trends by location group, requires sitdat
 #' anlzMWRsite(res = resdat, param = 'DO', acc = accdat, sit = sitdat, type = 'box', 
-#'      thresh = 'fresh', locgroup = 'Concord')
+#'      thresh = 'fresh', locgroup = 'Assabet')
 #'      
 anlzMWRsite <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, type = c('box', 'jitterbox', 'bar', 'jitterbar', 'jitter'), thresh, threshlab = NULL, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, confint = FALSE, fill = 'lightgreen', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), byresultatt = FALSE, ttlsize =  1.2, runchk = TRUE, warn = TRUE){
   

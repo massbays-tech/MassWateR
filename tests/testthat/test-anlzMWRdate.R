@@ -20,7 +20,7 @@ test_that("Checking output format group as all, log scale", {
 
 test_that("Checking output format group as location", {
   result <- anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'locgroup', 
-                        thresh = 'fresh', locgroup = c('Lower Assabet', 'Upper Assabet'), confint = TRUE)
+                        thresh = 'fresh', locgroup = c('Assabet', 'Tributaries'), confint = TRUE)
   expect_s3_class(result, 'ggplot')
 })
 
@@ -32,14 +32,14 @@ test_that("Checking output format group as location no location group specified"
 
 test_that("Checking output format group as location, repel = FALSE", {
   result <- anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'locgroup', 
-                        thresh = 'fresh', locgroup = c('Lower Assabet', 'Upper Assabet'), repel = F)
+                        thresh = 'fresh', locgroup = c('Assabet', 'Tributaries'), repel = F)
   expect_s3_class(result, 'ggplot')
 })
 
 test_that("Checking palcol error and locgroup < 3", {
   expect_error(anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, palcol = 'asdf', 
                         group = 'locgroup', thresh = 'fresh', 
-                        locgroup = c('Lower Assabet', 'Upper Assabet'), repel = F))
+                        locgroup = c('Assabet', 'Tributaries'), repel = F))
 })
 
 test_that("Checking palcol error and site < 3", {

@@ -26,7 +26,7 @@ test_that("Checking values outside of 0 - 100", {
 
 test_that("Checking correct Parameters", {
   chk <- frecomdat
-  chk[11, 1] <- 'chla'
+  chk[4, 1] <- 'chla'
   chk[7, 1] <- 'ortho-p'
   expect_error(checkMWRfrecom(chk))
 })

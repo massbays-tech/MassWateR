@@ -13,7 +13,7 @@ test_that("Checking required column names are present", {
 test_that("Checking missing latitude or longitude", {
   chk <- sitdat
   chk$`Monitoring Location Longitude`[5] <- NA
-  chk$`Monitoring Location Latitude`[c(5, 6, 12)] <- NA
+  chk$`Monitoring Location Latitude`[c(5, 6, 11)] <- NA
   expect_error(checkMWRsites(chk))
 })
 
@@ -21,29 +21,29 @@ test_that("Checking non-numeric latitude", {
   chk <- sitdat
   chk$`Monitoring Location Latitude`[5] <- 'a'
   chk$`Monitoring Location Latitude`[6] <- 'b'
-  chk$`Monitoring Location Latitude`[12] <- 'a'
+  chk$`Monitoring Location Latitude`[11] <- 'a'
   expect_error(checkMWRsites(chk))
 })
 
 test_that("Checking non-numeric longitude", {
   chk <- sitdat
   chk$`Monitoring Location Longitude`[4] <- 'a'
-  chk$`Monitoring Location Longitude`[12] <- 'b'
-  chk$`Monitoring Location Longitude`[22] <- 'a'
+  chk$`Monitoring Location Longitude`[6] <- 'b'
+  chk$`Monitoring Location Longitude`[11] <- 'a'
   expect_error(checkMWRsites(chk))
 })
 
 test_that("Checking positive values in longitude", {
   chk <- sitdat
-  chk$`Monitoring Location Longitude`[34] <- 72
-  chk$`Monitoring Location Longitude`[25] <- 72
-  chk$`Monitoring Location Longitude`[35] <- 73
+  chk$`Monitoring Location Longitude`[5] <- 72
+  chk$`Monitoring Location Longitude`[6] <- 72
+  chk$`Monitoring Location Longitude`[11] <- 73
   expect_error(checkMWRsites(chk))
 })
 
 test_that("Checking missing locatoin id", {
   chk <- sitdat
-  chk$`Monitoring Location ID`[34] <- NA
-  chk$`Monitoring Location ID`[42] <- NA
+  chk$`Monitoring Location ID`[4] <- NA
+  chk$`Monitoring Location ID`[7] <- NA
   expect_error(checkMWRsites(chk))
 })

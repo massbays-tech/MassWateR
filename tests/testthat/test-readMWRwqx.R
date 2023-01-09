@@ -5,5 +5,5 @@ test_that("Checking readMWRwqz output format", {
 
 test_that("Checking row length from readMWRwqx", {
   result <- suppressWarnings(nrow(readMWRwqx(wqxpth)))
-  expect_equal(result, 5)
+  expect_equal(result, 8)
 })
