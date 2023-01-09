@@ -119,9 +119,7 @@ are imported here to demonstrate how to use the analysis functions:</p>
 <span><span class="co">#&gt;  Checking for non-numeric values in Activity Depth/Height Measure... OK</span></span>
 <span><span class="co">#&gt;  Checking Activity Depth/Height Unit... OK</span></span>
 <span><span class="co">#&gt;  Checking Activity Relative Depth Name formats... OK</span></span>
-<span><span class="co">#&gt; Warning:     Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft...</span></span>
-<span><span class="co">#&gt;  Bottom values found in Activity Relative Depth Name on row(s): 1499, 1500, 1501</span></span>
-<span><span class="co">#&gt;  Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft... WARNING</span></span>
+<span><span class="co">#&gt;  Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft... OK</span></span>
 <span><span class="co">#&gt;  Checking Characteristic Name formats... OK</span></span>
 <span><span class="co">#&gt;  Checking Result Values... OK</span></span>
 <span><span class="co">#&gt;  Checking QC Reference Values... OK</span></span>
@@ -129,7 +127,7 @@ are imported here to demonstrate how to use the analysis functions:</p>
 <span><span class="co">#&gt;  Checking if more than one unit per Characteristic Name... OK</span></span>
 <span><span class="co">#&gt;  Checking acceptable units for each entry in Characteristic Name... OK</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; All checks passed (1 WARNING(s))!</span></span>
+<span><span class="co">#&gt; All checks passed!</span></span>
 <span></span>
 <span><span class="co"># import accuracy data</span></span>
 <span><span class="va">accpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleDQOAccuracy.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
@@ -268,7 +266,7 @@ log-scaling if <code>type = "bar"</code>.</p>
 argument. The date format must be <code>YYYY-MM-DD</code> and include
 two entries.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"E.coli"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"month"</span>, type <span class="op">=</span> <span class="st">"bar"</span>, dtrng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2021-05-01"</span>, <span class="st">"2021-07-31"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"E.coli"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"month"</span>, type <span class="op">=</span> <span class="st">"bar"</span>, dtrng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2022-05-01"</span>, <span class="st">"2022-07-31"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysis_files/figure-html/unnamed-chunk-14-1.png" width="768"></p>
 <p>Finally, the results can be filtered by sites, result attributes, and
 location groups using the <code>site</code>, <code>resultatt</code>, and
@@ -279,7 +277,7 @@ data based on values in the <code>Monitoring Location ID</code> and
 be provided to the <code>sit</code> argument if <code>locgroup</code> is
 used.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"E.coli"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"month"</span>, site <span class="op">=</span> <span class="st">"ABT-077"</span>, resultatt <span class="op">=</span> <span class="st">"Dry"</span>, locgroup <span class="op">=</span> <span class="st">"Lower Assabet"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"month"</span>, site <span class="op">=</span> <span class="st">"ABT-077"</span>, resultatt <span class="op">=</span> <span class="st">"DRY"</span>, locgroup <span class="op">=</span> <span class="st">"Assabet"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysis_files/figure-html/unnamed-chunk-15-1.png" width="768"></p>
 </div>
 <div class="section level2">
@@ -347,7 +345,7 @@ match values in the <code>Location Group</code> column of the site
 metadata file.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRdate.html">anlzMWRdate</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, group <span class="op">=</span> <span class="st">'locgroup'</span>, </span>
-<span>      thresh <span class="op">=</span> <span class="st">'fresh'</span>, locgroup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Lower Assabet'</span>, <span class="st">'Upper Assabet'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>      thresh <span class="op">=</span> <span class="st">'fresh'</span>, locgroup <span class="op">=</span> <span class="st">'Assabet'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysis_files/figure-html/unnamed-chunk-22-1.png" width="768"></p>
 <p>All location groups can be used if the <code>locgroup</code> argument
 is omitted.</p>
@@ -401,8 +399,8 @@ points.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRsite.html">anlzMWRsite</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, type <span class="op">=</span> <span class="st">"jitter"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysis_files/figure-html/unnamed-chunk-29-1.png" width="768"></p>
 <p>Results can be grouped by entries in the <code>Result Atribute</code>
-column using <code>byresultatt = TRUE</code>. For example, sites with E.
-coli samples can be grouped by <code>"Dry"</code> or <code>"Wet"</code>
+column using <code>byresultatt = TRUE</code>. For example, sites with DO
+samples can be grouped by <code>"DRY"</code> or <code>"WET"</code>
 conditions. Filtering by sites first using the <code>site</code>
 argument is advised to reduce the amount of data that are plotted. The
 grouping can be filtered further by passing appropriate values in the
@@ -412,9 +410,9 @@ argument. Note that specifying result attributes with
 filter the plot data by the result attributes but will not plot the
 results separately.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRsite.html">anlzMWRsite</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"E.coli"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, type <span class="op">=</span> <span class="st">"box"</span>, </span>
-<span>                        site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ABT-077"</span>, <span class="st">"ABT-162"</span>, <span class="st">"CND-009"</span>, <span class="st">"CND-110"</span>, <span class="st">"HBS-016"</span>, <span class="st">"HBS-031"</span><span class="op">)</span>,</span>
-<span>                        resultatt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Dry'</span>, <span class="st">'Wet'</span><span class="op">)</span>, byresultatt <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRsite.html">anlzMWRsite</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, type <span class="op">=</span> <span class="st">"box"</span>, </span>
+<span>                        site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ABT-026"</span>, <span class="st">"ABT-062"</span>, <span class="st">"ABT-077"</span>, <span class="st">"ABT-144"</span>, <span class="st">"ABT-237"</span>, <span class="st">"ABT-301"</span><span class="op">)</span>,</span>
+<span>                        resultatt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'DRY'</span>, <span class="st">'WET'</span><span class="op">)</span>, byresultatt <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysis_files/figure-html/unnamed-chunk-30-1.png" width="768"></p>
 </div>
 <div class="section level2">
@@ -431,14 +429,9 @@ are also plotted next to each point.</p>
 follows. The required inputs are the results data, the data quality
 objective file for accuracy, and the site metadata file with the site
 locations. These can be passed to the function with the separate
-arguments or as a named list using the <code>fset</code> argument. The
-warning message indicates some sites in the results file do not have
-spatial data in the site metadata file.</p>
+arguments or as a named list using the <code>fset</code> argument.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, addwater <span class="op">=</span> <span class="st">"medium"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, :</span></span>
-<span><span class="co">#&gt; No spatial information for sites: CND-036, HBS-031, HBS-057, HBS-057P, HBS-076,</span></span>
-<span><span class="co">#&gt; HBS-080P, HBS-085, HBS-088P, HBS-095P, HBS-098, LND-007, SUD-236, SUD-293</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, addwater <span class="op">=</span> <span class="st">"medium"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysis_files/figure-html/unnamed-chunk-31-1.png" width="576"></p>
 <p>By default, lines and polygons of natural water bodies defined using
 the National Hydrography Dataset (NHD) are plotted. Using

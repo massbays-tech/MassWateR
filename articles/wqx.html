@@ -118,9 +118,7 @@ use the analysis functions:</p>
 <span><span class="co">#&gt;  Checking for non-numeric values in Activity Depth/Height Measure... OK</span></span>
 <span><span class="co">#&gt;  Checking Activity Depth/Height Unit... OK</span></span>
 <span><span class="co">#&gt;  Checking Activity Relative Depth Name formats... OK</span></span>
-<span><span class="co">#&gt; Warning:     Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft...</span></span>
-<span><span class="co">#&gt;  Bottom values found in Activity Relative Depth Name on row(s): 1499, 1500, 1501</span></span>
-<span><span class="co">#&gt;  Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft... WARNING</span></span>
+<span><span class="co">#&gt;  Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft... OK</span></span>
 <span><span class="co">#&gt;  Checking Characteristic Name formats... OK</span></span>
 <span><span class="co">#&gt;  Checking Result Values... OK</span></span>
 <span><span class="co">#&gt;  Checking QC Reference Values... OK</span></span>
@@ -128,7 +126,7 @@ use the analysis functions:</p>
 <span><span class="co">#&gt;  Checking if more than one unit per Characteristic Name... OK</span></span>
 <span><span class="co">#&gt;  Checking acceptable units for each entry in Characteristic Name... OK</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; All checks passed (1 WARNING(s))!</span></span>
+<span><span class="co">#&gt; All checks passed!</span></span>
 <span></span>
 <span><span class="co"># import accuracy data</span></span>
 <span><span class="va">accpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleDQOAccuracy.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
@@ -203,10 +201,7 @@ returned. The Excel file can be further edited by hand as needed.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tabMWRwqx.html">tabMWRwqx</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, wqx <span class="op">=</span> <span class="va">wqxdat</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in tabMWRwqx(res = resdat, acc = accdat, sit = sitdat, wqx = wqxdat, :</span></span>
-<span><span class="co">#&gt; No spatial information for sites in the Locations tab: CND-036, HBS-031,</span></span>
-<span><span class="co">#&gt; HBS-040, HBS-057, HBS-057P, HBS-076, HBS-080P, HBS-085, HBS-088P, HBS-095,</span></span>
-<span><span class="co">#&gt; HBS-095P, HBS-098, LND-007, RME-003, RME-020, RVM-001, RVM-0015, RVM-002,</span></span>
-<span><span class="co">#&gt; RVM-004, RVM-008, RVM-012, RVM-022, RVM-027, SUD-236, SUD-293</span></span>
+<span><span class="co">#&gt; No spatial information for sites in the Locations tab: ABT-162</span></span>
 <span><span class="co">#&gt; Excel workbook created successfully! File located at /home/runner/work/MassWateR/MassWateR/vignettes/wqxtab.xlsx</span></span></code></pre></div>
 <p>As a convenience, the input files can also be passed to the
 <code><a href="../reference/tabMWRwqx.html">tabMWRwqx()</a></code> function as a named list using the

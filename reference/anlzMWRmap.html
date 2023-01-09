@@ -234,9 +234,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in Activity Depth/Height Measure... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Depth/Height Unit... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Relative Depth Name formats... OK</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>	Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft...</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> 	Bottom values found in Activity Relative Depth Name on row(s): 1499, 1500, 1501</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft... WARNING</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Characteristic Name formats... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Result Values... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking QC Reference Values... OK</span>
@@ -244,7 +242,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit per Characteristic Name... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking acceptable units for each entry in Characteristic Name... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed (1 WARNING(s))!</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># accuracy path</span></span></span>
 <span class="r-in"><span><span class="va">accpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOAccuracy.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span></span>
@@ -282,7 +280,6 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># map with NHD water bodies</span></span></span>
 <span class="r-in"><span><span class="fu">anlzMWRmap</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, addwater <span class="op">=</span> <span class="st">"medium"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>No spatial information for sites: CND-036, HBS-031, HBS-057, HBS-057P, HBS-076, HBS-080P, HBS-085, HBS-088P, HBS-095P, HBS-098, LND-007, SUD-236, SUD-293</span>
 <span class="r-plt img"><img src="anlzMWRmap-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
