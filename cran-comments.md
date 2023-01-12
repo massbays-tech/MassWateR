@@ -15,12 +15,6 @@ Maintainer: 'Marcus Beck <mbeck@tbep.org>'
 New submission
 
 Found the following (possibly) invalid URLs:
-  URL: https://cran.rstudio.com/bin/windows/Rtools/
-    From: inst/doc/MassWateR.html
-          README.md
-    Status: 200
-    Message: OK
-    CRAN URL not in canonical form
   URL: https://massbays-tech.github.io/MassWateR (moved to https://massbays-tech.github.io/MassWateR/)
     From: DESCRIPTION
     Status: 200
@@ -30,7 +24,6 @@ Found the following (possibly) invalid URLs:
           README.md
     Status: 403
     Message: Forbidden
-  Canonical CRAN.R-project.org URLs use https.
 
 The URLs are valid.
 

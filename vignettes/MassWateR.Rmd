@@ -29,7 +29,7 @@ The objective of the package is to automate and facilitate quality control and e
 knitr::include_graphics("workflow.PNG")
 ```
 
-In addition to the content on this web page, the MassWateR Community of Practice forum is a space for users to find help, share ideas, and suggest improvements for the package.  Please access <link target="_blank" href="https://massbays.discourse.group/c/masswater-r-tools/5"> to register and login to the forum.
+In addition to the content on this web page, the MassWateR Community of Practice forum is a space for users to find help, share ideas, and suggest improvements for the package.  Please follow the <a href="https://massbays.discourse.group/c/masswater-r-tools/5" target="_blank">link</a> to register and login to the forum.
 
 Instructions on installing R and Rstudio can be found [here](https://massbays-tech.github.io/intro-to-r/setup.html){target="_blank"} and on the [Resources](https://massbays-tech.github.io/MassWateR/RESOURCES.html) tab. 
 
@@ -45,10 +45,10 @@ install.packages("MassWateR")
 Windows PC users may encounter the following warning when installing MassWateR.
 
 ```r
-WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding: https://cran.rstudio.com/bin/windows/Rtools/
+WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding: https://cran.r-project.org/bin/windows/Rtools/
 ```
 
-This warning can be ignored.  If desired, RTools can be obtained following the instructions [here](https://cran.rstudio.com/bin/windows/Rtools/){target="_blank"}.
+This warning can be ignored.  If desired, RTools can be obtained following the instructions <a rel="canonical" href="https://cran.r-project.org/bin/windows/Rtools/" target="_blank">here</a>.
 
 Load the package in an R session after installation:
 
