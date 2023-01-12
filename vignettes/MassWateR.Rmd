@@ -29,7 +29,7 @@ The objective of the package is to automate and facilitate quality control and e
 knitr::include_graphics("workflow.PNG")
 ```
 
-In addition to the content on this web page, the MassWateR Community of Practice forum is a space for users to find help, share ideas, and suggest improvements for the package.  Please follow the [link](https://massbays.discourse.group/c/masswater-r-tools/5){target="_blank"} to register and login to the forum.
+In addition to the content on this web page, the MassWateR Community of Practice forum is a space for users to find help, share ideas, and suggest improvements for the package.  Please access <link target="_blank" href="https://massbays.discourse.group/c/masswater-r-tools/5"> to register and login to the forum.
 
 Instructions on installing R and Rstudio can be found [here](https://massbays-tech.github.io/intro-to-r/setup.html){target="_blank"} and on the [Resources](https://massbays-tech.github.io/MassWateR/RESOURCES.html) tab. 
 
@@ -38,11 +38,6 @@ Instructions on installing R and Rstudio can be found [here](https://massbays-te
 Install the package as follows:
 
 ```{r, eval = F}
-# Enable universe(s) by massbays-tech
-options(repos = c(
-  massbaystech = "https://massbays-tech.r-universe.dev",
-  CRAN = "https://cloud.r-project.org"))
-
 # Install the package
 install.packages("MassWateR")
 ```

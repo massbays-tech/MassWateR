@@ -14,11 +14,6 @@ R package for working with Massachusetts surface water quality data, created in 
 The package can be installed as follows:
 
 ``` r
-# Enable universe(s) by massbays-tech
-options(repos = c(
-  massbaystech = "https://massbays-tech.r-universe.dev",
-  CRAN = "https://cloud.r-project.org"))
-
 # Install the package
 install.packages("MassWateR")
 ```
