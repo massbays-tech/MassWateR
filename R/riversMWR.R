@@ -4,16 +4,17 @@
 #' 
 #' @format A simple features object of linestring geometries with one attribute called \code{dLevel} specifying the level of detail.
 #' 
-#' @details All geometries are simplified using a tolerance of ten meters. 
+#' @details All geometries are simplified using a tolerance of 100 meters. 
 #' 
 #' @examples 
 #' \dontrun{
 #' library(sf)
 #' library(dplyr)
 #' 
-#' riversMWR <- st_read('~/Desktop/NHD/NHDArea_noattr.shp') %>% 
+#' riversMWR <- st_read('~/Desktop/NHD_MA/NHDArea_noattr.shp') %>% 
 #'  st_make_valid() %>% 
-#'  st_simplify(dTolerance = 10, preserveTopology = TRUE) %>% 
+#'  st_simplify(dTolerance = 50, preserveTopology = TRUE) %>% 
+#'  st_make_valid() %>% 
 #'  select(dLevel)
 #' 
 #' save(riversMWR, file = 'data/riversMWR.RData', compress = 'xz')
