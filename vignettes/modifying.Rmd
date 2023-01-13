@@ -150,6 +150,7 @@ anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = 'h
   geom_sf(data = sudburyMWR)
 ```
 ```{r, fig.height = 7, fig.width = 7, echo = F, warning = F, message = F}
+load(file = url('https://github.com/massbays-tech/MassWateRdata/raw/main/data/sudburyMWR.RData'))
 # use geom_sf to add watershed
 anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = 'high') + 
   geom_sf(data = sudburyMWR)

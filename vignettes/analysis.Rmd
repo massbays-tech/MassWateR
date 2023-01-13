@@ -230,7 +230,7 @@ A map of dissolved oxygen averages across all dates can be created as follows. T
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "medium")
 ```
 
-By default, lines and polygons of natural water bodies defined using the National Hydrography Dataset (NHD) are plotted. Using `addwater = "medium"` (default) will plot water bodies at medium detail that are included as data files with the package as `pondsMWR`, `riversMWR`, and `streamsMWR`. The level of detail can be changed to low or high using `addwater = "low"` or `addwater = "high"`, respectively.  Use `addwater = NULL` to not show any water features.
+By default, lines and polygons of natural water bodies defined using the National Hydrography Dataset (NHD) are plotted. Using `addwater = "medium"` (default) will plot water bodies at medium detail. The level of detail can be changed to low or high using `addwater = "low"` or `addwater = "high"`, respectively.  Use `addwater = NULL` to not show any water features.
 
 Water body detail as low: 
 

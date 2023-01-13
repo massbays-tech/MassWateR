@@ -95,8 +95,4 @@ reference:
     Supplementary datasets for the read, quality control, and analysis functions.
   contents:
   - paramsMWR
-  - pondsMWR
-  - riversMWR
-  - streamsMWR
-  - sudburyMWR
   - thresholdMWR
