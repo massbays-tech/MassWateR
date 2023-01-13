@@ -14,7 +14,7 @@ streamsMWR
 A simple features object of streams in Massachusetts
 }
 \details{
-All geometries are simplified using a tolerance of 100 meters.
+All geometries are simplified using a tolerance of 50 meters.
 }
 \examples{
 \dontrun{
@@ -25,7 +25,8 @@ streamsMWR <- st_read('~/Desktop/NHD_MA/NHDFlowline_fcode_46006_vis_101k_noattr.
  st_zm() \%>\% 
  st_simplify(dTolerance = 50, preserveTopology = TRUE) \%>\% 
  st_make_valid() \%>\% 
- select(dLevel)
+ select(dLevel) \%>\% 
+ filter(!dLevel \%in\% 'high')
 
 save(streamsMWR, file = 'data/streamsMWR.RData', compress = 'xz')
 }

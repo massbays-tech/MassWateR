@@ -4,7 +4,7 @@
 #' 
 #' @format A simple features object
 #' 
-#' @details All geometries are simplified using a tolerance of 100 meters. 
+#' @details All geometries are simplified using a tolerance of 50 meters. 
 #' 
 #' @examples 
 #' \dontrun{
@@ -13,9 +13,10 @@
 #' 
 #' pondsMWR <- st_read('~/Desktop/NHD_MA/NHDWaterbody_ftype_390-493_vis_101k_noattr.shp') %>% 
 #'  st_make_valid() %>% 
-#'  st_simplify(dTolerance = 100, preserveTopology = TRUE) %>% 
+#'  st_simplify(dTolerance = 50, preserveTopology = TRUE) %>% 
 #'  st_make_valid() %>% 
-#'  select(dLevel)
+#'  select(dLevel) %>% 
+#'  filter(!dLevel %in% 'high')
 #' 
 #' save(pondsMWR, file = 'data/pondsMWR.RData', compress = 'xz')
 #' }

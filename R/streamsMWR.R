@@ -4,7 +4,7 @@
 #' 
 #' @format A simple features object of linestring geometries with one attribute called \code{dLevel} specifying the level of detail.
 #' 
-#' @details All geometries are simplified using a tolerance of 100 meters. 
+#' @details All geometries are simplified using a tolerance of 50 meters. 
 #"
 #' @examples 
 #' \dontrun{
@@ -15,7 +15,8 @@
 #'  st_zm() %>% 
 #'  st_simplify(dTolerance = 50, preserveTopology = TRUE) %>% 
 #'  st_make_valid() %>% 
-#'  select(dLevel)
+#'  select(dLevel) %>% 
+#'  filter(!dLevel %in% 'high')
 #' 
 #' save(streamsMWR, file = 'data/streamsMWR.RData', compress = 'xz')
 #' }
