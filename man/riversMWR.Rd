@@ -14,7 +14,7 @@ riversMWR
 A simple features object of rivers in Massachusetts
 }
 \details{
-All geometries are simplified using a tolerance of 50 meters.
+All geometries are simplified using a tolerance of 10 meters.
 }
 \examples{
 \dontrun{
@@ -23,10 +23,9 @@ library(dplyr)
 
 riversMWR <- st_read('~/Desktop/NHD_MA/NHDArea_noattr.shp') \%>\% 
  st_make_valid() \%>\% 
- st_simplify(dTolerance = 50, preserveTopology = TRUE) \%>\% 
+ st_simplify(dTolerance = 10, preserveTopology = TRUE) \%>\% 
  st_make_valid() \%>\% 
- select(dLevel) \%>\% 
- filter(!dLevel \%in\% 'high')
+ select(dLevel)
 
 save(riversMWR, file = 'data/riversMWR.RData', compress = 'xz')
 }
