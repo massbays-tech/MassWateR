@@ -436,12 +436,10 @@ arguments or as a named list using the <code>fset</code> argument.</p>
 <p>By default, lines and polygons of natural water bodies defined using
 the National Hydrography Dataset (NHD) are plotted. Using
 <code>addwater = "medium"</code> (default) will plot water bodies at
-medium detail that are included as data files with the package as
-<code>pondsMWR</code>, <code>riversMWR</code>, and
-<code>streamsMWR</code>. The level of detail can be changed to low or
-high using <code>addwater = "low"</code> or
-<code>addwater = "high"</code>, respectively. Use
-<code>addwater = NULL</code> to not show any water features.</p>
+medium detail. The level of detail can be changed to low or high using
+<code>addwater = "low"</code> or <code>addwater = "high"</code>,
+respectively. Use <code>addwater = NULL</code> to not show any water
+features.</p>
 <p>Water body detail as low:</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, addwater <span class="op">=</span> <span class="st">"low"</span>, warn <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
