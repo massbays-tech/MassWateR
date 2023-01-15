@@ -66,10 +66,10 @@
 #' # site data
 #' sitdat <- readMWRsites(sitpth)
 #' 
+#' \dontrun{
 #' # map with NHD water bodies
 #' anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = "medium")
 #'
-#' \dontrun{
 #' # map without water bodies, base map included
 #' anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, maptype = 'terrain', 
 #'   addwater = NULL)

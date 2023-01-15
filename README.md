@@ -38,7 +38,7 @@ Please see the vignette articles for an overview of how to use functions in the 
 * [Modifying plots](https://massbays-tech.github.io/MassWateR/articles/modifying.html): A short tutorial on modifying plots created with MassWateR.
 * [Water Quality Exchange output](https://massbays-tech.github.io/MassWateR/articles/wqx.html): Information on generating output that will facilitate upload of data to the EPA Water Quality Exchange
 
-In addition to the content on this web page, the MassWateR Community of Practice forum is a space for users to find help, share ideas, and suggest improvements for the package.  Please follow the <a href="https://massbays.discourse.group/c/masswater-r-tools/5" target="_blank">link</a> to register and login to the forum.
+In addition to the content on this web page, the MassWateR Community of Practice forum is a space for users to find help, share ideas, and suggest improvements for the package.  Please follow the <a href="https://massbays.discourse.group/login" target="_blank">link</a> to register and login to the forum.
 
 ## Issues and suggestions 
 
