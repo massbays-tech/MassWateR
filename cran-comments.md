@@ -21,12 +21,6 @@ Maintainer: 'Marcus Beck <mbeck@tbep.org>'
 
 New submission
 
-Found the following (possibly) invalid URLs:
-  URL: https://massbays.discourse.group/c/masswater-r-tools/5
-    From: README.md
-    Status: 403
-    Message: Forbidden
-    
 ## Downstream dependencies
 
 None.
