@@ -22,18 +22,11 @@ Maintainer: 'Marcus Beck <mbeck@tbep.org>'
 New submission
 
 Found the following (possibly) invalid URLs:
-  URL: https://massbays-tech.github.io/MassWateR (moved to https://massbays-tech.github.io/MassWateR/)
-    From: DESCRIPTION
-    Status: 200
-    Message: OK
   URL: https://massbays.discourse.group/c/masswater-r-tools/5
-    From: inst/doc/MassWateR.html
-          README.md
+    From: README.md
     Status: 403
     Message: Forbidden
-
-The URLs are valid.
-
+    
 ## Downstream dependencies
 
 None.
