@@ -1,3 +1,10 @@
+## Resubmission
+
+This is a resubmission to fix issues on original CRAN submission, including:
+
+* Fix to invalid URL NOTE 
+* Reduce package size to < 5Mb
+
 ## Test environments
 
 * ubuntu 20.04 (R 4.2.2, R 4.1.3, R devel)
