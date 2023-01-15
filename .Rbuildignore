@@ -13,3 +13,4 @@
 ^vignettes\*\.png$
 ^vignettes\*\.PNG$
 ^vignettes$
+^CRAN-SUBMISSION$
