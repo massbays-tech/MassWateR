@@ -68,7 +68,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">readMWRresultsview</span><span class="op">(</span></span>
 <span>  <span class="va">respth</span>,</span>
 <span>  columns <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  output_dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">output_dir</span>,</span>
 <span>  output_file <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  maxlen <span class="op">=</span> <span class="fl">8</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -85,7 +85,7 @@
 
 
 <dt>output_dir</dt>
-<dd><p>character string of the output directory for the rendered file, defaults to a temporary directory created with <code><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></code></p></dd>
+<dd><p>character string of the output directory for the rendered file</p></dd>
 
 
 <dt>output_file</dt>
@@ -100,7 +100,7 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>Creates a spreadsheet at the location specified by <code>output_dir</code>, defaults to a temporary directory if none specified. Each column shows the unique values.</p>
+<p>Creates a spreadsheet at the location specified by <code>output_dir</code>. Each column shows the unique values.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -114,11 +114,12 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># all columns</span></span></span>
 <span class="r-in"><span><span class="fu">readMWRresultsview</span><span class="op">(</span><span class="va">respth</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> csv created successfully! File located at /tmp/Rtmpsmzr2C/resultsview.csv</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in paste(output_dir, output_file, sep = "/"):</span> argument "output_dir" is missing, with no default</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># parameters and units</span></span></span>
-<span class="r-in"><span><span class="fu">readMWRresultsview</span><span class="op">(</span><span class="va">respth</span>, columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Characteristic Name'</span>, <span class="st">'Result Unit'</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> csv created successfully! File located at /tmp/Rtmpsmzr2C/resultsview.csv</span>
+<span class="r-in"><span><span class="fu">readMWRresultsview</span><span class="op">(</span><span class="va">respth</span>, columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Characteristic Name'</span>, <span class="st">'Result Unit'</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>   output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> csv created successfully! File located at /tmp/RtmpbD3jbC/resultsview.csv</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

@@ -407,17 +407,16 @@ acceptable values for the table above. By default, a .csv is created for
 all columns. The <code>columns</code> argument can be used to select
 columns of interest. Below shows how to view the unique entries for
 parameters (<code>"Characteristic Name"</code>) and units
-(<code>"Result Unit"</code>). By default, the .csv is created in a
-temporary directory. The location where the file is saved can be changed
-using the <code>output_dir</code> argument. Visually evaluating the
-results for conformance to the package requirements and manually editing
-the input file can help with the import checks, described below.</p>
+(<code>"Result Unit"</code>). The .csv is created in the directory
+specified by <code>output_dir</code>. Visually evaluating the results
+for conformance to the package requirements and manually editing the
+input file can help with the import checks, described below.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># find path to the file included with the package, replace with a path to your file as needed</span></span>
 <span><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleResults.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># create a .csv file for the two columns that show unique values in each</span></span>
-<span><span class="fu"><a href="../reference/readMWRresultsview.html">readMWRresultsview</a></span><span class="op">(</span><span class="va">respth</span>, columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Characteristic Name"</span>, <span class="st">"Result Unit"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/readMWRresultsview.html">readMWRresultsview</a></span><span class="op">(</span><span class="va">respth</span>, columns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Characteristic Name"</span>, <span class="st">"Result Unit"</span><span class="op">)</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="surface-water-quality-results">Surface water quality results<a class="anchor" aria-label="anchor" href="#surface-water-quality-results"></a>
 </h3>

@@ -270,26 +270,6 @@
 <span class="r-in"><span><span class="fu">anlzMWRdate</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'site'</span>, thresh <span class="op">=</span> <span class="st">'fresh'</span>,</span></span>
 <span class="r-in"><span>     site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ABT-026"</span>, <span class="st">"ABT-077"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="anlzMWRdate-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># combined sites</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRdate</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'all'</span>, thresh <span class="op">=</span> <span class="st">'fresh'</span>,</span></span>
-<span class="r-in"><span>     site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ABT-026"</span>, <span class="st">"ABT-077"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="anlzMWRdate-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># sites by location group, requires sitdat</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRdate</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, group <span class="op">=</span> <span class="st">'site'</span>, </span></span>
-<span class="r-in"><span>     thresh <span class="op">=</span> <span class="st">'fresh'</span>, locgroup <span class="op">=</span> <span class="st">'Assabet'</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="anlzMWRdate-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span>     </span></span>
-<span class="r-in"><span><span class="co"># sites by location group averaged by group, requires sitdat</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRdate</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, group <span class="op">=</span> <span class="st">'locgroup'</span>, </span></span>
-<span class="r-in"><span>     thresh <span class="op">=</span> <span class="st">'fresh'</span>, locgroup <span class="op">=</span> <span class="st">'Assabet'</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="anlzMWRdate-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># sites by location group (unspecified) averaged by group, requires sitdat</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRdate</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, group <span class="op">=</span> <span class="st">'locgroup'</span>, </span></span>
-<span class="r-in"><span>     thresh <span class="op">=</span> <span class="st">'fresh'</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="anlzMWRdate-5.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

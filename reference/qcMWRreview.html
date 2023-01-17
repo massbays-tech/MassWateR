@@ -70,7 +70,7 @@
 <span>  acc <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  frecom <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fset <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  output_dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">output_dir</span>,</span>
 <span>  output_file <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rawdata <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  dqofontsize <span class="op">=</span> <span class="fl">7.5</span>,</span>
@@ -100,7 +100,7 @@
 
 
 <dt>output_dir</dt>
-<dd><p>character string of the output directory for the rendered file, defaults to a temporary directory created with <code><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></code></p></dd>
+<dd><p>character string of the output directory for the rendered file</p></dd>
 
 
 <dt>output_file</dt>
@@ -135,7 +135,9 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>A compiled review report named <code>qcreview.docx</code> (or name passed to <code>output_file</code>) will be saved in the directory specified by <code>output_dir</code> (default is a temporary directory)</p>
+<p>A compiled review report named <code>qcreview.docx</code> (or name passed to <code>output_file</code>) will be saved in the directory specified by <code>output_dir</code></p>
+
+
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -205,8 +207,8 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># create report</span></span></span>
-<span class="r-in"><span><span class="fu">qcMWRreview</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, frecom <span class="op">=</span> <span class="va">frecomdat</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Report created successfully! File located at /tmp/Rtmpsmzr2C/qcreview.docx</span>
+<span class="r-in"><span><span class="fu">qcMWRreview</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, frecom <span class="op">=</span> <span class="va">frecomdat</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Report created successfully! File located at /tmp/RtmpbD3jbC/qcreview.docx</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
