@@ -334,30 +334,6 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                   NA                       NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                   90                        0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5                  100                        1</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="co">##</span></span></span>
-<span class="r-in"><span><span class="co"># using data frames</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># results data</span></span></span>
-<span class="r-in"><span><span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="readMWRresults.html">readMWRresults</a></span><span class="op">(</span><span class="va">respth</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># accuracy data</span></span></span>
-<span class="r-in"><span><span class="va">accdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="readMWRacc.html">readMWRacc</a></span><span class="op">(</span><span class="va">accpth</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># frequency and completeness data, only needed if type = "percent"</span></span></span>
-<span class="r-in"><span><span class="va">frecomdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="readMWRfrecom.html">readMWRfrecom</a></span><span class="op">(</span><span class="va">frecompth</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># table as individual</span></span></span>
-<span class="r-in"><span><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, frecom <span class="op">=</span> <span class="va">frecomdat</span>, type <span class="op">=</span> <span class="st">'individual'</span>, </span></span>
-<span class="r-in"><span>     accchk <span class="op">=</span> <span class="st">'Field Blanks'</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># table as summary</span></span></span>
-<span class="r-in"><span><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, frecom <span class="op">=</span> <span class="va">frecomdat</span>, type <span class="op">=</span> <span class="st">'summary'</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># table as percent</span></span></span>
-<span class="r-in"><span><span class="fu">tabMWRacc</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, frecom <span class="op">=</span> <span class="va">frecomdat</span>, type <span class="op">=</span> <span class="st">'percent'</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

@@ -117,7 +117,7 @@
 
 
 <dt>output_dir</dt>
-<dd><p>character string of the output directory for the results, default is the working directory</p></dd>
+<dd><p>character string of the output directory for the results, defaults to a temporary directory created with <code><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></code></p></dd>
 
 
 <dt>output_file</dt>
@@ -180,7 +180,7 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>A word document named <code>outlierall.docx</code> (or name passed to <code>output_file</code>) if <code>format = "word"</code> or separate png files for each parameter if <code>format = "png"</code> will be saved in the directory specified by <code>output_dir</code> (default is the working directory)</p>
+<p>A word document named <code>outlierall.docx</code> (or name passed to <code>output_file</code>) if <code>format = "word"</code> or separate png files for each parameter if <code>format = "png"</code> will be saved in the directory specified by <code>output_dir</code> (default is a temporary directory)</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -231,13 +231,15 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># create word output</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRoutlierall</span><span class="op">(</span><span class="va">resdat</span>, <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'month'</span>, format <span class="op">=</span> <span class="st">'word'</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRoutlierall</span><span class="op">(</span><span class="va">resdat</span>, <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'month'</span>, format <span class="op">=</span> <span class="st">'word'</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Word document created successfully! File located at /tmp/Rtmpsmzr2C/outlierall.docx</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create png output</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRoutlierall</span><span class="op">(</span><span class="va">resdat</span>, <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'month'</span>, format <span class="op">=</span> <span class="st">'png'</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRoutlierall</span><span class="op">(</span><span class="va">resdat</span>, <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'month'</span>, format <span class="op">=</span> <span class="st">'png'</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> PNG files created successfully! Files located at /tmp/Rtmpsmzr2C</span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

@@ -101,7 +101,7 @@
 
 
 <dt>output_dir</dt>
-<dd><p>character string of the output directory for the results, default is the working directory</p></dd>
+<dd><p>character string of the output directory for the results, defaults to a temporary directory created with <code><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></code></p></dd>
 
 
 <dt>output_file</dt>
@@ -120,7 +120,7 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>An Excel workbook named <code>wqxtab.xlsx</code> (or name passed to <code>output_file</code>) will be saved in the directory specified by <code>output_dir</code> (default is the working directory). The workbook will include three sheets names "Projects", "Locations", and "Results".</p>
+<p>An Excel workbook named <code>wqxtab.xlsx</code> (or name passed to <code>output_file</code>) will be saved in the directory specified by <code>output_dir</code> (default is a temporary directory). The workbook will include three sheets names "Projects", "Locations", and "Results".</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -142,6 +142,7 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># wqx data path</span></span></span>
 <span class="r-in"><span><span class="va">wqxpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleWQX.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># results data</span></span></span>
 <span class="r-in"><span><span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="readMWRresults.html">readMWRresults</a></span><span class="op">(</span><span class="va">respth</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on results data...</span>
@@ -200,10 +201,10 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="co"># create workbook working directory</span></span></span>
+<span class="r-in"><span><span class="co"># create workbook</span></span></span>
 <span class="r-in"><span><span class="fu">tabMWRwqx</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, wqx <span class="op">=</span> <span class="va">wqxdat</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>No spatial information for sites in the Locations tab: ABT-162</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Excel workbook created successfully! File located at /tmp/Rtmpsmzr2C/wqxtab.xlsx</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

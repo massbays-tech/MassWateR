@@ -258,14 +258,14 @@ directory and file name. The rest of the arguments are all those
 required for <code><a href="../reference/anlzMWRoutlier.html">anlzMWRoutlier()</a></code>, except the
 <code>param</code> argument because plots for all parameters are created
 in the output.</p>
-<p>Create a word document for all outlier plots in the current working
+<p>Create a word document for all outlier plots in a temporary
 directory:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlierall.html">anlzMWRoutlierall</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'month'</span>, format <span class="op">=</span> <span class="st">'word'</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlierall.html">anlzMWRoutlierall</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'month'</span>, format <span class="op">=</span> <span class="st">'word'</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Create the same output but as separate png plots for each
 parameter:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlierall.html">anlzMWRoutlierall</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'month'</span>, format <span class="op">=</span> <span class="st">'png'</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlierall.html">anlzMWRoutlierall</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, group <span class="op">=</span> <span class="st">'month'</span>, format <span class="op">=</span> <span class="st">'png'</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The inputs can also be passed to the <code>fset</code> argument as a
 named list for convenience.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
@@ -275,7 +275,7 @@ named list for convenience.</p>
 <span>  acc <span class="op">=</span> <span class="va">accdat</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/anlzMWRoutlierall.html">anlzMWRoutlierall</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span>, group <span class="op">=</span> <span class="st">'month'</span>, format <span class="op">=</span> <span class="st">'word'</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/anlzMWRoutlierall.html">anlzMWRoutlierall</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span>, group <span class="op">=</span> <span class="st">'month'</span>, format <span class="op">=</span> <span class="st">'word'</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Once the function is done running, a message indicating success and
 where the file(s) is located is returned.</p>
 </div>

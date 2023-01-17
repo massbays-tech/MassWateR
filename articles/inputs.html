@@ -407,8 +407,8 @@ acceptable values for the table above. By default, a .csv is created for
 all columns. The <code>columns</code> argument can be used to select
 columns of interest. Below shows how to view the unique entries for
 parameters (<code>"Characteristic Name"</code>) and units
-(<code>"Result Unit"</code>). By default, the .csv is created in the
-working directory. The location where the file is saved can be changed
+(<code>"Result Unit"</code>). By default, the .csv is created in a
+temporary directory. The location where the file is saved can be changed
 using the <code>output_dir</code> argument. Visually evaluating the
 results for conformance to the package requirements and manually editing
 the input file can help with the import checks, described below.</p>
@@ -864,8 +864,7 @@ quality results, <code>acc</code> and <code>frecom</code> for the data
 quality objective files for accuracy, frequency, and completeness,
 <code>sit</code> for the site metadata, and <code>wqx</code> for the wqx
 metadata. The values passed to these functions can be file paths that
-specify the location of the file (either as a full path or relative path
-based on the working directory) or as data frames returned by the
+specify the location of the file or as data frames returned by the
 relevant import functions (i.e., <code><a href="../reference/readMWRresults.html">readMWRresults()</a></code>,
 <code><a href="../reference/readMWRacc.html">readMWRacc()</a></code>, <code><a href="../reference/readMWRfrecom.html">readMWRfrecom()</a></code>,
 <code><a href="../reference/readMWRsites.html">readMWRsites()</a></code>, <code><a href="../reference/readMWRwqx.html">readMWRwqx()</a></code>).</p>
