@@ -37,20 +37,6 @@
 #' 
 #' qcMWRacc(res = respth, acc = accpth, frecom = frecompth)
 #' 
-#' ##
-#' # using data frames
-#' 
-#' # results data
-#' resdat <- readMWRresults(respth)
-#' 
-#' # accuracy data
-#' accdat <- readMWRacc(accpth)
-#' 
-#' # frequency and completeness data
-#' frecomdat <- readMWRfrecom(frecompth)
-#' 
-#' qcMWRacc(res = resdat, acc = accdat, frecom = frecomdat)
-#' 
 qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes / Instrument Checks'), suffix = '%'){
   
   utilMWRinputcheck(mget(ls()))

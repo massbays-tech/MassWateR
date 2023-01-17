@@ -20,7 +20,7 @@
 #' respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 #' 
 #' # all columns
-#' readMWRresultsview(respth)
+#' readMWRresultsview(respth, output_dir = tempdir())
 #' 
 #' # parameters and units
 #' readMWRresultsview(respth, columns = c('Characteristic Name', 'Result Unit'),

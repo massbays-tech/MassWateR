@@ -1,5 +1,5 @@
 test_that("Verifying message output for wqx table creation", {
-  expect_warning(expect_message(tabMWRwqx(respth, accpth, sitpth, wqxpth, warn = TRUE)))
+  expect_warning(expect_message(tabMWRwqx(respth, accpth, sitpth, wqxpth, warn = TRUE, output_dir = tempdir())))
 })
 
 test_that("Check warning if UQL or MDL missing from accdat", {
@@ -10,5 +10,5 @@ test_that("Check warning if UQL or MDL missing from accdat", {
         T ~ MDL
       )
     )
-  expect_warning(expect_warning(expect_message(tabMWRwqx(respth, accchk, sitpth, wqxpth, warn = TRUE))))
+  expect_warning(expect_warning(expect_message(tabMWRwqx(respth, accchk, sitpth, wqxpth, warn = TRUE, output_dir = tempdir()))))
 })
