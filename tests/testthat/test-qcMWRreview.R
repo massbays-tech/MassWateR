@@ -1,9 +1,11 @@
 # test_that("Verifying message output for report creation", {
-#   expect_message(qcMWRreview(resdat, accdat, frecomdat, warn = FALSE))
-#   file.remove(file.path(getwd(), 'qcreview.docx'))
+#   outpth <- tempdir()
+#   expect_message(qcMWRreview(resdat, accdat, frecomdat, warn = FALSE, output_dir = outpth))
+#   file.remove(file.path(outpth, 'qcreview.docx'))
 # })
 # 
 # test_that("Verifying warning if missing DQO info", {
+#   outpth <- tempdir()
 #   resin <- resdat
 #   resin <- resin %>% 
 #     dplyr::filter(`Activity Type` != 'Quality Control Sample-Field Blank')
@@ -17,12 +19,12 @@
 #       expect_warning(
 #         expect_warning(
 #           expect_warning(
-#             qcMWRreview(resin, accin, frecomin, warn = TRUE, rawdata = FALSE)
+#             qcMWRreview(resin, accin, frecomin, warn = TRUE, rawdata = FALSE, output_dir = outpth)
 #             )
 #           )
 #         )
 #       )
 #     )
 #   )
-#   file.remove(file.path(getwd(), 'qcreview.docx'))
+#   file.remove(file.path(outpth, 'qcreview.docx'))
 # })

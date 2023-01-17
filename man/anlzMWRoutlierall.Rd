@@ -41,7 +41,7 @@ anlzMWRoutlierall(
 
 \item{format}{character string indicating if results are placed in a word file or as separate png files in \code{output_dir}}
 
-\item{output_dir}{character string of the output directory for the results, default is the working directory}
+\item{output_dir}{character string of the output directory for the results, defaults to a temporary directory created with \code{\link{tempdir}}}
 
 \item{output_file}{optional character string for the file name if \code{format = "word"}}
 
@@ -72,7 +72,7 @@ anlzMWRoutlierall(
 \item{warn}{logical to return warnings to the console (default)}
 }
 \value{
-A word document named \code{outlierall.docx} (or name passed to \code{output_file}) if \code{format = "word"} or separate png files for each parameter if \code{format = "png"} will be saved in the directory specified by \code{output_dir} (default is the working directory)
+A word document named \code{outlierall.docx} (or name passed to \code{output_file}) if \code{format = "word"} or separate png files for each parameter if \code{format = "png"} will be saved in the directory specified by \code{output_dir} (default is a temporary directory)
 }
 \description{
 Analyze outliers in results file for all parameters
@@ -94,11 +94,11 @@ accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx',
 # accuracy data
 accdat <- readMWRacc(accpth)
 
-\dontrun{
+\donttest{
 # create word output
-anlzMWRoutlierall(resdat, accdat, group = 'month', format = 'word', output_dir = getwd())
+anlzMWRoutlierall(resdat, accdat, group = 'month', format = 'word')
 
 # create png output
-anlzMWRoutlierall(resdat, accdat, group = 'month', format = 'png', output_dir = getwd())
+anlzMWRoutlierall(resdat, accdat, group = 'month', format = 'png')
 }
 }

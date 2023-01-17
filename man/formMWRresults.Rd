@@ -11,6 +11,9 @@ formMWRresults(resdat, tzone = "America/Jamaica")
 
 \item{tzone}{character string for time zone}
 }
+\value{
+A formatted data frame of the water quality monitoring results file
+}
 \description{
 Format water quality monitoring results
 }

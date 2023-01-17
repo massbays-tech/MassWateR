@@ -4,11 +4,11 @@
 #' 
 #' @param respth character string of path to the results file
 #' @param columns character string indicating which columns to view, defaults to all
-#' @param output_dir character string of the output directory for the rendered file, default is the working directory
+#' @param output_dir character string of the output directory for the rendered file, defaults to a temporary directory created with \code{\link{tempdir}}
 #' @param output_file optional character string for the name of the .csv file output, must include the file extension
 #' @param maxlen numeric to truncate numeric values to the specified length
 #'
-#' @return Creates a spreadsheet at the location specified by \code{output_dir}, defaults to working directory if none specified. Each column shows the unique values.
+#' @return Creates a spreadsheet at the location specified by \code{output_dir}, defaults to a temporary directory if none specified. Each column shows the unique values.
 #' 
 #' @details Acceptable options for the \code{columns} argument include any of the column names in the results file. The default setting (\code{NULL}) will show every column in the results file.
 #' 
@@ -19,16 +19,11 @@
 #' @examples
 #' respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 #' 
-#' \dontrun{
-#' # parameters only
-#' readMWRresultsview(respth, columns = 'Characteristic Name')
-#'
-#' # parameters and units
-#' readMWRresultsview(respth, columns = c('Characteristic Name', 'Result Unit'))
-#' 
 #' # all columns
 #' readMWRresultsview(respth)
-#' }
+#' 
+#' # parameters and units
+#' readMWRresultsview(respth, columns = c('Characteristic Name', 'Result Unit'))
 readMWRresultsview <- function(respth, columns = NULL, output_dir = NULL, output_file = NULL, maxlen = 8){
   
   resdat <- suppressWarnings(readxl::read_excel(respth, na = c('NA', 'na', ''), guess_max = Inf)) %>% 
@@ -73,9 +68,9 @@ readMWRresultsview <- function(respth, columns = NULL, output_dir = NULL, output
   resultsviewtab <- data.frame(lapply(out, `length<-`, max(lengths(out))))
   names(resultsviewtab) <- names(out)
 
-  # default output directory is working directory
+  # default output directory
   if(is.null(output_dir))
-    output_dir <- getwd()
+    output_dir <- tempdir()
   
   # default output file name
   if(is.null(output_file))

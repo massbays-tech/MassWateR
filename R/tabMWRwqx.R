@@ -5,7 +5,7 @@
 #' @param sit character string of path to the site metadata file or \code{data.frame} for site metadata returned by \code{\link{readMWRsites}}
 #' @param wqx character string of path to the wqx metadata file or \code{data.frame} for wqx metadata returned by \code{\link{readMWRwqx}}
 #' @param fset optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, \code{sit}, or \code{wqx} overrides the other arguments
-#' @param output_dir character string of the output directory for the results, default is the working directory
+#' @param output_dir character string of the output directory for the results, defaults to a temporary directory created with \code{\link{tempdir}}
 #' @param output_file optional character string for the file name, must include .xlsx suffix
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRsites}}, \code{\link{checkMWRwqx}}, applies only if \code{res}, \code{acc}, \code{sit}, or \code{wqx} are file paths
 #' @param warn logical to return warnings to the console (default)
@@ -16,7 +16,7 @@
 #'
 #' The name of the output file can also be changed using the \code{output_file} argument, the default being \code{wqxtab.xlsx}.  Warnings can also be turned off or on (default) using the \code{warn} argument.  This returns any warnings when data are imported and only applies if the file inputs are paths.
 #' 
-#' @return An Excel workbook named \code{wqxtab.xlsx} (or name passed to \code{output_file}) will be saved in the directory specified by \code{output_dir} (default is the working directory). The workbook will include three sheets names "Projects", "Locations", and "Results".
+#' @return An Excel workbook named \code{wqxtab.xlsx} (or name passed to \code{output_file}) will be saved in the directory specified by \code{output_dir} (default is a temporary directory). The workbook will include three sheets names "Projects", "Locations", and "Results".
 #' 
 #' @export
 #'
@@ -32,6 +32,7 @@
 #' 
 #' # wqx data path
 #' wqxpth <- system.file('extdata/ExampleWQX.xlsx', package = 'MassWateR')
+#' 
 #' # results data
 #' resdat <- readMWRresults(respth)
 #' 
@@ -44,10 +45,8 @@
 #' # wqx data
 #' wqxdat <- readMWRwqx(wqxpth)
 #' 
-#' \dontrun{
-#' # create workbook working directory
+#' # create workbook
 #' tabMWRwqx(res = resdat, acc = accdat, sit = sitdat, wqx = wqxdat)
-#' }
 tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NULL, output_dir = NULL, output_file = NULL, warn = TRUE, runchk = TRUE){
   
   utilMWRinputcheck(mget(ls()))
@@ -396,9 +395,9 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
   ##
   # save output
   
-  # default output directory is working directory
+  # default output directory
   if(is.null(output_dir))
-    output_dir <- getwd()
+    output_dir <- tempdir()
   
   if(is.null(output_file))
     output_file <- 'wqxtab.xlsx'

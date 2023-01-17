@@ -91,28 +91,4 @@ tabMWRacc(res = respth, acc = accpth, frecom = frecompth, type = 'summary')
 
 # table as percent
 tabMWRacc(res = respth, acc = accpth, frecom = frecompth, type = 'percent')
-
-\dontrun{
-##
-# using data frames
-
-# results data
-resdat <- readMWRresults(respth)
-
-# accuracy data
-accdat <- readMWRacc(accpth)
-
-# frequency and completeness data, only needed if type = "percent"
-frecomdat <- readMWRfrecom(frecompth)
-
-# table as individual
-tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'individual', 
-     accchk = 'Field Blanks')
-
-# table as summary
-tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'summary')
-
-# table as percent
-tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'percent')
-}
 }

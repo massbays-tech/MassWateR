@@ -17,14 +17,14 @@ readMWRresultsview(
 
 \item{columns}{character string indicating which columns to view, defaults to all}
 
-\item{output_dir}{character string of the output directory for the rendered file, default is the working directory}
+\item{output_dir}{character string of the output directory for the rendered file, defaults to a temporary directory created with \code{\link{tempdir}}}
 
 \item{output_file}{optional character string for the name of the .csv file output, must include the file extension}
 
 \item{maxlen}{numeric to truncate numeric values to the specified length}
 }
 \value{
-Creates a spreadsheet at the location specified by \code{output_dir}, defaults to working directory if none specified. Each column shows the unique values.
+Creates a spreadsheet at the location specified by \code{output_dir}, defaults to a temporary directory if none specified. Each column shows the unique values.
 }
 \description{
 Create summary spreadsheet of unique values for each column in the water quality results file to check for data mistakes prior to running the \code{\link{readMWRresults}} function
@@ -37,14 +37,9 @@ The output of this function can be useful to troubleshoot the checks when import
 \examples{
 respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 
-\dontrun{
-# parameters only
-readMWRresultsview(respth, columns = 'Characteristic Name')
+# all columns
+readMWRresultsview(respth)
 
 # parameters and units
 readMWRresultsview(respth, columns = c('Characteristic Name', 'Result Unit'))
-
-# all columns
-readMWRresultsview(respth)
-}
 }

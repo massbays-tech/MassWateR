@@ -44,14 +44,10 @@ The single function for generating output for upload to WQX is `tabMWRwqx()`.  T
 
 The workflow for using this function is to import the required data (results, data quality objectives file for accuracy, site metadata, and wqx metadata, as above) and to fix any errors noted on import prior to creating the output. The function can be used with inputs as paths to the relevant files or as data frames returned by `readMWRresults()`, `readMWRacc()`, `readMWRsites()`, and `readMWRwqx()`.  For the former, the full suite of data checks can be evaluated with `runkchk = T` (default) or suppressed with `runchk = F`, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. 
 
-The workbook can be created as follows by including the required files and specifying an output directory where the Excel file is saved (default is the user's working directory). Once the function is done running, a message indicating success and where the file is located is returned. The Excel file can be further edited by hand as needed.  
+The workbook can be created as follows by including the required files and specifying an output directory where the Excel file is saved (default is a temporary directory). Once the function is done running, a message indicating success and where the file is located is returned. The Excel file can be further edited by hand as needed.  
 
 ```{r, message = T}
-tabMWRwqx(res = resdat, acc = accdat, sit = sitdat, wqx = wqxdat, output_dir = getwd())
-```
-
-```{r, echo = FALSE, results = 'hide'}
-file.remove(list.files(getwd(), "wqxtab"))
+tabMWRwqx(res = resdat, acc = accdat, sit = sitdat, wqx = wqxdat)
 ```
 
 As a convenience, the input files can also be passed to the `tabMWRwqx()` function as a named list using the `fset` argument.  This eliminates the need to individually specify the input arguments. 
@@ -65,7 +61,7 @@ fsetls <- list(
   wqx = wqxdat
 )
 
-tabMWRwqx(fset = fsetls, output_dir = getwd())
+tabMWRwqx(fset = fsetls)
 ```
 
 The name of the output file can also be changed using the `output_file` argument, the default being `wqxtab.xlsx`.  Warnings can also be turned off or on (default) using the `warn` argument.  This returns any warnings when data are imported and only applies if the file inputs are paths.

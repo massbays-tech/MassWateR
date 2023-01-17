@@ -9,6 +9,9 @@ formMWRwqx(wqxdat)
 \arguments{
 \item{wqxdat}{input data frame for wqx metadata}
 }
+\value{
+A formatted data frame of the WQX metadata file
+}
 \description{
 Format WQX metadata input
 }

@@ -8,6 +8,8 @@
 #'   \item{Convert Parameter: }{All parameters are converted to \code{Simple Parameter} in \code{\link{paramsMWR}} as needed}
 #' }
 #' 
+#' @return A formatted data frame of the data quality objectives file for frequency and completeness
+#' 
 #' @export
 #'
 #' @examples

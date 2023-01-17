@@ -11,6 +11,8 @@
 #' @import dplyr
 #' @import tidyr
 #' 
+#' @return A formatted data frame of the WQX metadata file
+#' 
 #' @export
 #'
 #' @examples

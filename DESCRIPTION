@@ -1,5 +1,5 @@
 Package: MassWateR
-Title: Tools for Quality Control and Exploratory Analysis of Massachusetts Surface Water Quality Data
+Title: Quality Control and Analysis of Massachusetts Water Quality Data
 Version: 2.0.0
 Authors@R: c(
     person(given = "Marcus",

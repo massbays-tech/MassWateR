@@ -9,6 +9,9 @@ formMWRfrecom(frecomdat)
 \arguments{
 \item{frecomdat}{input data frame}
 }
+\value{
+A formatted data frame of the data quality objectives file for frequency and completeness
+}
 \description{
 Format data quality objective frequency and completeness data
 }

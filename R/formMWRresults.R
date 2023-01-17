@@ -14,6 +14,8 @@
 #' @import dplyr
 #' @import tidyr
 #' 
+#' @return A formatted data frame of the water quality monitoring results file
+#' 
 #' @export
 #'
 #' @examples

@@ -7,9 +7,10 @@
 #'
 #' @examples
 #' inputchk <- formals(tabMWRcom)
-#' \dontrun{
+#' inputchk$res <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
+#' inputchk$frecom <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', package = 'MassWateR')
+#' 
 #' utilMWRinputcheck(inputchk)
-#' }
 utilMWRinputcheck <- function(inputs){
   
   # names of required inputs from the function

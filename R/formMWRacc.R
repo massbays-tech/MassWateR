@@ -10,6 +10,8 @@
 #'   \item{Remove unicode: }{Remove or replace unicode characters with those that can be used in logical expressions in \code{\link{qcMWRacc}}, e.g., replace \eqn{\geq} with \eqn{>=}}
 #' }
 #' 
+#' @return A formatted data frame of the data quality objectives file for accuracy
+#' 
 #' @export
 #'
 #' @examples

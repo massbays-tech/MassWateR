@@ -97,16 +97,16 @@ anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, group = "month", outlie
 
 Outlier plots for all parameters in the results data file can be created using the `anlzMWRoutlierall()` function. This can be used to create a word document with all plots embedded in the file or as separate png images saved to a specified directory.  The relevant arguments required for the function include `format = "word"` or `format = "png"` to specify the output type, `fig_height` and `fig_width` for the plot dimensions (default as 4 and 8, respectively), and `output_dir` and `output_file` for the output directory and file name.  The rest of the arguments are all those required for `anlzMWRoutlier()`, except the `param` argument because plots for all parameters are created in the output. 
 
-Create a word document for all outlier plots in the current working directory:
+Create a word document for all outlier plots in a temporary directory:
 
 ```{r, eval = F}
-anlzMWRoutlierall(res = resdat, acc = accdat, group = 'month', format = 'word', output_dir = getwd())
+anlzMWRoutlierall(res = resdat, acc = accdat, group = 'month', format = 'word', output_dir = tempdir())
 ```
 
 Create the same output but as separate png plots for each parameter:
 
 ```{r, eval = F}
-anlzMWRoutlierall(res = resdat, acc = accdat, group = 'month', format = 'png', output_dir = getwd())
+anlzMWRoutlierall(res = resdat, acc = accdat, group = 'month', format = 'png', output_dir = tempdir())
 ```
 
 The inputs can also be passed to the `fset` argument as a named list for convenience.
@@ -118,7 +118,7 @@ fsetls <- list(
   acc = accdat
 )
 
-anlzMWRoutlierall(fset = fsetls, group = 'month', format = 'word', output_dir = getwd())
+anlzMWRoutlierall(fset = fsetls, group = 'month', format = 'word', output_dir = tempdir())
 ```
 
 Once the function is done running, a message indicating success and where the file(s) is located is returned.

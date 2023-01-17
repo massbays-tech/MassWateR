@@ -4,7 +4,7 @@
 #' @param acc character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}
 #' @param frecom character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}
 #' @param fset optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, \code{sit}, or \code{wqx} overrides the other arguments
-#' @param output_dir character string of the output directory for the rendered file, default is the working directory
+#' @param output_dir character string of the output directory for the rendered file, defaults to a temporary directory created with \code{\link{tempdir}}
 #' @param output_file optional character string for the file name
 #' @param rawdata logical to include quality control accuracy summaries for raw data, e.g., field blanks, etc.
 #' @param dqofontsize numeric for font size in the data quality objective tables in the first page of the review
@@ -13,7 +13,7 @@
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths
 #' @param warn logical indicating if warnings from the table functions are included in the file output
 #'
-#' @return A compiled review report named \code{qcreview.docx} (or name passed to \code{output_file}) will be saved in the directory specified by \code{output_dir} (default is the working directory)
+#' @return A compiled review report named \code{qcreview.docx} (or name passed to \code{output_file}) will be saved in the directory specified by \code{output_dir} (default is a temporary directory)
 #' @export
 #'
 #' @details 
@@ -45,8 +45,8 @@
 #' # frequency and completeness data
 #' frecomdat <- readMWRfrecom(frecompth)
 #' 
-#' \dontrun{
-#' # create report in working directory
+#' \donttest{
+#' # create report
 #' qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat)
 #' }
 qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, output_dir = NULL, output_file = NULL, rawdata = TRUE, dqofontsize = 7.5, tabfontsize = 9, padding = 0, warn = TRUE, runchk = TRUE) {
@@ -56,9 +56,9 @@ qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, outp
   # rmd template
   qcreview <- system.file('rmd', 'qcreview.Rmd', package = 'MassWateR')
 
-  # default output directory is working directory
+  # default output directory
   if(is.null(output_dir))
-    output_dir <- getwd()
+    output_dir <- tempdir()
   
   # get input 
   inp <- utilMWRinput(res = res, acc = acc, frecom = frecom, fset = fset, runchk = runchk, warn = warn)
