@@ -23,7 +23,7 @@
 #' readMWRresultsview(respth)
 #' 
 #' # parameters and units
-#' readMWRresultsview(respth, columns = c('Characteristic Name', 'Result Unit'), \
+#' readMWRresultsview(respth, columns = c('Characteristic Name', 'Result Unit'),
 #'    output_dir = tempdir())
 readMWRresultsview <- function(respth, columns = NULL, output_dir, output_file = NULL, maxlen = 8){
   

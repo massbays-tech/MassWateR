@@ -41,6 +41,6 @@ respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 readMWRresultsview(respth)
 
 # parameters and units
-readMWRresultsview(respth, columns = c('Characteristic Name', 'Result Unit'), \
+readMWRresultsview(respth, columns = c('Characteristic Name', 'Result Unit'),
    output_dir = tempdir())
 }
