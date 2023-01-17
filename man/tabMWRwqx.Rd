@@ -10,7 +10,7 @@ tabMWRwqx(
   sit = NULL,
   wqx = NULL,
   fset = NULL,
-  output_dir = NULL,
+  output_dir,
   output_file = NULL,
   warn = TRUE,
   runchk = TRUE
@@ -27,7 +27,7 @@ tabMWRwqx(
 
 \item{fset}{optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, \code{sit}, or \code{wqx} overrides the other arguments}
 
-\item{output_dir}{character string of the output directory for the results, defaults to a temporary directory created with \code{\link{tempdir}}}
+\item{output_dir}{character string of the output directory for the results}
 
 \item{output_file}{optional character string for the file name, must include .xlsx suffix}
 
@@ -36,7 +36,7 @@ tabMWRwqx(
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRsites}}, \code{\link{checkMWRwqx}}, applies only if \code{res}, \code{acc}, \code{sit}, or \code{wqx} are file paths}
 }
 \value{
-An Excel workbook named \code{wqxtab.xlsx} (or name passed to \code{output_file}) will be saved in the directory specified by \code{output_dir} (default is a temporary directory). The workbook will include three sheets names "Projects", "Locations", and "Results".
+An Excel workbook named \code{wqxtab.xlsx} (or name passed to \code{output_file}) will be saved in the directory specified by \code{output_dir}. The workbook will include three sheets names "Projects", "Locations", and "Results".
 }
 \description{
 Create and save tables in a single workbook for WQX upload
@@ -74,5 +74,5 @@ sitdat <- readMWRsites(sitpth)
 wqxdat <- readMWRwqx(wqxpth)
 
 # create workbook
-tabMWRwqx(res = resdat, acc = accdat, sit = sitdat, wqx = wqxdat)
+tabMWRwqx(res = resdat, acc = accdat, sit = sitdat, wqx = wqxdat, output_dir = tempdir())
 }

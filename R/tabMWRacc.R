@@ -44,12 +44,6 @@
 #' # table as individual
 #' tabMWRacc(res = respth, acc = accpth, frecom = frecompth, type = 'individual', 
 #'      accchk = 'Field Blanks')
-#' 
-#' # table as summary
-#' tabMWRacc(res = respth, acc = accpth, frecom = frecompth, type = 'summary')
-#' 
-#' # table as percent
-#' tabMWRacc(res = respth, acc = accpth, frecom = frecompth, type = 'percent')
 tabMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn = TRUE, accchk = c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes / Instrument Checks'), type = c('individual', 'summary', 'percent'), pass_col = '#57C4AD', fail_col = '#DB4325', suffix = '%', caption = TRUE){
 
   utilMWRinputcheck(mget(ls()))

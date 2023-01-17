@@ -8,7 +8,8 @@
 #' @examples
 #' inputchk <- formals(tabMWRcom)
 #' inputchk$res <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
-#' inputchk$frecom <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', package = 'MassWateR')
+#' inputchk$frecom <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', 
+#'   package = 'MassWateR')
 #' 
 #' utilMWRinputcheck(inputchk)
 utilMWRinputcheck <- function(inputs){

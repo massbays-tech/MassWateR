@@ -9,7 +9,7 @@ qcMWRreview(
   acc = NULL,
   frecom = NULL,
   fset = NULL,
-  output_dir = NULL,
+  output_dir,
   output_file = NULL,
   rawdata = TRUE,
   dqofontsize = 7.5,
@@ -28,7 +28,7 @@ qcMWRreview(
 
 \item{fset}{optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, \code{sit}, or \code{wqx} overrides the other arguments}
 
-\item{output_dir}{character string of the output directory for the rendered file, defaults to a temporary directory created with \code{\link{tempdir}}}
+\item{output_dir}{character string of the output directory for the rendered file}
 
 \item{output_file}{optional character string for the file name}
 
@@ -45,7 +45,7 @@ qcMWRreview(
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRfrecom}}, applies only if \code{res}, \code{acc}, or \code{frecom} are file paths}
 }
 \value{
-A compiled review report named \code{qcreview.docx} (or name passed to \code{output_file}) will be saved in the directory specified by \code{output_dir} (default is a temporary directory)
+A compiled review report named \code{qcreview.docx} (or name passed to \code{output_file}) will be saved in the directory specified by \code{output_dir}
 }
 \description{
 Create the quality control review report
@@ -80,6 +80,6 @@ frecomdat <- readMWRfrecom(frecompth)
 
 \donttest{
 # create report
-qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat)
+qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat, output_dir = tempdir())
 }
 }

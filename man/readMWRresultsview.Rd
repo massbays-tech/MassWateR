@@ -7,7 +7,7 @@
 readMWRresultsview(
   respth,
   columns = NULL,
-  output_dir = NULL,
+  output_dir,
   output_file = NULL,
   maxlen = 8
 )
@@ -17,14 +17,14 @@ readMWRresultsview(
 
 \item{columns}{character string indicating which columns to view, defaults to all}
 
-\item{output_dir}{character string of the output directory for the rendered file, defaults to a temporary directory created with \code{\link{tempdir}}}
+\item{output_dir}{character string of the output directory for the rendered file}
 
 \item{output_file}{optional character string for the name of the .csv file output, must include the file extension}
 
 \item{maxlen}{numeric to truncate numeric values to the specified length}
 }
 \value{
-Creates a spreadsheet at the location specified by \code{output_dir}, defaults to a temporary directory if none specified. Each column shows the unique values.
+Creates a spreadsheet at the location specified by \code{output_dir}. Each column shows the unique values.
 }
 \description{
 Create summary spreadsheet of unique values for each column in the water quality results file to check for data mistakes prior to running the \code{\link{readMWRresults}} function
@@ -41,5 +41,6 @@ respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 readMWRresultsview(respth)
 
 # parameters and units
-readMWRresultsview(respth, columns = c('Characteristic Name', 'Result Unit'))
+readMWRresultsview(respth, columns = c('Characteristic Name', 'Result Unit'), \
+   output_dir = tempdir())
 }

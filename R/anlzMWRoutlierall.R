@@ -8,7 +8,7 @@
 #' @param fig_height numeric for plot heights in inches
 #' @param fig_width numeric for plot width in inches
 #' @param format character string indicating if results are placed in a word file or as separate png files in \code{output_dir}
-#' @param output_dir character string of the output directory for the results, defaults to a temporary directory created with \code{\link{tempdir}}
+#' @param output_dir character string of the output directory for the results
 #' @param output_file optional character string for the file name if \code{format = "word"}
 #' @param type character indicating \code{"box"}, \code{"jitterbox"}, or \code{"jitter"}, see details
 #' @param group character indicating whether the summaries are grouped by month, site, or week of year
@@ -24,7 +24,7 @@
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
-#' @return A word document named \code{outlierall.docx} (or name passed to \code{output_file}) if \code{format = "word"} or separate png files for each parameter if \code{format = "png"} will be saved in the directory specified by \code{output_dir} (default is a temporary directory)
+#' @return A word document named \code{outlierall.docx} (or name passed to \code{output_file}) if \code{format = "word"} or separate png files for each parameter if \code{format = "png"} will be saved in the directory specified by \code{output_dir}
 #' 
 #' @details This function is a wrapper to \code{\link{anlzMWRoutlier}} to create plots for all parameters with appropriate data in the water quality monitoring results 
 #' @export
@@ -45,20 +45,16 @@
 #' 
 #' \donttest{
 #' # create word output
-#' anlzMWRoutlierall(resdat, accdat, group = 'month', format = 'word')
+#' anlzMWRoutlierall(resdat, accdat, group = 'month', format = 'word', output_dir = tempdir())
 #'
 #' # create png output
-#' anlzMWRoutlierall(resdat, accdat, group = 'month', format = 'png')
+#' anlzMWRoutlierall(resdat, accdat, group = 'month', format = 'png', output_dir = tempdir())
 #' }
-anlzMWRoutlierall <- function(res = NULL, acc = NULL, fset = NULL, fig_height = 4, fig_width = 8, format = c('word' ,'png'), output_dir = NULL, output_file = NULL, type = c('box', 'jitterbox', 'jitter'), group, dtrng = NULL, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), ttlsize = 1.2, runchk = TRUE, warn = TRUE){
+anlzMWRoutlierall <- function(res = NULL, acc = NULL, fset = NULL, fig_height = 4, fig_width = 8, format = c('word' ,'png'), output_dir, output_file = NULL, type = c('box', 'jitterbox', 'jitter'), group, dtrng = NULL, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), ttlsize = 1.2, runchk = TRUE, warn = TRUE){
   
   utilMWRinputcheck(mget(ls()))
   
   format <- match.arg(format)
-  
-  # default output directory
-  if(is.null(output_dir))
-    output_dir <- tempdir()
   
   # inputs
   inp <- utilMWRinput(res = res, acc = acc, fset = fset, runchk = runchk, warn = warn)

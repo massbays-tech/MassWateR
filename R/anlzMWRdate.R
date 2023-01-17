@@ -41,7 +41,7 @@
 #' 
 #' @export
 #' @import RColorBrewer
-
+#'
 #' @examples
 #' # results data path
 #' respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
@@ -65,22 +65,6 @@
 #' # select sites
 #' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', thresh = 'fresh',
 #'      site = c("ABT-026", "ABT-077"))
-#' 
-#' # combined sites
-#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'all', thresh = 'fresh',
-#'      site = c("ABT-026", "ABT-077"))
-#' 
-#' # sites by location group, requires sitdat
-#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'site', 
-#'      thresh = 'fresh', locgroup = 'Assabet')
-#'      
-#' # sites by location group averaged by group, requires sitdat
-#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'locgroup', 
-#'      thresh = 'fresh', locgroup = 'Assabet')
-#'
-#' # sites by location group (unspecified) averaged by group, requires sitdat
-#' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'locgroup', 
-#'      thresh = 'fresh')
 anlzMWRdate <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, thresh, group = c('site', 'locgroup', 'all'), threshlab = NULL, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 2, repel = FALSE, labsize = 3, expand = c(0.05, 0.1), confint = FALSE, palcol = 'Set2', yscl = c('auto', 'log', 'linear'), colleg = FALSE, ttlsize = 1.2, runchk = TRUE, warn = TRUE){
   
   # remove site from input list check because optional

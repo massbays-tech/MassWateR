@@ -75,14 +75,14 @@ paramsMWR %>%
   knitr::kable(.)
 ```
 
-The `readMWRresultsview()` function can be used to help troubleshoot issues that are encountered importing the water quality results file (next section). This function can be used to create a .csv spreadsheet that shows the unique values within columns of the results file.  This information can be used to verify if the values in each conform to the requirements for the data import checks, including acceptable values for the table above.  By default, a .csv is created for all columns.  The `columns` argument can be used to select columns of interest.  Below shows how to view the unique entries for parameters (`"Characteristic Name"`) and units (`"Result Unit"`). By default, the .csv is created in a temporary directory. The location where the file is saved can be changed using the `output_dir` argument. Visually evaluating the results for conformance to the package requirements and manually editing the input file can help with the import checks, described below.
+The `readMWRresultsview()` function can be used to help troubleshoot issues that are encountered importing the water quality results file (next section). This function can be used to create a .csv spreadsheet that shows the unique values within columns of the results file.  This information can be used to verify if the values in each conform to the requirements for the data import checks, including acceptable values for the table above.  By default, a .csv is created for all columns.  The `columns` argument can be used to select columns of interest.  Below shows how to view the unique entries for parameters (`"Characteristic Name"`) and units (`"Result Unit"`). The .csv is created in the directory specified by `output_dir`. Visually evaluating the results for conformance to the package requirements and manually editing the input file can help with the import checks, described below.
 
 ```{r, eval = F}
 # find path to the file included with the package, replace with a path to your file as needed
 respth <- system.file("extdata/ExampleResults.xlsx", package = "MassWateR")
 
 # create a .csv file for the two columns that show unique values in each
-readMWRresultsview(respth, columns = c("Characteristic Name", "Result Unit"))
+readMWRresultsview(respth, columns = c("Characteristic Name", "Result Unit"), output_dir = tempdir())
 ```
 
 ### Surface water quality results

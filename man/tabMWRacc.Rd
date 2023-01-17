@@ -85,10 +85,4 @@ frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx',
 # table as individual
 tabMWRacc(res = respth, acc = accpth, frecom = frecompth, type = 'individual', 
      accchk = 'Field Blanks')
-
-# table as summary
-tabMWRacc(res = respth, acc = accpth, frecom = frecompth, type = 'summary')
-
-# table as percent
-tabMWRacc(res = respth, acc = accpth, frecom = frecompth, type = 'percent')
 }

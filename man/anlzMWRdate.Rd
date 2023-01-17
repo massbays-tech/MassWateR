@@ -120,20 +120,4 @@ sitdat <- readMWRsites(sitpth)
 # select sites
 anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', thresh = 'fresh',
      site = c("ABT-026", "ABT-077"))
-
-# combined sites
-anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'all', thresh = 'fresh',
-     site = c("ABT-026", "ABT-077"))
-
-# sites by location group, requires sitdat
-anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'site', 
-     thresh = 'fresh', locgroup = 'Assabet')
-     
-# sites by location group averaged by group, requires sitdat
-anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'locgroup', 
-     thresh = 'fresh', locgroup = 'Assabet')
-
-# sites by location group (unspecified) averaged by group, requires sitdat
-anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'locgroup', 
-     thresh = 'fresh')
 }
