@@ -12,7 +12,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>", 
   warning = T, 
-  message = F
+  message = F, 
+  dpi = 96
 )
 library(ggplot2)
 ```
