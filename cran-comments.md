@@ -3,6 +3,7 @@
 This is a resubmission to fix issues on original CRAN submission, including:
 
 * Reduced length of title and removed redundant text
+* Added references to Description field in DESCRIPTION file
 * Added \value field where missing from .Rd files 
 * Removed \dontrun from examples, replaced with \donttest where needed
 * Functions in examples/test/vignettes no longer write files to user's home or package file space, nor as default

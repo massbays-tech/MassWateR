@@ -25,11 +25,13 @@ Authors@R: c(
       email = "pamela.dibona@state.ma.us"
     )
   )
-Description: Methods for quality control and exploratory analysis of 
-  surface water quality data collected by watershed associations and 
-  citizen science groups in Massachusetts, USA.  Functions are developed 
+Description: Methods for quality control and exploratory analysis of surface 
+  water quality data collected in Massachusetts, USA.  Functions are developed 
   to facilitate data formatting for the Water Quality Exchange Network 
-  and reporting of data quality objectives to state agencies.
+  <https://www.epa.gov/waterdata/water-quality-data-upload-wqx> and reporting 
+  of data quality objectives to state agencies. Quality control methods are 
+  from Massachusetts Department of Environmental Protection (2020) 
+  <https://www.mass.gov/massDEP/>.
 Depends: 
   R (>= 3.5)
 Imports:
