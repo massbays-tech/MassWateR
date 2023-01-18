@@ -11,3 +11,4 @@
 ^CRAN-RELEASE$
 ^CRAN-SUBMISSION$
 ^data-raw$
+^vignettes$
