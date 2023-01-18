@@ -12,8 +12,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>", 
   warning = T, 
-  message = F, 
-  dpi = 96
+  message = F
 )
 ```
 
