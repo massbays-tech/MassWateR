@@ -9,9 +9,5 @@
 ^codecov\.yml$
 ^cran-comments\.md$
 ^CRAN-RELEASE$
-^vignettes\*\.Rmd$
-^vignettes\*\.png$
-^vignettes\*\.PNG$
-^vignettes$
 ^CRAN-SUBMISSION$
 ^data-raw$
