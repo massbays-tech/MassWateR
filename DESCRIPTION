@@ -28,7 +28,7 @@ Authors@R: c(
 Description: Methods for quality control and exploratory analysis of surface 
   water quality data collected in Massachusetts, USA.  Functions are developed 
   to facilitate data formatting for the Water Quality Exchange Network 
-  <https://www.epa.gov/waterdata/water-quality-data-upload-wqx> and reporting 
+  <https://www.epa.gov/waterdata/water-quality-data-upload-wqx/> and reporting 
   of data quality objectives to state agencies. Quality control methods are 
   from Massachusetts Department of Environmental Protection (2020) 
   <https://www.mass.gov/massDEP/>.
