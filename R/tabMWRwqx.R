@@ -252,7 +252,7 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
       `Activity Depth/Height Unit` = ifelse(is.na(`Activity Relative Depth Name`), `Activity Depth/Height Unit`, NA), 
       `Sample Collection Method ID` = dplyr::case_when(
         `Activity Type` %in% c('Sample-Routine', 'Quality Control Sample-Field Blank', 'Quality Control Sample-Field Replicate') & !is.na(`Sample Collection Method ID`) ~ `Sample Collection Method ID`,
-        `Activity Type` %in% c('Sample-Routine', 'Quality Control Sample-Field Blank', 'Quality Control Sample-Field Replicate') & is.na(`Sample Collection Method ID`) ~ 'Grab', 
+        `Activity Type` %in% c('Sample-Routine', 'Quality Control Sample-Field Blank', 'Quality Control Sample-Field Replicate') & is.na(`Sample Collection Method ID`) ~ 'Grab-MassWateR', 
         T ~ NA_character_
       ),
       `Sample Collection Equipment Name` = ifelse(`Activity Type` %in% c('Sample-Routine', 'Quality Control Sample-Field Blank', 'Quality Control Sample-Field Replicate'), 'Water Bottle', NA_character_), 
@@ -343,7 +343,7 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
     left_join(wqxdat, by = c('Characteristic Name' = 'Parameter')) %>% 
     dplyr::mutate(
       `Sample Collection Method Context` = ifelse(!is.na(`Sample Collection Method ID`), `Sampling Method Context`, NA_character_),
-      `Sample Collection Method Context` = ifelse(`Sample Collection Method ID` == 'Grab', 'MassWateR', `Sample Collection Method Context`),
+      `Sample Collection Method Context` = ifelse(`Sample Collection Method ID` == 'Grab-MassWateR', 'MassWateR', `Sample Collection Method Context`),
       `Result Sample Fraction` = `Result Sample Fraction`, 
       `Result Analytical Method ID` = `Analytical Method`, 
       `Result Analytical Method Context` = `Analytical Method Context`
