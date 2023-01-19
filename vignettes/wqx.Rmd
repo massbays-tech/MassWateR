@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The MassWateR packages includes additional tools for generating output that will facilitate upload of data to the EPA [Water Quality Exchange](https://www.epa.gov/waterdata/water-quality-data){target="_blank"} (WQX).  The function for generating the WQX output can be used once the required data are successfully imported into R (see the [data input and checks vignette](https://massbays-tech.github.io/MassWateR/articles/inputs.html) for an overview).  The results data file, the data quality objectives file for accuracy, the site metadata, and the wqx metadata files are required to use these functions.  The example data included with the package are imported here to demonstrate how to use the analysis functions:
+The MassWateR package includes additional tools for generating output that will facilitate upload of data to the EPA [Water Quality Exchange](https://www.epa.gov/waterdata/water-quality-data){target="_blank"} (WQX).  The function for generating the WQX output can be used once the required data are successfully imported into R (see the [data input and checks vignette](https://massbays-tech.github.io/MassWateR/articles/inputs.html) for an overview).  The results data file, the data quality objectives file for accuracy, the site metadata, and the wqx metadata files are required to use these functions.  The example data included with the package are imported here to demonstrate how to use the analysis functions:
 
 ```{r, message = T}
 library(MassWateR)
