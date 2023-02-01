@@ -152,7 +152,7 @@ quality results, data quality objectives (for accuracy, frequency, and
 completeness), site metadata, and wqx metadata.</p>
 <p>The following shows how to specify a path and import each required
 data file. These are hypothetical files and the path will need to be
-changed to where your data are located on your computer. Templates and
+changed to where your data are located on your computer. Templates with
 instructions for each of the types of input data are available for
 download in the <a href="https://massbays-tech.github.io/MassWateR/RESOURCES.html">Resources
 tab</a>.</p>
@@ -180,13 +180,7 @@ tab</a>.</p>
 be used with all MassWateR functions.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># a list of input data frames</span></span>
-<span><span class="va">fsetls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>  res <span class="op">=</span> <span class="va">resdat</span>, </span>
-<span>  acc <span class="op">=</span> <span class="va">accdat</span>,</span>
-<span>  frecom <span class="op">=</span> <span class="va">frecomdat</span>,</span>
-<span>  sit <span class="op">=</span> <span class="va">sitdat</span>, </span>
-<span>  wqx <span class="op">=</span> <span class="va">wqxdat</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">fsetls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, frecom <span class="op">=</span> <span class="va">frecomdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, wqx <span class="op">=</span> <span class="va">wqxdat</span><span class="op">)</span></span></code></pre></div>
 <p>The <code><a href="../reference/readMWRresultsview.html">readMWRresultsview()</a></code> function can be used to help
 troubleshoot issues that are encountered importing the water quality
 results file. This function can be used to create a .csv spreadsheet
@@ -194,7 +188,7 @@ that shows the unique values within columns of the results file. This
 information can be used to verify if the values in each conform to the
 requirements for the data import checks.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/readMWRresultsview.html">readMWRresultsview</a></span><span class="op">(</span><span class="va">respth</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/readMWRresultsview.html">readMWRresultsview</a></span><span class="op">(</span>respth <span class="op">=</span> <span class="va">respth</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="outlier-checks">Outlier checks<a class="anchor" aria-label="anchor" href="#outlier-checks"></a>
@@ -215,7 +209,7 @@ separate png images saved to a specified directory. Once the function is
 done running, a message indicating success and where the file(s) is
 located is returned.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlierall.html">anlzMWRoutlierall</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span>, group <span class="op">=</span> <span class="st">"month"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRoutlierall.html">anlzMWRoutlierall</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span>, group <span class="op">=</span> <span class="st">"month"</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="quality-control-functions">Quality control functions<a class="anchor" aria-label="anchor" href="#quality-control-functions"></a>
@@ -234,7 +228,7 @@ results for all accuracy checks.</p>
 running, a message indicating success and where the file is located is
 returned. The Word file can be further edited by hand as needed.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/qcMWRreview.html">qcMWRreview</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/qcMWRreview.html">qcMWRreview</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="analyses">Analyses<a class="anchor" aria-label="anchor" href="#analyses"></a>
@@ -286,7 +280,7 @@ correct before uploading the data. Additional information may need to be
 added by hand. Once the function is done running, a message indicating
 success and where the file is located is returned.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/tabMWRwqx.html">tabMWRwqx</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/tabMWRwqx.html">tabMWRwqx</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="submitting-data-to-mass-dep">Submitting data to Mass DEP<a class="anchor" aria-label="anchor" href="#submitting-data-to-mass-dep"></a>
