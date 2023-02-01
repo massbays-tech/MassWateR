@@ -108,7 +108,7 @@ latitude, longitude, and additional grouping factors for sites.</li>
 <li>A <strong>wqx metadata</strong> file required for generating output
 to facilitate data upload to WQX.</li>
 </ol>
-<p>Templates and instructions for each of the types of input data are
+<p>Templates with instructions for each of the types of input data are
 available for download in the <a href="https://massbays-tech.github.io/MassWateR/RESOURCES.html">Resources
 tab</a>. Additionally, example files, described below, are provided with
 the package to demonstrate and test the functions.</p>
@@ -427,10 +427,10 @@ formatting for downstream quality control or exploratory analysis. In
 this example, the system file <code>ExampleResults.xlsx</code> is
 imported. In practice, the <code>pth</code> argument will point to an
 external file in the WQX format. See the <a href="https://massbays-tech.github.io/MassWateR/RESOURCES.html">Resources
-tab</a> for the Excel file template and detailed instructions. Note that
-<code>runchk = TRUE</code> is set to run the checks on data import. This
-is the default setting and it is not necessary to explicitly set this
-argument on import.</p>
+tab</a> for the Excel file template and detailed instructions (in the
+template’s instructions worksheet). Note that <code>runchk = TRUE</code>
+is set to run the checks on data import. This is the default setting and
+it is not necessary to explicitly set this argument on import.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">respth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleResults.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
 <span><span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRresults.html">readMWRresults</a></span><span class="op">(</span><span class="va">respth</span>, runchk <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -584,9 +584,9 @@ format for these files. They can be imported into R using the
 the accuracy, frequency, and completeness files. The <code>pth</code>
 argument will point to the location of the external files on your
 computer. See the <a href="https://massbays-tech.github.io/MassWateR/RESOURCES.html">Resources
-tab</a> for the Excel file template and detailed instructions. As above,
-the system files included with the package are used for the
-examples.</p>
+tab</a> for the Excel file template and detailed instructions (in the
+template’s instructions worksheet). As above, the system files included
+with the package are used for the examples.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import data quality objectives for accuracy</span></span>
 <span><span class="va">accpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleDQOAccuracy.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
@@ -729,8 +729,8 @@ imported using <code><a href="../reference/readMWRsites.html">readMWRsites()</a>
 with the package, described above, demonstrates the required information
 and format for the file. The <code>pth</code> argument will point to the
 location of the external file on your computer. See the <a href="https://massbays-tech.github.io/MassWateR/RESOURCES.html">Resources
-tab</a> for the Excel file template and detailed instructions. As above,
-the system file included with the package is used for the example.</p>
+tab</a> for the Excel file template. As above, the system file included
+with the package is used for the example.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import site metadata</span></span>
 <span><span class="va">sitpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleSites.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
@@ -797,8 +797,9 @@ system file included with the package, described above, demonstrates the
 required information and format for the file. The <code>pth</code>
 argument will point to the location of the external file on your
 computer. See the <a href="https://massbays-tech.github.io/MassWateR/RESOURCES.html">Resources
-tab</a> for the Excel file template and detailed instructions. As above,
-the system file included with the package is used for the example.</p>
+tab</a> for the Excel file template and detailed instructions (in the
+template’s instructions worksheet). As above, the system file included
+with the package is used for the example.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import wqx metadata</span></span>
 <span><span class="va">wqxpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleWQX.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
