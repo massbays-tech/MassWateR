@@ -62,7 +62,7 @@ Please view the [data inputs and checks](https://massbays-tech.github.io/MassWat
 
 Four types of data are used with the MassWateR package: surface water quality results, data quality objectives (for accuracy, frequency, and completeness), site metadata, and wqx metadata.
 
-The following shows how to specify a path and import each required data file.  These are hypothetical files and the path will need to be changed to where your data are located on your computer. Templates and instructions for each of the types of input data are available for download in the [Resources tab](https://massbays-tech.github.io/MassWateR/RESOURCES.html).  
+The following shows how to specify a path and import each required data file.  These are hypothetical files and the path will need to be changed to where your data are located on your computer. Templates with instructions for each of the types of input data are available for download in the [Resources tab](https://massbays-tech.github.io/MassWateR/RESOURCES.html).  
 
 ```{r, eval = F}
 # import results data
@@ -90,13 +90,7 @@ After data are imported, a single data object can be created that can be used wi
 
 ```{r, eval = F}
 # a list of input data frames
-fsetls <- list(
-  res = resdat, 
-  acc = accdat,
-  frecom = frecomdat,
-  sit = sitdat, 
-  wqx = wqxdat
-)
+fsetls <- list(res = resdat, acc = accdat, frecom = frecomdat, sit = sitdat, wqx = wqxdat)
 ```
 ```{r, warning = F, echo = F, message = F}
 # import results data
@@ -133,7 +127,7 @@ fsetls <- list(
 The `readMWRresultsview()` function can be used to help troubleshoot issues that are encountered importing the water quality results file. This function can be used to create a .csv spreadsheet that shows the unique values within columns of the results file.  This information can be used to verify if the values in each conform to the requirements for the data import checks. 
 
 ```{r, eval = F}
-readMWRresultsview(respth)
+readMWRresultsview(respth = respth, output_dir = getwd())
 ```
 
 ## Outlier checks
@@ -149,7 +143,7 @@ anlzMWRoutlier(fset = fsetls, param = "DO", group = "month")
 Outlier plots for all parameters in the results data file can be created using the `anlzMWRoutlierall()` function. This can be used to create a word document with all plots embedded in the file or as separate png images saved to a specified directory. Once the function is done running, a message indicating success and where the file(s) is located is returned.  
 
 ```{r, message = T, eval = F}
-anlzMWRoutlierall(fset = fsetls, group = "month")
+anlzMWRoutlierall(fset = fsetls, group = "month", output_dir = getwd())
 ```
 
 ## Quality control functions
@@ -161,7 +155,7 @@ The `qcMWRreview()` function compiles a report as a Word document for all qualit
 The report can be created as follows.  Once the function is done running, a message indicating success and where the file is located is returned.  The Word file can be further edited by hand as needed.  
 
 ```{r, message = T, eval = F}
-qcMWRreview(fset = fsetls)
+qcMWRreview(fset = fsetls, output_dir = getwd())
 ```
 
 ## Analyses
@@ -205,7 +199,7 @@ Please view the [Water Quality Exchange output](https://massbays-tech.github.io/
 The single function for generating output for upload to WQX is `tabMWRwqx()`.  This function will export a single Excel workbook with three sheets, named "Project", "Locations", and "Results". The output is populated with as much content as possible, but it is the responsibility of the user to verify this information is complete and correct before uploading the data. Additional information may need to be added by hand. Once the function is done running, a message indicating success and where the file is located is returned. 
 
 ```{r, eval = F}
-tabMWRwqx(fset = fsetls)
+tabMWRwqx(fset = fsetls, output_dir = getwd())
 ```
 
 ## Submitting data to Mass DEP
