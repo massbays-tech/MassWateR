@@ -64,6 +64,12 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.1" id="masswater-201">MassWateR 2.0.1<a class="anchor" aria-label="anchor" href="#masswater-201"></a></h2>
 <ul><li>Removed all uses of <code>case_when</code> and replaced with base <code>ifelse</code>, this was to address performance issues with dplyr v1.1.0</li>
+<li>System files for examples replaced with real data</li>
+<li>Slight change to method id and method context logic in <code>tabMWRwqx</code>
+</li>
+<li>Functions that write files (e.g., <code>qcMWRreview</code>) require explicit entry for the <code>output_dir</code> argument</li>
+<li>
+<code>anlzMWRmap</code> now imports NHD layers from external source (no user changes)</li>
 <li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
 </ul></div>
     <div class="section level2">
