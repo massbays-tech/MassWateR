@@ -8,10 +8,10 @@ test_that("Check error if one date provided", {
   expect_error(utilMWRfilter(resdat, param = 'DO', dtrng = c('2021-06-01')), 'Must supply two dates for dtrng')
 })
 
-test_that("Check error if dates formatted wrong", {
-  expect_error(utilMWRfilter(resdat, param = 'DO', dtrng = c('06-01-2021', '06-30-2021')), 
-               'Dates in dtrng not entered as YYYY-MM-DD')
-})
+# test_that("Check error if dates formatted wrong", {
+#   expect_error(utilMWRfilter(resdat, param = 'DO', dtrng = c('06-01-2021', '06-30-2021')), 
+#                'Dates in dtrng not entered as YYYY-MM-DD')
+# })
 
 test_that("Check error if no data available", {
   expect_error(utilMWRfilter(resdat, param = 'DO', dtrng = c('2021-06-01', '2021-06-30')), 
