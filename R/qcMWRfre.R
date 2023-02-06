@@ -143,9 +143,9 @@ qcMWRfre <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn
   out <- resall %>% 
     dplyr::left_join(frecomdat, by = c('Parameter', 'check')) %>% 
     dplyr::mutate(
-      percent = dplyr::case_when(
-        !is.na(standard) ~ 100 * count / obs,
-        T ~ NA_real_
+      percent = ifelse(
+        !is.na(standard), 100 * count / obs,
+        NA_real_
       ),
       met = percent >= standard
     )

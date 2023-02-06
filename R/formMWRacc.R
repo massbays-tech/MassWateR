@@ -26,19 +26,17 @@ formMWRacc <- function(accdat){
   out <- accdat %>% 
     dplyr::mutate(
       uom = trimws(uom),
-      uom = gsub('^ppt$', 'ppth', uom) ,
-      uom = dplyr::case_when(
-        Parameter == 'pH' & uom == 's.u.' ~ NA_character_, 
-        T ~ uom
-      )
+      uom = gsub('^ppt$', 'ppth', uom),
+      uom = ifelse(Parameter == 'pH' & uom == 's.u.', NA_character_, uom)
     )
 
   # convert all parameters to simple
   out <- out %>% 
     dplyr::mutate( 
-      `Parameter` = dplyr::case_when(
-        `Parameter` %in% paramsMWR$`WQX Parameter` ~ paramsMWR$`Simple Parameter`[match(`Parameter`, paramsMWR$`WQX Parameter`)], 
-        T ~ `Parameter`
+      `Parameter` = ifelse(
+        `Parameter` %in% paramsMWR$`WQX Parameter`, 
+        paramsMWR$`Simple Parameter`[match(`Parameter`, paramsMWR$`WQX Parameter`)], 
+        `Parameter`
       )
     ) %>% 
     dplyr::mutate_at(vars(-Parameter, -uom, -MDL, -UQL), function(x) gsub('\u00b1', '', x)) %>%

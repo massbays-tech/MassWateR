@@ -164,18 +164,22 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
         dplyr::select(-`Sample ID`) %>% 
         dplyr::mutate(
           Threshold = ifelse(`Field Blank` != 'BDL', `Field Blank`, MDL), 
-          Threshold = dplyr::case_when(
-            Result != 'BDL' ~ Threshold, 
-            Result == 'BDL' & is.na(`Quantitation Limit`) ~ Threshold,
-            TRUE ~ Threshold
+          Threshold = ifelse(
+            Result != 'BDL', Threshold,
+              ifelse(Result == 'BDL' & is.na(`Quantitation Limit`), 
+                     Threshold,
+                  Threshold
+              )
           ),
           Threshold = ifelse(Result == 'BDL' & !is.na(`Quantitation Limit`), `Quantitation Limit`, Threshold),
           Threshold = ifelse(grepl('<|=', Threshold), Threshold, paste('<', Threshold)),
-          `Hit/Miss` = dplyr::case_when(
-            isnum ~ paste(Result, Threshold),
-            Result == 'AQL' ~ 'FALSE',
-            Result == 'BDL' ~ 'TRUE', 
-            T ~ 'TRUE'
+          `Hit/Miss` = ifelse(
+            isnum, paste(Result, Threshold),
+              ifelse(Result == 'AQL', 'FALSE',
+                ifelse(Result == 'BDL', 'TRUE', 
+                  'TRUE'
+                )
+              )
           )
         ) %>% 
         dplyr::rowwise() %>% 
@@ -200,18 +204,21 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
         dplyr::select(-`Site`) %>% 
         dplyr::mutate(
           Threshold = ifelse(`Lab Blank` != 'BDL', `Lab Blank`, MDL), 
-          Threshold = dplyr::case_when(
-            Result != 'BDL' ~ Threshold, 
-            Result == 'BDL' & is.na(`Quantitation Limit`) ~ Threshold,
-            TRUE ~ Threshold
+          Threshold = ifelse(
+            Result != 'BDL', Threshold,
+            ifelse(Result == 'BDL' & is.na(`Quantitation Limit`), Threshold,
+            Threshold
+            )
           ),
           Threshold = ifelse(Result == 'BDL' & !is.na(`Quantitation Limit`), `Quantitation Limit`, Threshold),
           Threshold = ifelse(grepl('<|=', Threshold), Threshold, paste('<', Threshold)),
-          `Hit/Miss` = dplyr::case_when(
-            isnum ~ paste(Result, Threshold),
-            Result == 'AQL' ~ 'FALSE',
-            Result == 'BDL' ~ 'TRUE', 
-            T ~ 'TRUE'
+          `Hit/Miss` = ifelse(
+            isnum, paste(Result, Threshold),
+            ifelse(Result == 'AQL', 'FALSE',
+                   ifelse(Result == 'BDL', 'TRUE', 
+                  'TRUE'
+                   )
+            )
           )
         ) %>% 
         dplyr::rowwise() %>% 
@@ -239,9 +246,10 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
   
   resdat_dup <- resdat %>% 
     dplyr::mutate(
-      `Activity Type` = dplyr::case_when(
-        `Activity Type` %in% c('Field Msr/Obs', 'Sample-Routine') & !is.na(`QC Reference Value`) ~ 'Field Duplicate', 
-        T ~ `Activity Type`
+      `Activity Type` = ifelse(
+        `Activity Type` %in% c('Field Msr/Obs', 'Sample-Routine') & !is.na(`QC Reference Value`),
+        'Field Duplicate', 
+        `Activity Type`
       )
     )
   
@@ -271,19 +279,23 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
       ) %>%
       dplyr::mutate(
         `Result Unit` = ifelse(Parameter == 'pH', 's.u.', `Result Unit`),
-        `Initial Result2` = dplyr::case_when(
-          `Initial Result` == 'BDL' & is.na(`Quantitation Limit`) ~ as.character(MDL), 
-          `Initial Result` == 'BDL' & !is.na(`Quantitation Limit`) ~ as.character(`Quantitation Limit`), 
-          `Initial Result` == 'AQL' & is.na(`Quantitation Limit`) ~ as.character(UQL),
-          `Initial Result` == 'AQL' & !is.na(`Quantitation Limit`) ~ as.character(`Quantitation Limit`), 
-          T ~ `Initial Result`
+        `Initial Result2` = ifelse(
+          `Initial Result` == 'BDL' & is.na(`Quantitation Limit`), as.character(MDL),
+            ifelse(`Initial Result` == 'BDL' & !is.na(`Quantitation Limit`),as.character(`Quantitation Limit`), 
+              ifelse(`Initial Result` == 'AQL' & is.na(`Quantitation Limit`), as.character(UQL),
+                ifelse(`Initial Result` == 'AQL' & !is.na(`Quantitation Limit`), as.character(`Quantitation Limit`), `Initial Result`
+                )
+              )
+            )
         ), 
-        `Dup. Result2` = dplyr::case_when(
-          `Dup. Result` == 'BDL' & is.na(`Quantitation Limit`) ~ as.character(MDL), 
-          `Dup. Result` == 'BDL' & !is.na(`Quantitation Limit`) ~ as.character(`Quantitation Limit`), 
-          `Dup. Result` == 'AQL' & is.na(`Quantitation Limit`) ~ as.character(UQL), 
-          `Dup. Result` == 'AQL' & !is.na(`Quantitation Limit`) ~ as.character(`Quantitation Limit`), 
-          T ~ `Dup. Result`
+        `Dup. Result2` = ifelse(
+          `Dup. Result` == 'BDL' & is.na(`Quantitation Limit`), as.character(MDL), 
+            ifelse(`Dup. Result` == 'BDL' & !is.na(`Quantitation Limit`), as.character(`Quantitation Limit`), 
+              ifelse(`Dup. Result` == 'AQL' & is.na(`Quantitation Limit`), as.character(UQL), 
+                ifelse(`Dup. Result` == 'AQL' & !is.na(`Quantitation Limit`), as.character(`Quantitation Limit`), `Dup. Result`
+                )
+              )
+            )
         ), 
         `Initial Result2` = as.numeric(`Initial Result2`),
         `Dup. Result2` = as.numeric(`Dup. Result2`), 
@@ -323,13 +335,13 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
         dplyr::filter(!is.na(`Field Duplicate`)) %>% 
         dplyr::rowwise() %>% 
         dplyr::mutate(
-          diffv = dplyr::case_when(
-            grepl('log', `Field Duplicate`) ~ abs(log(`Dup. Result2`) - log(`Initial Result2`)),
-            T ~ abs(`Dup. Result2` - `Initial Result2`)
+          diffv = ifelse(
+            grepl('log', `Field Duplicate`), abs(log(`Dup. Result2`) - log(`Initial Result2`)),
+            abs(`Dup. Result2` - `Initial Result2`)
           ),
-          percv = dplyr::case_when(
-            grepl('log', `Field Duplicate`) ~ 100 * diffv / ((log(`Initial Result2`) + log(`Dup. Result2`)) / 2),
-            T ~ 100 * diffv / ((`Initial Result2` + `Dup. Result2`) / 2)
+          percv = ifelse(
+            grepl('log', `Field Duplicate`), 100 * diffv / ((log(`Initial Result2`) + log(`Dup. Result2`)) / 2),
+            100 * diffv / ((`Initial Result2` + `Dup. Result2`) / 2)
           ),
           `Field Duplicate2` = gsub('%|log', '', `Field Duplicate`),
           `Hit/Miss` = ifelse(
@@ -359,13 +371,13 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
         dplyr::filter(!is.na(`Lab Duplicate`)) %>% 
         dplyr::rowwise() %>% 
         dplyr::mutate(
-          diffv = dplyr::case_when(
-            grepl('log', `Lab Duplicate`) ~ abs(log(`Dup. Result2`) - log(`Initial Result2`)),
-            T ~ abs(`Dup. Result2` - `Initial Result2`)
+          diffv = ifelse(
+            grepl('log', `Lab Duplicate`), abs(log(`Dup. Result2`) - log(`Initial Result2`)),
+            abs(`Dup. Result2` - `Initial Result2`)
           ),
-          percv = dplyr::case_when(
-            grepl('log', `Lab Duplicate`) ~ 100 * diffv / ((log(`Initial Result2`) + log(`Dup. Result2`)) / 2),
-            T ~ 100 * diffv / ((`Initial Result2` + `Dup. Result2`) / 2)
+          percv = ifelse(
+            grepl('log', `Lab Duplicate`), 100 * diffv / ((log(`Initial Result2`) + log(`Dup. Result2`)) / 2),
+            100 * diffv / ((`Initial Result2` + `Dup. Result2`) / 2)
           ),
           `Lab Duplicate2` = gsub('%|log', '', `Lab Duplicate`),
           `Hit/Miss` = ifelse(
@@ -418,15 +430,17 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
       dplyr::filter(!is.na(`Spike/Check Accuracy`)) %>% 
       dplyr::mutate(
         `Result Unit` = ifelse(Parameter == 'pH', 's.u.', `Result Unit`),
-        `Recovered2` = dplyr::case_when(
-          `Recovered` == 'BDL' ~ as.character(MDL), 
-          `Recovered` == 'AQL' ~ as.character(UQL), 
-          T ~ `Recovered`
+        `Recovered2` = ifelse(
+          `Recovered` == 'BDL', as.character(MDL), 
+            ifelse(`Recovered` == 'AQL', as.character(UQL), 
+              `Recovered`
+            )
         ), 
-        `Standard2` = dplyr::case_when(
-          `Standard` == 'BDL' ~ as.character(MDL), 
-          `Standard` == 'AQL' ~ as.character(UQL), 
-          T ~ `Standard`
+        `Standard2` = ifelse(
+          `Standard` == 'BDL', as.character(MDL), 
+            ifelse(`Standard` == 'AQL', as.character(UQL), 
+              `Standard`
+            )
         ),        
         `Recovered2` = as.numeric(`Recovered2`),
         `Standard2` = as.numeric(`Standard2`), 

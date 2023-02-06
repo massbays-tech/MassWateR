@@ -82,12 +82,14 @@ utilMWRlimits <- function(resdat, param, accdat, warn = TRUE){
     inner_join(accdat, by = c('Characteristic Name' = 'Parameter')) %>% 
     dplyr::mutate(
       `Result Unit` = ifelse(`Characteristic Name` == 'pH', 's.u.', `Result Unit`),
-      `Result Value` = dplyr::case_when(
-        `Result Value` == 'BDL' & is.na(`Quantitation Limit`) ~ as.character(MDL / 2), 
-        `Result Value` == 'BDL' & !is.na(`Quantitation Limit`) ~ as.character(as.numeric(`Quantitation Limit`) / 2), 
-        `Result Value` == 'AQL' & is.na(`Quantitation Limit`) ~ as.character(UQL),
-        `Result Value` == 'AQL' & !is.na(`Quantitation Limit`) ~ `Quantitation Limit`, 
-        T ~ `Result Value`
+      `Result Value` = ifelse(`Result Value` == 'BDL' & is.na(`Quantitation Limit`), as.character(MDL / 2), 
+        ifelse(`Result Value` == 'BDL' & !is.na(`Quantitation Limit`), as.character(as.numeric(`Quantitation Limit`) / 2), 
+          ifelse(`Result Value` == 'AQL' & is.na(`Quantitation Limit`), as.character(UQL),
+            ifelse(`Result Value` == 'AQL' & !is.na(`Quantitation Limit`), `Quantitation Limit`, 
+              `Result Value`
+            )
+          )
+        )
       ), 
       `Result Value` = as.numeric(`Result Value`)
     ) %>% 

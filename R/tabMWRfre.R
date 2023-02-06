@@ -84,9 +84,9 @@ tabMWRfre <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, war
         ) %>% 
       dplyr::mutate(
         Type = factor(Type, levels = levs, labels = labs), 
-        `Hit/Miss` = dplyr::case_when(
-          !`Hit/Miss` ~ 'MISS', 
-          T ~ ''
+        `Hit/Miss` = ifelse(
+          !`Hit/Miss`, 'MISS', 
+          ''
         )
       ) %>% 
       dplyr::arrange(Type, Parameter) %>% 

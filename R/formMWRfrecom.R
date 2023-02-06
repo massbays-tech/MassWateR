@@ -29,9 +29,10 @@ formMWRfrecom <- function(frecomdat){
   
   # convert all parameters to simple
   out <- dplyr::mutate(frecomdat, # match any entries in Parameter that are WQX Parameter to Simple Parameter
-            `Parameter` = dplyr::case_when(
-              `Parameter` %in% paramsMWR$`WQX Parameter` ~ paramsMWR$`Simple Parameter`[match(`Parameter`, paramsMWR$`WQX Parameter`)], 
-              T ~ `Parameter`
+            `Parameter` = ifelse(
+              `Parameter` %in% paramsMWR$`WQX Parameter`,
+              paramsMWR$`Simple Parameter`[match(`Parameter`, paramsMWR$`WQX Parameter`)], 
+              `Parameter`
             )
           )
   

@@ -36,13 +36,15 @@ utilMWRyscale <- function(accdat, param, yscl = c('auto', 'log', 'linear')){
     unlist %>% 
     grepl('log', .) %>% 
     any
-  
+
   # final log scale logical
-  out <- dplyr::case_when(
-    yscl == 'linear' ~ FALSE, 
-    yscl == 'log' ~ TRUE, 
-    yscl == 'auto' ~ logscl
-  )
+  out <- ifelse(yscl == 'linear', FALSE, 
+      ifelse(yscl == 'log', TRUE,
+        ifelse(yscl == 'auto', logscl, 
+          NA_integer_
+        )
+      )
+    )
   
   return(out)
   

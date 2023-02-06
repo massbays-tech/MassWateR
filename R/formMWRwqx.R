@@ -27,9 +27,10 @@ formMWRwqx <- function(wqxdat){
   
   # convert all characteristic names to simple
   out <- dplyr::mutate(wqxdat,
-                       Parameter = dplyr::case_when(
-                         Parameter %in% paramsMWR$`WQX Parameter` ~ paramsMWR$`Simple Parameter`[match(Parameter, paramsMWR$`WQX Parameter`)], 
-                         T ~ Parameter
+                       Parameter = ifelse(
+                         Parameter %in% paramsMWR$`WQX Parameter`,
+                         paramsMWR$`Simple Parameter`[match(Parameter, paramsMWR$`WQX Parameter`)], 
+                         Parameter
                        )
     )
   

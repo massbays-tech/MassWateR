@@ -43,17 +43,19 @@ formMWRresults <- function(resdat, tzone = 'America/Jamaica'){
     mutate(
       `Result Unit` = trimws(`Result Unit`),
       `Result Unit` = gsub('^ppt$', 'ppth', `Result Unit`) ,
-      `Result Unit` = case_when(
-        `Characteristic Name` == 'pH' & `Result Unit` == 's.u.' ~ NA_character_, 
-        T ~ `Result Unit`
+      `Result Unit` = ifelse(
+        `Characteristic Name` == 'pH' & `Result Unit` == 's.u.', 
+        NA_character_, 
+        `Result Unit`
       )
     )
   
   # convert all characteristic names to simple
   out <- dplyr::mutate(out, # match any entries in Characteristic Name that are WQX Parameter to Simple Parameter
-    `Characteristic Name` = dplyr::case_when(
-      `Characteristic Name` %in% paramsMWR$`WQX Parameter` ~ paramsMWR$`Simple Parameter`[match(`Characteristic Name`, paramsMWR$`WQX Parameter`)], 
-      T ~ `Characteristic Name`
+    `Characteristic Name` = ifelse(
+      `Characteristic Name` %in% paramsMWR$`WQX Parameter`,
+      paramsMWR$`Simple Parameter`[match(`Characteristic Name`, paramsMWR$`WQX Parameter`)], 
+      `Characteristic Name`
       )
     )
   

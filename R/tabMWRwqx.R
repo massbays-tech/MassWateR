@@ -125,9 +125,10 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
   # format parameter in accdat to wqx parameter
   accdat <- accdat %>% 
     dplyr::mutate(
-      `WQX Parameter` = dplyr::case_when(
-        Parameter %in% paramsMWR$`Simple Parameter` ~ paramsMWR$`WQX Parameter`[match(Parameter, paramsMWR$`Simple Parameter`)], 
-        T ~ Parameter
+      `WQX Parameter` = ifelse(
+        Parameter %in% paramsMWR$`Simple Parameter`, 
+        paramsMWR$`WQX Parameter`[match(Parameter, paramsMWR$`Simple Parameter`)], 
+        Parameter
       )
     ) %>% 
     dplyr::select(`WQX Parameter`, MDL, UQL, `Value Range`)
@@ -135,9 +136,10 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
   # format characteristic name in resdat to wqx parameter
   resu <- resdat %>% 
     dplyr::mutate(
-      `WQX Parameter` = dplyr::case_when(
-        `Characteristic Name` %in% paramsMWR$`Simple Parameter` ~ paramsMWR$`WQX Parameter`[match(`Characteristic Name`, paramsMWR$`Simple Parameter`)], 
-        T ~ `Characteristic Name`
+      `WQX Parameter` = ifelse(
+        `Characteristic Name` %in% paramsMWR$`Simple Parameter`, 
+        paramsMWR$`WQX Parameter`[match(`Characteristic Name`, paramsMWR$`Simple Parameter`)], 
+        `Characteristic Name`
       )
     )
   
@@ -146,16 +148,24 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
     filter(!is.na(`QC Reference Value`)) %>%
     mutate(
       `Result Value` = `QC Reference Value`,
-      `Activity Type` = case_when(
-        `Activity Type` == 'Field Msr/Obs' ~ 'Quality Control Field Replicate Msr/Obs',
-        `Activity Type` == 'Sample-Routine' ~ 'Quality Control Sample-Field Replicate',
-        `Activity Type` == 'Quality Control Sample-Field Blank' ~ NA_character_, # to remove
-        `Activity Type` == 'Quality Control Sample-Lab Blank' ~ NA_character_, # to remove
-        `Activity Type` == 'Quality Control Sample-Lab Duplicate' ~ 'Quality Control Sample-Lab Duplicate 2',
-        `Activity Type` == 'Quality Control Sample-Lab Spike' ~ 'Quality Control Sample-Lab Spike Target',
-        `Activity Type` == 'Quality Control-Calibration Check' ~ 'Quality Control-Calibration Check Buffer', 
-        `Activity Type` == 'Quality Control-Meter Lab Duplicate' ~ 'Quality Control-Meter Lab Duplicate 2', 
-        `Activity Type` == 'Quality Control-Meter Lab Blank' ~ NA_character_ # to remove
+      `Activity Type` = ifelse(`Activity Type` == 'Field Msr/Obs', 'Quality Control Field Replicate Msr/Obs',
+        ifelse(`Activity Type` == 'Sample-Routine', 'Quality Control Sample-Field Replicate',
+          ifelse(`Activity Type` == 'Quality Control Sample-Field Blank', NA_character_, # to remove
+            ifelse(`Activity Type` == 'Quality Control Sample-Lab Blank', NA_character_, # to remove
+              ifelse(`Activity Type` == 'Quality Control Sample-Lab Duplicate', 'Quality Control Sample-Lab Duplicate 2',
+                ifelse(`Activity Type` == 'Quality Control Sample-Lab Spike', 'Quality Control Sample-Lab Spike Target',
+                  ifelse(`Activity Type` == 'Quality Control-Calibration Check', 'Quality Control-Calibration Check Buffer', 
+                    ifelse(`Activity Type` == 'Quality Control-Meter Lab Duplicate', 'Quality Control-Meter Lab Duplicate 2', 
+                      ifelse(`Activity Type` == 'Quality Control-Meter Lab Blank', NA_character_, # to remove, 
+                        NA_character_
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
       ),
       `QC Reference Value` = gsub('[[:digit:]]+', NA_character_, `QC Reference Value`)
     ) %>%
@@ -190,9 +200,9 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
       ) %>% 
     dplyr::group_by(`Activity Start Date`, `Characteristic Name`, `Activity Type`) %>% 
     dplyr::mutate(
-      actstrtm = dplyr::case_when(
-        !`Activity Type` %in% c('Field Msr/Obs', 'Sample-Routine') & is.na(`Activity Start Time`) ~ 1,
-        T ~ NA_real_
+      actstrtm = ifelse(
+        !`Activity Type` %in% c('Field Msr/Obs', 'Sample-Routine') & is.na(`Activity Start Time`), 1,
+        NA_real_
       ), 
       actstrtm = cumsum(actstrtm)
     ) %>% 
@@ -220,23 +230,36 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
       timeaid = gsub(':', '', as.character(`Activity Start Time`)),
       deptaid = ifelse(is.na(`Activity Depth/Height Measure`), `Activity Relative Depth Name`, round(as.numeric(`Activity Depth/Height Measure`), 2)), 
       deptaid = ifelse(is.na(deptaid), '', deptaid),
-      actyaid = dplyr::case_when(
-        `Activity Type` == 'Sample-Routine' ~ 'SR',
-        `Activity Type` == 'Field Msr/Obs' ~ 'FM',
-        `Activity Type` == 'Quality Control Sample-Field Replicate' ~ 'SR2',
-        `Activity Type` == 'Quality Control Field Replicate Msr/Obs' ~ 'FM2',
-        `Activity Type` == 'Quality Control Sample-Lab Duplicate' ~ 'LD',
-        `Activity Type` == 'Quality Control Sample-Lab Duplicate 2' ~ 'LD2',
-        `Activity Type` == 'Quality Control Sample-Lab Spike' ~ 'LS',
-        `Activity Type` == 'Quality Control Sample-Lab Spike Target' ~ 'LS2',
-        `Activity Type` == 'Quality Control-Calibration Check' ~ 'CC',
-        `Activity Type` == 'Quality Control-Calibration Check Buffer' ~ 'CC2',
-        `Activity Type` == 'Quality Control Sample-Field Blank' ~ 'FB',
-        `Activity Type` == 'Quality Control Sample-Lab Blank' ~ 'LB',
-        `Activity Type` == 'Quality Control-Meter Lab Duplicate' ~ 'MLD',
-        `Activity Type` == 'Quality Control-Meter Lab Duplicate 2' ~ 'MLD2',
-        `Activity Type` == 'Quality Control-Meter Lab Blank' ~ 'MLB',
-        T ~ ''
+      actyaid = ifelse(`Activity Type` == 'Sample-Routine', 'SR',
+        ifelse(`Activity Type` == 'Field Msr/Obs', 'FM',
+          ifelse(`Activity Type` == 'Quality Control Sample-Field Replicate', 'SR2',
+            ifelse(`Activity Type` == 'Quality Control Field Replicate Msr/Obs', 'FM2',
+              ifelse(`Activity Type` == 'Quality Control Sample-Lab Duplicate', 'LD',
+                ifelse(`Activity Type` == 'Quality Control Sample-Lab Duplicate 2', 'LD2',
+                  ifelse(`Activity Type` == 'Quality Control Sample-Lab Spike', 'LS',
+                    ifelse(`Activity Type` == 'Quality Control Sample-Lab Spike Target', 'LS2',
+                      ifelse(`Activity Type` == 'Quality Control-Calibration Check', 'CC',
+                        ifelse(`Activity Type` == 'Quality Control-Calibration Check Buffer', 'CC2',
+                          ifelse(`Activity Type` == 'Quality Control Sample-Field Blank', 'FB',
+                            ifelse(`Activity Type` == 'Quality Control Sample-Lab Blank', 'LB',
+                              ifelse(`Activity Type` == 'Quality Control-Meter Lab Duplicate', 'MLD',
+                                ifelse(`Activity Type` == 'Quality Control-Meter Lab Duplicate 2', 'MLD2',
+                                  ifelse(`Activity Type` == 'Quality Control-Meter Lab Blank', 'MLB',
+                                    ''
+                                  )
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
       )
     ) %>%
     tidyr::unite('Activity ID', moniaid, dateaid, timeaid, deptaid, actyaid, sep = ':', remove = T)
@@ -250,38 +273,37 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
       `Activity Start Time Zone` = 'EDT',
       `Activity Depth/Height Measure` = ifelse(is.na(`Activity Relative Depth Name`), `Activity Depth/Height Measure`, NA), 
       `Activity Depth/Height Unit` = ifelse(is.na(`Activity Relative Depth Name`), `Activity Depth/Height Unit`, NA), 
-      `Sample Collection Method ID` = dplyr::case_when(
-        `Activity Type` %in% c('Sample-Routine', 'Quality Control Sample-Field Blank', 'Quality Control Sample-Field Replicate') & !is.na(`Sample Collection Method ID`) ~ `Sample Collection Method ID`,
-        `Activity Type` %in% c('Sample-Routine', 'Quality Control Sample-Field Blank', 'Quality Control Sample-Field Replicate') & is.na(`Sample Collection Method ID`) ~ 'Grab-MassWateR', 
-        T ~ NA_character_
+      `Sample Collection Method ID` = ifelse(`Activity Type` %in% c('Sample-Routine', 'Quality Control Sample-Field Blank', 'Quality Control Sample-Field Replicate') & !is.na(`Sample Collection Method ID`), `Sample Collection Method ID`,
+        ifelse(`Activity Type` %in% c('Sample-Routine', 'Quality Control Sample-Field Blank', 'Quality Control Sample-Field Replicate') & is.na(`Sample Collection Method ID`), 'Grab-MassWateR', 
+          NA_character_
+        )
       ),
       `Sample Collection Equipment Name` = ifelse(`Activity Type` %in% c('Sample-Routine', 'Quality Control Sample-Field Blank', 'Quality Control Sample-Field Replicate'), 'Water Bottle', NA_character_), 
       `Characteristic Name User Supplied` = `Characteristic Name`,
-      `Result Detection Condition` = dplyr::case_when(
-        `Result Value` == 'BDL' ~ 'Not Detected',
-        `Result Value` == 'AQL' ~ 'Present Above Quantitation Limit', 
-        T ~ NA_character_
+      `Result Detection Condition` = ifelse(`Result Value` == 'BDL', 'Not Detected',
+        ifelse(`Result Value` == 'AQL', 'Present Above Quantitation Limit', 
+          NA_character_
+        )
       ),
       `Result Status ID` = 'Final', 
       `Result Value Type` = 'Actual', 
-      `Result Detection/Quantitation Limit Type` = dplyr::case_when(
-        `Result Value` == 'BDL' ~ 'Method Detection Level',
-        `Result Value` == 'AQL' ~ 'Upper Quantitation Limit', 
-        T ~ NA_character_
+      `Result Detection/Quantitation Limit Type` = ifelse(`Result Value` == 'BDL', 'Method Detection Level',
+        ifelse(`Result Value` == 'AQL', 'Upper Quantitation Limit', 
+          NA_character_
+        )
       ),
-      `Result Unit` = dplyr::case_when(
-        `Characteristic Name` == 'pH' ~ 'None', 
-        `Characteristic Name` == 'Salinity' ~ 'ppth', 
-        T ~ `Result Unit`
+      `Result Unit` = ifelse(`Characteristic Name` == 'pH', 'None',
+        ifelse(`Characteristic Name` == 'Salinity', 'ppth', 
+          `Result Unit`
+        )
       ),
       `Result Detection/Quantitation Limit Unit` = ifelse(
         `Result Value` %in% c('BDL', 'AQL'), 
         `Result Unit`,
         NA_character_
       ),
-      `Result Unit` = dplyr::case_when(
-        `Result Value` %in% c('BDL', 'AQL') ~ NA_character_,
-        T ~ `Result Unit`
+      `Result Unit` = ifelse(`Result Value` %in% c('BDL', 'AQL'), NA_character_,
+        `Result Unit`
       )
     )
   
@@ -300,10 +322,10 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
     ) %>% 
     left_join(accdat, by = 'WQX Parameter') %>% 
     dplyr::mutate(
-      `Result Value2` = dplyr::case_when(
-        `Result Value` == 'AQL' ~ 'Inf', 
-        `Result Value` == 'BDL' ~ '-Inf', 
-        T ~ `Result Value`
+      `Result Value2` = ifelse(`Result Value` == 'AQL', 'Inf', 
+        ifelse(`Result Value` == 'BDL', '-Inf', 
+          `Result Value`
+        )
       )
     ) %>% 
     tidyr::unite('flt', `Result Value2`, `Value Range`, sep = ' ', remove = FALSE) %>%
@@ -321,12 +343,14 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
     filter(!(duplicated(ind) & is.na(`Result Value2`))) %>% 
     dplyr::select(-ind, -`Value Range`, -`Result Value2`, -`rngflt`, -flt) %>% 
     dplyr::mutate(
-      `Result Detection/Quantitation Limit Value` = dplyr::case_when(
-        `Result Value` == 'BDL' & is.na(`Quantitation Limit`) ~ as.character(MDL), 
-        `Result Value` == 'BDL' & !is.na(`Quantitation Limit`) ~ as.character(`Quantitation Limit`), 
-        `Result Value` == 'AQL' & is.na(`Quantitation Limit`) ~ as.character(UQL),
-        `Result Value` == 'AQL' & !is.na(`Quantitation Limit`) ~ as.character(`Quantitation Limit`),
-        T ~ NA_character_
+      `Result Detection/Quantitation Limit Value` = ifelse(`Result Value` == 'BDL' & is.na(`Quantitation Limit`), as.character(MDL),
+        ifelse(`Result Value` == 'BDL' & !is.na(`Quantitation Limit`), as.character(`Quantitation Limit`),
+          ifelse(`Result Value` == 'AQL' & is.na(`Quantitation Limit`), as.character(UQL),
+            ifelse(`Result Value` == 'AQL' & !is.na(`Quantitation Limit`), as.character(`Quantitation Limit`),
+              NA_character_
+            )
+          )
+        )
       )
     )
 
@@ -354,9 +378,8 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
   resu <- resu %>%
     dplyr::mutate(
       `Characteristic Name` = `WQX Parameter`, 
-      `Result Value` = dplyr::case_when(
-        `Result Value` %in% c('BDL', 'AQL') ~ NA_character_,
-        T ~ `Result Value`
+      `Result Value` = ifelse(`Result Value` %in% c('BDL', 'AQL'), NA_character_,
+        `Result Value`
       )
     ) %>% 
     dplyr::select(

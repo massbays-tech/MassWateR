@@ -106,9 +106,9 @@ qcMWRcom <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn
   out <- resall %>% 
     dplyr::left_join(frecomdat, by = 'Parameter') %>% 
     dplyr::mutate(
-      complete = dplyr::case_when(
-        !is.na(standard) ~ 100 * (datarec - qualrec) / (datarec),
-        T ~ NA_real_
+      complete = ifelse(
+        !is.na(standard), 100 * (datarec - qualrec) / (datarec),
+        NA_real_
       ),
       met = complete >= standard
     )
