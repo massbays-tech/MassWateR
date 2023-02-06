@@ -68,11 +68,10 @@ utilMWRfilter <- function(resdat, sitdat = NULL, param, dtrng = NULL, site = NUL
     if(length(dtrng) != 2)
       stop('Must supply two dates for dtrng', call. = FALSE)
     
-    dtflt <- suppressWarnings(as.Date(dtrng, format = '%Y-%m-%d'))
+    dtflt <- suppressWarnings(as.Date(c(dtrng), format = '%Y-%m-%d'))
     
     if(anyNA(dtflt)){
-      chk <- dtrng[is.na(dtflt)]
-      stop('Dates not entered as YYYY-MM-DD: ', paste(chk, collapse = ', '), call. = FALSE)
+      stop('Dates in dtrng not entered as YYYY-MM-DD', call. = FALSE)
     } 
     
     dtflt <- sort(dtflt)

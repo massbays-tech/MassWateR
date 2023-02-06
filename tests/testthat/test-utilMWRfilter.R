@@ -10,7 +10,7 @@ test_that("Check error if one date provided", {
 
 test_that("Check error if dates formatted wrong", {
   expect_error(utilMWRfilter(resdat, param = 'DO', dtrng = c('06-01-2021', '06-30-2021')), 
-               'Dates not entered as YYYY-MM-DD: 06-01-2021, 06-30-2021')
+               'Dates in dtrng not entered as YYYY-MM-DD')
 })
 
 test_that("Check error if no data available", {
