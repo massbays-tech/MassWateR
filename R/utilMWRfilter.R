@@ -77,8 +77,7 @@ utilMWRfilter <- function(resdat, sitdat = NULL, param, dtrng = NULL, site = NUL
     
     dtflt <- sort(dtflt)
     
-    resdat <- resdat %>% 
-      dplyr::filter(`Activity Start Date` >= dtflt[1] & `Activity Start Date` <= dtflt[2])
+    resdat <- resdat[resdat$`Activity Start Date` >= dtflt[1] & resdat$`Activity Start Date` <= dtflt[2], ]
   
     if(nrow(resdat) == 0)
       stop('No data available for date range', call. = FALSE)
