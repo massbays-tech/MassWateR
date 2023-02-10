@@ -136,24 +136,26 @@ p +
   geom_hline(yintercept = 10, linetype = 'solid', color = 'green', size = 2)
 ```
 
-Additional layers can also be added to maps created with `anlzMWRmap()`. For example, a watershed shapefile can be imported as a simple features object using the [sf](https://r-spatial.github.io/sf/){target="_blank"} package, then added using `geom_sf()` from ggplot. Any warnings about the coordinate system can be ignored.  The water features will also be clipped to the extent of the sites and will likely not show the entire watershed. 
+Additional layers can also be added to maps created with `anlzMWRmap()`. For example, a watershed shapefile can be imported as a simple features object using the [sf](https://r-spatial.github.io/sf/){target="_blank"} package, then added using `geom_sf()` from ggplot. Any warnings about the coordinate system can be ignored.  Depending on the watershed boundaries, it may be necessary to adjust the extent of the water features (with `buffdist`) and/or the boundaries of the map box (with `coord_sf()`). 
 
 ```{r, eval = F}
 library(sf)
 library(ggplot2)
 
 # import shapefile as sf object
-sudburyMWR <- st_read('sudburyMWR.shp')
+sudburyMWR <- st_read(dsn='C:/Documents/MapLayers', layer='sudburyMWR')
 
 # use geom_sf to add watershed
-anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = 'high') + 
-  geom_sf(data = sudburyMWR)
+anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = 'high', buffdist = 3) + 
+  geom_sf(data = sudburyMWR) +
+  coord_sf(xlim = c(-71.68, -71.31), ylim = c(42.20, 42.48))
 ```
 ```{r, fig.height = 7, fig.width = 7, echo = F, warning = F, message = F}
 load(file = url('https://github.com/massbays-tech/MassWateRdata/raw/main/data/sudburyMWR.RData'))
 # use geom_sf to add watershed
-anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = 'high') + 
-  geom_sf(data = sudburyMWR)
+anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = 'high', buffdist = 3) + 
+  geom_sf(data = sudburyMWR) +
+  coord_sf(xlim = c(-71.68, -71.31), ylim = c(42.20, 42.48))
 ```
 
 
