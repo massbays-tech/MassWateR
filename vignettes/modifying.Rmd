@@ -75,12 +75,14 @@ accdat <- readMWRacc(accpth, runchk = F)
 # import site metadata
 sitpth <- system.file("extdata/ExampleSites.xlsx", package = "MassWateR")
 sitdat <- readMWRsites(sitpth, runchk = F)
+
+fsetls <- list(res=resdat, acc=accdat, sit=sitdat)
 ```
 
 Below are a few examples of additions to change the standard plot, using `anlzMWRseason()` for demonstration. A single plot object for the original plot is created as `p` and is modified differently in each example. 
 
 ```{r}
-p <- anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "month")
+p <- anlzMWRseason(fset = fsetls, param = "DO", thresh = "fresh", group = "month")
 ```
 
 Modify plot labels: 
@@ -146,14 +148,14 @@ library(ggplot2)
 sudburyMWR <- st_read(dsn='C:/Documents/MapLayers', layer='sudburyMWR')
 
 # use geom_sf to add watershed
-anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = 'high', buffdist = 3) + 
+anlzMWRmap(fset = fsetls, param = 'DO', addwater = 'high', buffdist = 3) + 
   geom_sf(data = sudburyMWR) +
   coord_sf(xlim = c(-71.68, -71.31), ylim = c(42.20, 42.48))
 ```
 ```{r, fig.height = 7, fig.width = 7, echo = F, warning = F, message = F}
 load(file = url('https://github.com/massbays-tech/MassWateRdata/raw/main/data/sudburyMWR.RData'))
 # use geom_sf to add watershed
-anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = 'high', buffdist = 3) + 
+anlzMWRmap(fset = fsetls, param = 'DO', addwater = 'high', buffdist = 3) + 
   geom_sf(data = sudburyMWR) +
   coord_sf(xlim = c(-71.68, -71.31), ylim = c(42.20, 42.48))
 ```
