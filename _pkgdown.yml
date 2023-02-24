@@ -11,7 +11,10 @@ navbar:
     reference:
       text: Functions
       href: reference/index.html
-    resources:
+    reference:
+      text: Out of state?
+      href: OUTOFSTATE.html
+      resources:
       text: Resources
       href: RESOURCES.html
     
