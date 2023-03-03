@@ -1,10 +1,22 @@
 ---
-editor_options: 
-  markdown: 
-    wrap: sentence
+title: "Out of state?"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Out of state?}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
-# Not in Massachusetts?
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(MassWateR)
+```
 
 MassWateR can be used anywhere with a few caveats. MassWateR was developed specifically for organizations in Massachusetts to support the data submission process to Massachusetts Department of Environmental Protection (Mass DEP). However, the structure, logic, and approach to analyzing data are universal and could be used by any organization. Here is a list of the MassWateR elements that are specific to Massachusetts:
 
@@ -15,3 +27,4 @@ MassWateR can be used anywhere with a few caveats. MassWateR was developed speci
 1. __Sample Collection Method__ - In the WQX output file, if you do not define your own Sample Collection Method and Context, MassWateR will default the Method ID `"Grab-MassWateR"` and the Method Context `"MassWateR"`. Even though these names include the prefix "Mass", there is nothing specific to Massachusetts about this sampling method. Further, the recommended solution is to define your own method and context in WQX.
 
 In future updates we may expand the scope beyond Massachusetts, but for now you are welcome to use the package with the considerations mentioned above.
+

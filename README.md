@@ -38,6 +38,7 @@ Please see the vignette articles for an overview of how to use functions in the 
 * [MassWateR analysis functions](https://massbays-tech.github.io/MassWateR/articles/analysis.html): Information on using the analysis functions to evaluate trends, summaries, and maps in the results data for surface water quality.
 * [Modifying plots](https://massbays-tech.github.io/MassWateR/articles/modifying.html): A short tutorial on modifying plots created with MassWateR.
 * [Water Quality Exchange output](https://massbays-tech.github.io/MassWateR/articles/wqx.html): Information on generating output that will facilitate upload of data to the EPA Water Quality Exchange
+* [Out of state?](https://massbays-tech.github.io/MassWateR/articles/outofstate.html): MassWateR can be used anywhere and this article describes some tips for using the package outside of Massachusetts.
 
 In addition to the content on this web page, the MassWateR Community of Practice forum is a space for users to find help, share ideas, and suggest improvements for the package.  Please follow the <a href="https://massbays.discourse.group/login" target="_blank">link</a> to register and login to the forum.
 

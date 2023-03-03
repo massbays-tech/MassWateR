@@ -5,15 +5,12 @@ template:
 
 navbar:
   structure:
-    left:  [intro, reference, articles, outofstate, resources, tutorials, news]
+    left:  [intro, reference, articles, resources, tutorials, news]
     right: [search, github]
   components:
     reference:
       text: Functions
       href: reference/index.html
-    outofstate:
-      text: Out of state?
-      href: OUTOFSTATE.html
     resources:
       text: Resources
       href: RESOURCES.html
@@ -32,6 +29,7 @@ articles:
   - analysis
   - modifying
   - wqx
+  - outofstate
 
 reference:
 - title: Read, check, and format data
