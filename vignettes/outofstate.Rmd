@@ -7,17 +7,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
-
-```{r setup}
-library(MassWateR)
-```
-
 MassWateR can be used anywhere with a few caveats. MassWateR was developed specifically for organizations in Massachusetts to support the data submission process to Massachusetts Department of Environmental Protection (Mass DEP). However, the structure, logic, and approach to analyzing data are universal and could be used by any organization. Here is a list of the MassWateR elements that are specific to Massachusetts:
 
 1. __Parameter thresholds__ - [Standard thresholds](https://massbays-tech.github.io/MassWateR/ThresholdMapping.xlsx) have been included for some parameters so that a threshold line can be easily added to the analysis graphs. Some of these thresholds have been defined by Mass DEP or MassBays, while others are EPA standards. There are two ways to handle this if the thresholds are not relevant. You can simply turn the thresholds off in the graphing functions with the `thresh = "none"` argument, or you can manually add your own as described in the [modifying plots](https://massbays-tech.github.io/MassWateR/articles/modifying.html) vignette.
