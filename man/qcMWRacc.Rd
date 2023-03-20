@@ -64,18 +64,4 @@ frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx',
 
 qcMWRacc(res = respth, acc = accpth, frecom = frecompth)
 
-##
-# using data frames
-
-# results data
-resdat <- readMWRresults(respth)
-
-# accuracy data
-accdat <- readMWRacc(accpth)
-
-# frequency and completeness data
-frecomdat <- readMWRfrecom(frecompth)
-
-qcMWRacc(res = resdat, acc = accdat, frecom = frecomdat)
-
 }

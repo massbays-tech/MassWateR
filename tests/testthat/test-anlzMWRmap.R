@@ -1,14 +1,17 @@
 test_that("Checking output format", {
+  skip_on_cran()
   result <- anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, warn = FALSE, latlon = FALSE, addwater = "low")
   expect_s3_class(result, 'ggplot')
 })
 
 test_that("Checking output format, one site", {
+  skip_on_cran()
   result <- anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, warn = FALSE, site = 'ABT-026', addwater = "low", maptype = 'terrain')
   expect_s3_class(result, 'ggplot')
 })
 
 test_that("Checking warning output", {
+  skip_on_cran()
   expect_warning(anlzMWRmap(res = resdat, param = 'E.coli', acc = accdat, sit = sitdat, warn = TRUE))
 })
 
@@ -17,11 +20,13 @@ test_that("Checking error output no sites to map", {
 })
 
 test_that("Checking output format, no scale bar or north arrow", {
+  skip_on_cran()
   result <- anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, warn = FALSE, northloc = NULL, scaleloc = NULL)
   expect_s3_class(result, 'ggplot')
 })
 
 test_that("Checking output format, no label repel", {
+  skip_on_cran()
   result <- anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, warn = FALSE, repel = FALSE)
   expect_s3_class(result, 'ggplot')
 })

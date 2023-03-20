@@ -165,10 +165,10 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
     chk <- addwater %in% c('low', 'medium', 'high')
     if(!chk)
       stop('addwater argument must be "low", "medium", "high", or NULL')
-    
-    load(file = url('https://github.com/massbays-tech/MassWateRdata/raw/main/data/streamsMWR.RData'))
-    load(file = url('https://github.com/massbays-tech/MassWateRdata/raw/main/data/riversMWR.RData'))
-    load(file = url('https://github.com/massbays-tech/MassWateRdata/raw/main/data/pondsMWR.RData'))
+
+    streamsMWR <- utilMWRhttpgrace('https://github.com/massbays-tech/MassWateRdata/raw/main/data/streamsMWR.RData')
+    riversMWR <- utilMWRhttpgrace('https://github.com/massbays-tech/MassWateRdata/raw/main/data/riversMWR.RData')
+    pondsMWR <- utilMWRhttpgrace('https://github.com/massbays-tech/MassWateRdata/raw/main/data/pondsMWR.RData')
     
     dtl <- list('low' = 'low', 'medium' = c('low', 'medium'), 'high' = c('low', 'medium', 'high'))
     dtl <- dtl[[addwater]]
