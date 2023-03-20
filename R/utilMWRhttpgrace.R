@@ -6,9 +6,13 @@
 #' @export
 #'
 #' @examples
+#' # fails gracefully
+#' utilMWRhttpgrace('http://httpbin.org/status/404')
+#' \donttest{
+#' # imports data or fails gracefully
 #' fl <- 'https://github.com/massbays-tech/MassWateRdata/raw/main/data/streamsMWR.RData'
 #' utilMWRhttpgrace(fl)
-#' utilMWRhttpgrace('http://httpbin.org/status/404')
+#' }
 utilMWRhttpgrace <- function(remote_file){
   
   try_GET <- function(x, ...) {

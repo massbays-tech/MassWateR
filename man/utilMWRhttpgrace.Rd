@@ -16,7 +16,11 @@ The external file as an RData object
 Load external file from remote source, fail gracefully
 }
 \examples{
+# fails gracefully
+utilMWRhttpgrace('http://httpbin.org/status/404')
+\donttest{
+# imports data or fails gracefully
 fl <- 'https://github.com/massbays-tech/MassWateRdata/raw/main/data/streamsMWR.RData'
 utilMWRhttpgrace(fl)
-utilMWRhttpgrace('http://httpbin.org/status/404')
+}
 }
