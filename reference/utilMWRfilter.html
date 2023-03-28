@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">MassWateR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.2.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -141,6 +141,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking valid Activity Types... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Start Date formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking depth data present... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in Activity Depth/Height Measure... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Depth/Height Unit... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Relative Depth Name formats... OK</span>
@@ -173,96 +174,96 @@
 <span class="r-in"><span><span class="co"># filter by date</span></span></span>
 <span class="r-in"><span><span class="fu">utilMWRfilter</span><span class="op">(</span><span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, dtrng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2022-06-01'</span>, <span class="st">'2022-06-30'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 11 × 17</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Monitori…¹ Activ…² Activity…³ Activ…⁴ Activ…⁵ Activ…⁶ Activ…⁷ Chara…⁸ Resul…⁹</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> ABT-026    Field … 2022-06-12 07:30   1       ft      <span style="color: #BB0000;">NA</span>      DO      7.66   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> ABT-062    Field … 2022-06-12 06:15   0.5     ft      <span style="color: #BB0000;">NA</span>      DO      8.56   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> ABT-077    Field … 2022-06-12 10:19   1       ft      <span style="color: #BB0000;">NA</span>      DO      8.94   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> ABT-144    Field … 2022-06-12 09:25   1       ft      <span style="color: #BB0000;">NA</span>      DO      8.42   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> ABT-237    Field … 2022-06-12 07:45   1       ft      <span style="color: #BB0000;">NA</span>      DO      7.81   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> ABT-301    Field … 2022-06-12 07:30   1       ft      <span style="color: #BB0000;">NA</span>      DO      8.09   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> ABT-312    Field … 2022-06-12 08:10   1       ft      <span style="color: #BB0000;">NA</span>      DO      7.91   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> DAN-013    Field … 2022-06-12 08:38   0.3000… ft      <span style="color: #BB0000;">NA</span>      DO      8.76   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> ELZ-004    Field … 2022-06-12 09:56   0.5     ft      <span style="color: #BB0000;">NA</span>      DO      6.79   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> HOP-011    Field … 2022-06-12 06:45   1       ft      <span style="color: #BB0000;">NA</span>      DO      7.80   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> NSH-002    Field … 2022-06-12 08:20   0.5     ft      <span style="color: #BB0000;">NA</span>      DO      7.80   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 8 more variables: `Result Unit` &lt;chr&gt;, `Quantitation Limit` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    `Monitoring Location ID` `Activity Type` `Activity Start Date`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> ABT-026                  Field Msr/Obs   2022-06-12           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> ABT-062                  Field Msr/Obs   2022-06-12           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> ABT-077                  Field Msr/Obs   2022-06-12           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> ABT-144                  Field Msr/Obs   2022-06-12           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> ABT-237                  Field Msr/Obs   2022-06-12           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> ABT-301                  Field Msr/Obs   2022-06-12           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> ABT-312                  Field Msr/Obs   2022-06-12           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> DAN-013                  Field Msr/Obs   2022-06-12           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> ELZ-004                  Field Msr/Obs   2022-06-12           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> HOP-011                  Field Msr/Obs   2022-06-12           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> NSH-002                  Field Msr/Obs   2022-06-12           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 14 more variables: `Activity Start Time` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Activity Depth/Height Measure` &lt;chr&gt;, `Activity Depth/Height Unit` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Activity Relative Depth Name` &lt;chr&gt;, `Characteristic Name` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Value` &lt;chr&gt;, `Result Unit` &lt;chr&gt;, `Quantitation Limit` &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `QC Reference Value` &lt;chr&gt;, `Result Measure Qualifier` &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Attribute` &lt;chr&gt;, `Sample Collection Method ID` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Project ID` &lt;chr&gt;, `Result Comment` &lt;chr&gt;, and abbreviated variable names</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ¹​`Monitoring Location ID`, ²​`Activity Type`, ³​`Activity Start Date`,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁴​`Activity Start Time`, ⁵​`Activity Depth/Height Measure`,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁶​`Activity Depth/Height Unit`, ⁷​`Activity Relative Depth Name`, …</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Project ID` &lt;chr&gt;, `Result Comment` &lt;chr&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># filter by site</span></span></span>
 <span class="r-in"><span><span class="fu">utilMWRfilter</span><span class="op">(</span><span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'ABT-026'</span>, <span class="st">'ABT-062'</span>, <span class="st">'ABT-077'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 13 × 17</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Monitori…¹ Activ…² Activity…³ Activ…⁴ Activ…⁵ Activ…⁶ Activ…⁷ Chara…⁸ Resul…⁹</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> ABT-026    Field … 2022-05-15 08:15   1       ft      <span style="color: #BB0000;">NA</span>      DO      7.58   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> ABT-077    Field … 2022-05-15 06:10   1       ft      <span style="color: #BB0000;">NA</span>      DO      7.96   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> ABT-026    Field … 2022-06-12 07:30   1       ft      <span style="color: #BB0000;">NA</span>      DO      7.66   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> ABT-062    Field … 2022-06-12 06:15   0.5     ft      <span style="color: #BB0000;">NA</span>      DO      8.56   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> ABT-077    Field … 2022-06-12 10:19   1       ft      <span style="color: #BB0000;">NA</span>      DO      8.94   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> ABT-026    Field … 2022-07-17 07:51   1       ft      <span style="color: #BB0000;">NA</span>      DO      6.39   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> ABT-062    Field … 2022-07-17 06:15   1       ft      <span style="color: #BB0000;">NA</span>      DO      7.59   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> ABT-077    Field … 2022-07-17 10:16   1       ft      <span style="color: #BB0000;">NA</span>      DO      8.99   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> ABT-026    Field … 2022-08-14 08:38   0.5     ft      <span style="color: #BB0000;">NA</span>      DO      7.20   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> ABT-062    Field … 2022-08-14 06:20   0.5     ft      <span style="color: #BB0000;">NA</span>      DO      7.17   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> ABT-077    Field … 2022-08-14 09:50   0.5     ft      <span style="color: #BB0000;">NA</span>      DO      9.21   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> ABT-026    Field … 2022-09-11 09:05   1       ft      <span style="color: #BB0000;">NA</span>      DO      7.70   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> ABT-077    Field … 2022-09-11 06:45   1       ft      <span style="color: #BB0000;">NA</span>      DO      8.00   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 8 more variables: `Result Unit` &lt;chr&gt;, `Quantitation Limit` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    `Monitoring Location ID` `Activity Type` `Activity Start Date`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> ABT-026                  Field Msr/Obs   2022-05-15           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> ABT-077                  Field Msr/Obs   2022-05-15           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> ABT-026                  Field Msr/Obs   2022-06-12           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> ABT-062                  Field Msr/Obs   2022-06-12           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> ABT-077                  Field Msr/Obs   2022-06-12           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> ABT-026                  Field Msr/Obs   2022-07-17           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> ABT-062                  Field Msr/Obs   2022-07-17           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> ABT-077                  Field Msr/Obs   2022-07-17           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> ABT-026                  Field Msr/Obs   2022-08-14           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> ABT-062                  Field Msr/Obs   2022-08-14           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> ABT-077                  Field Msr/Obs   2022-08-14           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> ABT-026                  Field Msr/Obs   2022-09-11           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> ABT-077                  Field Msr/Obs   2022-09-11           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 14 more variables: `Activity Start Time` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Activity Depth/Height Measure` &lt;chr&gt;, `Activity Depth/Height Unit` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Activity Relative Depth Name` &lt;chr&gt;, `Characteristic Name` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Value` &lt;chr&gt;, `Result Unit` &lt;chr&gt;, `Quantitation Limit` &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `QC Reference Value` &lt;chr&gt;, `Result Measure Qualifier` &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Attribute` &lt;chr&gt;, `Sample Collection Method ID` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Project ID` &lt;chr&gt;, `Result Comment` &lt;chr&gt;, and abbreviated variable names</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ¹​`Monitoring Location ID`, ²​`Activity Type`, ³​`Activity Start Date`,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁴​`Activity Start Time`, ⁵​`Activity Depth/Height Measure`,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁶​`Activity Depth/Height Unit`, ⁷​`Activity Relative Depth Name`, …</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Project ID` &lt;chr&gt;, `Result Comment` &lt;chr&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># filter by result attribute</span></span></span>
 <span class="r-in"><span><span class="fu">utilMWRfilter</span><span class="op">(</span><span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, resultatt <span class="op">=</span> <span class="st">'DRY'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 27 × 17</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Monitori…¹ Activ…² Activity…³ Activ…⁴ Activ…⁵ Activ…⁶ Activ…⁷ Chara…⁸ Resul…⁹</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> ABT-026    Field … 2022-05-15 08:15   1       ft      <span style="color: #BB0000;">NA</span>      DO      7.58   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> ABT-077    Field … 2022-05-15 06:10   1       ft      <span style="color: #BB0000;">NA</span>      DO      7.96   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> ABT-301    Field … 2022-05-15 07:34   1       ft      <span style="color: #BB0000;">NA</span>      DO      6.93   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> ABT-312    Field … 2022-05-15 08:01   0.3000… ft      <span style="color: #BB0000;">NA</span>      DO      7.27   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> DAN-013    Field … 2022-05-15 07:25   0.3000… ft      <span style="color: #BB0000;">NA</span>      DO      8.02   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> ELZ-004    Field … 2022-05-15 06:50   0.5     ft      <span style="color: #BB0000;">NA</span>      DO      5.81   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> HOP-011    Field … 2022-05-15 06:55   1       ft      <span style="color: #BB0000;">NA</span>      DO      9.58   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> NSH-002    Field … 2022-05-15 08:35   1       ft      <span style="color: #BB0000;">NA</span>      DO      8.32   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> ABT-026    Field … 2022-08-14 08:38   0.5     ft      <span style="color: #BB0000;">NA</span>      DO      7.20   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> ABT-062    Field … 2022-08-14 06:20   0.5     ft      <span style="color: #BB0000;">NA</span>      DO      7.17   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 17 more rows, 8 more variables: `Result Unit` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Quantitation Limit` &lt;chr&gt;, `QC Reference Value` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Measure Qualifier` &lt;chr&gt;, `Result Attribute` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Sample Collection Method ID` &lt;chr&gt;, `Project ID` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Comment` &lt;chr&gt;, and abbreviated variable names</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ¹​`Monitoring Location ID`, ²​`Activity Type`, ³​`Activity Start Date`,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁴​`Activity Start Time`, ⁵​`Activity Depth/Height Measure`, …</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    `Monitoring Location ID` `Activity Type` `Activity Start Date`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> ABT-026                  Field Msr/Obs   2022-05-15           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> ABT-077                  Field Msr/Obs   2022-05-15           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> ABT-301                  Field Msr/Obs   2022-05-15           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> ABT-312                  Field Msr/Obs   2022-05-15           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> DAN-013                  Field Msr/Obs   2022-05-15           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> ELZ-004                  Field Msr/Obs   2022-05-15           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> HOP-011                  Field Msr/Obs   2022-05-15           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> NSH-002                  Field Msr/Obs   2022-05-15           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> ABT-026                  Field Msr/Obs   2022-08-14           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> ABT-062                  Field Msr/Obs   2022-08-14           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 17 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 14 more variables: `Activity Start Time` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Activity Depth/Height Measure` &lt;chr&gt;, `Activity Depth/Height Unit` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Activity Relative Depth Name` &lt;chr&gt;, `Characteristic Name` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Value` &lt;chr&gt;, `Result Unit` &lt;chr&gt;, `Quantitation Limit` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `QC Reference Value` &lt;chr&gt;, `Result Measure Qualifier` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Attribute` &lt;chr&gt;, `Sample Collection Method ID` &lt;chr&gt;, …</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># filter by location group</span></span></span>
 <span class="r-in"><span><span class="fu">utilMWRfilter</span><span class="op">(</span><span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, sitdat <span class="op">=</span> <span class="va">sitdat</span>, </span></span>
 <span class="r-in"><span>     locgroup <span class="op">=</span> <span class="st">'Assabet'</span>, dtrng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2022-06-01'</span>, <span class="st">'2022-06-30'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 7 × 18</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Monitorin…¹ Activ…² Activity…³ Activ…⁴ Activ…⁵ Activ…⁶ Activ…⁷ Chara…⁸ Resul…⁹</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ABT-026     Field … 2022-06-12 07:30   1       ft      <span style="color: #BB0000;">NA</span>      DO      7.66   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> ABT-062     Field … 2022-06-12 06:15   0.5     ft      <span style="color: #BB0000;">NA</span>      DO      8.56   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> ABT-077     Field … 2022-06-12 10:19   1       ft      <span style="color: #BB0000;">NA</span>      DO      8.94   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> ABT-144     Field … 2022-06-12 09:25   1       ft      <span style="color: #BB0000;">NA</span>      DO      8.42   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> ABT-237     Field … 2022-06-12 07:45   1       ft      <span style="color: #BB0000;">NA</span>      DO      7.81   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> ABT-301     Field … 2022-06-12 07:30   1       ft      <span style="color: #BB0000;">NA</span>      DO      8.09   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> ABT-312     Field … 2022-06-12 08:10   1       ft      <span style="color: #BB0000;">NA</span>      DO      7.91   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 9 more variables: `Result Unit` &lt;chr&gt;, `Quantitation Limit` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   `Monitoring Location ID` `Activity Type` `Activity Start Date`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> ABT-026                  Field Msr/Obs   2022-06-12           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> ABT-062                  Field Msr/Obs   2022-06-12           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> ABT-077                  Field Msr/Obs   2022-06-12           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> ABT-144                  Field Msr/Obs   2022-06-12           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> ABT-237                  Field Msr/Obs   2022-06-12           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> ABT-301                  Field Msr/Obs   2022-06-12           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> ABT-312                  Field Msr/Obs   2022-06-12           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 15 more variables: `Activity Start Time` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Activity Depth/Height Measure` &lt;chr&gt;, `Activity Depth/Height Unit` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Activity Relative Depth Name` &lt;chr&gt;, `Characteristic Name` &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Value` &lt;chr&gt;, `Result Unit` &lt;chr&gt;, `Quantitation Limit` &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `QC Reference Value` &lt;chr&gt;, `Result Measure Qualifier` &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Attribute` &lt;chr&gt;, `Sample Collection Method ID` &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Project ID` &lt;chr&gt;, `Result Comment` &lt;chr&gt;, `Location Group` &lt;chr&gt;, and</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   abbreviated variable names ¹​`Monitoring Location ID`, ²​`Activity Type`,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ³​`Activity Start Date`, ⁴​`Activity Start Time`,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁵​`Activity Depth/Height Measure`, ⁶​`Activity Depth/Height Unit`, …</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Project ID` &lt;chr&gt;, `Result Comment` &lt;chr&gt;, `Location Group` &lt;chr&gt;</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

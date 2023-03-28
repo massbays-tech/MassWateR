@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">MassWateR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.2.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -151,6 +151,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking valid Activity Types... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Start Date formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking depth data present... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in Activity Depth/Height Measure... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Depth/Height Unit... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Activity Relative Depth Name formats... OK</span>
@@ -198,7 +199,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> E.coli    2022-06-13 <span style="color: #BB0000;">NA</span>    BDL    1 MPN/100ml <span style="color: #BB0000;">NA</span>        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> E.coli    2022-07-18 <span style="color: #BB0000;">NA</span>    BDL    1 MPN/100ml <span style="color: #BB0000;">NA</span>        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> E.coli    2022-08-01 <span style="color: #BB0000;">NA</span>    BDL    1 MPN/100ml <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 19 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 19 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Lab Blanks`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 38 × 6</span></span>
@@ -214,57 +215,58 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Nitrate   2022-05-15 <span style="color: #BB0000;">NA</span>          BDL      0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Nitrate   2022-06-12 <span style="color: #BB0000;">NA</span>          BDL      0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Nitrate   2022-07-17 <span style="color: #BB0000;">NA</span>          BDL      0.05 mg/l <span style="color: #BB0000;">NA</span>        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 28 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 28 more rows</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Field Duplicates`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 57 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       Site    `Initial Result` `Dup. Result` Diff./R…¹ Hit/M…²</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Ammonia   2022-05-15 ABT-312 BDL              BDL           0% RPD    <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Ammonia   2022-05-15 DAN-013 BDL              BDL           0% RPD    <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Ammonia   2022-06-12 ABT-301 BDL              0.2 mg/l      67% RPD   MISS   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Ammonia   2022-09-11 ABT-301 BDL              BDL           0% RPD    <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> DO        2022-05-15 ABT-026 7.58 mg/l        7.6 mg/l      0% RPD    <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> DO        2022-05-15 ELZ-004 5.81 mg/l        5.94 mg/l     2% RPD    <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> DO        2022-05-15 NSH-002 8.32 mg/l        8.33 mg/l     0% RPD    <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> DO        2022-06-12 ABT-062 8.56 mg/l        8.56 mg/l     0% RPD    <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> DO        2022-06-12 ABT-237 7.81 mg/l        8.1 mg/l      4% RPD    <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> DO        2022-06-12 HOP-011 7.8 mg/l         7.79 mg/l     0% RPD    <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 47 more rows, and abbreviated variable names ¹​`Diff./RPD`, ²​`Hit/Miss`</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       Site    `Initial Result` `Dup. Result` `Diff./RPD`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Ammonia   2022-05-15 ABT-312 BDL              BDL           0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Ammonia   2022-05-15 DAN-013 BDL              BDL           0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Ammonia   2022-06-12 ABT-301 BDL              0.2 mg/l      67% RPD    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Ammonia   2022-09-11 ABT-301 BDL              BDL           0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> DO        2022-05-15 ABT-026 7.58 mg/l        7.6 mg/l      0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> DO        2022-05-15 ELZ-004 5.81 mg/l        5.94 mg/l     2% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> DO        2022-05-15 NSH-002 8.32 mg/l        8.33 mg/l     0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> DO        2022-06-12 ABT-062 8.56 mg/l        8.56 mg/l     0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> DO        2022-06-12 ABT-237 7.81 mg/l        8.1 mg/l      4% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> DO        2022-06-12 HOP-011 7.8 mg/l         7.79 mg/l     0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 47 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: `Hit/Miss` &lt;chr&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Lab Duplicates`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 91 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       `Sample ID` `Initial Result` Dup. Resu…¹ Diff.…² Hit/M…³</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Ammonia   2022-05-15 <span style="color: #BB0000;">NA</span>          0.21 mg/l        0.21 mg/l   0% RPD  <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Ammonia   2022-05-15 <span style="color: #BB0000;">NA</span>          BDL              BDL         0% RPD  <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Ammonia   2022-06-12 <span style="color: #BB0000;">NA</span>          0.1 mg/l         0.1 mg/l    0% RPD  <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Ammonia   2022-06-12 <span style="color: #BB0000;">NA</span>          0.19 mg/l        0.19 mg/l   0% RPD  <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Ammonia   2022-07-17 <span style="color: #BB0000;">NA</span>          BDL              BDL         0% RPD  <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Ammonia   2022-07-17 <span style="color: #BB0000;">NA</span>          BDL              BDL         0% RPD  <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Ammonia   2022-08-14 <span style="color: #BB0000;">NA</span>          BDL              BDL         0% RPD  <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Ammonia   2022-08-14 <span style="color: #BB0000;">NA</span>          BDL              BDL         0% RPD  <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Ammonia   2022-09-11 <span style="color: #BB0000;">NA</span>          BDL              BDL         0% RPD  <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Ammonia   2022-09-11 <span style="color: #BB0000;">NA</span>          BDL              BDL         0% RPD  <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 81 more rows, and abbreviated variable names ¹​`Dup. Result`,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​`Diff./RPD`, ³​`Hit/Miss`</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       `Sample ID` `Initial Result` `Dup. Result` `Diff./RPD`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Ammonia   2022-05-15 <span style="color: #BB0000;">NA</span>          0.21 mg/l        0.21 mg/l     0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Ammonia   2022-05-15 <span style="color: #BB0000;">NA</span>          BDL              BDL           0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Ammonia   2022-06-12 <span style="color: #BB0000;">NA</span>          0.1 mg/l         0.1 mg/l      0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Ammonia   2022-06-12 <span style="color: #BB0000;">NA</span>          0.19 mg/l        0.19 mg/l     0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Ammonia   2022-07-17 <span style="color: #BB0000;">NA</span>          BDL              BDL           0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Ammonia   2022-07-17 <span style="color: #BB0000;">NA</span>          BDL              BDL           0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Ammonia   2022-08-14 <span style="color: #BB0000;">NA</span>          BDL              BDL           0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Ammonia   2022-08-14 <span style="color: #BB0000;">NA</span>          BDL              BDL           0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Ammonia   2022-09-11 <span style="color: #BB0000;">NA</span>          BDL              BDL           0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Ammonia   2022-09-11 <span style="color: #BB0000;">NA</span>          BDL              BDL           0% RPD     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 81 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: `Hit/Miss` &lt;chr&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`Lab Spikes / Instrument Checks`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 94 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       `Sample ID` `Spike/Standard` Result      Diff.…¹ Hit/M…²</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Ammonia   2022-05-15 <span style="color: #BB0000;">NA</span>          100 % recovery   86 % recov… 86%     <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Ammonia   2022-06-12 <span style="color: #BB0000;">NA</span>          100 % recovery   94 % recov… 94%     <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Ammonia   2022-06-12 <span style="color: #BB0000;">NA</span>          100 % recovery   106 % reco… 106%    <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Ammonia   2022-07-17 <span style="color: #BB0000;">NA</span>          100 % recovery   92 % recov… 92%     <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Ammonia   2022-07-17 <span style="color: #BB0000;">NA</span>          100 % recovery   108 % reco… 108%    <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Ammonia   2022-08-14 <span style="color: #BB0000;">NA</span>          100 % recovery   96 % recov… 96%     <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Ammonia   2022-08-14 <span style="color: #BB0000;">NA</span>          100 % recovery   102 % reco… 102%    <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Ammonia   2022-09-11 <span style="color: #BB0000;">NA</span>          100 % recovery   88 % recov… 88%     <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Ammonia   2022-09-11 <span style="color: #BB0000;">NA</span>          100 % recovery   89 % recov… 89%     <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Nitrate   2022-05-15 <span style="color: #BB0000;">NA</span>          100 % recovery   99 % recov… 99%     <span style="color: #BB0000;">NA</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 84 more rows, and abbreviated variable names ¹​`Diff./Accuracy`,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​`Hit/Miss`</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Parameter Date       `Sample ID` `Spike/Standard` Result     `Diff./Accuracy`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> Ammonia   2022-05-15 <span style="color: #BB0000;">NA</span>          100 % recovery   86 % reco… 86%             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> Ammonia   2022-06-12 <span style="color: #BB0000;">NA</span>          100 % recovery   94 % reco… 94%             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> Ammonia   2022-06-12 <span style="color: #BB0000;">NA</span>          100 % recovery   106 % rec… 106%            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> Ammonia   2022-07-17 <span style="color: #BB0000;">NA</span>          100 % recovery   92 % reco… 92%             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> Ammonia   2022-07-17 <span style="color: #BB0000;">NA</span>          100 % recovery   108 % rec… 108%            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> Ammonia   2022-08-14 <span style="color: #BB0000;">NA</span>          100 % recovery   96 % reco… 96%             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> Ammonia   2022-08-14 <span style="color: #BB0000;">NA</span>          100 % recovery   102 % rec… 102%            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Ammonia   2022-09-11 <span style="color: #BB0000;">NA</span>          100 % recovery   88 % reco… 88%             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Ammonia   2022-09-11 <span style="color: #BB0000;">NA</span>          100 % recovery   89 % reco… 89%             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Nitrate   2022-05-15 <span style="color: #BB0000;">NA</span>          100 % recovery   99 % reco… 99%             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 84 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: `Hit/Miss` &lt;chr&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

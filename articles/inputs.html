@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">MassWateR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.2.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -443,6 +443,7 @@ it is not necessary to explicitly set this argument on import.</p>
 <span><span class="co">#&gt;  Checking all required columns are present... OK</span></span>
 <span><span class="co">#&gt;  Checking valid Activity Types... OK</span></span>
 <span><span class="co">#&gt;  Checking Activity Start Date formats... OK</span></span>
+<span><span class="co">#&gt;  Checking depth data present... OK</span></span>
 <span><span class="co">#&gt;  Checking for non-numeric values in Activity Depth/Height Measure... OK</span></span>
 <span><span class="co">#&gt;  Checking Activity Depth/Height Unit... OK</span></span>
 <span><span class="co">#&gt;  Checking Activity Relative Depth Name formats... OK</span></span>
@@ -457,21 +458,21 @@ it is not necessary to explicitly set this argument on import.</p>
 <span><span class="co">#&gt; All checks passed!</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">resdat</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 17</span></span></span>
-<span><span class="co">#&gt;   Monitorin…¹ Activ…² Activity…³ Activ…⁴ Activ…⁵ Activ…⁶ Activ…⁷ Chara…⁸ Resul…⁹</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ABT-026     Field … 2022-05-15 08:15   1       ft      <span style="color: #BB0000;">NA</span>      DO      7.58   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ABT-077     Field … 2022-05-15 06:10   1       ft      <span style="color: #BB0000;">NA</span>      DO      7.96   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ABT-301     Field … 2022-05-15 07:34   1       ft      <span style="color: #BB0000;">NA</span>      DO      6.93   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ABT-312     Field … 2022-05-15 08:01   0.3000… ft      <span style="color: #BB0000;">NA</span>      DO      7.27   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> DAN-013     Field … 2022-05-15 07:25   0.3000… ft      <span style="color: #BB0000;">NA</span>      DO      8.02   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ELZ-004     Field … 2022-05-15 06:50   0.5     ft      <span style="color: #BB0000;">NA</span>      DO      5.81   </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 8 more variables: `Result Unit` &lt;chr&gt;, `Quantitation Limit` &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt;   `Monitoring Location ID` `Activity Type` `Activity Start Date`</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>               </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ABT-026                  Field Msr/Obs   2022-05-15           </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ABT-077                  Field Msr/Obs   2022-05-15           </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ABT-301                  Field Msr/Obs   2022-05-15           </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ABT-312                  Field Msr/Obs   2022-05-15           </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> DAN-013                  Field Msr/Obs   2022-05-15           </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ELZ-004                  Field Msr/Obs   2022-05-15           </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 14 more variables: `Activity Start Time` &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Activity Depth/Height Measure` &lt;chr&gt;, `Activity Depth/Height Unit` &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Activity Relative Depth Name` &lt;chr&gt;, `Characteristic Name` &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Result Value` &lt;chr&gt;, `Result Unit` &lt;chr&gt;, `Quantitation Limit` &lt;chr&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   `QC Reference Value` &lt;chr&gt;, `Result Measure Qualifier` &lt;chr&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   `Result Attribute` &lt;chr&gt;, `Sample Collection Method ID` &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   `Project ID` &lt;chr&gt;, `Result Comment` &lt;chr&gt;, and abbreviated variable names</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ¹​`Monitoring Location ID`, ²​`Activity Type`, ³​`Activity Start Date`,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁴​`Activity Start Time`, ⁵​`Activity Depth/Height Measure`,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁶​`Activity Depth/Height Unit`, ⁷​`Activity Relative Depth Name`, …</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Project ID` &lt;chr&gt;, `Result Comment` &lt;chr&gt;</span></span></span></code></pre></div>
 <p>Several checks are run automatically when the data are imported.
 These file checks are as follows (also viewed from the help file for
 <code><a href="../reference/checkMWRresults.html">checkMWRresults()</a></code>):</p>
@@ -495,6 +496,11 @@ Control-Meter Lab Duplicate, Quality Control-Meter Lab Blank</li>
 <li>
 <strong>Date formats</strong>: Should be mm/dd/yyyy and parsed
 correctly on import</li>
+<li>
+<strong>Depth data present</strong>: Depth data should be included
+in <code>Activity Depth/Height Measure</code> or
+<code>Activity Relative Depth Name</code>
+</li>
 <li>
 <strong>Non-numeric Activity Depth/Height Measure</strong>: All
 depth values should be numbers, excluding missing values</li>
@@ -589,48 +595,48 @@ column below. The new WQX output rows will take the value from the
 Quality Exchange output</a> vignette for a complete description of
 creating output for WQX upload with MassWateR.</p>
 <div class="tabwid">
-<style>.cl-c0cf7ba2{}.cl-c0c6fad6{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-c0c6faea{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-c0ca93b2{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-c0cab068{width:3.164in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0cab072{width:3.404in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0cab07c{width:3.164in;background-color:rgba(211, 211, 211, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0cab086{width:3.404in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0cab087{width:3.164in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0cab088{width:3.404in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-c0cab090{width:3.164in;background-color:rgba(211, 211, 211, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table data-quarto-disable-processing="true" class="table cl-c0cf7ba2">
+<style>.cl-cd073958{}.cl-ccfa54c2{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ccfa54d6{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-ccfffe36{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-cd002a3c{width:3.164in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cd002a46{width:3.404in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cd002a50{width:3.164in;background-color:rgba(211, 211, 211, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cd002a51{width:3.404in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cd002a5a{width:3.164in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cd002a5b{width:3.404in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-cd002a64{width:3.164in;background-color:rgba(211, 211, 211, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<table data-quarto-disable-processing="true" class="table cl-cd073958">
 <thead><tr style="overflow-wrap:break-word;">
-<th class="cl-c0cab068"><p class="cl-c0ca93b2"><span class="cl-c0c6fad6">Input Activity Type</span></p></th>
-<th class="cl-c0cab072"><p class="cl-c0ca93b2"><span class="cl-c0c6fad6">WQX output new row Activity Type</span></p></th>
+<th class="cl-cd002a3c"><p class="cl-ccfffe36"><span class="cl-ccfa54c2">Input Activity Type</span></p></th>
+<th class="cl-cd002a46"><p class="cl-ccfffe36"><span class="cl-ccfa54c2">WQX output new row Activity Type</span></p></th>
 </tr></thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-c0cab07c"><p class="cl-c0ca93b2"><span class="cl-c0c6faea">Sample-Routine</span></p></td>
-<td class="cl-c0cab086"><p class="cl-c0ca93b2"><span class="cl-c0c6faea">Quality Control Sample-Field Replicate</span></p></td>
+<td class="cl-cd002a50"><p class="cl-ccfffe36"><span class="cl-ccfa54d6">Sample-Routine</span></p></td>
+<td class="cl-cd002a51"><p class="cl-ccfffe36"><span class="cl-ccfa54d6">Quality Control Sample-Field Replicate</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-c0cab087"><p class="cl-c0ca93b2"><span class="cl-c0c6faea">Quality Control Sample-Field Blank</span></p></td>
-<td class="cl-c0cab088"><p class="cl-c0ca93b2"><span class="cl-c0c6faea">NA</span></p></td>
+<td class="cl-cd002a5a"><p class="cl-ccfffe36"><span class="cl-ccfa54d6">Quality Control Sample-Field Blank</span></p></td>
+<td class="cl-cd002a5b"><p class="cl-ccfffe36"><span class="cl-ccfa54d6">NA</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-c0cab087"><p class="cl-c0ca93b2"><span class="cl-c0c6faea">Quality Control Sample-Lab Duplicate</span></p></td>
-<td class="cl-c0cab088"><p class="cl-c0ca93b2"><span class="cl-c0c6faea">Quality Control Sample-Lab Duplicate 2</span></p></td>
+<td class="cl-cd002a5a"><p class="cl-ccfffe36"><span class="cl-ccfa54d6">Quality Control Sample-Lab Duplicate</span></p></td>
+<td class="cl-cd002a5b"><p class="cl-ccfffe36"><span class="cl-ccfa54d6">Quality Control Sample-Lab Duplicate 2</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-c0cab087"><p class="cl-c0ca93b2"><span class="cl-c0c6faea">Quality Control Sample-Lab Blank</span></p></td>
-<td class="cl-c0cab088"><p class="cl-c0ca93b2"><span class="cl-c0c6faea">NA</span></p></td>
+<td class="cl-cd002a5a"><p class="cl-ccfffe36"><span class="cl-ccfa54d6">Quality Control Sample-Lab Blank</span></p></td>
+<td class="cl-cd002a5b"><p class="cl-ccfffe36"><span class="cl-ccfa54d6">NA</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-c0cab087"><p class="cl-c0ca93b2"><span class="cl-c0c6faea">Quality Control Sample-Lab Spike</span></p></td>
-<td class="cl-c0cab088"><p class="cl-c0ca93b2"><span class="cl-c0c6faea">Quality Control Sample-Lab Spike Target</span></p></td>
+<td class="cl-cd002a5a"><p class="cl-ccfffe36"><span class="cl-ccfa54d6">Quality Control Sample-Lab Spike</span></p></td>
+<td class="cl-cd002a5b"><p class="cl-ccfffe36"><span class="cl-ccfa54d6">Quality Control Sample-Lab Spike Target</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-c0cab090"><p class="cl-c0ca93b2"><span class="cl-c0c6faea">Field Msr/Obs</span></p></td>
-<td class="cl-c0cab088"><p class="cl-c0ca93b2"><span class="cl-c0c6faea">Quality Control Field Replicate Msr/Obs</span></p></td>
+<td class="cl-cd002a64"><p class="cl-ccfffe36"><span class="cl-ccfa54d6">Field Msr/Obs</span></p></td>
+<td class="cl-cd002a5b"><p class="cl-ccfffe36"><span class="cl-ccfa54d6">Quality Control Field Replicate Msr/Obs</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-c0cab087"><p class="cl-c0ca93b2"><span class="cl-c0c6faea">Quality Control-Meter Lab Duplicate</span></p></td>
-<td class="cl-c0cab088"><p class="cl-c0ca93b2"><span class="cl-c0c6faea">Quality Control-Meter Lab Duplicate 2</span></p></td>
+<td class="cl-cd002a5a"><p class="cl-ccfffe36"><span class="cl-ccfa54d6">Quality Control-Meter Lab Duplicate</span></p></td>
+<td class="cl-cd002a5b"><p class="cl-ccfffe36"><span class="cl-ccfa54d6">Quality Control-Meter Lab Duplicate 2</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-c0cab087"><p class="cl-c0ca93b2"><span class="cl-c0c6faea">Quality Control-Meter Lab Blank</span></p></td>
-<td class="cl-c0cab088"><p class="cl-c0ca93b2"><span class="cl-c0c6faea">NA</span></p></td>
+<td class="cl-cd002a5a"><p class="cl-ccfffe36"><span class="cl-ccfa54d6">Quality Control-Meter Lab Blank</span></p></td>
+<td class="cl-cd002a5b"><p class="cl-ccfffe36"><span class="cl-ccfa54d6">NA</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-c0cab087"><p class="cl-c0ca93b2"><span class="cl-c0c6faea">Quality Control-Calibration Check</span></p></td>
-<td class="cl-c0cab088"><p class="cl-c0ca93b2"><span class="cl-c0c6faea">Quality Control-Calibration Check Buffer</span></p></td>
+<td class="cl-cd002a5a"><p class="cl-ccfffe36"><span class="cl-ccfa54d6">Quality Control-Calibration Check</span></p></td>
+<td class="cl-cd002a5b"><p class="cl-ccfffe36"><span class="cl-ccfa54d6">Quality Control-Calibration Check Buffer</span></p></td>
 </tr>
 </tbody>
 </table>
@@ -669,16 +675,16 @@ with the package are used for the examples.</p>
 <span><span class="co">#&gt; All checks passed!</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">accdat</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 10</span></span></span>
-<span><span class="co">#&gt;   Parameter    uom     MDL   UQL Value…¹ Field…² Lab D…³ Field…⁴ Lab B…⁵ Spike…⁶</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Water Temp   deg C    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> all     &lt;= 1.0  &lt;= 1.0  <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      &lt;= 1.0 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pH           <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> all     &lt;= 0.5  &lt;= 0.5  <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      &lt;= 0.2 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> DO           mg/l     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> &lt; 4     &lt; 20%   <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> DO           mg/l     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> &gt;= 4    &lt; 10%   <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Sp Conducta… uS/cm    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> &lt; 250   &lt; 30%   &lt; 30%   <span style="color: #BB0000;">NA</span>      &lt;= 50   &lt;= 50  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Sp Conducta… uS/cm    <span style="color: #BB0000;">NA</span> <span style="text-decoration: underline;">10</span>000 &gt;= 250  &lt; 20%   &lt; 20%   <span style="color: #BB0000;">NA</span>      &lt;= 50   &lt;= 50  </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​`Value Range`, ²​`Field Duplicate`,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ³​`Lab Duplicate`, ⁴​`Field Blank`, ⁵​`Lab Blank`, ⁶​`Spike/Check Accuracy`</span></span></span></code></pre></div>
+<span><span class="co">#&gt;   Parameter    uom     MDL   UQL `Value Range` `Field Duplicate` `Lab Duplicate`</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Water Temp   deg C    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> all           &lt;= 1.0            &lt;= 1.0         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pH           <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> all           &lt;= 0.5            &lt;= 0.5         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> DO           mg/l     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> &lt; 4           &lt; 20%             <span style="color: #BB0000;">NA</span>             </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> DO           mg/l     <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> &gt;= 4          &lt; 10%             <span style="color: #BB0000;">NA</span>             </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Sp Conducta… uS/cm    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span> &lt; 250         &lt; 30%             &lt; 30%          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Sp Conducta… uS/cm    <span style="color: #BB0000;">NA</span> <span style="text-decoration: underline;">10</span>000 &gt;= 250        &lt; 20%             &lt; 20%          </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 3 more variables: `Field Blank` &lt;chr&gt;, `Lab Blank` &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Spike/Check Accuracy` &lt;chr&gt;</span></span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import data quality objectives for frequency and completeness</span></span>
 <span><span class="va">frecompth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleDQOFrequencyCompleteness.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
@@ -694,16 +700,15 @@ with the package are used for the examples.</p>
 <span><span class="co">#&gt; All checks passed!</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">frecomdat</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
-<span><span class="co">#&gt;   Parameter      `Field Duplicate` Lab Duplica…¹ Field…² Lab B…³ Spike…⁴ % Com…⁵</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Water Temp                    10            10      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      10      90</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pH                            10            10      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      10      90</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> DO                            10            <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      90</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Sp Conductance                10            10      <span style="color: #BB0000;">NA</span>      10      10      90</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> TP                            10             5      10       5       5      90</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Nitrate                       10             5      10       5       5      90</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​`Lab Duplicate`, ²​`Field Blank`,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ³​`Lab Blank`, ⁴​`Spike/Check Accuracy`, ⁵​`% Completeness`</span></span></span></code></pre></div>
+<span><span class="co">#&gt;   Parameter      `Field Duplicate` `Lab Duplicate` `Field Blank` `Lab Blank`</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Water Temp                    10              10            <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pH                            10              10            <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> DO                            10              <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>          <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Sp Conductance                10              10            <span style="color: #BB0000;">NA</span>          10</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> TP                            10               5            10           5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Nitrate                       10               5            10           5</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 more variables: `Spike/Check Accuracy` &lt;dbl&gt;, `% Completeness` &lt;dbl&gt;</span></span></span></code></pre></div>
 <p>Both the <code><a href="../reference/readMWRacc.html">readMWRacc()</a></code> and <code><a href="../reference/readMWRfrecom.html">readMWRfrecom()</a></code>
 functions will run a series of checks to ensure the imported data are
 formatted correctly. The <code><a href="../reference/checkMWRacc.html">checkMWRacc()</a></code> and
@@ -811,16 +816,17 @@ with the package is used for the example.</p>
 <span><span class="co">#&gt; All checks passed!</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sitdat</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
-<span><span class="co">#&gt;   `Monitoring Location ID` `Monitoring Location Name` Monitori…¹ Monit…² Locat…³</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ABT-026                  Rte 2, Concord                   42.5   -<span style="color: #BB0000;">71.4</span> Assabet</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ABT-062                  Rte 62, Acton                    42.4   -<span style="color: #BB0000;">71.4</span> Assabet</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ABT-077                  Rte 27/USGS, Maynard             42.4   -<span style="color: #BB0000;">71.4</span> Assabet</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ABT-144                  Rte 62, Stow                     42.4   -<span style="color: #BB0000;">71.5</span> Assabet</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> ABT-237                  Robin Hill Rd, Marlboro          42.3   -<span style="color: #BB0000;">71.6</span> Assabet</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ABT-301                  Rte 9, Westboro                  42.3   -<span style="color: #BB0000;">71.6</span> Assabet</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​`Monitoring Location Latitude`,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ²​`Monitoring Location Longitude`, ³​`Location Group`</span></span></span></code></pre></div>
+<span><span class="co">#&gt;   `Monitoring Location ID` `Monitoring Location Name` Monitoring Location Lati…¹</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ABT-026                  Rte 2, Concord                                   42.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ABT-062                  Rte 62, Acton                                    42.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ABT-077                  Rte 27/USGS, Maynard                             42.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ABT-144                  Rte 62, Stow                                     42.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> ABT-237                  Robin Hill Rd, Marlboro                          42.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ABT-301                  Rte 9, Westboro                                  42.3</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ abbreviated name: ¹​`Monitoring Location Latitude`</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 more variables: `Monitoring Location Longitude` &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Location Group` &lt;chr&gt;</span></span></span></code></pre></div>
 <p>The <code><a href="../reference/readMWRsites.html">readMWRsites()</a></code> function runs several checks on the
 file using the <code><a href="../reference/checkMWRsites.html">checkMWRsites()</a></code> function. Most of the checks
 are to ensure the latitude and longitude data are present and properly
@@ -877,17 +883,17 @@ with the package is used for the example.</p>
 <span><span class="co">#&gt; All checks passed!</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">wqxdat</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 6</span></span></span>
-<span><span class="co">#&gt;   Parameter      `Sampling Method Context` Method Spec…¹ Resul…² Analy…³ Analy…⁴</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Water Temp     <span style="color: #BB0000;">NA</span>                        <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pH             <span style="color: #BB0000;">NA</span>                        <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> DO             <span style="color: #BB0000;">NA</span>                        <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Sp Conductance <span style="color: #BB0000;">NA</span>                        <span style="color: #BB0000;">NA</span>            <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> TP             MassWateR                 as P          Unfilt… 200.7   USEPA  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Nitrate        MassWateR                 as N          Unfilt… 300.0   USEPA  </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​`Method Speciation`,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ²​`Result Sample Fraction`, ³​`Analytical Method`,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ⁴​`Analytical Method Context`</span></span></span></code></pre></div>
+<span><span class="co">#&gt;   Parameter    Sampling Method Cont…¹ `Method Speciation` Result Sample Fracti…²</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Water Temp   <span style="color: #BB0000;">NA</span>                     <span style="color: #BB0000;">NA</span>                  <span style="color: #BB0000;">NA</span>                    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pH           <span style="color: #BB0000;">NA</span>                     <span style="color: #BB0000;">NA</span>                  <span style="color: #BB0000;">NA</span>                    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> DO           <span style="color: #BB0000;">NA</span>                     <span style="color: #BB0000;">NA</span>                  <span style="color: #BB0000;">NA</span>                    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Sp Conducta… <span style="color: #BB0000;">NA</span>                     <span style="color: #BB0000;">NA</span>                  <span style="color: #BB0000;">NA</span>                    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> TP           MassWateR              as P                Unfiltered            </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Nitrate      MassWateR              as N                Unfiltered            </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ abbreviated names: ¹​`Sampling Method Context`, ²​`Result Sample Fraction`</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 more variables: `Analytical Method` &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Analytical Method Context` &lt;chr&gt;</span></span></span></code></pre></div>
 <p>The <code><a href="../reference/readMWRwqx.html">readMWRwqx()</a></code> function runs a few checks on the file
 using the <code><a href="../reference/checkMWRwqx.html">checkMWRwqx()</a></code> function. Details on the file
 checks are as follows:</p>
