@@ -54,7 +54,7 @@ utilMWRfilter <- function(resdat, sitdat = NULL, param, dtrng = NULL, site = NUL
   # check if parameter in resdat
   chk <- param %in% resprms
   if(!chk)
-    stop(param, ' not found in results data, should be one of ', paste(resprms, collapse = ', '), call. = FALSE)
+    stop(param, ' not found or no surface data in results file, should be one of ', paste(resprms, collapse = ', '), call. = FALSE)
   
   resdat <- resdat %>% 
     dplyr::filter(`Characteristic Name` %in% param)

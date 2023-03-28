@@ -101,6 +101,7 @@ Several checks are run automatically when the data are imported. These file chec
 -   **Columns present**: All columns from the previous should be present, Result Attribute is optional
 -   **Activity Type**: Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike, Quality Control-Calibration Check, Quality Control-Meter Lab Duplicate, Quality Control-Meter Lab Blank
 -   **Date formats**: Should be mm/dd/yyyy and parsed correctly on import
+-   **Depth data present**: Depth data should be included in `Activity Depth/Height Measure` or `Activity Relative Depth Name`
 -   **Non-numeric Activity Depth/Height Measure**: All depth values should be numbers, excluding missing values
 -   **Activity Depth/Height Unit**: All entries should be `ft`, `m`, or blank
 -   **Activity Relative Depth Name**: Should be either Surface, Bottom, Midwater, Near Bottom, or blank (warning only)

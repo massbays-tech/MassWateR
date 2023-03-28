@@ -11,6 +11,7 @@
 #'  \item{Columns present: }{All columns from the previous check should be present, Result Attribute is optional}
 #'  \item{Activity Type: }{Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike, Quality Control-Calibration Check, Quality Control-Meter Lab Duplicate, Quality Control-Meter Lab Blank}
 #'  \item{Date formats: }{Should be mm/dd/yyyy and parsed correctly on import}
+#'  \item{Depth data present: }{Depth data should be included in Activity Depth/Height Measure or Activity Relative Depth Name}
 #'  \item{Non-numeric Activity Depth/Height Measure: }{All depth values should be numbers, excluding missing values}
 #'  \item{Activity Depth/Height Unit: }{All entries should be \code{ft}, \code{m}, or blank}
 #'  \item{Activity Relative Depth Name: }{Should be either Surface, Bottom, Midwater, Near Bottom, or blank (warning only)}
@@ -97,6 +98,15 @@ checkMWRresults <- function(resdat, warn = TRUE){
     stop(msg, '\n\tCheck date on row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
+  
+  # check depth data present
+  msg <- '\tChecking depth data present...'
+  typ <- resdat[, c('Activity Depth/Height Measure', 'Activity Relative Depth Name')]
+  chk <- any(!is.na(typ))
+  if(!chk){
+    stop(msg, '\n\tNo data in Activity Depth/Height Measure and Activity Relative Depth Name', call. = FALSE)
+  }
+  message(paste(msg, 'OK'))
 
   # check for non-numeric depth
   msg <- '\tChecking for non-numeric values in Activity Depth/Height Measure...'
@@ -108,7 +118,7 @@ checkMWRresults <- function(resdat, warn = TRUE){
     stop(msg, '\n\tNon-numeric entries in Activity Depth/Height Measure found: ', paste(tochk, collapse = ', '), ' in rows ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
-
+  
   # checking invalid unit entries for depth
   msg <- '\tChecking Activity Depth/Height Unit...'
   typ <- resdat$`Activity Depth/Height Unit`
