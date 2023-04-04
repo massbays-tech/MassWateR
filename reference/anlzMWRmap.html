@@ -83,6 +83,7 @@
 <span>  repel <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  labsize <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  palcol <span class="op">=</span> <span class="st">"Greens"</span>,</span>
+<span>  rev <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  yscl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"auto"</span>, <span class="st">"log"</span>, <span class="st">"linear"</span><span class="op">)</span>,</span>
 <span>  crs <span class="op">=</span> <span class="fl">4326</span>,</span>
 <span>  zoom <span class="op">=</span> <span class="fl">11</span>,</span>
@@ -90,6 +91,7 @@
 <span>  watercol <span class="op">=</span> <span class="st">"lightblue"</span>,</span>
 <span>  maptype <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  buffdist <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  scaledist <span class="op">=</span> <span class="st">"km"</span>,</span>
 <span>  northloc <span class="op">=</span> <span class="st">"tl"</span>,</span>
 <span>  scaleloc <span class="op">=</span> <span class="st">"br"</span>,</span>
 <span>  latlon <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -153,6 +155,10 @@
 <dd><p>character string indicating the color palette to be used from <a href="https://r-graph-gallery.com/38-rcolorbrewers-palettes.html" class="external-link">RColorBrewer</a>, see details</p></dd>
 
 
+<dt>rev</dt>
+<dd><p>logical indicating if color palette in <code>palcol</code> is reversed</p></dd>
+
+
 <dt>yscl</dt>
 <dd><p>character indicating one of <code>"auto"</code> (default), <code>"log"</code>, or <code>"linear"</code>, see details</p></dd>
 
@@ -178,7 +184,11 @@
 
 
 <dt>buffdist</dt>
-<dd><p>numeric for buffer around the bounding box for the selected sites, see details</p></dd>
+<dd><p>numeric for buffer around the bounding box for the selected sites in kilometers, see details</p></dd>
+
+
+<dt>scaledist</dt>
+<dd><p>character string indicating distance unit for the scale bar, <code>"km"</code> or <code>"mi"</code></p></dd>
 
 
 <dt>northloc</dt>
@@ -214,7 +224,7 @@
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This function creates a map of summarized results for a selected parameter at each monitoring site.  By default, all dates for the parameter are averaged. Options to filter by site, date range, and result attribute are provided.  Only sites with spatial information in the site metadata file are plotted and a warning is returned for those that do not have this information. The site labels are also plotted next to each point.  The labels can be suppressed by setting <code>labsize = NULL</code>.</p>
-<p>Any acceptable color palette from <a href="https://r-graph-gallery.com/38-rcolorbrewers-palettes.html" class="external-link">RColorBrewer</a> can be used for <code>palcol</code>, which is passed to the <code>palette</code> argument in <code><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></code>. These could include any of the sequential color palettes, e.g., <code>"Greens"</code>, <code>"Blues"</code>, etc.  The diverging and qualitative palettes will also work, but may return uninterpretable color scales.</p>
+<p>Any acceptable color palette from <a href="https://r-graph-gallery.com/38-rcolorbrewers-palettes.html" class="external-link">RColorBrewer</a> can be used for <code>palcol</code>, which is passed to the <code>palette</code> argument in <code><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></code>. These could include any of the sequential color palettes, e.g., <code>"Greens"</code>, <code>"Blues"</code>, etc.  The diverging and qualitative palettes will also work, but may return uninterpretable color scales. The palette can be reversed by setting <code>rev = TRUE</code>.</p>
 <p>The default value for <code>crs</code> is EPSG 4326 for the WGS 84 projection in decimal degrees.  The <code>crs</code> argument is passed to <code><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></code> and any acceptable CRS appropriate for the data can be used.</p>
 <p>The results shown on the map represent the parameter average for each site within the date range provided by <code>dtrng</code>.  The average may differ depending on the value provided to the <code>yscl</code> argument.  Log10-distributed parameters use the geometric mean and normally-distributed parameters use the arithmetic mean.  The distribution is determined from the <code>ycsl</code> argument. If <code>yscl = "auto"</code> (default), the distribution is determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are summarized with the geometric mean, otherwise arithmetic. Setting <code>yscl = "linear"</code> or <code>yscl = "log"</code> will the use arithmetic or geometric summaries, respectively, regardless of the information in the data quality objective file for accuracy.</p>
 <p>Using <code>addwater = "medium"</code> (default) will include lines and polygons of natural water bodies defined using the National Hydrography Dataset (NHD). The level of detail can be changed to low or high using <code>addwater = "low"</code> or <code>addwater = "high"</code>, respectively.  Use <code>addwater = NULL</code> to not show any water features.</p>
@@ -285,7 +295,7 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># map with NHD water bodies</span></span></span>
-<span class="r-in"><span><span class="fu">anlzMWRmap</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, addwater <span class="op">=</span> <span class="st">"medium"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">anlzMWRmap</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, addwater <span class="op">=</span> <span class="st">'medium'</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="anlzMWRmap-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
