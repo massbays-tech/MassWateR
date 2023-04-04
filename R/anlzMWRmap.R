@@ -13,6 +13,7 @@
 #' @param repel logical indicating if overlapping site labels are offset
 #' @param labsize numeric for size of the site labels
 #' @param palcol character string indicating the color palette to be used from \href{https://r-graph-gallery.com/38-rcolorbrewers-palettes.html}{RColorBrewer}, see details
+#' @param rev logical indicating if color palette in \code{palcol} is reversed
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
 #' @param crs numeric as a four-digit EPSG number for the coordinate reference system, see details
 #' @param zoom numeric indicating resolution of the base map, see details
@@ -33,7 +34,7 @@
 #' @details 
 #' This function creates a map of summarized results for a selected parameter at each monitoring site.  By default, all dates for the parameter are averaged. Options to filter by site, date range, and result attribute are provided.  Only sites with spatial information in the site metadata file are plotted and a warning is returned for those that do not have this information. The site labels are also plotted next to each point.  The labels can be suppressed by setting \code{labsize = NULL}.
 #' 
-#' Any acceptable color palette from \href{https://r-graph-gallery.com/38-rcolorbrewers-palettes.html}{RColorBrewer} can be used for \code{palcol}, which is passed to the \code{palette} argument in \code{\link[ggplot2]{scale_fill_distiller}}. These could include any of the sequential color palettes, e.g., \code{"Greens"}, \code{"Blues"}, etc.  The diverging and qualitative palettes will also work, but may return uninterpretable color scales. 
+#' Any acceptable color palette from \href{https://r-graph-gallery.com/38-rcolorbrewers-palettes.html}{RColorBrewer} can be used for \code{palcol}, which is passed to the \code{palette} argument in \code{\link[ggplot2]{scale_fill_distiller}}. These could include any of the sequential color palettes, e.g., \code{"Greens"}, \code{"Blues"}, etc.  The diverging and qualitative palettes will also work, but may return uninterpretable color scales. The palette can be reversed by setting \code{rev = TRUE}.
 #' 
 #' The default value for \code{crs} is EPSG 4326 for the WGS 84 projection in decimal degrees.  The \code{crs} argument is passed to \code{\link[sf]{st_as_sf}} and any acceptable CRS appropriate for the data can be used. 
 #' 
@@ -70,7 +71,7 @@
 #' # map with NHD water bodies
 #' anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = "medium")
 #' }
-anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', yscl = c('auto', 'log', 'linear'), crs = 4326, zoom = 11, addwater = "medium", watercol = 'lightblue', maptype = NULL, buffdist = 2, northloc = 'tl', scaleloc = 'br', latlon = TRUE, ttlsize = 1.2, runchk = TRUE, warn = TRUE){
+anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', rev = FALSE, yscl = c('auto', 'log', 'linear'), crs = 4326, zoom = 11, addwater = "medium", watercol = 'lightblue', maptype = NULL, buffdist = 2, northloc = 'tl', scaleloc = 'br', latlon = TRUE, ttlsize = 1.2, runchk = TRUE, warn = TRUE){
   
   # if(!requireNamespace('ggmap', quietly = TRUE))
   #   stop("Package \"ggmap\" needed for this function to work. Please install it.", call. = FALSE)
@@ -203,12 +204,15 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
     
   }
   
+  # color palette direction
+  rev <- ifelse(rev, -1, 1)
+  
   tomap <- tomap %>% 
     sf::st_transform(crs = 4326)
 
     m <-  m +
       ggplot2::geom_sf(data = tomap, ggplot2::aes(fill = `Result Value`), color = 'black', pch = 21, inherit.aes = F, size = ptsize) +
-      ggplot2::scale_fill_distiller(name = ylab, palette = palcol, direction = 1) +
+      ggplot2::scale_fill_distiller(name = ylab, palette = palcol, direction = rev) +
       ggplot2::theme(
         panel.grid = ggplot2::element_blank(), 
         axis.title = ggplot2::element_blank(), 
