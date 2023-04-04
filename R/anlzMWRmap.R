@@ -20,7 +20,8 @@
 #' @param addwater character string as \code{"low"}, \code{"medium"} (default), \code{"high"}, or \code{NULL} (to supress) to include water features with varying detail from the National Hydrography dataset, see details
 #' @param watercol character string of color for water objects if \code{addwater = "nhd"} or \code{addwater = "osm"}
 #' @param maptype character string for the base map type, see details
-#' @param buffdist numeric for buffer around the bounding box for the selected sites, see details
+#' @param buffdist numeric for buffer around the bounding box for the selected sites in kilometers, see details
+#' @param scaledist character string indicating distance unit for the scale bar, \code{"km"} or \code{"mi"}
 #' @param northloc character string indicating location of the north arrow, see details
 #' @param scaleloc character string indicating location of the scale bar, see details
 #' @param latlon logical to include latitude and longitude labels on the plot, default \code{TRUE}
@@ -69,12 +70,9 @@
 #' 
 #' \donttest{
 #' # map with NHD water bodies
-#' anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = "medium")
+#' anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = 'medium')
 #' }
-anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', rev = FALSE, yscl = c('auto', 'log', 'linear'), crs = 4326, zoom = 11, addwater = "medium", watercol = 'lightblue', maptype = NULL, buffdist = 2, northloc = 'tl', scaleloc = 'br', latlon = TRUE, ttlsize = 1.2, runchk = TRUE, warn = TRUE){
-  
-  # if(!requireNamespace('ggmap', quietly = TRUE))
-  #   stop("Package \"ggmap\" needed for this function to work. Please install it.", call. = FALSE)
+anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', rev = FALSE, yscl = c('auto', 'log', 'linear'), crs = 4326, zoom = 11, addwater = 'medium', watercol = 'lightblue', maptype = NULL, buffdist = 2, scaledist = 'km', northloc = 'tl', scaleloc = 'br', latlon = TRUE, ttlsize = 1.2, runchk = TRUE, warn = TRUE){
   
   utilMWRinputcheck(mget(ls()))
   
@@ -105,6 +103,9 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
   tomap <- utilMWRconfint(tomap, logscl = logscl)
     
   # prep map
+  
+  # check scaledist arg as km or mi
+  scaledist <- match.arg(scaledist, c('km', 'mi'))
   
   tomap <- tomap %>% 
     left_join(sitdat, by = 'Monitoring Location ID')
@@ -226,10 +227,12 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
         title = ttl
       ) 
 
-  if(!is.null(scaleloc))
+  if(!is.null(scaleloc)){
+    scaledist <- ifelse(scaledist == 'km', 'metric', 'imperial')
     m <- m +
-      ggspatial::annotation_scale(location = scaleloc)
-   
+      ggspatial::annotation_scale(location = scaleloc, unit_category = scaledist)
+  }
+    
   if(!is.null(northloc))
     m <- m +
       ggspatial::annotation_north_arrow(location = northloc, which_north = "true", height = grid::unit(0.75, "cm"), 
