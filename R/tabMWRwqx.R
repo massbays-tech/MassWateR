@@ -13,6 +13,8 @@
 #' @details This function will export a single Excel workbook with three sheets, named "Project", "Locations", and "Results". The output is populated with as much content as possible based on information in the input files.  The remainder of the information not included in the output will need to be manually entered before uploading the data to WQX.  All required columns are present, but individual rows will need to be verified for completeness.  It is the responsibility of the user to verify this information is complete and correct before uploading the data. 
 #' 
 #' The workflow for using this function is to import the required data (results, data quality objectives file for accuracy, site metadata, and wqx metadata) and to fix any errors noted on import prior to creating the output. The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRacc}}, \code{\link{readMWRsites}}, and \code{\link{readMWRwqx}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.
+#' 
+#' In addition to the checks for the results file used in \code{\link{readMWRresults}}, two additional columns in the results file are needed for WQX output.  The function will return an error if "Sample Collection Method ID" and "Project ID" are not present.  Additional optional columns that can be included in the results file and included in the output file are "Result Comment" and "Local Record ID". 
 #'
 #' The name of the output file can also be changed using the \code{output_file} argument, the default being \code{wqxtab.xlsx}.  Warnings can also be turned off or on (default) using the \code{warn} argument.  This returns any warnings when data are imported and only applies if the file inputs are paths.
 #' 
@@ -58,6 +60,14 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
   sitdat <- inp$sitdat
   wqxdat <- inp$wqxdat
 
+  # check additional wqx columns are present in results file
+  wqxreq <- c('Sample Collection Method ID', 'Project ID')
+  chk <- wqxreq %in% names(resdat)
+  if(any(!chk)){
+    tochk <- wqxreq[!chk]
+    stop('Missing required columns for WQX output: ', paste(tochk, collapse = ', '), call. = FALSE)
+  }
+  
   ##
   # Projects
   prjs <- dplyr::tibble(
@@ -121,7 +131,7 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
   
   ##
   # Results
-
+  
   # format parameter in accdat to wqx parameter
   accdat <- accdat %>% 
     dplyr::mutate(
@@ -195,8 +205,9 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
       `Result Value`, 
       `Result Unit`, 
       `Result Measure Qualifier`, 
-      `Result Comment`, 
-      `Quantitation Limit`
+      dplyr::any_of('Result Comment'),
+      `Quantitation Limit`,
+      dplyr::any_of('Local Record ID'),
       ) %>% 
     dplyr::group_by(`Activity Start Date`, `Characteristic Name`, `Activity Type`) %>% 
     dplyr::mutate(
@@ -412,7 +423,8 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
       `Result Detection/Quantitation Limit Type`,
       `Result Detection/Quantitation Limit Value`,
       `Result Detection/Quantitation Limit Unit`,
-      `Result Comment`
+      dplyr::any_of('Result Comment'),
+      dplyr::any_of('Local Record ID'),
     )
   
   ##
