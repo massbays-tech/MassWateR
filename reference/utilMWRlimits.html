@@ -79,7 +79,7 @@
 
 
 <dt>param</dt>
-<dd><p>character string to first filter results by a parameter in <code>"Characteristic Name"</code></p></dd>
+<dd><p>character string to check if a parameter in <code>"Characteristic Name"</code> column in the results file is also found in the data quality objectives file for accuracy, see details</p></dd>
 
 
 <dt>accdat</dt>
@@ -95,6 +95,10 @@
     
 
 <p><code>resdat</code> with any entries in <code>"Result Value"</code> as <code>"BDL"</code> or <code>"AQL"</code> replaced with appropriate values in the <code>"Quantitation Limit"</code> column, if present, otherwise the <code>"MDL"</code> or <code>"UQL"</code> columns from the data quality objectives file for accuracy are used.  Values as <code>"BDL"</code> use one half of the appropriate limit.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>The <code>param</code> argument is used to identify the appropriate <code>"MDL"</code> or <code>"UQL"</code> values in the data quality objectives file for accuracy.  A warning is returned to the console if the accuracy file does not contain the appropriate information for the parameter.</p>
     </div>
 
     <div class="section level2">
