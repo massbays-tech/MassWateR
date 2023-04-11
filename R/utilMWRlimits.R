@@ -2,10 +2,13 @@
 #'
 #' @param resdat results data as returned by \code{\link{readMWRresults}}
 #' @param accdat \code{data.frame} for data quality objectives file for accuracy as returned by \code{\link{readMWRacc}}
-#' @param param character string to first filter results by a parameter in \code{"Characteristic Name"}
+#' @param param character string to check if a parameter in \code{"Characteristic Name"} column in the results file is also found in the data quality objectives file for accuracy, see details
 #' @param warn logical to return warnings to the console (default)
 #'
+#' @details The \code{param} argument is used to identify the appropriate \code{"MDL"} or \code{"UQL"} values in the data quality objectives file for accuracy.  A warning is returned to the console if the accuracy file does not contain the appropriate information for the parameter.
+#' 
 #' @return \code{resdat} with any entries in \code{"Result Value"} as \code{"BDL"} or \code{"AQL"} replaced with appropriate values in the \code{"Quantitation Limit"} column, if present, otherwise the \code{"MDL"} or \code{"UQL"} columns from the data quality objectives file for accuracy are used.  Values as \code{"BDL"} use one half of the appropriate limit.
+#' 
 #' @export
 #'
 #' @examples

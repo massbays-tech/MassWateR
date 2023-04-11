@@ -9,7 +9,7 @@ utilMWRlimits(resdat, param, accdat, warn = TRUE)
 \arguments{
 \item{resdat}{results data as returned by \code{\link{readMWRresults}}}
 
-\item{param}{character string to first filter results by a parameter in \code{"Characteristic Name"}}
+\item{param}{character string to check if a parameter in \code{"Characteristic Name"} column in the results file is also found in the data quality objectives file for accuracy, see details}
 
 \item{accdat}{\code{data.frame} for data quality objectives file for accuracy as returned by \code{\link{readMWRacc}}}
 
@@ -20,6 +20,9 @@ utilMWRlimits(resdat, param, accdat, warn = TRUE)
 }
 \description{
 Fill results data as BDL or AQL with appropriate values
+}
+\details{
+The \code{param} argument is used to identify the appropriate \code{"MDL"} or \code{"UQL"} values in the data quality objectives file for accuracy.  A warning is returned to the console if the accuracy file does not contain the appropriate information for the parameter.
 }
 \examples{
 # results file path
