@@ -160,4 +160,14 @@ anlzMWRmap(fset = fsetls, param = 'DO', addwater = 'high', buffdist = 3) +
   coord_sf(xlim = c(-71.68, -71.31), ylim = c(42.20, 42.48))
 ```
 
+Sometimes you might want to place two plots side by side in the same plot window.  The [patchwork](https://patchwork.data-imaginist.com/){target="_blank"} package allows you to easily do this with ggplot. Two or more plots are first created and then combined using the `+` syntax followed by the plot layout (e.g., plots in two columns using `ncol = 2`). 
+
+```{r, fig.height = 4, fig.width = 8}
+library(patchwork)
+
+p1 <- anlzMWRseason(fset = fsetls, param = "DO", thresh = "fresh", group = "month")
+p2 <- anlzMWRseason(fset = fsetls, param = "pH", thresh = "fresh", group = "month")
+
+p1 + p2 + plot_layout(ncol = 2)
+```
 
