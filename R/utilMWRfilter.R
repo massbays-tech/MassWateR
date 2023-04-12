@@ -1,4 +1,4 @@
-#' Filter results data by date range, site, result attributes, and/or location group
+#' Filter results data by parameter, date range, site, result attributes, and/or location group
 #'
 #' @param resdat results data as returned by \code{\link{readMWRresults}}
 #' @param sitdat site metadata file as returned by \code{\link{readMWRresults}}
@@ -10,7 +10,7 @@
 #' @param alllocgroup logical indicating if results data are filtered by all location groups in \code{"Location Group"} in the site metadata file if \code{locgroup = NULL}, used only in \code{\link{anlzMWRdate}}
 #' @param allresultatt logical indicating if results data are filtered by all result attributes if \code{resultatt = NULL}, used only in \code{\link{anlzMWRsite}}
 #'
-#' @return \code{resdat} filtered by \code{dtrng}, \code{site}, \code{resultatt}, and/or \code{locgroup}, otherwise \code{resdat} unfiltered if arguments are \code{NULL}
+#' @return \code{resdat} filtered by \code{param}, \code{dtrng}, \code{site}, \code{resultatt}, and/or \code{locgroup}, otherwise \code{resdat} filtered only by \code{param} if other arguments are \code{NULL}
 #' @export
 #'
 #' @examples

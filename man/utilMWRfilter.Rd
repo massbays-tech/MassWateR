@@ -2,7 +2,7 @@
 % Please edit documentation in R/utilMWRfilter.R
 \name{utilMWRfilter}
 \alias{utilMWRfilter}
-\title{Filter results data by date range, site, result attributes, and/or location group}
+\title{Filter results data by parameter, date range, site, result attributes, and/or location group}
 \usage{
 utilMWRfilter(
   resdat,
@@ -36,10 +36,10 @@ utilMWRfilter(
 \item{allresultatt}{logical indicating if results data are filtered by all result attributes if \code{resultatt = NULL}, used only in \code{\link{anlzMWRsite}}}
 }
 \value{
-\code{resdat} filtered by \code{dtrng}, \code{site}, \code{resultatt}, and/or \code{locgroup}, otherwise \code{resdat} unfiltered if arguments are \code{NULL}
+\code{resdat} filtered by \code{param}, \code{dtrng}, \code{site}, \code{resultatt}, and/or \code{locgroup}, otherwise \code{resdat} filtered only by \code{param} if other arguments are \code{NULL}
 }
 \description{
-Filter results data by date range, site, result attributes, and/or location group
+Filter results data by parameter, date range, site, result attributes, and/or location group
 }
 \examples{
 # results file path

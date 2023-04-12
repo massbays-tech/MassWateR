@@ -2,12 +2,12 @@
 #'
 #' @param resdat results data as returned by \code{\link{readMWRresults}}
 #' @param accdat \code{data.frame} for data quality objectives file for accuracy as returned by \code{\link{readMWRacc}}
-#' @param param character string to check if a parameter in \code{"Characteristic Name"} column in the results file is also found in the data quality objectives file for accuracy, see details
+#' @param param character string to filter results and check if a parameter in the \code{"Characteristic Name"} column in the results file is also found in the data quality objectives file for accuracy, see details
 #' @param warn logical to return warnings to the console (default)
 #'
-#' @details The \code{param} argument is used to identify the appropriate \code{"MDL"} or \code{"UQL"} values in the data quality objectives file for accuracy.  A warning is returned to the console if the accuracy file does not contain the appropriate information for the parameter.
+#' @details The \code{param} argument is used to identify the appropriate \code{"MDL"} or \code{"UQL"} values in the data quality objectives file for accuracy.  A warning is returned to the console if the accuracy file does not contain the appropriate information for the parameter.  Results will be filtered by \code{param} regardless of any warning.
 #' 
-#' @return \code{resdat} with any entries in \code{"Result Value"} as \code{"BDL"} or \code{"AQL"} replaced with appropriate values in the \code{"Quantitation Limit"} column, if present, otherwise the \code{"MDL"} or \code{"UQL"} columns from the data quality objectives file for accuracy are used.  Values as \code{"BDL"} use one half of the appropriate limit.
+#' @return \code{resdat} filtered by \code{param} with any entries in \code{"Result Value"} as \code{"BDL"} or \code{"AQL"} replaced with appropriate values in the \code{"Quantitation Limit"} column, if present, otherwise the \code{"MDL"} or \code{"UQL"} columns from the data quality objectives file for accuracy are used.  Values as \code{"BDL"} use one half of the appropriate limit. Output only includes rows with the activity type as \code{"Field Msr/Obs"} or \code{"Sample-Routine"}.
 #' 
 #' @export
 #'
@@ -36,7 +36,21 @@ utilMWRlimits <- function(resdat, param, accdat, warn = TRUE){
   
   # applies only to Field Msr/Obs and Sample-Routine
   resdat <- resdat %>% 
-    filter(`Activity Type` %in% c('Field Msr/Obs', 'Sample-Routine'))  
+    dplyr::filter(`Activity Type` %in% c('Field Msr/Obs', 'Sample-Routine'))
+  
+  # check if param in resdat field measurements or samples
+  resprms <- resdat %>% 
+    dplyr::pull(`Characteristic Name`) %>% 
+    unique() %>% 
+    sort
+  
+  chk <- param %in% resprms
+  if(!chk)
+    stop('No field measurements or samples for ', param, ' in results file, should be one of ', paste(resprms, collapse = ', '), call. = FALSE)  
+  
+  # filter by param
+  resdat <- resdat %>% 
+    dplyr::filter(`Characteristic Name` %in% param)
   
   # check if parameter in accdat, warn if TRUE, then convert to numeric and exit
   chk <- !param %in% accdat$Parameter
