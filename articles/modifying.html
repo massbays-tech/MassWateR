@@ -259,6 +259,19 @@ box (with <code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" clas
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">sudburyMWR</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">coord_sf</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">71.68</span>, <span class="op">-</span><span class="fl">71.31</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">42.20</span>, <span class="fl">42.48</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="modifying_files/figure-html/unnamed-chunk-16-1.png" width="672"></p>
+<p>Sometimes you might want to place two plots side by side in the same
+plot window. The <a href="https://patchwork.data-imaginist.com/" target="_blank" class="external-link">patchwork</a> package allows you to easily do this with
+ggplot. Two or more plots are first created and then combined using the
+<code>+</code> syntax followed by the plot layout (e.g., plots in two
+columns using <code>ncol = 2</code>).</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span>, param <span class="op">=</span> <span class="st">"DO"</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"month"</span><span class="op">)</span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span>, param <span class="op">=</span> <span class="st">"pH"</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"month"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span> <span class="op">+</span> <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_layout.html" class="external-link">plot_layout</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<p><img src="modifying_files/figure-html/unnamed-chunk-17-1.png" width="768"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
