@@ -213,7 +213,10 @@ anlzMWRsite <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
       ggplot2::geom_bar(data = toplobr, ggplot2::aes(x = `Monitoring Location ID`, y = `Result Value`),
                         fill = fill, stat = 'identity', alpha = alpha, width = width)
     
-    if(confint)
+    # make sure confint is calculated
+    chkbar <- any(!is.na(toplobr$lov))
+    
+    if(confint & chkbar)
       p <- p + 
         ggplot2::geom_errorbar(data = toplobr, ggplot2::aes(x = `Monitoring Location ID`, ymin = lov, ymax = hiv), width = 0.2 * width)
     
@@ -235,7 +238,10 @@ anlzMWRsite <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
                         fill = fill, stat = 'identity', alpha = alpha, width = width) + 
       ggplot2::facet_grid(~`Monitoring Location ID`)
     
-    if(confint)
+    # make sure confint is calculated
+    chkbar <- any(!is.na(toplobr$lov))
+    
+    if(confint & chkbar)
       p <- p +
         ggplot2::geom_errorbar(data = toplobr, ggplot2::aes(x = `Result Attribute`, ymin = lov, ymax = hiv), width = 0.2 * width)
     

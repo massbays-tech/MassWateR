@@ -213,7 +213,10 @@ anlzMWRdate <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
         na.rm = T, size = labsize, hjust = 0, nudge_x = 3, show.legend = FALSE) +
         ggplot2::scale_x_date(expand = ggplot2::expansion(mult = expand))
     
-    if(confint)
+    # make sure confint is calculated
+    chkbar <- any(!is.na(toplo$lov))
+    
+    if(confint & chkbar)
       p <- p + 
        ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Activity Start Date`, ymin = lov, ymax = hiv, group = `Location Group`, color = `Location Group`), width = 1, show.legend = colleg)
     
@@ -242,7 +245,10 @@ anlzMWRdate <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
       ggplot2::geom_line(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`)) + 
       ggplot2::geom_point(data = toplo, ggplot2::aes(x = `Activity Start Date`, y = `Result Value`), size = ptsize)
     
-    if(confint)
+    # make sure confint is calculated
+    chkbar <- any(!is.na(toplo$lov))
+    
+    if(confint & chkbar)
       p <- p + 
         ggplot2::geom_errorbar(data = toplo, ggplot2::aes(x = `Activity Start Date`, ymin = lov, ymax = hiv), width = 1, show.legend = colleg)
     
