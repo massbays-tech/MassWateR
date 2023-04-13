@@ -44,8 +44,6 @@ The single function for generating output for upload to WQX is `tabMWRwqx()`.  T
 
 The workflow for using this function is to import the required data (results, data quality objectives file for accuracy, site metadata, and wqx metadata, as above) and to fix any errors noted on import prior to creating the output. The function can be used with inputs as paths to the relevant files or as data frames returned by `readMWRresults()`, `readMWRacc()`, `readMWRsites()`, and `readMWRwqx()`.  For the former, the full suite of data checks can be evaluated with `runkchk = T` (default) or suppressed with `runchk = F`, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. 
 
-The "Sample Collection Method ID" and "Project ID" columns can be included in the results file, although these are not required to be included when importing the results file with `readMWRresults()`. The function will add placeholder columns with default values if they are not present in the results file. Additional optional columns that can be included in the results file and included in the output file are "Result Comment" and "Local Record ID".  These will not be added to the output file if they are not present in the results. 
-
 The workbook can be created as follows by including the required files and specifying an output directory where the Excel file is saved (a temporary directory is used here). Once the function is done running, a message indicating success and where the file is located is returned. The Excel file can be further edited by hand as needed.  
 
 ```{r, message = T}

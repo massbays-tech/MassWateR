@@ -13,8 +13,6 @@
 #' @details This function will export a single Excel workbook with three sheets, named "Project", "Locations", and "Results". The output is populated with as much content as possible based on information in the input files.  The remainder of the information not included in the output will need to be manually entered before uploading the data to WQX.  All required columns are present, but individual rows will need to be verified for completeness.  It is the responsibility of the user to verify this information is complete and correct before uploading the data. 
 #' 
 #' The workflow for using this function is to import the required data (results, data quality objectives file for accuracy, site metadata, and wqx metadata) and to fix any errors noted on import prior to creating the output. The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRacc}}, \code{\link{readMWRsites}}, and \code{\link{readMWRwqx}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.
-#' 
-#' The "Sample Collection Method ID" "Project ID", "Result Comment", and "Local Record ID" columns can be included in the results file, although these are not required to be included when importing the results file with \code{\link{readMWRresults}}. The function will add placeholder columns with default values if they are not present in the results file. 
 #'
 #' The name of the output file can also be changed using the \code{output_file} argument, the default being \code{wqxtab.xlsx}.  Warnings can also be turned off or on (default) using the \code{warn} argument.  This returns any warnings when data are imported and only applies if the file inputs are paths.
 #' 
@@ -60,16 +58,6 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
   sitdat <- inp$sitdat
   wqxdat <- inp$wqxdat
 
-  # add sample collection method id or project id if not present in results
-  wqxreq <- c('Sample Collection Method ID', 'Project ID', 'Local Record ID', 'Result Comment')
-  chk <- wqxreq %in% names(resdat)
-  if(any(!chk)){
-    tochk <- wqxreq[!chk]
-    toadd <- as_tibble(data.frame(matrix(nrow=nrow(resdat),ncol=length(tochk))))
-    colnames(toadd) <- tochk
-    resdat <- dplyr::bind_cols(resdat, toadd)
-  }
-  
   ##
   # Projects
   prjs <- dplyr::tibble(

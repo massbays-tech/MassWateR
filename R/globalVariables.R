@@ -36,7 +36,8 @@ globalVariables(c("Activity Start Date", "Activity Start Time", "QC Reference Va
                   "Analytical Method", "Analytical Method Context", "Field Blankna", 
                   "Field Duplicate2", "Field Duplicatena", "Lab Blankna", "Lab Duplicate2",
                   "Lab Duplicatena", "Sampling Method Context", "Spike/Check Accuracy2", 
-                  "Spike/Check Accuracyna", "Result Detection/Quantitation Limit Value"
+                  "Spike/Check Accuracyna", "Result Detection/Quantitation Limit Value",
+                  "Local Record ID"
                   ))
 
 #' @importFrom stats IQR na.omit quantile t.test

@@ -7,8 +7,8 @@
 #' 
 #' The following checks are made: 
 #' \itemize{
-#'  \item{Column name spelling: }{Should be the following: Monitoring Location ID, Activity Type, Activity Start Date, Activity Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit, Activity Relative Depth Name, Characteristic Name, Result Value, Result Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier, Result Attribute. Additional required and optional columns for WQX output are checked in \code{\link{tabMWRwqx}}.}
-#'  \item{Columns present: }{All columns from the previous check should be present, Result Attribute is optional}
+#'  \item{Column name spelling: }{Should be the following: Monitoring Location ID, Activity Type, Activity Start Date, Activity Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit, Activity Relative Depth Name, Characteristic Name, Result Value, Result Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier, Result Attribute, Sample Collection Method ID, Project ID, Local Record ID, Result Comment}
+#'  \item{Columns present: }{All columns from the previous check should be present}
 #'  \item{Activity Type: }{Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike, Quality Control-Calibration Check, Quality Control-Meter Lab Duplicate, Quality Control-Meter Lab Blank}
 #'  \item{Date formats: }{Should be mm/dd/yyyy and parsed correctly on import}
 #'  \item{Depth data present: }{Depth data should be included in Activity Depth/Height Measure or Activity Relative Depth Name}
@@ -47,7 +47,8 @@ checkMWRresults <- function(resdat, warn = TRUE){
               "Activity Start Time", "Activity Depth/Height Measure", "Activity Depth/Height Unit", 
               "Activity Relative Depth Name", "Characteristic Name", "Result Value", 
               "Result Unit", "Quantitation Limit", "QC Reference Value", "Result Measure Qualifier", 
-              "Result Attribute")
+              "Result Attribute", "Sample Collection Method ID", "Project ID", "Local Record ID", 
+              "Result Comment")
   acttyp <- c("Field Msr/Obs", "Sample-Routine", "Quality Control Sample-Field Blank", 
               "Quality Control Sample-Lab Blank", "Quality Control Sample-Lab Duplicate", 
               "Quality Control Sample-Lab Spike", "Quality Control-Calibration Check", 
@@ -57,9 +58,9 @@ checkMWRresults <- function(resdat, warn = TRUE){
   unityp <- c('ft', 'm')
   restyp <- c('AQL', 'BDL')
 
-  # check field names, minus those for wqx
+  # check field names
   msg <- '\tChecking column names...'
-  nms <- names(resdat)[!names(resdat) %in% c('Sample Collection Method ID', 'Project ID', 'Result Comment', 'Local Record ID')] 
+  nms <- names(resdat)
   chk <- nms %in% colnms
   if(any(!chk)){
     tochk <- nms[!chk]
@@ -67,10 +68,10 @@ checkMWRresults <- function(resdat, warn = TRUE){
   }
   message(paste(msg, 'OK'))
   
-  # check all fields are present, Result Attribute optional
+  # check all fields are present
   msg <- '\tChecking all required columns are present...'
   nms <- names(resdat)
-  chk <- colnms[-14] %in% nms
+  chk <- colnms %in% nms
   if(any(!chk)){
     tochk <- colnms[!chk]
     stop(msg, '\n\tMissing the following columns: ', paste(tochk, collapse = ', '), call. = FALSE)
