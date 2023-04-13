@@ -52,6 +52,11 @@ utilMWRconfint <- function(dat, logscl){
         .groups = 'drop'
       )
   
+  # check if ci available
+  chk <- any(!is.na(out$lov))
+  if(!chk)
+    warning('Confidence interval not possible with n = 1', call. = FALSE)
+  
   return(out)
   
 }

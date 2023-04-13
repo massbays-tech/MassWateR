@@ -9,3 +9,8 @@ test_that("Checking output format tibble, logscl TRUE", {
   result <- utilMWRconfint(reschk, logscl = TRUE)
   expect_s3_class(result, 'tbl_df')
 })
+
+test_that("Checking warning if CI is not calculated", {
+  reschk <- utilMWRlimits(resdat, accdat, param = 'DO')
+  expect_warning(utilMWRconfint(reschk[1, ], logscl = FALSE))
+})
