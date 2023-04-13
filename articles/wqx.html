@@ -198,15 +198,6 @@ former, the full suite of data checks can be evaluated with
 <code>runchk = F</code>, as explained in the relevant help files. In the
 latter case, downstream analyses may not work if data are formatted
 incorrectly.</p>
-<p>The “Sample Collection Method ID” and “Project ID” columns can be
-included in the results file, although these are not required to be
-included when importing the results file with
-<code><a href="../reference/readMWRresults.html">readMWRresults()</a></code>. The function will add placeholder columns
-with default values if they are not present in the results file.
-Additional optional columns that can be included in the results file and
-included in the output file are “Result Comment” and “Local Record ID”.
-These will not be added to the output file if they are not present in
-the results.</p>
 <p>The workbook can be created as follows by including the required
 files and specifying an output directory where the Excel file is saved
 (a temporary directory is used here). Once the function is done running,
@@ -216,7 +207,7 @@ The Excel file can be further edited by hand as needed.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tabMWRwqx.html">tabMWRwqx</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, wqx <span class="op">=</span> <span class="va">wqxdat</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in tabMWRwqx(res = resdat, acc = accdat, sit = sitdat, wqx = wqxdat, :</span></span>
 <span><span class="co">#&gt; No spatial information for sites in the Locations tab: ABT-162</span></span>
-<span><span class="co">#&gt; Excel workbook created successfully! File located at /tmp/RtmpWPOZDU/wqxtab.xlsx</span></span></code></pre></div>
+<span><span class="co">#&gt; Excel workbook created successfully! File located at /tmp/RtmpPs7d4R/wqxtab.xlsx</span></span></code></pre></div>
 <p>As a convenience, the input files can also be passed to the
 <code><a href="../reference/tabMWRwqx.html">tabMWRwqx()</a></code> function as a named list using the
 <code>fset</code> argument. This eliminates the need to individually
