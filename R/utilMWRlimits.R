@@ -96,7 +96,7 @@ utilMWRlimits <- function(resdat, param, accdat, warn = TRUE){
   # then filter by value range in accdat
   out <- resdat %>% 
     dplyr::mutate(ind = 1:n()) %>% 
-    inner_join(accdat, by = c('Characteristic Name' = 'Parameter')) %>% 
+    inner_join(accdat, by = c('Characteristic Name' = 'Parameter'), relationship = 'many-to-many') %>% 
     dplyr::mutate(
       `Result Unit` = ifelse(`Characteristic Name` == 'pH', 's.u.', `Result Unit`),
       `Result Value` = ifelse(`Result Value` == 'BDL' & is.na(`Quantitation Limit`), as.character(MDL / 2), 
