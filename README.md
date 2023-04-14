@@ -36,6 +36,7 @@ Please see the vignette articles for an overview of how to use functions in the 
 * [MassWateR outlier checks](https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html): Information on evaluating outliers in the results data for surface water quality.
 * [MassWateR quality control functions](https://massbays-tech.github.io/MassWateR/articles/qcoverview.html): Information on using the quality control functions to assess completeness and accuracy of results data for surface water quality and to generate automated reports.
 * [MassWateR analysis functions](https://massbays-tech.github.io/MassWateR/articles/analysis.html): Information on using the analysis functions to evaluate trends, summaries, and maps in the results data for surface water quality.
+* [MassWateR utility functions](https://massbays-tech.github.io/MassWateR/articles/utility.html): Information on using optional utility functions for custom analyses.
 * [Modifying plots](https://massbays-tech.github.io/MassWateR/articles/modifying.html): A short tutorial on modifying plots created with MassWateR.
 * [Water Quality Exchange output](https://massbays-tech.github.io/MassWateR/articles/wqx.html): Information on generating output that will facilitate upload of data to the EPA Water Quality Exchange
 * [Out of state?](https://massbays-tech.github.io/MassWateR/articles/outofstate.html): MassWateR can be used anywhere and this article describes some tips for using the package outside of Massachusetts.

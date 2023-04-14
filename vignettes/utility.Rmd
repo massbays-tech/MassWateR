@@ -1,0 +1,94 @@
+---
+title: "MassWateR utility functions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{MassWateR utility functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE, message = F, warning = F}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  warning = T, 
+  message = F
+)
+```
+
+The MassWateR package includes several "utility" functions (using the `util` prefix) that are used internally inside other functions to accomplish routine tasks. Although these functions will typically not be used by themselves, they may be useful for custom analyses.  The full list of utility functions can be viewed on the [functions](https://massbays-tech.github.io/MassWateR/reference/index.html#utility-functions) page.  Some of these are described below. 
+
+Most of the utility functions require only the results data, data quality objectives file for accuracy, or the site metadata file.  Note that all of the utility functions require data as input, whereas most of the primary MassWateR functions can accept a file path or the data.   
+
+```{r, message = T}
+library(MassWateR)
+
+# import results data
+respth <- system.file("extdata/ExampleResults.xlsx", package = "MassWateR")
+resdat <- readMWRresults(respth)
+
+# import accuracy data
+accpth <- system.file("extdata/ExampleDQOAccuracy.xlsx", package = "MassWateR")
+accdat <- readMWRacc(accpth)
+
+# import site metadata
+sitpth <- system.file("extdata/ExampleSites.xlsx", package = "MassWateR")
+sitdat <- readMWRsites(sitpth)
+```
+
+## Fill data outside of detection or quantitation limit
+
+The `utilMWRlimits()` function replaces any text qualifiers in the `"Result Value"` column of the results file that are outside of detection (`"BDL"` or `"AQL"`) with appropriate numeric values.  The values are replaced with those from the `"Quanitation Limit"` column, if present, otherwise the `"MDL"` or `"UQL"` columns from the data quality objectives file for accuracy are used.  Values as `"BDL"` use one half of the appropriate limit. The output only includes rows with the activity type as `"Field Msr/Obs"` or `"Sample-Routine"` and is filtered by the chosen parameter.  The function can be useful for analysis because the measurements are returned as numeric values (e.g., for plotting).
+
+```{r}
+utilMWRlimits(resdat = resdat, accdat = accdat, param = 'TP')
+```
+
+## Filter results data
+
+The `utilMWRfilter()` function filters rows in the results data by parameter, date range, sites, result attributes, and/or location groups.  No other changes to the data are made other than filtering the relevant rows based on the input. The function is designed to provide informative errors, e.g., the available result attributes will be shown in the error if the attribute provided is invalid. Filtering by location group requires the site metadata file. 
+
+```{r}
+# filter by parameter, date range
+utilMWRfilter(resdat = resdat, param = 'DO', dtrng = c('2022-06-01', '2022-06-30'))
+
+# filter by parameter, site
+utilMWRfilter(resdat = resdat, param = 'DO', site = c('ABT-026', 'ABT-062', 'ABT-077'))
+
+# filter by parameter, result attribute
+utilMWRfilter(resdat = resdat, param = 'DO', resultatt = 'DRY')
+
+# filter by parameter, location group, date range
+utilMWRfilter(resdat = resdat, param = 'DO', sitdat = sitdat,
+     locgroup = 'Assabet', dtrng = c('2022-06-01', '2022-06-30'))
+```
+
+## Get means and confidence intervals
+
+The `utilMWRconfint()` function estimates means and confidence intervals for arbitrary groups in the results data, e.g., sites across dates. The `utilMWRlimits()` function must be used first and a grouping variable must be specified using `group_by()` from the [dplyr](https://dplyr.tidyverse.org/){target="_blank"} package (included with MassWateR).  Arithmetic or geometric means and their confidence intervals can be returned using the `logscl` argument. 
+
+```{r}
+library(dplyr)
+
+# fill BDL, AQL
+resdat <- utilMWRlimits(resdat = resdat, accdat = accdat, param = "DO")
+
+# identify site as grouping variable
+dat <- resdat %>% 
+  group_by(`Monitoring Location ID`)
+
+# arithmetic means   
+utilMWRconfint(dat, logscl = FALSE)
+
+# geometric means
+utilMWRconfint(dat, logscl = TRUE)
+```
+
+## Get surface measurements only
+
+The `utilMWRfiltersurface()` functions returns only surface measurements from the results data. The function will filter the results where `"Activity Depth/Height Measure"` is less than or equal to 1 meter or 3.3 feet or the `"Activity Relative Depth Name"` is `"Surface"`, where the latter takes precedent. 
+
+```{r}
+utilMWRfiltersurface(resdat = resdat)
+```
+
