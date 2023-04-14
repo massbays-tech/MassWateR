@@ -101,15 +101,17 @@
     
     
 <p>The MassWateR package includes several “utility” functions (using the
-<code>util</code> prefix) that are used internally inside other
-functions to accomplish routine tasks. Although these functions will
-typically not be used by themselves, they may be useful for custom
-analyses. The full list of utility functions can be viewed on the <a href="https://massbays-tech.github.io/MassWateR/reference/index.html#utility-functions">functions</a>
+<code>util</code> prefix) that are used inside other functions to
+accomplish routine tasks. Although these functions will typically not be
+used by themselves, they may be useful for custom analyses. The full
+list of utility functions can be viewed on the <a href="https://massbays-tech.github.io/MassWateR/reference/index.html#utility-functions">functions</a>
 page. Some of these are described below.</p>
 <p>Most of the utility functions require only the results data, data
 quality objectives file for accuracy, or the site metadata file. Note
 that all of the utility functions require data as input, whereas most of
-the primary MassWateR functions can accept a file path or the data.</p>
+the primary MassWateR functions can accept a file path or the data. The
+<code>fset</code> argument also does not apply to the utility
+functions.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">MassWateR</span><span class="op">)</span></span>
 <span></span>
@@ -364,10 +366,10 @@ the <code>logscl</code> argument.</p>
 <div class="section level2">
 <h2 id="get-surface-measurements-only">Get surface measurements only<a class="anchor" aria-label="anchor" href="#get-surface-measurements-only"></a>
 </h2>
-<p>The <code><a href="../reference/utilMWRfiltersurface.html">utilMWRfiltersurface()</a></code> functions returns only
-surface measurements from the results data. The function will filter the
-results where <code>"Activity Depth/Height Measure"</code> is less than
-or equal to 1 meter or 3.3 feet or the
+<p>The <code><a href="../reference/utilMWRfiltersurface.html">utilMWRfiltersurface()</a></code> function returns only surface
+measurements from the results data. The function will filter the results
+where <code>"Activity Depth/Height Measure"</code> is less than or equal
+to 1 meter or 3.3 feet or the
 <code>"Activity Relative Depth Name"</code> is <code>"Surface"</code>,
 where the latter takes precedent.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
