@@ -16,9 +16,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-The MassWateR package includes several "utility" functions (using the `util` prefix) that are used internally inside other functions to accomplish routine tasks. Although these functions will typically not be used by themselves, they may be useful for custom analyses.  The full list of utility functions can be viewed on the [functions](https://massbays-tech.github.io/MassWateR/reference/index.html#utility-functions) page.  Some of these are described below. 
+The MassWateR package includes several "utility" functions (using the `util` prefix) that are used inside other functions to accomplish routine tasks. Although these functions will typically not be used by themselves, they may be useful for custom analyses.  The full list of utility functions can be viewed on the [functions](https://massbays-tech.github.io/MassWateR/reference/index.html#utility-functions) page.  Some of these are described below. 
 
-Most of the utility functions require only the results data, data quality objectives file for accuracy, or the site metadata file.  Note that all of the utility functions require data as input, whereas most of the primary MassWateR functions can accept a file path or the data.   
+Most of the utility functions require only the results data, data quality objectives file for accuracy, or the site metadata file.  Note that all of the utility functions require data as input, whereas most of the primary MassWateR functions can accept a file path or the data.  The `fset` argument also does not apply to the utility functions.   
 
 ```{r, message = T}
 library(MassWateR)
@@ -86,7 +86,7 @@ utilMWRconfint(dat, logscl = TRUE)
 
 ## Get surface measurements only
 
-The `utilMWRfiltersurface()` functions returns only surface measurements from the results data. The function will filter the results where `"Activity Depth/Height Measure"` is less than or equal to 1 meter or 3.3 feet or the `"Activity Relative Depth Name"` is `"Surface"`, where the latter takes precedent. 
+The `utilMWRfiltersurface()` function returns only surface measurements from the results data. The function will filter the results where `"Activity Depth/Height Measure"` is less than or equal to 1 meter or 3.3 feet or the `"Activity Relative Depth Name"` is `"Surface"`, where the latter takes precedent. 
 
 ```{r}
 utilMWRfiltersurface(resdat = resdat)
