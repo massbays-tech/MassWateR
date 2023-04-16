@@ -172,7 +172,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># filter by date</span></span></span>
+<span class="r-in"><span><span class="co"># filter by parameter, date range</span></span></span>
 <span class="r-in"><span><span class="fu">utilMWRfilter</span><span class="op">(</span><span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, dtrng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2022-06-01'</span>, <span class="st">'2022-06-30'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 11 × 18</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    `Monitoring Location ID` `Activity Type` `Activity Start Date`</span>
@@ -196,7 +196,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Attribute` &lt;chr&gt;, `Sample Collection Method ID` &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Project ID` &lt;chr&gt;, `Local Record ID` &lt;chr&gt;, `Result Comment` &lt;chr&gt;</span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># filter by site</span></span></span>
+<span class="r-in"><span><span class="co"># filter by parameter, site</span></span></span>
 <span class="r-in"><span><span class="fu">utilMWRfilter</span><span class="op">(</span><span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'ABT-026'</span>, <span class="st">'ABT-062'</span>, <span class="st">'ABT-077'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 13 × 18</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    `Monitoring Location ID` `Activity Type` `Activity Start Date`</span>
@@ -222,7 +222,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Attribute` &lt;chr&gt;, `Sample Collection Method ID` &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Project ID` &lt;chr&gt;, `Local Record ID` &lt;chr&gt;, `Result Comment` &lt;chr&gt;</span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># filter by result attribute</span></span></span>
+<span class="r-in"><span><span class="co"># filter by parameter, result attribute</span></span></span>
 <span class="r-in"><span><span class="fu">utilMWRfilter</span><span class="op">(</span><span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, resultatt <span class="op">=</span> <span class="st">'DRY'</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 27 × 18</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    `Monitoring Location ID` `Activity Type` `Activity Start Date`</span>
@@ -245,7 +245,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `QC Reference Value` &lt;chr&gt;, `Result Measure Qualifier` &lt;chr&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Result Attribute` &lt;chr&gt;, `Sample Collection Method ID` &lt;chr&gt;, …</span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># filter by location group</span></span></span>
+<span class="r-in"><span><span class="co"># filter by parameter, location group, date range</span></span></span>
 <span class="r-in"><span><span class="fu">utilMWRfilter</span><span class="op">(</span><span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, sitdat <span class="op">=</span> <span class="va">sitdat</span>, </span></span>
 <span class="r-in"><span>     locgroup <span class="op">=</span> <span class="st">'Assabet'</span>, dtrng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2022-06-01'</span>, <span class="st">'2022-06-30'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 7 × 19</span></span>
