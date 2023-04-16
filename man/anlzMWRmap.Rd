@@ -19,7 +19,7 @@ anlzMWRmap(
   labsize = 3,
   palcol = "Greens",
   rev = FALSE,
-  yscl = c("auto", "log", "linear"),
+  yscl = "auto",
   crs = 4326,
   zoom = 11,
   addwater = "medium",

@@ -54,16 +54,16 @@ sitpth <- system.file('extdata/ExampleSites.xlsx', package = 'MassWateR')
 # site data
 sitdat <- readMWRsites(sitpth)
 
-# filter by date
+# filter by parameter, date range
 utilMWRfilter(resdat, param = 'DO', dtrng = c('2022-06-01', '2022-06-30'))
 
-# filter by site
+# filter by parameter, site
 utilMWRfilter(resdat, param = 'DO', site = c('ABT-026', 'ABT-062', 'ABT-077'))
 
-# filter by result attribute
+# filter by parameter, result attribute
 utilMWRfilter(resdat, param = 'DO', resultatt = 'DRY')
 
-# filter by location group
+# filter by parameter, location group, date range
 utilMWRfilter(resdat, param = 'DO', sitdat = sitdat, 
      locgroup = 'Assabet', dtrng = c('2022-06-01', '2022-06-30'))
 }

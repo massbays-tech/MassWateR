@@ -18,7 +18,7 @@ anlzMWRoutlier(
   fill = "lightgrey",
   alpha = 0.8,
   width = 0.8,
-  yscl = c("auto", "log", "linear"),
+  yscl = "auto",
   ttlsize = 1.2,
   runchk = TRUE,
   warn = TRUE

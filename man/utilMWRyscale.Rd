@@ -4,14 +4,14 @@
 \alias{utilMWRyscale}
 \title{Get logical value for y axis scaling}
 \usage{
-utilMWRyscale(accdat, param, yscl = c("auto", "log", "linear"))
+utilMWRyscale(accdat, param, yscl = "auto")
 }
 \arguments{
 \item{accdat}{\code{data.frame} for data quality objectives file for accuracy as returned by \code{\link{readMWRacc}}}
 
 \item{param}{character string to first filter results by a parameter in \code{"Characteristic Name"}}
 
-\item{yscl}{character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details}
+\item{yscl}{character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}}
 }
 \value{
 A logical value indicating \code{TRUE} for log10-scale, \code{FALSE} for arithmetic (linear)

@@ -77,7 +77,7 @@
 #' anlzMWRsite(res = resdat, param = 'DO', acc = accdat, sit = sitdat, type = 'box', 
 #'      thresh = 'fresh', locgroup = 'Assabet')
 #'      
-anlzMWRsite <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, type = c('box', 'jitterbox', 'bar', 'jitterbar', 'jitter'), thresh, threshlab = NULL, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, confint = FALSE, fill = 'lightgreen', alpha = 0.8, width = 0.8, yscl = c('auto', 'log', 'linear'), byresultatt = FALSE, ttlsize =  1.2, runchk = TRUE, warn = TRUE){
+anlzMWRsite <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, type = c('box', 'jitterbox', 'bar', 'jitterbar', 'jitter'), thresh, threshlab = NULL, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, confint = FALSE, fill = 'lightgreen', alpha = 0.8, width = 0.8, yscl = 'auto', byresultatt = FALSE, ttlsize =  1.2, runchk = TRUE, warn = TRUE){
   
   # remove site from input list check because optional
   chkin <- mget(ls())

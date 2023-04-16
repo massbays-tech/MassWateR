@@ -24,7 +24,7 @@ anlzMWRdate(
   expand = c(0.05, 0.1),
   confint = FALSE,
   palcol = "Set2",
-  yscl = c("auto", "log", "linear"),
+  yscl = "auto",
   colleg = FALSE,
   ttlsize = 1.2,
   runchk = TRUE,

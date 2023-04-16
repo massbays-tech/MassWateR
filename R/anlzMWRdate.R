@@ -65,7 +65,7 @@
 #' # select sites
 #' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', thresh = 'fresh',
 #'      site = c("ABT-026", "ABT-077"))
-anlzMWRdate <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, thresh, group = c('site', 'locgroup', 'all'), threshlab = NULL, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 2, repel = FALSE, labsize = 3, expand = c(0.05, 0.1), confint = FALSE, palcol = 'Set2', yscl = c('auto', 'log', 'linear'), colleg = FALSE, ttlsize = 1.2, runchk = TRUE, warn = TRUE){
+anlzMWRdate <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, thresh, group = c('site', 'locgroup', 'all'), threshlab = NULL, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 2, repel = FALSE, labsize = 3, expand = c(0.05, 0.1), confint = FALSE, palcol = 'Set2', yscl = 'auto', colleg = FALSE, ttlsize = 1.2, runchk = TRUE, warn = TRUE){
   
   # remove site from input list check because optional
   chkin <- mget(ls())
