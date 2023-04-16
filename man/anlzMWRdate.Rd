@@ -25,6 +25,7 @@ anlzMWRdate(
   confint = FALSE,
   palcol = "Set2",
   yscl = "auto",
+  sumfun = yscl,
   colleg = FALSE,
   ttlsize = 1.2,
   runchk = TRUE,
@@ -72,6 +73,8 @@ anlzMWRdate(
 
 \item{yscl}{character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details}
 
+\item{sumfun}{character indicating one of \code{"auto"} (default), \code{"mean"}, \code{"geomean"}, \code{"median"}, \code{"min"}, or \code{"max"}, see details}
+
 \item{colleg}{logical indicating if a color legend for sites or location groups is included if \code{group = "site"} or \code{group = "locgroup"}}
 
 \item{ttlsize}{numeric value indicating font size of the title relative to other text in the plot}
@@ -94,6 +97,8 @@ Threshold lines applicable to marine or freshwater environments can be included 
 Any acceptable color palette for from \href{https://r-graph-gallery.com/38-rcolorbrewers-palettes.html}{RColorBrewer} for the points and lines can be used for \code{palcol}, which is passed to the \code{palette} argument in \code{\link[ggplot2]{scale_color_brewer}}. These could include any of the qualitative color palettes, e.g., \code{"Set1"}, \code{"Set2"}, etc.  The continuous and diverging palettes will also work, but may return color scales for points and lines that are difficult to distinguish.  The \code{palcol} argument does not apply if \code{group = "all"}.
 
 The y-axis scaling as arithmetic (linear) or logarithmic can be set with the \code{yscl} argument.  If \code{yscl = "auto"} (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting \code{yscl = "linear"} or \code{yscl = "log"} will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy.
+
+Similarly, the data will be summarized appropriately for \code{group} (only applies if \code{group} is not site) based on the value passed to \code{sumfun}.  The default if no value is provided to \code{sumfun} is to use the appropriate summary based on the value provided to \code{yscl}.  If \code{yscl = "auto"} (default), then \code{sumfun = "auto"}, and the mean or geometric is used for the summary based on information in the data quality objective file for accuracy. Using \code{yscl = "linear"} or \code{yscl = "log"} will default to the mean or geometric mean summary if no value is provided to \code{sumfun}.  Any value passed to \code{sumfun} will override the value passed to \code{yscl}.  Valid summary functions for \code{sumfun} include \code{"auto"}, \code{"mean"}, \code{"geomean"}, \code{"median"}, \code{"min"}, or \code{"max"}).
 
 Any entries in \code{resdat} in the \code{"Result Value"} column as \code{"BDL"} or \code{"AQL"} are replaced with appropriate values in the \code{"Quantitation Limit"} column, if present, otherwise the \code{"MDL"} or \code{"UQL"} columns from the data quality objectives file for accuracy are used.  Values as \code{"BDL"} use one half of the appropriate limit.
 }

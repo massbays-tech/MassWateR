@@ -30,6 +30,10 @@
 #' utilMWRsumfun(accdat, param = 'DO', sumfun = 'geomean')
 utilMWRsumfun <- function(accdat, param, sumfun = 'auto'){
   
+  # convert log, linear to geomean, mean for value from yscl
+  sumfun <- ifelse(sumfun == 'linear', 'mean', ifelse(sumfun == 'log', 'geomean', sumfun))
+  
+  # very correct inputs
   sumfun <- match.arg(sumfun, c('auto', 'mean', 'geomean', 'median', 'min', 'max'))
   
   if(sumfun == 'auto'){

@@ -206,8 +206,8 @@ anlzMWRsite <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
     toplo <- toplo %>% 
       dplyr::group_by(`Monitoring Location ID`)
     
-    # get mean and CI summary
-    toplobr <- utilMWRconfint(toplo, logscl = logscl)
+    # get summarized data
+    toplobr <- utilMWRsummary(toplo, accdat = accdat, param = param, sumfun = sumfun, confint = confint)
     
     p <- p +
       ggplot2::geom_bar(data = toplobr, ggplot2::aes(x = `Monitoring Location ID`, y = `Result Value`),
@@ -230,8 +230,8 @@ anlzMWRsite <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
     toplo <- toplo %>% 
       dplyr::group_by(`Monitoring Location ID`, `Result Attribute`)
     
-    # get mean and CI summary
-    toplobr <- utilMWRconfint(toplo, logscl = logscl)
+    # get summarized data
+    toplobr <- utilMWRsummary(toplo, accdat = accdat, param = param, sumfun = sumfun, confint = confint)
 
     p <- p +
       ggplot2::geom_bar(data = toplobr, ggplot2::aes(x = `Result Attribute`, y = `Result Value`), 

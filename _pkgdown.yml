@@ -82,7 +82,6 @@ reference:
   desc: >
     This is a collection of functions used internally by all other functions.  They are not to be called directly. 
   contents: 
-  - utilMWRconfint
   - utilMWRfilter
   - utilMWRfiltersurface
   - utilMWRhttpgrace
@@ -90,6 +89,7 @@ reference:
   - utilMWRinputcheck
   - utilMWRlimits
   - utilMWRsumfun
+  - utilMWRsummary
   - utilMWRthresh
   - utilMWRtitle
   - utilMWRyscale

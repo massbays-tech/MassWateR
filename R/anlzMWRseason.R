@@ -204,8 +204,8 @@ anlzMWRseason <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL
     toplo <- toplo %>% 
       dplyr::group_by(grpvar)
     
-    # get mean and CI summary
-    toplobr <- utilMWRconfint(toplo, logscl = logscl)
+    # get summarized data
+    toplo <- utilMWRsummary(toplo, accdat = accdat, param = param, sumfun = sumfun, confint = confint)
 
     p <-  p +
       ggplot2::geom_bar(data = toplobr, ggplot2::aes(x = grpvar, y = `Result Value`), 

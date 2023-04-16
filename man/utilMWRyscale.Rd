@@ -9,7 +9,7 @@ utilMWRyscale(accdat, param, yscl = "auto")
 \arguments{
 \item{accdat}{\code{data.frame} for data quality objectives file for accuracy as returned by \code{\link{readMWRacc}}}
 
-\item{param}{character string to first filter results by a parameter in \code{"Characteristic Name"}}
+\item{param}{character string for the parameter to evaluate as provided in the \code{"Parameter"} column of \code{"accdat"}}
 
 \item{yscl}{character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}}
 }

@@ -19,7 +19,7 @@ anlzMWRmap(
   labsize = 3,
   palcol = "Greens",
   rev = FALSE,
-  yscl = "auto",
+  sumfun = "auto",
   crs = 4326,
   zoom = 11,
   addwater = "medium",
@@ -64,7 +64,7 @@ anlzMWRmap(
 
 \item{rev}{logical indicating if color palette in \code{palcol} is reversed}
 
-\item{yscl}{character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details}
+\item{sumfun}{character indicating one of \code{"auto"} (default), \code{"mean"}, \code{"geomean"}, \code{"median"}, \code{"min"}, or \code{"max"}, see details}
 
 \item{crs}{numeric as a four-digit EPSG number for the coordinate reference system, see details}
 
@@ -105,7 +105,7 @@ Any acceptable color palette from \href{https://r-graph-gallery.com/38-rcolorbre
 
 The default value for \code{crs} is EPSG 4326 for the WGS 84 projection in decimal degrees.  The \code{crs} argument is passed to \code{\link[sf]{st_as_sf}} and any acceptable CRS appropriate for the data can be used.
 
-The results shown on the map represent the parameter average for each site within the date range provided by \code{dtrng}.  The average may differ depending on the value provided to the \code{yscl} argument.  Log10-distributed parameters use the geometric mean and normally-distributed parameters use the arithmetic mean.  The distribution is determined from the \code{ycsl} argument. If \code{yscl = "auto"} (default), the distribution is determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are summarized with the geometric mean, otherwise arithmetic. Setting \code{yscl = "linear"} or \code{yscl = "log"} will the use arithmetic or geometric summaries, respectively, regardless of the information in the data quality objective file for accuracy.
+The results shown on the map represent the parameter summary for each site within the date range provided by \code{dtrng}.  If \code{sumfun = "auto"} (default), the mean is used where the distribution is determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are summarized with the geometric mean, otherwise arithmetic. Any other valid summary function will be applied if passed to \code{sumfun} (\code{"mean"}, \code{"geomean"}, \code{"median"}, \code{"min"}, \code{"max"}), regardless of the information in the data quality objective file for accuracy.
 
 Using \code{addwater = "medium"} (default) will include lines and polygons of natural water bodies defined using the National Hydrography Dataset (NHD). The level of detail can be changed to low or high using \code{addwater = "low"} or \code{addwater = "high"}, respectively.  Use \code{addwater = NULL} to not show any water features.
 
