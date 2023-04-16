@@ -11,7 +11,7 @@ utilMWRsumfun(accdat, param, sumfun = "auto")
 
 \item{param}{character string for the parameter to evaluate as provided in the \code{"Parameter"} column of \code{"accdat"}}
 
-\item{sumfun}{character indicating one of \code{"auto"} (default), \code{"mean"}, \code{"geomean"}, \code{"median"}, \code{"min"}, or \code{"max"}}
+\item{sumfun}{character indicating one of \code{"auto"} (default), \code{"mean"}, \code{"geomean"}, \code{"median"}, \code{"min"}, or \code{"max"}, see details}
 }
 \value{
 Character indicating the appropriate summary function based on the value passed to \code{sumfun}.
@@ -34,11 +34,11 @@ accdat <- readMWRacc(accpth)
 utilMWRsumfun(accdat, param = 'E.coli')
 
 # mean force
-utilMWRsumfun(accdat, param = 'E.coli', yscl = 'mean')
+utilMWRsumfun(accdat, param = 'E.coli', sumfun = 'mean')
 
 # mean auto
 utilMWRsumfun(accdat, param = 'DO')
 
 # geomean force
-utilMWRsumfun(accdat, param = 'DO', yscl = 'log')
+utilMWRsumfun(accdat, param = 'DO', sumfun = 'geomean')
 }
