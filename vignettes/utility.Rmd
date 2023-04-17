@@ -63,9 +63,9 @@ utilMWRfilter(resdat = resdat, param = 'DO', sitdat = sitdat,
      locgroup = 'Assabet', dtrng = c('2022-06-01', '2022-06-30'))
 ```
 
-## Get means and confidence intervals
+## Summarize parameters by group
 
-The `utilMWRconfint()` function estimates means and confidence intervals for arbitrary groups in the results data, e.g., sites across dates. The `utilMWRlimits()` function must be used first and a grouping variable must be specified using `group_by()` from the [dplyr](https://dplyr.tidyverse.org/){target="_blank"} package (included with MassWateR).  Arithmetic or geometric means and their confidence intervals can be returned using the `logscl` argument. 
+The `utilMWRsummary()` function summarizes results data for a parameter, either across all rows or by arbitrary row groups, e.g., mean concentrations for sites across dates. The `utilMWRlimits()` function must be used first and a grouping variable can be specified using `group_by()` from the [dplyr](https://dplyr.tidyverse.org/){target="_blank"} package (included with MassWateR).  The default is to summarize as the mean or geometric mean based on information in the data quality objective file for accuracy.
 
 ```{r}
 library(dplyr)
@@ -78,10 +78,17 @@ dat <- resdat %>%
   group_by(`Monitoring Location ID`)
 
 # arithmetic means   
-utilMWRconfint(dat, logscl = FALSE)
+utilMWRsummary(dat = dat, accdat = accdat, param = "DO", confint = TRUE)
 
 # geometric means
-utilMWRconfint(dat, logscl = TRUE)
+utilMWRsummary(dat = dat, accdat = accdat, param = "E.coli", confint = TRUE)
+```
+
+Alternative summary options can be used with the `sumfun` argument and include `"mean"`, `"geomean"`, `"median"`, `"min"`, or `"max"`.  Using `"mean"` or `"geomean"` will override any information in the accuracy file.  Additionally, confidence intervals can only be returned if `sumfun` is `"auto"`, `"mean"`, or `"geomean"`.  Here, the median is returned.
+
+```{r}
+# median E. coli
+utilMWRsummary(dat = dat, accdat = accdat, param = "E.coli", confint = FALSE, sumfun = 'median')
 ```
 
 ## Get surface measurements only
