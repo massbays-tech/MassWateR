@@ -23,6 +23,7 @@ anlzMWRsite(
   alpha = 0.8,
   width = 0.8,
   yscl = "auto",
+  sumfun = yscl,
   byresultatt = FALSE,
   ttlsize = 1.2,
   runchk = TRUE,
@@ -56,7 +57,7 @@ anlzMWRsite(
 
 \item{dtrng}{character string of length two for the date ranges as YYYY-MM-DD, default all}
 
-\item{confint}{logical indicating if confidence intervals are shown, only applies if \code{type = "bar"}}
+\item{confint}{logical indicating if confidence intervals are shown, only applies if \code{type} is \code{"bar"} or \code{"jitterbar"}}
 
 \item{fill}{numeric indicating fill color for boxplots or barplots}
 
@@ -65,6 +66,8 @@ anlzMWRsite(
 \item{width}{numeric for width of boxplots or barplots}
 
 \item{yscl}{character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details}
+
+\item{sumfun}{character indicating one of \code{"auto"}, \code{"mean"}, \code{"geomean"}, \code{"median"}, \code{"min"}, or \code{"max"}, see details}
 
 \item{byresultatt}{logical indicating if the plot has sites grouped separately by result attributes, see details}
 
@@ -81,11 +84,13 @@ A \code{\link[ggplot2]{ggplot}} object that can be further modified.
 Analyze data by sites in results file
 }
 \details{
-Summaries of a parameter for each site are shown as boxplots if \code{type = "box"} or as barplots if \code{type = "bar"}.  Points can be jittered over the boxplots by setting \code{type = "jitterbox"} or jittered over the barplots by setting \code{type = "jitterbar"}.  Setting \code{type = "jitter"} will show only only the jittered points.  For \code{type = "bar"} or \code{type = "jitterbar"}, 95\% confidence intervals can also be shown if \code{confint = TRUE} and they can be estimated (i.e., more than one result value per bar).
+Summaries of a parameter for each site are shown as boxplots if \code{type = "box"} or as barplots if \code{type = "bar"}.  Points can be jittered over the boxplots by setting \code{type = "jitterbox"} or jittered over the barplots by setting \code{type = "jitterbar"}.  Setting \code{type = "jitter"} will show only only the jittered points.  For \code{type = "bar"} or \code{type = "jitterbar"}, 95\% confidence intervals can also be shown if \code{confint = TRUE} and they can be estimated (i.e., more than one result value per bar and \code{sumfun} is \code{"auto"}, \code{"mean"}, or \code{"geomean}).
 
 Threshold lines applicable to marine or freshwater environments can be included in the plot by using the \code{thresh} argument.  These thresholds are specific to each parameter and can be found in the \code{\link{thresholdMWR}} file.  Threshold lines are plotted only for those parameters with entries in \code{\link{thresholdMWR}} and only if the value in \code{`Result Unit`} matches those in \code{\link{thresholdMWR}}. The threshold lines can be suppressed by setting \code{thresh = 'none'}. A user-supplied numeric value can also be used for the \code{thresh} argument to override the default values. An appropriate label must also be supplied to \code{threshlab} if \code{thresh} is numeric.
 
-The y-axis scaling as arithmetic (linear) or logarithmic can be set with the \code{yscl} argument.  If \code{yscl = "auto"} (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting \code{yscl = "linear"} or \code{yscl = "log"} will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy. The means and confidence intervals will vary between arithmetic and log-scaling if \code{type = "bar"}.
+The y-axis scaling as arithmetic (linear) or logarithmic can be set with the \code{yscl} argument.  If \code{yscl = "auto"} (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting \code{yscl = "linear"} or \code{yscl = "log"} will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy.
+
+Similarly, the data will be summarized if \code{type} is \code{"bar"} or \code{"jitterbar"} based on the value passed to \code{sumfun}.  The default if no value is provided to \code{sumfun} is to use the appropriate summary based on the value provided to \code{yscl}.  If \code{yscl = "auto"} (default), then \code{sumfun = "auto"}, and the mean or geometric is used for the summary based on information in the data quality objective file for accuracy. Using \code{yscl = "linear"} or \code{yscl = "log"} will default to the mean or geometric mean summary if no value is provided to \code{sumfun}.  Any other appropriate value passed to \code{sumfun} will override the value passed to \code{yscl}.  Valid summary functions for \code{sumfun} include \code{"auto"}, \code{"mean"}, \code{"geomean"}, \code{"median"}, \code{"min"}, or \code{"max"}).
 
 Any entries in \code{resdat} in the \code{"Result Value"} column as \code{"BDL"} or \code{"AQL"} are replaced with appropriate values in the \code{"Quantitation Limit"} column, if present, otherwise the \code{"MDL"} or \code{"UQL"} columns from the data quality objectives file for accuracy are used.  Values as \code{"BDL"} use one half of the appropriate limit.
 
