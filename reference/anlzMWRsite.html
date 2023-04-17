@@ -89,6 +89,7 @@
 <span>  alpha <span class="op">=</span> <span class="fl">0.8</span>,</span>
 <span>  width <span class="op">=</span> <span class="fl">0.8</span>,</span>
 <span>  yscl <span class="op">=</span> <span class="st">"auto"</span>,</span>
+<span>  sumfun <span class="op">=</span> <span class="va">yscl</span>,</span>
 <span>  byresultatt <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  ttlsize <span class="op">=</span> <span class="fl">1.2</span>,</span>
 <span>  runchk <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -151,7 +152,7 @@
 
 
 <dt>confint</dt>
-<dd><p>logical indicating if confidence intervals are shown, only applies if <code>type = "bar"</code></p></dd>
+<dd><p>logical indicating if confidence intervals are shown, only applies if <code>type</code> is <code>"bar"</code> or <code>"jitterbar"</code></p></dd>
 
 
 <dt>fill</dt>
@@ -168,6 +169,10 @@
 
 <dt>yscl</dt>
 <dd><p>character indicating one of <code>"auto"</code> (default), <code>"log"</code>, or <code>"linear"</code>, see details</p></dd>
+
+
+<dt>sumfun</dt>
+<dd><p>character indicating one of <code>"auto"</code>, <code>"mean"</code>, <code>"geomean"</code>, <code>"median"</code>, <code>"min"</code>, or <code>"max"</code>, see details</p></dd>
 
 
 <dt>byresultatt</dt>
@@ -194,9 +199,10 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Summaries of a parameter for each site are shown as boxplots if <code>type = "box"</code> or as barplots if <code>type = "bar"</code>.  Points can be jittered over the boxplots by setting <code>type = "jitterbox"</code> or jittered over the barplots by setting <code>type = "jitterbar"</code>.  Setting <code>type = "jitter"</code> will show only only the jittered points.  For <code>type = "bar"</code> or <code>type = "jitterbar"</code>, 95% confidence intervals can also be shown if <code>confint = TRUE</code> and they can be estimated (i.e., more than one result value per bar).</p>
+    <p>Summaries of a parameter for each site are shown as boxplots if <code>type = "box"</code> or as barplots if <code>type = "bar"</code>.  Points can be jittered over the boxplots by setting <code>type = "jitterbox"</code> or jittered over the barplots by setting <code>type = "jitterbar"</code>.  Setting <code>type = "jitter"</code> will show only the jittered points.  For <code>type = "bar"</code> or <code>type = "jitterbar"</code>, 95% confidence intervals can also be shown if <code>confint = TRUE</code> and they can be estimated (i.e., more than one result value per bar and <code>sumfun</code> is <code>"auto"</code>, <code>"mean"</code>, or <code>"geomean"</code>).</p>
 <p>Threshold lines applicable to marine or freshwater environments can be included in the plot by using the <code>thresh</code> argument.  These thresholds are specific to each parameter and can be found in the <code><a href="thresholdMWR.html">thresholdMWR</a></code> file.  Threshold lines are plotted only for those parameters with entries in <code><a href="thresholdMWR.html">thresholdMWR</a></code> and only if the value in <code>`Result Unit`</code> matches those in <code><a href="thresholdMWR.html">thresholdMWR</a></code>. The threshold lines can be suppressed by setting <code>thresh = 'none'</code>. A user-supplied numeric value can also be used for the <code>thresh</code> argument to override the default values. An appropriate label must also be supplied to <code>threshlab</code> if <code>thresh</code> is numeric.</p>
-<p>The y-axis scaling as arithmetic (linear) or logarithmic can be set with the <code>yscl</code> argument.  If <code>yscl = "auto"</code> (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting <code>yscl = "linear"</code> or <code>yscl = "log"</code> will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy. The means and confidence intervals will vary between arithmetic and log-scaling if <code>type = "bar"</code>.</p>
+<p>The y-axis scaling as arithmetic (linear) or logarithmic can be set with the <code>yscl</code> argument.  If <code>yscl = "auto"</code> (default), the scaling is  determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are plotted on log10-scale, otherwise arithmetic. Setting <code>yscl = "linear"</code> or <code>yscl = "log"</code> will set the axis as linear or log10-scale, respectively, regardless of the information in the data quality objective file for accuracy.</p>
+<p>Similarly, the data will be summarized if <code>type</code> is <code>"bar"</code> or <code>"jitterbar"</code> based on the value passed to <code>sumfun</code>.  The default if no value is provided to <code>sumfun</code> is to use the appropriate summary based on the value provided to <code>yscl</code>.  If <code>yscl = "auto"</code> (default), then <code>sumfun = "auto"</code>, and the mean or geometric is used for the summary based on information in the data quality objective file for accuracy. Using <code>yscl = "linear"</code> or <code>yscl = "log"</code> will default to the mean or geometric mean summary if no value is provided to <code>sumfun</code>.  Any other appropriate value passed to <code>sumfun</code> will override the value passed to <code>yscl</code>.  Valid summary functions for <code>sumfun</code> include <code>"auto"</code>, <code>"mean"</code>, <code>"geomean"</code>, <code>"median"</code>, <code>"min"</code>, or <code>"max"</code>).</p>
 <p>Any entries in <code>resdat</code> in the <code>"Result Value"</code> column as <code>"BDL"</code> or <code>"AQL"</code> are replaced with appropriate values in the <code>"Quantitation Limit"</code> column, if present, otherwise the <code>"MDL"</code> or <code>"UQL"</code> columns from the data quality objectives file for accuracy are used.  Values as <code>"BDL"</code> use one half of the appropriate limit.</p>
 <p>The <code>byresultatt</code> argument can be used to group sites separately by result attributes.  For example, sites with E. coli samples can be grouped by <code>"Dry"</code> or <code>"Wet"</code> conditions if present in the <code>"Result Attribute"</code> column.   Filtering by sites first using the <code>site</code> argument is advised to reduce the amount of data that are plotted. The grouping can be filtered further by passing appropriate values in the <code>"Result Attribute"</code> column to the <code>resultatt</code> argument. Note that specifying result attributes with <code>resultatt</code> and setting <code>byresultatt = FALSE</code> will filter the plot data by the result attributes but will not plot the results separately.</p>
     </div>

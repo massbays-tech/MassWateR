@@ -310,15 +310,16 @@ group requires the site metadata file.</p>
 <span><span class="co">#&gt; <span style="color: #949494;">#   `Project ID` &lt;chr&gt;, `Local Record ID` &lt;chr&gt;, `Result Comment` &lt;chr&gt;, …</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="get-means-and-confidence-intervals">Get means and confidence intervals<a class="anchor" aria-label="anchor" href="#get-means-and-confidence-intervals"></a>
+<h2 id="summarize-parameters-by-group">Summarize parameters by group<a class="anchor" aria-label="anchor" href="#summarize-parameters-by-group"></a>
 </h2>
-<p>The <code><a href="../reference/utilMWRconfint.html">utilMWRconfint()</a></code> function estimates means and
-confidence intervals for arbitrary groups in the results data, e.g.,
-sites across dates. The <code><a href="../reference/utilMWRlimits.html">utilMWRlimits()</a></code> function must be
-used first and a grouping variable must be specified using
-<code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> from the <a href="https://dplyr.tidyverse.org/" target="_blank" class="external-link">dplyr</a> package (included with MassWateR). Arithmetic
-or geometric means and their confidence intervals can be returned using
-the <code>logscl</code> argument.</p>
+<p>The <code><a href="../reference/utilMWRsummary.html">utilMWRsummary()</a></code> function summarizes results data
+for a parameter, either across all rows or by arbitrary row groups,
+e.g., mean concentrations for sites across dates. The
+<code><a href="../reference/utilMWRlimits.html">utilMWRlimits()</a></code> function must be used first and a grouping
+variable can be specified using <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> from the <a href="https://dplyr.tidyverse.org/" target="_blank" class="external-link">dplyr</a> package
+(included with MassWateR). The default is to summarize as the mean or
+geometric mean based on information in the data quality objective file
+for accuracy.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span></span>
@@ -330,7 +331,7 @@ the <code>logscl</code> argument.</p>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">`Monitoring Location ID`</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># arithmetic means   </span></span>
-<span><span class="fu"><a href="../reference/utilMWRconfint.html">utilMWRconfint</a></span><span class="op">(</span><span class="va">dat</span>, logscl <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/utilMWRsummary.html">utilMWRsummary</a></span><span class="op">(</span>dat <span class="op">=</span> <span class="va">dat</span>, accdat <span class="op">=</span> <span class="va">accdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, confint <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 11 × 4</span></span></span>
 <span><span class="co">#&gt;    `Monitoring Location ID`   lov   hiv `Result Value`</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -347,7 +348,7 @@ the <code>logscl</code> argument.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> NSH-002                   4.00  8.77           6.38</span></span>
 <span></span>
 <span><span class="co"># geometric means</span></span>
-<span><span class="fu"><a href="../reference/utilMWRconfint.html">utilMWRconfint</a></span><span class="op">(</span><span class="va">dat</span>, logscl <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/utilMWRsummary.html">utilMWRsummary</a></span><span class="op">(</span>dat <span class="op">=</span> <span class="va">dat</span>, accdat <span class="op">=</span> <span class="va">accdat</span>, param <span class="op">=</span> <span class="st">"E.coli"</span>, confint <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 11 × 4</span></span></span>
 <span><span class="co">#&gt;    `Monitoring Location ID`   lov   hiv `Result Value`</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -362,6 +363,31 @@ the <code>logscl</code> argument.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ELZ-004                   3.64  6.60           4.90</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> HOP-011                   4.48 10.4            6.83</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> NSH-002                   4.08  9.20           6.13</span></span></code></pre></div>
+<p>Alternative summary options can be used with the <code>sumfun</code>
+argument and include <code>"mean"</code>, <code>"geomean"</code>,
+<code>"median"</code>, <code>"min"</code>, or <code>"max"</code>. Using
+<code>"mean"</code> or <code>"geomean"</code> will override any
+information in the accuracy file. Additionally, confidence intervals can
+only be returned if <code>sumfun</code> is <code>"auto"</code>,
+<code>"mean"</code>, or <code>"geomean"</code>. Here, the median is
+returned.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># median E. coli</span></span>
+<span><span class="fu"><a href="../reference/utilMWRsummary.html">utilMWRsummary</a></span><span class="op">(</span>dat <span class="op">=</span> <span class="va">dat</span>, accdat <span class="op">=</span> <span class="va">accdat</span>, param <span class="op">=</span> <span class="st">"E.coli"</span>, confint <span class="op">=</span> <span class="cn">FALSE</span>, sumfun <span class="op">=</span> <span class="st">'median'</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 11 × 4</span></span></span>
+<span><span class="co">#&gt;    `Monitoring Location ID` `Result Value` lov   hiv  </span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                             <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ABT-026                            7.58 <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ABT-062                            7.59 <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ABT-077                            8.94 <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ABT-144                            7.85 <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> ABT-237                            5.92 <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ABT-301                            7.07 <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> ABT-312                            7.42 <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> DAN-013                            8    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ELZ-004                            4.46 <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> HOP-011                            7.8  <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> NSH-002                            7.06 <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="get-surface-measurements-only">Get surface measurements only<a class="anchor" aria-label="anchor" href="#get-surface-measurements-only"></a>
@@ -372,7 +398,7 @@ where <code>"Activity Depth/Height Measure"</code> is less than or equal
 to 1 meter or 3.3 feet or the
 <code>"Activity Relative Depth Name"</code> is <code>"Surface"</code>,
 where the latter takes precedent.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/utilMWRfiltersurface.html">utilMWRfiltersurface</a></span><span class="op">(</span>resdat <span class="op">=</span> <span class="va">resdat</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 49 × 18</span></span></span>
 <span><span class="co">#&gt;    `Monitoring Location ID` `Activity Type` `Activity Start Date`</span></span>

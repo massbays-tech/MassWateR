@@ -151,9 +151,6 @@
     <loc>https://massbays-tech.github.io/MassWateR/reference/thresholdMWR.html</loc>
   </url>
   <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRconfint.html</loc>
-  </url>
-  <url>
     <loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRfilter.html</loc>
   </url>
   <url>
@@ -176,6 +173,9 @@
   </url>
   <url>
     <loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRsumfun.html</loc>
+  </url>
+  <url>
+    <loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRsummary.html</loc>
   </url>
   <url>
     <loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRthresh.html</loc>
