@@ -105,6 +105,12 @@ To force the y-axis as linear for E. Coli, `yscl = "linear"` must be used. Note 
 anlzMWRseason(res = resdat, param = "E.coli", acc = accdat, thresh = "fresh", group = "month", type = "bar", yscl = "linear")
 ```
 
+If `type` is `"bar"` or `"jitterbar"`, the data will be summarized using the mean or geometric mean as appropriate for the parameter based on information in the data quality objective file for accuracy.  By default, the summary is based on the `yscl` argument.  The default can be changed by passing a value to the `sumfun` argument, where appropriate values include `"auto"` (automatically as mean or geometric mean using information in the data quality objective file for accuracy), `"mean"`, `"geomean"`, `"median"`, `"min"`, or `"max"`. Confidence intervals will be included if `confint = TRUE` and the summary is automatic or the mean or geometric mean is used to override the automatic summary.  Below, the median summary is shown for E. coli.
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRseason(res = resdat, param = "E.coli", acc = accdat, thresh = "fresh", group = "month", type = "bar", sumfun = "median")
+```
+
 Results can also be filtered by dates using the `dtrng` argument. The date format must be `YYYY-MM-DD` and include two entries. 
 
 ```{r, fig.height = 4, fig.width = 8}
@@ -119,7 +125,7 @@ anlzMWRseason(res = resdat, param = "DO", acc = accdat, sit = sitdat, thresh = "
 
 ## Analyze trends by date
 
-Trends by date for selected parameters can be evaluated using the `anlzMWRdate()` function.  The plot shows results continuously over time as line plots, with the lines separated by site, combined across sites, or combined across location groups as an average with 95% confidence intervals.  For location groups, the site metadata file must be supplied.  Many of the options described for the `anlzMWRseason()` function also apply and will not be repeated here. As before, the required data are a results file and data quality objective file for accuracy.  These can be passed to the function with the separate arguments or as a named list using the `fset` argument.   
+Trends by date for selected parameters can be evaluated using the `anlzMWRdate()` function.  The plot shows results continuously over time as line plots, with the lines separated by site, combined across sites, or combined across location groups.  For location groups, the site metadata file must be supplied.  Many of the options described for the `anlzMWRseason()` function also apply and will not be repeated here. As before, the required data are a results file and data quality objective file for accuracy.  These can be passed to the function with the separate arguments or as a named list using the `fset` argument.   
 
 The default plot for `anlzMWRdate()` will show separate lines for each site, y-axis scaling determined automatically from the data quality objectives file, and site labels at the end of each line.  All sites in the results file will be plotted, which can be difficult to visualize. Selecting specific sites with the `site` argument is recommended. 
 
@@ -158,7 +164,7 @@ Confidence intervals at 95% for the points can be shown when `group = "all"` or 
 anlzMWRdate(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "all", confint = TRUE)
 ```
 
-Sites can be averaged across location groups using `group = "locgroup"`.  This option requires the site metadata file passed to the `sit` argument and appropriate values for the location groups passed to the `locgroup` argument that match values in the `Location Group` column of the site metadata file. 
+Sites can be summarized across location groups using `group = "locgroup"`.  This option requires the site metadata file passed to the `sit` argument and appropriate values for the location groups passed to the `locgroup` argument that match values in the `Location Group` column of the site metadata file. 
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'locgroup', 
@@ -170,6 +176,13 @@ All location groups can be used if the `locgroup` argument is omitted.
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'locgroup', 
       thresh = 'fresh')
+```
+
+Alternative summaries can also be used if `group = "all"` or `"locgroup"` by using an appropriate value for the `sumfun` argument.  By default, the `sumfun` argument is based on the value passed to `yscl`, i.e., automatic summaries (`yscl = "auto"`) as mean or geometric mean based on information in the data quality objective file for accuracy or using mean or geometric regardless of the accuracy file (`yscl = "linear"` or `yscl = "log"`).  Using any appropriate value for the `sumfun` argument will override any value used for the `yscl` argument.  Options for `sumfun` include `"auto"` (automatically as mean or geometric mean using information in the data quality objective file for accuracy), `"mean"`, `"geomean"`, `"median"`, `"min"`, or `"max"`.  Below, the median is used to summarize results by location group.
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'locgroup', 
+      thresh = 'fresh', sumfun = 'median')
 ```
 
 ## Analyze data by site
@@ -212,6 +225,13 @@ Setting `type = "jitter"` will show only the jittered points.
 anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "jitter")
 ```
 
+If `type` is `"bar"` or `"jitterbar"`, the data will be summarized using the mean or geometric mean as appropriate for the parameter based on information in the data quality objective file for accuracy.  By default, the summary is based on the `yscl` argument.  The default can be changed by passing a value to the `sumfun` argument, where appropriate values include `"auto"` (automatically as mean or geometric mean using information in the data quality objective file for accuracy), `"mean"`, `"geomean"`, `"median"`, `"min"`, or `"max"`. Below, the median summary is shown.
+
+```{r, fig.height = 4, fig.width = 8}
+anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "jitterbar", 
+            sumfun = 'median')
+```
+
 Results can be grouped by entries in the `Result Atribute` column using `byresultatt = TRUE`. For example, sites with DO samples can be grouped by `"DRY"` or `"WET"` conditions.  Filtering by sites first using the `site` argument is advised to reduce the amount of data that are plotted. The grouping can be filtered further by passing appropriate values in the `Result Attribute` column to the `resultatt` argument. Note that specifying result attributes with `resultatt` and setting `byresultatt = FALSE` will filter the plot data by the result attributes but will not plot the results separately. 
 
 ```{r, fig.height = 4, fig.width = 8}
@@ -222,12 +242,19 @@ anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "
 
 ## Analyze results with maps
 
-The `anlzMWRmap()` function can be used to create a map of summarized results for a selected parameter at each monitoring site.  By default, all dates for the parameter are averaged. Options to filter by site, date range, and result attribute are provided.  Only sites with spatial information in the site metadata file are plotted and a warning is returned for those that do not have this information. The site labels are also plotted next to each point. 
+The `anlzMWRmap()` function can be used to create a map of summarized results for a selected parameter at each monitoring site.  By default, all dates for the parameter are summarized as the mean or geometric mean based on information in the data quality objective file for accuracy. Options to filter by site, date range, and result attribute are provided.  Only sites with spatial information in the site metadata file are plotted and a warning is returned for those that do not have this information. The site labels are also plotted next to each point. 
 
 A map of dissolved oxygen averages across all dates can be created as follows. The required inputs are the results data, the data quality objective file for accuracy, and the site metadata file with the site locations. These can be passed to the function with the separate arguments or as a named list using the `fset` argument.
 
 ```{r, fig.height = 6, fig.width = 6}
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "medium")
+```
+
+The results shown on the map represent the parameter summary for each site across the sample dates.  If `sumfun = "auto"` (default), the mean is used where the distribution is determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are summarized with the geometric mean, otherwise arithmetic. Any other valid summary function will be applied if passed to `sumfun` (`"mean"`, `"geomean"`, `"median"`, `"min"`, `"max"`), regardless of the information in the data quality objective file for accuracy. Below, the minimum dissolved oxygen is shown. The color palette is also reversed.
+
+```{r, fig.height = 6, fig.width = 6}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "medium", 
+           sumfun = "min", rev = TRUE)
 ```
 
 By default, lines and polygons of natural water bodies defined using the National Hydrography Dataset (NHD) are plotted. Using `addwater = "medium"` (default) will plot water bodies at medium detail. The level of detail can be changed to low or high using `addwater = "low"` or `addwater = "high"`, respectively.  Use `addwater = NULL` to not show any water features.
