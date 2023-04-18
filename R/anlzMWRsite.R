@@ -130,6 +130,8 @@ anlzMWRsite <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
   toplo <- resdat
   
   ylab <- unique(toplo$`Result Unit`)
+  
+  # title, changed below as needed if summarized
   ttl <- utilMWRtitle(param = param, site = site, dtrng = dtrng, locgroup = locgroup, resultatt = resultatt)
   
   p <- ggplot2::ggplot()
@@ -204,7 +206,7 @@ anlzMWRsite <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
   # barplot
   if((type == 'bar' | type == 'jitterbar') & !byresultatt){
     
-    ttl <- paste('Average', ttl)
+    ttl <- utilMWRtitle(param = param, accdat = accdat, sumfun = sumfun, site = site, dtrng = dtrng, locgroup = locgroup, resultatt = resultatt)
     
     toplo <- toplo %>% 
       dplyr::group_by(`Monitoring Location ID`)
@@ -228,7 +230,7 @@ anlzMWRsite <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
   # barplot, by result attribute
   if((type == 'bar' | type == 'jitterbar') & byresultatt){
     
-    ttl <- paste('Average', ttl)
+    ttl <- utilMWRtitle(param = param, accdat = accdat, sumfun = sumfun, site = site, dtrng = dtrng, locgroup = locgroup, resultatt = resultatt)
     
     toplo <- toplo %>% 
       dplyr::group_by(`Monitoring Location ID`, `Result Attribute`)

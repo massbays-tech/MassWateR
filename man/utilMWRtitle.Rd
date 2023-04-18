@@ -6,6 +6,8 @@
 \usage{
 utilMWRtitle(
   param,
+  accdat = NULL,
+  sumfun = NULL,
   site = NULL,
   dtrng = NULL,
   resultatt = NULL,
@@ -14,6 +16,10 @@ utilMWRtitle(
 }
 \arguments{
 \item{param}{character string of the parameter to plot}
+
+\item{accdat}{optional \code{data.frame} for data quality objectives file for accuracy as returned by \code{\link{readMWRacc}}}
+
+\item{sumfun}{optional character indicating one of \code{"auto"}, \code{"mean"}, \code{"geomean"}, \code{"median"}, \code{"min"}, or \code{"max"}}
 
 \item{site}{character string of sites to include}
 
@@ -24,13 +30,13 @@ utilMWRtitle(
 \item{locgroup}{character string of location groups to plot from the \code{"Location Group"} column in the site metadata file}
 }
 \value{
-A formatted character used for the title in analysis plots
+A formatted character string used for the title in analysis plots
 }
 \description{
 Format the title for analyze functions
 }
 \details{
-All arguments are optional except \code{param}, appropriate text strings are appended to the \code{param} argument for all other optional arguments indicating the level of filtering used in the plot
+All arguments are optional except \code{param}, appropriate text strings are appended to the \code{param} argument for all other optional arguments indicating the level of filtering used in the plot and data summary if appropriate
 }
 \examples{
 # no filters
@@ -41,5 +47,12 @@ utilMWRtitle(param = 'DO', dtrng = c('2021-05-01', '2021-07-31'))
 
 # filter by all
 utilMWRtitle(param = 'DO', site = 'test', dtrng = c('2021-05-01', '2021-07-31'), 
+     resultatt = 'test', locgroup = 'test')
+     
+# title using summary 
+accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', 
+     package = 'MassWateR')
+accdat <- readMWRacc(accpth, runchk = F, warn = F)
+utilMWRtitle(param = 'DO', accdat = accdat, sumfun = 'auto', site = 'test', dtrng = c('2021-05-01', '2021-07-31'), 
      resultatt = 'test', locgroup = 'test')
 }

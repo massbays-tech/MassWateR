@@ -135,8 +135,10 @@ anlzMWRseason <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL
   
   toplo <- resdat
   
-  ylab <- unique(toplo$`Result Unit`)
+  # title, changed below as needed for bar or jitterbar
   ttl <- utilMWRtitle(param = param, site = site, dtrng = dtrng, locgroup = locgroup, resultatt = resultatt)
+  
+  ylab <- unique(toplo$`Result Unit`)
   
   p <- ggplot2::ggplot()
   
@@ -202,7 +204,8 @@ anlzMWRseason <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL
   # barplot
   if(type == 'bar' | type == 'jitterbar'){
     
-    ttl <- paste('Average', ttl)
+    ttl <- utilMWRtitle(param = param, accdat = accdat, sumfun = sumfun, site = site, dtrng = dtrng, 
+                        locgroup = locgroup, resultatt = resultatt)
     
     toplo <- toplo %>% 
       dplyr::group_by(grpvar)

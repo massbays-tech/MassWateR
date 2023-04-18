@@ -148,7 +148,7 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
       unname
   
   ylab <- unique(resdat$`Result Unit`)
-  ttl <- utilMWRtitle(param = paste('Average', param), site = site, dtrng = dtrng, locgroup = locgroup, resultatt = resultatt)
+  ttl <- utilMWRtitle(param = param, accdat = accdat, sumfun = sumfun, site = site, dtrng = dtrng, locgroup = locgroup, resultatt = resultatt)
     
   m <- ggplot2::ggplot()
 

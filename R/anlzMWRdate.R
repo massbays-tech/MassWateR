@@ -127,6 +127,8 @@ anlzMWRdate <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
     )
   
   ylab <- unique(toplo$`Result Unit`)
+  
+  # title, changed below as needed if summarized
   ttl <- utilMWRtitle(param = param, site = site, dtrng = dtrng, locgroup = locgroup, resultatt = resultatt)
   
   p <- ggplot2::ggplot()
@@ -185,6 +187,8 @@ anlzMWRdate <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
   
   if(group == 'locgroup'){
     
+    ttl <- utilMWRtitle(param = param, accdat = accdat, sumfun = sumfun, site = site, dtrng = dtrng, locgroup = locgroup, resultatt = resultatt)
+    
     toplo <- toplo %>% 
       dplyr::group_by(`Activity Start Date`, `Location Group`) 
 
@@ -237,6 +241,8 @@ anlzMWRdate <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
   
   # combine all sites
   if(group == 'all'){
+    
+    ttl <- utilMWRtitle(param = param, accdat = accdat, sumfun = sumfun, site = site, dtrng = dtrng, locgroup = locgroup, resultatt = resultatt)
     
     toplo <- toplo %>% 
       dplyr::group_by(`Activity Start Date`) 
