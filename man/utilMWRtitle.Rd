@@ -50,9 +50,8 @@ utilMWRtitle(param = 'DO', site = 'test', dtrng = c('2021-05-01', '2021-07-31'),
      resultatt = 'test', locgroup = 'test')
      
 # title using summary 
-accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', 
-     package = 'MassWateR')
-accdat <- readMWRacc(accpth, runchk = F, warn = F)
-utilMWRtitle(param = 'DO', accdat = accdat, sumfun = 'auto', site = 'test', dtrng = c('2021-05-01', '2021-07-31'), 
-     resultatt = 'test', locgroup = 'test')
+accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
+accdat <- readMWRacc(accpth, runchk = FALSE)
+utilMWRtitle(param = 'DO', accdat = accdat, sumfun = 'auto', site = 'test', 
+     dtrng = c('2021-05-01', '2021-07-31'), resultatt = 'test', locgroup = 'test')
 }
