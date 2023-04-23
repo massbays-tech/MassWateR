@@ -57,7 +57,7 @@ Please visit the [ggplot2](https://ggplot2.tidyverse.org/index.html){target="_bl
 
 ## Modifying MassWateR plots
 
-For plots in MassWateR, additional components can be added using the `+` notation as for a standard `ggplot()` object. This is distinct from using any of the default arguments for the plots to change the appearance (e.g., `fill = "red"`).  Overriding some of the existing plot components may also significantly alter the appearance, so use caution.  Also note that adding ggplot2 components to an existing MassWateR plot may or may not work based on how the plot is setup.
+For plots in MassWateR, additional components can be added using the `+` notation as for a standard `ggplot()` object. This is distinct from using any of the default arguments for the plots to change the appearance (e.g., `fill = "red"`).  Overriding some of the existing plot components may also significantly alter the appearance, so use caution.  Also note that adding ggplot2 components to an existing MassWateR plot may or may not work based on how the plot is setup.  For higher levels of customization, we recommend creating a custom ggplot from scratch, using data from the results file that you loaded for MassWateR.  To prepare the results file for use, you can use the [utilMWRlimits()](https://massbays-tech.github.io/MassWateR/articles/utility.html#fill-data-outside-of-detection-or-quantitation-limit) function to populate values outside detection limits and remove QC rows.
 
 Before we can modify any plots, the required input files for the MassWateR analyze functions are imported, using the files included with the package for the examples.  The checks and warnings are suppressed because we know the files are formatted correctly.
 
