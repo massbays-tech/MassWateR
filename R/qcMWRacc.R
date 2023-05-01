@@ -536,8 +536,17 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
     `Lab Duplicates` = labdup, 
     `Lab Spikes / Instrument Checks` = labins
   )
-  out <- out[accchk]
+
+  # fill nrow zero as NULL
+  out <- lapply(out, function(x){
+    if(!is.null(x))
+      if(nrow(x) == 0) 
+        x <- NULL
+    x   
+    })
   
+  out <- out[accchk]
+
   return(out)
   
 }
