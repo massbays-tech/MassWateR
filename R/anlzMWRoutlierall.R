@@ -98,7 +98,7 @@ anlzMWRoutlierall <- function(res = NULL, acc = NULL, fset = NULL, fig_height = 
     
     if(is.null(output_file))
       output_file <- gsub('\\.Rmd$', '.docx', basename(outlierall))
-    file_loc <- list.files(path = output_dir, pattern = output_file, full.names = TRUE)
+    file_loc <- list.files(path = output_dir, pattern = paste0('^', output_file, '$'), full.names = TRUE)
     msg <- paste("Word document created successfully! File located at", file_loc)
     message(msg)
     

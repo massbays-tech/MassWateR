@@ -187,7 +187,7 @@ qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, outp
   
   if(is.null(output_file))
     output_file <- gsub('\\.Rmd$', '.docx', basename(qcreview))
-  file_loc <- list.files(path = output_dir, pattern = output_file, full.names = TRUE)
+  file_loc <- list.files(path = output_dir, pattern = paste0('^', output_file, '$'), full.names = TRUE)
   msg <- paste("Report created successfully! File located at", file_loc)
   message(msg)
 
