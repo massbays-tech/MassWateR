@@ -26,7 +26,7 @@ The following checks are made:
 \item{Columns present: }{All columns from the previous check should be present}
 \item{Activity Type: }{Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike, Quality Control-Calibration Check, Quality Control-Meter Lab Duplicate, Quality Control-Meter Lab Blank}
 \item{Date formats: }{Should be mm/dd/yyyy and parsed correctly on import}
-\item{Depth data present: }{Depth data should be included in Activity Depth/Height Measure or Activity Relative Depth Name}
+\item{Depth data present: }{Depth data should be included in Activity Depth/Height Measure or Activity Relative Depth Name for all rows where Activity Type is Field Msr/Obs or Sample-Routine}
 \item{Non-numeric Activity Depth/Height Measure: }{All depth values should be numbers, excluding missing values}
 \item{Activity Depth/Height Unit: }{All entries should be \code{ft}, \code{m}, or blank}
 \item{Activity Relative Depth Name: }{Should be either Surface, Bottom, Midwater, Near Bottom, or blank (warning only)}
