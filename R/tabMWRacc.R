@@ -95,6 +95,12 @@ tabMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk
   
   if(type %in% c('summary', 'percent')){
 
+    # check if accsum completely empty
+    chk <- lapply(accsum, is.null) %>% 
+      unlist()
+    if(all(chk))
+      stop('No QC records and no QC reference values, cannot create QC tables', call. = FALSE)
+
     # get inputs resdat and frecom needed for summary and percent tables
     # warn and runchk applied above, no need here
     inp <- utilMWRinput(res = res, frecom = frecom, fset = fset, warn = F, runchk = F)
