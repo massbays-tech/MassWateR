@@ -99,7 +99,7 @@ tabMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk
     chk <- lapply(accsum, is.null) %>% 
       unlist()
     if(all(chk))
-      stop('No QC records and no QC reference values, cannot create QC tables', call. = FALSE)
+      stop('No QC records or reference values for parameters with defined DQOs. Cannot create QC tables.', call. = FALSE)
 
     # get inputs resdat and frecom needed for summary and percent tables
     # warn and runchk applied above, no need here

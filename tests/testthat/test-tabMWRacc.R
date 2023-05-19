@@ -33,7 +33,7 @@ test_that("Checking output warning if missing completeness data and format type 
   expect_warning(tabMWRacc(respth, accpth, chk, runchk = F, warn = T, type = 'percent'))
 })
 
-test_that("Checking error if no QC records and no QC reference values", {
+test_that("Checking error if no QC records or reference values", {
   chk <- readMWRacc(accpth, runchk = F, warn = F) %>% 
     mutate_at(vars(matches('Duplicate|Blank|Accuracy')), function(x) NA)
   
