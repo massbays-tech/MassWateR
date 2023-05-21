@@ -430,9 +430,10 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
   )
   
   # save
+  output_file <- paste0(tools::file_path_sans_ext(output_file), '.xlsx')
   writexl::write_xlsx(out, path = file.path(output_dir, output_file))
 
-  file_loc <- list.files(path = output_dir, pattern = paste0('^', output_file, '$'), full.names = TRUE)
+  file_loc <- list.files(path = output_dir, pattern = paste0('^', output_file), full.names = TRUE)
   msg <- paste("Excel workbook created successfully! File located at", file_loc)
   message(msg)
   

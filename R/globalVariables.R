@@ -48,3 +48,6 @@ NULL
 
 #' @importFrom utils write.csv
 NULL 
+
+#' @importFrom tools file_path_sans_ext
+NULL
