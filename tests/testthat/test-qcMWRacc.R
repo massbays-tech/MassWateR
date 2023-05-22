@@ -32,3 +32,23 @@ test_that("Checking output format", {
   result <- qcMWRacc(respth, accpth, frecompth, runchk = F, warn = F)
   expect_type(result, 'list')
 })
+
+test_that("Checking empty data frame in list output", {
+  accchk <- readMWRacc(accpth, runchk = F) %>% 
+    mutate(
+      `Spike/Check Accuracy` = case_when(
+        # Parameter %in% c('Ammonia', 'Nitrate', 'TP', 'pH', 'Sp Conductance', 'Water Temp') ~ NA_character_, 
+        Parameter == 'DO' ~ '<= 3',
+        T ~ `Spike/Check Accuracy`
+      )
+    )
+  frecomchk <- readMWRfrecom(frecompth, runchk = F) %>% 
+    mutate(
+      `Spike/Check Accuracy` = case_when(
+        Parameter == 'DO' ~ 10, 
+        T ~ `Spike/Check Accuracy`
+      )
+    )
+  result <- qcMWRacc(respth, accchk, frecomchk, runchk = F, warn = F)
+  expect_type(result, 'list')
+})
