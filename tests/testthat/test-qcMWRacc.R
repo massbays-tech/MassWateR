@@ -39,14 +39,14 @@ test_that("Checking empty data frame in list output", {
       `Spike/Check Accuracy` = case_when(
         # Parameter %in% c('Ammonia', 'Nitrate', 'TP', 'pH', 'Sp Conductance', 'Water Temp') ~ NA_character_, 
         Parameter == 'DO' ~ '<= 3',
-        T ~ `Spike/Check Accuracy`
+        T ~ NA_character_
       )
     )
   frecomchk <- readMWRfrecom(frecompth, runchk = F) %>% 
     mutate(
       `Spike/Check Accuracy` = case_when(
         Parameter == 'DO' ~ 10, 
-        T ~ `Spike/Check Accuracy`
+        T ~ NA_real_
       )
     )
   result <- qcMWRacc(respth, accchk, frecomchk, runchk = F, warn = F)
