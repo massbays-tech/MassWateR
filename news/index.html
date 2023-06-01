@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">MassWateR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.2.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,6 +63,25 @@
       <small>Source: <a href="https://github.com/massbays-tech/MassWateR/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.1.0" id="masswater-210">MassWateR 2.1.0<a class="anchor" aria-label="anchor" href="#masswater-210"></a></h2>
+<ul><li>Added option to report mean, median, min, max, or geometric mean in summary plots and maps</li>
+<li>Updated <code><a href="../reference/utilMWRtitle.html">utilMWRtitle()</a></code> function to accommodate the previous point</li>
+<li>Replaced <code>utilMWRconfint()</code> function with <code><a href="../reference/utilMWRsummary.html">utilMWRsummary()</a></code>
+</li>
+<li>Added option to change the scale bar on the map created with <code><a href="../reference/anlzMWRmap.html">anlzMWRmap()</a></code> from km to mi</li>
+<li>Added option to reverse the color ramp in the legend created with <code><a href="../reference/anlzMWRmap.html">anlzMWRmap()</a></code>
+</li>
+<li>All columns in the results file are now required on input with <code><a href="../reference/readMWRresults.html">readMWRresults()</a></code>, this includes a new column <code>Local Record ID</code>
+</li>
+<li>Added a new check for depth data in the results file used by <code><a href="../reference/checkMWRresults.html">checkMWRresults()</a></code>
+</li>
+<li>Removed cryptic error messages when confidence intervals cannot be plotted, replaced with informative warning</li>
+<li>Fix to <code><a href="../reference/qcMWRacc.html">qcMWRacc()</a></code> if output list elements return a data frame with zero rows</li>
+<li>Fix to output message that was creating duplicates when a file is saved to disk</li>
+<li>Data input template files and example files updated</li>
+<li>Created a vignette about the utility functions and added an example using <code>patchwork</code> in the modifying plots vignette</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.2" id="masswater-202">MassWateR 2.0.2<a class="anchor" aria-label="anchor" href="#masswater-202"></a></h2><p class="text-muted">CRAN release: 2023-03-21</p>
 <ul><li>
