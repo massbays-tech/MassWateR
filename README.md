@@ -6,6 +6,7 @@
 [![Codecov test coverage](https://codecov.io/gh/massbays-tech/MassWateR/branch/main/graph/badge.svg)](https://app.codecov.io/gh/massbays-tech/MassWateR?branch=main)
 [![parambuild](https://github.com/massbays-tech/MassWateR/workflows/parambuild/badge.svg)](https://github.com/massbays-tech/MassWateR/actions)
 [![CRAN status](https://www.r-pkg.org/badges/version/MassWateR)](https://CRAN.R-project.org/package=MassWateR)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/MassWateR)](https://cran.rstudio.com/web/packages/MassWateR/index.html)
 <!-- badges: end -->
 
 R package for working with Massachusetts surface water quality data, created in partnership by the [Mass Bays National Estuary Partnership](https://www.mass.gov/orgs/massachusetts-bays-national-estuary-partnership){target="_blank"}.

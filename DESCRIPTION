@@ -1,6 +1,6 @@
 Package: MassWateR
 Title: Quality Control and Analysis of Massachusetts Water Quality Data
-Version: 2.0.2.9000
+Version: 2.1.0
 Authors@R: c(
     person(given = "Marcus",
       family = "Beck",
