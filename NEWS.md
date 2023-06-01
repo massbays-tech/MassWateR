@@ -2,14 +2,15 @@
 
 * Added option to report mean, median, min, max, or geometric mean in summary plots and maps
 * Updated `utilMWRtitle()` function to accommodate the previous point
-* Replaced `utilMWRconfint()` function with `utilMWRsummary()`
-* Added option to change the scale bar on the map created with `anlzMWRmap()` from km to mi
+* Replaced `utilMWRconfint()` function with `utilMWRsummary()` for additional summary functions
+* Added option to change the scale bar from km to mi on the map created with `anlzMWRmap()`
 * Added option to reverse the color ramp in the legend created with `anlzMWRmap()`
 * All columns in the results file are now required on input with `readMWRresults()`, this includes a new column `Local Record ID`
-* Added a new check for depth data in the results file used by `checkMWRresults()`
+* Added a new check for depth data in the results file used by `checkMWRresults()`, must be present with no missing values
 * Removed cryptic error messages when confidence intervals cannot be plotted, replaced with informative warning
 * Fix to `qcMWRacc()` if output list elements return a data frame with zero rows
 * Fix to output message that was creating duplicates when a file is saved to disk
+* Fixed incorrect entry description for E. coli in `thresholdMWR`
 * Data input template files and example files updated
 * Created a vignette about the utility functions and added an example using `patchwork` in the modifying plots vignette
 
