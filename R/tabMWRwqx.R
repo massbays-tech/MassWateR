@@ -197,7 +197,7 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
       `Result Measure Qualifier`, 
       `Result Comment`,
       `Quantitation Limit`,
-      `Activity ID User Supplied` = `Local Record ID`,
+      `Record ID User Supplied` = `Local Record ID`,
       ) %>% 
     dplyr::group_by(`Activity Start Date`, `Characteristic Name`, `Activity Type`) %>% 
     dplyr::mutate(
@@ -387,7 +387,7 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
       `Project ID`,
       `Monitoring Location ID`,
       `Activity ID`,
-      `Activity ID User Supplied`,
+      `Record ID User Supplied`,
       `Activity Type`,
       `Activity Media Name`,
       `Activity Start Date`,
