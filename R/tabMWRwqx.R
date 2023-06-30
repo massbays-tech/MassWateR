@@ -143,21 +143,26 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
       )
     )
   
-  # create quality control rows where QC Reference Value is not NA
-  qrws <- resu %>%
-    filter(!is.na(`QC Reference Value`)) %>%
-    mutate(
-      `Result Value` = `QC Reference Value`,
-      `Activity Type` = ifelse(`Activity Type` == 'Field Msr/Obs', 'Quality Control Field Replicate Msr/Obs',
-        ifelse(`Activity Type` == 'Sample-Routine', 'Quality Control Sample-Field Replicate',
-          ifelse(`Activity Type` == 'Quality Control Sample-Field Blank', NA_character_, # to remove
-            ifelse(`Activity Type` == 'Quality Control Sample-Lab Blank', NA_character_, # to remove
-              ifelse(`Activity Type` == 'Quality Control Sample-Lab Duplicate', 'Quality Control Sample-Lab Duplicate 2',
-                ifelse(`Activity Type` == 'Quality Control Sample-Lab Spike', 'Quality Control Sample-Lab Spike Target',
-                  ifelse(`Activity Type` == 'Quality Control-Calibration Check', 'Quality Control-Calibration Check Buffer', 
-                    ifelse(`Activity Type` == 'Quality Control-Meter Lab Duplicate', 'Quality Control-Meter Lab Duplicate 2', 
-                      ifelse(`Activity Type` == 'Quality Control-Meter Lab Blank', NA_character_, # to remove, 
-                        NA_character_
+  # create quality control rows where QC Reference Value is not NA, only if qc ref values present
+  qcref <- any(!is.na(resu$`QC Reference Value`))
+  if(qcref){
+    
+    # qc rows
+    qrws <- resu %>%
+      filter(!is.na(`QC Reference Value`)) %>%
+      mutate(
+        `Result Value` = `QC Reference Value`,
+        `Activity Type` = ifelse(`Activity Type` == 'Field Msr/Obs', 'Quality Control Field Replicate Msr/Obs',
+          ifelse(`Activity Type` == 'Sample-Routine', 'Quality Control Sample-Field Replicate',
+            ifelse(`Activity Type` == 'Quality Control Sample-Field Blank', NA_character_, # to remove
+              ifelse(`Activity Type` == 'Quality Control Sample-Lab Blank', NA_character_, # to remove
+                ifelse(`Activity Type` == 'Quality Control Sample-Lab Duplicate', 'Quality Control Sample-Lab Duplicate 2',
+                  ifelse(`Activity Type` == 'Quality Control Sample-Lab Spike', 'Quality Control Sample-Lab Spike Target',
+                    ifelse(`Activity Type` == 'Quality Control-Calibration Check', 'Quality Control-Calibration Check Buffer', 
+                      ifelse(`Activity Type` == 'Quality Control-Meter Lab Duplicate', 'Quality Control-Meter Lab Duplicate 2', 
+                        ifelse(`Activity Type` == 'Quality Control-Meter Lab Blank', NA_character_, # to remove, 
+                          NA_character_
+                        )
                       )
                     )
                   )
@@ -165,18 +170,19 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
               )
             )
           )
-        )
-      ),
-      `QC Reference Value` = gsub('[[:digit:]]+', NA_character_, `QC Reference Value`)
-    ) %>%
-    filter(!is.na(`Activity Type`))
+        ),
+        `QC Reference Value` = gsub('[[:digit:]]+', NA_character_, `QC Reference Value`)
+      ) %>%
+      filter(!is.na(`Activity Type`))
+  
+    # append new quality control rows, remove values in QC Reference Value
+    resu <- resu %>%
+      mutate(
+        `QC Reference Value` = NA_character_
+      ) %>%
+      bind_rows(qrws)
 
-  # append new quality control rows, remove values in QC Reference Value
-  resu <- resu %>%
-    mutate(
-      `QC Reference Value` = NA_character_
-    ) %>%
-    bind_rows(qrws)
+  }
 
   # add unique time to QC rows that don't have time
   resu <- resu %>% 
