@@ -185,17 +185,17 @@ returned as numeric values (e.g., for plotting).</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/utilMWRlimits.html">utilMWRlimits</a></span><span class="op">(</span>resdat <span class="op">=</span> <span class="va">resdat</span>, accdat <span class="op">=</span> <span class="va">accdat</span>, param <span class="op">=</span> <span class="st">'TP'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 48 × 18</span></span></span>
 <span><span class="co">#&gt;    `Monitoring Location ID` `Activity Type` `Activity Start Date`</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>               </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ABT-026                  Sample-Routine  2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ABT-077                  Sample-Routine  2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ABT-301                  Sample-Routine  2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ABT-312                  Sample-Routine  2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> DAN-013                  Sample-Routine  2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ELZ-004                  Sample-Routine  2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> HOP-011                  Sample-Routine  2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> NSH-002                  Sample-Routine  2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ABT-026                  Sample-Routine  2022-06-12           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ABT-062                  Sample-Routine  2022-06-12           </span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>               </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ABT-026                  Sample-Routine  2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ABT-077                  Sample-Routine  2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ABT-301                  Sample-Routine  2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ABT-312                  Sample-Routine  2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> DAN-013                  Sample-Routine  2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ELZ-004                  Sample-Routine  2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> HOP-011                  Sample-Routine  2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> NSH-002                  Sample-Routine  2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ABT-026                  Sample-Routine  2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ABT-062                  Sample-Routine  2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 38 more rows</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 15 more variables: `Activity Start Time` &lt;chr&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   `Activity Depth/Height Measure` &lt;chr&gt;, `Activity Depth/Height Unit` &lt;chr&gt;,</span></span></span>
@@ -219,18 +219,18 @@ group requires the site metadata file.</p>
 <span><span class="fu"><a href="../reference/utilMWRfilter.html">utilMWRfilter</a></span><span class="op">(</span>resdat <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, dtrng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2022-06-01'</span>, <span class="st">'2022-06-30'</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 11 × 18</span></span></span>
 <span><span class="co">#&gt;    `Monitoring Location ID` `Activity Type` `Activity Start Date`</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>               </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ABT-026                  Field Msr/Obs   2022-06-12           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ABT-062                  Field Msr/Obs   2022-06-12           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ABT-077                  Field Msr/Obs   2022-06-12           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ABT-144                  Field Msr/Obs   2022-06-12           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> ABT-237                  Field Msr/Obs   2022-06-12           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ABT-301                  Field Msr/Obs   2022-06-12           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> ABT-312                  Field Msr/Obs   2022-06-12           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> DAN-013                  Field Msr/Obs   2022-06-12           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ELZ-004                  Field Msr/Obs   2022-06-12           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> HOP-011                  Field Msr/Obs   2022-06-12           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> NSH-002                  Field Msr/Obs   2022-06-12           </span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>               </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ABT-026                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ABT-062                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ABT-077                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ABT-144                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> ABT-237                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ABT-301                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> ABT-312                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> DAN-013                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ELZ-004                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> HOP-011                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> NSH-002                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 15 more variables: `Activity Start Time` &lt;chr&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   `Activity Depth/Height Measure` &lt;chr&gt;, `Activity Depth/Height Unit` &lt;chr&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   `Activity Relative Depth Name` &lt;chr&gt;, `Characteristic Name` &lt;chr&gt;,</span></span></span>
@@ -243,20 +243,20 @@ group requires the site metadata file.</p>
 <span><span class="fu"><a href="../reference/utilMWRfilter.html">utilMWRfilter</a></span><span class="op">(</span>resdat <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'ABT-026'</span>, <span class="st">'ABT-062'</span>, <span class="st">'ABT-077'</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 13 × 18</span></span></span>
 <span><span class="co">#&gt;    `Monitoring Location ID` `Activity Type` `Activity Start Date`</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>               </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ABT-026                  Field Msr/Obs   2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ABT-077                  Field Msr/Obs   2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ABT-026                  Field Msr/Obs   2022-06-12           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ABT-062                  Field Msr/Obs   2022-06-12           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> ABT-077                  Field Msr/Obs   2022-06-12           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ABT-026                  Field Msr/Obs   2022-07-17           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> ABT-062                  Field Msr/Obs   2022-07-17           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> ABT-077                  Field Msr/Obs   2022-07-17           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ABT-026                  Field Msr/Obs   2022-08-14           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ABT-062                  Field Msr/Obs   2022-08-14           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> ABT-077                  Field Msr/Obs   2022-08-14           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> ABT-026                  Field Msr/Obs   2022-09-11           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> ABT-077                  Field Msr/Obs   2022-09-11           </span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>               </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ABT-026                  Field Msr/Obs   2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ABT-077                  Field Msr/Obs   2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ABT-026                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ABT-062                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> ABT-077                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ABT-026                  Field Msr/Obs   2022-07-17 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> ABT-062                  Field Msr/Obs   2022-07-17 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> ABT-077                  Field Msr/Obs   2022-07-17 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ABT-026                  Field Msr/Obs   2022-08-14 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ABT-062                  Field Msr/Obs   2022-08-14 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> ABT-077                  Field Msr/Obs   2022-08-14 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> ABT-026                  Field Msr/Obs   2022-09-11 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> ABT-077                  Field Msr/Obs   2022-09-11 <span style="color: #949494;">00:00:00</span>  </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 15 more variables: `Activity Start Time` &lt;chr&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   `Activity Depth/Height Measure` &lt;chr&gt;, `Activity Depth/Height Unit` &lt;chr&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   `Activity Relative Depth Name` &lt;chr&gt;, `Characteristic Name` &lt;chr&gt;,</span></span></span>
@@ -269,17 +269,17 @@ group requires the site metadata file.</p>
 <span><span class="fu"><a href="../reference/utilMWRfilter.html">utilMWRfilter</a></span><span class="op">(</span>resdat <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, resultatt <span class="op">=</span> <span class="st">'DRY'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 27 × 18</span></span></span>
 <span><span class="co">#&gt;    `Monitoring Location ID` `Activity Type` `Activity Start Date`</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>               </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ABT-026                  Field Msr/Obs   2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ABT-077                  Field Msr/Obs   2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ABT-301                  Field Msr/Obs   2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ABT-312                  Field Msr/Obs   2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> DAN-013                  Field Msr/Obs   2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ELZ-004                  Field Msr/Obs   2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> HOP-011                  Field Msr/Obs   2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> NSH-002                  Field Msr/Obs   2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ABT-026                  Field Msr/Obs   2022-08-14           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ABT-062                  Field Msr/Obs   2022-08-14           </span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>               </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ABT-026                  Field Msr/Obs   2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ABT-077                  Field Msr/Obs   2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ABT-301                  Field Msr/Obs   2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ABT-312                  Field Msr/Obs   2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> DAN-013                  Field Msr/Obs   2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ELZ-004                  Field Msr/Obs   2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> HOP-011                  Field Msr/Obs   2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> NSH-002                  Field Msr/Obs   2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ABT-026                  Field Msr/Obs   2022-08-14 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ABT-062                  Field Msr/Obs   2022-08-14 <span style="color: #949494;">00:00:00</span>  </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 17 more rows</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 15 more variables: `Activity Start Time` &lt;chr&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   `Activity Depth/Height Measure` &lt;chr&gt;, `Activity Depth/Height Unit` &lt;chr&gt;,</span></span></span>
@@ -293,14 +293,14 @@ group requires the site metadata file.</p>
 <span>     locgroup <span class="op">=</span> <span class="st">'Assabet'</span>, dtrng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'2022-06-01'</span>, <span class="st">'2022-06-30'</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 19</span></span></span>
 <span><span class="co">#&gt;   `Monitoring Location ID` `Activity Type` `Activity Start Date`</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>               </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ABT-026                  Field Msr/Obs   2022-06-12           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ABT-062                  Field Msr/Obs   2022-06-12           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ABT-077                  Field Msr/Obs   2022-06-12           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ABT-144                  Field Msr/Obs   2022-06-12           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> ABT-237                  Field Msr/Obs   2022-06-12           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ABT-301                  Field Msr/Obs   2022-06-12           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> ABT-312                  Field Msr/Obs   2022-06-12           </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>               </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> ABT-026                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ABT-062                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ABT-077                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ABT-144                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> ABT-237                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ABT-301                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> ABT-312                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 16 more variables: `Activity Start Time` &lt;chr&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   `Activity Depth/Height Measure` &lt;chr&gt;, `Activity Depth/Height Unit` &lt;chr&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   `Activity Relative Depth Name` &lt;chr&gt;, `Characteristic Name` &lt;chr&gt;,</span></span></span>
@@ -402,17 +402,17 @@ where the latter takes precedent.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/utilMWRfiltersurface.html">utilMWRfiltersurface</a></span><span class="op">(</span>resdat <span class="op">=</span> <span class="va">resdat</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 49 × 18</span></span></span>
 <span><span class="co">#&gt;    `Monitoring Location ID` `Activity Type` `Activity Start Date`</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>               </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ABT-026                  Field Msr/Obs   2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ABT-077                  Field Msr/Obs   2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ABT-301                  Field Msr/Obs   2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ABT-312                  Field Msr/Obs   2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> DAN-013                  Field Msr/Obs   2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ELZ-004                  Field Msr/Obs   2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> HOP-011                  Field Msr/Obs   2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> NSH-002                  Field Msr/Obs   2022-05-15           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ABT-026                  Field Msr/Obs   2022-06-12           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ABT-062                  Field Msr/Obs   2022-06-12           </span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span>               </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ABT-026                  Field Msr/Obs   2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ABT-077                  Field Msr/Obs   2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ABT-301                  Field Msr/Obs   2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ABT-312                  Field Msr/Obs   2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> DAN-013                  Field Msr/Obs   2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ELZ-004                  Field Msr/Obs   2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> HOP-011                  Field Msr/Obs   2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> NSH-002                  Field Msr/Obs   2022-05-15 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> ABT-026                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ABT-062                  Field Msr/Obs   2022-06-12 <span style="color: #949494;">00:00:00</span>  </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 39 more rows</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 15 more variables: `Activity Start Time` &lt;chr&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   `Activity Depth/Height Measure` &lt;chr&gt;, `Activity Depth/Height Unit` &lt;chr&gt;,</span></span></span>
