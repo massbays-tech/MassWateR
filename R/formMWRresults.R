@@ -26,14 +26,26 @@
 #' formMWRresults(resdat)
 formMWRresults <- function(resdat, tzone = 'America/Jamaica'){
   
-  # format input
+  # format date
   out <- resdat %>% 
     dplyr::mutate(
       `Activity Start Date` = lubridate::force_tz(`Activity Start Date`, tzone = tzone), 
-      `Activity Start Date` = lubridate::ymd(`Activity Start Date`),
-      `Activity Start Time` = gsub('^.*\\s', '', as.character(`Activity Start Time`)),
-      `Activity Start Time` = gsub(':00$', '', `Activity Start Time`)
+      `Activity Start Date` = lubridate::ymd(`Activity Start Date`)
     )
+
+  # format time, handles both text and time input from Excel
+  out <- resdat %>%
+    dplyr::mutate(
+      `Activity Start Time` = gsub('^.*\\s(\\d*:.*$)', '\\1', as.character(`Activity Start Time`))
+    ) %>% 
+    tidyr::separate(`Activity Start Time`, c('hr', 'mn', 'rm'), sep = ':', fill = 'right') %>% 
+    dplyr::mutate(
+      hr = suppressWarnings(as.numeric(hr)),
+      hr = ifelse(grepl('PM', rm) & hr < 12, hr + 12, hr), 
+      hr = sprintf('%02d', hr)
+    ) %>% 
+    tidyr::unite('Activity Start Time', hr, mn, sep = ':') %>% 
+    dplyr::select(-rm)
 
   # convert ph s.u. to NA, salinity ppt to ppth 
   out <- out %>% 
