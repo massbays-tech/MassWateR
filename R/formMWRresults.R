@@ -11,9 +11,6 @@
 #'   \item{Convert characteristic names: }{All parameters in \code{Characteristic Name} are converted to \code{Simple Parameter} in \code{\link{paramsMWR}} as needed}
 #' }
 #' 
-#' @import dplyr
-#' @import tidyr
-#' 
 #' @return A formatted data frame of the water quality monitoring results file
 #' 
 #' @export
@@ -31,7 +28,7 @@ formMWRresults <- function(resdat, tzone = 'America/Jamaica'){
   
   # format input
   out <- resdat %>% 
-    mutate(
+    dplyr::mutate(
       `Activity Start Date` = lubridate::force_tz(`Activity Start Date`, tzone = tzone), 
       `Activity Start Date` = lubridate::ymd(`Activity Start Date`),
       `Activity Start Time` = gsub('^.*\\s', '', as.character(`Activity Start Time`)),
@@ -40,7 +37,7 @@ formMWRresults <- function(resdat, tzone = 'America/Jamaica'){
 
   # convert ph s.u. to NA, salinity ppt to ppth 
   out <- out %>% 
-    mutate(
+    dplyr::mutate(
       `Result Unit` = trimws(`Result Unit`),
       `Result Unit` = gsub('^ppt$', 'ppth', `Result Unit`) ,
       `Result Unit` = ifelse(
