@@ -33,19 +33,31 @@ formMWRresults <- function(resdat, tzone = 'America/Jamaica'){
       `Activity Start Date` = lubridate::ymd(`Activity Start Date`)
     )
 
-  # format time, handles both text and time input from Excel
+  # convert decimal number to hh:mm
+  timfunc <- function(x){
+    hr <- 24 * suppressWarnings(as.numeric(x))
+    min <- sprintf('%02d', round(60 * (hr - floor(hr)), 0))
+    hr <- floor(hr)
+    out <- paste(hr, min, sep = ':')
+    return(out)
+  }
+  
+  # format time, handles both text and time input from Excel, and a mix of the two
   out <- resdat %>%
     dplyr::mutate(
-      `Activity Start Time` = gsub('^.*\\s(\\d*:.*$)', '\\1', as.character(`Activity Start Time`))
+      `Activity Start Time` = gsub('^.*\\s(\\d*:.*$)', '\\1', as.character(`Activity Start Time`)), 
+      `Activity Start Time` = ifelse(grepl('^.*\\:.*$', `Activity Start Time`), `Activity Start Time`, timfunc(`Activity Start Time`)), 
+      ispm = grepl('PM', `Activity Start Time`)
     ) %>% 
     tidyr::separate(`Activity Start Time`, c('hr', 'mn', 'rm'), sep = ':', fill = 'right') %>% 
     dplyr::mutate(
       hr = suppressWarnings(as.numeric(hr)),
-      hr = ifelse(grepl('PM', rm) & hr < 12, hr + 12, hr), 
+      hr = ifelse(ispm & hr < 12, hr + 12, hr), 
       hr = sprintf('%02d', hr)
     ) %>% 
     tidyr::unite('Activity Start Time', hr, mn, sep = ':') %>% 
-    dplyr::select(-rm)
+    dplyr::mutate(`Activity Start Time` = trimws(gsub('AM$|PM$', '', `Activity Start Time`))) %>% 
+    dplyr::select(-rm, -ispm)
 
   # convert ph s.u. to NA, salinity ppt to ppth 
   out <- out %>% 
