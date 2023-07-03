@@ -33,7 +33,7 @@ test_that("Checking form results for time as text input from Excel", {
 
 test_that("Checking form results for time as time input from Excel", {
   reschk <- resdat[1:10,]
-  reschk$`Activity Start Time` <- c(0.1, 0.5, '08:23:00', '16:22:00', '21:00:00PM', '09:15:00PM', '9:21', '07:56AM', '07:56 PM', '07:56 PM')
+  reschk$`Activity Start Time` <- c(0.1, 0.5, '08:23:00', '16:22:00', '21:00:00PM', '09:15:00PM', '9:21', '07:56AM', '07:56 PM', '07:56PM')
   frmchk <- formMWRresults(reschk)
   result <- frmchk$`Activity Start Time`
   expected <- c("02:24", "12:00", "08:23", "16:22", "21:00", "21:15", "09:21", "07:56", "19:56", "19:56")
