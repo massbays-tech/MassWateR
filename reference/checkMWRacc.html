@@ -95,6 +95,7 @@
 <p>The following checks are made:</p><ul><li><p>Column name spelling: Should be the following: Parameter, uom, MDL, UQL, Value Range, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy</p></li>
 <li><p>Columns present: All columns from the previous check should be present</p></li>
 <li><p>Column types: All columns should be characters/text, except for MDL and UQL</p></li>
+<li><p>Value Range column na check: The character string <code>"na"</code> should not be in the <code>Value Range</code> column, <code>"all"</code> should be used if the entire range applies</p></li>
 <li><p>Unrecognized characters: Fields describing accuracy checks should not include symbols or text other than \(&lt;=\), \(\leq\), \(&lt;\), \(&gt;=\), \(\geq\), \(&gt;\), \(\pm\), %, BDL, AQL, log, or all</p></li>
 <li><p>Parameter: Should match parameter names in the <code>Simple Parameter</code> or <code>WQX Parameter</code> columns of the <code><a href="paramsMWR.html">paramsMWR</a></code> data</p></li>
 <li><p>Units: No missing entries in units (<code>uom</code>), except pH which can be blank</p></li>
@@ -114,6 +115,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column types... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking no "na" in Value Range... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for text other than &lt;=, ≤, &lt;, &gt;=, ≥, &gt;, ±, %, AQL, BQL, log, or all... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Parameter formats... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for unit (uom)... OK</span>
