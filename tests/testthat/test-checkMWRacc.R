@@ -62,6 +62,6 @@ test_that("Checking empty column", {
 test_that("Checking na in Value Range", {
   chk <- accdatchk
   chk$`Value Range`[c(3, 7)] <- 'na'
-  expect_error(checkMWRacc(chk), fixed = T, regexp = '\tChecking no "na" in Value Range...\n\tReplace "na" in Value Range with "all" for the row(s): 3, 7')
+  expect_error(checkMWRacc(chk), fixed = T, regexp = '\tChecking no "na" in Value Range...\n\tReplace "na" in Value Range with "all" for row(s): 3, 7')
 })
 

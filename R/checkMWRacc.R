@@ -86,7 +86,7 @@ checkMWRacc <- function(accdat, warn = TRUE){
   chk <- !typ %in% 'na'
   if(any(!chk)){
     rws <- which(!chk)
-    stop(msg, '\n\tReplace "na" in Value Range with "all" for the row(s): ', paste(rws, collapse = ', '), call. = FALSE)
+    stop(msg, '\n\tReplace "na" in Value Range with "all" for row(s): ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
   
