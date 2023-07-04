@@ -22,12 +22,14 @@ This function is used internally within \code{\link{readMWRacc}} to format the i
 \item{Minor formatting for units: }{For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to NA in \code{uom}}
 \item{Convert Parameter: }{All parameters are converted to \code{Simple Parameter} in \code{\link{paramsMWR}} as needed}
 \item{Remove unicode: }{Remove or replace unicode characters with those that can be used in logical expressions in \code{\link{qcMWRacc}}, e.g., replace \eqn{\geq} with \eqn{>=}}
+\item{Convert limits to numeric: }{Convert \code{MDL} and \code{UQL} columns to numeric}
 }
 }
 \examples{
 accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
 
-accdat <- readxl::read_excel(accpth, na = c('NA', 'na', '')) 
+accdat <- readxl::read_excel(accpth, na = c('NA', ''))
+accdat <- dplyr::mutate(accdat, dplyr::across(-c(`Value Range`), ~ dplyr::na_if(.x, 'na')))
 
 formMWRacc(accdat)
 }

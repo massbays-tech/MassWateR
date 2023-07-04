@@ -26,6 +26,7 @@ The following checks are made:
 \item{Column name spelling: }{Should be the following: Parameter, uom, MDL, UQL, Value Range, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy}
 \item{Columns present: }{All columns from the previous check should be present}
 \item{Column types: }{All columns should be characters/text, except for MDL and UQL}
+\item{Value Range column na check: }{The character string \code{"na"} should not be in the \code{Value Range} column, \code{"all"} should be used if the entire range applies}
 \item{Unrecognized characters: }{Fields describing accuracy checks should not include symbols or text other than \eqn{<=}, \eqn{\leq}, \eqn{<}, \eqn{>=}, \eqn{\geq}, \eqn{>}, \eqn{\pm}, \%, BDL, AQL, log, or all}
 \item{Parameter: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{paramsMWR}} data}
 \item{Units: }{No missing entries in units (\code{uom}), except pH which can be blank}

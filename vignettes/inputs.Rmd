@@ -172,6 +172,7 @@ File checks for accuracy:
 -   **Column name spelling**: Should be the following: Parameter, uom, MDL, UQL, Value Range, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy
 -   **Columns present**: All columns from the previous check should be present
 -   **Column types**: All columns should be characters/text, except for MDL and UQL
+-   **Value Range column na check**: The character string `"na"` should not be in the `Value Range` column, `"all"` should be used if the entire range applies
 -   **Unrecognized characters**: Fields describing accuracy checks should not include symbols or text other than $<=$, $\leq$, $<$, $>=$, $\geq$, $>$, $\pm$ \%, BDL, AQL, log, or all
 -   **Parameter**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` columns of the `paramsMWR` data
 -   **Units**: No missing entries in units (`uom`), except pH which can be blank
@@ -193,6 +194,7 @@ Minor formatting of the input files is also done to address a few minor issues f
 -   **Minor formatting for units**: For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to `NA` for the `uom` column (`readMWRacc()` only). 
 -   **Convert parameter names**: All parameters in `Parameter` are converted to `Simple Parameter` in `paramsMWR` as needed.
 -   **Remove unicode**: Remove or replace unicode characters with those that can be used in logical expressions in `qcMWRacc()`, e.g., replace $\geq$ with $>=$.
+-   **Convert limits to numeric**: Convert `MDL` and `UQL` columns in the accuracy file to numeric
 
 ### Site metadata
 

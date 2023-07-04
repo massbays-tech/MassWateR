@@ -17,7 +17,9 @@
 #' head(accdat)
 readMWRacc <- function(accpth, runchk = TRUE, warn = TRUE){
   
-  accdat <- readxl::read_excel(accpth, na = c('NA', 'na', ''))
+  # na chr not set as NA because of check for na in value range column
+  accdat <- readxl::read_excel(accpth, na = c('NA', ''))
+  accdat <- dplyr::mutate(accdat, dplyr::across(-c(`Value Range`), ~ dplyr::na_if(.x, 'na')))
   
   # run checks
   if(runchk)

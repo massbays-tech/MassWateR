@@ -10,6 +10,7 @@
 #'  \item{Column name spelling: }{Should be the following: Parameter, uom, MDL, UQL, Value Range, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy}
 #'  \item{Columns present: }{All columns from the previous check should be present}
 #'  \item{Column types: }{All columns should be characters/text, except for MDL and UQL}
+#'  \item{Value Range column na check: }{The character string \code{"na"} should not be in the \code{Value Range} column, \code{"all"} should be used if the entire range applies}
 #'  \item{Unrecognized characters: }{Fields describing accuracy checks should not include symbols or text other than \eqn{<=}, \eqn{\leq}, \eqn{<}, \eqn{>=}, \eqn{\geq}, \eqn{>}, \eqn{\pm}, %, BDL, AQL, log, or all}
 #'  \item{Parameter: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{paramsMWR}} data}
 #'  \item{Units: }{No missing entries in units (\code{uom}), except pH which can be blank}
@@ -66,18 +67,26 @@ checkMWRacc <- function(accdat, warn = TRUE){
 
   # checking column types
   msg <- '\tChecking column types...'
-  typ <- accdat %>% 
-    lapply(class) %>% 
-    unlist
-  typ <- ifelse(
-    typ == 'logical' & names(typ) %in% c('MDL', 'UQL'), 'numeric', 
-    ifelse(typ == 'logical' & !names(typ) %in% c('MDL', 'UQL'), 'character', typ))
+  typ <- sapply(accdat, function(x) {
+    all(grepl('^(?=.)([+-]?([0-9]*)(\\.([0-9]+))?)$', na.omit(x), perl = TRUE))  
+  })
+  typ <- ifelse(typ, 'numeric', 'character')
   chk <- typ == coltyp
   if(any(!chk)){
     tochk <- names(typ)[!chk]
     totyp <- typ[!chk]
     tochk <- paste(tochk, totyp, sep = '-')
     stop(msg, '\n\tIncorrect column type found in columns: ', paste(tochk, collapse = ', '), call. = FALSE)
+  }
+  message(paste(msg, 'OK'))
+  
+  # check for na in value column
+  msg <- '\tChecking no "na" in Value Range...'
+  typ <- accdat$`Value Range`
+  chk <- !typ %in% 'na'
+  if(any(!chk)){
+    rws <- which(!chk)
+    stop(msg, '\n\tReplace "na" in Value Range with "all" for the row(s): ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
   
