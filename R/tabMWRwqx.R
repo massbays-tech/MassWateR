@@ -140,7 +140,8 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
         `Characteristic Name` %in% paramsMWR$`Simple Parameter`, 
         paramsMWR$`WQX Parameter`[match(`Characteristic Name`, paramsMWR$`Simple Parameter`)], 
         `Characteristic Name`
-      )
+      ), 
+      `Activity Start Date` = as.character(`Activity Start Date`)
     )
   
   # create quality control rows where QC Reference Value is not NA, only if qc ref values present
