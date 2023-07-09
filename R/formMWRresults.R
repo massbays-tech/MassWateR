@@ -38,10 +38,12 @@ formMWRresults <- function(resdat, tzone = 'America/Jamaica'){
     hr <- 24 * suppressWarnings(as.numeric(x))
     min <- sprintf('%02d', round(60 * (hr - floor(hr)), 0))
     hr <- floor(hr)
+    hr[min == '60'] <- hr[min == '60'] + 1
+    min <- gsub('^60$', '00', min)
     out <- paste(hr, min, sep = ':')
     return(out)
   }
-  
+
   # format time, handles both text and time input from Excel, and a mix of the two
   out <- resdat %>%
     dplyr::mutate(
