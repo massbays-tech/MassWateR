@@ -58,7 +58,10 @@ formMWRresults <- function(resdat, tzone = 'America/Jamaica'){
       hr = sprintf('%02d', hr)
     ) %>% 
     tidyr::unite('Activity Start Time', hr, mn, sep = ':') %>% 
-    dplyr::mutate(`Activity Start Time` = trimws(gsub('AM$|PM$', '', `Activity Start Time`))) %>% 
+    dplyr::mutate(
+      `Activity Start Time` = trimws(gsub('AM$|PM$', '', `Activity Start Time`)),
+      `Activity Start Time` = dplyr::na_if(`Activity Start Time`, 'NA:NA')
+    ) %>% 
     dplyr::select(-rm, -ispm)
 
   # convert ph s.u. to NA, salinity ppt to ppth 
