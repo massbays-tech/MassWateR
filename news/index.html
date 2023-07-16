@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">MassWateR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.1.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,6 +63,21 @@
       <small>Source: <a href="https://github.com/massbays-tech/MassWateR/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.1.1" id="masswater-211">MassWateR 2.1.1<a class="anchor" aria-label="anchor" href="#masswater-211"></a></h2>
+<ul><li>Fix to incorrect secondary label for Enterococcus in <code>thresholdMWR</code>
+</li>
+<li>Corrected column name to <code>Record ID User Supplied</code> in WQX output from <code><a href="../reference/tabMWRwqx.html">tabMWRwqx()</a></code>
+</li>
+<li>Fix for <code><a href="../reference/tabMWRwqx.html">tabMWRwqx()</a></code> output if no entries in <code>QC Reference Value</code> column in the results file, this previously resulted in an error</li>
+<li>
+<code><a href="../reference/formMWRresults.html">formMWRresults()</a></code> no longer imports dplyr and tidyr in Roxygen documentation</li>
+<li>
+<code><a href="../reference/formMWRresults.html">formMWRresults()</a></code> now handles time and text inputs for <code>Activity Start Date</code> from Excel, all times are correctly formatted as HH:MM in 24 hour time. This includes more robust testing of inputs in <code>text-formMWRresults.R</code>.</li>
+<li>Added check for data quality objectives for accuracy that returns an error if <code>na</code> entries are included in the <code>Value Range</code> column, should be <code>all</code>
+</li>
+<li>Fix to date output for the <code>Activity Start Date</code> column returned by <code><a href="../reference/tabMWRwqx.html">tabMWRwqx()</a></code> to be <code>YYYY-MM-DD</code> character, empty time was previously included as date time object</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.1.0" id="masswater-210">MassWateR 2.1.0<a class="anchor" aria-label="anchor" href="#masswater-210"></a></h2><p class="text-muted">CRAN release: 2023-06-01</p>
 <ul><li>Added option to report mean, median, min, max, or geometric mean in summary plots and maps</li>
