@@ -6,7 +6,6 @@
 * `formMWRresults()` no longer imports dplyr and tidyr in Roxygen documentation
 * `formMWRresults()` now handles time and text inputs for `Activity Start Date` from Excel, all times are correctly formatted as HH:MM in 24 hour time.  This includes more robust testing of inputs in `text-formMWRresults.R`.
 * Added check for data quality objectives for accuracy that returns an error if `na` entries are included in the `Value Range` column, should be `all`
-* Fix to date output for the `Activity Start Date` column returned by `tabMWRwqx()` to be `YYYY-MM-DD` character, empty time was previously included as date time object
 
 # MassWateR 2.1.0
 
