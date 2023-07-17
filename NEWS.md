@@ -4,7 +4,7 @@
 * Corrected column name to `Record ID User Supplied` in WQX output from `tabMWRwqx()`
 * Fix for `tabMWRwqx()` output if no entries in `QC Reference Value` column in the results file, this previously resulted in an error
 * `formMWRresults()` no longer imports dplyr and tidyr in Roxygen documentation
-* `formMWRresults()` now handles time and text inputs for `Activity Start Date` from Excel, all times are correctly formatted as HH:MM in 24 hour time.  This includes more robust testing of inputs in `text-formMWRresults.R`.
+* `formMWRresults()` now handles time and text inputs for `Activity Start Time` from Excel, all times are correctly formatted as HH:MM in 24 hour time.  This includes more robust testing of inputs in `text-formMWRresults.R`.
 * Added check for data quality objectives for accuracy that returns an error if `na` entries are included in the `Value Range` column, should be `all`
 
 # MassWateR 2.1.0
