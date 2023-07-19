@@ -21,7 +21,7 @@ library(dplyr)
 
 ## Overview
 
-The MassWateR R package is developed for surface water monitoring data collected by watershed associations and citizen science groups in Massachusetts. The package is created in collaboration with the [Massachusetts Bays National Estuary Partnership](https://www.mass.gov/orgs/massachusetts-bays-national-estuary-partnership){target="_blank"} with funding from an EPA Exchange Network Grant (Grant No. OS-84029801-0).
+The MassWateR R package is developed for surface water monitoring data collected by watershed associations and citizen science groups in Massachusetts. The package is created in collaboration with the [Massachusetts Bays National Estuary Partnership](http://www.massbays.org/){target="_blank"} with funding from an EPA Exchange Network Grant (Grant No. OS-84029801-0).
 
 The objective of the package is to automate and facilitate quality control and exploratory analysis of data intended for upload to the EPA [Water Quality Exchange](https://www.epa.gov/waterdata/water-quality-data){target="_blank"} (WQX). The functions provide a streamlined and repeatable means of 1) screening data for quality control, 2) summarizing quality control results, 3) creating graphics for analysis and reports to stakeholders, and 4)formatting data for upload to WQX. The functions are organized around these topics, shown below.
 

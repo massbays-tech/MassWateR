@@ -9,7 +9,7 @@
 [![](http://cranlogs.r-pkg.org/badges/grand-total/MassWateR)](https://CRAN.R-project.org/package=MassWateR)
 <!-- badges: end -->
 
-R package for working with Massachusetts surface water quality data, created in partnership by the [Mass Bays National Estuary Partnership](https://www.mass.gov/orgs/massachusetts-bays-national-estuary-partnership){target="_blank"}.
+R package for working with Massachusetts surface water quality data, created in partnership by the [Mass Bays National Estuary Partnership](http://www.massbays.org/){target="_blank"}.
 
 ## Installation
 
