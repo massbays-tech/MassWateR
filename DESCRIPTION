@@ -11,7 +11,7 @@ Authors@R: c(
     person(given = "Jill",
       family = "Carr",
       role = c("aut"),
-      email = "jill.carr@state.ma.us"
+      email = "Jillian.Carr@umb.edu"
     ),
     person(given = "Ben",
       family = "Wetherill",
@@ -22,7 +22,7 @@ Authors@R: c(
     person(given = "Pam",
       family = "DiBona",
       role = c("aut"),
-      email = "pamela.dibona@state.ma.us"
+      email = "Pamela.DiBona@umb.edu"
     )
   )
 Description: Methods for quality control and exploratory analysis of surface 
