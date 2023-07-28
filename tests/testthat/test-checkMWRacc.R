@@ -12,10 +12,10 @@ test_that("Checking required column names are present", {
 
 test_that("Checking column types", {
   chk <- accdatchk
-  chk$`MDL` <- as.character(chk$`MDL`)
   chk$`UQL`[5] <- 'a'
-  chk$`Spike/Check Accuracy` <- suppressWarnings(as.numeric(chk$`Spike/Check Accuracy`))
-  expect_error(checkMWRacc(chk), regexp = '\tChecking column types...\n\tIncorrect column type found in columns: UQL-character, Spike/Check Accuracy-numeric', fixed = T)
+  chk$`MDL` <- 'a'
+  chk$`Spike/Check Accuracy` <- 5
+  expect_error(checkMWRacc(chk), regexp = '\tChecking column types...\n\tIncorrect column type found in columns: MDL-character, UQL-character, Spike/Check Accuracy-numeric', fixed = T)
 })
 
 test_that("Checking for text other than <=, \u2264, <, >=, \u2265, >, \u00b1, %, AQL, BQL, log, or all", {
@@ -55,7 +55,7 @@ test_that("Checking incorrect unit type per parameter", {
 
 test_that("Checking empty column", {
   chk <- accdatchk
-  chk[[4]] <- NA
+  chk[[7]] <- NA
   expect_warning(checkMWRacc(chk))
 })
 

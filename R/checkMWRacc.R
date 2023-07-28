@@ -68,7 +68,8 @@ checkMWRacc <- function(accdat, warn = TRUE){
   # checking column types
   msg <- '\tChecking column types...'
   typ <- sapply(accdat, function(x) {
-    all(grepl('^(?=.)([+-]?([0-9]*)(\\.([0-9]+))?)$', na.omit(x), perl = TRUE))  
+    if(all(is.na(x))) return(FALSE)
+    all(grepl('^(?=.)([+-]?([0-9]*)(\\.([0-9]+))?)$', na.omit(x), perl = TRUE))
   })
   typ <- ifelse(typ, 'numeric', 'character')
   chk <- typ == coltyp
