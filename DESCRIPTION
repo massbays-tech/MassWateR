@@ -18,11 +18,6 @@ Authors@R: c(
       role = c("aut"),
       email = "bwetherill@acasak.com",
       comment = c(ORCID = "0000-0002-8791-4256")
-    ),
-    person(given = "Pam",
-      family = "DiBona",
-      role = c("aut"),
-      email = "Pamela.DiBona@umb.edu"
     )
   )
 Description: Methods for quality control and exploratory analysis of surface 
