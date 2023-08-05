@@ -29,7 +29,7 @@ test_that("Checking column types with NA values", {
 
 test_that("Checking for text other than <=, \u2264, <, >=, \u2265, >, \u00b1, %, AQL, BQL, log, or all", {
   chk <- accdatchk
-  chk$`Value Range`[4] <- '+'
+  chk$`Value Range`[4] <- 'b'
   chk$`Field Duplicate` <- 'alll'
   expect_error(checkMWRacc(chk), regexp = 'Unrecognized text in columns: Value Range, Field Duplicate', fixed = T)
 })
