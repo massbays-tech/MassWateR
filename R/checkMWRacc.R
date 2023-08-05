@@ -67,16 +67,22 @@ checkMWRacc <- function(accdat, warn = TRUE){
 
   # checking column types
   msg <- '\tChecking column types...'
-  typ <- sapply(accdat, function(x) {
-    if(all(is.na(x))) return(FALSE)
+  numcol <- names(accdat) %in% c('MDL', 'UQL') # should be the only numeric columns
+  typnum <- accdat[, numcol]
+  typchr <- accdat[, !numcol]
+  chknum <- sapply(typnum, function(x) {
+    if(all(is.na(x))) return(TRUE)
     all(grepl('^(?=.)([+-]?([0-9]*)(\\.([0-9]+))?)$', na.omit(x), perl = TRUE))
   })
-  typ <- ifelse(typ, 'numeric', 'character')
-  chk <- typ == coltyp
+  chkchr <- sapply(typchr, function(x) {
+    if(all(is.na(x))) return(TRUE)
+    all(!grepl('^(?=.)([+-]?([0-9]*)(\\.([0-9]+))?)$', na.omit(x), perl = TRUE))
+  })
+  chk <- c(chknum, chkchr)[names(accdat)]
   if(any(!chk)){
-    tochk <- names(typ)[!chk]
-    totyp <- typ[!chk]
-    tochk <- paste(tochk, totyp, sep = '-')
+    tochk <- names(chk[!chk])
+    totyp <- coltyp[!chk]
+    tochk <- paste(tochk, paste('should be', totyp), sep = '-')
     stop(msg, '\n\tIncorrect column type found in columns: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))

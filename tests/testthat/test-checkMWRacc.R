@@ -10,12 +10,21 @@ test_that("Checking required column names are present", {
   expect_error(checkMWRacc(chk))
 })
 
-test_that("Checking column types", {
+test_that("Checking column types, including NA", {
   chk <- accdatchk
-  chk$`UQL`[5] <- 'a'
+  chk$`UQL` <- NA
   chk$`MDL` <- 'a'
   chk$`Spike/Check Accuracy` <- 5
-  expect_error(checkMWRacc(chk), regexp = '\tChecking column types...\n\tIncorrect column type found in columns: MDL-character, UQL-character, Spike/Check Accuracy-numeric', fixed = T)
+  chk$`Lab Duplicate` <- NA
+  expect_error(checkMWRacc(chk), regexp = '\tChecking column types...\n\tIncorrect column type found in columns: MDL-should be numeric, Spike/Check Accuracy-should be character', fixed = T)
+})
+
+test_that("Checking column types with NA values", {
+  chk <- accdatchk
+  chk$`UQL` <- NA
+  chk$`Spike/Check Accuracy` <- NA
+  result <- suppressWarnings(checkMWRacc(chk))
+  expect_s3_class(result, 'tbl_df')
 })
 
 test_that("Checking for text other than <=, \u2264, <, >=, \u2265, >, \u00b1, %, AQL, BQL, log, or all", {
