@@ -9,7 +9,7 @@ resdat <- readMWRresults(respth, runchk = F, warn = F)
 
 # dqo accuracy data
 accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
-accdatchk <- readxl::read_excel(accpth, na = c('NA', ''))
+accdatchk <- readxl::read_excel(accpth, na = c('NA', ''), col_types = 'text')
 accdatchk <- mutate(accdatchk, across(-c(`Value Range`), ~ na_if(.x, 'na')))
 accdat <- readMWRacc(accpth, runchk = F, warn = F)
 

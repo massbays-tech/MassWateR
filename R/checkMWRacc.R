@@ -28,7 +28,8 @@
 #' @examples
 #' accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
 #' 
-#' accdat <- readxl::read_excel(accpth, na = c('NA', 'na', '')) 
+#' accdat <- readxl::read_excel(accpth, na = c('NA', ''), col_types = 'text')
+#' accdat <- dplyr::mutate(accdat, dplyr::across(-c(`Value Range`), ~ dplyr::na_if(.x, 'na'))) 
 #'       
 #' checkMWRacc(accdat)
 checkMWRacc <- function(accdat, warn = TRUE){
