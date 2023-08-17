@@ -73,7 +73,8 @@ checkMWRacc <- function(accdat, warn = TRUE){
   typchr <- accdat[, !numcol]
   chknum <- sapply(typnum, function(x) {
     if(all(is.na(x))) return(TRUE)
-    all(grepl('^(?=.)([+-]?([0-9]*)(\\.([0-9]+))?)$', na.omit(x), perl = TRUE))
+    numc <- suppressWarnings(as.numeric(na.omit(x)))
+    !any(is.na(numc))
   })
   chkchr <- sapply(typchr, function(x) {
     if(all(is.na(x))) return(TRUE)
