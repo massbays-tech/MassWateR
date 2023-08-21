@@ -95,8 +95,11 @@
 <p>The following checks are made:</p><ul><li><p>Column name spelling: Should be the following: Parameter, uom, MDL, UQL, Value Range, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy</p></li>
 <li><p>Columns present: All columns from the previous check should be present</p></li>
 <li><p>Column types: All columns should be characters/text, except for MDL and UQL</p></li>
-<li><p>Value Range column na check: The character string <code>"na"</code> should not be in the <code>Value Range</code> column, <code>"all"</code> should be used if the entire range applies</p></li>
-<li><p>Unrecognized characters: Fields describing accuracy checks should not include symbols or text other than \(&lt;=\), \(\leq\), \(&lt;\), \(&gt;=\), \(\geq\), \(&gt;\), \(\pm\), %, BDL, AQL, log, or all</p></li>
+<li><p><code>Value Range</code> column na check: The character string <code>"na"</code> should not be in the <code>Value Range</code> column, <code>"all"</code> should be used if the entire range applies</p></li>
+<li><p>Unrecognized characters: Fields describing accuracy checks should not include symbols or text other than \(&lt;=\), \(\leq\), \(&lt;\), \(&gt;=\), \(\geq\), \(&gt;\), \(\pm\), <code>"%"</code>, <code>"BDL"</code>, <code>"AQL"</code>, <code>"log"</code>, or <code>"all"</code></p></li>
+<li><p>Number of rows per parameter in <code>Value Range</code>: Should not exceed two</p></li>
+<li><p>Overlap in <code>Value Range</code> column: Entries in <code>Value Range</code> should not overlap for a parameter</p></li>
+<li><p>Gap in <code>Value Range</code> column: Entries in <code>Value Range</code> should not include a gap for a parameter, warning only</p></li>
 <li><p>Parameter: Should match parameter names in the <code>Simple Parameter</code> or <code>WQX Parameter</code> columns of the <code><a href="paramsMWR.html">paramsMWR</a></code> data</p></li>
 <li><p>Units: No missing entries in units (<code>uom</code>), except pH which can be blank</p></li>
 <li><p>Single unit: Each unique <code>Parameter</code> should have only one type for the units (<code>uom</code>)</p></li>
@@ -106,8 +109,11 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">accpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOAccuracy.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># accuracy path</span></span></span>
+<span class="r-in"><span><span class="va">accpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOAccuracy.xlsx'</span>, </span></span>
+<span class="r-in"><span>     package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># accuracy data with no checks</span></span></span>
 <span class="r-in"><span><span class="va">accdat</span> <span class="op">&lt;-</span> <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_excel</a></span><span class="op">(</span><span class="va">accpth</span>, na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'NA'</span>, <span class="st">''</span><span class="op">)</span>, col_types <span class="op">=</span> <span class="st">'text'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">accdat</span> <span class="op">&lt;-</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span><span class="va">accdat</span>, <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">`Value Range`</span><span class="op">)</span>, <span class="op">~</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/na_if.html" class="external-link">na_if</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">'na'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span></span>
 <span class="r-in"><span>      </span></span>
@@ -118,6 +124,9 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column types... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking no "na" in Value Range... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for text other than &lt;=, ≤, &lt;, &gt;=, ≥, &gt;, ±, %, AQL, BQL, log, or all... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking number of rows per parameter... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking overlaps in Value Range... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking gaps in Value Range... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Parameter formats... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for unit (uom)... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit (uom) per Parameter... OK</span>
