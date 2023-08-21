@@ -81,19 +81,7 @@ reference:
 - title: Utility functions
   desc: >
     This is a collection of functions used internally by all other functions.  They are not to be called directly. 
-  contents: 
-  - utilMWRfilter
-  - utilMWRfiltersurface
-  - utilMWRhttpgrace
-  - utilMWRinput
-  - utilMWRinputcheck
-  - utilMWRlimits
-  - utilMWRsumfun
-  - utilMWRsummary
-  - utilMWRthresh
-  - utilMWRtitle
-  - utilMWRyscale
-  - utilMWRoutlier
+  contents: starts_with('util')
 - title: Supplementary datasets
   desc: >
     Supplementary datasets for the read, quality control, and analysis functions.
