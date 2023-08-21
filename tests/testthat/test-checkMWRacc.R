@@ -34,6 +34,28 @@ test_that("Checking for text other than <=, \u2264, <, >=, \u2265, >, \u00b1, %,
   expect_error(checkMWRacc(chk), regexp = 'Unrecognized text in columns: Value Range, Field Duplicate', fixed = T)
 })
 
+test_that("Checking for more than two rows per parameter", {
+  chk <- accdatchk
+  chk <- bind_rows(accdatchk, accdatchk[8,], accdatchk[6,])
+  expect_error(checkMWRacc(chk), regexp = 'More than two rows: Sp Conductance, TP', fixed = T)
+})
+
+test_that("Checking overlap in value range", {
+  chk <- accdatchk
+  chk$`Value Range`[11] <- '<60'
+  chk$`Value Range`[3] <- '<= 4'
+  chk$`Value Range`[7] <- '<= 0.06'
+  expect_error(checkMWRacc(chk), regexp = 'Overlap in value range: DO, E.coli, TP', fixed = T)
+})
+
+test_that("Checking gap in value range", {
+  chk <- accdatchk
+  chk$`Value Range`[12] <- '>60'
+  chk$`Value Range`[10] <- '>12'
+  chk$`Value Range`[3] <- '< 1'
+  expect_warning(checkMWRacc(chk), regexp = 'Gap in value range: Ammonia, DO, E.coli', fixed = T)
+})
+
 test_that("Checking missing entries in uom", {
   chk <- accdatchk
   chk[5, 2] <- NA
