@@ -70,7 +70,7 @@ tabMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk
 
     totab <- accsum[[1]]
     
-    # stop if no data to use for table
+    # warning if no data to use for table
     if(is.null(totab)){
       if(warn)
         warning(paste('No data to check for', accchk), call. = FALSE)
@@ -297,7 +297,7 @@ tabMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk
       
     }
   }
-  
+
   return(tab)
   
 }

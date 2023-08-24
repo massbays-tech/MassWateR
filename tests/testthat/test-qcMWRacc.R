@@ -8,7 +8,19 @@ test_that("Checking warning if parameters in acc missing from res", {
   resdatchk <- readMWRresults(respth, runchk = F, warn = F)
   resdatchk <- resdatchk %>% filter(!`Characteristic Name` %in% 'Nitrate')
   expect_warning(qcMWRacc(resdatchk, accpth, frecompth, runchk = F))
+})\
+
+test_that("Checking warning if gap in value range", {
+  accdatchk <- readMWRacc(accpth, runchk = F, warn = F)
+  accdatchk$`Value Range`[12] <- '>60'
+  accdatchk$`Value Range`[10] <- '>12'
+  accdatchk$`Value Range`[3] <- '< 1'
+  expect_warning(qcMWRacc(respth, accdatchk, frecompth, runchk = F), regexp = 'Gap in value range: Ammonia, DO, E.coli', fixed = T)
 })
+  accdatchk <- accdatchk[-9, ]
+  expect_warning(qcMWRacc(respth, accdatchk, frecompth, runchk = F))
+})
+
 
 test_that("Checking error if unit mismatch between results and accuracy file", {
   resdatchk <- resdat %>% 

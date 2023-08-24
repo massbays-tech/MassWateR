@@ -111,6 +111,18 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
     stop('Mis-match between units in result and DQO file: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
   
+  # ##
+  # # warning if value ranges in accdat do not cover complete range
+  
+  if(warn){
+    typ <- utilMWRvaluerange(accdat)
+    chk <- !typ %in% 'gap'
+    if(any(!chk)){
+      nms <- names(typ)[!chk]
+      warning('Gap in value range: ', paste(nms, collapse = ', '), call. = FALSE)
+    }
+  }
+
   ##
   # accuracy checks
   
