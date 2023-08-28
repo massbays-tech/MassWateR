@@ -111,20 +111,20 @@ qcMWRacc(res = resdat, acc = accdat, frecom = frecomdat, accchk = "Lab Duplicate
 
 ## Quality control for frequency 
 
-The quality control checks for frequency are used to verify an appropriate number of quality control samples have been collected or analyzed for each parameter.  These are checks on the quantity of samples and not the values, as for the accuracy checks.  The frequency checks require results data (as in `resdat` above) and a data quality objectives file for frequency and completeness (as in `frecomdat`).
+The quality control checks for frequency are used to verify an appropriate number of quality control samples have been collected or analyzed for each parameter.  These are checks on the quantity of samples and not the values, as for the accuracy checks.  The frequency checks require results data (as in `resdat` above), a data quality objectives file for accuracy (as in `accdat`), and a data quality objectives file for frequency and completeness (as in `frecomdat`).
 
-The `tabMWRfre()` function is used to create tabular results for the frequency checks for each parameter.  The function can be used with inputs as paths to the relevant files or as data frames returned by `readMWRresults()` and `readMWRfrecom()`.  For the former, the full suite of data checks can be evaluated with `runkchk = T` (default) or suppressed with `runchk = F`, as explained in the [data inputs and checks vignette](https://massbays-tech.github.io/MassWateR/articles/inputs.html).  In the latter case, downstream analyses may not work if data are formatted incorrectly.  Also note that completeness is only evaluated on parameters that are shared between the results file and the data quality objectives completeness file.  A warning is returned if there are parameters that do not match. The warnings can be suppressed by setting `warn = FALSE`. 
+The `tabMWRfre()` function is used to create tabular results for the frequency checks for each parameter.  The function can be used with inputs as paths to the relevant files or as data frames returned by `readMWRresults()`, `readMWRacc()`, and `readMWRfrecom()`.  For the former, the full suite of data checks can be evaluated with `runkchk = T` (default) or suppressed with `runchk = F`, as explained in the [data inputs and checks vignette](https://massbays-tech.github.io/MassWateR/articles/inputs.html).  In the latter case, downstream analyses may not work if data are formatted incorrectly.  Also note that completeness is only evaluated on parameters that are shared between the results file and the data quality objectives completeness file.  A warning is returned if there are parameters that do not match. The warnings can be suppressed by setting `warn = FALSE`. 
 
 The quality control tables for frequency show the number of records that apply to a given check (e.g., Lab Blank, Field Blank, etc.) relative to the number of "regular" data records (e.g., field samples or measures) for each parameter.  A summary of all frequency checks for each parameter is provided if `type = "summary"`. The function is executed with the data frames for the results and quality objectives file for frequency. 
 
 ```{r}
-tabMWRfre(res = resdat, frecom = frecomdat, type = "summary", warn = FALSE)
+tabMWRfre(res = resdat, acc = accdat, frecom = frecomdat, type = "summary", warn = FALSE)
 ```
 
 A color-coded table showing similar information as percentages for each parameter is provided if `type = "percent"`. Cells are shown as green or red if the required frequency checks are met as specified in the data quality objectives file.
 
 ```{r}
-tabMWRfre(res = resdat, frecom = frecomdat, type = "percent", warn = FALSE)
+tabMWRfre(res = resdat, acc = accdat, frecom = frecomdat, type = "percent", warn = FALSE)
 ```
 
 The `tabMWRfre()` function uses the `qcMWRfre()` function internally to create the table.  This function creates the raw summaries of frequency from the input data.  Typically, `qcMWRfre()` is not used by itself, but it is explained here to demonstrate how the raw summaries can be obtained. 
@@ -132,7 +132,7 @@ The `tabMWRfre()` function uses the `qcMWRfre()` function internally to create t
 Below, the `qcMWRfre()` function is executed with the data frames for the results and quality objectives file for frequency and completeness.  The warnings are suppressed. 
 
 ```{r, warning = T}
-qcMWRfre(res = resdat, frecom = frecomdat, warn = FALSE)
+qcMWRfre(res = resdat, acc = accdat, frecom = frecomdat, warn = FALSE)
 ```
 
 The output shows the frequency checks from the combined files.  Each row applies to a frequency check for a parameter. The `Parameter` column shows the parameter, the `obs` column shows the total records that apply to regular activity types, the `check` column shows the relevant activity type for each frequency check, the `count` column shows the number of records that apply to a check, the `standard` column shows the relevant percentage required for the quality control check from the quality control objectives file, and the `met` column shows if the standard was met by comparing if `percent` is greater than or equal to `standard`.

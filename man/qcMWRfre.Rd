@@ -4,10 +4,19 @@
 \alias{qcMWRfre}
 \title{Run quality control frequency checks for water quality monitoring results}
 \usage{
-qcMWRfre(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn = TRUE)
+qcMWRfre(
+  res = NULL,
+  acc = NULL,
+  frecom = NULL,
+  fset = NULL,
+  runchk = TRUE,
+  warn = TRUE
+)
 }
 \arguments{
 \item{res}{character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}}
+
+\item{acc}{character string of path to the data quality objectives file for accuracy or \code{data.frame} returned by \code{\link{readMWRacc}}}
 
 \item{frecom}{character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}}
 
@@ -24,7 +33,7 @@ The output shows the frequency checks from the input files.  Each row applies to
 Run quality control frequency checks for water quality monitoring results
 }
 \details{
-The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.
+The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRacc}}, and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.
 
 Note that frequency is only evaluated on parameters in the \code{Parameter} column in the data quality objectives frequency and completeness file.  A warning is returned if there are parameters in \code{Parameter} in the frequency and completeness file that are not in \code{Characteristic Name} in the results file.
 
@@ -37,11 +46,14 @@ Similarly, parameters in the results file in the \code{Characteristic Name} colu
 # results path
 respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 
+# dqo accuracy data path
+accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
+
 # frequency and completeness path
 frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', 
      package = 'MassWateR')
 
-qcMWRfre(res = respth, frecom = frecompth)
+qcMWRfre(res = respth, acc = accpth, frecom = frecompth)
 
 ##
 # using data frames
@@ -49,9 +61,11 @@ qcMWRfre(res = respth, frecom = frecompth)
 # results data
 resdat <- readMWRresults(respth)
 
+# accuracy data
+accdat <- readMWRacc(accpth)
+
 # frequency and completeness data
 frecomdat <- readMWRfrecom(frecompth)
 
-qcMWRfre(res = resdat, frecom = frecomdat)
-
+qcMWRfre(res = resdat, acc = accdat, frecom = frecomdat)
 }

@@ -84,11 +84,11 @@ qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, outp
   # warnings only needed for tabaccsum and tabcom, the rest are duplicates
   
   # frequency table percent
-  tabfreper <- tabMWRfre(res = resdat, frecom = frecomdat, type = 'percent', warn = F) %>% 
+  tabfreper <- tabMWRfre(res = resdat, acc = accdat, frecom = frecomdat, type = 'percent', warn = F) %>% 
     thmsum(wd = wd, fontname = fontname)
 
   # frequency summary table
-  tabfresum <- tabMWRfre(res = resdat, frecom = frecomdat, type = 'summary', warn = F) %>% 
+  tabfresum <- tabMWRfre(res = resdat, acc = accdat, frecom = frecomdat, type = 'summary', warn = F) %>% 
     thmsum(wd = wd, fontname = fontname)
   
   # accuracy table percent

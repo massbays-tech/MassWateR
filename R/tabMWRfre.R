@@ -9,13 +9,13 @@
 #'
 #' @return A \code{\link{flextable}} object with formatted results.
 #' 
-#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}. 
+#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRacc}}, and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}. 
 #' 
 #' Also note that completeness is only evaluated on parameters that are shared between the results file and data quality objectives file for frequency and completeness.  A warning is returned for parameters that do not match between the files. This warning can be suppressed by setting \code{warn = FALSE}. 
 #' 
 #' The quality control tables for frequency show the number of records that apply to a given check (e.g., Lab Blank, Field Blank, etc.) relative to the number of "regular" data records (e.g., field samples or measures) for each parameter.  A summary of all frequency checks for each parameter is provided if \code{type = "summary"} or a color-coded table showing similar information as percentages for each parameter is provided if \code{type = "percent"}. 
 #' 
-#' Inputs for the results and data quality objectives for frequency and completeness are processed internally with \code{\link{qcMWRcom}} and the same arguments are accepted for this function, in addition to others listed above. 
+#' Inputs for the results and data quality objectives for accuracy and frequency and completeness are processed internally with \code{\link{qcMWRcom}} and the same arguments are accepted for this function, in addition to others listed above. 
 #' 
 #' @export
 #'
@@ -27,15 +27,18 @@
 #' # results path
 #' respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 #' 
+#' # dqo accuracy data path
+#' accpth <- system.file('extdata/ExampleDQOAccuracy.xlsx', package = 'MassWateR')
+#' 
 #' # frequency and completeness path
 #' frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', 
 #'      package = 'MassWateR')
 #' 
 #' # table as summary
-#' tabMWRfre(res = respth, frecom = frecompth, type = 'summary')
+#' tabMWRfre(res = respth, acc = accpth, frecom = frecompth, type = 'summary')
 #' 
 #' # table as percent
-#' tabMWRfre(res = respth, frecom = frecompth, type = 'percent')
+#' tabMWRfre(res = respth, acc = accpth, frecom = frecompth, type = 'percent')
 #' 
 #' ##
 #' # using data frames
@@ -43,22 +46,25 @@
 #' # results data
 #' resdat <- readMWRresults(respth)
 #' 
+#' # accuracy data
+#' accdat <- readMWRacc(accpth)
+#' 
 #' # frequency and completeness data
 #' frecomdat <- readMWRfrecom(frecompth)
 #' 
 #' # table as summary
-#' tabMWRfre(res = resdat, frecom = frecomdat, type = 'summary')
+#' tabMWRfre(res = resdat, acc = accdat, frecom = frecomdat, type = 'summary')
 #' 
 #' # table as percent
-#' tabMWRfre(res = resdat, frecom = frecomdat, type = 'percent')
-tabMWRfre <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn = TRUE, type = c('summary', 'percent'), pass_col = '#57C4AD', fail_col = '#DB4325', digits = 0, suffix = '%'){
+#' tabMWRfre(res = resdat, acc = accdat, frecom = frecomdat, type = 'percent')
+tabMWRfre <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn = TRUE, type = c('summary', 'percent'), pass_col = '#57C4AD', fail_col = '#DB4325', digits = 0, suffix = '%'){
   
   utilMWRinputcheck(mget(ls()))
   
   type <- match.arg(type)
   
   # get frequency summary
-  res <- qcMWRfre(res = res, frecom = frecom, fset = fset, runchk = runchk, warn = warn)
+  res <- qcMWRfre(res = res, acc = acc, frecom = frecom, fset = fset, runchk = runchk, warn = warn)
 
   if(type == 'summary'){
 
