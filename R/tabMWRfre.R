@@ -1,6 +1,6 @@
 #' Create a formatted table of quality control frequency checks
 #'
-#' @inheritParams qcMWRcom 
+#' @inheritParams qcMWRfre 
 #' @param type character string indicating \code{summary} or \code{percent} tabular output, see datails
 #' @param pass_col character string (as hex code) for the cell color of checks that pass, applies only if \code{type = 'percent'}
 #' @param fail_col character string (as hex code) for the cell color of checks that fail, applies only if \code{type = 'percent'} 

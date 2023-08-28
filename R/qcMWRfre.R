@@ -50,6 +50,8 @@ qcMWRfre <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
   
   utilMWRinputcheck(mget(ls()))
   
+  colsym <- c('<=', '<', '>=', '>', '\u00b1', '\u2265', '\u2264', '%', 'AQL', 'BDL', 'log', 'all')
+  
   ##
   # get user inputs
   inp <- utilMWRinput(res = res, acc = acc, frecom = frecom, fset = fset, runchk = runchk, warn = warn)
@@ -84,14 +86,18 @@ qcMWRfre <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
   # run completeness checks
   for(prm in prms){
 
-    # subset dqo data
+    # subset dqo frecom data
     frecomdattmp <- frecomdat %>% 
       dplyr::filter(Parameter == prm)
     
-    # subset results data
-    resdattmp <- resdat %>% 
-      dplyr::filter(`Characteristic Name` == prm)
+    # subset dqo acc data
+    accdattmp <- accdat %>% 
+      dplyr::filter(Parameter == prm) %>% 
+      dplyr::select(`Characteristic Name` = Parameter, `Value Range`)
 
+    # subset results data, filter by value range
+    resdattmp <- utilMWRlimits(resdat, param = prm, accdat, fieldsamp = F) 
+    
     # total obs
     ntot <- resdattmp %>% 
       dplyr::filter(`Activity Type` %in% c('Sample-Routine', 'Field Msr/Obs')) %>%

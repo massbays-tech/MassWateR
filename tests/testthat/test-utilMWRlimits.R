@@ -23,3 +23,8 @@ test_that("Checking output format if parameter not in accuracy file", {
 test_that("Check error if parameter not found", {
   expect_error(utilMWRlimits(resdat = resdat, param = 'notfound'))
 })
+
+test_that("Check output length if fieldsamp filter not used", {
+  result <- utilMWRlimits(resdat = resdat, accdat = accdat, param = 'TP', fieldsamp = F)
+  expect_equal(nrow(result), 95)
+})
