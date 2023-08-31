@@ -85,21 +85,13 @@ qcMWRfre <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
   
   # run completeness checks
   for(prm in prms){
-
-    # subset dqo frecom data
-    frecomdattmp <- frecomdat %>% 
-      dplyr::filter(Parameter == prm)
     
-    # subset dqo acc data
-    accdattmp <- accdat %>% 
-      dplyr::filter(Parameter == prm) %>% 
-      dplyr::select(`Characteristic Name` = Parameter, `Value Range`)
-
     # subset results data, filter by value range
     resdattmp <- utilMWRlimits(resdat, param = prm, accdat, fieldsamp = F) 
     
-    # total obs
-    ntot <- resdattmp %>% 
+    # total obs, includes all regardless of value range or dqo
+    ntot <- resdat %>% 
+      dplyr::filter(`Characteristic Name` == prm) %>% 
       dplyr::filter(`Activity Type` %in% c('Sample-Routine', 'Field Msr/Obs')) %>%
       nrow()
     
