@@ -129,7 +129,7 @@ tabMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk
           levels = c("Field Duplicates", "Lab Duplicates", "Field Blanks", "Lab Blanks", "Lab Spikes / Instrument Checks")
         )
       ) %>% 
-      dplyr::arrange(Type, Parameter)
+      dplyr::arrange(Type, Parameter, .locale = 'en')
 
     ##
     # create parameter list for all
@@ -276,7 +276,7 @@ tabMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk
           check = gsub('\\_percent', '', check)
         ) %>%
         tidyr::pivot_wider(names_from = check, values_from = value) %>% 
-        dplyr::arrange(Parameter)
+        dplyr::arrange(Parameter, .locale = 'en')
 
       # table
       tab <- flextable::flextable(totab, col_keys = grep('\\_met', names(totab), value = T, invert = T)) %>% 

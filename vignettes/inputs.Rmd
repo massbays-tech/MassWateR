@@ -71,7 +71,7 @@ For many of the checks, parameter names and units need to match the following co
 ```{r, echo = F}
 paramsMWR %>% 
   select(`Simple Parameter`, `WQX Parameter`, `Units of measure`) %>% 
-  arrange(`Simple Parameter`) %>% 
+  arrange(`Simple Parameter`, .locale = 'en') %>% 
   knitr::kable(.)
 ```
 

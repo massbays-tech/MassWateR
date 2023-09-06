@@ -80,7 +80,7 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
     dplyr::select(`Monitoring Location ID`) %>% 
     unique() %>% 
     dplyr::filter(!is.na(`Monitoring Location ID`)) %>% 
-    dplyr::arrange(`Monitoring Location ID`) %>% 
+    dplyr::arrange(`Monitoring Location ID`, .locale = 'en') %>% 
     dplyr::left_join(sitdat, by = 'Monitoring Location ID') %>% 
     dplyr::mutate(
       `Monitoring Location Type` = NA_character_, 

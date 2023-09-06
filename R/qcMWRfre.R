@@ -143,7 +143,7 @@ qcMWRfre <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
   # summary results long format
   resall <- resall %>% 
     tidyr::pivot_longer(cols = -dplyr::matches('^Parameter$|^obs$'), names_to = 'check', values_to = 'count')
-  
+
   # combine and create summaries
   out <- resall %>% 
     dplyr::left_join(frecomdat, by = c('Parameter', 'check')) %>% 

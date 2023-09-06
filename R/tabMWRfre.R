@@ -77,7 +77,7 @@ tabMWRfre <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk
     # levels to use
     levs <- c('Field Duplicate', 'Lab Duplicate', 'Field Blank', 'Lab Blank', 'Spike/Check Accuracy')
     labs <- c('Field Duplicates', 'Lab Duplicates', 'Field Blanks', 'Lab Blanks', 'Lab Spikes / Instrument Checks')
-    
+
     # format for the table
     totab <- res %>% 
       dplyr::select(
@@ -95,7 +95,7 @@ tabMWRfre <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk
           ''
         )
       ) %>% 
-      dplyr::arrange(Type, Parameter) %>% 
+      dplyr::arrange(Type, Parameter, .locale = 'en') %>% 
       dplyr::filter(!is.na(`Frequency %`)) %>% 
       flextable::as_grouped_data(groups = 'Type')
 

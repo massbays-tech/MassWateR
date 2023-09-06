@@ -93,7 +93,7 @@ utilMWRthresh <- function(resdat, param, thresh, threshlab = NULL){
       linetype = c('longdash', 'dashed'),
       label = factor(label, levels = rev(label))
       ) %>% 
-    dplyr::arrange(label)
+    dplyr::arrange(label, .locale = 'en')
 
   if(nrow(na.omit(out)) == 0)
     return(NULL)

@@ -165,7 +165,7 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
         isnum = suppressWarnings(as.numeric(Result)), 
         isnum = !is.na(isnum)
       ) %>% 
-      dplyr::arrange(Parameter, -dplyr::desc(Date))
+      dplyr::arrange(Parameter, -dplyr::desc(Date), .locale = 'en')
 
     # field blank
     if('Quality Control Sample-Field Blank' %in% blk$`Activity Type` & 'Field Blanks' %in% accchk & any(!is.na(blk$`Field Blank`)))
@@ -338,7 +338,7 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
       ) %>% 
       dplyr::filter(ifelse(is.na(rngflt), T, max(rngflt) == rngflt)) %>% 
       dplyr::ungroup() %>% 
-      dplyr::arrange(Parameter, -dplyr::desc(Date))
+      dplyr::arrange(Parameter, -dplyr::desc(Date), .locale = 'en')
 
     # field duplicates
     if('Field Duplicate' %in% dup$`Activity Type` & 'Field Duplicates' %in% accchk & any(!is.na(dup$`Field Duplicate`)))
@@ -497,7 +497,7 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
         recov = 100 * Recovered2 / Standard2,
         `Spike/Check Accuracy2` = gsub('%|log', '', `Spike/Check Accuracy`),
       ) %>% 
-      dplyr::arrange(Parameter, -dplyr::desc(Date)) %>% 
+      dplyr::arrange(Parameter, -dplyr::desc(Date), .locale = 'en') %>% 
       dplyr::rowwise() %>% 
       dplyr::mutate(
         `Hit/Miss` = ifelse(
@@ -536,7 +536,7 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
         `Hit/Miss`
       ) %>% 
       dplyr::ungroup() %>% 
-      dplyr::arrange(Parameter)
+      dplyr::arrange(Parameter, .locale = 'en')
 
   }
 
