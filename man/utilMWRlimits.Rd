@@ -4,7 +4,7 @@
 \alias{utilMWRlimits}
 \title{Fill results data as BDL or AQL with appropriate values}
 \usage{
-utilMWRlimits(resdat, param, accdat, fieldsamp = TRUE, warn = TRUE)
+utilMWRlimits(resdat, param, accdat, warn = TRUE)
 }
 \arguments{
 \item{resdat}{results data as returned by \code{\link{readMWRresults}}}
@@ -13,12 +13,10 @@ utilMWRlimits(resdat, param, accdat, fieldsamp = TRUE, warn = TRUE)
 
 \item{accdat}{\code{data.frame} for data quality objectives file for accuracy as returned by \code{\link{readMWRacc}}}
 
-\item{fieldsamp}{logical indicating if results are filtered by \code{"Activity Type"} as \code{"Field Msr/Obs"} or \code{"Sample-Routine"}, default \code{TRUE}}
-
 \item{warn}{logical to return warnings to the console (default)}
 }
 \value{
-\code{resdat} filtered by \code{param} with any entries in \code{"Result Value"} as \code{"BDL"} or \code{"AQL"} replaced with appropriate values in the \code{"Quantitation Limit"} column, if present, otherwise the \code{"MDL"} or \code{"UQL"} columns from the data quality objectives file for accuracy are used.  Values as \code{"BDL"} use one half of the appropriate limit. Output includes rows with the activity type as \code{"Field Msr/Obs"} or \code{"Sample-Routine"} by default, otherwise all rows are returned if \code{fieldsamp = FALSE}.
+\code{resdat} filtered by \code{param} with any entries in \code{"Result Value"} as \code{"BDL"} or \code{"AQL"} replaced with appropriate values in the \code{"Quantitation Limit"} column, if present, otherwise the \code{"MDL"} or \code{"UQL"} columns from the data quality objectives file for accuracy are used.  Values as \code{"BDL"} use one half of the appropriate limit. Output only includes rows with the activity type as \code{"Field Msr/Obs"} or \code{"Sample-Routine"}.
 }
 \description{
 Fill results data as BDL or AQL with appropriate values

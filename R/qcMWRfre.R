@@ -85,9 +85,9 @@ qcMWRfre <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
   
   # run completeness checks
   for(prm in prms){
-    
+
     # subset results data, filter by value range
-    resdattmp <- utilMWRlimits(resdat, param = prm, accdat, fieldsamp = F) 
+    resdattmp <- utilMWRfre(resdat, param = prm, accdat) 
     
     # total obs, includes all regardless of value range or dqo
     ntot <- resdat %>% 
@@ -99,24 +99,37 @@ qcMWRfre <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
     fielddup <- resdattmp %>% 
       dplyr::filter(`Activity Type` %in% c('Sample-Routine', 'Field Msr/Obs')) %>% 
       dplyr::filter(!is.na(`QC Reference Value`)) %>% 
+      dplyr::filter(!is.na(`Field Duplicate`)) %>% 
       nrow()
-    
+
     # lab duplicates
     acts <- c('Quality Control Sample-Lab Duplicate', 'Quality Control-Meter Lab Duplicate')
-    labdup <- sum(resdattmp$`Activity Type` %in% acts)
+    labdup <- ifelse(
+      any(!is.na(resdattmp$`Lab Duplicate`)), 
+      sum(resdattmp$`Activity Type` %in% acts),
+      0)
     
     # field blank
     acts <- 'Quality Control Sample-Field Blank'
-    fieldblnk <- sum(resdattmp$`Activity Type` %in% acts)
+    fieldblnk <- ifelse(
+      any(!is.na(resdattmp$`Field Blank`)), 
+      sum(resdattmp$`Activity Type` %in% acts),
+      0)
     
     # lab blank
     acts <- c('Quality Control Sample-Lab Blank', 'Quality Control-Meter Lab Blank')
-    labblnk <- sum(resdattmp$`Activity Type` %in% acts)
+    labblnk <- ifelse(
+      any(!is.na(resdattmp$`Lab Blank`)), 
+      sum(resdattmp$`Activity Type` %in% acts), 
+      0)
 
     # lab spikes or instrument checks
     acts <- c('Quality Control Sample-Lab Spike', 'Quality Control-Calibration Check')
-    spikesinstchks <- sum(resdattmp$`Activity Type` %in% acts, na.rm = TRUE)
-    
+    spikesinstchks <- ifelse(
+      any(!is.na(resdattmp$`Spike/Check Accuracy`)), 
+      sum(resdattmp$`Activity Type` %in% acts, na.rm = TRUE), 
+      0)
+
     # compile results
     res <- tibble::tibble(
       Parameter = prm, 
@@ -139,7 +152,7 @@ qcMWRfre <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
       `Instrument Check` = `Spike/Check Accuracy`
     ) %>% 
     tidyr::pivot_longer(cols = -dplyr::matches('Parameter'), names_to = 'check', values_to = 'standard')
-  
+
   # summary results long format
   resall <- resall %>% 
     tidyr::pivot_longer(cols = -dplyr::matches('^Parameter$|^obs$'), names_to = 'check', values_to = 'count')
@@ -148,6 +161,7 @@ qcMWRfre <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
   out <- resall %>% 
     dplyr::left_join(frecomdat, by = c('Parameter', 'check')) %>% 
     dplyr::mutate(
+      count = as.integer(count),
       percent = ifelse(
         !is.na(standard), 100 * count / obs,
         NA_real_
