@@ -98,7 +98,10 @@ utilMWRlimits <- function(resdat, param, accdat, fieldsamp = TRUE, warn = TRUE){
   # replace BDL with 1/2 quant limit or MDL, replace AQL with quant limit or UQL
   # then filter by value range in accdat
   out <- resdat %>% 
-    dplyr::mutate(ind = 1:n()) %>% 
+    dplyr::mutate(
+      ind = 1:n(), 
+      `Dup. Result` = `QC Reference Value`
+    ) %>% 
     inner_join(accdat, by = c('Characteristic Name' = 'Parameter'), relationship = 'many-to-many') %>% 
     dplyr::mutate(
       `Result Unit` = ifelse(`Characteristic Name` == 'pH', 's.u.', `Result Unit`),
@@ -111,9 +114,20 @@ utilMWRlimits <- function(resdat, param, accdat, fieldsamp = TRUE, warn = TRUE){
           )
         )
       ), 
-      `Result Value` = as.numeric(`Result Value`)
+      `Result Value` = as.numeric(`Result Value`),
+      `Dup. Result` = ifelse(
+        `Dup. Result` == 'BDL' & is.na(`Quantitation Limit`), as.character(MDL), 
+        ifelse(`Dup. Result` == 'BDL' & !is.na(`Quantitation Limit`), as.character(`Quantitation Limit`), 
+               ifelse(`Dup. Result` == 'AQL' & is.na(`Quantitation Limit`), as.character(UQL), 
+                      ifelse(`Dup. Result` == 'AQL' & !is.na(`Quantitation Limit`), as.character(`Quantitation Limit`), `Dup. Result`
+                      )
+               )
+        )
+      ), 
+      `Dup. Result` = as.numeric(`Dup. Result`),
+      `Avg. Result` = ifelse(is.na(`Dup. Result`), `Result Value`, (`Result Value` + `Dup. Result`) / 2)
     ) %>% 
-    tidyr::unite('flt', `Result Value`, `Value Range`, sep = ' ', remove = FALSE) %>% 
+    tidyr::unite('flt', `Avg. Result`, `Value Range`, sep = ' ', remove = FALSE) %>% 
     dplyr::rowwise() %>%
     dplyr::mutate(
       flt = ifelse(grepl('all', flt), T, eval(parse(text = flt)))
@@ -125,7 +139,7 @@ utilMWRlimits <- function(resdat, param, accdat, fieldsamp = TRUE, warn = TRUE){
     ) %>% 
     dplyr::filter(ifelse(is.na(rngflt), T, max(rngflt) == rngflt)) %>% 
     dplyr::ungroup() %>% 
-    dplyr::select(-ind, -MDL, -UQL, -flt, -`Value Range`, -rngflt)
+    dplyr::select(-ind, -MDL, -UQL, -flt, -`Value Range`, -rngflt, -`Dup. Result`, -`Avg. Result`)
   
   return(out)
   
