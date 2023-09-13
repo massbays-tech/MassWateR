@@ -479,7 +479,21 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
           )
         )
       ) %>% 
-      tidyr::unite('flt', `Avg. Result`, `Value Range`, sep = ' ', remove = FALSE) %>% 
+      tidyr::unite('flt', `Avg. Result`, `Value Range`, sep = ' ', remove = FALSE)
+    
+    # check that upper value range is a percent DQO for QC checks with result unit as %
+    chk <- labins %>% 
+      dplyr::filter(grepl('%', `Result Unit`)) %>% 
+      dplyr::filter(grepl(">|≥", `Value Range`)) %>% 
+      dplyr::filter(!grepl('%', `Spike/Check Accuracy`))
+    
+    if(nrow(chk) > 0){
+      prms <- sort(unique(chk$Parameter))
+      stop('Lab Spikes / Instrument Checks with units as % must have DQO accuracy as % for upper value range: ', paste(prms, collapse = ', '))
+    }
+    
+    # continue  
+    labins <- labins %>%  
       dplyr::rowwise() %>% 
       dplyr::mutate(
         flt = ifelse(grepl('all', flt), T, eval(parse(text = flt)))
