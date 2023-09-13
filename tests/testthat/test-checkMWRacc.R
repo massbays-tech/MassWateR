@@ -53,7 +53,7 @@ test_that("Checking gap in value range", {
   chk$`Value Range`[12] <- '>60'
   chk$`Value Range`[10] <- '>12'
   chk$`Value Range`[3] <- '< 1'
-  expect_warning(checkMWRacc(chk), regexp = 'Gap in value range: Ammonia, DO, E.coli', fixed = T)
+  expect_warning(checkMWRacc(chk), regexp = 'Gap in value range in DQO acccuracy file: Ammonia, DO, E.coli', fixed = T)
 })
 
 test_that("Checking missing entries in uom", {

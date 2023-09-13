@@ -15,7 +15,7 @@ test_that("Checking warning if gap in value range", {
   accdatchk$`Value Range`[12] <- '>60'
   accdatchk$`Value Range`[10] <- '>12'
   accdatchk$`Value Range`[3] <- '< 1'
-  expect_warning(qcMWRacc(respth, accdatchk, frecompth, runchk = F), regexp = 'Gap in value range: Ammonia, DO, E.coli', fixed = T)
+  expect_warning(qcMWRacc(respth, accdatchk, frecompth, runchk = F), regexp = 'Gap in value range in DQO accuracy file: Ammonia, DO, E.coli', fixed = T)
 })
 
 

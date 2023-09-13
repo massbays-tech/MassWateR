@@ -119,7 +119,7 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
     chk <- !typ %in% 'gap'
     if(any(!chk)){
       nms <- names(typ)[!chk]
-      warning('Gap in value range: ', paste(nms, collapse = ', '), call. = FALSE)
+      warning('Gap in value range in DQO accuracy file: ', paste(nms, collapse = ', '), call. = FALSE)
     }
   }
 

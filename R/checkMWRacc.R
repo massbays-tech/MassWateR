@@ -147,7 +147,7 @@ checkMWRacc <- function(accdat, warn = TRUE){
   if(any(!chk)){
     nms <- names(typ)[!chk]
     if(warn)
-      warning(msg, '\n\tGap in value range: ', paste(nms, collapse = ', '), call. = FALSE)
+      warning(msg, '\n\tGap in value range in DQO accuracy file: ', paste(nms, collapse = ', '), call. = FALSE)
     wrn <- wrn + 1
     message(paste(msg, 'WARNING'))
   } else {
