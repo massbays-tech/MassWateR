@@ -496,7 +496,13 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
     labins <- labins %>%  
       dplyr::rowwise() %>% 
       dplyr::mutate(
-        flt = ifelse(grepl('all', flt), T, eval(parse(text = flt)))
+        flt = ifelse(grepl('all', flt), T, 
+          ifelse(grepl('%', `Result Unit`) & grepl('>=|>|≥', `Value Range`), T, # handles checks where result unit is % to select upper value range
+            ifelse(grepl('%', `Result Unit`) & grepl('<=|<|≤', `Value Range`), F, # handles checks where result unit is % to select upper value range
+              eval(parse(text = flt))
+            )
+          )
+        )
       ) %>% 
       dplyr::filter(flt) %>% 
       dplyr::group_by(ind) %>% 
@@ -516,7 +522,7 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
       dplyr::mutate(
         `Hit/Miss` = ifelse(
           grepl('%|log', `Spike/Check Accuracy`) & !is.na(`Spike/Check Accuracy`), 
-          eval(parse(text = paste(percv, `Spike/Check Accuracy2`))), 
+          eval(parse(text = paste(abs(percv), `Spike/Check Accuracy2`))), 
           ifelse(
             !grepl('%|log', `Spike/Check Accuracy`) & !is.na(`Spike/Check Accuracy`), 
             eval(parse(text = paste(diffv, `Spike/Check Accuracy`))), 
