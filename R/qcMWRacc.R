@@ -484,7 +484,7 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
     # check that upper value range is a percent DQO for QC checks with result unit as %
     chk <- labins %>% 
       dplyr::filter(grepl('%', `Result Unit`)) %>% 
-      dplyr::filter(grepl(">|≥", `Value Range`)) %>% 
+      dplyr::filter(grepl(">|\u2265", `Value Range`)) %>% 
       dplyr::filter(!grepl('%', `Spike/Check Accuracy`))
     
     if(nrow(chk) > 0){
@@ -497,8 +497,8 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
       dplyr::rowwise() %>% 
       dplyr::mutate(
         flt = ifelse(grepl('all', flt), T, 
-          ifelse(grepl('%', `Result Unit`) & grepl('>=|>|≥', `Value Range`), T, # handles checks where result unit is % to select upper value range
-            ifelse(grepl('%', `Result Unit`) & grepl('<=|<|≤', `Value Range`), F, # handles checks where result unit is % to select upper value range
+          ifelse(grepl('%', `Result Unit`) & grepl('>=|>|\u2265', `Value Range`), T, # handles checks where result unit is % to select upper value range
+            ifelse(grepl('%', `Result Unit`) & grepl('<=|<|\u2264', `Value Range`), F, # handles checks where result unit is % to select upper value range
               eval(parse(text = flt))
             )
           )
