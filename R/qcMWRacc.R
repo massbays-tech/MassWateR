@@ -525,7 +525,7 @@ qcMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk 
           eval(parse(text = paste(abs(percv), `Spike/Check Accuracy2`))), 
           ifelse(
             !grepl('%|log', `Spike/Check Accuracy`) & !is.na(`Spike/Check Accuracy`), 
-            eval(parse(text = paste(diffv, `Spike/Check Accuracy`))), 
+            eval(parse(text = paste(abs(diffv), `Spike/Check Accuracy`))), 
             NA
           )
         ),
