@@ -44,9 +44,9 @@ Please see the vignette articles for an overview of how to use functions in the 
 
 In addition to the content on this web page, the MassWateR Community of Practice forum is a space for users to find help, share ideas, and suggest improvements for the package.  Please follow the <a href="https://massbays.discourse.group/login" target="_blank">link</a> to register and login to the forum.
 
-## Issues and suggestions 
+## Issues and help 
 
-Please report any issues and suggestions on the [issues link](https://github.com/massbays-tech/MassWateR/issues){target="_blank"} for the repository.
+Please report any issues (bugs or errors) on the [issues link](https://github.com/massbays-tech/MassWateR/issues){target="_blank"} for the repository.  Please visit the <a href="https://massbays.discourse.group/login" target="_blank">Community of Practice</a> forum for general questions, help, sharing ideas, or to suggest package improvements.
 
 ## Contributing 
 
