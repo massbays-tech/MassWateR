@@ -48,6 +48,8 @@ tabMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk
 
   utilMWRinputcheck(mget(ls()))
   
+  accchkall <- c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes / Instrument Checks')
+  
   type <- match.arg(type)
   
   # table theme
@@ -56,9 +58,8 @@ tabMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk
     flextable::autofit(x)
   }
   
-  if(type %in% c('summary', 'percent')){
-    accchk <- c('Field Blanks', 'Lab Blanks', 'Field Duplicates', 'Lab Duplicates', 'Lab Spikes / Instrument Checks')
-  }
+  if(type %in% c('summary', 'percent'))
+    accchk <- accchkall
   
   # get accuracy summary
   accsum <- qcMWRacc(res = res, acc = acc, frecom = frecom, fset = fset, runchk = runchk, warn = warn, accchk = accchk, suffix = suffix)
@@ -68,13 +69,34 @@ tabMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk
     if(length(accchk) != 1)
       stop('accchk must have only one entry for type = "individual"')
 
+    if(!accchk %in% accchkall)
+      stop('accchk must be one of ', paste(accchkall, collapse  = ', '))
+    
     totab <- accsum[[1]]
     
     # warning if no data to use for table
     if(is.null(totab)){
-      if(warn)
-        warning(paste('No data to check for', accchk), call. = FALSE)
+      
+      # identify valid entries for accchk
+      chk <- qcMWRacc(res = res, acc = acc, frecom = frecom, fset = fset, runchk = F, warn = F, 
+                      accchk = accchkall, suffix = suffix
+      ) %>% 
+        lapply(is.null) %>% 
+        unlist()
+      
+      # check if accsum completely empty
+      if(all(chk))
+        stop('No QC records or reference values for parameters with defined DQOs. Cannot create QC tables.', call. = FALSE)
+      
+      # warning for invalid accchk entry, indication of valid acchk entries
+      if(warn){
+        valent <- paste(names(chk)[!chk], collapse = ', ')
+        msg <- paste0('No data to check for ', accchk, ', valid accchk entries include ', valent)
+        warning(msg, call. = FALSE)
+      }
+      
       return(NULL)
+      
     }
 
     totab <- totab %>% 
