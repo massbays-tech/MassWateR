@@ -14,7 +14,7 @@ test_that("Checking output format type warning if individual and no table", {
   expect_warning(
     expect_null(
       tabMWRacc(chk, accdat, frecomdat, runchk = F, warn = T, type = 'individual', accchk = 'Field Blanks'),
-      'No data to check for Field Blanks, valid accchk entries include Lab Blanks, Field Duplicates, Lab Duplicates, Lab Spikes / Instrument Checks'
+      'No data to check for Field Blanks, data available for Lab Blanks, Field Duplicates, Lab Duplicates, Lab Spikes / Instrument Checks'
     )
   )
 })

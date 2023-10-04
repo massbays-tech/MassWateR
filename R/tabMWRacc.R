@@ -88,10 +88,10 @@ tabMWRacc <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, runchk
       if(all(chk))
         stop('No QC records or reference values for parameters with defined DQOs. Cannot create QC tables.', call. = FALSE)
       
-      # warning for invalid accchk entry, indication of valid acchk entries
+      # warning for accchk entry with no data, indication of acchk entries with data
       if(warn){
-        valent <- paste(names(chk)[!chk], collapse = ', ')
-        msg <- paste0('No data to check for ', accchk, ', valid accchk entries include ', valent)
+        datent <- paste(names(chk)[!chk], collapse = ', ')
+        msg <- paste0('No data to check for ', accchk, ', data available for ', datent)
         warning(msg, call. = FALSE)
       }
       
