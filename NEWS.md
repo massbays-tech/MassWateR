@@ -1,3 +1,20 @@
+# MassWateR 2.1.2
+
+* Warning is now returned if a column for a QC check includes all `na` entries on import of the DQO accuracy file with `readMWRacc()`
+* `readMWRacc()` no longer uses `dplyr::na_if()` on all columns, only for numeric, to correctly identify columns that have all `na` entries for a QC check
+* Sorting behavior for `dplyr::arrange()` reverted to `.locale = 'en'` to ignore case
+* `utilMWRfre()` function added to prep results data for frequency checks, similar to existing `utilMWRlimits()` function
+* Correct number of data records is now reported by `tabMWRfre()` following value range filtering
+* `tabMWRfre()` and `qcMWRfre()` now require the DQO accuracy file as input to identify appropriate ranges to check for each parameter using the value range column
+* Added `utilMWRvaluerange()` function to check for `na`, gaps, and overlap in the value range column on import of the DQO accuracy file with `readMWRacc()`
+* Error is now returned if overlapping value ranges are present in the DQO accuracy file
+* Warning now returned if gaps are present in the value ranges for a parameter in the DQO accuracy file
+* Fix to `checkMWRacc()` to convert MDL and UQL columns in DQO accuracy as numeric following import as text
+* Fixed bug to evaluate lab spike QC checks as the absolute difference, was previously a relative difference
+* New error message if the upper value range in the DQO accuracy file is not a percent value for lab spike QC checks with units as percentage
+* Lab spikes entered as a percent measure are now evaluated against the correct data quality objective using the upper value range
+* Better error and warning messages for `tabMWRacc()` for incorrect and required data for individual QC checks
+
 # MassWateR 2.1.1
 
 * Fix to incorrect secondary label for Enterococcus in `thresholdMWR`

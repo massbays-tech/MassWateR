@@ -22,7 +22,7 @@ utilMWRfre(resdat, param, accdat, warn = TRUE)
 Prep results data for frequency checks
 }
 \details{
-This function is similar to \code{utilMWRlimits} withe some additional processing appropriate for creating the frequency table in \code{tabMWRfree}.  The \code{param} argument is used to identify the appropriate \code{"MDL"} or \code{"UQL"} values in the data quality objectives file for accuracy.  A warning is returned to the console if the accuracy file does not contain the appropriate information for the parameter.  Results will be filtered by \code{param} regardless of any warning.
+This function is similar to \code{utilMWRlimits} with some additional processing appropriate for creating the frequency table in \code{tabMWRfree}.  The \code{param} argument is used to identify the appropriate \code{"MDL"} or \code{"UQL"} values in the data quality objectives file for accuracy.  A warning is returned to the console if the accuracy file does not contain the appropriate information for the parameter.  Results will be filtered by \code{param} regardless of any warning.
 }
 \examples{
 # results file path
