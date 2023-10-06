@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">MassWateR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.1.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -568,30 +568,6 @@ argument. Options include any stamen map as <code>"terrain"</code>,
 when using a basemap. The default <code>zoom</code> argument is set to
 11 and decreasing the number will download a base map with lower
 resolution. This can decrease map processing times for large areas.</p>
-<p>A <code>"terrain"</code> base map:</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, maptype <span class="op">=</span> <span class="st">"terrain"</span>, warn <span class="op">=</span> <span class="cn">F</span>, addwater <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-43-1.png" width="576"></p>
-<p>A <code>"terrain-lines"</code> base map:</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, maptype <span class="op">=</span> <span class="st">"terrain-lines"</span>, warn <span class="op">=</span> <span class="cn">F</span>, addwater <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-44-1.png" width="576"></p>
-<p>A <code>"toner"</code> base map:</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, maptype <span class="op">=</span> <span class="st">"toner"</span>, warn <span class="op">=</span> <span class="cn">F</span>, addwater <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-45-1.png" width="576"></p>
-<p>A <code>"toner-labels"</code> base map:</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, maptype <span class="op">=</span> <span class="st">"toner-labels"</span>, warn <span class="op">=</span> <span class="cn">F</span>, addwater <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-46-1.png" width="576"></p>
-<p>A <code>"watercolor"</code> base map:</p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, maptype <span class="op">=</span> <span class="st">"watercolor"</span>, warn <span class="op">=</span> <span class="cn">F</span>, addwater <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-47-1.png" width="576"></p>
-<p>A map with no base map or water bodies:</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, maptype <span class="op">=</span> <span class="cn">NULL</span>, warn <span class="op">=</span> <span class="cn">F</span>, addwater <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-48-1.png" width="576"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
