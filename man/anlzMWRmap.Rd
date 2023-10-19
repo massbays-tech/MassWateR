@@ -70,11 +70,11 @@ anlzMWRmap(
 
 \item{zoom}{numeric indicating resolution of the base map, see details}
 
-\item{addwater}{character string as \code{"low"}, \code{"medium"} (default), \code{"high"}, or \code{NULL} (to supress) to include water features with varying detail from the National Hydrography dataset, see details}
+\item{addwater}{character string as \code{"low"}, \code{"medium"} (default), \code{"high"}, or \code{NULL} (to suppress) to include water features with varying detail from the National Hydrography dataset, see details}
 
-\item{watercol}{character string of color for water objects if \code{addwater = "nhd"} or \code{addwater = "osm"}}
+\item{watercol}{character string of color for water objects if \code{addwater} is not \code{NULL}}
 
-\item{maptype}{character string for the base map type, see details}
+\item{maptype}{character string as \code{"cartolight"}, \code{"cartodark"}, \code{"osm"}, \code{"hotstyle"}, or \code{NULL} (to suppress, default) indicating the basemap type, see details}
 
 \item{buffdist}{numeric for buffer around the bounding box for the selected sites in kilometers, see details}
 
@@ -109,7 +109,7 @@ The results shown on the map represent the parameter summary for each site withi
 
 Using \code{addwater = "medium"} (default) will include lines and polygons of natural water bodies defined using the National Hydrography Dataset (NHD). The level of detail can be changed to low or high using \code{addwater = "low"} or \code{addwater = "high"}, respectively.  Use \code{addwater = NULL} to not show any water features.
 
-A base map can be plotted using the \code{maptype} argument and is obtained from the \code{\link[ggmap]{get_stamenmap}} function of ggmap.  The \code{zoom} value specifies the resolution of the map.  Use higher values to download map tiles with greater resolution, although this increases the download time.  The \code{maptype} argument describes the type of base map to download. Acceptable options include \code{"terrain"}, \code{"terrain-background"}, \code{"terrain-labels"}, \code{"terrain-lines"}, \code{"toner"}, \code{"toner-2010"}, \code{"toner-2011"}, \code{"toner-background"}, \code{"toner-hybrid"}, \code{"toner-labels"}, \code{"toner-lines"}, \code{"toner-lite"}, or \code{"watercolor"}. Use \code{maptype = NULL} to suppress the base map.
+A base map can be plotted using the \code{maptype} argument and is obtained from the \code{\link[ggspatial]{annotation_map_tile}} function of ggspatial.  The \code{zoom} value specifies the resolution of the map.  Use higher values to download map tiles with greater resolution, although this increases the download time.  The \code{maptype} argument describes the type of base map to download. Acceptable options include \code{"cartolight"}, \code{"cartodark"}, \code{"osm"}, or \code{"hotstyle"}. Use \code{maptype = NULL} to suppress the base map.
 
 The area around the summarized points can be increased or decreased using the \code{buffdist} argument.  This creates a buffered area around the bounding box for the points, where the units are kilometers.
 

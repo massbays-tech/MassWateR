@@ -301,4 +301,22 @@ The buffered distance around the points can be increased using the `buffdist` ar
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, buffdist = 20, warn = F)
 ```
 
-A base map can be included as well using the `maptype` argument. Options include any stamen map as `"terrain"`, `"terrain-background"` (default), `"terrain-labels"`, `"terrain-lines"`, `"toner"`, `"toner-2010"`, `"toner-2011"`, `"toner-background"`, `"toner-hybrid"`, `"toner-labels"`, `"toner-lines"`, `"toner-lite"`, or `"watercolor"`.  The `zoom` argument can be helpful when using a basemap. The default `zoom` argument is set to 11 and decreasing the number will download a base map with lower resolution.  This can decrease map processing times for large areas.
+A base map can be included as well using the `maptype` argument. Options include `"cartolight"`, `"cartodark"`, `"osm"`, or `"hotstyle"`.  The `zoom` argument can be helpful when using a basemap. The default `zoom` argument is set to 11 and decreasing the number will download a base map with lower resolution.  This can decrease map processing times for large areas.
+
+A `"cartolight"` base map: 
+
+```{r, fig.height = 6, fig.width = 6}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "cartolight", warn = F, addwater = NULL)
+```
+
+A `"osm"` base map: 
+
+```{r, fig.height = 6, fig.width = 6}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "osm", warn = F, addwater = NULL)
+```
+
+A map with no base map or water bodies:
+
+```{r, fig.height = 6, fig.width = 6}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = NULL, warn = F, addwater = NULL)
+```

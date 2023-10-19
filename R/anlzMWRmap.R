@@ -17,9 +17,9 @@
 #' @param sumfun character indicating one of \code{"auto"} (default), \code{"mean"}, \code{"geomean"}, \code{"median"}, \code{"min"}, or \code{"max"}, see details
 #' @param crs numeric as a four-digit EPSG number for the coordinate reference system, see details
 #' @param zoom numeric indicating resolution of the base map, see details
-#' @param addwater character string as \code{"low"}, \code{"medium"} (default), \code{"high"}, or \code{NULL} (to supress) to include water features with varying detail from the National Hydrography dataset, see details
-#' @param watercol character string of color for water objects if \code{addwater = "nhd"} or \code{addwater = "osm"}
-#' @param maptype character string for the base map type, see details
+#' @param addwater character string as \code{"low"}, \code{"medium"} (default), \code{"high"}, or \code{NULL} (to suppress) to include water features with varying detail from the National Hydrography dataset, see details
+#' @param watercol character string of color for water objects if \code{addwater} is not \code{NULL}
+#' @param maptype character string as \code{"cartolight"}, \code{"cartodark"}, \code{"osm"}, \code{"hotstyle"}, or \code{NULL} (to suppress, default) indicating the basemap type, see details
 #' @param buffdist numeric for buffer around the bounding box for the selected sites in kilometers, see details
 #' @param scaledist character string indicating distance unit for the scale bar, \code{"km"} or \code{"mi"}
 #' @param northloc character string indicating location of the north arrow, see details
@@ -43,7 +43,7 @@
 #' 
 #' Using \code{addwater = "medium"} (default) will include lines and polygons of natural water bodies defined using the National Hydrography Dataset (NHD). The level of detail can be changed to low or high using \code{addwater = "low"} or \code{addwater = "high"}, respectively.  Use \code{addwater = NULL} to not show any water features.
 #' 
-#' A base map can be plotted using the \code{maptype} argument and is obtained from the \code{\link[ggmap]{get_stamenmap}} function of ggmap.  The \code{zoom} value specifies the resolution of the map.  Use higher values to download map tiles with greater resolution, although this increases the download time.  The \code{maptype} argument describes the type of base map to download. Acceptable options include \code{"terrain"}, \code{"terrain-background"}, \code{"terrain-labels"}, \code{"terrain-lines"}, \code{"toner"}, \code{"toner-2010"}, \code{"toner-2011"}, \code{"toner-background"}, \code{"toner-hybrid"}, \code{"toner-labels"}, \code{"toner-lines"}, \code{"toner-lite"}, or \code{"watercolor"}. Use \code{maptype = NULL} to suppress the base map.
+#' A base map can be plotted using the \code{maptype} argument and is obtained from the \code{\link[ggspatial]{annotation_map_tile}} function of ggspatial.  The \code{zoom} value specifies the resolution of the map.  Use higher values to download map tiles with greater resolution, although this increases the download time.  The \code{maptype} argument describes the type of base map to download. Acceptable options include \code{"cartolight"}, \code{"cartodark"}, \code{"osm"}, or \code{"hotstyle"}. Use \code{maptype = NULL} to suppress the base map.
 #' 
 #' The area around the summarized points can be increased or decreased using the \code{buffdist} argument.  This creates a buffered area around the bounding box for the points, where the units are kilometers.  
 #' 
@@ -154,9 +154,11 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
 
   if(!is.null(maptype)){
 
-    bsmap <- suppressMessages(ggmap::get_stamenmap(bbox = dat_ext, maptype = maptype, zoom = zoom))
-    m <- ggmap::ggmap(bsmap)
+    maptype <- match.arg(maptype, c( 'cartolight', 'cartodark', 'osm', 'hotstyle'))
     
+    m <- m + 
+      ggspatial::annotation_map_tile(zoom = zoom, quiet = TRUE, progress = "none", type = maptype, cachedir = system.file("rosm.cache", package = "ggspatial"))
+
   }
 
   if(!is.null(addwater)){
@@ -247,11 +249,13 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
   
   if(repel & !is.null(labsize))
     m <- m  +
-      ggrepel::geom_text_repel(data = tolab, ggplot2::aes(label = `Monitoring Location ID`, x = x, y = y), size = labsize)
+      ggspatial::geom_spatial_text_repel(data = tolab, ggplot2::aes(label = `Monitoring Location ID`, x = x, y = y), size = labsize, 
+                                   inherit.aes = F, crs = 4326)
   
   if(!repel & !is.null(labsize))
-      m <- m  +
-        ggplot2::geom_text(data = tolab, ggplot2::aes(label = `Monitoring Location ID`, x = x, y = y), size = labsize)
+    m <- m  +
+      ggspatial::geom_spatial_text_repel(data = tolab, ggplot2::aes(label = `Monitoring Location ID`, x = x, y = y), size = labsize, 
+                                       inherit.aes = F, crs = 4326)
 
   if(!latlon)
     m <- m + 
@@ -265,10 +269,10 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
     sf::st_as_sfc(dat_ext) %>% 
     sf::st_transform(crs = 4326) %>% 
     sf::st_bbox()
-  
+
   # set coordinates because vector not clipped
   m <- m +
-    ggplot2::coord_sf(xlim = dat_ext[c(1, 3)], ylim = dat_ext[c(2, 4)], expand = FALSE)
+    ggplot2::coord_sf(xlim = dat_ext[c(1, 3)], ylim = dat_ext[c(2, 4)], expand = FALSE, crs = 4326)
   
   return(m)
   
