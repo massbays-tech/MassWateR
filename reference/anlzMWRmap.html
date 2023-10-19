@@ -173,15 +173,15 @@
 
 
 <dt>addwater</dt>
-<dd><p>character string as <code>"low"</code>, <code>"medium"</code> (default), <code>"high"</code>, or <code>NULL</code> (to supress) to include water features with varying detail from the National Hydrography dataset, see details</p></dd>
+<dd><p>character string as <code>"low"</code>, <code>"medium"</code> (default), <code>"high"</code>, or <code>NULL</code> (to suppress) to include water features with varying detail from the National Hydrography dataset, see details</p></dd>
 
 
 <dt>watercol</dt>
-<dd><p>character string of color for water objects if <code>addwater = "nhd"</code> or <code>addwater = "osm"</code></p></dd>
+<dd><p>character string of color for water objects if <code>addwater</code> is not <code>NULL</code></p></dd>
 
 
 <dt>maptype</dt>
-<dd><p>character string for the base map type, see details</p></dd>
+<dd><p>character string as <code>"cartolight"</code>, <code>"cartodark"</code>, <code>"osm"</code>, <code>"hotstyle"</code>, or <code>NULL</code> (to suppress, default) indicating the basemap type, see details</p></dd>
 
 
 <dt>buffdist</dt>
@@ -229,7 +229,7 @@
 <p>The default value for <code>crs</code> is EPSG 4326 for the WGS 84 projection in decimal degrees.  The <code>crs</code> argument is passed to <code><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></code> and any acceptable CRS appropriate for the data can be used.</p>
 <p>The results shown on the map represent the parameter summary for each site within the date range provided by <code>dtrng</code>.  If <code>sumfun = "auto"</code> (default), the mean is used where the distribution is determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are summarized with the geometric mean, otherwise arithmetic. Any other valid summary function will be applied if passed to <code>sumfun</code> (<code>"mean"</code>, <code>"geomean"</code>, <code>"median"</code>, <code>"min"</code>, <code>"max"</code>), regardless of the information in the data quality objective file for accuracy.</p>
 <p>Using <code>addwater = "medium"</code> (default) will include lines and polygons of natural water bodies defined using the National Hydrography Dataset (NHD). The level of detail can be changed to low or high using <code>addwater = "low"</code> or <code>addwater = "high"</code>, respectively.  Use <code>addwater = NULL</code> to not show any water features.</p>
-<p>A base map can be plotted using the <code>maptype</code> argument and is obtained from the <code><a href="https://rdrr.io/pkg/ggmap/man/get_stamenmap.html" class="external-link">get_stamenmap</a></code> function of ggmap.  The <code>zoom</code> value specifies the resolution of the map.  Use higher values to download map tiles with greater resolution, although this increases the download time.  The <code>maptype</code> argument describes the type of base map to download. Acceptable options include <code>"terrain"</code>, <code>"terrain-background"</code>, <code>"terrain-labels"</code>, <code>"terrain-lines"</code>, <code>"toner"</code>, <code>"toner-2010"</code>, <code>"toner-2011"</code>, <code>"toner-background"</code>, <code>"toner-hybrid"</code>, <code>"toner-labels"</code>, <code>"toner-lines"</code>, <code>"toner-lite"</code>, or <code>"watercolor"</code>. Use <code>maptype = NULL</code> to suppress the base map.</p>
+<p>A base map can be plotted using the <code>maptype</code> argument and is obtained from the <code><a href="https://paleolimbot.github.io/ggspatial/reference/annotation_map_tile.html" class="external-link">annotation_map_tile</a></code> function of ggspatial.  The <code>zoom</code> value specifies the resolution of the map.  Use higher values to download map tiles with greater resolution, although this increases the download time.  The <code>maptype</code> argument describes the type of base map to download. Acceptable options include <code>"cartolight"</code>, <code>"cartodark"</code>, <code>"osm"</code>, or <code>"hotstyle"</code>. Use <code>maptype = NULL</code> to suppress the base map.</p>
 <p>The area around the summarized points can be increased or decreased using the <code>buffdist</code> argument.  This creates a buffered area around the bounding box for the points, where the units are kilometers.</p>
 <p>A north arrow and scale bar are also placed on the map as defined by the <code>northloc</code> and <code>scaleloc</code> arguments.  The placement for both can be chosen as <code>"tl"</code>, <code>"tr"</code>, <code>"bl"</code>, or <code>"br"</code> for top-left, top-right, bottom-left, or bottom-right respectively.  Setting either of the arguments to <code>NULL</code> will suppress the placement on the map.</p>
     </div>
