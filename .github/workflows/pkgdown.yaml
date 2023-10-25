@@ -28,7 +28,6 @@ jobs:
           extra-packages: | 
             any::pkgdown
             local::.
-            any::raster
           needs: website
 
       - name: Deploy package

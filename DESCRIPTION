@@ -39,6 +39,7 @@ Imports:
   httr,
   lubridate,
   prettymapr,
+  raster,
   RColorBrewer, 
   rmarkdown,
   readxl,
