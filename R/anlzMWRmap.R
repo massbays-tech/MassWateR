@@ -29,6 +29,8 @@
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, or \code{\link{checkMWRsites}}, applies only if \code{res}, \code{acc}, or \code{sit} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
+#' @import prettymapr
+#'
 #' @return A \code{\link[ggplot2]{ggplot}} object that can be further modified.
 #' @export
 #'
@@ -155,6 +157,10 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
   if(!is.null(maptype)){
 
     maptype <- match.arg(maptype, c( 'cartolight', 'cartodark', 'osm', 'hotstyle'))
+    
+    # this is only to satisfy raster in imports, does nothing
+    # do not import all of raster becaus of namespace conflicts
+    tmp <- raster::as.data.frame(x = NULL)
     
     m <- m + 
       ggspatial::annotation_map_tile(zoom = zoom, quiet = TRUE, progress = "none", type = maptype, cachedir = system.file("rosm.cache", package = "ggspatial"))
