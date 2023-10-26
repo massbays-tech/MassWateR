@@ -7,21 +7,21 @@
 #' 
 #' The following checks are made: 
 #' \itemize{
-#'  \item{Column name spelling: }{Should be the following: Monitoring Location ID, Activity Type, Activity Start Date, Activity Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit, Activity Relative Depth Name, Characteristic Name, Result Value, Result Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier, Result Attribute, Sample Collection Method ID, Project ID, Local Record ID, Result Comment}
-#'  \item{Columns present: }{All columns from the previous check should be present}
-#'  \item{Activity Type: }{Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike, Quality Control-Calibration Check, Quality Control-Meter Lab Duplicate, Quality Control-Meter Lab Blank}
-#'  \item{Date formats: }{Should be mm/dd/yyyy and parsed correctly on import}
-#'  \item{Depth data present: }{Depth data should be included in Activity Depth/Height Measure or Activity Relative Depth Name for all rows where Activity Type is Field Msr/Obs or Sample-Routine}
-#'  \item{Non-numeric Activity Depth/Height Measure: }{All depth values should be numbers, excluding missing values}
-#'  \item{Activity Depth/Height Unit: }{All entries should be \code{ft}, \code{m}, or blank}
-#'  \item{Activity Relative Depth Name: }{Should be either Surface, Bottom, Midwater, Near Bottom, or blank (warning only)}
-#'  \item{Activity Depth/Height Measure out of range: }{All depth values should be less than or equal to 1 meter / 3.3 feet or entered as Surface in the Activity Relative Depth Name column (warning only)}
-#'  \item{Characteristic Name: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{paramsMWR}} data (warning only)}
-#'  \item{Result Value: }{Should be a numeric value or a text value as AQL or BDL}
-#'  \item{QC Reference Value: }{Should be a numeric value or a text value as AQL or BDL}
-#'  \item{Result Unit: }{No missing entries in \code{Result Unit}, except pH which can be blank}
-#'  \item{Single Result Unit: }{Each unique parameter in \code{Characteristic Name} should have only one entry in \code{Result Unit} (excludes entries for lab spikes reported as \code{\%} or \code{\% recovery})}
-#'  \item{Correct Result Unit: }{Each unique parameter in \code{Characteristic Name} should have an entry in \code{Result Unit} that matches one of the acceptable values in the \code{Units of measure} column of the \code{\link{paramsMWR}} data (excludes entries for lab spikes reported as \code{\%} or \code{\% recovery})}
+#'  \item Column name spelling: Should be the following: Monitoring Location ID, Activity Type, Activity Start Date, Activity Start Time, Activity Depth/Height Measure, Activity Depth/Height Unit, Activity Relative Depth Name, Characteristic Name, Result Value, Result Unit, Quantitation Limit, QC Reference Value, Result Measure Qualifier, Result Attribute, Sample Collection Method ID, Project ID, Local Record ID, Result Comment
+#'  \item Columns present: All columns from the previous check should be present
+#'  \item Activity Type: Should be one of Field Msr/Obs, Sample-Routine, Quality Control Sample-Field Blank, Quality Control Sample-Lab Blank, Quality Control Sample-Lab Duplicate, Quality Control Sample-Lab Spike, Quality Control-Calibration Check, Quality Control-Meter Lab Duplicate, Quality Control-Meter Lab Blank
+#'  \item Date formats: Should be mm/dd/yyyy and parsed correctly on import
+#'  \item Depth data present: Depth data should be included in Activity Depth/Height Measure or Activity Relative Depth Name for all rows where Activity Type is Field Msr/Obs or Sample-Routine
+#'  \item Non-numeric Activity Depth/Height Measure: All depth values should be numbers, excluding missing values
+#'  \item Activity Depth/Height Unit: All entries should be \code{ft}, \code{m}, or blank
+#'  \item Activity Relative Depth Name: Should be either Surface, Bottom, Midwater, Near Bottom, or blank (warning only)
+#'  \item Activity Depth/Height Measure out of range: All depth values should be less than or equal to 1 meter / 3.3 feet or entered as Surface in the Activity Relative Depth Name column (warning only)
+#'  \item Characteristic Name: Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{paramsMWR}} data (warning only)
+#'  \item Result Value: Should be a numeric value or a text value as AQL or BDL
+#'  \item QC Reference Value: Should be a numeric value or a text value as AQL or BDL
+#'  \item Result Unit: No missing entries in \code{Result Unit}, except pH which can be blank
+#'  \item Single Result Unit: Each unique parameter in \code{Characteristic Name} should have only one entry in \code{Result Unit} (excludes entries for lab spikes reported as \code{\%} or \code{\% recovery})
+#'  \item Correct Result Unit: Each unique parameter in \code{Characteristic Name} should have an entry in \code{Result Unit} that matches one of the acceptable values in the \code{Units of measure} column of the \code{\link{paramsMWR}} data (excludes entries for lab spikes reported as \code{\%} or \code{\% recovery})
 #' }
 #' 
 #' @return \code{resdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. Checks with warnings can be fixed at the discretion of the user before proceeding.

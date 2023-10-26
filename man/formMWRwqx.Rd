@@ -19,7 +19,7 @@ Format WQX metadata input
 This function is used internally within \code{\link{readMWRwqx}} to format the input data for downstream analysis.  The formatting includes:
 
 \itemize{
-\item{Convert characteristic names: }{All parameters in \code{Characteristic Name} are converted to \code{Simple Parameter} in \code{\link{paramsMWR}} as needed}
+\item Convert characteristic names: All parameters in \code{Characteristic Name} are converted to \code{Simple Parameter} in \code{\link{paramsMWR}} as needed
 }
 }
 \examples{

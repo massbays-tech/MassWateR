@@ -5,10 +5,10 @@
 #' @details This function is used internally within \code{\link{readMWRacc}} to format the input data for downstream analysis.  The formatting includes:
 #' 
 #' \itemize{
-#'   \item{Minor formatting for units: }{For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to NA in \code{uom}}
-#'   \item{Convert Parameter: }{All parameters are converted to \code{Simple Parameter} in \code{\link{paramsMWR}} as needed}
-#'   \item{Remove unicode: }{Remove or replace unicode characters with those that can be used in logical expressions in \code{\link{qcMWRacc}}, e.g., replace \eqn{\geq} with \eqn{>=}}
-#'   \item{Convert limits to numeric: }{Convert \code{MDL} and \code{UQL} columns to numeric}
+#'   \item Minor formatting for units: For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to NA in \code{uom}
+#'   \item Convert Parameter: All parameters are converted to \code{Simple Parameter} in \code{\link{paramsMWR}} as needed
+#'   \item Remove unicode: Remove or replace unicode characters with those that can be used in logical expressions in \code{\link{qcMWRacc}}, e.g., replace \eqn{\geq} with \eqn{>=}
+#'   \item Convert limits to numeric: Convert \code{MDL} and \code{UQL} columns to numeric
 #' }
 #' 
 #' @return A formatted data frame of the data quality objectives file for accuracy

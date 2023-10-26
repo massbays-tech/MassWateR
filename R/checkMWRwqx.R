@@ -7,10 +7,10 @@
 #' 
 #' The following checks are made: 
 #' \itemize{
-#'  \item{Column name spelling: }{Should be the following: Parameter, Sampling Method Context, Method Speciation, Result Sample Fraction, Analytical Method, Analytical Method Context}
-#'  \item{Columns present: }{All columns from the previous check should be present}
-#'  \item{Unique parameters: }{Values in \code{Parameter} should be unique (no duplicates)}
-#'  \item{Parameter: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{paramsMWR}} data (warning only)}
+#'  \item Column name spelling: Should be the following: Parameter, Sampling Method Context, Method Speciation, Result Sample Fraction, Analytical Method, Analytical Method Context
+#'  \item Columns present: All columns from the previous check should be present
+#'  \item Unique parameters: Values in \code{Parameter} should be unique (no duplicates)
+#'  \item Parameter: Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{paramsMWR}} data (warning only)
 #' }
 #' 
 #' @return \code{wqxdat} is returned as is if no errors are found, otherwise an informative error message is returned prompting the user to make the required correction to the raw data before proceeding. Checks with warnings can be fixed at the discretion of the user before proceeding.

@@ -5,7 +5,7 @@
 #' @details This function is used internally within \code{\link{readMWRfrecom}} to format the input data for downstream analysis.  The formatting includes:
 #' 
 #' \itemize{
-#'   \item{Convert Parameter: }{All parameters are converted to \code{Simple Parameter} in \code{\link{paramsMWR}} as needed}
+#'   \item Convert Parameter: All parameters are converted to \code{Simple Parameter} in \code{\link{paramsMWR}} as needed
 #' }
 #' 
 #' @return A formatted data frame of the data quality objectives file for frequency and completeness

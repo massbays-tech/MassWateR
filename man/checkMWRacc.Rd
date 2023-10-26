@@ -23,19 +23,19 @@ This function is used internally within \code{\link{readMWRacc}} to run several 
 
 The following checks are made:
 \itemize{
-\item{Column name spelling: }{Should be the following: Parameter, uom, MDL, UQL, Value Range, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy}
-\item{Columns present: }{All columns from the previous check should be present}
-\item{Column types: }{All columns should be characters/text, except for MDL and UQL}
-\item{\code{Value Range} column na check: }{The character string \code{"na"} should not be in the \code{Value Range} column, \code{"all"} should be used if the entire range applies}
-\item{Unrecognized characters: }{Fields describing accuracy checks should not include symbols or text other than \eqn{<=}, \eqn{\leq}, \eqn{<}, \eqn{>=}, \eqn{\geq}, \eqn{>}, \eqn{\pm}, \code{"\%"}, \code{"BDL"}, \code{"AQL"}, \code{"log"}, or \code{"all"}}
-\item{Number of rows per parameter in \code{Value Range}: }{Should not exceed two}
-\item{Overlap in \code{Value Range} column: }{Entries in \code{Value Range} should not overlap for a parameter}
-\item{Gap in \code{Value Range} column: }{Entries in \code{Value Range} should not include a gap for a parameter, warning only}
-\item{Parameter: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{paramsMWR}} data}
-\item{Units: }{No missing entries in units (\code{uom}), except pH which can be blank}
-\item{Single unit: }{Each unique \code{Parameter} should have only one type for the units (\code{uom})}
-\item{Correct units: }{Each unique \code{Parameter} should have an entry in the units (\code{uom}) that matches one of the acceptable values in the \code{Units of measure} column of the \code{\link{paramsMWR}} data}
-\item{Empty columns: }{Columns with all missing or NA values will return a warning}
+\item Column name spelling: Should be the following: Parameter, uom, MDL, UQL, Value Range, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy
+\item Columns present: All columns from the previous check should be present
+\item Column types: All columns should be characters/text, except for MDL and UQL
+\item \code{Value Range} column na check: The character string \code{"na"} should not be in the \code{Value Range} column, \code{"all"} should be used if the entire range applies
+\item Unrecognized characters: Fields describing accuracy checks should not include symbols or text other than \eqn{<=}, \eqn{\leq}, \eqn{<}, \eqn{>=}, \eqn{\geq}, \eqn{>}, \eqn{\pm}, \code{"\%"}, \code{"BDL"}, \code{"AQL"}, \code{"log"}, or \code{"all"}
+\item Number of rows per parameter in \code{Value Range}: Should not exceed two
+\item Overlap in \code{Value Range} column: Entries in \code{Value Range} should not overlap for a parameter
+\item Gap in \code{Value Range} column: Entries in \code{Value Range} should not include a gap for a parameter, warning only
+\item Parameter: Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{paramsMWR}} data
+\item Units: No missing entries in units (\code{uom}), except pH which can be blank
+\item Single unit: Each unique \code{Parameter} should have only one type for the units (\code{uom})
+\item Correct units: Each unique \code{Parameter} should have an entry in the units (\code{uom}) that matches one of the acceptable values in the \code{Units of measure} column of the \code{\link{paramsMWR}} data
+\item Empty columns: Columns with all missing or NA values will return a warning
 }
 }
 \examples{

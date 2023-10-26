@@ -6,9 +6,9 @@
 #' @details This function is used internally within \code{\link{readMWRresults}} to format the input data for downstream analysis.  The formatting includes:
 #' 
 #' \itemize{
-#'   \item{Fix date and time inputs: }{Activity Start Date is converted to YYYY-MM-DD as a date object, Actvity Start Time is convered to HH:MM as a character to fix artifacts from Excel import},
-#'   \item{Minor formatting for Result Unit: }{For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to NA}
-#'   \item{Convert characteristic names: }{All parameters in \code{Characteristic Name} are converted to \code{Simple Parameter} in \code{\link{paramsMWR}} as needed}
+#'   \item Fix date and time inputs: Activity Start Date is converted to YYYY-MM-DD as a date object, Actvity Start Time is convered to HH:MM as a character to fix artifacts from Excel import
+#'   \item Minor formatting for Result Unit: For conformance to WQX, e.g., ppt is changed to ppth, s.u. is changed to NA
+#'   \item Convert characteristic names: All parameters in \code{Characteristic Name} are converted to \code{Simple Parameter} in \code{\link{paramsMWR}} as needed
 #' }
 #' 
 #' @return A formatted data frame of the water quality monitoring results file

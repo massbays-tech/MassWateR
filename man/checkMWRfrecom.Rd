@@ -22,12 +22,12 @@ This function is used internally within \code{\link{readMWRfrecom}} to run sever
 
 The following checks are made:
 \itemize{
-\item{Column name spelling: }{Should be the following: Parameter, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy, \% Completeness}
-\item{Columns present: }{All columns from the previous check should be present}
-\item{Non-numeric values: }{Values entered in columns other than the first should be numeric}
-\item{Values outside of 0 - 100: }{Values entered in columns other than the first should not be outside of 0 and 100}
-\item{Parameter: }{Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{paramsMWR}} data}
-\item{Empty columns: }{Columns with all missing or NA values will return a warning}
+\item Column name spelling: Should be the following: Parameter, Field Duplicate, Lab Duplicate, Field Blank, Lab Blank, Spike/Check Accuracy, \% Completeness
+\item Columns present: All columns from the previous check should be present
+\item Non-numeric values: Values entered in columns other than the first should be numeric
+\item Values outside of 0 - 100: Values entered in columns other than the first should not be outside of 0 and 100
+\item Parameter: Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{paramsMWR}} data
+\item Empty columns: Columns with all missing or NA values will return a warning
 }
 }
 \examples{
