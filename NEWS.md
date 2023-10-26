@@ -1,3 +1,9 @@
+# MassWateR 2.1.3
+
+* `anlzMWRmap()` has different basemap options using the `maptype` argument, these include `"cartolight"`, `"cartodark"`, `"osm"`, or `"hotstyle"`. These changes accommodate recent issues with access to stamen tiles.
+* ggmap dependency was removed, added raster and prettymapr dependencies
+* Fixed issue in Roxygen documentation for itemized lists
+
 # MassWateR 2.1.2
 
 * Warning is now returned if a column for a QC check includes all `na` entries on import of the DQO accuracy file with `readMWRacc()`
