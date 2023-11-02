@@ -11,6 +11,11 @@
 
 R package for working with Massachusetts surface water quality data, created in partnership by the [Mass Bays National Estuary Partnership](https://massbays.org/){target="_blank"}.
 
+Please cite the package as: 
+
+Beck, M.W., Wetherill, B., Carr, J. 2023. MassWateR: Improving Quality Control, Analysis, and Sharing of
+Water Quality Data. PLOS ONE. 18(11):e0293737. doi: [10.1371/journal.pone.0293737](https://doi.org/10.1371/journal.pone.0293737)
+
 ## Installation
 
 The package can be installed as follows:
