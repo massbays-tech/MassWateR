@@ -289,7 +289,7 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
       `Sample Collection Equipment Name` = ifelse(`Activity Type` %in% c('Sample-Routine', 'Quality Control Sample-Field Blank', 'Quality Control Sample-Field Replicate'), 'Water Bottle', NA_character_), 
       `Characteristic Name User Supplied` = `Characteristic Name`,
       `Result Detection Condition` = ifelse(`Result Value` == 'BDL', 'Not Detected',
-        ifelse(`Result Value` == 'AQL', 'Present Above Quantitation Limit', 
+        ifelse(`Result Value` == 'AQL', 'Present Above Quantification Limit', 
           NA_character_
         )
       ),
