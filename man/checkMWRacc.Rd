@@ -28,8 +28,7 @@ The following checks are made:
 \item Column types: All columns should be characters/text, except for MDL and UQL
 \item \code{Value Range} column na check: The character string \code{"na"} should not be in the \code{Value Range} column, \code{"all"} should be used if the entire range applies
 \item Unrecognized characters: Fields describing accuracy checks should not include symbols or text other than \eqn{<=}, \eqn{\leq}, \eqn{<}, \eqn{>=}, \eqn{\geq}, \eqn{>}, \eqn{\pm}, \code{"\%"}, \code{"BDL"}, \code{"AQL"}, \code{"log"}, or \code{"all"}
-\item Number of rows per parameter in \code{Value Range}: Should not exceed two
-\item Overlap in \code{Value Range} column: Entries in \code{Value Range} should not overlap for a parameter
+\item Overlap in \code{Value Range} column: Entries in \code{Value Range} should not overlap for a parameter (excludes ascending ranges)
 \item Gap in \code{Value Range} column: Entries in \code{Value Range} should not include a gap for a parameter, warning only
 \item Parameter: Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{paramsMWR}} data
 \item Units: No missing entries in units (\code{uom}), except pH which can be blank

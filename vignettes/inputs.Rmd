@@ -174,8 +174,7 @@ File checks for accuracy:
 -   **Column types**: All columns should be characters/text, except for MDL and UQL
 -   **`Value Range` column na check**: The character string `"na"` should not be in the `Value Range` column, `"all"` should be used if the entire range applies
 -   **Unrecognized characters**: Fields describing accuracy checks should not include symbols or text other than $<=$, $\leq$, $<$, $>=$, $\geq$, $>$, $\pm$ `"\%"`, `"BDL"`, `"AQL"`, `"log"`, or `"all"`
--   **Number of rows per parameter**: Should not exceed two
--   **Overlap in `Value Range` column**: Entries in `Value Range` should not overlap for a parameter
+-   **Overlap in `Value Range` column**: Entries in `Value Range` should not overlap for a parameter (excludes ascending ranges)
 -   **Gap in `Value Range` column**: Entries in `Value Range` should not include a gap for a parameter, warning only
 -   **Parameter**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` columns of the `paramsMWR` data
 -   **Units**: No missing entries in units (`uom`), except pH which can be blank
