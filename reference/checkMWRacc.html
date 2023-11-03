@@ -97,8 +97,7 @@
 <li><p>Column types: All columns should be characters/text, except for MDL and UQL</p></li>
 <li><p><code>Value Range</code> column na check: The character string <code>"na"</code> should not be in the <code>Value Range</code> column, <code>"all"</code> should be used if the entire range applies</p></li>
 <li><p>Unrecognized characters: Fields describing accuracy checks should not include symbols or text other than \(&lt;=\), \(\leq\), \(&lt;\), \(&gt;=\), \(\geq\), \(&gt;\), \(\pm\), <code>"%"</code>, <code>"BDL"</code>, <code>"AQL"</code>, <code>"log"</code>, or <code>"all"</code></p></li>
-<li><p>Number of rows per parameter in <code>Value Range</code>: Should not exceed two</p></li>
-<li><p>Overlap in <code>Value Range</code> column: Entries in <code>Value Range</code> should not overlap for a parameter</p></li>
+<li><p>Overlap in <code>Value Range</code> column: Entries in <code>Value Range</code> should not overlap for a parameter (excludes ascending ranges)</p></li>
 <li><p>Gap in <code>Value Range</code> column: Entries in <code>Value Range</code> should not include a gap for a parameter, warning only</p></li>
 <li><p>Parameter: Should match parameter names in the <code>Simple Parameter</code> or <code>WQX Parameter</code> columns of the <code><a href="paramsMWR.html">paramsMWR</a></code> data</p></li>
 <li><p>Units: No missing entries in units (<code>uom</code>), except pH which can be blank</p></li>
@@ -124,7 +123,6 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column types... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking no "na" in Value Range... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for text other than &lt;=, ≤, &lt;, &gt;=, ≥, &gt;, ±, %, AQL, BQL, log, or all... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking number of rows per parameter... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking overlaps in Value Range... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking gaps in Value Range... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Parameter formats... OK</span>
