@@ -93,7 +93,7 @@ checkMWRfrecom <- function(frecomdat, warn = TRUE){
     unlist
   if(any(chk, na.rm = T)){
     tochk <- names(chk)[chk]
-    stop(msg, '\n\tValues less than 0 or greater than 100 found in columns: ', paste(tochk, collapse = ', ', call. = FALSE))
+    stop(msg, '\n\tValues less than 0 or greater than 100 found in columns: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
   
