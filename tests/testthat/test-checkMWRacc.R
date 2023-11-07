@@ -81,7 +81,7 @@ test_that("Checking incorrect unit type per parameter", {
 test_that("Checking empty column", {
   chk <- accdatchk
   chk[[7]] <- NA
-  expect_warning(checkMWRacc(chk))
+  expect_warning(checkMWRacc(chk),'Empty or all na columns found: Lab Duplicate')
 })
 
 test_that("Checking na in Value Range", {

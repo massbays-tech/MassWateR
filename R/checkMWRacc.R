@@ -217,7 +217,7 @@ checkMWRacc <- function(accdat, warn = TRUE){
   if(any(!chk)){
     nms <- names(chk)[which(!chk)]
     if(warn)
-      warning(msg, '\n\tEmpty columns found: ', paste(nms, collapse = ', '), call. = FALSE)
+      warning(msg, '\n\tEmpty or all na columns found: ', paste(nms, collapse = ', '), call. = FALSE)
     wrn <- wrn + 1
     message(paste(msg, 'WARNING'))
   } else {
