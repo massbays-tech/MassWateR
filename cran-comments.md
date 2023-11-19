@@ -1,11 +1,11 @@
 ## Resubmission
 
-This is a version update to 2.1.3
+This is a version update to 2.1.4
 
 ## Test environments
 
 * ubuntu 22.04.3 (devel, release, old release)
-* OS X (R 4.3.1)
+* OS X (R 4.3.2)
 * win-builder [http://win-builder.r-project.org/](http://win-builder.r-project.org/) (devel, release, old release)
 * local Windows 10 install (R 4.3.1)
 

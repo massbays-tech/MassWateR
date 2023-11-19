@@ -1,0 +1,27 @@
+bibentry(bibtype = "Article",
+  title        = "{{MassWateR}: Improving quality control, analysis, and sharing of water quality data}",
+  author       = c(
+                  person(
+                    given = c("Marcus", "W."),
+                    family = "Beck",
+                    email = "mbeck@tbep.org"
+                    ),
+                    person(
+                    given = "Benjamen",
+                    family = "Wetherill",
+                    email = "bwetherill@acasak.com"
+                    ),
+                    person(
+                    given = "Jillian",
+                    family = "Carr",
+                    email = "jillian.Carr@umb.edu"
+                    )
+                  ),
+  journal      = "{PLOS ONE}",
+  year         = "2023",
+  volume       = "18",
+  number       = "11",
+  pages        = "e0293737",
+  doi          = "10.1371/journal.pone.0293737",
+  header       = "To cite MassWateR in publications use:"
+)

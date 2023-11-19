@@ -1,3 +1,11 @@
+# MassWateR 2.1.4
+
+* Improved warning message for all empty or `na` entries in `checkMWRacc()` and `checkMWRfrecom()`
+* Changed `tabMWRwqx()` output column name to `Present Above Quantification Limit` for result value as `AQL`
+* Fix to `checkMWRacc()` if more than two value ranges in DQO accuracy file as ascending, previously resulted in error
+* Fix to incorrect parameter paste in error message in `checkMWRfrecom()` if values less than 0 or greater than 100 are found
+* Improved tests to check error or warning messages for `checkMWRfrecom()` and `checkMWRacc()`
+
 # MassWateR 2.1.3
 
 * `anlzMWRmap()` has different basemap options using the `maptype` argument, these include `"cartolight"`, `"cartodark"`, `"osm"`, or `"hotstyle"`. These changes accommodate recent issues with access to stamen tiles.
