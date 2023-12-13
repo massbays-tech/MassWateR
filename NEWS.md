@@ -1,7 +1,7 @@
 # MassWateR 2.1.4
 
 * Improved warning message for all empty or `na` entries in `checkMWRacc()` and `checkMWRfrecom()`
-* Changed `tabMWRwqx()` output column name to `Present Above Quantification Limit` for result value as `AQL`
+* Fixed spelling of `tabMWRwqx()` output in the `Result Detection Condition` column for "Present Above Quantification Limit"
 * Fix to `checkMWRacc()` if more than two value ranges in DQO accuracy file as ascending, previously resulted in error
 * Fix to incorrect parameter paste in error message in `checkMWRfrecom()` if values less than 0 or greater than 100 are found
 * Improved tests to check error or warning messages for `checkMWRfrecom()` and `checkMWRacc()`
