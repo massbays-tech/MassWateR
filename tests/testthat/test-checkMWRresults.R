@@ -74,6 +74,14 @@ test_that("Checking correct Characteristic Names", {
 
 test_that("Checking entries in Result Value", {
   chk <- resdatchk
+  chk[23, 11] <- '<1'
+  chk[200, 11] <- 'a'
+  chk[250, 11] <- NA # does not trigger
+  expect_error(checkMWRresults(chk), 'Non-numeric entries in Quantitation Limit found: <1, a in rows 23, 200') 
+})
+
+test_that("Checking entries in Quantitation Limit", {
+  chk <- resdatchk
   chk[23, 9] <- '1.a09'
   chk[200, 9] <- 'MDL'
   chk[250, 9] <- 'MDL'

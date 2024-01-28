@@ -108,6 +108,7 @@ Several checks are run automatically when the data are imported. These file chec
 -   **Activity Depth/Height Measure out of range**: All depth values should be less than or equal to 1 meter / 3.3 feet or entered as Surface in the Activity Relative Depth Name column (warning only)
 -   **Characteristic Name**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` column of the `paramsMWR` data (warning only)
 -   **Result Value**: Should be a numeric value or a text value as AQL or BDL
+-   **Non-numeric Quantitation Limit**: All values should be numbers, excluding missing values
 -   **QC Reference Value**: Any entered values should be numeric or a text value as AQL or BDL
 -   **Result Unit**: No missing entries in `Result Unit`, except pH which can be blank
 -   **Single Result Unit**: Each unique parameter in `Characteristic Name` should have only one entry in `Result Unit` (excludes entries for lab spikes reported as `%` or `% recovery`)

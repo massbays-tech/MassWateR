@@ -18,6 +18,7 @@
 #'  \item Activity Depth/Height Measure out of range: All depth values should be less than or equal to 1 meter / 3.3 feet or entered as Surface in the Activity Relative Depth Name column (warning only)
 #'  \item Characteristic Name: Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{paramsMWR}} data (warning only)
 #'  \item Result Value: Should be a numeric value or a text value as AQL or BDL
+#'  \item Non-numeric Quantitation Limit: All values should be numbers, excluding missing values
 #'  \item QC Reference Value: Should be a numeric value or a text value as AQL or BDL
 #'  \item Result Unit: No missing entries in \code{Result Unit}, except pH which can be blank
 #'  \item Single Result Unit: Each unique parameter in \code{Characteristic Name} should have only one entry in \code{Result Unit} (excludes entries for lab spikes reported as \code{\%} or \code{\% recovery})
@@ -195,6 +196,17 @@ checkMWRresults <- function(resdat, warn = TRUE){
     rws <- which(!chk)
     tochk <- unique(typ[!chk])
     stop(msg, '\n\tIncorrect entries in Result Value found: ', paste(tochk, collapse = ', '), ' in rows ', paste(rws, collapse = ', '), call. = FALSE)
+  }
+  message(paste(msg, 'OK'))
+
+  # check Quantitation Limit for non-numeric (allows NA/missing)
+  msg <- '\tChecking for non-numeric values in Quantitation Limit...'
+  typ <- resdat$`Quantitation Limit`
+  chk <- !is.na(suppressWarnings(as.numeric(typ))) | is.na(typ)
+  if(any(!chk)){
+    rws <- which(!chk)
+    tochk <- unique(typ[!chk])
+    stop(msg, '\n\tNon-numeric entries in Quantitation Limit found: ', paste(tochk, collapse = ', '), ' in rows ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
   
