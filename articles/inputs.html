@@ -451,6 +451,7 @@ it is not necessary to explicitly set this argument on import.</p>
 <span><span class="co">#&gt;  Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft... OK</span></span>
 <span><span class="co">#&gt;  Checking Characteristic Name formats... OK</span></span>
 <span><span class="co">#&gt;  Checking Result Values... OK</span></span>
+<span><span class="co">#&gt;  Checking for non-numeric values in Quantitation Limit... OK</span></span>
 <span><span class="co">#&gt;  Checking QC Reference Values... OK</span></span>
 <span><span class="co">#&gt;  Checking for missing entries for Result Unit... OK</span></span>
 <span><span class="co">#&gt;  Checking if more than one unit per Characteristic Name... OK</span></span>
@@ -525,6 +526,9 @@ column of the <code>paramsMWR</code> data (warning only)</li>
 <strong>Result Value</strong>: Should be a numeric value or a text
 value as AQL or BDL</li>
 <li>
+<strong>Non-numeric Quantitation Limit</strong>: All values should
+be numbers, excluding missing values</li>
+<li>
 <strong>QC Reference Value</strong>: Any entered values should be
 numeric or a text value as AQL or BDL</li>
 <li>
@@ -597,48 +601,48 @@ column below. The new WQX output rows will take the value from the
 Quality Exchange output</a> vignette for a complete description of
 creating output for WQX upload with MassWateR.</p>
 <div class="tabwid">
-<style>.cl-2c6785c6{}.cl-2c615ce6{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2c615cfa{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2c63fe06{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2c6410da{width:3.164in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c6410e4{width:3.404in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c6410ee{width:3.164in;background-color:rgba(211, 211, 211, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c6410ef{width:3.404in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c6410f0{width:3.164in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c6410f1{width:3.404in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2c6410f8{width:3.164in;background-color:rgba(211, 211, 211, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table data-quarto-disable-processing="true" class="table cl-2c6785c6">
+<style>.cl-2dfb4d3c{}.cl-2df52786{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2df52790{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-2df7c806{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-2df7db84{width:3.164in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2df7db8e{width:3.404in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2df7db8f{width:3.164in;background-color:rgba(211, 211, 211, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2df7db90{width:3.404in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2df7db98{width:3.164in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2df7db99{width:3.404in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-2df7dba2{width:3.164in;background-color:rgba(211, 211, 211, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<table data-quarto-disable-processing="true" class="table cl-2dfb4d3c">
 <thead><tr style="overflow-wrap:break-word;">
-<th class="cl-2c6410da"><p class="cl-2c63fe06"><span class="cl-2c615ce6">Input Activity Type</span></p></th>
-<th class="cl-2c6410e4"><p class="cl-2c63fe06"><span class="cl-2c615ce6">WQX output new row Activity Type</span></p></th>
+<th class="cl-2df7db84"><p class="cl-2df7c806"><span class="cl-2df52786">Input Activity Type</span></p></th>
+<th class="cl-2df7db8e"><p class="cl-2df7c806"><span class="cl-2df52786">WQX output new row Activity Type</span></p></th>
 </tr></thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2c6410ee"><p class="cl-2c63fe06"><span class="cl-2c615cfa">Sample-Routine</span></p></td>
-<td class="cl-2c6410ef"><p class="cl-2c63fe06"><span class="cl-2c615cfa">Quality Control Sample-Field Replicate</span></p></td>
+<td class="cl-2df7db8f"><p class="cl-2df7c806"><span class="cl-2df52790">Sample-Routine</span></p></td>
+<td class="cl-2df7db90"><p class="cl-2df7c806"><span class="cl-2df52790">Quality Control Sample-Field Replicate</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2c6410f0"><p class="cl-2c63fe06"><span class="cl-2c615cfa">Quality Control Sample-Field Blank</span></p></td>
-<td class="cl-2c6410f1"><p class="cl-2c63fe06"><span class="cl-2c615cfa">NA</span></p></td>
+<td class="cl-2df7db98"><p class="cl-2df7c806"><span class="cl-2df52790">Quality Control Sample-Field Blank</span></p></td>
+<td class="cl-2df7db99"><p class="cl-2df7c806"><span class="cl-2df52790">NA</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2c6410f0"><p class="cl-2c63fe06"><span class="cl-2c615cfa">Quality Control Sample-Lab Duplicate</span></p></td>
-<td class="cl-2c6410f1"><p class="cl-2c63fe06"><span class="cl-2c615cfa">Quality Control Sample-Lab Duplicate 2</span></p></td>
+<td class="cl-2df7db98"><p class="cl-2df7c806"><span class="cl-2df52790">Quality Control Sample-Lab Duplicate</span></p></td>
+<td class="cl-2df7db99"><p class="cl-2df7c806"><span class="cl-2df52790">Quality Control Sample-Lab Duplicate 2</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2c6410f0"><p class="cl-2c63fe06"><span class="cl-2c615cfa">Quality Control Sample-Lab Blank</span></p></td>
-<td class="cl-2c6410f1"><p class="cl-2c63fe06"><span class="cl-2c615cfa">NA</span></p></td>
+<td class="cl-2df7db98"><p class="cl-2df7c806"><span class="cl-2df52790">Quality Control Sample-Lab Blank</span></p></td>
+<td class="cl-2df7db99"><p class="cl-2df7c806"><span class="cl-2df52790">NA</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2c6410f0"><p class="cl-2c63fe06"><span class="cl-2c615cfa">Quality Control Sample-Lab Spike</span></p></td>
-<td class="cl-2c6410f1"><p class="cl-2c63fe06"><span class="cl-2c615cfa">Quality Control Sample-Lab Spike Target</span></p></td>
+<td class="cl-2df7db98"><p class="cl-2df7c806"><span class="cl-2df52790">Quality Control Sample-Lab Spike</span></p></td>
+<td class="cl-2df7db99"><p class="cl-2df7c806"><span class="cl-2df52790">Quality Control Sample-Lab Spike Target</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2c6410f8"><p class="cl-2c63fe06"><span class="cl-2c615cfa">Field Msr/Obs</span></p></td>
-<td class="cl-2c6410f1"><p class="cl-2c63fe06"><span class="cl-2c615cfa">Quality Control Field Replicate Msr/Obs</span></p></td>
+<td class="cl-2df7dba2"><p class="cl-2df7c806"><span class="cl-2df52790">Field Msr/Obs</span></p></td>
+<td class="cl-2df7db99"><p class="cl-2df7c806"><span class="cl-2df52790">Quality Control Field Replicate Msr/Obs</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2c6410f0"><p class="cl-2c63fe06"><span class="cl-2c615cfa">Quality Control-Meter Lab Duplicate</span></p></td>
-<td class="cl-2c6410f1"><p class="cl-2c63fe06"><span class="cl-2c615cfa">Quality Control-Meter Lab Duplicate 2</span></p></td>
+<td class="cl-2df7db98"><p class="cl-2df7c806"><span class="cl-2df52790">Quality Control-Meter Lab Duplicate</span></p></td>
+<td class="cl-2df7db99"><p class="cl-2df7c806"><span class="cl-2df52790">Quality Control-Meter Lab Duplicate 2</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2c6410f0"><p class="cl-2c63fe06"><span class="cl-2c615cfa">Quality Control-Meter Lab Blank</span></p></td>
-<td class="cl-2c6410f1"><p class="cl-2c63fe06"><span class="cl-2c615cfa">NA</span></p></td>
+<td class="cl-2df7db98"><p class="cl-2df7c806"><span class="cl-2df52790">Quality Control-Meter Lab Blank</span></p></td>
+<td class="cl-2df7db99"><p class="cl-2df7c806"><span class="cl-2df52790">NA</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-2c6410f0"><p class="cl-2c63fe06"><span class="cl-2c615cfa">Quality Control-Calibration Check</span></p></td>
-<td class="cl-2c6410f1"><p class="cl-2c63fe06"><span class="cl-2c615cfa">Quality Control-Calibration Check Buffer</span></p></td>
+<td class="cl-2df7db98"><p class="cl-2df7c806"><span class="cl-2df52790">Quality Control-Calibration Check</span></p></td>
+<td class="cl-2df7db99"><p class="cl-2df7c806"><span class="cl-2df52790">Quality Control-Calibration Check Buffer</span></p></td>
 </tr>
 </tbody>
 </table>

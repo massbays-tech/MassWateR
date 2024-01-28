@@ -103,6 +103,7 @@
 <li><p>Activity Depth/Height Measure out of range: All depth values should be less than or equal to 1 meter / 3.3 feet or entered as Surface in the Activity Relative Depth Name column (warning only)</p></li>
 <li><p>Characteristic Name: Should match parameter names in the <code>Simple Parameter</code> or <code>WQX Parameter</code> columns of the <code><a href="paramsMWR.html">paramsMWR</a></code> data (warning only)</p></li>
 <li><p>Result Value: Should be a numeric value or a text value as AQL or BDL</p></li>
+<li><p>Non-numeric Quantitation Limit: All values should be numbers, excluding missing values</p></li>
 <li><p>QC Reference Value: Should be a numeric value or a text value as AQL or BDL</p></li>
 <li><p>Result Unit: No missing entries in <code>Result Unit</code>, except pH which can be blank</p></li>
 <li><p>Single Result Unit: Each unique parameter in <code>Characteristic Name</code> should have only one entry in <code>Result Unit</code> (excludes entries for lab spikes reported as <code>%</code> or <code>% recovery</code>)</p></li>
@@ -131,6 +132,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking values in Activity Depth/Height Measure &gt; 1 m / 3.3 ft... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Characteristic Name formats... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Result Values... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in Quantitation Limit... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking QC Reference Values... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for missing entries for Result Unit... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking if more than one unit per Characteristic Name... OK</span>
