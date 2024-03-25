@@ -1,4 +1,4 @@
-pandoc: 2.19.2
+pandoc: 3.1.11
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
@@ -11,7 +11,7 @@ articles:
   qcoverview: qcoverview.html
   utility: utility.html
   wqx: wqx.html
-last_built: 2024-02-02T03:04Z
+last_built: 2024-03-25T13:47Z
 urls:
   reference: https://massbays-tech.github.io/MassWateR/reference
   article: https://massbays-tech.github.io/MassWateR/articles
