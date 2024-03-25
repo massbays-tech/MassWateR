@@ -19,7 +19,7 @@
 #' @param zoom numeric indicating resolution of the base map, see details
 #' @param addwater character string as \code{"low"}, \code{"medium"} (default), \code{"high"}, or \code{NULL} (to suppress) to include water features with varying detail from the National Hydrography dataset, see details
 #' @param watercol character string of color for water objects if \code{addwater} is not \code{NULL}
-#' @param maptype character string as \code{"cartolight"}, \code{"cartodark"}, \code{"osm"}, \code{"hotstyle"}, or \code{NULL} (to suppress, default) indicating the basemap type, see details
+#' @param maptype character string indicating the basemap type, see details
 #' @param buffdist numeric for buffer around the bounding box for the selected sites in kilometers, see details
 #' @param scaledist character string indicating distance unit for the scale bar, \code{"km"} or \code{"mi"}
 #' @param northloc character string indicating location of the north arrow, see details
@@ -28,8 +28,6 @@
 #' @param ttlsize numeric value indicating font size of the title relative to other text in the plot
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, or \code{\link{checkMWRsites}}, applies only if \code{res}, \code{acc}, or \code{sit} are file paths
 #' @param warn logical to return warnings to the console (default)
-#'
-#' @import prettymapr
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object that can be further modified.
 #' @export
@@ -45,7 +43,7 @@
 #' 
 #' Using \code{addwater = "medium"} (default) will include lines and polygons of natural water bodies defined using the National Hydrography Dataset (NHD). The level of detail can be changed to low or high using \code{addwater = "low"} or \code{addwater = "high"}, respectively.  Use \code{addwater = NULL} to not show any water features.
 #' 
-#' A base map can be plotted using the \code{maptype} argument and is obtained from the \code{\link[ggspatial]{annotation_map_tile}} function of ggspatial.  The \code{zoom} value specifies the resolution of the map.  Use higher values to download map tiles with greater resolution, although this increases the download time.  The \code{maptype} argument describes the type of base map to download. Acceptable options include \code{"cartolight"}, \code{"cartodark"}, \code{"osm"}, or \code{"hotstyle"}. Use \code{maptype = NULL} to suppress the base map.
+#' A base map can be plotted using the \code{maptype} argument.  The \code{zoom} value specifies the resolution of the map.  Use higher values to download map tiles with greater resolution, although this increases the download time.  The \code{maptype} argument describes the type of base map to download. Acceptable options include \code{"OpenStreetMap"}, \code{"OpenStreetMap.DE"}, \code{"OpenStreetMap.France"}, \code{"OpenStreetMap.HOT"}, \code{"OpenTopoMap"}, \code{"Esri.WorldStreetMap"}, \code{"Esri.DeLorme"}, \code{"Esri.WorldTopoMap"}, \code{"Esri.WorldImagery"}, \code{"Esri.WorldTerrain"}, \code{"Esri.WorldShadedRelief"}, \code{"Esri.OceanBasemap"}, \code{"Esri.NatGeoWorldMap"}, \code{"Esri.WorldGrayCanvas"}, \code{"CartoDB.Positron"}, \code{"CartoDB.PositronNoLabels"}, \code{"CartoDB.PositronOnlyLabels"}, \code{"CartoDB.DarkMatter"}, \code{"CartoDB.DarkMatterNoLabels"}, \code{"CartoDB.DarkMatterOnlyLabels"}, \code{"CartoDB.Voyager"}, \code{"CartoDB.VoyagerNoLabels"}, or \code{"CartoDB.VoyagerOnlyLabels"}. Use \code{maptype = NULL} to suppress the base map.
 #' 
 #' The area around the summarized points can be increased or decreased using the \code{buffdist} argument.  This creates a buffered area around the bounding box for the points, where the units are kilometers.  
 #' 
@@ -139,15 +137,13 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
       sf::st_as_sfc() %>% 
       sf::st_buffer(dist = units::set_units(buffdist, kilometer)) %>%
       sf::st_transform(crs = 4326) %>% 
-      sf::st_bbox() %>% 
-      unname
+      sf::st_bbox()
   if(nrow(tomap) == 1)
     dat_ext <- tomap %>% 
       sf::st_as_sfc() %>% 
       sf::st_buffer(dist = units::set_units(buffdist, kilometer)) %>%
       sf::st_transform(crs = 4326) %>% 
-      sf::st_bbox() %>% 
-      unname
+      sf::st_bbox()
   
   ylab <- unique(resdat$`Result Unit`)
   ttl <- utilMWRtitle(param = param, accdat = accdat, sumfun = sumfun, site = site, dtrng = dtrng, locgroup = locgroup, resultatt = resultatt)
@@ -155,15 +151,21 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
   m <- ggplot2::ggplot()
 
   if(!is.null(maptype)){
-
-    maptype <- match.arg(maptype, c( 'cartolight', 'cartodark', 'osm', 'hotstyle'))
     
-    # this is only to satisfy raster in imports, does nothing
-    # do not import all of raster becaus of namespace conflicts
-    tmp <- raster::as.data.frame(x = NULL)
+    maptype <- match.arg(maptype, c("OpenStreetMap", "OpenStreetMap.DE", "OpenStreetMap.France", 
+                                    "OpenStreetMap.HOT", "OpenTopoMap",
+                                    "Esri.WorldStreetMap", "Esri.DeLorme", "Esri.WorldTopoMap", 
+                                    "Esri.WorldImagery", "Esri.WorldTerrain", "Esri.WorldShadedRelief", 
+                                    "Esri.OceanBasemap", "Esri.NatGeoWorldMap", "Esri.WorldGrayCanvas", 
+                                    "CartoDB.Positron", "CartoDB.PositronNoLabels", 
+                                    "CartoDB.PositronOnlyLabels", "CartoDB.DarkMatter", 
+                                    "CartoDB.DarkMatterNoLabels", "CartoDB.DarkMatterOnlyLabels", 
+                                    "CartoDB.Voyager", "CartoDB.VoyagerNoLabels", "CartoDB.VoyagerOnlyLabels"))
+    
+    tls <- maptiles::get_tiles(dat_ext, provider = maptype, zoom = zoom, )
     
     m <- m + 
-      ggspatial::annotation_map_tile(zoom = zoom, quiet = TRUE, progress = "none", type = maptype, cachedir = system.file("rosm.cache", package = "ggspatial"))
+      tidyterra::geom_spatraster_rgb(data = tls, maxcell = 1e8)
 
   }
 

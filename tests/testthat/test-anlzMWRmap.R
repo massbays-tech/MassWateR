@@ -6,7 +6,7 @@ test_that("Checking output format", {
 
 test_that("Checking output format, one site", {
   skip_on_cran()
-  result <- anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, warn = FALSE, site = 'ABT-026', addwater = NULL, maptype = 'osm', zoom = 5)
+  result <- anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, warn = FALSE, site = 'ABT-026', addwater = NULL, maptype = 'CartoDB.Positron', zoom = 5)
   expect_s3_class(result, 'ggplot')
 })
 
