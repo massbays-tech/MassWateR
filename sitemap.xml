@@ -1,195 +1,67 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/404.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/RESOURCES.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/articles/MassWateR.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/articles/analysis.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/articles/inputs.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/articles/modifying.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/articles/outofstate.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/articles/qcoverview.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/articles/utility.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/articles/wqx.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/index.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/anlzMWRdate.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/anlzMWRmap.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/anlzMWRoutlier.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/anlzMWRoutlierall.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/anlzMWRseason.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/anlzMWRsite.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/checkMWRacc.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/checkMWRfrecom.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/checkMWRresults.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/checkMWRsites.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/checkMWRwqx.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/formMWRacc.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/formMWRfrecom.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/formMWRresults.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/formMWRwqx.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/paramsMWR.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/qcMWRacc.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/qcMWRcom.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/qcMWRfre.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/qcMWRreview.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/readMWRacc.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/readMWRfrecom.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/readMWRresults.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/readMWRresultsview.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/readMWRsites.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/readMWRwqx.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/tabMWRacc.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/tabMWRcom.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/tabMWRfre.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/tabMWRwqx.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/thresholdMWR.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRfilter.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRfiltersurface.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRfre.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRhttpgrace.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRinput.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRinputcheck.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRlimits.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRoutlier.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRsumfun.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRsummary.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRthresh.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRtitle.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRvaluerange.html</loc>
-  </url>
-  <url>
-    <loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRyscale.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://massbays-tech.github.io/MassWateR/404.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/CONTRIBUTING.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/LICENSE.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/RESOURCES.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/articles/MassWateR.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/articles/analysis.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/articles/index.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/articles/inputs.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/articles/modifying.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/articles/outofstate.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/articles/qcoverview.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/articles/utility.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/articles/wqx.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/authors.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/index.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/news/index.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/anlzMWRdate.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/anlzMWRmap.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/anlzMWRoutlier.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/anlzMWRoutlierall.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/anlzMWRseason.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/anlzMWRsite.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/checkMWRacc.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/checkMWRfrecom.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/checkMWRresults.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/checkMWRsites.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/checkMWRwqx.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/formMWRacc.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/formMWRfrecom.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/formMWRresults.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/formMWRwqx.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/index.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/paramsMWR.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/qcMWRacc.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/qcMWRcom.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/qcMWRfre.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/qcMWRreview.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/readMWRacc.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/readMWRfrecom.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/readMWRresults.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/readMWRresultsview.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/readMWRsites.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/readMWRwqx.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/tabMWRacc.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/tabMWRcom.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/tabMWRfre.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/tabMWRwqx.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/thresholdMWR.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRfilter.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRfiltersurface.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRfre.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRhttpgrace.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRinput.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRinputcheck.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRlimits.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRoutlier.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRsumfun.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRsummary.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRthresh.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRtitle.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRvaluerange.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/utilMWRyscale.html</loc></url>
 </urlset>
+
