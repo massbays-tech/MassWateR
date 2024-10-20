@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">MassWateR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.1.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.1.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,6 +44,12 @@
       <small>Source: <a href="https://github.com/massbays-tech/MassWateR/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.1.5" id="masswater-215">MassWateR 2.1.5<a class="anchor" aria-label="anchor" href="#masswater-215"></a></h2>
+<ul><li>Added check to <code><a href="../reference/checkMWRresults.html">checkMWRresults()</a></code> for results data to verify all values in the quantitation limit column are numbers, with updated instructions in the results template file</li>
+<li>Parameter list (<code>paramMWR</code>) updated with Pycocyanin, Phycocyanin (probe), RFU as unit for chlorophyll, including appropriate updates to <code>thresholdMWR</code>, results template, and WQX phys-chem template</li>
+<li>Removed prettymapr, raster, added maptile and tidyterra for <code><a href="../reference/anlzMWRmap.html">anlzMWRmap()</a></code> basemaps, this changes the options that are accepted by the <code>maptype</code> argument</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.1.4" id="masswater-214">MassWateR 2.1.4<a class="anchor" aria-label="anchor" href="#masswater-214"></a></h2><p class="text-muted">CRAN release: 2023-11-19</p>
 <ul><li>Improved warning message for all empty or <code>na</code> entries in <code><a href="../reference/checkMWRacc.html">checkMWRacc()</a></code> and <code><a href="../reference/checkMWRfrecom.html">checkMWRfrecom()</a></code>
