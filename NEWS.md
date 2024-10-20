@@ -1,3 +1,9 @@
+# MassWateR 2.1.5
+
+* Added check to `checkMWRresults()` for results data to verify all values in the quantitation limit column are numbers, with updated instructions in the results template file
+* Parameter list (`paramMWR`) updated with Pycocyanin, Phycocyanin (probe), RFU as unit for chlorophyll, including appropriate updates to `thresholdMWR`, results template, and WQX phys-chem template
+* Removed prettymapr, raster, added maptile and tidyterra for `anlzMWRmap()` basemaps, this changes the options that are accepted by the `maptype` argument
+
 # MassWateR 2.1.4
 
 * Improved warning message for all empty or `na` entries in `checkMWRacc()` and `checkMWRfrecom()`
