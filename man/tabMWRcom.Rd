@@ -42,7 +42,7 @@ tabMWRcom(
 \item{noteswd}{numeric indicating width of notes column}
 }
 \value{
-A \code{\link{flextable}} object with formatted results showing summary counts for all completeness checks for each parameter.
+A \code{\link[flextable]{flextable}} object with formatted results showing summary counts for all completeness checks for each parameter.
 }
 \description{
 Create a formatted table of quality control completeness checks

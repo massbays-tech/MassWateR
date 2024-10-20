@@ -8,7 +8,7 @@
 #' @param parameterwd numeric indicating width of the parameter column
 #' @param noteswd numeric indicating width of notes column
 #'
-#' @return A \code{\link{flextable}} object with formatted results showing summary counts for all completeness checks for each parameter.
+#' @return A \code{\link[flextable]{flextable}} object with formatted results showing summary counts for all completeness checks for each parameter.
 #' 
 #' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.  
 #' 

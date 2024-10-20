@@ -42,7 +42,7 @@ tabMWRfre(
 \item{suffix}{character string indicating suffix to append to percentage values}
 }
 \value{
-A \code{\link{flextable}} object with formatted results.
+A \code{\link[flextable]{flextable}} object with formatted results.
 }
 \description{
 Create a formatted table of quality control frequency checks

@@ -7,7 +7,7 @@
 #' @param digits numeric indicating number of significant digits to report for percentages
 #' @param suffix character string indicating suffix to append to percentage values
 #'
-#' @return A \code{\link{flextable}} object with formatted results.
+#' @return A \code{\link[flextable]{flextable}} object with formatted results.
 #' 
 #' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRacc}}, and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}. 
 #' 
