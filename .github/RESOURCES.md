@@ -19,5 +19,5 @@ Below are links to resources for using or learning about MassWateR.
 
 ## MassWateR built-in files
 
--   Parameter list and units: [link](ParameterMapping.xlsx)
--   Parameter thresholds: [link](ThresholdMapping.xlsx)
+-   Parameter list and units: [link](https://github.com/massbays-tech/MassWateR/raw/refs/heads/main/inst/extdata/ParameterMapping.xlsx)
+-   Parameter thresholds: [link](https://github.com/massbays-tech/MassWateR/raw/refs/heads/main/inst/extdata/ThresholdMapping.xlsx)
