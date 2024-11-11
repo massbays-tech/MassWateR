@@ -4,7 +4,7 @@ test_that("title with parameter only", {
 })
 
 test_that("title with parameter and summary function", {
-  result <- utilMWRtitle(param = 'DO', accdat = accdat, sumfun = "auto")
+  result <- utilMWRtitle(param = 'DO', accdat = tst$accdat, sumfun = "auto")
   expect_equal(result, 'DO (mean)')
 })
 

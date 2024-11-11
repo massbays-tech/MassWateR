@@ -1,15 +1,15 @@
 test_that("Checking path input for res, acc, frecom, and sit", {
-  result <- utilMWRinput(res = respth, acc = accpth, frecom = frecompth, sit = sitpth, wqx = wqxpth, runchk = F)
+  result <- utilMWRinput(res = tst$respth, acc = tst$accpth, frecom = tst$frecompth, sit = tst$sitpth, wqx = tst$wqxpth, runchk = F)
   expect_type(result, 'list')
 })
 
 test_that("Checking data frame input for res, acc, frecom, and sit", {
-  result <- utilMWRinput(res = resdat, acc = accdat, frecom = frecomdat, sit = sitdat, wqx = wqxdat)
+  result <- utilMWRinput(res = tst$resdat, acc = tst$accdat, frecom = tst$frecomdat, sit = tst$sitdat, wqx = tst$wqxdat)
   expect_type(result, 'list')
 })
 
 test_that("Checking fset input", {
-  result <- utilMWRinput(fset = list(res = resdat, acc = accdat, frecom = frecomdat, sit = sitdat, wqx = wqxdat))
+  result <- utilMWRinput(fset = list(res = tst$resdat, acc = tst$accdat, frecom = tst$frecomdat, sit = tst$sitdat, wqx = tst$wqxdat))
   expect_type(result, 'list')
 })
 

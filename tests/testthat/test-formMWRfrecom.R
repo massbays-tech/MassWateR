@@ -1,5 +1,5 @@
 test_that("Checking form results", {
-  chk <- frecomdatchk
+  chk <- tst$frecomdatchk
   chk$`Parameter`[chk$`Parameter` == 'DO'] <- 'Dissolved oxygen (DO)'
   chk$`Parameter`[chk$`Parameter` == 'Water Temp'] <- 'Temperature, water'
   frmchk <- formMWRfrecom(chk)
