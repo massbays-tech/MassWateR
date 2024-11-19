@@ -31,6 +31,7 @@ anlzMWRmap(
   scaleloc = "br",
   latlon = TRUE,
   ttlsize = 1.2,
+  bssize = 11,
   runchk = TRUE,
   warn = TRUE
 )
@@ -87,6 +88,8 @@ anlzMWRmap(
 \item{latlon}{logical to include latitude and longitude labels on the plot, default \code{TRUE}}
 
 \item{ttlsize}{numeric value indicating font size of the title relative to other text in the plot}
+
+\item{bssize}{numeric for overall plot text scaling, passed to \code{\link[ggplot2]{theme_gray}}}
 
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, or \code{\link{checkMWRsites}}, applies only if \code{res}, \code{acc}, or \code{sit} are file paths}
 

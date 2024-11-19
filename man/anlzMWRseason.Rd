@@ -26,6 +26,7 @@ anlzMWRseason(
   yscl = "auto",
   sumfun = yscl,
   ttlsize = 1.2,
+  bssize = 11,
   runchk = TRUE,
   warn = TRUE
 )
@@ -72,6 +73,8 @@ anlzMWRseason(
 \item{sumfun}{character indicating one of \code{"auto"}, \code{"mean"}, \code{"geomean"}, \code{"median"}, \code{"min"}, or \code{"max"}, see details}
 
 \item{ttlsize}{numeric value indicating font size of the title relative to other text in the plot}
+
+\item{bssize}{numeric for overall plot text scaling, passed to \code{\link[ggplot2]{theme_minimal}}}
 
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths}
 

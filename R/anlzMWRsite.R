@@ -23,6 +23,7 @@
 #' @param sumfun character indicating one of \code{"auto"}, \code{"mean"}, \code{"geomean"}, \code{"median"}, \code{"min"}, or \code{"max"}, see details
 #' @param byresultatt logical indicating if the plot has sites grouped separately by result attributes, see details
 #' @param ttlsize numeric value indicating font size of the title relative to other text in the plot
+#' @param bssize numeric for overall plot text scaling, passed to \code{\link[ggplot2]{theme_minimal}}
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
@@ -80,7 +81,7 @@
 #' anlzMWRsite(res = resdat, param = 'DO', acc = accdat, sit = sitdat, type = 'box', 
 #'      thresh = 'fresh', locgroup = 'Assabet')
 #'      
-anlzMWRsite <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, type = c('box', 'jitterbox', 'bar', 'jitterbar', 'jitter'), thresh, threshlab = NULL, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, confint = FALSE, fill = 'lightgreen', alpha = 0.8, width = 0.8, yscl = 'auto', sumfun = yscl, byresultatt = FALSE, ttlsize =  1.2, runchk = TRUE, warn = TRUE){
+anlzMWRsite <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, type = c('box', 'jitterbox', 'bar', 'jitterbar', 'jitter'), thresh, threshlab = NULL, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, confint = FALSE, fill = 'lightgreen', alpha = 0.8, width = 0.8, yscl = 'auto', sumfun = yscl, byresultatt = FALSE, ttlsize =  1.2, bssize = 11, runchk = TRUE, warn = TRUE){
   
   # remove site from input list check because optional
   chkin <- mget(ls())
@@ -116,12 +117,12 @@ anlzMWRsite <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
   ##
   # plot prep
   
-  thm <- ggplot2::theme_minimal() + 
+  thm <- ggplot2::theme_minimal(base_size = bssize) + 
     ggplot2::theme(
       panel.grid.major.x = ggplot2::element_blank(), 
       panel.grid.minor.x = ggplot2::element_blank(),
       panel.grid.minor.y = ggplot2::element_blank(), 
-      axis.text.x = ggplot2::element_text(angle = 45, size = 8, hjust = 1), 
+      axis.text.x = ggplot2::element_text(angle = 45, size = ggplot2::rel(0.9), hjust = 1), 
       legend.position = 'top',
       legend.key.width = ggplot2::unit(1.05, "cm"),
       plot.title = ggplot2::element_text(size = ggplot2::rel(ttlsize))

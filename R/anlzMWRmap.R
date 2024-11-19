@@ -26,6 +26,7 @@
 #' @param scaleloc character string indicating location of the scale bar, see details
 #' @param latlon logical to include latitude and longitude labels on the plot, default \code{TRUE}
 #' @param ttlsize numeric value indicating font size of the title relative to other text in the plot
+#' @param bssize numeric for overall plot text scaling, passed to \code{\link[ggplot2]{theme_gray}}
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, or \code{\link{checkMWRsites}}, applies only if \code{res}, \code{acc}, or \code{sit} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
@@ -72,7 +73,7 @@
 #' # map with NHD water bodies
 #' anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = 'medium')
 #' }
-anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', palcolrev = FALSE, sumfun = 'auto', crs = 4326, zoom = 11, addwater = 'medium', watercol = 'lightblue', maptype = NULL, buffdist = 2, scaledist = 'km', northloc = 'tl', scaleloc = 'br', latlon = TRUE, ttlsize = 1.2, runchk = TRUE, warn = TRUE){
+anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', palcolrev = FALSE, sumfun = 'auto', crs = 4326, zoom = 11, addwater = 'medium', watercol = 'lightblue', maptype = NULL, buffdist = 2, scaledist = 'km', northloc = 'tl', scaleloc = 'br', latlon = TRUE, ttlsize = 1.2, bssize = 11, runchk = TRUE, warn = TRUE){
   
   utilMWRinputcheck(mget(ls()))
   
@@ -217,33 +218,36 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
   
   tomap <- tomap %>% 
     sf::st_transform(crs = 4326)
-
-    m <-  m +
-      ggplot2::geom_sf(data = tomap, ggplot2::aes(fill = `Result Value`), color = 'black', pch = 21, inherit.aes = F, size = ptsize) +
-      ggplot2::scale_fill_distiller(name = ylab, palette = palcol, direction = palcolrev) +
-      ggplot2::theme(
-        panel.grid = ggplot2::element_blank(), 
-        axis.title = ggplot2::element_blank(), 
-        axis.text.y = ggplot2::element_text(size = 8), 
-        axis.text.x = ggplot2::element_text(size = 8, angle = 30, hjust = 1),
-        axis.ticks = ggplot2::element_line(colour = 'grey'),
-        plot.title = ggplot2::element_text(size = ggplot2::rel(ttlsize)), 
-        panel.background = ggplot2::element_rect(fill = NA, color = 'black')
-      ) +
-      ggplot2::labs(
-        title = ttl
-      ) 
+  
+  m <-  m +
+    ggplot2::geom_sf(data = tomap, ggplot2::aes(fill = `Result Value`), color = 'black', pch = 21, inherit.aes = F, size = ptsize) +
+    ggplot2::scale_fill_distiller(name = ylab, palette = palcol, direction = palcolrev) +
+    ggplot2::theme_gray(base_size = bssize) + 
+    ggplot2::theme(
+      panel.grid = ggplot2::element_blank(), 
+      axis.title = ggplot2::element_blank(), 
+      axis.text.y = ggplot2::element_text(size = ggplot2::rel(0.9)), 
+      axis.text.x = ggplot2::element_text(size = ggplot2::rel(0.9), angle = 30, hjust = 1),
+      axis.ticks = ggplot2::element_line(colour = 'grey'),
+      plot.title = ggplot2::element_text(size = ggplot2::rel(ttlsize)), 
+      panel.background = ggplot2::element_rect(fill = NA, color = 'black')
+    ) +
+    ggplot2::labs(
+      title = ttl
+    ) 
 
   if(!is.null(scaleloc)){
     scaledist <- ifelse(scaledist == 'km', 'metric', 'imperial')
     m <- m +
-      ggspatial::annotation_scale(location = scaleloc, unit_category = scaledist)
+      ggspatial::annotation_scale(location = scaleloc, unit_category = scaledist, text_cex = bssize / 11 * 0.7, 
+                                  height = grid::unit(0.25 * bssize / 11, 'cm'))
   }
     
   if(!is.null(northloc))
     m <- m +
-      ggspatial::annotation_north_arrow(location = northloc, which_north = "true", height = grid::unit(0.75, "cm"), 
-                                                width = grid::unit(0.75, "cm"))
+      ggspatial::annotation_north_arrow(location = northloc, which_north = "true", height = grid::unit(0.75 * bssize / 11, "cm"), 
+                                                width = grid::unit(0.75 * bssize / 11, "cm"), 
+                                        style = ggspatial::north_arrow_orienteering(text_size = bssize / 11 * 10))
 
   # labels must not be sf to prevent warning
   tolab <- tomap %>% 
@@ -257,12 +261,12 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
   
   if(repel & !is.null(labsize))
     m <- m  +
-      ggspatial::geom_spatial_text_repel(data = tolab, ggplot2::aes(label = `Monitoring Location ID`, x = x, y = y), size = labsize, 
+      ggspatial::geom_spatial_text_repel(data = tolab, ggplot2::aes(label = `Monitoring Location ID`, x = x, y = y), size = bssize / 11 * labsize, 
                                    inherit.aes = F, crs = 4326)
   
   if(!repel & !is.null(labsize))
     m <- m  +
-      ggspatial::geom_spatial_text_repel(data = tolab, ggplot2::aes(label = `Monitoring Location ID`, x = x, y = y), size = labsize, 
+      ggspatial::geom_spatial_text_repel(data = tolab, ggplot2::aes(label = `Monitoring Location ID`, x = x, y = y), size = bssize / 11 * labsize, 
                                        inherit.aes = F, crs = 4326)
 
   if(!latlon)

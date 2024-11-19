@@ -26,6 +26,7 @@
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param colleg logical indicating if a color legend for sites or location groups is included if \code{group = "site"} or \code{group = "locgroup"}
 #' @param ttlsize numeric value indicating font size of the title relative to other text in the plot
+#' @param bssize numeric for overall plot text scaling, passed to \code{\link[ggplot2]{theme_minimal}}
 #' @param warn logical to return warnings to the console (default)
 #'
 #' @return A \code{\link[ggplot2]{ggplot}} object that can be further modified.
@@ -68,7 +69,7 @@
 #' # select sites
 #' anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', thresh = 'fresh',
 #'      site = c("ABT-026", "ABT-077"))
-anlzMWRdate <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, thresh, group = c('site', 'locgroup', 'all'), threshlab = NULL, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 2, repel = FALSE, labsize = 3, expand = c(0.05, 0.1), confint = FALSE, palcol = 'Set2', yscl = 'auto', sumfun = yscl, colleg = FALSE, ttlsize = 1.2, runchk = TRUE, warn = TRUE){
+anlzMWRdate <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, thresh, group = c('site', 'locgroup', 'all'), threshlab = NULL, threshcol = 'tan', site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 2, repel = FALSE, labsize = 3, expand = c(0.05, 0.1), confint = FALSE, palcol = 'Set2', yscl = 'auto', sumfun = yscl, colleg = FALSE, ttlsize = 1.2, bssize = 11, runchk = TRUE, warn = TRUE){
   
   # remove site from input list check because optional
   chkin <- mget(ls())
@@ -108,12 +109,12 @@ anlzMWRdate <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
   ##
   # plot prep
   
-  thm <- ggplot2::theme_minimal() + 
+  thm <- ggplot2::theme_minimal(base_size = bssize) + 
     ggplot2::theme(
       panel.grid.major.x = ggplot2::element_blank(), 
       panel.grid.minor.x = ggplot2::element_blank(),
       panel.grid.minor.y = ggplot2::element_blank(), 
-      axis.text.x = ggplot2::element_text(angle = 45, size = 10, hjust = 1), 
+      axis.text.x = ggplot2::element_text(angle = 45, size = ggplot2::rel(0.9), hjust = 1), 
       legend.position = 'top',
       legend.key.width = ggplot2::unit(1.05, "cm"), 
       legend.spacing.y = ggplot2::unit(0, 'cm'),
@@ -164,13 +165,13 @@ anlzMWRdate <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
       p <- p +
         ggrepel::geom_text_repel(data = sitelb, 
           ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`, label = `Monitoring Location ID`, color = `Monitoring Location ID`), 
-          na.rm = T, size = labsize, hjust = 0, nudge_x = 5, segment.color = 'grey', show.legend = FALSE)
+          na.rm = T, size = bssize / 11 * labsize, hjust = 0, nudge_x = 5, segment.color = 'grey', show.legend = FALSE)
     
     if(!repel)
       p <- p + 
         ggplot2::geom_text(data = sitelb, 
           ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Monitoring Location ID`, label = `Monitoring Location ID`, color = `Monitoring Location ID`), 
-          na.rm = T, size = labsize, hjust = 0, nudge_x = 3, show.legend = FALSE) + 
+          na.rm = T, size = bssize / 11 * labsize, hjust = 0, nudge_x = 3, show.legend = FALSE) + 
         ggplot2::scale_x_date(expand = ggplot2::expansion(mult = expand))
       
     # add color palette
@@ -211,13 +212,13 @@ anlzMWRdate <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
       p <- p +
       ggrepel::geom_text_repel(data = grplb, 
         ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Location Group`, label = `Location Group`, color = `Location Group`), 
-        na.rm = T, size = labsize, hjust = 0, nudge_x = 5, segment.color = 'grey', show.legend = FALSE)
+        na.rm = T, size = bssize / 11 * labsize, hjust = 0, nudge_x = 5, segment.color = 'grey', show.legend = FALSE)
     
     if(!repel)
       p <- p + 
       ggplot2::geom_text(data = grplb, 
         ggplot2::aes(x = `Activity Start Date`, y = `Result Value`, group = `Location Group`, label = `Location Group`, color = `Location Group`), 
-        na.rm = T, size = labsize, hjust = 0, nudge_x = 3, show.legend = FALSE) +
+        na.rm = T, size = bssize / 11 * labsize, hjust = 0, nudge_x = 3, show.legend = FALSE) +
         ggplot2::scale_x_date(expand = ggplot2::expansion(mult = expand))
     
     # make sure confint is calculated

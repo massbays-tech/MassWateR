@@ -20,6 +20,7 @@ anlzMWRoutlier(
   width = 0.8,
   yscl = "auto",
   ttlsize = 1.2,
+  bssize = 11,
   runchk = TRUE,
   warn = TRUE
 )
@@ -54,6 +55,8 @@ anlzMWRoutlier(
 \item{yscl}{character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details}
 
 \item{ttlsize}{numeric value indicating font size of the title relative to other text in the plot}
+
+\item{bssize}{numeric for overall plot text scaling, passed to \code{\link[ggplot2]{theme_minimal}}}
 
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths}
 

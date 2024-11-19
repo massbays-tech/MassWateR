@@ -17,6 +17,7 @@
 #' @param width numeric for width of boxplots
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
 #' @param ttlsize numeric value indicating font size of the title relative to other text in the plot
+#' @param bssize numeric for overall plot text scaling, passed to \code{\link[ggplot2]{theme_minimal}}
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
@@ -67,7 +68,7 @@
 #' # data frame output
 #' anlzMWRoutlier(res = resdat, param = 'DO', acc = accdat, group = 'month', outliers = TRUE)
 #' 
-anlzMWRoutlier <- function(res = NULL, param, acc = NULL, fset = NULL, type = c('box', 'jitterbox', 'jitter'), group, dtrng = NULL, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, width = 0.8, yscl = 'auto', ttlsize = 1.2, runchk = TRUE, warn = TRUE){
+anlzMWRoutlier <- function(res = NULL, param, acc = NULL, fset = NULL, type = c('box', 'jitterbox', 'jitter'), group, dtrng = NULL, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, width = 0.8, yscl = 'auto', ttlsize = 1.2, bssize = 11, runchk = TRUE, warn = TRUE){
   
   utilMWRinputcheck(mget(ls()))
   
@@ -95,12 +96,12 @@ anlzMWRoutlier <- function(res = NULL, param, acc = NULL, fset = NULL, type = c(
   ##
   # plot prep
   
-  thm <- ggplot2::theme_minimal() + 
+  thm <- ggplot2::theme_minimal(base_size = bssize) + 
     ggplot2::theme(
       panel.grid.major.x = ggplot2::element_blank(), 
       panel.grid.minor.x = ggplot2::element_blank(),
       panel.grid.minor.y = ggplot2::element_blank(), 
-      axis.text.x = ggplot2::element_text(angle = 45, size = 8, hjust = 1),
+      axis.text.x = ggplot2::element_text(angle = 45, size = ggplot2::rel(0.9), hjust = 1),
       plot.title = ggplot2::element_text(size = ggplot2::rel(ttlsize))
     )
 
@@ -191,11 +192,11 @@ anlzMWRoutlier <- function(res = NULL, param, acc = NULL, fset = NULL, type = c(
   
   if(repel)
     p <- p +
-    ggrepel::geom_text_repel(ggplot2::aes(label = outlier), na.rm = T, point.size = NA, size = labsize, segment.color = 'grey')
+    ggrepel::geom_text_repel(ggplot2::aes(label = outlier), na.rm = T, point.size = NA, size = bssize / 11 * labsize, segment.color = 'grey')
   
   if(!repel)
     p <- p + 
-    ggplot2::geom_text(ggplot2::aes(label = outlier), na.rm = T, size = labsize)
+    ggplot2::geom_text(ggplot2::aes(label = outlier), na.rm = T, size = bssize / 11 * labsize)
   
   if(logscl)
     p <- p + ggplot2::scale_y_log10()

@@ -21,6 +21,7 @@
 #' @param width numeric for width of boxplots
 #' @param yscl character indicating one of \code{"auto"} (default), \code{"log"}, or \code{"linear"}, see details
 #' @param ttlsize numeric value indicating font size of the title relative to other text in the plot
+#' @param bssize numeric for overall plot text scaling, passed to \code{\link[ggplot2]{theme_minimal}}
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}} or \code{\link{checkMWRacc}}, applies only if \code{res} or \code{acc} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
@@ -50,7 +51,7 @@
 #' # create png output
 #' anlzMWRoutlierall(resdat, accdat, group = 'month', format = 'png', output_dir = tempdir())
 #' }
-anlzMWRoutlierall <- function(res = NULL, acc = NULL, fset = NULL, fig_height = 4, fig_width = 8, format = c('word' ,'png'), output_dir, output_file = NULL, type = c('box', 'jitterbox', 'jitter'), group, dtrng = NULL, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, width = 0.8, yscl = 'auto', ttlsize = 1.2, runchk = TRUE, warn = TRUE){
+anlzMWRoutlierall <- function(res = NULL, acc = NULL, fset = NULL, fig_height = 4, fig_width = 8, format = c('word' ,'png'), output_dir, output_file = NULL, type = c('box', 'jitterbox', 'jitter'), group, dtrng = NULL, repel = TRUE, outliers = FALSE, labsize = 3, fill = 'lightgrey', alpha = 0.8, width = 0.8, yscl = 'auto', ttlsize = 1.2, bssize = 11, runchk = TRUE, warn = TRUE){
   
   utilMWRinputcheck(mget(ls()))
   
@@ -72,7 +73,7 @@ anlzMWRoutlierall <- function(res = NULL, acc = NULL, fset = NULL, fig_height = 
   names(pall) <- allparam
   for(param in allparam){
     
-    p <- anlzMWRoutlier(res = resdat, param = param, acc = accdat, type = type, group = group, dtrng = dtrng, repel = repel, outliers = outliers, labsize = labsize, fill = fill, alpha = alpha, width = width, yscl = yscl, ttlsize = ttlsize, runchk = FALSE, warn = warn)
+    p <- anlzMWRoutlier(res = resdat, param = param, acc = accdat, type = type, group = group, dtrng = dtrng, repel = repel, outliers = outliers, labsize = labsize, fill = fill, alpha = alpha, width = width, yscl = yscl, ttlsize = ttlsize, bssize = bssize, runchk = FALSE, warn = warn)
     
     pall[[param]] <- p
     
