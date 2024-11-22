@@ -10,7 +10,7 @@ anlzMWRoutlierall(
   fset = NULL,
   fig_height = 4,
   fig_width = 8,
-  format = c("word", "png"),
+  format = c("word", "png", "zip"),
   output_dir,
   output_file = NULL,
   type = c("box", "jitterbox", "jitter"),
@@ -40,7 +40,7 @@ anlzMWRoutlierall(
 
 \item{fig_width}{numeric for plot width in inches}
 
-\item{format}{character string indicating if results are placed in a word file or as separate png files in \code{output_dir}}
+\item{format}{character string indicating if results are placed in a word file, as separate png files, or as a zipped file of separate png files in \code{output_dir}}
 
 \item{output_dir}{character string of the output directory for the results}
 
@@ -103,5 +103,8 @@ anlzMWRoutlierall(resdat, accdat, group = 'month', format = 'word', output_dir =
 
 # create png output
 anlzMWRoutlierall(resdat, accdat, group = 'month', format = 'png', output_dir = tempdir())
+
+# create zipped png output
+anlzMWRoutlierall(resdat, accdat, group = 'month', format = 'zip', output_dir = tempdir())
 }
 }
