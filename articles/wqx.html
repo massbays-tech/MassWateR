@@ -183,7 +183,7 @@ a message indicating success and where the file is located is returned.
 The Excel file can be further edited by hand as needed.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tabMWRwqx.html">tabMWRwqx</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, wqx <span class="op">=</span> <span class="va">wqxdat</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Excel workbook created successfully! File located at /tmp/RtmpwIdBEy/wqxtab.xlsx</span></span></code></pre></div>
+<span><span class="co">#&gt; Excel workbook created successfully! File located at /tmp/Rtmp5OAYau/wqxtab.xlsx</span></span></code></pre></div>
 <p>As a convenience, the input files can also be passed to the
 <code><a href="../reference/tabMWRwqx.html">tabMWRwqx()</a></code> function as a named list using the
 <code>fset</code> argument. This eliminates the need to individually
@@ -204,6 +204,66 @@ specify the input arguments.</p>
 (default) using the <code>warn</code> argument. This returns any
 warnings when data are imported and only applies if the file inputs are
 paths.</p>
+<p>If preferred, the data frames that are saved as separate sheets in
+the workbook can be returned as a list by setting
+<code>listout = T</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/tabMWRwqx.html">tabMWRwqx</a></span><span class="op">(</span>fset <span class="op">=</span> <span class="va">fsetls</span>, listout <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $Projects</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 6</span></span></span>
+<span><span class="co">#&gt;   `Project ID` `Project Name` `Project Description` QAPP Approved Indicator (Y…¹</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> My_WQ        <span style="color: #BB0000;">NA</span>             <span style="color: #BB0000;">NA</span>                    <span style="color: #BB0000;">NA</span>                          </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>             <span style="color: #BB0000;">NA</span>                    <span style="color: #BB0000;">NA</span>                          </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ abbreviated name: ¹​`QAPP Approved Indicator (Yes/No)`</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 more variables: `Project Attachment File Name (optional)` &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Project Attachment Type (optional)` &lt;chr&gt;</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Locations</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 12 × 10</span></span></span>
+<span><span class="co">#&gt;    `Monitoring Location ID` `Monitoring Location Name`    Monitoring Location …¹</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> ABT-026                  Rte 2, Concord                <span style="color: #BB0000;">NA</span>                    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> ABT-062                  Rte 62, Acton                 <span style="color: #BB0000;">NA</span>                    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> ABT-077                  Rte 27/USGS, Maynard          <span style="color: #BB0000;">NA</span>                    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> ABT-144                  Rte 62, Stow                  <span style="color: #BB0000;">NA</span>                    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> ABT-162                  Cox Street bridge             <span style="color: #BB0000;">NA</span>                    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> ABT-237                  Robin Hill Rd, Marlboro       <span style="color: #BB0000;">NA</span>                    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> ABT-301                  Rte 9, Westboro               <span style="color: #BB0000;">NA</span>                    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> ABT-312                  Mill Road, Westboro           <span style="color: #BB0000;">NA</span>                    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> DAN-013                  Danforth Br, Hudson           <span style="color: #BB0000;">NA</span>                    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> ELZ-004                  Elizabeth Br, Stow            <span style="color: #BB0000;">NA</span>                    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> HOP-011                  Hop Br, Northboro             <span style="color: #BB0000;">NA</span>                    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> NSH-002                  Nashoba, Commonwealth, W. Co… <span style="color: #BB0000;">NA</span>                    </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ abbreviated name: ¹​`Monitoring Location Type`</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 7 more variables: `Tribal Land Indicator (Yes/No) (optional)` &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Tribal Land Name (optional)` &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Monitoring Location Latitude (DD.DDDD)` &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Monitoring Location Longitude (-DDD.DDDD)` &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Monitoring Location Source Map Scale (conditional)` &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Monitoring Location Horizontal Collection Method` &lt;chr&gt;, …</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $Results</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 813 × 31</span></span></span>
+<span><span class="co">#&gt;    `Project ID` `Monitoring Location ID` `Activity ID`    Record ID User Suppl…¹</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> My_WQ        ABT-026                  ABT-026:2022051… A1234-67              </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> My_WQ        ABT-077                  ABT-077:2022051… A1234-68              </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> My_WQ        ABT-301                  ABT-301:2022051… A1234-69              </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> My_WQ        ABT-312                  ABT-312:2022051… A1234-70              </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> My_WQ        DAN-013                  DAN-013:2022051… A1234-71              </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> My_WQ        ELZ-004                  ELZ-004:2022051… A1234-72              </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> My_WQ        HOP-011                  HOP-011:2022051… A1234-73              </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> My_WQ        NSH-002                  NSH-002:2022051… A1234-74              </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> My_WQ        ABT-026                  ABT-026:2022061… A1234-75              </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> My_WQ        ABT-062                  ABT-062:2022061… A1234-76              </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 803 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ abbreviated name: ¹​`Record ID User Supplied`</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 27 more variables: `Activity Type` &lt;chr&gt;, `Activity Media Name` &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Activity Start Date` &lt;chr&gt;, `Activity Start Time` &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Activity Start Time Zone` &lt;chr&gt;, `Activity Depth/Height Measure` &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Activity Depth/Height Unit` &lt;chr&gt;, `Activity Relative Depth Name` &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   `Sample Collection Method ID` &lt;chr&gt;, …</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="submitting-data-to-mass-dep">Submitting data to Mass DEP<a class="anchor" aria-label="anchor" href="#submitting-data-to-mass-dep"></a>

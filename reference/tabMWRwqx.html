@@ -59,6 +59,7 @@
 <span>  fset <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">output_dir</span>,</span>
 <span>  output_file <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  listout <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  warn <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  runchk <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -94,6 +95,10 @@
 
 <dt id="arg-output-file">output_file<a class="anchor" aria-label="anchor" href="#arg-output-file"></a></dt>
 <dd><p>optional character string for the file name, must include .xlsx suffix</p></dd>
+
+
+<dt id="arg-listout">listout<a class="anchor" aria-label="anchor" href="#arg-listout"></a></dt>
+<dd><p>logical to return a list of the output for each sheet of the workbook (default is <code>FALSE</code>)</p></dd>
 
 
 <dt id="arg-warn">warn<a class="anchor" aria-label="anchor" href="#arg-warn"></a></dt>
@@ -194,7 +199,7 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create workbook</span></span></span>
 <span class="r-in"><span><span class="fu">tabMWRwqx</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, wqx <span class="op">=</span> <span class="va">wqxdat</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Excel workbook created successfully! File located at /tmp/RtmpfSJD6c/wqxtab.xlsx</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Excel workbook created successfully! File located at /tmp/RtmpxN8Cqq/wqxtab.xlsx</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
