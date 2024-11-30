@@ -52,7 +52,7 @@ tabMWRwqx(res = resdat, acc = accdat, sit = sitdat, wqx = wqxdat, output_dir = t
 
 As a convenience, the input files can also be passed to the `tabMWRwqx()` function as a named list using the `fset` argument.  This eliminates the need to individually specify the input arguments. 
 
-```{r, eval = F}
+```{r, eval = T}
 # names list of inputs
 fsetls <- list(
   res = resdat, 
