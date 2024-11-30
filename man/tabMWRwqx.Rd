@@ -12,6 +12,7 @@ tabMWRwqx(
   fset = NULL,
   output_dir,
   output_file = NULL,
+  listout = FALSE,
   warn = TRUE,
   runchk = TRUE
 )
@@ -30,6 +31,8 @@ tabMWRwqx(
 \item{output_dir}{character string of the output directory for the results}
 
 \item{output_file}{optional character string for the file name, must include .xlsx suffix}
+
+\item{listout}{logical to return a list of the output for each sheet of the workbook (default is \code{FALSE})}
 
 \item{warn}{logical to return warnings to the console (default)}
 

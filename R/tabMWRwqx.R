@@ -7,6 +7,7 @@
 #' @param fset optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, \code{sit}, or \code{wqx} overrides the other arguments
 #' @param output_dir character string of the output directory for the results
 #' @param output_file optional character string for the file name, must include .xlsx suffix
+#' @param listout logical to return a list of the output for each sheet of the workbook (default is \code{FALSE})
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, \code{\link{checkMWRsites}}, \code{\link{checkMWRwqx}}, applies only if \code{res}, \code{acc}, \code{sit}, or \code{wqx} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
@@ -47,7 +48,7 @@
 #' 
 #' # create workbook
 #' tabMWRwqx(res = resdat, acc = accdat, sit = sitdat, wqx = wqxdat, output_dir = tempdir())
-tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NULL, output_dir, output_file = NULL, warn = TRUE, runchk = TRUE){
+tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NULL, output_dir, output_file = NULL, listout = FALSE, warn = TRUE, runchk = TRUE){
   
   utilMWRinputcheck(mget(ls()))
   
@@ -435,6 +436,10 @@ tabMWRwqx <- function(res = NULL, acc = NULL, sit = NULL, wqx = NULL, fset = NUL
     Locations = locs,
     Results = resu
   )
+  
+  # return list output if T
+  if(listout)
+    return(out)
   
   # save
   output_file <- paste0(tools::file_path_sans_ext(output_file), '.xlsx')

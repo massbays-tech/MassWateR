@@ -7,6 +7,13 @@ test_that("Verifying message output for wqx table creation, no QC reference valu
   expect_message(tabMWRwqx(reschk, tst$accpth, tst$sitpth, tst$wqxpth, warn = TRUE, runchk = F, output_dir = tempdir()))
 })
 
+test_that("Verifying list output if listout = T", {
+  out <- tabMWRwqx(tst$respth, tst$accpth, tst$sitpth, tst$wqxpth, warn = TRUE, runchk = F, listout = T)
+  expect_type(out, "list")
+  expect_s3_class(out$Projects, "data.frame")
+  expect_equal(length(out), 3)
+})
+
 test_that("Check warning if UQL or MDL missing from tst$accdat", {
   accchk <- tst$accdat %>% 
     mutate(
