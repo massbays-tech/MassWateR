@@ -14,6 +14,7 @@ Below are links to resources for using or learning about MassWateR.
 ## Community and training materials
 
 -   MassWateR Community of Practice forum: [link](https://massbays.discourse.group/c/masswater-r-tools/5){target="_blank"}
+-   Official MassWateR training video: [link](https://youtu.be/bjJcmw5r9d0){target="_blank"}
 -   Intro to R for MassWateR: [link](https://massbays-tech.github.io/intro-to-r/){target="_blank"}
 -   In-person MassWateR training recording: [link](https://youtu.be/dMaZ7satmTo){target="_blank"}
 
