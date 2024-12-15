@@ -191,7 +191,7 @@ checkMWRresults <- function(resdat, warn = TRUE){
   msg <- '\tChecking Result Values...'
   typ <- resdat$`Result Value`
   chk <- paste(paste0('^', restyp, '$'), collapse = '|')
-  chk <- !is.na(suppressWarnings(as.numeric(typ))) | grepl(chk, typ) | is.na(typ)
+  chk <- !is.na(suppressWarnings(as.numeric(typ))) | grepl(chk, typ)
   if(any(!chk)){
     rws <- which(!chk)
     tochk <- unique(typ[!chk])
