@@ -33,6 +33,8 @@ Create summary spreadsheet of unique values for each column in the water quality
 Acceptable options for the \code{columns} argument include any of the column names in the results file. The default setting (\code{NULL}) will show every column in the results file.
 
 The output of this function can be useful to troubleshoot the checks when importing the water quality monitoring result file with \code{readMWRresults} (see \href{https://massbays-tech.github.io/MassWateR/articles/MassWateR.html#data-import-and-checks}{https://massbays-tech.github.io/MassWateR/articles/MassWateR.html#data-import-and-checks}).
+
+Unique entries for the \code{Result Value} column will include \code{NA} entries if present, all other columns will not.
 }
 \examples{
 respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')

@@ -14,6 +14,8 @@
 #' 
 #' The output of this function can be useful to troubleshoot the checks when importing the water quality monitoring result file with \code{readMWRresults} (see \href{https://massbays-tech.github.io/MassWateR/articles/MassWateR.html#data-import-and-checks}{https://massbays-tech.github.io/MassWateR/articles/MassWateR.html#data-import-and-checks}). 
 #' 
+#' Unique entries for the \code{Result Value} column will include \code{NA} entries if present, all other columns will not.
+#' 
 #' @export
 #'
 #' @examples
@@ -58,6 +60,11 @@ readMWRresultsview <- function(respth, columns = NULL, output_dir, output_file =
       unique %>% 
       sort %>% 
       list()
+    
+    # add NA if present in Result Value
+    if(column == 'Result Value')
+      if(any(is.na(resdat$`Result Value`)))
+        uni <- list(c(uni[[1]], 'NA'))
     
     names(uni) <- column
     
