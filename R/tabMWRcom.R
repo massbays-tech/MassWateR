@@ -62,7 +62,7 @@ tabMWRcom <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, war
     dplyr::mutate(
       met = as.numeric(met),
       `Hit/ Miss` = ifelse(met == 1, '', 'MISS'),
-      `Number of Censored Records` = '',
+      `Number of Missed/ Censored Records` = '',
       Notes = ''
     ) %>% 
     dplyr::select(
