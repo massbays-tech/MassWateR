@@ -59,12 +59,14 @@ tabMWRcom <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, war
 
   # get summary table
   totab <- res %>% 
-    dplyr::select(-standard) %>% 
     dplyr::mutate(
       met = as.numeric(met),
       `Hit/ Miss` = ifelse(met == 1, '', 'MISS'),
       `Number of Censored Records` = '',
       Notes = ''
+    ) %>% 
+    dplyr::select(
+      Parameter, datarec, qualrec, `Number of Censored Records`, complete, `Hit/ Miss`, Notes, met
     ) %>% 
     dplyr::rename(
       `Number of Data Records` = datarec, 
