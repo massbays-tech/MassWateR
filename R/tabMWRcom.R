@@ -66,7 +66,7 @@ tabMWRcom <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, war
       Notes = ''
     ) %>% 
     dplyr::select(
-      Parameter, datarec, qualrec, `Number of Censored Records`, complete, `Hit/ Miss`, Notes, met
+      Parameter, datarec, qualrec, `Number of Missed/ Censored Records`, complete, `Hit/ Miss`, Notes, met
     ) %>% 
     dplyr::rename(
       `Number of Data Records` = datarec, 
