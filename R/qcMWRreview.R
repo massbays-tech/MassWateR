@@ -7,6 +7,7 @@
 #' @param output_dir character string of the output directory for the rendered file
 #' @param output_file optional character string for the file name
 #' @param rawdata logical to include quality control accuracy summaries for raw data, e.g., field blanks, etc.
+#' @param savesheet logical indicating if a spreadsheet of the tables in the report is also saved (default \code{FALSE})
 #' @param dqofontsize numeric for font size in the data quality objective tables in the first page of the review
 #' @param tabfontsize numeric for font size in the review tables
 #' @param padding numeric for row padding for table output
@@ -50,7 +51,7 @@
 #' # create report
 #' qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat, output_dir = tempdir())
 #' }
-qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, output_dir, output_file = NULL, rawdata = TRUE, dqofontsize = 7.5, tabfontsize = 9, padding = 0, warn = TRUE, runchk = TRUE) {
+qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, output_dir, output_file = NULL, savesheet = FALSE, rawdata = TRUE, dqofontsize = 7.5, tabfontsize = 9, padding = 0, warn = TRUE, runchk = TRUE) {
 
   utilMWRinputcheck(mget(ls()))
 
@@ -193,4 +194,42 @@ qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, fset = NULL, outp
   msg <- paste("Report created successfully! File located at", file_loc)
   message(msg)
 
+  # save spreadhseed
+  if(savesheet){
+
+    ##
+    # save output
+    output_file <- gsub('\\.docx', '.xlsx', output_file)
+    
+    out <- list(
+      `Frequency DQO` = frecomdat, 
+      `Accuracy DQO` = accdat,
+      `Frequency Checks` = tabfreper$body$dataset,
+      `Frequency Checks Summary` = tabfresum$body$dataset,
+      `Accuracy Checks` = tabaccper$body$dataset,
+      `Accuracy Checks Summary` = tabaccsum$body$dataset,
+      `Completeness` = tabcom$body$dataset
+    )
+    
+    if(rawdata)
+      out <- c(out, 
+        list(
+          `Field Duplicates` = indflddup$body$dataset,
+          `Lab Duplicates` = indlabdup$body$dataset,
+          `Field Blanks` = indfldblk$body$dataset,
+          `Lab Blanks` = indlabblk$body$dataset,
+          `Lab Spikes - Instrument Checks` = indlabins$body$dataset
+        )
+      )
+    
+    # save
+    output_file <- paste0(tools::file_path_sans_ext(output_file), '.xlsx')
+    writexl::write_xlsx(out, path = file.path(output_dir, output_file))
+    file_loc <- list.files(path = output_dir, pattern = paste0('^', output_file), full.names = TRUE)
+    
+    msg <- paste("Spreadsheet created successfully! File located at", file_loc)
+    message(msg)
+    
+  }
+  
 }

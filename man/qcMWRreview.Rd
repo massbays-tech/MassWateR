@@ -11,6 +11,7 @@ qcMWRreview(
   fset = NULL,
   output_dir,
   output_file = NULL,
+  savesheet = FALSE,
   rawdata = TRUE,
   dqofontsize = 7.5,
   tabfontsize = 9,
@@ -31,6 +32,8 @@ qcMWRreview(
 \item{output_dir}{character string of the output directory for the rendered file}
 
 \item{output_file}{optional character string for the file name}
+
+\item{savesheet}{logical indicating if a spreadsheet of the tables in the report is also saved (default \code{FALSE})}
 
 \item{rawdata}{logical to include quality control accuracy summaries for raw data, e.g., field blanks, etc.}
 

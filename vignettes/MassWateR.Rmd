@@ -152,7 +152,7 @@ Please view the [quality control functions](https://massbays-tech.github.io/Mass
 
 The `qcMWRreview()` function compiles a report as a Word document for all quality control checks included in the MassWateR package.  The report shows several tables, including the data quality objectives files for accuracy, frequency, and completeness, summary results for all accuracy checks, summary results for all frequency checks, summary results for all completeness checks, and individual results for all accuracy checks.
 
-The report can be created as follows.  Once the function is done running, a message indicating success and where the file is located is returned.  The Word file can be further edited by hand as needed.  
+The report can be created as follows.  Once the function is done running, a message indicating success and where the file is located is returned.  The Word file can be further edited by hand as needed. A spreadsheet of the tables can also be created by adding `savesheet = TRUE` to the function call. 
 
 ```{r, message = T, eval = F}
 qcMWRreview(fset = fsetls, output_dir = getwd())

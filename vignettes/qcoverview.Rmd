@@ -61,7 +61,7 @@ qcMWRreview(fset = fsetls, output_dir = tempdir())
 
 Note that the warnings are suppressed above with `warn = FALSE`.  By default, this argument is set to `TRUE` to view the warnings in the R console after the report is created.  The warnings indicate notable concerns to consider for the input data that may need to be addressed.  Details on these warnings are described in the sections below for each quality control table.   
 
-Optional arguments for `qcMWRreview()` that can be changed as needed include specifying the file name with `output_file`, suppressing the raw data summaries at the end of the report with `rawdata = FALSE`, and changing the table font sizes (`dqofontsize` for the data quality objectives on the first page, `tabfontsize` for the remainder).
+Optional arguments for `qcMWRreview()` that can be changed as needed include specifying the file name with `output_file`, suppressing the raw data summaries at the end of the report with `rawdata = FALSE`, and changing the table font sizes (`dqofontsize` for the data quality objectives on the first page, `tabfontsize` for the remainder).  A spreadsheet of the tables in the Word document can also be created by setting `savesheet = TRUE`.  The spreadsheet is saved in the same directory as the Word document.
 
 ## Quality control for accuracy
 
