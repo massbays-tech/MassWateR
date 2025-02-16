@@ -73,6 +73,7 @@ checkMWRcens <- function(censdat, warn = TRUE){
     tochk <- unique(typ[!chk])
     stop(msg, '\n\tNegative entries in Missed and Censored Records found: ', paste(tochk, collapse = ', '), ' in rows ', paste(rws, collapse = ', '), call. = FALSE)
   }
+  message(paste(msg, 'OK'))
   
   # check parameter names
   msg <- '\tChecking Parameter Name formats...'

@@ -19,12 +19,13 @@ knitr::opts_chunk$set(
 library(dplyr)
 ```
 
-Four types of data are used with the MassWateR package.
+Five types of data are used with the MassWateR package.
 
 1. Water quality **results** organized by sample location and date.
 2. Summary of data quality objectives that describe quality control **accuracy**, **frequency**, and **completeness** measures for data in the results file.
 3. A **site metadata** file, including location names, latitude, longitude, and additional grouping factors for sites.
 4. A **wqx metadata** file required for generating output to facilitate data upload to WQX. 
+5. Information on the number of **censored** or missing observations by parameter.
 
 Templates with instructions for each of the types of input data are available for download in the [Resources tab](https://massbays-tech.github.io/MassWateR/RESOURCES.html). Additionally, example files, described below, are provided with the package to demonstrate and test the functions.
 
@@ -56,6 +57,10 @@ sitdat <- readMWRsites(sitpth)
 # import WQX meta data
 wqxpth <- "C:/Documents/MassWateR/MyWQXMeta.xlsx"
 wqxdat <- readMWRwqx(wqxpth)
+
+# censored data
+censpth <- "C:/Documents/MassWateR/MyCensored.xlsx"
+censdat <- readMWRcens(censpth)
 ```
 
 Example files included with the package are imported for demonstration in this vignette. The paths to these files are identified using the `system.file()` function and used in the examples below.  In practice, alternative data files that follow the same format as the examples will be used with the functions and imported using code similar to above.  
@@ -240,9 +245,30 @@ The `readMWRwqx()` function runs a few checks on the file using the `checkMWRwqx
 
 An informative error is returned if the input data fail any of the checks. The input data should be corrected by hand in the Excel file by altering the appropriate rows or column names indicated in the error. Checks with warnings can be fixed at the discretion of the user before proceeding.
 
+### Censored data
+
+An Excel file for the number of missed or censored observations by parameter is required for use with some of the quality control functions, specifically `qcMWRreview()` to generate the QC report and `tabMWRcom()` to generate the completeness table.  The censored data can be imported using the `readMWRcens()` function. The system file included with the package, described above, demonstrates the required information and format for the file. The `pth` argument will point to the location of the external file on your computer. See the [Resources tab](https://massbays-tech.github.io/MassWateR/RESOURCES.html) for the Excel file template and detailed instructions (in the template's instructions worksheet). As above, the system file included with the package is used for the example.
+
+```{r, message = T}
+# import cens metadata
+censpth <- system.file("extdata/ExampleCensored.xlsx", package = "MassWateR")
+censdat <- readMWRcens(censpth)
+head(censdat)
+```
+
+The `readMWRcens()` function runs a few checks on the file using the `checkMWRcens()` function. Details on the file checks are as follows:
+
+-   **Column name spelling**: Should be the following: Parameter, Missed and Censored Records.
+-   **Columns present**: All columns from the previous should be present
+-   **Non-numeric Missed and Censored Records**: All values should be numbers, excluding missing values
+-   **Negative Missed and Censored Records**: All values should be greater than or equal to zero
+-   **Parameter**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` column of the `paramsMWR` data (warning only)
+
+An informative error is returned if the input data fail any of the checks. The input data should be corrected by hand in the Excel file by altering the appropriate rows or column names indicated in the error. Checks with warnings can be fixed at the discretion of the user before proceeding.
+
 ## Using the fset argument
 
-All of the [quality control](https://massbays-tech.github.io/MassWateR/articles/qcoverview.html), [outlier](https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html), [analysis](https://massbays-tech.github.io/MassWateR/articles/analysis.html), and [wqx](https://massbays-tech.github.io/MassWateR/articles/wqx.html) functions in MassWateR require the inputs described above, depending on the function.  These are generally passed to each function using the appropriate arguments, e.g., `res` for the surface water quality results, `acc` and `frecom` for the data quality objective files for accuracy, frequency, and completeness, `sit` for the site metadata, and `wqx` for the wqx metadata. The values passed to these functions can be file paths that specify the location of the file or as data frames returned by the relevant import functions (i.e., `readMWRresults()`, `readMWRacc()`, `readMWRfrecom()`, `readMWRsites()`, `readMWRwqx()`).
+All of the [quality control](https://massbays-tech.github.io/MassWateR/articles/qcoverview.html), [outlier](https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html), [analysis](https://massbays-tech.github.io/MassWateR/articles/analysis.html), and [wqx](https://massbays-tech.github.io/MassWateR/articles/wqx.html) functions in MassWateR require the inputs described above, depending on the function.  These are generally passed to each function using the appropriate arguments, e.g., `res` for the surface water quality results, `acc` and `frecom` for the data quality objective files for accuracy, frequency, and completeness, `sit` for the site metadata, `wqx` for the wqx metadata, and `cens` for the censored data. The values passed to these functions can be file paths that specify the location of the file or as data frames returned by the relevant import functions (i.e., `readMWRresults()`, `readMWRacc()`, `readMWRfrecom()`, `readMWRsites()`, `readMWRwqx()`, `readMWRcens()`).
 
 Because it can be tedious to specify each of the input files in the arguments for the MassWateR functions, the `fset` (file set) argument can be used as an alternative method.  The `fset` argument for each function accepts a named list with the relevant input file locations or data frames.  This can be created at the top of a script and recycled as necessary for an analysis workflow.  The examples below demonstrate creating the list as file paths or as exported data frames from the import functions.  Examples in the vignettes show how this list can be used as alternative input using the `fset` argument.   
 
@@ -253,7 +279,8 @@ fsetls <- list(
   acc = accpth,
   frecom = frecompth,
   sit = sitpth, 
-  wqx = wqxpth
+  wqx = wqxpth,
+  cens = censpth
 )
 
 # a list of input data frames
@@ -262,7 +289,8 @@ fsetls <- list(
   acc = accdat,
   frecom = frecomdat,
   sit = sitdat, 
-  wqx = wqxdat
+  wqx = wqxdat, 
+  cens = censdat
 )
 ```
 
