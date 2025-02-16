@@ -10,6 +10,7 @@ Below are links to resources for using or learning about MassWateR.
 -   Site metadata: [link](https://github.com/massbays-tech/MassWateR/raw/refs/heads/main/inst/extdata/MassWateR_Sites_Template.xlsx)
 -   WQX metadata: [link](https://github.com/massbays-tech/MassWateR/raw/refs/heads/main/inst/extdata/MassWateR_WQXMeta_Template.xlsx)
 -   WQX upload template: [link](https://github.com/massbays-tech/MassWateR/raw/refs/heads/main/inst/extdata/WQX_Phys-Chem_Template_for_MassWateR.xlsx)
+-   Censored data: [link](https://github.com/massbays-tech/MassWateR/raw/refs/heads/main/inst/extdata/MassWateR_Censored_Template.xlsx)
 
 ## Community and training materials
 
