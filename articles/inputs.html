@@ -73,7 +73,7 @@
 
     
     
-<p>Four types of data are used with the MassWateR package.</p>
+<p>Five types of data are used with the MassWateR package.</p>
 <ol style="list-style-type: decimal">
 <li>Water quality <strong>results</strong> organized by sample location
 and date.</li>
@@ -85,6 +85,8 @@ file.</li>
 latitude, longitude, and additional grouping factors for sites.</li>
 <li>A <strong>wqx metadata</strong> file required for generating output
 to facilitate data upload to WQX.</li>
+<li>Information on the number of <strong>censored</strong> or missing
+observations by parameter.</li>
 </ol>
 <p>Templates with instructions for each of the types of input data are
 available for download in the <a href="https://massbays-tech.github.io/MassWateR/RESOURCES.html">Resources
@@ -115,7 +117,11 @@ changed to where your data are located on your computer.</p>
 <span></span>
 <span><span class="co"># import WQX meta data</span></span>
 <span><span class="va">wqxpth</span> <span class="op">&lt;-</span> <span class="st">"C:/Documents/MassWateR/MyWQXMeta.xlsx"</span></span>
-<span><span class="va">wqxdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRwqx.html">readMWRwqx</a></span><span class="op">(</span><span class="va">wqxpth</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">wqxdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRwqx.html">readMWRwqx</a></span><span class="op">(</span><span class="va">wqxpth</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># censored data</span></span>
+<span><span class="va">censpth</span> <span class="op">&lt;-</span> <span class="st">"C:/Documents/MassWateR/MyCensored.xlsx"</span></span>
+<span><span class="va">censdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRcens.html">readMWRcens</a></span><span class="op">(</span><span class="va">censpth</span><span class="op">)</span></span></code></pre></div>
 <p>Example files included with the package are imported for
 demonstration in this vignette. The paths to these files are identified
 using the <code><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file()</a></code> function and used in the examples
@@ -589,48 +595,48 @@ column below. The new WQX output rows will take the value from the
 Quality Exchange output</a> vignette for a complete description of
 creating output for WQX upload with MassWateR.</p>
 <div class="tabwid">
-<style>.cl-5b259b9e{}.cl-5b1e715c{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-5b1e7170{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-5b215746{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-5b217aaa{width:3.164in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5b217ab4{width:3.404in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5b217ab5{width:3.164in;background-color:rgba(211, 211, 211, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5b217abe{width:3.404in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5b217abf{width:3.164in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5b217ac8{width:3.404in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5b217ac9{width:3.164in;background-color:rgba(211, 211, 211, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
-<table data-quarto-disable-processing="true" class="table cl-5b259b9e">
+<style>.cl-e437b758{}.cl-e42f1e7c{font-family:'DejaVu Sans';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-e42f1e90{font-family:'DejaVu Sans';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-e43258a8{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-e4327d88{width:3.164in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4327d9c{width:3.404in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4327da6{width:3.164in;background-color:rgba(211, 211, 211, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4327da7{width:3.404in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4327da8{width:3.164in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4327db0{width:3.404in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e4327db1{width:3.164in;background-color:rgba(211, 211, 211, 1.00);vertical-align: middle;border-bottom: 1pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(102, 102, 102, 1.00);border-left: 1pt solid rgba(102, 102, 102, 1.00);border-right: 1pt solid rgba(102, 102, 102, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style>
+<table data-quarto-disable-processing="true" class="table cl-e437b758">
 <thead><tr style="overflow-wrap:break-word;">
-<th class="cl-5b217aaa"><p class="cl-5b215746"><span class="cl-5b1e715c">Input Activity Type</span></p></th>
-<th class="cl-5b217ab4"><p class="cl-5b215746"><span class="cl-5b1e715c">WQX output new row Activity Type</span></p></th>
+<th class="cl-e4327d88"><p class="cl-e43258a8"><span class="cl-e42f1e7c">Input Activity Type</span></p></th>
+<th class="cl-e4327d9c"><p class="cl-e43258a8"><span class="cl-e42f1e7c">WQX output new row Activity Type</span></p></th>
 </tr></thead>
 <tbody>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-5b217ab5"><p class="cl-5b215746"><span class="cl-5b1e7170">Sample-Routine</span></p></td>
-<td class="cl-5b217abe"><p class="cl-5b215746"><span class="cl-5b1e7170">Quality Control Sample-Field Replicate</span></p></td>
+<td class="cl-e4327da6"><p class="cl-e43258a8"><span class="cl-e42f1e90">Sample-Routine</span></p></td>
+<td class="cl-e4327da7"><p class="cl-e43258a8"><span class="cl-e42f1e90">Quality Control Sample-Field Replicate</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-5b217abf"><p class="cl-5b215746"><span class="cl-5b1e7170">Quality Control Sample-Field Blank</span></p></td>
-<td class="cl-5b217ac8"><p class="cl-5b215746"><span class="cl-5b1e7170">NA</span></p></td>
+<td class="cl-e4327da8"><p class="cl-e43258a8"><span class="cl-e42f1e90">Quality Control Sample-Field Blank</span></p></td>
+<td class="cl-e4327db0"><p class="cl-e43258a8"><span class="cl-e42f1e90">NA</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-5b217abf"><p class="cl-5b215746"><span class="cl-5b1e7170">Quality Control Sample-Lab Duplicate</span></p></td>
-<td class="cl-5b217ac8"><p class="cl-5b215746"><span class="cl-5b1e7170">Quality Control Sample-Lab Duplicate 2</span></p></td>
+<td class="cl-e4327da8"><p class="cl-e43258a8"><span class="cl-e42f1e90">Quality Control Sample-Lab Duplicate</span></p></td>
+<td class="cl-e4327db0"><p class="cl-e43258a8"><span class="cl-e42f1e90">Quality Control Sample-Lab Duplicate 2</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-5b217abf"><p class="cl-5b215746"><span class="cl-5b1e7170">Quality Control Sample-Lab Blank</span></p></td>
-<td class="cl-5b217ac8"><p class="cl-5b215746"><span class="cl-5b1e7170">NA</span></p></td>
+<td class="cl-e4327da8"><p class="cl-e43258a8"><span class="cl-e42f1e90">Quality Control Sample-Lab Blank</span></p></td>
+<td class="cl-e4327db0"><p class="cl-e43258a8"><span class="cl-e42f1e90">NA</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-5b217abf"><p class="cl-5b215746"><span class="cl-5b1e7170">Quality Control Sample-Lab Spike</span></p></td>
-<td class="cl-5b217ac8"><p class="cl-5b215746"><span class="cl-5b1e7170">Quality Control Sample-Lab Spike Target</span></p></td>
+<td class="cl-e4327da8"><p class="cl-e43258a8"><span class="cl-e42f1e90">Quality Control Sample-Lab Spike</span></p></td>
+<td class="cl-e4327db0"><p class="cl-e43258a8"><span class="cl-e42f1e90">Quality Control Sample-Lab Spike Target</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-5b217ac9"><p class="cl-5b215746"><span class="cl-5b1e7170">Field Msr/Obs</span></p></td>
-<td class="cl-5b217ac8"><p class="cl-5b215746"><span class="cl-5b1e7170">Quality Control Field Replicate Msr/Obs</span></p></td>
+<td class="cl-e4327db1"><p class="cl-e43258a8"><span class="cl-e42f1e90">Field Msr/Obs</span></p></td>
+<td class="cl-e4327db0"><p class="cl-e43258a8"><span class="cl-e42f1e90">Quality Control Field Replicate Msr/Obs</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-5b217abf"><p class="cl-5b215746"><span class="cl-5b1e7170">Quality Control-Meter Lab Duplicate</span></p></td>
-<td class="cl-5b217ac8"><p class="cl-5b215746"><span class="cl-5b1e7170">Quality Control-Meter Lab Duplicate 2</span></p></td>
+<td class="cl-e4327da8"><p class="cl-e43258a8"><span class="cl-e42f1e90">Quality Control-Meter Lab Duplicate</span></p></td>
+<td class="cl-e4327db0"><p class="cl-e43258a8"><span class="cl-e42f1e90">Quality Control-Meter Lab Duplicate 2</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-5b217abf"><p class="cl-5b215746"><span class="cl-5b1e7170">Quality Control-Meter Lab Blank</span></p></td>
-<td class="cl-5b217ac8"><p class="cl-5b215746"><span class="cl-5b1e7170">NA</span></p></td>
+<td class="cl-e4327da8"><p class="cl-e43258a8"><span class="cl-e42f1e90">Quality Control-Meter Lab Blank</span></p></td>
+<td class="cl-e4327db0"><p class="cl-e43258a8"><span class="cl-e42f1e90">NA</span></p></td>
 </tr>
 <tr style="overflow-wrap:break-word;">
-<td class="cl-5b217abf"><p class="cl-5b215746"><span class="cl-5b1e7170">Quality Control-Calibration Check</span></p></td>
-<td class="cl-5b217ac8"><p class="cl-5b215746"><span class="cl-5b1e7170">Quality Control-Calibration Check Buffer</span></p></td>
+<td class="cl-e4327da8"><p class="cl-e43258a8"><span class="cl-e42f1e90">Quality Control-Calibration Check</span></p></td>
+<td class="cl-e4327db0"><p class="cl-e43258a8"><span class="cl-e42f1e90">Quality Control-Calibration Check Buffer</span></p></td>
 </tr>
 </tbody>
 </table>
@@ -944,6 +950,67 @@ altering the appropriate rows or column names indicated in the error.
 Checks with warnings can be fixed at the discretion of the user before
 proceeding.</p>
 </div>
+<div class="section level3">
+<h3 id="censored-data">Censored data<a class="anchor" aria-label="anchor" href="#censored-data"></a>
+</h3>
+<p>An Excel file for the number of missed or censored observations by
+parameter is required for use with some of the quality control
+functions, specifically <code><a href="../reference/qcMWRreview.html">qcMWRreview()</a></code> to generate the QC
+report and <code><a href="../reference/tabMWRcom.html">tabMWRcom()</a></code> to generate the completeness table.
+The censored data can be imported using the <code><a href="../reference/readMWRcens.html">readMWRcens()</a></code>
+function. The system file included with the package, described above,
+demonstrates the required information and format for the file. The
+<code>pth</code> argument will point to the location of the external
+file on your computer. See the <a href="https://massbays-tech.github.io/MassWateR/RESOURCES.html">Resources
+tab</a> for the Excel file template and detailed instructions (in the
+template’s instructions worksheet). As above, the system file included
+with the package is used for the example.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># import cens metadata</span></span>
+<span><span class="va">censpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ExampleCensored.xlsx"</span>, package <span class="op">=</span> <span class="st">"MassWateR"</span><span class="op">)</span></span>
+<span><span class="va">censdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readMWRcens.html">readMWRcens</a></span><span class="op">(</span><span class="va">censpth</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Running checks on censored data...</span></span>
+<span><span class="co">#&gt;  Checking column names... OK</span></span>
+<span><span class="co">#&gt;  Checking all required columns are present... OK</span></span>
+<span><span class="co">#&gt;  Checking for non-numeric values in Missed and Censored Records... OK</span></span>
+<span><span class="co">#&gt;  Checking for negative values in Missed and Censored Records... OK</span></span>
+<span><span class="co">#&gt;  Checking Parameter Name formats... OK</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; All checks passed!</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">censdat</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 2</span></span></span>
+<span><span class="co">#&gt;   Parameter `Missed and Censored Records`</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                             <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> pH                                   12</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> DO                                    1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Nitrate                               0</span></span></code></pre></div>
+<p>The <code><a href="../reference/readMWRcens.html">readMWRcens()</a></code> function runs a few checks on the file
+using the <code><a href="../reference/checkMWRcens.html">checkMWRcens()</a></code> function. Details on the file
+checks are as follows:</p>
+<ul>
+<li>
+<strong>Column name spelling</strong>: Should be the following:
+Parameter, Missed and Censored Records.</li>
+<li>
+<strong>Columns present</strong>: All columns from the previous
+should be present</li>
+<li>
+<strong>Non-numeric Missed and Censored Records</strong>: All values
+should be numbers, excluding missing values</li>
+<li>
+<strong>Negative Missed and Censored Records</strong>: All values
+should be greater than or equal to zero</li>
+<li>
+<strong>Parameter</strong>: Should match parameter names in the
+<code>Simple Parameter</code> or <code>WQX Parameter</code> column of
+the <code>paramsMWR</code> data (warning only)</li>
+</ul>
+<p>An informative error is returned if the input data fail any of the
+checks. The input data should be corrected by hand in the Excel file by
+altering the appropriate rows or column names indicated in the error.
+Checks with warnings can be fixed at the discretion of the user before
+proceeding.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="using-the-fset-argument">Using the fset argument<a class="anchor" aria-label="anchor" href="#using-the-fset-argument"></a>
@@ -957,12 +1024,13 @@ the function. These are generally passed to each function using the
 appropriate arguments, e.g., <code>res</code> for the surface water
 quality results, <code>acc</code> and <code>frecom</code> for the data
 quality objective files for accuracy, frequency, and completeness,
-<code>sit</code> for the site metadata, and <code>wqx</code> for the wqx
-metadata. The values passed to these functions can be file paths that
-specify the location of the file or as data frames returned by the
-relevant import functions (i.e., <code><a href="../reference/readMWRresults.html">readMWRresults()</a></code>,
-<code><a href="../reference/readMWRacc.html">readMWRacc()</a></code>, <code><a href="../reference/readMWRfrecom.html">readMWRfrecom()</a></code>,
-<code><a href="../reference/readMWRsites.html">readMWRsites()</a></code>, <code><a href="../reference/readMWRwqx.html">readMWRwqx()</a></code>).</p>
+<code>sit</code> for the site metadata, <code>wqx</code> for the wqx
+metadata, and <code>cens</code> for the censored data. The values passed
+to these functions can be file paths that specify the location of the
+file or as data frames returned by the relevant import functions (i.e.,
+<code><a href="../reference/readMWRresults.html">readMWRresults()</a></code>, <code><a href="../reference/readMWRacc.html">readMWRacc()</a></code>,
+<code><a href="../reference/readMWRfrecom.html">readMWRfrecom()</a></code>, <code><a href="../reference/readMWRsites.html">readMWRsites()</a></code>,
+<code><a href="../reference/readMWRwqx.html">readMWRwqx()</a></code>, <code><a href="../reference/readMWRcens.html">readMWRcens()</a></code>).</p>
 <p>Because it can be tedious to specify each of the input files in the
 arguments for the MassWateR functions, the <code>fset</code> (file set)
 argument can be used as an alternative method. The <code>fset</code>
@@ -973,14 +1041,15 @@ below demonstrate creating the list as file paths or as exported data
 frames from the import functions. Examples in the vignettes show how
 this list can be used as alternative input using the <code>fset</code>
 argument.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># a list of input file paths</span></span>
 <span><span class="va">fsetls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  res <span class="op">=</span> <span class="va">respth</span>, </span>
 <span>  acc <span class="op">=</span> <span class="va">accpth</span>,</span>
 <span>  frecom <span class="op">=</span> <span class="va">frecompth</span>,</span>
 <span>  sit <span class="op">=</span> <span class="va">sitpth</span>, </span>
-<span>  wqx <span class="op">=</span> <span class="va">wqxpth</span></span>
+<span>  wqx <span class="op">=</span> <span class="va">wqxpth</span>,</span>
+<span>  cens <span class="op">=</span> <span class="va">censpth</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># a list of input data frames</span></span>
@@ -989,7 +1058,8 @@ argument.</p>
 <span>  acc <span class="op">=</span> <span class="va">accdat</span>,</span>
 <span>  frecom <span class="op">=</span> <span class="va">frecomdat</span>,</span>
 <span>  sit <span class="op">=</span> <span class="va">sitdat</span>, </span>
-<span>  wqx <span class="op">=</span> <span class="va">wqxdat</span></span>
+<span>  wqx <span class="op">=</span> <span class="va">wqxdat</span>, </span>
+<span>  cens <span class="op">=</span> <span class="va">censdat</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
