@@ -52,6 +52,9 @@ reference:
   - readMWRwqx
   - checkMWRwqx
   - formMWRwqx
+  - readMWRcens
+  - checkMWRcens
+  - formMWRcens
 - title: Outlier analysis
   desc: > 
     Functions for evaluating outliers as plots and generating tabular output.

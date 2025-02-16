@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The quality control functions in MassWateR can be used once the required data are successfully imported into R (see the [data input and checks vignette](https://massbays-tech.github.io/MassWateR/articles/inputs.html) for an overview).  The required data includes the results data file that describe the monitoring data and the data quality objective files for accuracy, frequency, and completeness.  The example data files included with the package are imported here to demonstrate how to use the quality control functions:
+The quality control functions in MassWateR can be used once the required data are successfully imported into R (see the [data input and checks vignette](https://massbays-tech.github.io/MassWateR/articles/inputs.html) for an overview).  The required data includes the results data file that describe the monitoring data, the data quality objective files for accuracy, frequency, and completeness, and a censored data file showing number of missing or censored data by parameter.  The example data files included with the package are imported here to demonstrate how to use the quality control functions:
 
 ```{r, message = T}
 library(MassWateR)
@@ -32,18 +32,22 @@ accdat <- readMWRacc(accpth)
 # import data quality objectives for frequency and completeness
 frecompth <- system.file("extdata/ExampleDQOFrequencyCompleteness.xlsx", package = "MassWateR")
 frecomdat <- readMWRfrecom(frecompth)
+
+# import censored data
+censpth <- system.file("extdata/ExampleCensored.xlsx", package = "MassWateR")
+censdat <- readMWRcens(censpth)
 ```
 
 ## Creating the review report
 
 The `qcMWRreview()` function compiles a review report as a Word document for all quality control checks included in the MassWateR package.  The report shows several tables, including the data quality objectives files for accuracy, frequency, and completeness, summary results for all accuracy checks, summary results for all frequency checks, summary results for all completeness checks, and individual results for all accuracy checks.  The report uses individual table functions described in the sections below to return the results, which include `tabMWRacc()`, `tabMWRfre()`, and `tabMWRcom()`.
  
-The workflow for using this function is to import the required data (results and data quality objective files, as above) and to fix any errors noted on import prior to creating the review report. The function can be used with inputs as paths to the relevant files or as data frames returned by `readMWRresults()`, `readMWRacc()`, and `readMWRfrecom()`.  For the former, the full suite of data checks can be evaluated with `runkchk = T` (default) or suppressed with `runchk = F`, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. 
+The workflow for using this function is to import the required data (results, data quality objective files and censored data, as above) and to fix any errors noted on import prior to creating the review report. The function can be used with inputs as paths to the relevant files or as data frames returned by `readMWRresults()`, `readMWRacc()`, `readMWRfrecom()`, and `readMWRcens()`.  For the former, the full suite of data checks can be evaluated with `runkchk = T` (default) or suppressed with `runchk = F`, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. 
 
 The report can be created as follows by including the required files and specifying an output directory where the Word document is saved (a temporary directory is used here).  Once the function is done running, a message indicating success and where the file is located is returned.  The Word file can be further edited by hand as needed.  
 
 ```{r, message = T}
-qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat, warn = FALSE, output_dir = tempdir())
+qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat, cens = censdat, warn = FALSE, output_dir = tempdir())
 ```
 
 As a convenience, the input files can also be passed to the `qcMWRreview()` function as a named list using the `fset` argument.  This eliminates the need to individually specify the input arguments. 
@@ -53,7 +57,8 @@ As a convenience, the input files can also be passed to the `qcMWRreview()` func
 fsetls <- list(
   res = resdat, 
   acc = accdat, 
-  frecom = frecomdat
+  frecom = frecomdat,
+  cens = censdat
 )
 
 qcMWRreview(fset = fsetls, output_dir = tempdir())
@@ -139,22 +144,22 @@ The output shows the frequency checks from the combined files.  Each row applies
 
 ## Quality control for completeness
 
-The quality control checks for completeness are used to assess the number of regular samples relative to qualified samples that apply to each parameter. Regular samples are those with `Field Msr/Obs` or `Sample-Routine` in the `Activity Type` column of the results file and qualified samples are those marked as `Q` in the `Result Measure Qualifier` column of the results file.  The completeness checks require results data (as in `resdat` above) and a data quality objectives file for frequency and completeness (as in `frecomdat`).
+The quality control checks for completeness are used to assess the number of regular samples relative to qualified samples that apply to each parameter. Regular samples are those with `Field Msr/Obs` or `Sample-Routine` in the `Activity Type` column of the results file and qualified samples are those marked as `Q` in the `Result Measure Qualifier` column of the results file.  The completeness checks require results data (as in `resdat` above), a data quality objectives file for frequency and completeness (as in `frecomdat`), and the censored data indicating number of missing or censored observations by parameter (as in `censdat`).
 
-The `tabMWRcom()` function is used to create a table that shows the completeness percentages for each parameter.  As explained in the previous section, the function can be used with inputs as paths to the relevant files or as data frames returned by `readMWRresults()` and `read_frecom()`.  
+The `tabMWRcom()` function is used to create a table that shows the completeness percentages for each parameter.  As explained in the previous section, the function can be used with inputs as paths to the relevant files or as data frames returned by `readMWRresults()`, `readMWRfrecom()`, and `readMWRcens()`.  
 
 A summary table showing the number of data records, number of qualified records, and percent completeness can be created with `tabMWRcom()`.  The `% Completeness` column shows cells as green or red if the required percentage of observations for completeness are present as specified in the data quality objectives file.  The `Hit/Miss` column shows similar information but in text format, i.e., `MISS` is shown if the quality control standard for completeness is not met. The function is also executed with the data frames from above, since they have already passed the internal checks. 
 
 ```{r, warning = T}
-tabMWRcom(res = resdat, frecom = frecomdat, warn = FALSE)
+tabMWRcom(res = resdat, frecom = frecomdat, cens = censdat, warn = FALSE)
 ```
 
 The `tabMWRcom()` function uses the `qcMWRcom()` function internally to create the table.  This function creates the raw summaries of completeness from the input data.  Typically, `qcMWRcom()` is not used by itself, but it is explained here to demonstrate how the raw summaries can be obtained. 
 
-Below, the `qcMWRcom()` function is executed with the data frames for the results and quality objectives file for completeness.  The warnings are suppressed. 
+Below, the `qcMWRcom()` function is executed with the data frames for the results, quality objectives file for frequency and completeness, and censored data.  The warnings are suppressed. 
 
 ```{r, warning = T}
-qcMWRcom(res = resdat, frecom = frecomdat, warn = FALSE)
+qcMWRcom(res = resdat, frecom = frecomdat, cens = censdat, warn = FALSE)
 ```
 
 The output shows the completeness checks from the combined files.  Each row applies to a completeness check for a parameter. The `datarec` and `qualrec` columns show the number of data records and qualified records, respectively. The `datarec` column specifically shows only records not for quality control by excluding those as duplicates, blanks, or spikes in the count. The `standard` column shows the relevant percentage required for the quality control check from the quality control objectives file, the `complete` column shows the calculated completeness taken from the input data, and the `met` column shows if the standard was met by comparing if `complete` is greater than or equal to `standard`.

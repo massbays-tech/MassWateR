@@ -30,7 +30,7 @@ censpth <- system.file('extdata/ExampleCensored.xlsx',
      package = 'MassWateR')
 
 censdat <- suppressMessages(readxl::read_excel(censpth, 
-      skip = 1, na = c('NA', 'na', '')
+      na = c('NA', 'na', '')
     )) 
     
 formMWRcens(censdat)

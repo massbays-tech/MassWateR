@@ -20,6 +20,7 @@ inputchk <- formals(tabMWRcom)
 inputchk$res <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 inputchk$frecom <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', 
   package = 'MassWateR')
+inputchk$cens <- system.file('extdata/ExampleCensored.xlsx', package = 'MassWateR')
 
 utilMWRinputcheck(inputchk)
 }

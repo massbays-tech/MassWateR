@@ -60,7 +60,7 @@ library(MassWateR)
 
 Please view the [data inputs and checks](https://massbays-tech.github.io/MassWateR/articles/inputs.html) vignette for a complete description of the data requirements for MassWateR.
 
-Four types of data are used with the MassWateR package: surface water quality results, data quality objectives (for accuracy, frequency, and completeness), site metadata, and wqx metadata.
+Five types of data are used with the MassWateR package: surface water quality results, data quality objectives (for accuracy, frequency, and completeness), site metadata, wqx metadata, and censored data.
 
 The following shows how to specify a path and import each required data file.  These are hypothetical files and the path will need to be changed to where your data are located on your computer. Templates with instructions for each of the types of input data are available for download in the [Resources tab](https://massbays-tech.github.io/MassWateR/RESOURCES.html).  
 
@@ -84,13 +84,18 @@ sitdat <- readMWRsites(sitpth)
 # import WQX meta data
 wqxpth <- "C:/Documents/MassWateR/MyWQXMeta.xlsx"
 wqxdat <- readMWRwqx(wqxpth)
+
+# import censored data
+censpth <- "C:/Documents/MassWateR/MyCensored.xlsx"
+censdat <- readMWRcens(censpth)
 ```
 
 After data are imported, a single data object can be created that can be used with all MassWateR functions. 
 
 ```{r, eval = F}
 # a list of input data frames
-fsetls <- list(res = resdat, acc = accdat, frecom = frecomdat, sit = sitdat, wqx = wqxdat)
+fsetls <- list(res = resdat, acc = accdat, frecom = frecomdat, sit = sitdat, wqx = wqxdat, 
+               cens = censdat)
 ```
 ```{r, warning = F, echo = F, message = F}
 # import results data
@@ -112,6 +117,10 @@ sitdat <- readMWRsites(sitpth)
 # import wqx metadata
 wqxpth <- system.file("extdata/ExampleWQX.xlsx", package = "MassWateR")
 wqxdat <- readMWRwqx(wqxpth)
+
+# import censored data
+censpth <- system.file("extdata/ExampleCensored.xlsx", package = "MassWateR")
+censdat <- readMWRcens(censpth)
 ```
 ```{r, echo = F}
 # a list of input data frames
@@ -120,7 +129,8 @@ fsetls <- list(
   acc = accdat,
   frecom = frecomdat,
   sit = sitdat, 
-  wqx = wqxdat
+  wqx = wqxdat, 
+  cens = censdat
 )
 ```
 

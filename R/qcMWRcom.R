@@ -143,7 +143,6 @@ qcMWRcom <- function(res = NULL, frecom = NULL, cens = NULL, fset = NULL, runchk
         !is.na(standard), 100 * (datarec - qualrec) / (datarec),
         NA_real_
       ),
-      `Missed and Censored Records` = as.integer(`Missed and Censored Records`),
       met = complete >= standard
     )
   

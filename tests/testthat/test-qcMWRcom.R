@@ -11,7 +11,7 @@ test_that("Checking warning if parameters from frecom missing in res", {
 })
 
 test_that("Checking warning if parameters from res missing in cens", {
-  expect_warning(expect_warning(expect_warning(qcMWRcom(tst$resdatchk, tst$frecompth, tst$censpth, runchk = F))))
+  expect_warning(qcMWRcom(tst$resdatchk, tst$frecompth, tst$censpth, runchk = F))
 })
 
 test_that("Checking warning if parameters from cens missing in res", {

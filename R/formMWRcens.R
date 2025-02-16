@@ -20,7 +20,7 @@
 #'      package = 'MassWateR')
 #' 
 #' censdat <- suppressMessages(readxl::read_excel(censpth, 
-#'       skip = 1, na = c('NA', 'na', '')
+#'       na = c('NA', 'na', '')
 #'     )) 
 #'     
 #' formMWRcens(censdat)
@@ -33,7 +33,7 @@ formMWRcens <- function(censdat){
                          paramsMWR$`Simple Parameter`[match(`Parameter`, paramsMWR$`WQX Parameter`)], 
                          `Parameter`
                        ),
-                       `Missed and Censored Records` = as.numeric(`Missed and Censored Records`)
+                       `Missed and Censored Records` = as.integer(`Missed and Censored Records`)
   )
   
   return(out)
