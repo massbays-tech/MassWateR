@@ -55,6 +55,7 @@
 <span>  res <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  acc <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  frecom <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  cens <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fset <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">output_dir</span>,</span>
 <span>  output_file <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -84,8 +85,12 @@
 <dd><p>character string of path to the data quality objectives file for frequency and completeness or <code>data.frame</code> returned by <code><a href="readMWRfrecom.html">readMWRfrecom</a></code></p></dd>
 
 
+<dt id="arg-cens">cens<a class="anchor" aria-label="anchor" href="#arg-cens"></a></dt>
+<dd><p>character string of path to the censored data file or <code>data.frame</code> returned by <code><a href="readMWRcens.html">readMWRcens</a></code></p></dd>
+
+
 <dt id="arg-fset">fset<a class="anchor" aria-label="anchor" href="#arg-fset"></a></dt>
-<dd><p>optional list of inputs with elements named <code>res</code>, <code>acc</code>, <code>frecom</code>, <code>sit</code>, or <code>wqx</code> overrides the other arguments</p></dd>
+<dd><p>optional list of inputs with elements named <code>res</code>, <code>acc</code>, <code>frecom</code>, and <code>cens</code>, overrides the other arguments</p></dd>
 
 
 <dt id="arg-output-dir">output_dir<a class="anchor" aria-label="anchor" href="#arg-output-dir"></a></dt>
@@ -131,9 +136,9 @@
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The function compiles a review report as a Word document for all quality control checks included in the MassWateR package.  The report shows several tables, including the data quality objectives files for accuracy, frequency, and completeness, summary results for all accuracy checks, summary results for all frequency checks, summary results for all completeness checks, and individual results for all accuracy checks.  The report uses the individual table functions (which can be used separately) to return the results, which include <code><a href="tabMWRacc.html">tabMWRacc</a></code>, <code><a href="tabMWRfre.html">tabMWRfre</a></code>, and <code><a href="tabMWRcom.html">tabMWRcom</a></code>.  The help files for each of these functions can be consulted for a more detailed explanation of the quality control checks.</p>
-<p>The workflow for using this function is to import the required data (results and data quality objective files) and to fix any errors noted on import prior to creating the review report.  Additional warnings that may be of interest as returned by the individual table functions can be returned in the console by setting <code>warn = TRUE</code>.</p>
-<p>Optional arguments that can be changed as needed include specifying the file name with <code>output_file</code>, suppressing the raw data summaries at the end of the report with <code>rawdata = FALSE</code>, and changing the table font sizes (<code>dqofontsize</code> for the data quality objectives on the first page, <code>tabfontsize</code> for the remainder).</p>
-<p>The function can be used with inputs as paths to the relevant files or as data frames returned by <code><a href="readMWRresults.html">readMWRresults</a></code>, <code><a href="readMWRacc.html">readMWRacc</a></code>, and <code><a href="readMWRfrecom.html">readMWRfrecom</a></code>.  For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the <code>fset</code> argument instead. See the help file for <code><a href="utilMWRinput.html">utilMWRinput</a></code>.</p>
+<p>The workflow for using this function is to import the required data (results, data quality objective, and censored files) and to fix any errors noted on import prior to creating the review report.  Additional warnings that may be of interest as returned by the individual table functions can be returned in the console by setting <code>warn = TRUE</code>.</p>
+<p>Optional arguments that can be changed as needed include specifying the file name with <code>output_file</code>, suppressing the raw data summaries at the end of the report with <code>rawdata = FALSE</code>, and changing the table font sizes (<code>dqofontsize</code> for the data quality objectives on the first page, <code>tabfontsize</code> for the remainder).  Set <code>savesheet = TRUE</code> to also save a spreadsheet of the tables in the report.</p>
+<p>The function can be used with inputs as paths to the relevant files or as data frames returned by <code><a href="readMWRresults.html">readMWRresults</a></code>, <code><a href="readMWRacc.html">readMWRacc</a></code>, <code><a href="readMWRfrecom.html">readMWRfrecom</a></code>, and <code><a href="readMWRcens.html">readMWRcens</a></code>.  For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the <code>fset</code> argument instead. See the help file for <code><a href="utilMWRinput.html">utilMWRinput</a></code>.</p>
     </div>
 
     <div class="section level2">
@@ -146,6 +151,9 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># dqo completeness data path</span></span></span>
 <span class="r-in"><span><span class="va">frecompth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleDQOFrequencyCompleteness.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># censored data path</span></span></span>
+<span class="r-in"><span><span class="va">censpth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata/ExampleCensored.xlsx'</span>, package <span class="op">=</span> <span class="st">'MassWateR'</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># results data</span></span></span>
 <span class="r-in"><span><span class="va">resdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="readMWRresults.html">readMWRresults</a></span><span class="op">(</span><span class="va">respth</span><span class="op">)</span></span></span>
@@ -199,10 +207,21 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># censored data</span></span></span>
+<span class="r-in"><span><span class="va">censdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="readMWRcens.html">readMWRcens</a></span><span class="op">(</span><span class="va">censpth</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on censored data...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in Missed and Censored Records... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Parameter Name formats... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># create report</span></span></span>
-<span class="r-in"><span><span class="fu">qcMWRreview</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, frecom <span class="op">=</span> <span class="va">frecomdat</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Report created successfully! File located at /tmp/Rtmpm2Ilyz/qcreview.docx</span>
+<span class="r-in"><span><span class="fu">qcMWRreview</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, acc <span class="op">=</span> <span class="va">accdat</span>, frecom <span class="op">=</span> <span class="va">frecomdat</span>, cens <span class="op">=</span> <span class="va">censdat</span>, output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in results data not found in censored data: Ammonia, E.coli, Sp Conductance, TP, Water Temp</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Report created successfully! File located at /tmp/Rtmp7hqe1l/qcreview.docx</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>

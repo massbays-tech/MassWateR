@@ -24,11 +24,13 @@
 <url><loc>https://massbays-tech.github.io/MassWateR/reference/anlzMWRseason.html</loc></url>
 <url><loc>https://massbays-tech.github.io/MassWateR/reference/anlzMWRsite.html</loc></url>
 <url><loc>https://massbays-tech.github.io/MassWateR/reference/checkMWRacc.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/checkMWRcens.html</loc></url>
 <url><loc>https://massbays-tech.github.io/MassWateR/reference/checkMWRfrecom.html</loc></url>
 <url><loc>https://massbays-tech.github.io/MassWateR/reference/checkMWRresults.html</loc></url>
 <url><loc>https://massbays-tech.github.io/MassWateR/reference/checkMWRsites.html</loc></url>
 <url><loc>https://massbays-tech.github.io/MassWateR/reference/checkMWRwqx.html</loc></url>
 <url><loc>https://massbays-tech.github.io/MassWateR/reference/formMWRacc.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/formMWRcens.html</loc></url>
 <url><loc>https://massbays-tech.github.io/MassWateR/reference/formMWRfrecom.html</loc></url>
 <url><loc>https://massbays-tech.github.io/MassWateR/reference/formMWRresults.html</loc></url>
 <url><loc>https://massbays-tech.github.io/MassWateR/reference/formMWRwqx.html</loc></url>
@@ -39,6 +41,7 @@
 <url><loc>https://massbays-tech.github.io/MassWateR/reference/qcMWRfre.html</loc></url>
 <url><loc>https://massbays-tech.github.io/MassWateR/reference/qcMWRreview.html</loc></url>
 <url><loc>https://massbays-tech.github.io/MassWateR/reference/readMWRacc.html</loc></url>
+<url><loc>https://massbays-tech.github.io/MassWateR/reference/readMWRcens.html</loc></url>
 <url><loc>https://massbays-tech.github.io/MassWateR/reference/readMWRfrecom.html</loc></url>
 <url><loc>https://massbays-tech.github.io/MassWateR/reference/readMWRresults.html</loc></url>
 <url><loc>https://massbays-tech.github.io/MassWateR/reference/readMWRresultsview.html</loc></url>
