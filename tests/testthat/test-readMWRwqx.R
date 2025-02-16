@@ -1,4 +1,4 @@
-test_that("Checking readMWRwqz output format", {
+test_that("Checking readMWRwqx output format", {
   result <- suppressWarnings(readMWRwqx(tst$wqxpth))
   expect_s3_class(result, 'tbl_df')
 })

@@ -7,6 +7,7 @@
 tabMWRcom(
   res = NULL,
   frecom = NULL,
+  cens = NULL,
   fset = NULL,
   runchk = TRUE,
   warn = TRUE,

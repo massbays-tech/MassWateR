@@ -44,7 +44,7 @@
 #' 
 #' tabMWRcom(res = resdat, frecom = frecomdat)
 #' 
-tabMWRcom <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn = TRUE, pass_col = '#57C4AD', fail_col = '#DB4325', digits = 0, suffix = '%', parameterwd = 1.15, noteswd = 3){
+tabMWRcom <- function(res = NULL, frecom = NULL, cens = NULL, fset = NULL, runchk = TRUE, warn = TRUE, pass_col = '#57C4AD', fail_col = '#DB4325', digits = 0, suffix = '%', parameterwd = 1.15, noteswd = 3){
 
   utilMWRinputcheck(mget(ls()))
   

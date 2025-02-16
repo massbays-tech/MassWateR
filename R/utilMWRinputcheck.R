@@ -16,7 +16,7 @@ utilMWRinputcheck <- function(inputs){
   
   # names of required inputs from the function
   inpchk <- names(inputs)
-  inpchk <- inpchk[inpchk %in% c('res', 'acc', 'frecom', 'sit', 'wqx')]
+  inpchk <- inpchk[inpchk %in% c('res', 'acc', 'frecom', 'sit', 'wqx', 'cens')]
 
   fset <- inputs$fset
 

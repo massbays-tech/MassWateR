@@ -32,6 +32,11 @@ tst <- list(
   # wqx metadata
   wqxpth = system.file('extdata/ExampleWQX.xlsx', package = 'MassWateR'),
   wqxdatchk = readxl::read_excel(system.file('extdata/ExampleWQX.xlsx', package = 'MassWateR'), na = c('NA', 'na', ''), col_types = 'text'),
-  wqxdat = readMWRwqx(system.file('extdata/ExampleWQX.xlsx', package = 'MassWateR'), runchk = F, warn = F)
-
+  wqxdat = readMWRwqx(system.file('extdata/ExampleWQX.xlsx', package = 'MassWateR'), runchk = F, warn = F),
+  
+  # censored data
+  censpth = system.file('extdata/ExampleCensored.xlsx', package = 'MassWateR'),
+  censdatchk = suppressWarnings(readxl::read_excel(system.file('extdata/ExampleCensored.xlsx', package = 'MassWateR'), na = c('NA', 'na', ''), guess_max = Inf)),
+  censdat = readMWRcens(system.file('extdata/ExampleCensored.xlsx', package = 'MassWateR'), runchk = F, warn = F)
+  
 )
