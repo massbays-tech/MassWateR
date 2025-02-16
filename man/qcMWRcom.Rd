@@ -4,12 +4,21 @@
 \alias{qcMWRcom}
 \title{Run quality control completeness checks for water quality monitoring results}
 \usage{
-qcMWRcom(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn = TRUE)
+qcMWRcom(
+  res = NULL,
+  frecom = NULL,
+  cens = NULL,
+  fset = NULL,
+  runchk = TRUE,
+  warn = TRUE
+)
 }
 \arguments{
 \item{res}{character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}}
 
 \item{frecom}{character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}}
+
+\item{cens}{character string of path to the censored data file or \code{data.frame} returned by \code{\link{readMWRcens}}}
 
 \item{fset}{optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, \code{sit}, or \code{wqx} overrides the other arguments}
 
@@ -24,11 +33,15 @@ The output shows the completeness checks from the combined files.  Each row appl
 Run quality control completeness checks for water quality monitoring results
 }
 \details{
-The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.
+The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRfrecom}}, and \code{\link{readMWRcens}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.
 
 Note that frequency is only evaluated on parameters in the \code{Parameter} column in the data quality objectives frequency and completeness file.  A warning is returned if there are parameters in \code{Parameter} in the frequency and completeness file that are not in \code{Characteristic Name} in the results file.
 
 Similarly, parameters in the results file in the \code{Characteristic Name} column that are not found in the data quality objectives frequency and completeness file are not evaluated.  A warning is returned if there are parameters in \code{Characteristic Name} in the results file that are not in \code{Parameter} in the frequency and completeness file.
+
+A similar warning is returned if there are parameters in the censored data that are not in the results file and vice versa.
+
+All warnings can be suppressed by setting \code{warn = FALSE}.
 }
 \examples{
 ##
@@ -41,7 +54,11 @@ respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', 
      package = 'MassWateR')
 
-qcMWRcom(res = respth, frecom = frecompth)
+# censored path
+censpth <- system.file('extdata/ExampleCensored.xlsx', 
+     package = 'MassWateR')
+
+qcMWRcom(res = respth, frecom = frecompth, cens = censpth)
 
 ##
 # using data frames
@@ -52,6 +69,9 @@ resdat <- readMWRresults(respth)
 # frequency and completeness data
 frecomdat <- readMWRfrecom(frecompth)
 
-qcMWRcom(res = resdat, frecom = frecomdat)
+# censored data
+censdat <- readMWRcens(censpth)
+
+qcMWRcom(res = resdat, frecom = frecomdat, cens = censdat)
 
 }

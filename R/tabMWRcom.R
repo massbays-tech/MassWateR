@@ -10,9 +10,9 @@
 #'
 #' @return A \code{\link[flextable]{flextable}} object with formatted results showing summary counts for all completeness checks for each parameter.
 #' 
-#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.  
+#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRfrecom}}, and \code{\link{readMWRcens}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.  
 #' 
-#' Also note that completeness is only evaluated on parameters that are shared between the results file and data quality objectives file for frequency and completeness. A warning is returned for parameters that do not match between the files. This warning can be suppressed by setting \code{warn = FALSE}. 
+#' Also note that completeness is only evaluated on parameters that are shared between the results file and data quality objectives file for frequency and completeness. A warning is returned for parameters that do not match between the files. A similar warning is returned if there are parameters in the censored data that are not in the results file and vice versa. These warnings can be suppressed by setting \code{warn = FALSE}. 
 #' 
 #' A summary table showing the number of data records, number of qualified records, and percent completeness is created.  The \code{% Completeness} column shows cells as green or red if the required percentage of observations for completeness are present as specified in the data quality objectives file.  The \code{Hit/ Miss} column shows similar information but in text format, i.e., \code{MISS} is shown if the quality control standard for completeness is not met.
 #' 
@@ -30,8 +30,11 @@
 #' # frequency and completeness path
 #' frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', 
 #'      package = 'MassWateR')
+#'      
+#' # censored path
+#' censpth <- system.file('extdata/ExampleCensored.xlsx', package = 'MassWateR')
 #' 
-#' tabMWRcom(res = respth, frecom = frecompth)
+#' tabMWRcom(res = respth, frecom = frecompth, cens = censpth)
 #' 
 #' ##
 #' # using data frames
@@ -42,7 +45,10 @@
 #' # frequency and completeness data
 #' frecomdat <- readMWRfrecom(frecompth)
 #' 
-#' tabMWRcom(res = resdat, frecom = frecomdat)
+#' # censored data
+#' censdat <- readMWRcens(censpth)
+#' 
+#' tabMWRcom(res = resdat, frecom = frecomdat, cens = censdat)
 #' 
 tabMWRcom <- function(res = NULL, frecom = NULL, cens = NULL, fset = NULL, runchk = TRUE, warn = TRUE, pass_col = '#57C4AD', fail_col = '#DB4325', digits = 0, suffix = '%', parameterwd = 1.15, noteswd = 3){
 
@@ -50,27 +56,28 @@ tabMWRcom <- function(res = NULL, frecom = NULL, cens = NULL, fset = NULL, runch
   
   # table theme
   thm <- function(x, ...){
-    x <- flextable::colformat_double(x, digits = digits, na_str = '-', suffix = suffix)
+    x <- flextable::colformat_double(x, digits = digits, na_str = '-', suffix = suffix) %>% 
+      flextable::colformat_int(na_str = '-')
     flextable::autofit(x)
   }
   
   # get completeness summary
-  res <- qcMWRcom(res = res, frecom = frecom, fset = fset, runchk = runchk, warn = warn)
+  res <- qcMWRcom(res = res, frecom = frecom, cens = cens, fset = fset, runchk = runchk, warn = warn)
 
   # get summary table
   totab <- res %>% 
     dplyr::mutate(
       met = as.numeric(met),
       `Hit/ Miss` = ifelse(met == 1, '', 'MISS'),
-      `Number of Missed/ Censored Records` = '',
       Notes = ''
     ) %>% 
     dplyr::select(
-      Parameter, datarec, qualrec, `Number of Missed/ Censored Records`, complete, `Hit/ Miss`, Notes, met
+      Parameter, datarec, qualrec, `Missed and Censored Records`, complete, `Hit/ Miss`, Notes, met
     ) %>% 
     dplyr::rename(
       `Number of Data Records` = datarec, 
       `Number of Qualified Records` = qualrec, 
+      `Number of Missed/ Censored Records` = `Missed and Censored Records`,
       `% Completeness` = complete
     )
   

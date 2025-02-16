@@ -2,15 +2,20 @@
 #'
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param frecom character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}
+#' @param cens character string of path to the censored data file or \code{data.frame} returned by \code{\link{readMWRcens}}
 #' @param fset optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, \code{sit}, or \code{wqx} overrides the other arguments
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}} and \code{\link{checkMWRfrecom}}, applies only if \code{res} or \code{frecom} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
-#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}} and \code{\link{readMWRfrecom}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.
+#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRfrecom}}, and \code{\link{readMWRcens}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.
 #' 
 #' Note that frequency is only evaluated on parameters in the \code{Parameter} column in the data quality objectives frequency and completeness file.  A warning is returned if there are parameters in \code{Parameter} in the frequency and completeness file that are not in \code{Characteristic Name} in the results file. 
 #' 
-#' Similarly, parameters in the results file in the \code{Characteristic Name} column that are not found in the data quality objectives frequency and completeness file are not evaluated.  A warning is returned if there are parameters in \code{Characteristic Name} in the results file that are not in \code{Parameter} in the frequency and completeness file.
+#' Similarly, parameters in the results file in the \code{Characteristic Name} column that are not found in the data quality objectives frequency and completeness file are not evaluated.  A warning is returned if there are parameters in \code{Characteristic Name} in the results file that are not in \code{Parameter} in the frequency and completeness file.  
+#' 
+#' A similar warning is returned if there are parameters in the censored data that are not in the results file and vice versa. 
+#' 
+#' All warnings can be suppressed by setting \code{warn = FALSE}. 
 #' 
 #' @return The output shows the completeness checks from the combined files.  Each row applies to a completeness check for a parameter. The \code{datarec} and \code{qualrec} columns show the number of data records and qualified records, respectively. The \code{datarec} column specifically shows only records not for quality control by excluding those as duplicates, blanks, or spikes in the count. The \code{standard} column shows the relevant percentage required for the quality control check from the quality control objectives file, the \code{complete} column shows the calculated completeness taken from the input data, and the \code{met} column shows if the standard was met by comparing if \code{complete} is greater than or equal to \code{standard}.
 #' 
@@ -26,8 +31,12 @@
 #' # frequency and completeness path
 #' frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', 
 #'      package = 'MassWateR')
+#'
+#' # censored path
+#' censpth <- system.file('extdata/ExampleCensored.xlsx', 
+#'      package = 'MassWateR')
 #' 
-#' qcMWRcom(res = respth, frecom = frecompth)
+#' qcMWRcom(res = respth, frecom = frecompth, cens = censpth)
 #' 
 #' ##
 #' # using data frames
@@ -38,17 +47,21 @@
 #' # frequency and completeness data
 #' frecomdat <- readMWRfrecom(frecompth)
 #' 
-#' qcMWRcom(res = resdat, frecom = frecomdat)
+#' # censored data
+#' censdat <- readMWRcens(censpth)
 #' 
-qcMWRcom <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn = TRUE){
+#' qcMWRcom(res = resdat, frecom = frecomdat, cens = censdat)
+#' 
+qcMWRcom <- function(res = NULL, frecom = NULL, cens = NULL, fset = NULL, runchk = TRUE, warn = TRUE){
   
   utilMWRinputcheck(mget(ls()))
   
   ##
   # get user inputs
-  inp <- utilMWRinput(res = res, frecom = frecom, fset = fset, runchk = runchk, warn = warn)
+  inp <- utilMWRinput(res = res, frecom = frecom, cens = cens, fset = fset, runchk = runchk, warn = warn)
   resdat <- inp$resdat
   frecomdat <- inp$frecomdat
+  censdat <- inp$censdat
   
   ##
   # check parameter matches between results and completeness
@@ -66,7 +79,26 @@ qcMWRcom <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn
   chk <- resdatprm %in% frecomprm
   if(any(!chk) & warn){
     tochk <- resdatprm[!chk]
-    warning('Parameters in results not found in quality control objectives for frequency and completeness: ', paste(tochk, collapse = ', '), call. = FALSE)
+    warning('Parameters in results data not found in quality control objectives for frequency and completeness: ', paste(tochk, collapse = ', '), call. = FALSE)
+  }
+  
+  ##
+  # check parameter matches between results and censored
+  censprm <- sort(unique(censdat$Parameter))
+  resdatprm <- sort(unique(resdat$`Characteristic Name`))
+  
+  # check parameters in censored can be found in results  
+  chk <- censprm %in% resdatprm
+  if(any(!chk) & warn){
+    tochk <- censprm[!chk]
+    warning('Parameters in censored data not found in results data: ', paste(tochk, collapse = ', '), call. = FALSE)
+  }
+  
+  # check parameters in results can be found in censored
+  chk <- resdatprm %in% censprm
+  if(any(!chk) & warn){
+    tochk <- resdatprm[!chk]
+    warning('Parameters in results data not found in censored data: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
 
   # parameters for completeness checks
@@ -105,11 +137,13 @@ qcMWRcom <- function(res = NULL, frecom = NULL, fset = NULL, runchk = TRUE, warn
   # combine and create summaries
   out <- resall %>% 
     dplyr::left_join(frecomdat, by = 'Parameter') %>% 
+    dplyr::left_join(censdat, by = 'Parameter') %>% 
     dplyr::mutate(
       complete = ifelse(
         !is.na(standard), 100 * (datarec - qualrec) / (datarec),
         NA_real_
       ),
+      `Missed and Censored Records` = as.integer(`Missed and Censored Records`),
       met = complete >= standard
     )
   
