@@ -208,7 +208,7 @@ qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, cens = NULL, fset
     ##
     # save output
     output_file <- gsub('\\.docx', '.xlsx', output_file)
-    
+
     out <- list(
       `Frequency DQO` = frecomdat, 
       `Accuracy DQO` = accdat,
@@ -218,6 +218,11 @@ qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, cens = NULL, fset
       `Accuracy Checks Summary` = tabaccsum$body$dataset,
       `Completeness` = tabcom$body$dataset
     )
+    
+    # remove met columns
+    out$`Frequency Checks` <- out$`Frequency Checks`[, !grepl('\\_met$', names(out$`Frequency Checks`))]
+    out$`Accuracy Checks` <- out$`Accuracy Checks`[, !grepl('\\_met$', names(out$`Accuracy Checks`))]
+    out$`Completeness` <- out$`Completeness`[, !grepl('^met$', names(out$`Completeness`))]
     
     if(rawdata)
       out <- c(out, 
