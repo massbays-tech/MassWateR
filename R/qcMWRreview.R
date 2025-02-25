@@ -233,6 +233,12 @@ qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, cens = NULL, fset
     out$`Frequency DQO` <- dplyr::arrange(out$`Frequency DQO`, Parameter, .locale = 'en')
     out$`Accuracy DQO` <- dplyr::arrange(out$`Accuracy DQO`, Parameter, .locale = 'en')
     
+    # percents with zero decimals
+    out$`Frequency Checks Percent` <- dplyr::mutate(out$`Frequency Checks Percent`, dplyr::across(dplyr::where(is.numeric), round, 0))
+    out$`Accuracy Checks Percent` <- dplyr::mutate(out$`Accuracy Checks Percent`, dplyr::across(dplyr::where(is.numeric), round, 0))  
+    out$`Frequency Checks`$`Frequency %` <- round(out$`Frequency Checks`$`Frequency %`, 0)
+    out$`Completeness`$`% Completeness` <- round(out$`Completeness`$`% Completeness`, 0)
+    
     if(rawdata)
       out <- c(out, 
         list(
