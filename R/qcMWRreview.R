@@ -212,16 +212,16 @@ qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, cens = NULL, fset
     out <- list(
       `Frequency DQO` = frecomdat, 
       `Accuracy DQO` = accdat,
-      `Frequency Checks` = tabfreper$body$dataset,
-      `Frequency Checks Summary` = tabfresum$body$dataset,
-      `Accuracy Checks` = tabaccper$body$dataset,
-      `Accuracy Checks Summary` = tabaccsum$body$dataset,
+      `Frequency Checks Percent` = tabfreper$body$dataset,
+      `Frequency Checks` = tabfresum$body$dataset,
+      `Accuracy Checks Percent` = tabaccper$body$dataset,
+      `Accuracy Checks` = tabaccsum$body$dataset,
       `Completeness` = tabcom$body$dataset
     )
     
     # remove met columns
-    out$`Frequency Checks` <- out$`Frequency Checks`[, !grepl('\\_met$', names(out$`Frequency Checks`))]
-    out$`Accuracy Checks` <- out$`Accuracy Checks`[, !grepl('\\_met$', names(out$`Accuracy Checks`))]
+    out$`Frequency Checks Percent` <- out$`Frequency Checks Percent`[, !grepl('\\_met$', names(out$`Frequency Checks Percent`))]
+    out$`Accuracy Checks Percent` <- out$`Accuracy Checks Percent`[, !grepl('\\_met$', names(out$`Accuracy Checks Percent`))]
     out$`Completeness` <- out$`Completeness`[, !grepl('^met$', names(out$`Completeness`))]
     
     if(rawdata)
