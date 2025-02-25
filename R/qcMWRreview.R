@@ -224,6 +224,11 @@ qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, cens = NULL, fset
     out$`Accuracy Checks Percent` <- out$`Accuracy Checks Percent`[, !grepl('\\_met$', names(out$`Accuracy Checks Percent`))]
     out$`Completeness` <- out$`Completeness`[, !grepl('^met$', names(out$`Completeness`))]
     
+    # format accuracy checks as numeric
+    out$`Accuracy Checks` <- out$`Accuracy Checks` %>% 
+      dplyr::mutate(dplyr::across(c(`Number of QC Checks`, `Number of Misses`, `% Acceptance`), ~ gsub('\\%$|^\\-$', '', .x))) %>%
+      dplyr::mutate(dplyr::across(c(`Number of QC Checks`, `Number of Misses`, `% Acceptance`), as.numeric))
+
     if(rawdata)
       out <- c(out, 
         list(
