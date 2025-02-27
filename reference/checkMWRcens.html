@@ -75,7 +75,7 @@
     <p>This function is used internally within <code><a href="readMWRcens.html">readMWRcens</a></code> to run several checks on the input data for completeness and conformance.</p>
 <p>The following checks are made:</p><ul><li><p>Column name spelling: Should be the following: Parameter, Missed and Censored Records</p></li>
 <li><p>Columns present: All columns from the previous check should be present</p></li>
-<li><p>Non-numeric Missed and Censored Records: All values should be numbers, excluding missing values</p></li>
+<li><p>Non-numeric or empty entries in Missed and Censored Records: All values should be numbers</p></li>
 <li><p>Negative Missed and Censored Records: All values should be greater than or equal to zero</p></li>
 <li><p>Parameter: Should match parameter names in the <code>Simple Parameter</code> or <code>WQX Parameter</code> columns of the <code><a href="paramsMWR.html">paramsMWR</a></code> data (warning only)</p></li>
 </ul></div>
@@ -90,8 +90,7 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Running checks on censored data...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking column names... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking all required columns are present... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric values in Missed and Censored Records... OK</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for empty values in Missed and Censored Records... OK</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for non-numeric or empty values in Missed and Censored Records... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking for negative values in Missed and Censored Records... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Parameter Name formats... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
