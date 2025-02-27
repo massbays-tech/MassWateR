@@ -39,7 +39,7 @@ Note that frequency is only evaluated on parameters in the \code{Parameter} colu
 
 Similarly, parameters in the results file in the \code{Characteristic Name} column that are not found in the data quality objectives frequency and completeness file are not evaluated.  A warning is returned if there are parameters in \code{Characteristic Name} in the results file that are not in \code{Parameter} in the frequency and completeness file.
 
-A similar warning is returned if there are parameters in the censored data that are not in the results file and vice versa.
+A similar warning is returned if there are parameters in the censored data that are not in the results file.  However, an error is returned if there are parameters in the data quality objectives frequency and completeness file that are not in the censored data file.
 
 All warnings can be suppressed by setting \code{warn = FALSE}.
 }

@@ -13,7 +13,7 @@
 #' 
 #' Similarly, parameters in the results file in the \code{Characteristic Name} column that are not found in the data quality objectives frequency and completeness file are not evaluated.  A warning is returned if there are parameters in \code{Characteristic Name} in the results file that are not in \code{Parameter} in the frequency and completeness file.  
 #' 
-#' A similar warning is returned if there are parameters in the censored data that are not in the results file and vice versa. 
+#' A similar warning is returned if there are parameters in the censored data that are not in the results file.  However, an error is returned if there are parameters in the data quality objectives frequency and completeness file that are not in the censored data file. 
 #' 
 #' All warnings can be suppressed by setting \code{warn = FALSE}. 
 #' 
@@ -94,11 +94,11 @@ qcMWRcom <- function(res = NULL, frecom = NULL, cens = NULL, fset = NULL, runchk
     warning('Parameters in censored data not found in results data: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
   
-  # check parameters in results can be found in censored
-  chk <- resdatprm %in% censprm
+  # check parameters in completeness can be found in censored
+  chk <- frecomprm %in% censprm
   if(any(!chk) & warn){
     tochk <- resdatprm[!chk]
-    warning('Parameters in results data not found in censored data: ', paste(tochk, collapse = ', '), call. = FALSE)
+    stop('Parameters in quality control objectives for frequency and completeness data not found in censored data: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
 
   # parameters for completeness checks
