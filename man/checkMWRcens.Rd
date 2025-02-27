@@ -24,7 +24,7 @@ The following checks are made:
 \itemize{
 \item Column name spelling: Should be the following: Parameter, Missed and Censored Records
 \item Columns present: All columns from the previous check should be present
-\item Non-numeric Missed and Censored Records: All values should be numbers, excluding missing values
+\item Non-numeric or empty entries in Missed and Censored Records: All values should be numbers
 \item Negative Missed and Censored Records: All values should be greater than or equal to zero
 \item Parameter: Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{paramsMWR}} data (warning only)
 }

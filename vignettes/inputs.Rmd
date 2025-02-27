@@ -260,8 +260,7 @@ The `readMWRcens()` function runs a few checks on the file using the `checkMWRce
 
 -   **Column name spelling**: Should be the following: Parameter, Missed and Censored Records.
 -   **Columns present**: All columns from the previous should be present
--   **Non-numeric Missed and Censored Records**: All values should be numbers, excluding missing values
--   **Empty entries in Missed and Censored Records**: No empty (`NA`) entries in Missed and Censored Records
+-   **Non-numeric or empty entries in Missed and Censored Records**: All values should be numbers
 -   **Negative Missed and Censored Records**: All values should be greater than or equal to zero
 -   **Parameter**: Should match parameter names in the `Simple Parameter` or `WQX Parameter` column of the `paramsMWR` data (warning only)
 

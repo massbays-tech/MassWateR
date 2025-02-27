@@ -9,8 +9,7 @@
 #' \itemize{
 #'  \item Column name spelling: Should be the following: Parameter, Missed and Censored Records
 #'  \item Columns present: All columns from the previous check should be present
-#'  \item Non-numeric Missed and Censored Records: All values should be numbers
-#'  \item Empty entries in Missed and Censored Records: No missing (\code{NA}) entries in Missed and Censored Records
+#'  \item Non-numeric or empty entries in Missed and Censored Records: All values should be numbers
 #'  \item Negative Missed and Censored Records: All values should be greater than or equal to zero
 #'  \item Parameter: Should match parameter names in the \code{Simple Parameter} or \code{WQX Parameter} columns of the \code{\link{paramsMWR}} data (warning only)
 #' }
@@ -54,25 +53,14 @@ checkMWRcens <- function(censdat, warn = TRUE){
   }
   message(paste(msg, 'OK'))
 
-  # check for non-numeric censored data
-  msg <- '\tChecking for non-numeric values in Missed and Censored Records...'
+  # check for non-numeric or empty censored data
+  msg <- '\tChecking for non-numeric or empty values in Missed and Censored Records...'
   typ <- censdat$`Missed and Censored Records`
-  chk <- !grepl('[[:alpha:]]', typ, ignore.case = TRUE)
+  chk <- !is.na(suppressWarnings(as.numeric(typ)))
   if(any(!chk)){
     rws <- which(!chk)
     tochk <- unique(typ[!chk])
-    stop(msg, '\n\tNon-numeric entries in Missed and Censored Records found: ', paste(tochk, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
-  }
-  message(paste(msg, 'OK'))
-  
-  # check for missing values in censored data
-  msg <- '\tChecking for empty values in Missed and Censored Records...'
-  typ <- censdat$`Missed and Censored Records`
-  chk <- !is.na(typ)
-  if(any(!chk)){
-    rws <- which(!chk)
-    tochk <- unique(typ[!chk])
-    stop(msg, '\n\tEmpty entries in Missed and Censored Records found in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
+    stop(msg, '\n\tNon-numeric or empty entries in Missed and Censored Records found: ', paste(tochk, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
   
