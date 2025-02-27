@@ -52,35 +52,35 @@
 #' 
 #' # frequency table percent
 #' tabfreper <- tabMWRfre(res = resdat, acc = accdat, frecom = frecomdat, type = 'percent', 
-#'   warn = F) 
+#'   warn = FALSE) 
 #' 
 #' # frequency summary table
 #' tabfresum <- tabMWRfre(res = resdat, acc = accdat, frecom = frecomdat, type = 'summary', 
-#'   warn = F)
+#'   warn = FALSE)
 #' 
 #' # accuracy table percent
 #' tabaccper <- tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'percent', 
-#'   warn = F)
+#'   warn = FALSE)
 #' 
 #' # accuracy table summary
 #' tabaccsum <- tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'summary', 
-#'   warn = F)
+#'   warn = FALSE)
 #'   
 #' # completeness table
-#' tabcom <- tabMWRcom(res = resdat, frecom = frecomdat, cens = censdat, warn = F, 
+#' tabcom <- tabMWRcom(res = resdat, frecom = frecomdat, cens = censdat, warn = FALSE, 
 #'   parameterwd = 1.15, noteswd = 2)
 #'
 #' # individual accuracy checks for raw data
 #' indflddup <- tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'individual', 
-#'   accchk = 'Field Duplicates', warn = F, caption = FALSE)
+#'   accchk = 'Field Duplicates', warn = FALSE, caption = FALSE)
 #' indlabdup <- tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'individual', 
-#'   accchk = 'Lab Duplicates', warn = F, caption = FALSE)
+#'   accchk = 'Lab Duplicates', warn = FALSE, caption = FALSE)
 #' indfldblk <- tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'individual', 
-#'   accchk = 'Field Blanks', warn = F, caption = FALSE)
+#'   accchk = 'Field Blanks', warn = FALSE, caption = FALSE)
 #' indlabblk <- tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'individual', 
-#'   accchk = 'Lab Blanks', warn = F, caption = FALSE)
+#'   accchk = 'Lab Blanks', warn = FALSE, caption = FALSE)
 #' indlabins <- tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = 'individual', 
-#'   accchk = 'Lab Spikes / Instrument Checks', warn = F, caption = FALSE)
+#'   accchk = 'Lab Spikes / Instrument Checks', warn = FALSE, caption = FALSE)
 #' 
 #' # input  
 #' datin <- list(
