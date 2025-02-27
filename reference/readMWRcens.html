@@ -76,7 +76,7 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Date are imported with <code><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_excel</a></code>, checked with <code><a href="checkMWRcens.html">checkMWRcens</a></code>, and formatted with <code><a href="formMWRcens.html">formMWRcens</a></code>.  The input file includes rows for each parameter and two columns indicating the parameter name and number of missed or censored records for that parameter.  The data are used to optionally complete the number of missed and censored records column for the completeness table created with <code><a href="tabMWRcom.html">tabMWRcom</a></code>.</p>
+    <p>Data are imported with <code><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_excel</a></code>, checked with <code><a href="checkMWRcens.html">checkMWRcens</a></code>, and formatted with <code><a href="formMWRcens.html">formMWRcens</a></code>.  The input file includes rows for each parameter and two columns indicating the parameter name and number of missed or censored records for that parameter.  The data are used to complete the number of missed and censored records column for the completeness table created with <code><a href="tabMWRcom.html">tabMWRcom</a></code>.  The parameters in this file must match those in the data quality objectives file for frequency and completeness.</p>
     </div>
 
     <div class="section level2">
@@ -93,12 +93,15 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">censdat</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Parameter `Missed and Censored Records`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                             <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> pH                                   12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> DO                                    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Nitrate                               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Parameter      `Missed and Censored Records`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Water Temp                                 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> pH                                        12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> DO                                         1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Sp Conductance                             0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> TP                                         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> Nitrate                                    0</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

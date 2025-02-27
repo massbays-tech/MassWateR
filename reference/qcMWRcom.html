@@ -98,7 +98,7 @@
     <p>The function can be used with inputs as paths to the relevant files or as data frames returned by <code><a href="readMWRresults.html">readMWRresults</a></code>, <code><a href="readMWRfrecom.html">readMWRfrecom</a></code>, and <code><a href="readMWRcens.html">readMWRcens</a></code>.  For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the <code>fset</code> argument instead. See the help file for <code><a href="utilMWRinput.html">utilMWRinput</a></code>.</p>
 <p>Note that frequency is only evaluated on parameters in the <code>Parameter</code> column in the data quality objectives frequency and completeness file.  A warning is returned if there are parameters in <code>Parameter</code> in the frequency and completeness file that are not in <code>Characteristic Name</code> in the results file.</p>
 <p>Similarly, parameters in the results file in the <code>Characteristic Name</code> column that are not found in the data quality objectives frequency and completeness file are not evaluated.  A warning is returned if there are parameters in <code>Characteristic Name</code> in the results file that are not in <code>Parameter</code> in the frequency and completeness file.</p>
-<p>A similar warning is returned if there are parameters in the censored data that are not in the results file and vice versa.</p>
+<p>A similar warning is returned if there are parameters in the censored data that are not in the results file.  However, an error is returned if there are parameters in the data quality objectives frequency and completeness file that are not in the censored data file.</p>
 <p>All warnings can be suppressed by setting <code>warn = FALSE</code>.</p>
     </div>
 
@@ -155,17 +155,16 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> 	Checking Parameter Name formats... OK</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in results data not found in censored data: Ammonia, E.coli, Sp Conductance, TP, Water Temp</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Parameter      datarec qualrec standard Missed and Censored R…¹ complete met  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Ammonia             43       0       90                      <span style="color: #BB0000;">NA</span>    100   TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Ammonia             43       0       90                       0    100   TRUE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> DO                  49       0       90                       1    100   TRUE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> E.coli              12       0       90                      <span style="color: #BB0000;">NA</span>    100   TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> E.coli              12       0       90                       0    100   TRUE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Nitrate             20       0       90                       0    100   TRUE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Sp Conductance      49       0       90                      <span style="color: #BB0000;">NA</span>    100   TRUE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> TP                  48       5       90                      <span style="color: #BB0000;">NA</span>     89.6 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> Water Temp          49       0       90                      <span style="color: #BB0000;">NA</span>    100   TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Sp Conductance      49       0       90                       0    100   TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> TP                  48       5       90                       0     89.6 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> Water Temp          49       0       90                       0    100   TRUE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> pH                  49       0       90                      12    100   TRUE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ abbreviated name: ¹​`Missed and Censored Records`</span></span>
 <span class="r-in"><span></span></span>
@@ -218,17 +217,16 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> All checks passed!</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">qcMWRcom</span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, frecom <span class="op">=</span> <span class="va">frecomdat</span>, cens <span class="op">=</span> <span class="va">censdat</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Parameters in results data not found in censored data: Ammonia, E.coli, Sp Conductance, TP, Water Temp</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Parameter      datarec qualrec standard Missed and Censored R…¹ complete met  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Ammonia             43       0       90                      <span style="color: #BB0000;">NA</span>    100   TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Ammonia             43       0       90                       0    100   TRUE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> DO                  49       0       90                       1    100   TRUE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> E.coli              12       0       90                      <span style="color: #BB0000;">NA</span>    100   TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> E.coli              12       0       90                       0    100   TRUE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Nitrate             20       0       90                       0    100   TRUE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Sp Conductance      49       0       90                      <span style="color: #BB0000;">NA</span>    100   TRUE </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> TP                  48       5       90                      <span style="color: #BB0000;">NA</span>     89.6 FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> Water Temp          49       0       90                      <span style="color: #BB0000;">NA</span>    100   TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Sp Conductance      49       0       90                       0    100   TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> TP                  48       5       90                       0     89.6 FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> Water Temp          49       0       90                       0    100   TRUE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> pH                  49       0       90                      12    100   TRUE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ abbreviated name: ¹​`Missed and Censored Records`</span></span>
 <span class="r-in"><span></span></span>
