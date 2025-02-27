@@ -161,7 +161,7 @@ checkMWRacc <- function(accdat, warn = TRUE){
   chk <- !chk
   if(any(!chk)){
     rws <- which(!chk)
-    stop(msg, '\n\tMissing unit (uom) in rows ', paste(rws, collapse = ', '), call. = FALSE)
+    stop(msg, '\n\tMissing unit (uom) in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
 

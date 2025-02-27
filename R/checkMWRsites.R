@@ -62,7 +62,7 @@ checkMWRsites <- function(sitdat){
     apply(1, function(x) !anyNA(x))
   if(any(!chk)){
     rws <- which(!chk)
-    stop(msg, '\n\tMissing latitude or longitude in rows ', paste(rws, collapse = ', '), call. = FALSE)
+    stop(msg, '\n\tMissing latitude or longitude in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
   
@@ -73,7 +73,7 @@ checkMWRsites <- function(sitdat){
   if(any(!chk)){
     rws <- which(!chk)
     tochk <- unique(typ[!chk])
-    stop(msg, '\n\tNon-numeric entries in Monitoring Location Latitude found: ', paste(tochk, collapse = ', '), ' in rows ', paste(rws, collapse = ', '), call. = FALSE)
+    stop(msg, '\n\tNon-numeric entries in Monitoring Location Latitude found: ', paste(tochk, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
   
@@ -84,7 +84,7 @@ checkMWRsites <- function(sitdat){
   if(any(!chk)){
     rws <- which(!chk)
     tochk <- unique(typ[!chk])
-    stop(msg, '\n\tNon-numeric entries in Monitoring Location Longitude found: ', paste(tochk, collapse = ', '), ' in rows ', paste(rws, collapse = ', '), call. = FALSE)
+    stop(msg, '\n\tNon-numeric entries in Monitoring Location Longitude found: ', paste(tochk, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
   
@@ -95,7 +95,7 @@ checkMWRsites <- function(sitdat){
   if(any(!chk)){
     rws <- which(!chk)
     tochk <- unique(typ[!chk])
-    stop(msg, '\n\tPositive Monitoring Location Longitude found in rows ', paste(rws, collapse = ', '), call. = FALSE)
+    stop(msg, '\n\tPositive Monitoring Location Longitude found in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
   
@@ -105,7 +105,7 @@ checkMWRsites <- function(sitdat){
   chk <- !is.na(chk)
   if(any(!chk)){
     rws <- which(!chk)
-    stop(msg, '\n\tMissing Monitoring Location ID in rows ', paste(rws, collapse = ', '), call. = FALSE)
+    stop(msg, '\n\tMissing Monitoring Location ID in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
   

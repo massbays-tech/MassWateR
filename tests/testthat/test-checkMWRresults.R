@@ -77,7 +77,7 @@ test_that("Checking entries in Quantitation Limit", {
   chk[23, 11] <- '<1'
   chk[200, 11] <- 'a'
   chk[250, 11] <- NA # does not trigger, expected behavior
-  expect_error(checkMWRresults(chk), 'Non-numeric entries in Quantitation Limit found: <1, a in rows 23, 200') 
+  expect_error(checkMWRresults(chk), 'Non-numeric entries in Quantitation Limit found: <1, a in row(s) 23, 200') 
 })
 
 test_that("Checking entries in Result Value", {
@@ -86,7 +86,7 @@ test_that("Checking entries in Result Value", {
   chk[200, 9] <- 'MDL'
   chk[250, 9] <- 'MDL'
   chk[260, 9] <- NA
-  expect_error(checkMWRresults(chk), 'Incorrect entries in Result Value found: 1.a09, MDL, NA in rows 23, 200, 250, 260')
+  expect_error(checkMWRresults(chk), 'Incorrect entries in Result Value found: 1.a09, MDL, NA in row(s) 23, 200, 250, 260')
 })
 
 test_that("Checking entries in QC Reference Value", {

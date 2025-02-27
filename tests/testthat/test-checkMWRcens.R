@@ -17,6 +17,12 @@ test_that("Checking non-numeric Missed and Censored Records", {
   expect_error(checkMWRcens(chk))
 })
 
+test_that("Checking empty values in Missed and Censored Records", {
+  chk <- tst$censdatchk
+  chk$`Missed and Censored Records`[1] <- NA
+  expect_error(checkMWRcens(chk))
+})
+
 test_that("Checking negative values in Missed and Censored Records", {
   chk <- tst$censdatchk
   chk$`Missed and Censored Records`[1] <- -1

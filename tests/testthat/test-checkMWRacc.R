@@ -55,7 +55,7 @@ test_that("Checking missing entries in uom", {
   chk[5, 2] <- NA
   chk[8, 2] <- NA
   chk[2, 2] <- NA # pH, will not trigger
-  expect_error(checkMWRacc(chk), regexp = 'Missing unit (uom) in rows 5, 8', fixed = T)
+  expect_error(checkMWRacc(chk), regexp = 'Missing unit (uom) in row(s) 5, 8', fixed = T)
 })
 
 test_that("Checking more than one unit type per parameter", {
