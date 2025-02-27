@@ -209,46 +209,23 @@ qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, cens = NULL, fset
     # save output
     output_file <- gsub('\\.docx', '.xlsx', output_file)
 
-    out <- list(
-      `Frequency DQO` = frecomdat, 
-      `Accuracy DQO` = accdat,
-      `Frequency Checks Percent` = tabfreper$body$dataset,
-      `Frequency Checks` = tabfresum$body$dataset,
-      `Accuracy Checks Percent` = tabaccper$body$dataset,
-      `Accuracy Checks` = tabaccsum$body$dataset,
-      `Completeness` = tabcom$body$dataset
+    datin <- list(
+      frecomdat = frecomdat,
+      accdat = accdat,
+      tabfreper = tabfreper,
+      tabfresum = tabfresum,
+      tabaccper = tabaccper,
+      tabaccsum = tabaccsum,
+      tabcom = tabcom,
+      indflddup = indflddup,
+      indlabdup = indlabdup,
+      indfldblk = indfldblk,
+      indlabblk = indlabblk,
+      indlabins = indlabins
     )
     
-    # remove met columns
-    out$`Frequency Checks Percent` <- out$`Frequency Checks Percent`[, !grepl('\\_met$', names(out$`Frequency Checks Percent`))]
-    out$`Accuracy Checks Percent` <- out$`Accuracy Checks Percent`[, !grepl('\\_met$', names(out$`Accuracy Checks Percent`))]
-    out$`Completeness` <- out$`Completeness`[, !grepl('^met$', names(out$`Completeness`))]
-    
-    # format accuracy checks as numeric
-    out$`Accuracy Checks` <- out$`Accuracy Checks` %>% 
-      dplyr::mutate(dplyr::across(c(`Number of QC Checks`, `Number of Misses`, `% Acceptance`), ~ gsub('\\%$|^\\-$', '', .x))) %>%
-      dplyr::mutate(dplyr::across(c(`Number of QC Checks`, `Number of Misses`, `% Acceptance`), as.numeric))
-
-    # arrange DQO tables as alphabetical
-    out$`Frequency DQO` <- dplyr::arrange(out$`Frequency DQO`, Parameter, .locale = 'en')
-    out$`Accuracy DQO` <- dplyr::arrange(out$`Accuracy DQO`, Parameter, .locale = 'en')
-    
-    # percents with zero decimals
-    out$`Frequency Checks Percent` <- dplyr::mutate(out$`Frequency Checks Percent`, dplyr::across(dplyr::where(is.numeric), round, 0))
-    out$`Accuracy Checks Percent` <- dplyr::mutate(out$`Accuracy Checks Percent`, dplyr::across(dplyr::where(is.numeric), round, 0))  
-    out$`Frequency Checks`$`Frequency %` <- round(out$`Frequency Checks`$`Frequency %`, 0)
-    out$`Completeness`$`% Completeness` <- round(out$`Completeness`$`% Completeness`, 0)
-    
-    if(rawdata)
-      out <- c(out, 
-        list(
-          `Field Duplicates` = indflddup$body$dataset,
-          `Lab Duplicates` = indlabdup$body$dataset,
-          `Field Blanks` = indfldblk$body$dataset,
-          `Lab Blanks` = indlabblk$body$dataset,
-          `Lab Spikes - Instrument Checks` = indlabins$body$dataset
-        )
-      )
+    # table formatting for sheet
+    out <- utilMWRsheet(datin, rawdata)
     
     # save
     output_file <- paste0(tools::file_path_sans_ext(output_file), '.xlsx')
