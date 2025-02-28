@@ -140,7 +140,7 @@ qcMWRcom <- function(res = NULL, frecom = NULL, cens = NULL, fset = NULL, runchk
     dplyr::left_join(censdat, by = 'Parameter') %>% 
     dplyr::mutate(
       complete = ifelse(
-        !is.na(standard), 100 * (datarec - qualrec) / (datarec),
+        !is.na(standard), 100 * (1 - (qualrec + `Missed and Censored Records`) / (datarec + `Missed and Censored Records`)),
         NA_real_
       ),
       met = complete >= standard
