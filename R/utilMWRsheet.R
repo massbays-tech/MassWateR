@@ -131,6 +131,18 @@ utilMWRsheet <- function(datin, rawdata = TRUE){
   out$`Frequency Checks`$`Frequency %` <- round(out$`Frequency Checks`$`Frequency %`, 0)
   out$`Completeness`$`% Completeness` <- round(out$`Completeness`$`% Completeness`, 0)
   
+  # make frequency and accuracy checks tidy
+  out$`Frequency Checks` <- out$`Frequency Checks` %>% 
+    dplyr::mutate(typena = is.na(Type)) %>% 
+    tidyr::fill(Type) %>% 
+    dplyr::filter(typena) %>% 
+    dplyr::select(-typena)
+  out$`Accuracy Checks` <- out$`Accuracy Checks`%>% 
+    dplyr::mutate(typena = is.na(Type)) %>% 
+    tidyr::fill(Type) %>% 
+    dplyr::filter(typena) %>% 
+    dplyr::select(-typena)
+  
   if(rawdata){
     out <- c(out, 
              list(
@@ -142,41 +154,61 @@ utilMWRsheet <- function(datin, rawdata = TRUE){
              )
     )
 
-    # separate values from units using space for columns 
+    # separate values from units using space for columns, make tidy
     out$`Field Duplicates` <- out$`Field Duplicates` %>% 
       tidyr::separate(`Initial Result`, into = c('Initial Result', 'Initial Units'), sep = '\\s+', extra = 'merge', fill = 'left') %>% 
       tidyr::separate(`Dup. Result`, into = c('Dup. Result', 'Dup. Result Units'), sep = '\\s+', extra = 'merge', fill = 'left') %>%
       tidyr::separate(`Diff./RPD`, into = c('Diff./RPD', 'Diff./RPD Units'), sep = '\\s+', extra = 'merge', fill = 'left') %>% 
       dplyr::mutate(
-        dplyr::across(c(`Initial Result`, `Dup. Result`, `Diff./RPD`), ~ as.numeric(gsub('\\%$|^\\-$', '', .x)))
-      )
+        dplyr::across(c(`Initial Result`, `Dup. Result`, `Diff./RPD`), ~ as.numeric(gsub('\\%$|^\\-$', '', .x))), 
+        paramna = is.na(Parameter)
+      ) %>% 
+      tidyr::fill(Parameter) %>% 
+      dplyr::filter(paramna) %>% 
+      dplyr::select(-paramna)
     out$`Lab Duplicates` <- out$`Lab Duplicates` %>% 
       tidyr::separate(`Initial Result`, into = c('Initial Result', 'Initial Units'), sep = '\\s+', extra = 'merge', fill = 'left') %>% 
       tidyr::separate(`Dup. Result`, into = c('Dup. Result', 'Dup. Result Units'), sep = '\\s+', extra = 'merge', fill = 'left') %>%
       tidyr::separate(`Diff./RPD`, into = c('Diff./RPD', 'Diff./RPD Units'), sep = '\\s+', extra = 'merge', fill = 'left') %>% 
       dplyr::mutate(
-        dplyr::across(c(`Initial Result`, `Dup. Result`, `Diff./RPD`), ~ as.numeric(gsub('\\%$|^\\-$', '', .x)))
-      )
+        dplyr::across(c(`Initial Result`, `Dup. Result`, `Diff./RPD`), ~ as.numeric(gsub('\\%$|^\\-$', '', .x))), 
+        paramna = is.na(Parameter)
+      ) %>% 
+      tidyr::fill(Parameter) %>% 
+      dplyr::filter(paramna) %>% 
+      dplyr::select(-paramna)
     out$`Field Blanks` <- out$`Field Blanks` %>% 
       tidyr::separate(`Result`, into = c('Result', 'Result Units'), sep = '\\s+', extra = 'merge', fill = 'left') %>% 
       tidyr::separate(`Threshold`, into = c('Threshold', 'Threshold Units'), sep = '\\s+', extra = 'merge', fill = 'left') %>%
       dplyr::mutate(
-        dplyr::across(c(`Result`, `Threshold`), ~ as.numeric(gsub('\\%$|^\\-$', '', .x)))
-      )
+        dplyr::across(c(`Result`, `Threshold`), ~ as.numeric(gsub('\\%$|^\\-$', '', .x))), 
+        paramna = is.na(Parameter)
+      ) %>% 
+      tidyr::fill(Parameter) %>% 
+      dplyr::filter(paramna) %>% 
+      dplyr::select(-paramna)
     out$`Lab Blanks` <- out$`Lab Blanks` %>% 
       tidyr::separate(`Result`, into = c('Result', 'Result Units'), sep = '\\s+', extra = 'merge', fill = 'left') %>% 
       tidyr::separate(`Threshold`, into = c('Threshold', 'Threshold Units'), sep = '\\s+', extra = 'merge', fill = 'left') %>%
       dplyr::mutate(
-        dplyr::across(c(`Result`, `Threshold`), ~ as.numeric(gsub('\\%$|^\\-$', '', .x)))
-      )
+        dplyr::across(c(`Result`, `Threshold`), ~ as.numeric(gsub('\\%$|^\\-$', '', .x))), 
+        paramna = is.na(Parameter)
+      ) %>% 
+      tidyr::fill(Parameter) %>% 
+      dplyr::filter(paramna) %>% 
+      dplyr::select(-paramna)
     out$`Lab Spikes - Instrument Checks` <- out$`Lab Spikes - Instrument Checks` %>% 
       dplyr::mutate(`Diff./Accuracy` = gsub('\\%$', ' %', `Diff./Accuracy`)) %>%
       tidyr::separate(`Spike/Standard`, into = c('Spike/Standard', 'Spike/Standard Units'), sep = '\\s+', extra = 'merge', fill = 'left') %>% 
       tidyr::separate(`Result`, into = c('Result', 'Result Units'), sep = '\\s+', extra = 'merge', fill = 'left') %>%
       tidyr::separate(`Diff./Accuracy`, into = c('Diff./Accuracy', 'Diff./Accuracy Units'), sep = '\\s+', extra = 'merge', fill = 'left') %>% 
       dplyr::mutate(
-        dplyr::across(c(`Spike/Standard`, `Result`, `Diff./Accuracy`), ~ as.numeric(gsub('\\%$|^\\-$', '', .x)))
-      )
+        dplyr::across(c(`Spike/Standard`, `Result`, `Diff./Accuracy`), ~ as.numeric(gsub('\\%$|^\\-$', '', .x))), 
+        paramna = is.na(Parameter)
+      ) %>% 
+      tidyr::fill(Parameter) %>% 
+      dplyr::filter(paramna) %>% 
+      dplyr::select(-paramna)
     
   }
   
