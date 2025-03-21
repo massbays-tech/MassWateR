@@ -74,7 +74,7 @@
 
 
 <dt id="arg-cens">cens<a class="anchor" aria-label="anchor" href="#arg-cens"></a></dt>
-<dd><p>character string of path to the censored data file or <code>data.frame</code> returned by <code><a href="readMWRcens.html">readMWRcens</a></code></p></dd>
+<dd><p>character string of path to the censored data file or <code>data.frame</code> returned by <code><a href="readMWRcens.html">readMWRcens</a></code>, optional</p></dd>
 
 
 <dt id="arg-fset">fset<a class="anchor" aria-label="anchor" href="#arg-fset"></a></dt>
@@ -95,10 +95,10 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The function can be used with inputs as paths to the relevant files or as data frames returned by <code><a href="readMWRresults.html">readMWRresults</a></code>, <code><a href="readMWRfrecom.html">readMWRfrecom</a></code>, and <code><a href="readMWRcens.html">readMWRcens</a></code>.  For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the <code>fset</code> argument instead. See the help file for <code><a href="utilMWRinput.html">utilMWRinput</a></code>.</p>
+    <p>The function can be used with inputs as paths to the relevant files or as data frames returned by <code><a href="readMWRresults.html">readMWRresults</a></code>, <code><a href="readMWRfrecom.html">readMWRfrecom</a></code>, and <code><a href="readMWRcens.html">readMWRcens</a></code> (optional).  For the former, the full suite of data checks can be evaluated with <code>runkchk = T</code> (default) or suppressed with <code>runchk = F</code>.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the <code>fset</code> argument instead. See the help file for <code><a href="utilMWRinput.html">utilMWRinput</a></code>.</p>
 <p>Note that frequency is only evaluated on parameters in the <code>Parameter</code> column in the data quality objectives frequency and completeness file.  A warning is returned if there are parameters in <code>Parameter</code> in the frequency and completeness file that are not in <code>Characteristic Name</code> in the results file.</p>
 <p>Similarly, parameters in the results file in the <code>Characteristic Name</code> column that are not found in the data quality objectives frequency and completeness file are not evaluated.  A warning is returned if there are parameters in <code>Characteristic Name</code> in the results file that are not in <code>Parameter</code> in the frequency and completeness file.</p>
-<p>A similar warning is returned if there are parameters in the censored data that are not in the results file.  However, an error is returned if there are parameters in the data quality objectives frequency and completeness file that are not in the censored data file.</p>
+<p>A similar warning is returned if there are parameters in the censored data, if provided, that are not in the results file.  However, an error is returned if there are parameters in the data quality objectives frequency and completeness file that are not in the censored data file.</p>
 <p>All warnings can be suppressed by setting <code>warn = FALSE</code>.</p>
     </div>
 
