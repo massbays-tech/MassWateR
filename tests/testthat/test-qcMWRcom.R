@@ -26,3 +26,8 @@ test_that("Checking output format", {
   result <- qcMWRcom(tst$respth, tst$frecompth, tst$censpth, runchk = F, warn = F)
   expect_s3_class(result, 'tbl_df')
 })
+
+test_that("Checking all zeroes for cens data if not provided", {
+  result <- qcMWRcom(tst$respth, tst$frecompth, runchk = F, warn = F)
+  expect_equal(unique(result$`Missed and Censored Records`), 0L)
+})

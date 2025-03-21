@@ -90,6 +90,12 @@ tabMWRcom <- function(res = NULL, frecom = NULL, cens = NULL, fset = NULL, runch
     flextable::width(j = 'Parameter', width = parameterwd) %>% 
     flextable::width(j = 'Notes', width = noteswd)
   
+  # add footer note
+  if(is.null(cens) & is.null(fset$cens)){
+    tab <- tab %>% 
+      flextable::add_footer_lines('No Censored file submitted. Percent Completeness calculated assuming zero missed/censored records.')
+  }
+  
   return(tab)
   
 }

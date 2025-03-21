@@ -83,24 +83,28 @@ qcMWRcom <- function(res = NULL, frecom = NULL, cens = NULL, fset = NULL, runchk
   }
   
   ##
-  # check parameter matches between results and censored
-  censprm <- sort(unique(censdat$Parameter))
-  resdatprm <- sort(unique(resdat$`Characteristic Name`))
-  
-  # check parameters in censored can be found in results  
-  chk <- censprm %in% resdatprm
-  if(any(!chk) & warn){
-    tochk <- censprm[!chk]
-    warning('Parameters in censored data not found in results data: ', paste(tochk, collapse = ', '), call. = FALSE)
-  }
-  
-  # check parameters in completeness can be found in censored
-  chk <- frecomprm %in% censprm
-  if(any(!chk) & warn){
-    tochk <- resdatprm[!chk]
-    stop('Parameters in quality control objectives for frequency and completeness data not found in censored data: ', paste(tochk, collapse = ', '), call. = FALSE)
-  }
+  # check parameter matches between results and censored, only if censored data provided
+  if(!is.null(censdat)){
+    
+    censprm <- sort(unique(censdat$Parameter))
+    resdatprm <- sort(unique(resdat$`Characteristic Name`))
+    
+    # check parameters in censored can be found in results  
+    chk <- censprm %in% resdatprm
+    if(any(!chk) & warn){
+      tochk <- censprm[!chk]
+      warning('Parameters in censored data not found in results data: ', paste(tochk, collapse = ', '), call. = FALSE)
+    }
+    
+    # check parameters in completeness can be found in censored
+    chk <- frecomprm %in% censprm
+    if(any(!chk) & warn){
+      tochk <- resdatprm[!chk]
+      stop('Parameters in quality control objectives for frequency and completeness data not found in censored data: ', paste(tochk, collapse = ', '), call. = FALSE)
+    }
 
+  }
+  
   # parameters for completeness checks
   prms <- intersect(resdatprm, frecomprm)
 
@@ -134,10 +138,20 @@ qcMWRcom <- function(res = NULL, frecom = NULL, cens = NULL, fset = NULL, runchk
   frecomdat <- frecomdat %>% 
     dplyr::select(Parameter, standard = `% Completeness`)
 
-  # combine and create summaries
+  # combine
+  resall <- resall %>% 
+    dplyr::left_join(frecomdat, by = 'Parameter') 
+  
+  # add censored data if provided, otherwise enter 0
+  if(!is.null(censdat)) {
+    resall <- resall %>% 
+      dplyr::left_join(censdat, by = 'Parameter')
+  } else {
+    resall$`Missed and Censored Records` <- 0L
+  }
+  
+  # create summaries
   out <- resall %>% 
-    dplyr::left_join(frecomdat, by = 'Parameter') %>% 
-    dplyr::left_join(censdat, by = 'Parameter') %>% 
     dplyr::mutate(
       complete = ifelse(
         !is.na(standard), 100 * (1 - (qualrec + `Missed and Censored Records`) / (datarec + `Missed and Censored Records`)),
