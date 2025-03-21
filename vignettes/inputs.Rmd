@@ -25,7 +25,7 @@ Five types of data are used with the MassWateR package.
 2. Summary of data quality objectives that describe quality control **accuracy**, **frequency**, and **completeness** measures for data in the results file.
 3. A **site metadata** file, including location names, latitude, longitude, and additional grouping factors for sites.
 4. A **wqx metadata** file required for generating output to facilitate data upload to WQX. 
-5. Information on the number of **censored** or missing observations by parameter.
+5. Information on the number of **censored** or missing observations by parameter.  This is optional and used only for the QC report created by `qcMWRreview()`, specifically for the quality control completeness checks in the table produced by `tabMWRcom()`.
 
 Templates with instructions for each of the types of input data are available for download in the [Resources tab](https://massbays-tech.github.io/MassWateR/RESOURCES.html). Additionally, example files, described below, are provided with the package to demonstrate and test the functions.
 
@@ -247,7 +247,7 @@ An informative error is returned if the input data fail any of the checks. The i
 
 ### Censored data
 
-An Excel file for the number of missed or censored observations by parameter is required for use with some of the quality control functions, specifically `qcMWRreview()` to generate the QC report and `tabMWRcom()` to generate the completeness table. The parameters in this file must match those in the data quality objectives file for frequency and completeness. The censored data can be imported using the `readMWRcens()` function. The system file included with the package, described above, demonstrates the required information and format for the file. The `pth` argument will point to the location of the external file on your computer. See the [Resources tab](https://massbays-tech.github.io/MassWateR/RESOURCES.html) for the Excel file template and detailed instructions (in the template's instructions worksheet). As above, the system file included with the package is used for the example.
+An Excel file for the number of missed or censored observations by parameter is required for use with some of the quality control functions, specifically `qcMWRreview()` to generate the QC report and `tabMWRcom()` to generate the completeness table. This file is optional and not a requirement for producing the report and table. The parameters in this file must match those in the data quality objectives file for frequency and completeness. The censored data can be imported using the `readMWRcens()` function. The system file included with the package, described above, demonstrates the required information and format for the file. The `pth` argument will point to the location of the external file on your computer. See the [Resources tab](https://massbays-tech.github.io/MassWateR/RESOURCES.html) for the Excel file template and detailed instructions (in the template's instructions worksheet). As above, the system file included with the package is used for the example.
 
 ```{r, message = T}
 # import cens metadata

@@ -24,7 +24,7 @@ tabMWRcom(
 
 \item{frecom}{character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}}
 
-\item{cens}{character string of path to the censored data file or \code{data.frame} returned by \code{\link{readMWRcens}}}
+\item{cens}{character string of path to the censored data file or \code{data.frame} returned by \code{\link{readMWRcens}}, optional}
 
 \item{fset}{optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, \code{sit}, or \code{wqx} overrides the other arguments}
 
@@ -51,9 +51,9 @@ A \code{\link[flextable]{flextable}} object with formatted results showing summa
 Create a formatted table of quality control completeness checks
 }
 \details{
-The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRfrecom}}, and \code{\link{readMWRcens}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.
+The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRfrecom}}, and \code{\link{readMWRcens}} (optional).  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}, as explained in the relevant help files.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.
 
-Also note that completeness is only evaluated on parameters that are shared between the results file and data quality objectives file for frequency and completeness. A warning is returned for parameters that do not match between the files. A similar warning is returned if there are parameters in the censored data that are not in the results file and vice versa. These warnings can be suppressed by setting \code{warn = FALSE}.
+Also note that completeness is only evaluated on parameters that are shared between the results file and data quality objectives file for frequency and completeness. A warning is returned for parameters that do not match between the files. A similar warning is returned if there are parameters in the censored data, if provided, that are not in the results file and vice versa. These warnings can be suppressed by setting \code{warn = FALSE}.
 
 A summary table showing the number of data records, number of qualified records, and percent completeness is created.  The \code{\% Completeness} column shows cells as green or red if the required percentage of observations for completeness are present as specified in the data quality objectives file.  The \code{Hit/ Miss} column shows similar information but in text format, i.e., \code{MISS} is shown if the quality control standard for completeness is not met.
 

@@ -20,7 +20,7 @@ A formatted censored data frame that can be used for downstream analysis
 Read censored data from an external file
 }
 \details{
-Data are imported with \code{\link[readxl]{read_excel}}, checked with \code{\link{checkMWRcens}}, and formatted with \code{\link{formMWRcens}}.  The input file includes rows for each parameter and two columns indicating the parameter name and number of missed or censored records for that parameter.  The data are used to complete the number of missed and censored records column for the completeness table created with \code{\link{tabMWRcom}}.  The parameters in this file must match those in the data quality objectives file for frequency and completeness.
+Data are imported with \code{\link[readxl]{read_excel}}, checked with \code{\link{checkMWRcens}}, and formatted with \code{\link{formMWRcens}}.  The input file includes rows for each parameter and two columns indicating the parameter name and number of missed or censored records for that parameter.  The data are used to complete the number of missed and censored records column for the completeness table created with \code{\link{tabMWRcom}} and is an optional input.  The parameters in this file must match those in the data quality objectives file for frequency and completeness.
 }
 \examples{
 censpth <- system.file('extdata/ExampleCensored.xlsx', package = 'MassWateR')

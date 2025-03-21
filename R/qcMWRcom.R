@@ -2,18 +2,18 @@
 #'
 #' @param res character string of path to the results file or \code{data.frame} for results returned by \code{\link{readMWRresults}}
 #' @param frecom character string of path to the data quality objectives file for frequency and completeness or \code{data.frame} returned by \code{\link{readMWRfrecom}}
-#' @param cens character string of path to the censored data file or \code{data.frame} returned by \code{\link{readMWRcens}}
+#' @param cens character string of path to the censored data file or \code{data.frame} returned by \code{\link{readMWRcens}}, optional
 #' @param fset optional list of inputs with elements named \code{res}, \code{acc}, \code{frecom}, \code{sit}, or \code{wqx} overrides the other arguments
 #' @param runchk  logical to run data checks with \code{\link{checkMWRresults}} and \code{\link{checkMWRfrecom}}, applies only if \code{res} or \code{frecom} are file paths
 #' @param warn logical to return warnings to the console (default)
 #'
-#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRfrecom}}, and \code{\link{readMWRcens}}.  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.
+#' @details The function can be used with inputs as paths to the relevant files or as data frames returned by \code{\link{readMWRresults}}, \code{\link{readMWRfrecom}}, and \code{\link{readMWRcens}} (optional).  For the former, the full suite of data checks can be evaluated with \code{runkchk = T} (default) or suppressed with \code{runchk = F}.  In the latter case, downstream analyses may not work if data are formatted incorrectly. For convenience, a named list with the input arguments as paths or data frames can be passed to the \code{fset} argument instead. See the help file for \code{\link{utilMWRinput}}.
 #' 
 #' Note that frequency is only evaluated on parameters in the \code{Parameter} column in the data quality objectives frequency and completeness file.  A warning is returned if there are parameters in \code{Parameter} in the frequency and completeness file that are not in \code{Characteristic Name} in the results file. 
 #' 
 #' Similarly, parameters in the results file in the \code{Characteristic Name} column that are not found in the data quality objectives frequency and completeness file are not evaluated.  A warning is returned if there are parameters in \code{Characteristic Name} in the results file that are not in \code{Parameter} in the frequency and completeness file.  
 #' 
-#' A similar warning is returned if there are parameters in the censored data that are not in the results file.  However, an error is returned if there are parameters in the data quality objectives frequency and completeness file that are not in the censored data file. 
+#' A similar warning is returned if there are parameters in the censored data, if provided, that are not in the results file.  However, an error is returned if there are parameters in the data quality objectives frequency and completeness file that are not in the censored data file. 
 #' 
 #' All warnings can be suppressed by setting \code{warn = FALSE}. 
 #' 
