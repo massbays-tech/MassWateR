@@ -54,7 +54,7 @@
 #' 
 qcMWRcom <- function(res = NULL, frecom = NULL, cens = NULL, fset = NULL, runchk = TRUE, warn = TRUE){
   
-  utilMWRinputcheck(mget(ls()))
+  utilMWRinputcheck(mget(ls()), 'cens')
   
   ##
   # get user inputs

@@ -1,6 +1,7 @@
 #' Check if required inputs are present for a function
 #'
 #' @param inputs list of arguments passed from the parent function
+#' @param nocheck optional character vector of inputs not to check, allows for optional inputs
 #'
 #' @return NULL if all inputs are present, otherwise an error message indicating which inputs are missing
 #' @export
@@ -13,12 +14,15 @@
 #' inputchk$cens <- system.file('extdata/ExampleCensored.xlsx', package = 'MassWateR')
 #' 
 #' utilMWRinputcheck(inputchk)
-utilMWRinputcheck <- function(inputs){
+utilMWRinputcheck <- function(inputs, nocheck = NULL){
   
   # names of required inputs from the function
   inpchk <- names(inputs)
   inpchk <- inpchk[inpchk %in% c('res', 'acc', 'frecom', 'sit', 'wqx', 'cens')]
 
+  if(!is.null(nocheck))
+    inpchk <- inpchk[!inpchk %in% nocheck]
+  
   fset <- inputs$fset
 
   # check fset inputs

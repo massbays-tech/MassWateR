@@ -60,7 +60,7 @@
 #' }
 qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, cens = NULL, fset = NULL, output_dir, output_file = NULL, savesheet = FALSE, rawdata = TRUE, dqofontsize = 7.5, tabfontsize = 9, padding = 0, warn = TRUE, runchk = TRUE) {
 
-  utilMWRinputcheck(mget(ls()))
+  utilMWRinputcheck(mget(ls()), 'cens')
 
   # rmd template
   qcreview <- system.file('rmd', 'qcreview.Rmd', package = 'MassWateR')
