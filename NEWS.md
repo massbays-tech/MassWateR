@@ -1,3 +1,20 @@
+# MassWateR 2.2.0
+
+* `utilMWRsheet()` function created to format tabular output if `savesheet = TRUE` for `qcMWRreview()`
+* Vignettes updated to describe optional censored data file as input to quality control workflow
+* Censored data file can be included as an optional file in `qcMWRreview()` via `tabMWRcom()` and `qcMWRcom()`
+* Complete workflow to import, check, and format censored data file using `readMWRcens()`, `checkMWRcens()`, and `formMWRcens()`
+* `qcMWRreview()` has option to save tables in a spreadsheet using `savesheet = TRUE`
+* `tabMWRcom()` places censored data next to qualified records
+* `readMWRresultsview()` will show `NA` entries if found in a column of the water quality results file
+* `checkMWRresults()` will now return an error (stop) if `NA` found in `Result Value` column
+* Training video link added to resources page of website
+* `tabMWRwqx()` has option to return tabular output in a list format using `listout = TRUE`
+* `anlzMWRoutlierall()` has option to export images in a zipped folder using `format = 'zip'`
+* `bssize` argument added to all analysis functions to uniformly change font size for all text
+* Tests no longer load artifacts into the environment when running package dev version locally
+* Fixed broken links on web page for downloadable resources
+
 # MassWateR 2.1.5
 
 * Added check to `checkMWRresults()` for results data to verify all values in the quantitation limit column are numbers, with updated instructions in the results template file

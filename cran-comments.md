@@ -1,13 +1,13 @@
 ## Resubmission
 
-This is a version update to 2.1.5
+This is a version update to 2.2.0
 
 ## Test environments
 
-* ubuntu 22.04.5 (devel, release, old release)
-* OS X (R 4.4.1)
-* win-builder [http://win-builder.r-project.org/](http://win-builder.r-project.org/) (devel, release, old release)
-* local Windows 10 install (R 4.3.2)
+* ubuntu 24.04.2 (R devel, release, old release)
+* OS X (R release)
+* win-builder [http://win-builder.r-project.org/](http://win-builder.r-project.org/) (R devel, release, old release)
+* local Windows 10 install (R 4.4.2)
 
 ## R CMD check results
 
