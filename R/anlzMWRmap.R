@@ -25,6 +25,7 @@
 #' @param northloc character string indicating location of the north arrow, see details
 #' @param scaleloc character string indicating location of the scale bar, see details
 #' @param latlon logical to include latitude and longitude labels on the plot, default \code{TRUE}
+#' @param useapi logical to use API to retrieve water features if \code{addwater} is not \code{NULL}
 #' @param ttlsize numeric value indicating font size of the title relative to other text in the plot
 #' @param bssize numeric for overall plot text scaling, passed to \code{\link[ggplot2]{theme_gray}}
 #' @param runchk logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, or \code{\link{checkMWRsites}}, applies only if \code{res}, \code{acc}, or \code{sit} are file paths
@@ -73,7 +74,7 @@
 #' # map with NHD water bodies
 #' anlzMWRmap(res = resdat, param = 'DO', acc = accdat, sit = sitdat, addwater = 'medium')
 #' }
-anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', palcolrev = FALSE, sumfun = 'auto', crs = 4326, zoom = 11, addwater = 'medium', watercol = 'lightblue', maptype = NULL, buffdist = 2, scaledist = 'km', northloc = 'tl', scaleloc = 'br', latlon = TRUE, ttlsize = 1.2, bssize = 11, runchk = TRUE, warn = TRUE){
+anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, site = NULL, resultatt = NULL, locgroup = NULL, dtrng = NULL, ptsize = 4, repel = TRUE, labsize = 3, palcol = 'Greens', palcolrev = FALSE, sumfun = 'auto', crs = 4326, zoom = 11, addwater = 'medium', watercol = 'lightblue', maptype = NULL, buffdist = 2, scaledist = 'km', northloc = 'tl', scaleloc = 'br', latlon = TRUE, useapi = FALSE, ttlsize = 1.2, bssize = 11, runchk = TRUE, warn = TRUE){
   
   utilMWRinputcheck(mget(ls()))
   
@@ -176,34 +177,71 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
     if(!chk)
       stop('addwater argument must be "low", "medium", "high", or NULL')
 
-    streamsMWR <- utilMWRhttpgrace('https://github.com/massbays-tech/MassWateRdata/raw/main/data/streamsMWR.RData')
-    riversMWR <- utilMWRhttpgrace('https://github.com/massbays-tech/MassWateRdata/raw/main/data/riversMWR.RData')
-    pondsMWR <- utilMWRhttpgrace('https://github.com/massbays-tech/MassWateRdata/raw/main/data/pondsMWR.RData')
-    
     dtl <- list('low' = 'low', 'medium' = c('low', 'medium'), 'high' = c('low', 'medium', 'high'))
     dtl <- dtl[[addwater]]
- 
-    dat_ext <- dat_ext %>% 
-      sf::st_as_sfc() %>% 
-      sf::st_transform(crs = 26986) %>% 
-      sf::st_bbox()
-    
-    streamscrop <- suppressWarnings({streamsMWR %>% 
-      dplyr::filter(dLevel %in% dtl) %>% 
-      sf::st_crop(dat_ext) %>% 
-      sf::st_transform(crs = 4326)
-    })
-    riverscrop <- suppressWarnings({riversMWR %>% 
-      dplyr::filter(dLevel %in% dtl) %>% 
-      sf::st_crop(dat_ext) %>% 
-      sf::st_transform(crs = 4326)
-    })
-    pondscrop <- suppressWarnings({pondsMWR %>% 
-      dplyr::filter(dLevel %in% dtl) %>% 
-      sf::st_crop(dat_ext) %>% 
-      sf::st_transform(crs = 4326)
+
+    if(!useapi){
+
+      streamsMWR <- utilMWRhttpgrace('https://github.com/massbays-tech/MassWateRdata/raw/main/data/streamsMWR.RData')
+      riversMWR <- utilMWRhttpgrace('https://github.com/massbays-tech/MassWateRdata/raw/main/data/riversMWR.RData')
+      pondsMWR <- utilMWRhttpgrace('https://github.com/massbays-tech/MassWateRdata/raw/main/data/pondsMWR.RData')
+      
+      dat_ext <- dat_ext %>% 
+        sf::st_as_sfc() %>% 
+        sf::st_transform(crs = 26986) %>% 
+        sf::st_bbox()
+      
+      streamscrop <- suppressWarnings({streamsMWR %>% 
+        dplyr::filter(dLevel %in% dtl) %>% 
+        sf::st_crop(dat_ext) %>% 
+        sf::st_transform(crs = 4326)
       })
-  
+      riverscrop <- suppressWarnings({riversMWR %>% 
+        dplyr::filter(dLevel %in% dtl) %>% 
+        sf::st_crop(dat_ext) %>% 
+        sf::st_transform(crs = 4326)
+      })
+      pondscrop <- suppressWarnings({pondsMWR %>% 
+        dplyr::filter(dLevel %in% dtl) %>% 
+        sf::st_crop(dat_ext) %>% 
+        sf::st_transform(crs = 4326)
+      })
+      
+    }
+
+    if(useapi){
+
+      base_url <- "http://gooseberry.sfei.org:8000"
+
+      response <- httr::GET(
+        paste0(base_url, "/bbox/all"),
+        query = list(
+          xmin = dat_ext[['xmin']],
+          ymin = dat_ext[['ymin']],
+          xmax = dat_ext[['xmax']],
+          ymax = dat_ext[['ymax']]
+        )
+      )
+      data <- httr::content(response)
+
+      fc <- paste0(
+        '{"type":"FeatureCollection","features":[',
+        paste(data$features, collapse = ","),
+        ']}'
+      )
+
+      spatdat <- sf::st_read(I(fc), quiet = TRUE) %>%
+        dplyr::filter(dLevel %in% dtl)
+
+      streamscrop <- spatdat %>%
+        dplyr::filter(grepl('^streams', source_file))
+      riverscrop <- spatdat %>%
+        dplyr::filter(grepl('^rivers', source_file))
+      pondscrop <- spatdat %>%
+        dplyr::filter(grepl('^ponds', source_file))
+
+    }
+      
     suppressMessages({
       m <- m +
         ggplot2::geom_sf(data = streamscrop, col = watercol, fill = watercol, inherit.aes = FALSE) +

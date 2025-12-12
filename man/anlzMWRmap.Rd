@@ -30,6 +30,7 @@ anlzMWRmap(
   northloc = "tl",
   scaleloc = "br",
   latlon = TRUE,
+  useapi = FALSE,
   ttlsize = 1.2,
   bssize = 11,
   runchk = TRUE,
@@ -86,6 +87,8 @@ anlzMWRmap(
 \item{scaleloc}{character string indicating location of the scale bar, see details}
 
 \item{latlon}{logical to include latitude and longitude labels on the plot, default \code{TRUE}}
+
+\item{useapi}{logical to use API to retrieve water features if \code{addwater} is not \code{NULL}}
 
 \item{ttlsize}{numeric value indicating font size of the title relative to other text in the plot}
 
