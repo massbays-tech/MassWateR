@@ -211,34 +211,21 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
 
     if(useapi){
 
-      base_url <- "http://gooseberry.sfei.org:8000"
-
-      response <- httr::GET(
-        paste0(base_url, "/bbox/all"),
-        query = list(
-          xmin = dat_ext[['xmin']],
-          ymin = dat_ext[['ymin']],
-          xmax = dat_ext[['xmax']],
-          ymax = dat_ext[['ymax']]
+      streamscrop <- utilMWRgetnhd(
+          id = 6,
+          bbox = dat_ext, 
+          dLevel = addwater
         )
-      )
-      data <- httr::content(response)
-
-      fc <- paste0(
-        '{"type":"FeatureCollection","features":[',
-        paste(data$features, collapse = ","),
-        ']}'
-      )
-
-      spatdat <- sf::st_read(I(fc), quiet = TRUE) %>%
-        dplyr::filter(dLevel %in% dtl)
-
-      streamscrop <- spatdat %>%
-        dplyr::filter(grepl('^streams', source_file))
-      riverscrop <- spatdat %>%
-        dplyr::filter(grepl('^rivers', source_file))
-      pondscrop <- spatdat %>%
-        dplyr::filter(grepl('^ponds', source_file))
+      riverscrop <- utilMWRgetnhd(
+          id = 9,
+          bbox = dat_ext,
+          dLevel = addwater
+        )
+      pondscrop <- utilMWRgetnhd(
+          id = 12,
+          bbox = dat_ext,
+          dLevel = addwater
+        )
 
     }
       
