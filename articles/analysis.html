@@ -165,13 +165,21 @@ by a boxplot is provided in the <a href="https://massbays-tech.github.io/MassWat
 checks</a> vignette. The relevant threshold lines for freshwater
 environments are shown using <code>thresh = "fresh"</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"month"</span>, type <span class="op">=</span> <span class="st">"box"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-3-1.png" width="768"></p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"month"</span>, type <span class="op">=</span> <span class="st">"box"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `linewidth` instead.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">MassWateR</span> package.</span></span>
+<span><span class="co">#&gt;   Please report the issue at</span></span>
+<span><span class="co">#&gt;   <span style="color: #0000BB; font-style: italic;">&lt;https://github.com/massbays-tech/MassWateR/issues&gt;</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once per session.</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
+<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span></code></pre></div>
+<p><img src="analysis_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="768"></p>
 <p>Jittered points over the boxplots can be shown by setting
 <code>type = "jitterbox"</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"month"</span>, type <span class="op">=</span> <span class="st">"jitterbox"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-4-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="768"></p>
 <p>The same data can also be grouped by week using
 <code>group = "week"</code>. The week of the year is shown on the plot
 as an integer. Note that there can be no common month/day indicating the
@@ -179,28 +187,28 @@ start of the week between years and an integer is the only way to
 compare summaries if the results data span multiple years.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"week"</span>, type <span class="op">=</span> <span class="st">"box"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="768"></p>
 <p>Barplots can be shown using <code>type = "bar"</code>. The barplots
 show the average estimate for the results defined by the
 <code>group</code> argument.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"month"</span>, type <span class="op">=</span> <span class="st">"bar"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-6-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="768"></p>
 <p>Confidence intervals at 95% for the barplots can be shown by setting
 <code>confint = TRUE</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"month"</span>, type <span class="op">=</span> <span class="st">"bar"</span>, confint <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-7-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="768"></p>
 <p>Jittered points over the barplots can be shown by setting
 <code>type = "jitterbar"</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"month"</span>, type <span class="op">=</span> <span class="st">"jitterbar"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-8-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="768"></p>
 <p>Setting <code>type = "jitter"</code> will show only the jittered
 points.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"month"</span>, type <span class="op">=</span> <span class="st">"jitter"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-9-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="768"></p>
 <p>The threshold lines shown on each plot are determined from the
 <code>thresholdMWR</code> file included with MassWateR. These threshold
 lines describe relevant state standards or typical ranges in
@@ -216,13 +224,13 @@ the marine thresholds are shown for dissolved oxygen using the barplot
 option grouped by month.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"marine"</span>, group <span class="op">=</span> <span class="st">"month"</span>, type <span class="op">=</span> <span class="st">"bar"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-10-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="" width="768"></p>
 <p>A user-supplied numeric value can also be used for the
 <code>thresh</code> argument. The <code>threshlab</code> argument must
 also be used to label the custom threshold in the plot legend.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="fl">8</span>, threshlab <span class="op">=</span> <span class="st">"Custom threshold"</span>, group <span class="op">=</span> <span class="st">"month"</span>, type <span class="op">=</span> <span class="st">"bar"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-11-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="" width="768"></p>
 <p>The y-axis scaling as arithmetic (linear) or logarithmic can be set
 with the <code>yscl</code> argument. If <code>yscl = "auto"</code>
 (default), the scaling is determined automatically from the data quality
@@ -236,7 +244,7 @@ y-axis scaling does not need to specified explicitly in the function
 call because the default setting is <code>yscl = "auto"</code>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"E.coli"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"month"</span>, type <span class="op">=</span> <span class="st">"bar"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-12-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" alt="" width="768"></p>
 <p>To force the y-axis as linear for E. Coli,
 <code>yscl = "linear"</code> must be used. Note that the default linear
 scaling for dissolved oxygen above is determined automatically. The
@@ -244,7 +252,7 @@ means and confidence intervals will also vary between arithmetic and
 log-scaling if <code>type = "bar"</code>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"E.coli"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"month"</span>, type <span class="op">=</span> <span class="st">"bar"</span>, yscl <span class="op">=</span> <span class="st">"linear"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-13-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-13-1.png" class="r-plt" alt="" width="768"></p>
 <p>If <code>type</code> is <code>"bar"</code> or
 <code>"jitterbar"</code>, the data will be summarized using the mean or
 geometric mean as appropriate for the parameter based on information in
@@ -260,13 +268,13 @@ the mean or geometric mean is used to override the automatic summary.
 Below, the median summary is shown for E. coli.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"E.coli"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"month"</span>, type <span class="op">=</span> <span class="st">"bar"</span>, sumfun <span class="op">=</span> <span class="st">"median"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-14-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" alt="" width="768"></p>
 <p>Results can also be filtered by dates using the <code>dtrng</code>
 argument. The date format must be <code>YYYY-MM-DD</code> and include
 two entries.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"E.coli"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"month"</span>, type <span class="op">=</span> <span class="st">"bar"</span>, dtrng <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2022-05-01"</span>, <span class="st">"2022-07-31"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-15-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-15-1.png" class="r-plt" alt="" width="768"></p>
 <p>Finally, the results can be filtered by sites, result attributes, and
 location groups using the <code>site</code>, <code>resultatt</code>, and
 <code>locgroup</code> arguments. These options will filter the results
@@ -277,7 +285,7 @@ be provided to the <code>sit</code> argument if <code>locgroup</code> is
 used.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRseason.html">anlzMWRseason</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"month"</span>, site <span class="op">=</span> <span class="st">"ABT-077"</span>, resultatt <span class="op">=</span> <span class="st">"DRY"</span>, locgroup <span class="op">=</span> <span class="st">"Assabet"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-16-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" alt="" width="768"></p>
 </div>
 <div class="section level2">
 <h2 id="analyze-trends-by-date">Analyze trends by date<a class="anchor" aria-label="anchor" href="#analyze-trends-by-date"></a>
@@ -300,13 +308,13 @@ visualize. Selecting specific sites with the <code>site</code> argument
 is recommended.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRdate.html">anlzMWRdate</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"site"</span>, site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ABT-026"</span>, <span class="st">"ABT-077"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-17-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-17-1.png" class="r-plt" alt="" width="768"></p>
 <p>A color legend for the sites can be included by setting
 <code>colleg = TRUE</code>.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRdate.html">anlzMWRdate</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"site"</span>, site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ABT-026"</span>, <span class="st">"ABT-077"</span><span class="op">)</span>,</span>
 <span>            colleg <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-18-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-18-1.png" class="r-plt" alt="" width="768"></p>
 <p>The color palette for the site points and lines can also be changed.
 Any palette from <a href="https://r-graph-gallery.com/38-rcolorbrewers-palettes.html" target="_blank" class="external-link">RColorBrewer</a> can be used. These could include any of
 the qualitative color palettes, e.g., <code>"Set1"</code>,
@@ -317,24 +325,24 @@ apply if <code>group = "all"</code>. In the following example, the
 qualitative <code>"Set1"</code> palette is used.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRdate.html">anlzMWRdate</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"site"</span>, site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ABT-026"</span>, <span class="st">"ABT-077"</span><span class="op">)</span>, palcol <span class="op">=</span> <span class="st">"Set1"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-19-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-19-1.png" class="r-plt" alt="" width="768"></p>
 <p>The results averaged across the selected sites can be plotted using
 <code>group = "all"</code>. The point and line color defaults to
 black.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRdate.html">anlzMWRdate</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"all"</span>, site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ABT-026"</span>, <span class="st">"ABT-077"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-20-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-20-1.png" class="r-plt" alt="" width="768"></p>
 <p>The results averaged across all sites in the results file can be
 plotted by omitting the <code>site</code> argument.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRdate.html">anlzMWRdate</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-21-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-21-1.png" class="r-plt" alt="" width="768"></p>
 <p>Confidence intervals at 95% for the points can be shown when
 <code>group = "all"</code> or <code>"locgroup"</code> by setting
 <code>confint = TRUE</code>.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRdate.html">anlzMWRdate</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, group <span class="op">=</span> <span class="st">"all"</span>, confint <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-22-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-22-1.png" class="r-plt" alt="" width="768"></p>
 <p>Sites can be summarized across location groups using
 <code>group = "locgroup"</code>. This option requires the site metadata
 file passed to the <code>sit</code> argument and appropriate values for
@@ -344,13 +352,13 @@ metadata file.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRdate.html">anlzMWRdate</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, group <span class="op">=</span> <span class="st">'locgroup'</span>, </span>
 <span>      thresh <span class="op">=</span> <span class="st">'fresh'</span>, locgroup <span class="op">=</span> <span class="st">'Assabet'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-23-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-23-1.png" class="r-plt" alt="" width="768"></p>
 <p>All location groups can be used if the <code>locgroup</code> argument
 is omitted.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRdate.html">anlzMWRdate</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, group <span class="op">=</span> <span class="st">'locgroup'</span>, </span>
 <span>      thresh <span class="op">=</span> <span class="st">'fresh'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-24-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-24-1.png" class="r-plt" alt="" width="768"></p>
 <p>Alternative summaries can also be used if <code>group = "all"</code>
 or <code>"locgroup"</code> by using an appropriate value for the
 <code>sumfun</code> argument. By default, the <code>sumfun</code>
@@ -369,7 +377,7 @@ the median is used to summarize results by location group.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRdate.html">anlzMWRdate</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">'DO'</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, group <span class="op">=</span> <span class="st">'locgroup'</span>, </span>
 <span>      thresh <span class="op">=</span> <span class="st">'fresh'</span>, sumfun <span class="op">=</span> <span class="st">'median'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-25-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-25-1.png" class="r-plt" alt="" width="768"></p>
 </div>
 <div class="section level2">
 <h2 id="analyze-data-by-site">Analyze data by site<a class="anchor" aria-label="anchor" href="#analyze-data-by-site"></a>
@@ -390,31 +398,31 @@ results for each site and y-axis scaling determined automatically from
 the data quality objectives file.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRsite.html">anlzMWRsite</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, type <span class="op">=</span> <span class="st">"box"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-26-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-26-1.png" class="r-plt" alt="" width="768"></p>
 <p>Jittered points over the boxplots can be shown by setting
 <code>type = "jitterbox"</code>.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRsite.html">anlzMWRsite</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, type <span class="op">=</span> <span class="st">"jitterbox"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-27-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-27-1.png" class="r-plt" alt="" width="768"></p>
 <p>Results as barplots can be shown using <code>type = "bar"</code>.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRsite.html">anlzMWRsite</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, type <span class="op">=</span> <span class="st">"bar"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-28-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-28-1.png" class="r-plt" alt="" width="768"></p>
 <p>Confidence intervals at 95% for the barplots can be shown by setting
 <code>confint = TRUE</code>.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRsite.html">anlzMWRsite</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, type <span class="op">=</span> <span class="st">"bar"</span>, confint <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-29-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-29-1.png" class="r-plt" alt="" width="768"></p>
 <p>Jittered points over the barplots can be shown by setting
 <code>type = "jitterbar"</code>.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRsite.html">anlzMWRsite</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, type <span class="op">=</span> <span class="st">"jitterbar"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-30-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-30-1.png" class="r-plt" alt="" width="768"></p>
 <p>Setting <code>type = "jitter"</code> will show only the jittered
 points.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRsite.html">anlzMWRsite</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, type <span class="op">=</span> <span class="st">"jitter"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-31-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-31-1.png" class="r-plt" alt="" width="768"></p>
 <p>If <code>type</code> is <code>"bar"</code> or
 <code>"jitterbar"</code>, the data will be summarized using the mean or
 geometric mean as appropriate for the parameter based on information in
@@ -429,7 +437,7 @@ shown.</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRsite.html">anlzMWRsite</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, type <span class="op">=</span> <span class="st">"jitterbar"</span>, </span>
 <span>            sumfun <span class="op">=</span> <span class="st">'median'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-32-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-32-1.png" class="r-plt" alt="" width="768"></p>
 <p>Results can be grouped by entries in the <code>Result Atribute</code>
 column using <code>byresultatt = TRUE</code>. For example, sites with DO
 samples can be grouped by <code>"DRY"</code> or <code>"WET"</code>
@@ -445,7 +453,7 @@ results separately.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRsite.html">anlzMWRsite</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, thresh <span class="op">=</span> <span class="st">"fresh"</span>, type <span class="op">=</span> <span class="st">"box"</span>, </span>
 <span>                        site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ABT-026"</span>, <span class="st">"ABT-062"</span>, <span class="st">"ABT-077"</span>, <span class="st">"ABT-144"</span>, <span class="st">"ABT-237"</span>, <span class="st">"ABT-301"</span><span class="op">)</span>,</span>
 <span>                        resultatt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'DRY'</span>, <span class="st">'WET'</span><span class="op">)</span>, byresultatt <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-33-1.png" width="768"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-33-1.png" class="r-plt" alt="" width="768"></p>
 </div>
 <div class="section level2">
 <h2 id="analyze-results-with-maps">Analyze results with maps<a class="anchor" aria-label="anchor" href="#analyze-results-with-maps"></a>
@@ -466,7 +474,7 @@ locations. These can be passed to the function with the separate
 arguments or as a named list using the <code>fset</code> argument.</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, addwater <span class="op">=</span> <span class="st">"medium"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-34-1.png" width="576"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-34-1.png" class="r-plt" alt="" width="576"></p>
 <p>The results shown on the map represent the parameter summary for each
 site across the sample dates. If <code>sumfun = "auto"</code> (default),
 the mean is used where the distribution is determined automatically from
@@ -481,7 +489,7 @@ shown. The color palette is also reversed.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, addwater <span class="op">=</span> <span class="st">"medium"</span>, </span>
 <span>           sumfun <span class="op">=</span> <span class="st">"min"</span>, palcolrev <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-35-1.png" width="576"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-35-1.png" class="r-plt" alt="" width="576"></p>
 <p>By default, lines and polygons of natural water bodies defined using
 the National Hydrography Dataset (NHD) are plotted. Using
 <code>addwater = "medium"</code> (default) will plot water bodies at
@@ -492,29 +500,29 @@ features.</p>
 <p>Water body detail as low:</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, addwater <span class="op">=</span> <span class="st">"low"</span>, warn <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-36-1.png" width="576"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-36-1.png" class="r-plt" alt="" width="576"></p>
 <p>Water body detail as high:</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, addwater <span class="op">=</span> <span class="st">"high"</span>, warn <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-37-1.png" width="576"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-37-1.png" class="r-plt" alt="" width="576"></p>
 <p>A north arrow, scale bar, and labels are also plotted. These can be
 suppressed by setting the appropriate arguments to
 <code>NULL</code>.</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, northloc <span class="op">=</span> <span class="cn">NULL</span>, scaleloc <span class="op">=</span> <span class="cn">NULL</span>, labsize <span class="op">=</span> <span class="cn">NULL</span>, warn <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-38-1.png" width="576"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-38-1.png" class="r-plt" alt="" width="576"></p>
 <p>Locations of the north arrow and scale bar can be changed with the
 same arguments by specifying <code>"tl"</code>, <code>"tr"</code>,
 <code>"bl"</code>, or <code>"br"</code> for top-left, top-right,
 bottom-left, or bottom-right.</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, northloc <span class="op">=</span> <span class="st">"br"</span>, scaleloc <span class="op">=</span> <span class="st">"tl"</span>, warn <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-39-1.png" width="576"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-39-1.png" class="r-plt" alt="" width="576"></p>
 <p>The latitude and longitude text on the plot axes can be suppressed
 using <code>latlon = FALSE</code>.</p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, latlon <span class="op">=</span> <span class="cn">F</span>, warn <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-40-1.png" width="576"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-40-1.png" class="r-plt" alt="" width="576"></p>
 <p>The color palette for the average values can also be changed. Any
 palette from <a href="https://r-graph-gallery.com/38-rcolorbrewers-palettes.html" target="_blank" class="external-link">RColorBrewer</a> can be used. These could include any of
 the sequential color palettes, e.g., <code>"Greens"</code>,
@@ -523,12 +531,12 @@ also work, but may return uninterpretable color scales. In the following
 example, the diverging <code>"Spectral"</code> palette is used.</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, palcol <span class="op">=</span> <span class="st">"Spectral"</span>, warn <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-41-1.png" width="576"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-41-1.png" class="r-plt" alt="" width="576"></p>
 <p>The buffered distance around the points can be increased using the
 <code>buffdist</code> argument (in kilometers).</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, buffdist <span class="op">=</span> <span class="fl">20</span>, warn <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-42-1.png" width="672"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-42-1.png" class="r-plt" alt="" width="672"></p>
 <p>A base map can be included as well using the <code>maptype</code>
 argument. Options include <code>"OpenStreetMap"</code>,
 <code>"OpenStreetMap.DE"</code>, <code>"OpenStreetMap.France"</code>,
@@ -552,15 +560,15 @@ processing times for large areas.</p>
 <p>A <code>"CartoDB.Positron"</code> base map:</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, maptype <span class="op">=</span> <span class="st">"CartoDB.Positron"</span>, warn <span class="op">=</span> <span class="cn">F</span>, addwater <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-43-1.png" width="576"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-43-1.png" class="r-plt" alt="" width="576"></p>
 <p>A <code>"Esri.WorldImagery"</code> base map:</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, maptype <span class="op">=</span> <span class="st">"Esri.WorldImagery"</span>, warn <span class="op">=</span> <span class="cn">F</span>, addwater <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-44-1.png" width="576"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-44-1.png" class="r-plt" alt="" width="576"></p>
 <p>A map with no base map or water bodies:</p>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, maptype <span class="op">=</span> <span class="cn">NULL</span>, warn <span class="op">=</span> <span class="cn">F</span>, addwater <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-45-1.png" width="576"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-45-1.png" class="r-plt" alt="" width="576"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
@@ -573,7 +581,7 @@ processing times for large areas.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

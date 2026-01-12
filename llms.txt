@@ -1,0 +1,289 @@
+# MassWateR
+
+R package for working with Massachusetts surface water quality data,
+created in partnership by the [Mass Bays National Estuary
+Partnership](https://massbays.org/).
+
+Please cite the package as:
+
+Beck, M.W., Wetherill, B., Carr, J. 2023. MassWateR: Improving Quality
+Control, Analysis, and Sharing of Water Quality Data. PLOS ONE.
+18(11):e0293737. doi:
+[10.1371/journal.pone.0293737](https://doi.org/10.1371/journal.pone.0293737)
+
+## Installation
+
+The package can be installed as follows:
+
+``` r
+# Install the package
+install.packages("MassWateR")
+```
+
+Windows PC users may encounter the following warning when installing
+MassWateR.
+
+``` r
+WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding: https://cran.r-project.org/bin/windows/Rtools/
+```
+
+This warning can be ignored for the MassWateR solution. If desired,
+RTools can be obtained following the instructions
+[here](https://cran.r-project.org/bin/windows/Rtools/).
+
+## Using the package
+
+Please see the vignette articles for an overview of how to use functions
+in the MassWateR package. The vignettes are organized topically as
+follows:
+
+- [MassWateR quick
+  start](https://massbays-tech.github.io/MassWateR/articles/MassWateR.html):
+  A quick start guide to importing data and using the various functions
+  in MassWateR. Detailed information is provided in the other vignettes.
+- [MassWateR data input and
+  checks](https://massbays-tech.github.io/MassWateR/articles/inputs.html):
+  Information on datasets required to use the package, the required
+  formats and how to import them into R, and the checks that are run
+  when the data are imported.
+- [MassWateR outlier
+  checks](https://massbays-tech.github.io/MassWateR/articles/outlierchecks.html):
+  Information on evaluating outliers in the results data for surface
+  water quality.
+- [MassWateR quality control
+  functions](https://massbays-tech.github.io/MassWateR/articles/qcoverview.html):
+  Information on using the quality control functions to assess
+  completeness and accuracy of results data for surface water quality
+  and to generate automated reports.
+- [MassWateR analysis
+  functions](https://massbays-tech.github.io/MassWateR/articles/analysis.html):
+  Information on using the analysis functions to evaluate trends,
+  summaries, and maps in the results data for surface water quality.
+- [MassWateR utility
+  functions](https://massbays-tech.github.io/MassWateR/articles/utility.html):
+  Information on using optional utility functions for custom analyses.
+- [Modifying
+  plots](https://massbays-tech.github.io/MassWateR/articles/modifying.html):
+  A short tutorial on modifying plots created with MassWateR.
+- [Water Quality Exchange
+  output](https://massbays-tech.github.io/MassWateR/articles/wqx.html):
+  Information on generating output that will facilitate upload of data
+  to the EPA Water Quality Exchange
+- [Out of
+  state?](https://massbays-tech.github.io/MassWateR/articles/outofstate.html):
+  MassWateR can be used anywhere and this article describes some tips
+  for using the package outside of Massachusetts.
+
+In addition to the content on this web page, the MassWateR Community of
+Practice forum is a space for users to find help, share ideas, and
+suggest improvements for the package. Please follow the
+[link](https://massbays.discourse.group/login) to register and login to
+the forum.
+
+## Issues and help
+
+Please report any issues (bugs or errors) on the [issues
+link](https://github.com/massbays-tech/MassWateR/issues) for the
+repository. Please visit the [Community of
+Practice](https://massbays.discourse.group/login) forum for general
+questions, help, sharing ideas, or to suggest package improvements.
+
+## Contributing
+
+Please view our
+[contributing](https://github.com/massbays-tech/MassWateR/blob/master/.github/CONTRIBUTING.md)
+guidelines for any changes or pull requests.
+
+## Code of Conduct
+
+Please note that the MassWateR project is released with a [Contributor
+Code of
+Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
+
+# Package index
+
+## Read, check, and format data
+
+Functions for importing, checking, and formatting the results and data
+quality objectives data.
+
+- [`readMWRresults()`](https://massbays-tech.github.io/MassWateR/reference/readMWRresults.md)
+  : Read water quality monitoring results from an external file
+- [`readMWRresultsview()`](https://massbays-tech.github.io/MassWateR/reference/readMWRresultsview.md)
+  : Create summary spreadsheet of the water quality monitoring results
+- [`checkMWRresults()`](https://massbays-tech.github.io/MassWateR/reference/checkMWRresults.md)
+  : Check water quality monitoring results
+- [`formMWRresults()`](https://massbays-tech.github.io/MassWateR/reference/formMWRresults.md)
+  : Format water quality monitoring results
+- [`readMWRacc()`](https://massbays-tech.github.io/MassWateR/reference/readMWRacc.md)
+  : Read data quality objectives for accuracy from an external file
+- [`checkMWRacc()`](https://massbays-tech.github.io/MassWateR/reference/checkMWRacc.md)
+  : Check data quality objective accuracy data
+- [`formMWRacc()`](https://massbays-tech.github.io/MassWateR/reference/formMWRacc.md)
+  : Format data quality objective accuracy data
+- [`readMWRfrecom()`](https://massbays-tech.github.io/MassWateR/reference/readMWRfrecom.md)
+  : Read data quality objectives for frequency and completeness from an
+  external file
+- [`checkMWRfrecom()`](https://massbays-tech.github.io/MassWateR/reference/checkMWRfrecom.md)
+  : Check data quality objective frequency and completeness data
+- [`formMWRfrecom()`](https://massbays-tech.github.io/MassWateR/reference/formMWRfrecom.md)
+  : Format data quality objective frequency and completeness data
+- [`readMWRsites()`](https://massbays-tech.github.io/MassWateR/reference/readMWRsites.md)
+  : Read site metadata from an external file
+- [`checkMWRsites()`](https://massbays-tech.github.io/MassWateR/reference/checkMWRsites.md)
+  : Check site metadata file
+- [`readMWRwqx()`](https://massbays-tech.github.io/MassWateR/reference/readMWRwqx.md)
+  : Read water quality exchange (wqx) metadata input from an external
+  file
+- [`checkMWRwqx()`](https://massbays-tech.github.io/MassWateR/reference/checkMWRwqx.md)
+  : Check water quality exchange (wqx) metadata input
+- [`formMWRwqx()`](https://massbays-tech.github.io/MassWateR/reference/formMWRwqx.md)
+  : Format WQX metadata input
+- [`readMWRcens()`](https://massbays-tech.github.io/MassWateR/reference/readMWRcens.md)
+  : Read censored data from an external file
+- [`checkMWRcens()`](https://massbays-tech.github.io/MassWateR/reference/checkMWRcens.md)
+  : Check censored data
+- [`formMWRcens()`](https://massbays-tech.github.io/MassWateR/reference/formMWRcens.md)
+  : Format censored data
+
+## Outlier analysis
+
+Functions for evaluating outliers as plots and generating tabular
+output.
+
+- [`anlzMWRoutlier()`](https://massbays-tech.github.io/MassWateR/reference/anlzMWRoutlier.md)
+  : Analyze outliers in results file
+- [`anlzMWRoutlierall()`](https://massbays-tech.github.io/MassWateR/reference/anlzMWRoutlierall.md)
+  : Analyze outliers in results file for all parameters
+
+## Quality control checks, table and report creation
+
+Functions for running quality control checks, generating tables, and
+creating the overall report.
+
+- [`qcMWRreview()`](https://massbays-tech.github.io/MassWateR/reference/qcMWRreview.md)
+  : Create the quality control review report
+- [`qcMWRacc()`](https://massbays-tech.github.io/MassWateR/reference/qcMWRacc.md)
+  : Run quality control accuracy checks for water quality monitoring
+  results
+- [`tabMWRacc()`](https://massbays-tech.github.io/MassWateR/reference/tabMWRacc.md)
+  : Create a formatted table of quality control accuracy checks
+- [`qcMWRfre()`](https://massbays-tech.github.io/MassWateR/reference/qcMWRfre.md)
+  : Run quality control frequency checks for water quality monitoring
+  results
+- [`tabMWRfre()`](https://massbays-tech.github.io/MassWateR/reference/tabMWRfre.md)
+  : Create a formatted table of quality control frequency checks
+- [`qcMWRcom()`](https://massbays-tech.github.io/MassWateR/reference/qcMWRcom.md)
+  : Run quality control completeness checks for water quality monitoring
+  results
+- [`tabMWRcom()`](https://massbays-tech.github.io/MassWateR/reference/tabMWRcom.md)
+  : Create a formatted table of quality control completeness checks
+- [`tabMWRwqx()`](https://massbays-tech.github.io/MassWateR/reference/tabMWRwqx.md)
+  : Create and save tables in a single workbook for WQX upload
+
+## General analysis
+
+Functions for creating analysis plots of the results data.
+
+- [`anlzMWRseason()`](https://massbays-tech.github.io/MassWateR/reference/anlzMWRseason.md)
+  : Analyze seasonal trends in results file
+- [`anlzMWRdate()`](https://massbays-tech.github.io/MassWateR/reference/anlzMWRdate.md)
+  : Analyze trends by date in results file
+- [`anlzMWRsite()`](https://massbays-tech.github.io/MassWateR/reference/anlzMWRsite.md)
+  : Analyze data by sites in results file
+- [`anlzMWRmap()`](https://massbays-tech.github.io/MassWateR/reference/anlzMWRmap.md)
+  : Analyze results with maps
+
+## Utility functions
+
+This is a collection of functions used internally by all other
+functions. They are not to be called directly.
+
+- [`utilMWRfilter()`](https://massbays-tech.github.io/MassWateR/reference/utilMWRfilter.md)
+  : Filter results data by parameter, date range, site, result
+  attributes, and/or location group
+
+- [`utilMWRfiltersurface()`](https://massbays-tech.github.io/MassWateR/reference/utilMWRfiltersurface.md)
+  : Filter results data to surface measurements
+
+- [`utilMWRfre()`](https://massbays-tech.github.io/MassWateR/reference/utilMWRfre.md)
+  : Prep results data for frequency checks
+
+- [`utilMWRgetnhd()`](https://massbays-tech.github.io/MassWateR/reference/utilMWRgetnhd.md)
+  : Query NHD data from an ArcGIS REST service
+
+- [`utilMWRhttpgrace()`](https://massbays-tech.github.io/MassWateR/reference/utilMWRhttpgrace.md)
+  : Load external file from remote source, fail gracefully
+
+- [`utilMWRinput()`](https://massbays-tech.github.io/MassWateR/reference/utilMWRinput.md)
+  : Utility function to import data as paths or data frames
+
+- [`utilMWRinputcheck()`](https://massbays-tech.github.io/MassWateR/reference/utilMWRinputcheck.md)
+  : Check if required inputs are present for a function
+
+- [`utilMWRlimits()`](https://massbays-tech.github.io/MassWateR/reference/utilMWRlimits.md)
+  : Fill results data as BDL or AQL with appropriate values
+
+- [`utilMWRoutlier()`](https://massbays-tech.github.io/MassWateR/reference/utilMWRoutlier.md)
+  : Identify outliers in a numeric vector
+
+- [`utilMWRsheet()`](https://massbays-tech.github.io/MassWateR/reference/utilMWRsheet.md)
+  : Format a list of QC tables for spreadsheet export
+
+- [`utilMWRsumfun()`](https://massbays-tech.github.io/MassWateR/reference/utilMWRsumfun.md)
+  : Verify summary function
+
+- [`utilMWRsummary()`](https://massbays-tech.github.io/MassWateR/reference/utilMWRsummary.md)
+  : Summarize a results data frame by a grouping variable
+
+- [`utilMWRthresh()`](https://massbays-tech.github.io/MassWateR/reference/utilMWRthresh.md)
+  : Get threshold lines from thresholdMWR
+
+- [`utilMWRtitle()`](https://massbays-tech.github.io/MassWateR/reference/utilMWRtitle.md)
+  : Format the title for analyze functions
+
+- [`utilMWRvaluerange()`](https://massbays-tech.github.io/MassWateR/reference/utilMWRvaluerange.md)
+  :
+
+  Check if incomplete range in `Value Range` column
+
+- [`utilMWRyscale()`](https://massbays-tech.github.io/MassWateR/reference/utilMWRyscale.md)
+  : Get logical value for y axis scaling
+
+## Supplementary datasets
+
+Supplementary datasets for the read, quality control, and analysis
+functions.
+
+- [`paramsMWR`](https://massbays-tech.github.io/MassWateR/reference/paramsMWR.md)
+  : Master parameter list and units for Characteristic Name column in
+  results data
+- [`thresholdMWR`](https://massbays-tech.github.io/MassWateR/reference/thresholdMWR.md)
+  : Master thresholds list for analysis of results data
+
+# Articles
+
+### Get Started
+
+- [MassWateR quick
+  start](https://massbays-tech.github.io/MassWateR/articles/MassWateR.md):
+
+### Articles
+
+- [MassWateR data input and
+  checks](https://massbays-tech.github.io/MassWateR/articles/inputs.md):
+- [MassWateR outlier
+  checks](https://massbays-tech.github.io/MassWateR/articles/outlierchecks.md):
+- [MassWateR quality control
+  functions](https://massbays-tech.github.io/MassWateR/articles/qcoverview.md):
+- [MassWateR
+  analyses](https://massbays-tech.github.io/MassWateR/articles/analysis.md):
+- [MassWateR utility
+  functions](https://massbays-tech.github.io/MassWateR/articles/utility.md):
+- [Modifying
+  plots](https://massbays-tech.github.io/MassWateR/articles/modifying.md):
+- [Water Quality Exchange
+  output](https://massbays-tech.github.io/MassWateR/articles/wqx.md):
+- [Out of
+  state?](https://massbays-tech.github.io/MassWateR/articles/outofstate.md):
