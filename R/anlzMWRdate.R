@@ -140,7 +140,7 @@ anlzMWRdate <- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, 
     threshln <- na.omit(threshln)
 
     p <- p + 
-      ggplot2::geom_hline(data = threshln, ggplot2::aes(yintercept  = thresh, linetype = label, size = label), color = threshcol) + 
+      ggplot2::geom_hline(data = threshln, ggplot2::aes(yintercept  = thresh, linetype = label), linewidth = 0.75, color = threshcol) + 
       ggplot2::scale_linetype_manual(values = threshln$linetype) + 
       ggplot2::scale_size_manual(values = threshln$size)
     
