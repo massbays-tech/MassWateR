@@ -100,14 +100,6 @@ shown using `thresh = "fresh"`.
 
 ``` r
 anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "month", type = "box")
-#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-#> ℹ Please use `linewidth` instead.
-#> ℹ The deprecated feature was likely used in the MassWateR package.
-#>   Please report the issue at
-#>   <https://github.com/massbays-tech/MassWateR/issues>.
-#> This warning is displayed once per session.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
 ```
 
 ![](analysis_files/figure-html/unnamed-chunk-3-1.png)

@@ -318,9 +318,4 @@ sitdat <- readMWRsites(sitpth)
 # select sites
 anlzMWRdate(res = resdat, param = 'DO', acc = accdat, group = 'site', thresh = 'fresh',
      site = c("ABT-026", "ABT-077"))
-#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-#> ℹ Please use `linewidth` instead.
-#> ℹ The deprecated feature was likely used in the MassWateR package.
-#>   Please report the issue at
-#>   <https://github.com/massbays-tech/MassWateR/issues>.
 ```

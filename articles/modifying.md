@@ -126,14 +126,6 @@ as `p` and is modified differently in each example.
 
 ``` r
 p <- anlzMWRseason(fset = fsetls, param = "DO", thresh = "fresh", group = "month")
-#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-#> ℹ Please use `linewidth` instead.
-#> ℹ The deprecated feature was likely used in the MassWateR package.
-#>   Please report the issue at
-#>   <https://github.com/massbays-tech/MassWateR/issues>.
-#> This warning is displayed once per session.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
 ```
 
 Modify plot labels:
@@ -208,7 +200,7 @@ used with a numeric value):
 
 ``` r
 p +
-  geom_hline(yintercept = 10, linetype = 'solid', color = 'green', size = 2)
+  geom_hline(yintercept = 10, linetype = 'solid', color = 'green', linewidth = 2)
 ```
 
 ![](modifying_files/figure-html/unnamed-chunk-14-1.png)
