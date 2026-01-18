@@ -40,7 +40,7 @@ The visibilityFilter attribute is used to determine the detail level of
 the features returned. If dLevel is "low", features with
 visibilityFilter \>= 1,000,000 are returned; if "medium", features with
 visibilityFilter \>= 500,000; and if "high", features \>= 100,000 are
-returned. The filter does not apply to areas (layer ID 9).
+returned. The filter only applies to flowlines (layer ID 6).
 
 ## Examples
 

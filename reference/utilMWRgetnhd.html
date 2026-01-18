@@ -77,7 +77,7 @@
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Function returns NHD spatial features from the ArcGIS REST service at <a href="https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer" class="external-link">https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer</a>.  The function allows querying specific layers (flowlines, areas, waterbodies) within a defined bounding box and SQL filtering.</p>
-<p>The visibilityFilter attribute is used to determine the detail level of the features returned. If dLevel is "low", features with visibilityFilter &gt;= 1,000,000 are returned; if "medium", features with visibilityFilter &gt;= 500,000; and if "high", features &gt;= 100,000 are returned. The filter does not apply to areas (layer ID 9).</p>
+<p>The visibilityFilter attribute is used to determine the detail level of the features returned. If dLevel is "low", features with visibilityFilter &gt;= 1,000,000 are returned; if "medium", features with visibilityFilter &gt;= 500,000; and if "high", features &gt;= 100,000 are returned. The filter only applies to flowlines (layer ID 6).</p>
     </div>
 
     <div class="section level2">

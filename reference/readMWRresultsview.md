@@ -66,10 +66,10 @@ respth <- system.file('extdata/ExampleResults.xlsx', package = 'MassWateR')
 
 # all columns
 readMWRresultsview(respth, output_dir = tempdir())
-#> csv created successfully! File located at /tmp/RtmpI4uMdj/resultsview.csv
+#> csv created successfully! File located at /tmp/Rtmps6FTR0/resultsview.csv
 
 # parameters and units
 readMWRresultsview(respth, columns = c('Characteristic Name', 'Result Unit'),
    output_dir = tempdir())
-#> csv created successfully! File located at /tmp/RtmpI4uMdj/resultsview.csv
+#> csv created successfully! File located at /tmp/Rtmps6FTR0/resultsview.csv
 ```
