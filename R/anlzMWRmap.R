@@ -227,14 +227,19 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
           dLevel = addwater
         )
       
-      # filter ponds less than 10k m2 not touching streams and those greater than 10k m2
+      # filter ponds by size (m2) and include all touching streams
       if(!is.null(pondscrop) && nrow(pondscrop) >= 1){
-        pondsstreams <- pondscrop %>%
-          dplyr::filter(SHAPE_Area <= 10000)
-        pondsstreams <- pondsstreams[streamscrop, ]
-        pondslarge <- pondscrop %>%
-          dplyr::filter(SHAPE_Area > 10000)
-        pondscrop <- dplyr::bind_rows(pondsstreams, pondslarge)
+
+        filt <- switch(addwater, 
+          'low' = 300000, 'medium' = 85000, 'high' = 10000)
+        
+        touchidx <- lengths(sf::st_intersects(pondscrop, streamscrop)) > 0
+        pondsstreams <-pondscrop[touchidx, ]
+        pondsnostreams <- pondscrop[!touchidx, ] |> 
+          dplyr::filter(SHAPE_Area >= !!filt)
+
+        pondscrop <- dplyr::bind_rows(pondsstreams, pondsnosreams)
+
       }
 
     }
