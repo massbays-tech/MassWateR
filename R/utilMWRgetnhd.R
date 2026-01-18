@@ -79,9 +79,7 @@ utilMWRgetnhd <- function(id, bbox, dLevel){
                             ifelse(dLevel == 'medium', 500000, 100000)))
   
   if(id == '12'){
-    clause <- paste0("ftype IN (390, 493) AND visibilityFilter >= ",
-                     ifelse(dLevel == 'low', 1000000,
-                            ifelse(dLevel == 'medium', 500000, 100000)))
+    clause <- "ftype IN (390, 493)"
     outfields <- paste(outfields, 'SHAPE_Area', sep = ',')
   }
 
