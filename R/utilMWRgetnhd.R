@@ -8,7 +8,7 @@
 #' 
 #' @details Function returns NHD spatial features from the ArcGIS REST service at <https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer>.  The function allows querying specific layers (flowlines, areas, waterbodies) within a defined bounding box and SQL filtering.
 #' 
-#' The visibilityFilter attribute is used to determine the detail level of the features returned. If dLevel is "low", features with visibilityFilter >= 1,000,000 are returned; if "medium", features with visibilityFilter >= 500,000; and if "high", features >= 100,000 are returned. The filter does not apply to areas (layer ID 9).
+#' The visibilityFilter attribute is used to determine the detail level of the features returned. If dLevel is "low", features with visibilityFilter >= 1,000,000 are returned; if "medium", features with visibilityFilter >= 500,000; and if "high", features >= 100,000 are returned. The filter only applies to flowlines (layer ID 6).
 #' 
 #' @return An sf object containing the queried NHD features.
 #' @export
