@@ -233,12 +233,21 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
         filt <- switch(addwater, 
           'low' = 300000, 'medium' = 85000, 'high' = 10000)
         
-        touchidx <- lengths(sf::st_intersects(pondscrop, streamscrop)) > 0
-        pondsstreams <-pondscrop[touchidx, ]
-        pondsnostreams <- pondscrop[!touchidx, ] |> 
-          dplyr::filter(SHAPE_Area >= !!filt)
+        # will only work if streamscrop is not null
+        if(!is.null(streamscrop)){
+          touchidx <- lengths(sf::st_intersects(pondscrop, streamscrop)) > 0
+          pondsstreams <-pondscrop[touchidx, ]
+          pondsnostreams <- pondscrop[!touchidx, ] |> 
+            dplyr::filter(SHAPE_Area >= !!filt)
+          
+          pondscrop <- dplyr::bind_rows(pondsstreams, pondsnostreams)
+        }
 
-        pondscrop <- dplyr::bind_rows(pondsstreams, pondsnostreams)
+        # otherwise just use size filter
+        if(is.null(streamscrop)){
+          pondscrop <- pondscrop |> 
+            dplyr::filter(SHAPE_Area >= !!filt)
+        }
 
       }
 
@@ -258,7 +267,7 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
   
   tomap <- tomap %>% 
     sf::st_transform(crs = 4326)
-  
+
   m <-  m +
     ggplot2::geom_sf(data = tomap, ggplot2::aes(fill = `Result Value`), color = 'black', pch = 21, inherit.aes = F, size = ptsize) +
     ggplot2::scale_fill_distiller(name = ylab, palette = palcol, direction = palcolrev) +
@@ -324,7 +333,7 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
 
   # set coordinates because vector not clipped
   m <- m +
-    ggplot2::coord_sf(xlim = dat_ext[c(1, 3)], ylim = dat_ext[c(2, 4)], expand = FALSE, crs = 4326)
+    ggplot2::coord_sf(xlim = dat_ext[c(1, 3)], ylim = dat_ext[c(2, 4)], expand = FALSE, crs = 4326, lims_method = 'box', default_crs = 4326)
   
   return(m)
   
