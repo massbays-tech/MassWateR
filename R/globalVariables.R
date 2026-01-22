@@ -39,7 +39,7 @@ globalVariables(c("Activity Start Date", "Activity Start Time", "QC Reference Va
                   "Spike/Check Accuracyna", "Result Detection/Quantitation Limit Value",
                   "Local Record ID", "Record ID User Supplied", "hr", "mn", "ispm",
                   "Hit/ Miss", "Missed and Censored Records", "Notes", "Spike/Standard", 
-                  "paramna", "typena"
+                  "paramna", "typena", "SHAPE_Area"
                   ))
 
 #' @importFrom stats IQR na.omit quantile t.test

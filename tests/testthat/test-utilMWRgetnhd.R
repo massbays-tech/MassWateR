@@ -181,7 +181,7 @@ test_that("utilMWRgetnhd applies correct visibility filters", {
   
   calls <- mockery::mock_args(mock_get)
   
-  expect_match(calls[[1]][[2]]$where, "fcode = 46006 AND visibilityFilter >= 1e\\+06")
-  expect_match(calls[[2]][[2]]$where, "fcode = 46006 AND visibilityFilter >= 5e\\+05")
-  expect_match(calls[[3]][[2]]$where, "fcode = 46006 AND visibilityFilter >= 1e\\+05")
+  expect_match(calls[[1]][[2]]$where, "fcode IN \\(46006, 55800\\) AND visibilityFilter >= 1e\\+06")
+  expect_match(calls[[2]][[2]]$where, "fcode IN \\(46006, 55800\\) AND visibilityFilter >= 5e\\+05")
+  expect_match(calls[[3]][[2]]$where, "fcode IN \\(46006, 55800\\) AND visibilityFilter >= 250000")
 })
