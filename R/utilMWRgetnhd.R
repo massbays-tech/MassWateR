@@ -74,9 +74,9 @@ utilMWRgetnhd <- function(id, bbox, dLevel){
   clause <- "1=1"
   outfields <- "visibilityFilter"
   if(id == '6')
-    clause <- paste0("fcode = 46006 AND visibilityFilter >= ",
+    clause <- paste0("fcode IN (46006, 55800) AND visibilityFilter >= ",
                      ifelse(dLevel == 'low', 1000000,
-                            ifelse(dLevel == 'medium', 500000, 100000)))
+                            ifelse(dLevel == 'medium', 500000, 250000)))
   
   if(id == '12'){
     clause <- "ftype IN (390, 493)"

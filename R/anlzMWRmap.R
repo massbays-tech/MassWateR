@@ -226,7 +226,7 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
           bbox = dat_ext,
           dLevel = addwater
         )
-      
+
       # filter ponds by size (m2) and include all touching streams
       if(!is.null(pondscrop) && nrow(pondscrop) >= 1){
 
