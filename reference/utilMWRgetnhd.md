@@ -49,9 +49,9 @@ returned. The filter only applies to flowlines (layer ID 6).
 bbox <- data.frame(
    x = c(-71.65734, -71.39113),
    y = c(42.26945, 42.46594)
- ) %>% 
- sf::st_as_sf(coords = c("x", "y"), crs = 4326) %>%
- sf::st_bbox()
+ )
+bbox <- sf::st_as_sf(bbox, coords = c("x", "y"), crs = 4326)
+bbox <- sf::st_bbox(bbox)
 
 if (FALSE) { # \dontrun{
 flowlines <- utilMWRgetnhd(
