@@ -37,7 +37,6 @@ Imports:
   ggrepel,
   ggspatial,
   httr,
-  jsonlite,
   lubridate,
   maptiles,
   RColorBrewer, 
