@@ -240,7 +240,8 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
           pondsnostreams <- pondscrop[!touchidx, ] |> 
             dplyr::filter(SHAPE_Area >= !!filt)
           
-          pondscrop <- dplyr::bind_rows(pondsstreams, pondsnostreams)
+          pondscrop <- dplyr::bind_rows(pondsstreams, pondsnostreams) |> 
+            sf::st_make_valid()
         }
 
         # otherwise just use size filter

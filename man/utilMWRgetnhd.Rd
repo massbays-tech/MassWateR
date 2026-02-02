@@ -7,7 +7,7 @@
 utilMWRgetnhd(id, bbox, dLevel)
 }
 \arguments{
-\item{id}{numeic for the layer ID to query, one of 6 (flowlines), 9 (areas large scale), or 12 (waterbodies large scale)}
+\item{id}{numeric for the layer ID to query, one of 6 (flowlines), 9 (areas large scale), or 12 (waterbodies large scale)}
 
 \item{bbox}{list for the bounding box defined with elements xmin, ymin, xmax, ymax in EPSG:4326 coordinates}
 
@@ -26,12 +26,12 @@ The visibilityFilter attribute is used to determine the detail level of the feat
 }
 \examples{
 # Define bounding box (EPSG:4326)
-bbox <- list(
-  xmin = -71.65734,
-  ymin = 42.26945,
-  xmax = -71.39113,
-  ymax = 42.46594
-)
+bbox <- data.frame(
+   x = c(-71.65734, -71.39113),
+   y = c(42.26945, 42.46594)
+ ) \%>\% 
+ sf::st_as_sf(coords = c("x", "y"), crs = 4326) \%>\%
+ sf::st_bbox()
 
 \dontrun{
 flowlines <- utilMWRgetnhd(
