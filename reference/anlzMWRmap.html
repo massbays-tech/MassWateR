@@ -81,7 +81,8 @@
 <span>  ttlsize <span class="op">=</span> <span class="fl">1.2</span>,</span>
 <span>  bssize <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>  runchk <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  warn <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  warn <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  quiet <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -208,6 +209,10 @@
 <dt id="arg-warn">warn<a class="anchor" aria-label="anchor" href="#arg-warn"></a></dt>
 <dd><p>logical to return warnings to the console (default)</p></dd>
 
+
+<dt id="arg-quiet">quiet<a class="anchor" aria-label="anchor" href="#arg-quiet"></a></dt>
+<dd><p>logical to return progress messages to the console when using <code>useapi = TRUE</code> for water features (default is <code>TRUE</code> to suppress)</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -219,7 +224,7 @@
 <p>Any acceptable color palette from <a href="https://r-graph-gallery.com/38-rcolorbrewers-palettes.html" class="external-link">RColorBrewer</a> can be used for <code>palcol</code>, which is passed to the <code>palette</code> argument in <code><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></code>. These could include any of the sequential color palettes, e.g., <code>"Greens"</code>, <code>"Blues"</code>, etc.  The diverging and qualitative palettes will also work, but may return uninterpretable color scales. The palette can be reversed by setting <code>palcolrev = TRUE</code>.</p>
 <p>The default value for <code>crs</code> is EPSG 4326 for the WGS 84 projection in decimal degrees.  The <code>crs</code> argument is passed to <code><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></code> and any acceptable CRS appropriate for the data can be used.</p>
 <p>The results shown on the map represent the parameter summary for each site within the date range provided by <code>dtrng</code>.  If <code>sumfun = "auto"</code> (default), the mean is used where the distribution is determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are summarized with the geometric mean, otherwise arithmetic. Any other valid summary function will be applied if passed to <code>sumfun</code> (<code>"mean"</code>, <code>"geomean"</code>, <code>"median"</code>, <code>"min"</code>, <code>"max"</code>), regardless of the information in the data quality objective file for accuracy.</p>
-<p>Using <code>addwater = "medium"</code> (default) will include lines and polygons of natural water bodies defined using the National Hydrography Dataset (NHD). The level of detail can be changed to low or high using <code>addwater = "low"</code> or <code>addwater = "high"</code>, respectively.  Use <code>addwater = NULL</code> to not show any water features.</p>
+<p>Using <code>addwater = "medium"</code> (default) will include lines and polygons of natural water bodies defined using the National Hydrography Dataset (NHD). The level of detail can be changed to low or high using <code>addwater = "low"</code> or <code>addwater = "high"</code>, respectively.  Use <code>addwater = NULL</code> to not show any water features. Data layers are retrieved either from GitHub included in the <code>MassWateRdata</code> package (Massachusetts only) if <code>useapi = FALSE</code>.  Alternatively, data layers are retrieved from the NHD ArcGIS REST service using the <code>utilMWRgetnhd</code> function for any location in the United States if <code>useapi = TRUE</code>.  Note that processing time may be longer using the NHD ArcGIS REST service depending on the size of the area being queried.  Set <code>quiet = FALSE</code> to see progress messages when using the NHD ArcGIS REST service.</p>
 <p>A base map can be plotted using the <code>maptype</code> argument.  The <code>zoom</code> value specifies the resolution of the map.  Use higher values to download map tiles with greater resolution, although this increases the download time.  The <code>maptype</code> argument describes the type of base map to download. Acceptable options include <code>"OpenStreetMap"</code>, <code>"OpenStreetMap.DE"</code>, <code>"OpenStreetMap.France"</code>, <code>"OpenStreetMap.HOT"</code>, <code>"OpenTopoMap"</code>, <code>"Esri.WorldStreetMap"</code>, <code>"Esri.DeLorme"</code>, <code>"Esri.WorldTopoMap"</code>, <code>"Esri.WorldImagery"</code>, <code>"Esri.WorldTerrain"</code>, <code>"Esri.WorldShadedRelief"</code>, <code>"Esri.OceanBasemap"</code>, <code>"Esri.NatGeoWorldMap"</code>, <code>"Esri.WorldGrayCanvas"</code>, <code>"CartoDB.Positron"</code>, <code>"CartoDB.PositronNoLabels"</code>, <code>"CartoDB.PositronOnlyLabels"</code>, <code>"CartoDB.DarkMatter"</code>, <code>"CartoDB.DarkMatterNoLabels"</code>, <code>"CartoDB.DarkMatterOnlyLabels"</code>, <code>"CartoDB.Voyager"</code>, <code>"CartoDB.VoyagerNoLabels"</code>, or <code>"CartoDB.VoyagerOnlyLabels"</code>. Use <code>maptype = NULL</code> to suppress the base map.</p>
 <p>The area around the summarized points can be increased or decreased using the <code>buffdist</code> argument.  This creates a buffered area around the bounding box for the points, where the units are kilometers.</p>
 <p>A north arrow and scale bar are also placed on the map as defined by the <code>northloc</code> and <code>scaleloc</code> arguments.  The placement for both can be chosen as <code>"tl"</code>, <code>"tr"</code>, <code>"bl"</code>, or <code>"br"</code> for top-left, top-right, bottom-left, or bottom-right respectively.  Setting either of the arguments to <code>NULL</code> will suppress the placement on the map.</p>
