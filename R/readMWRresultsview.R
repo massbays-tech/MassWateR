@@ -39,7 +39,7 @@ readMWRresultsview <- function(respth, columns = NULL, output_dir, output_file =
       `Activity Start Time` = gsub('^.*\\s', '', `Activity Start Time`), 
       `Activity Start Time` = gsub('^0', '', `Activity Start Time`), 
       `Activity Start Time` = gsub(':0+$', '', `Activity Start Time`),
-      dplyr::across(c(`Activity Depth/Height Measure`, `Result Value`, `Quantitation Limit`, `QC Reference Value`), substring, first = 1, last = maxlen)
+      dplyr::across(c(`Activity Depth/Height Measure`, `Result Value`, `Quantitation Limit`, `QC Reference Value`), \(x) substring(x, first = 1, last = maxlen))
     )
   
   if(is.null(columns))
