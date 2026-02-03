@@ -34,7 +34,7 @@ test_that("Layer 6 with low dLevel and pagination works", {
   mockery::stub(utilMWRgetnhd, 'sf::st_make_valid', function(x) x)
   mockery::stub(utilMWRgetnhd, 'Sys.sleep', NULL)
   
-  result <- utilMWRgetnhd(id = 6, bbox = bbox, dLevel = "low")
+  result <- suppressMessages(utilMWRgetnhd(id = 6, bbox = bbox, dLevel = "low", quiet = FALSE))
   
   expect_s3_class(result, "sf")
 })

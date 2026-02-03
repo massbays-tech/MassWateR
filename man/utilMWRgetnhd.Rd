@@ -4,7 +4,7 @@
 \alias{utilMWRgetnhd}
 \title{Query NHD data from an ArcGIS REST service}
 \usage{
-utilMWRgetnhd(id, bbox, dLevel)
+utilMWRgetnhd(id, bbox, dLevel, quiet = TRUE)
 }
 \arguments{
 \item{id}{numeric for the layer ID to query, one of 6 (flowlines), 9 (areas large scale), or 12 (waterbodies large scale)}
@@ -12,6 +12,8 @@ utilMWRgetnhd(id, bbox, dLevel)
 \item{bbox}{list for the bounding box defined with elements xmin, ymin, xmax, ymax in EPSG:4326 coordinates}
 
 \item{dLevel}{character string for the desired visibiliyt leevel, one of "high", "medium", or "low", see details}
+
+\item{quiet}{logical, if FALSE progress messages are printed to the console}
 }
 \value{
 An sf object containing the queried NHD features.
@@ -22,7 +24,7 @@ Query NHD data from an ArcGIS REST service
 \details{
 Function returns NHD spatial features from the ArcGIS REST service at \url{https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer}.  The function allows querying specific layers (flowlines, areas, waterbodies) within a defined bounding box and SQL filtering.
 
-The visibilityFilter attribute is used to determine the detail level of the features returned. If dLevel is "low", features with visibilityFilter >= 1,000,000 are returned; if "medium", features with visibilityFilter >= 500,000; and if "high", features >= 100,000 are returned. The filter only applies to flowlines (layer ID 6).
+The \code{dLevel} argument defines the level of detail in the retrieved data.  For \code{id = 6}, the visibilityFilter attribute is used to determine the detail level. If dLevel is "low", features with visibilityFilter >= 1,000,000 are returned; if "medium", features with visibilityFilter >= 500,000; and if "high", features >= 100,000 are returned. For \code{id = 12}, the SHAPE_Area attribute is used. If dLevel is "low", features with SHAPE_Area >= 300,000 are returned; if "medium", features with SHAPE_Area >= 85,000; and if "high", features with SHAPE_Area >= 10,000 are returned.  No additional filtering based on detail level is applied if \code{id = 9}.
 }
 \examples{
 # Define bounding box (EPSG:4326)

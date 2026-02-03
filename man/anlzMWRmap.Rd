@@ -34,7 +34,8 @@ anlzMWRmap(
   ttlsize = 1.2,
   bssize = 11,
   runchk = TRUE,
-  warn = TRUE
+  warn = TRUE,
+  quiet = TRUE
 )
 }
 \arguments{
@@ -97,6 +98,8 @@ anlzMWRmap(
 \item{runchk}{logical to run data checks with \code{\link{checkMWRresults}}, \code{\link{checkMWRacc}}, or \code{\link{checkMWRsites}}, applies only if \code{res}, \code{acc}, or \code{sit} are file paths}
 
 \item{warn}{logical to return warnings to the console (default)}
+
+\item{quiet}{logical to return progress messages to the console when using \code{useapi = TRUE} for water features (default is \code{TRUE} to suppress)}
 }
 \value{
 A \code{\link[ggplot2]{ggplot}} object that can be further modified.
@@ -113,7 +116,7 @@ The default value for \code{crs} is EPSG 4326 for the WGS 84 projection in decim
 
 The results shown on the map represent the parameter summary for each site within the date range provided by \code{dtrng}.  If \code{sumfun = "auto"} (default), the mean is used where the distribution is determined automatically from the data quality objective file for accuracy, i.e., parameters with "log" in any of the columns are summarized with the geometric mean, otherwise arithmetic. Any other valid summary function will be applied if passed to \code{sumfun} (\code{"mean"}, \code{"geomean"}, \code{"median"}, \code{"min"}, \code{"max"}), regardless of the information in the data quality objective file for accuracy.
 
-Using \code{addwater = "medium"} (default) will include lines and polygons of natural water bodies defined using the National Hydrography Dataset (NHD). The level of detail can be changed to low or high using \code{addwater = "low"} or \code{addwater = "high"}, respectively.  Use \code{addwater = NULL} to not show any water features.
+Using \code{addwater = "medium"} (default) will include lines and polygons of natural water bodies defined using the National Hydrography Dataset (NHD). The level of detail can be changed to low or high using \code{addwater = "low"} or \code{addwater = "high"}, respectively.  Use \code{addwater = NULL} to not show any water features. Data layers are retrieved either from GitHub included in the \code{MassWateRdata} package (Massachusetts only) if \code{useapi = FALSE}.  Alternatively, data layers are retrieved from the NHD ArcGIS REST service using the \code{utilMWRgetnhd} function for any location in the United States if \code{useapi = TRUE}.  Note that processing time may be longer using the NHD ArcGIS REST service depending on the size of the area being queried.  Set \code{quiet = FALSE} to see progress messages when using the NHD ArcGIS REST service.
 
 A base map can be plotted using the \code{maptype} argument.  The \code{zoom} value specifies the resolution of the map.  Use higher values to download map tiles with greater resolution, although this increases the download time.  The \code{maptype} argument describes the type of base map to download. Acceptable options include \code{"OpenStreetMap"}, \code{"OpenStreetMap.DE"}, \code{"OpenStreetMap.France"}, \code{"OpenStreetMap.HOT"}, \code{"OpenTopoMap"}, \code{"Esri.WorldStreetMap"}, \code{"Esri.DeLorme"}, \code{"Esri.WorldTopoMap"}, \code{"Esri.WorldImagery"}, \code{"Esri.WorldTerrain"}, \code{"Esri.WorldShadedRelief"}, \code{"Esri.OceanBasemap"}, \code{"Esri.NatGeoWorldMap"}, \code{"Esri.WorldGrayCanvas"}, \code{"CartoDB.Positron"}, \code{"CartoDB.PositronNoLabels"}, \code{"CartoDB.PositronOnlyLabels"}, \code{"CartoDB.DarkMatter"}, \code{"CartoDB.DarkMatterNoLabels"}, \code{"CartoDB.DarkMatterOnlyLabels"}, \code{"CartoDB.Voyager"}, \code{"CartoDB.VoyagerNoLabels"}, or \code{"CartoDB.VoyagerOnlyLabels"}. Use \code{maptype = NULL} to suppress the base map.
 
