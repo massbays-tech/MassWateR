@@ -121,7 +121,7 @@ The Word file can be further edited by hand as needed.
 
 ``` r
 qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat, cens = censdat, warn = FALSE, output_dir = tempdir())
-#> Report created successfully! File located at /tmp/RtmpoVuD7F/qcreview.docx
+#> Report created successfully! File located at /tmp/RtmpqWs9lF/qcreview.docx
 ```
 
 As a convenience, the input files can also be passed to the
