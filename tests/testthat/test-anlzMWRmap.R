@@ -103,7 +103,7 @@ test_that("Checking useapi = TRUE with mocked API calls", {
     geometry = sf::st_sfc(sf::st_polygon(list(matrix(c(-71.52, 42.32, -71.51, 42.32, -71.51, 42.33, -71.52, 42.33, -71.52, 42.32), ncol = 2, byrow = TRUE))), crs = 4326)
   )
   
-  mockery::stub(anlzMWRmap, "utilMWRgetnhd", function(id, bbox, dLevel) {
+  mockery::stub(anlzMWRmap, "utilMWRgetnhd", function(id, bbox, dLevel, quiet) {
     if(id == 6) return(mock_streams)
     if(id == 9) return(mock_rivers)
     if(id == 12) return(mock_ponds)
