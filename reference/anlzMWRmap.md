@@ -240,14 +240,14 @@ Using `addwater = "medium"` (default) will include lines and polygons of
 natural water bodies defined using the National Hydrography Dataset
 (NHD). The level of detail can be changed to low or high using
 `addwater = "low"` or `addwater = "high"`, respectively. Use
-`addwater = NULL` to not show any water features. Data layers are
-retrieved either from GitHub included in the `MassWateRdata` package
-(Massachusetts only) if `useapi = FALSE`. Alternatively, data layers are
+`addwater = NULL` to not show any water features. If `useapi = FALSE`,
+data layers are retrieved from GitHub from the `MassWateRdata`
+repository (Massachusetts only). If `useapi = TRUE`, data layers are
 retrieved from the NHD ArcGIS REST service using the `utilMWRgetnhd`
-function for any location in the United States if `useapi = TRUE`. Note
-that processing time may be longer using the NHD ArcGIS REST service
-depending on the size of the area being queried. Set `quiet = FALSE` to
-see progress messages when using the NHD ArcGIS REST service.
+function for any location in the United States. Note that processing
+time may be longer using the NHD ArcGIS REST service depending on the
+size of the area being queried. Set `quiet = FALSE` to see progress
+messages when using the NHD ArcGIS REST service.
 
 A base map can be plotted using the `maptype` argument. The `zoom` value
 specifies the resolution of the map. Use higher values to download map
