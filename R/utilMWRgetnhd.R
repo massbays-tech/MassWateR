@@ -68,17 +68,19 @@ utilMWRgetnhd <- function(id, bbox, dLevel, quiet = TRUE){
   
   # setup clause, out fields
   clause <- "1=1"
-  outfields <- "visibilityFilter"
-  if(id == '6')
+  outfields <- "OBJECTID" # have to return at least one field for 9
+  if(id == '6'){
+    outfields <- "visibilityFilter"
     clause <- paste0("fcode IN (46006, 55800) AND visibilityFilter >= ",
                      ifelse(dLevel == 'low', 1000000,
                             ifelse(dLevel == 'medium', 500000, 250000)))
-  
+  }
+
   if(id == '12'){
+    outfields <- 'SHAPE_Area'
     clause <- paste0("ftype IN (390, 493) AND SHAPE_Area >= ",
                      ifelse(dLevel == 'low', 300000,
                             ifelse(dLevel == 'medium', 85000, 10000)))
-    outfields <- paste(outfields, 'SHAPE_Area', sep = ',')
   }
 
   # Pagination parameters
@@ -97,6 +99,7 @@ utilMWRgetnhd <- function(id, bbox, dLevel, quiet = TRUE){
       outFields = outfields,
       returnGeometry = "true",
       outSR = "4326",
+      resultType = "tile",
       resultOffset = offset,
       resultRecordCount = record_count,
       f = "geojson"
@@ -138,10 +141,14 @@ utilMWRgetnhd <- function(id, bbox, dLevel, quiet = TRUE){
   
   # Combine all features
   if (length(all_features) > 0) {
-    out <- do.call(rbind, all_features) %>%
-      sf::st_make_valid()
-    if(!quiet)
+    out <- do.call(rbind, all_features) 
+    if(!quiet) 
       message("\tTotal features retrieved: ", nrow(out))
+    out <- out %>%
+      sf::st_geometry() %>%
+      sf::st_make_valid() %>%
+      sf::st_intersection(sf::st_as_sfc(bbox, crs = 4326)) %>%
+      sf::st_make_valid()
   } else {
     out <- sf::st_sf(geometry = sf::st_sfc(crs = 4326))
     if(!quiet)
