@@ -150,7 +150,8 @@ utilMWRgetnhd <- function(id, bbox, dLevel, quiet = TRUE){
       sf::st_intersection(sf::st_as_sfc(bbox, crs = 4326)) %>%
       sf::st_make_valid()
   } else {
-    out <- sf::st_sf(geometry = sf::st_sfc(crs = 4326))
+    out <- sf::st_sf(geometry = sf::st_sfc(crs = 4326)) %>%
+      sf::st_geometry()
     if(!quiet)
       message("\tNo features found")
   }
