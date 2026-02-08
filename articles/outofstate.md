@@ -21,11 +21,16 @@ is a list of the MassWateR elements that are specific to Massachusetts:
 2.  **Mapping water bodies** - In the mapping function
     [`anlzMWRmap()`](https://massbays-tech.github.io/MassWateR/reference/anlzMWRmap.md),
     there is an option to add a waterbody layer
-    (`addwater = "high"/"medium"/"low"`). This waterbody layer only
-    includes watersheds that have portions in Massachusetts. If you are
-    outside of Massachusetts, you can still use the base maps available
-    with the maptype argument or you can add your own waterbody layer
-    following the instructions in the [modifying
+    (`addwater = "high"/"medium"/"low"`). The default setting for this
+    function is to retrieve pre-processed waterbody data for
+    Massachusetts from GitHub. If you are outside of Massachusetts, you
+    can retrieve data from anywhere in the United States using the
+    `useapi = TRUE` option. This will retrieve layers from the National
+    Hydrography Dataset ArcGIS REST service
+    <https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer>.
+    Download progress can be shown by setting `quiet = FALSE`. You can
+    also add your own waterbody layer following the instructions in the
+    [modifying
     plots](https://massbays-tech.github.io/MassWateR/articles/modifying.html)
     vignette.
 3.  **QC Report format** - The QC Report Word document that is created

@@ -464,7 +464,7 @@ anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "
 
 ![](analysis_files/figure-html/unnamed-chunk-32-1.png)
 
-Results can be grouped by entries in the `Result Atribute` column using
+Results can be grouped by entries in the `Result Attribute` column using
 `byresultatt = TRUE`. For example, sites with DO samples can be grouped
 by `"DRY"` or `"WET"` conditions. Filtering by sites first using the
 `site` argument is advised to reduce the amount of data that are
@@ -548,6 +548,32 @@ anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "h
 
 ![](analysis_files/figure-html/unnamed-chunk-37-1.png)
 
+The default setting for
+[`anlzMWRmap()`](https://massbays-tech.github.io/MassWateR/reference/anlzMWRmap.md)
+for the flowlines and water bodies is to use data specific to
+Massachusetts obtained from pre-processed data files on GitHub. Features
+from anywhere in the United States can be shown if stations are outside
+of Massachusetts by using `useapi = TRUE` (here, Massachusetts stations
+are shown for the example). This will retrieve layers from the NHD
+ArcGIS REST service
+<https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer>.
+Download progress can be shown by setting `quiet = FALSE`.
+
+``` r
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "high", warn = F, useapi = TRUE, quiet = FALSE)
+#> Querying NHD layer ID streams/flowlines with detail level 'high'...
+#>  Retrieved 1292 features (offset: 0)
+#>  Total features retrieved: 1292
+#> Querying NHD layer ID rivers/areas with detail level 'high'...
+#>  Retrieved 23 features (offset: 0)
+#>  Total features retrieved: 23
+#> Querying NHD layer ID ponds/waterbodies with detail level 'high'...
+#>  Retrieved 212 features (offset: 0)
+#>  Total features retrieved: 212
+```
+
+![](analysis_files/figure-html/unnamed-chunk-38-1.png)
+
 A north arrow, scale bar, and labels are also plotted. These can be
 suppressed by setting the appropriate arguments to `NULL`.
 
@@ -555,7 +581,7 @@ suppressed by setting the appropriate arguments to `NULL`.
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, northloc = NULL, scaleloc = NULL, labsize = NULL, warn = F)
 ```
 
-![](analysis_files/figure-html/unnamed-chunk-38-1.png)
+![](analysis_files/figure-html/unnamed-chunk-39-1.png)
 
 Locations of the north arrow and scale bar can be changed with the same
 arguments by specifying `"tl"`, `"tr"`, `"bl"`, or `"br"` for top-left,
@@ -565,7 +591,7 @@ top-right, bottom-left, or bottom-right.
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, northloc = "br", scaleloc = "tl", warn = F)
 ```
 
-![](analysis_files/figure-html/unnamed-chunk-39-1.png)
+![](analysis_files/figure-html/unnamed-chunk-40-1.png)
 
 The latitude and longitude text on the plot axes can be suppressed using
 `latlon = FALSE`.
@@ -574,7 +600,7 @@ The latitude and longitude text on the plot axes can be suppressed using
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, latlon = F, warn = F)
 ```
 
-![](analysis_files/figure-html/unnamed-chunk-40-1.png)
+![](analysis_files/figure-html/unnamed-chunk-41-1.png)
 
 The color palette for the average values can also be changed. Any
 palette from
@@ -588,7 +614,7 @@ following example, the diverging `"Spectral"` palette is used.
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, palcol = "Spectral", warn = F)
 ```
 
-![](analysis_files/figure-html/unnamed-chunk-41-1.png)
+![](analysis_files/figure-html/unnamed-chunk-42-1.png)
 
 The buffered distance around the points can be increased using the
 `buffdist` argument (in kilometers).
@@ -597,7 +623,7 @@ The buffered distance around the points can be increased using the
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, buffdist = 20, warn = F)
 ```
 
-![](analysis_files/figure-html/unnamed-chunk-42-1.png)
+![](analysis_files/figure-html/unnamed-chunk-43-1.png)
 
 A base map can be included as well using the `maptype` argument. Options
 include `"OpenStreetMap"`, `"OpenStreetMap.DE"`,
@@ -621,7 +647,7 @@ A `"CartoDB.Positron"` base map:
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "CartoDB.Positron", warn = F, addwater = NULL)
 ```
 
-![](analysis_files/figure-html/unnamed-chunk-43-1.png)
+![](analysis_files/figure-html/unnamed-chunk-44-1.png)
 
 A `"Esri.WorldImagery"` base map:
 
@@ -629,7 +655,7 @@ A `"Esri.WorldImagery"` base map:
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "Esri.WorldImagery", warn = F, addwater = NULL)
 ```
 
-![](analysis_files/figure-html/unnamed-chunk-44-1.png)
+![](analysis_files/figure-html/unnamed-chunk-45-1.png)
 
 A map with no base map or water bodies:
 
@@ -637,4 +663,4 @@ A map with no base map or water bodies:
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = NULL, warn = F, addwater = NULL)
 ```
 
-![](analysis_files/figure-html/unnamed-chunk-45-1.png)
+![](analysis_files/figure-html/unnamed-chunk-46-1.png)

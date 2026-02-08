@@ -94,11 +94,15 @@ plots</a> vignette.</li>
 <li>
 <strong>Mapping water bodies</strong> - In the mapping function
 <code><a href="../reference/anlzMWRmap.html">anlzMWRmap()</a></code>, there is an option to add a waterbody layer
-(<code>addwater = "high"/"medium"/"low"</code>). This waterbody layer
-only includes watersheds that have portions in Massachusetts. If you are
-outside of Massachusetts, you can still use the base maps available with
-the maptype argument or you can add your own waterbody layer following
-the instructions in the <a href="https://massbays-tech.github.io/MassWateR/articles/modifying.html">modifying
+(<code>addwater = "high"/"medium"/"low"</code>). The default setting for
+this function is to retrieve pre-processed waterbody data for
+Massachusetts from GitHub. If you are outside of Massachusetts, you can
+retrieve data from anywhere in the United States using the
+<code>useapi = TRUE</code> option. This will retrieve layers from the
+National Hydrography Dataset ArcGIS REST service <a href="https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer" class="external-link uri">https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer</a>.
+Download progress can be shown by setting <code>quiet = FALSE</code>.
+You can also add your own waterbody layer following the instructions in
+the <a href="https://massbays-tech.github.io/MassWateR/articles/modifying.html">modifying
 plots</a> vignette.</li>
 <li>
 <strong>QC Report format</strong> - The QC Report Word document that
