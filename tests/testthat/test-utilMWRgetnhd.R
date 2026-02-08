@@ -125,3 +125,38 @@ test_that("Empty results return empty sf object", {
   expect_s3_class(result, "sfc")
   expect_null(nrow(result))
 })
+
+test_that("Pagination messages are displayed when quiet = FALSE", {
+  bbox <- create_mock_bbox()
+  
+  # Mock first page (2000 features), second page (500 features)
+  mock_sf_page1 <- create_mock_sf(2000)
+  mock_sf_page2 <- create_mock_sf(500)
+  
+  mockery::stub(utilMWRgetnhd, 'httr::GET', list())
+  mockery::stub(utilMWRgetnhd, 'httr::status_code', 200)
+  mockery::stub(utilMWRgetnhd, 'httr::content', "mock_geojson")
+  mockery::stub(utilMWRgetnhd, 'sf::st_read', mock(mock_sf_page1, mock_sf_page2, cycle = FALSE))
+  mockery::stub(utilMWRgetnhd, 'Sys.sleep', NULL)
+  
+  expect_message(
+    utilMWRgetnhd(id = 6, bbox = bbox, dLevel = "low", quiet = FALSE),
+    "Retrieved.*features"
+  )
+})
+
+test_that("Empty results with quiet = FALSE shows message", {
+  bbox <- create_mock_bbox()
+  empty_sf <- sf::st_sf(geometry = sf::st_sfc(crs = 4326))
+  
+  mockery::stub(utilMWRgetnhd, 'httr::GET', list())
+  mockery::stub(utilMWRgetnhd, 'httr::status_code', 200)
+  mockery::stub(utilMWRgetnhd, 'httr::content', "mock_geojson")
+  mockery::stub(utilMWRgetnhd, 'sf::st_read', empty_sf)
+  mockery::stub(utilMWRgetnhd, 'Sys.sleep', NULL)
+  
+  expect_message(
+    utilMWRgetnhd(id = 6, bbox = bbox, dLevel = "low", quiet = FALSE),
+    "No features found"
+  )
+})
