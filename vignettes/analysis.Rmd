@@ -232,7 +232,7 @@ anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "
             sumfun = 'median')
 ```
 
-Results can be grouped by entries in the `Result Atribute` column using `byresultatt = TRUE`. For example, sites with DO samples can be grouped by `"DRY"` or `"WET"` conditions.  Filtering by sites first using the `site` argument is advised to reduce the amount of data that are plotted. The grouping can be filtered further by passing appropriate values in the `Result Attribute` column to the `resultatt` argument. Note that specifying result attributes with `resultatt` and setting `byresultatt = FALSE` will filter the plot data by the result attributes but will not plot the results separately. 
+Results can be grouped by entries in the `Result Attribute` column using `byresultatt = TRUE`. For example, sites with DO samples can be grouped by `"DRY"` or `"WET"` conditions.  Filtering by sites first using the `site` argument is advised to reduce the amount of data that are plotted. The grouping can be filtered further by passing appropriate values in the `Result Attribute` column to the `resultatt` argument. Note that specifying result attributes with `resultatt` and setting `byresultatt = FALSE` will filter the plot data by the result attributes but will not plot the results separately. 
 
 ```{r, fig.height = 4, fig.width = 8}
 anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "box", 
@@ -269,6 +269,12 @@ Water body detail as high:
 
 ```{r, fig.height = 6, fig.width = 6}
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "high", warn = F)
+```
+
+The default setting for `anlzMWRmap()` for the flowlines and water bodies is to use data specific to Massachusetts obtained from pre-processed data files on GitHub.  Features from anywhere in the United States can be shown if stations are outside of Massachusetts by using `useapi = TRUE` (here, Massachusetts stations are shown for the example). This will retrieve layers from the NHD ArcGIS REST service <https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer>. Download progress can be shown by setting `quiet = FALSE`. 
+
+```{r, fig.height = 6, fig.width = 6, message = T}
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "high", warn = F, useapi = TRUE, quiet = FALSE)
 ```
 
 A north arrow, scale bar, and labels are also plotted.  These can be suppressed by setting the appropriate arguments to `NULL`.
