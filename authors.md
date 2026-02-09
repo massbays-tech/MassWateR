@@ -12,7 +12,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/massbays-tech/MassWateR/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/massbays-tech/MassWateR/blob/v2.2.1/inst/CITATION)
 
 Beck MW, Wetherill B, Carr J (2023). “MassWateR: Improving quality
 control, analysis, and sharing of water quality data.” *PLOS ONE*,

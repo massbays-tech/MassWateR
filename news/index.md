@@ -2,6 +2,8 @@
 
 ## MassWateR 2.2.1
 
+CRAN release: 2026-02-09
+
 - Added the argument `useapi` to
   [`anlzMWRmap()`](https://massbays-tech.github.io/MassWateR/reference/anlzMWRmap.md)
   to retrieve water features (if `TRUE`) from the National Hydrography
