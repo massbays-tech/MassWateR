@@ -7,7 +7,7 @@
 formMWRacc(accdat)
 }
 \arguments{
-\item{accdat}{input data fram}
+\item{accdat}{input data frame}
 }
 \value{
 A formatted data frame of the data quality objectives file for accuracy

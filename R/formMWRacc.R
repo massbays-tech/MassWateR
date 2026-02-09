@@ -1,6 +1,6 @@
 #' Format data quality objective accuracy data
 #'
-#' @param accdat input data fram
+#' @param accdat input data frame
 #'
 #' @details This function is used internally within \code{\link{readMWRacc}} to format the input data for downstream analysis.  The formatting includes:
 #' 

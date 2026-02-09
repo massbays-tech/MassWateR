@@ -1,3 +1,14 @@
+# MassWateR 2.2.1
+
+* Added the argument `useapi` to `anlzMWRmap()` to retrieve water features (if `TRUE`) from the National Hydrography Dataset (NHD) ArcGIS REST API.  This option can retrieve water features from anywhere in the United States. Default `FALSE` will return data for Massachusetts from GitHub as before.
+* Added `quiet` argument to `anlzMWRmap()` to show download progress if `useapi = TRUE`.
+* Updates vignettes with information about the new feature for `anlzMWRmap()`
+* Added `utilMWRgetnhd()` to retrieve NHD features from the API, used internally by `anlzMWRmap()`
+* Expanded test coverage to `qcMWRreview()` and `anlzMWRoutlierall()`
+* jsonlite package removed from dependencies
+* Deprecated calls to `size` changed to `linewidth` for internal calls to `geom_hline()`
+* Increase required R version to >= 4.1.0 in DESCRIPTION
+
 # MassWateR 2.2.0
 
 * `utilMWRsheet()` function created to format tabular output if `savesheet = TRUE` for `qcMWRreview()`
