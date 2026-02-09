@@ -12,7 +12,7 @@ formMWRacc(accdat)
 
 - accdat:
 
-  input data fram
+  input data frame
 
 ## Value
 

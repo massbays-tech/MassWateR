@@ -1,5 +1,32 @@
 # Changelog
 
+## MassWateR 2.2.1
+
+- Added the argument `useapi` to
+  [`anlzMWRmap()`](https://massbays-tech.github.io/MassWateR/reference/anlzMWRmap.md)
+  to retrieve water features (if `TRUE`) from the National Hydrography
+  Dataset (NHD) ArcGIS REST API. This option can retrieve water features
+  from anywhere in the United States. Default `FALSE` will return data
+  for Massachusetts from GitHub as before.
+- Added `quiet` argument to
+  [`anlzMWRmap()`](https://massbays-tech.github.io/MassWateR/reference/anlzMWRmap.md)
+  to show download progress if `useapi = TRUE`.
+- Updates vignettes with information about the new feature for
+  [`anlzMWRmap()`](https://massbays-tech.github.io/MassWateR/reference/anlzMWRmap.md)
+- Added
+  [`utilMWRgetnhd()`](https://massbays-tech.github.io/MassWateR/reference/utilMWRgetnhd.md)
+  to retrieve NHD features from the API, used internally by
+  [`anlzMWRmap()`](https://massbays-tech.github.io/MassWateR/reference/anlzMWRmap.md)
+- Expanded test coverage to
+  [`qcMWRreview()`](https://massbays-tech.github.io/MassWateR/reference/qcMWRreview.md)
+  and
+  [`anlzMWRoutlierall()`](https://massbays-tech.github.io/MassWateR/reference/anlzMWRoutlierall.md)
+- jsonlite package removed from dependencies
+- Deprecated calls to `size` changed to `linewidth` for internal calls
+  to
+  [`geom_hline()`](https://ggplot2.tidyverse.org/reference/geom_abline.html)
+- Increase required R version to \>= 4.1.0 in DESCRIPTION
+
 ## MassWateR 2.2.0
 
 CRAN release: 2025-05-29
