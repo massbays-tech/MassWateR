@@ -67,7 +67,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>MassWateR analyses</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/massbays-tech/MassWateR/blob/v2.2.1/vignettes/analysis.Rmd" class="external-link"><code>vignettes/analysis.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/massbays-tech/MassWateR/blob/main/vignettes/analysis.Rmd" class="external-link"><code>vignettes/analysis.Rmd</code></a></small>
       <div class="d-none name"><code>analysis.Rmd</code></div>
     </div>
 
@@ -483,41 +483,49 @@ shown. The color palette is also reversed.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, addwater <span class="op">=</span> <span class="st">"medium"</span>, </span>
 <span>           sumfun <span class="op">=</span> <span class="st">"min"</span>, palcolrev <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysis_files/figure-html/unnamed-chunk-35-1.png" class="r-plt" alt="" width="576"></p>
-<p>By default, lines and polygons of natural water bodies defined using
-the National Hydrography Dataset (NHD) are plotted. Using
-<code>addwater = "medium"</code> (default) will plot water bodies at
-medium detail. The level of detail can be changed to low or high using
-<code>addwater = "low"</code> or <code>addwater = "high"</code>,
-respectively. Use <code>addwater = NULL</code> to not show any water
-features.</p>
-<p>Water body detail as low:</p>
+<p>Lines and polygons of natural water bodies are also shown. By
+default, layers hosted on GitHub developed specifically for
+Massachusetts are downloaded and shown. This option is used if the
+argument <code>useapi</code> is set to <code>FALSE</code>. This does not
+need to be set explicitly since this is the default behavior (i.e.,
+adding <code>useapi = FALSE</code> or omitting it from the function call
+does the same thing).</p>
+<p>Alternatively, water bodies from anywhere in the United States
+(including Massachusetts) can be plotted by setting <code>useapi</code>
+to <code>TRUE</code>. This option is useful if you have stations outside
+of Massachusetts or you are plotting an area near the border. This will
+retrieve layers from the NHD ArcGIS REST service <a href="https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer" class="external-link uri">https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer</a>.
+Because download time may be longer for large areas, download progress
+can be shown by setting <code>quiet = FALSE</code> (this argument has no
+effect is <code>useapi = FALSE</code>). The example below shows this
+option (for the same area in Massachusetts as above).</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, addwater <span class="op">=</span> <span class="st">"low"</span>, warn <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-36-1.png" class="r-plt" alt="" width="576"></p>
-<p>Water body detail as high:</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, addwater <span class="op">=</span> <span class="st">"high"</span>, warn <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
-<p><img src="analysis_files/figure-html/unnamed-chunk-37-1.png" class="r-plt" alt="" width="576"></p>
-<p>The default setting for <code><a href="../reference/anlzMWRmap.html">anlzMWRmap()</a></code> for the flowlines
-and water bodies is to use data specific to Massachusetts obtained from
-pre-processed data files on GitHub. Features from anywhere in the United
-States can be shown if stations are outside of Massachusetts by using
-<code>useapi = TRUE</code> (here, Massachusetts stations are shown for
-the example). This will retrieve layers from the NHD ArcGIS REST service
-<a href="https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer" class="external-link uri">https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer</a>.
-Download progress can be shown by setting
-<code>quiet = FALSE</code>.</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, addwater <span class="op">=</span> <span class="st">"high"</span>, warn <span class="op">=</span> <span class="cn">F</span>, useapi <span class="op">=</span> <span class="cn">TRUE</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Querying NHD layer ID streams/flowlines with detail level 'high'...</span></span>
-<span><span class="co">#&gt;  Retrieved 1292 features (offset: 0)</span></span>
-<span><span class="co">#&gt;  Total features retrieved: 1292</span></span>
-<span><span class="co">#&gt; Querying NHD layer ID rivers/areas with detail level 'high'...</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, addwater <span class="op">=</span> <span class="st">"medium"</span>, warn <span class="op">=</span> <span class="cn">F</span>, useapi <span class="op">=</span> <span class="cn">TRUE</span>, quiet <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Querying NHD layer ID streams/flowlines with detail level 'medium'...</span></span>
+<span><span class="co">#&gt;  Retrieved 860 features (offset: 0)</span></span>
+<span><span class="co">#&gt;  Total features retrieved: 860</span></span>
+<span><span class="co">#&gt; Querying NHD layer ID rivers/areas with detail level 'medium'...</span></span>
 <span><span class="co">#&gt;  Retrieved 23 features (offset: 0)</span></span>
 <span><span class="co">#&gt;  Total features retrieved: 23</span></span>
-<span><span class="co">#&gt; Querying NHD layer ID ponds/waterbodies with detail level 'high'...</span></span>
-<span><span class="co">#&gt;  Retrieved 212 features (offset: 0)</span></span>
-<span><span class="co">#&gt;  Total features retrieved: 212</span></span></code></pre></div>
+<span><span class="co">#&gt; Querying NHD layer ID ponds/waterbodies with detail level 'medium'...</span></span>
+<span><span class="co">#&gt;  Retrieved 59 features (offset: 0)</span></span>
+<span><span class="co">#&gt;  Total features retrieved: 59</span></span></code></pre></div>
+<p><img src="analysis_files/figure-html/unnamed-chunk-36-1.png" class="r-plt" alt="" width="576"></p>
+<p>For both options (<code>useapi = TRUE</code> or <code>FALSE</code>),
+the level of detail for the water bodies can be changed with the
+<code>addwater</code> argument. Using <code>addwater = "medium"</code>
+(default) will plot water bodies at medium detail. The level of detail
+can be changed to low or high using <code>addwater = "low"</code> or
+<code>addwater = "high"</code>, respectively. Use
+<code>addwater = NULL</code> to not show any water features, regardless
+of whether <code>useapi = TRUE</code> or <code>FALSE</code>.</p>
+<p>Water body detail as low:</p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, addwater <span class="op">=</span> <span class="st">"low"</span>, warn <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
+<p><img src="analysis_files/figure-html/unnamed-chunk-37-1.png" class="r-plt" alt="" width="576"></p>
+<p>Water body detail as high:</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/anlzMWRmap.html">anlzMWRmap</a></span><span class="op">(</span>res <span class="op">=</span> <span class="va">resdat</span>, param <span class="op">=</span> <span class="st">"DO"</span>, acc <span class="op">=</span> <span class="va">accdat</span>, sit <span class="op">=</span> <span class="va">sitdat</span>, addwater <span class="op">=</span> <span class="st">"high"</span>, warn <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
 <p><img src="analysis_files/figure-html/unnamed-chunk-38-1.png" class="r-plt" alt="" width="576"></p>
 <p>A north arrow, scale bar, and labels are also plotted. These can be
 suppressed by setting the appropriate arguments to

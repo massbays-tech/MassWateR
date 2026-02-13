@@ -340,3 +340,79 @@ utilMWRfiltersurface(resdat = resdat)
 #> #   `QC Reference Value` <chr>, `Result Measure Qualifier` <chr>,
 #> #   `Result Attribute` <chr>, `Sample Collection Method ID` <chr>, …
 ```
+
+## Get water features from the NHD ArcGIS REST service
+
+The
+[`utilMWRgetnhd()`](https://massbays-tech.github.io/MassWateR/reference/utilMWRgetnhd.md)
+function retrieves water features from the National Hydrography Dataset
+ArcGIS REST service
+<https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer>. It
+is used internally with the
+[`anlzMWRmap()`](https://massbays-tech.github.io/MassWateR/reference/anlzMWRmap.md)
+function if `useapi = TRUE`, but this function can also be used directly
+to retrieve layers within a bounding box. Water features for flowlines,
+areas (rivers), or water bodies (ponds/lakes) can be retrieved using the
+`id` argument, as `id = 6`, `9`, or `12`, respectively. A bounding box
+with the 4386 CRS (Coordinate Reference System) must also be provided.
+Finally, the `dLevel` argument defines the level of detail returned with
+the data. This is the same argument as the `addwater` argument in
+[`anlzMWRmap()`](https://massbays-tech.github.io/MassWateR/reference/anlzMWRmap.md).
+Finally, download progress can be shown by setting `quiet = FALSE`.
+
+``` r
+# define bounding box (EPSG:4326)
+bbox <- data.frame(
+   x = c(-71.65734, -71.39113),
+   y = c(42.26945, 42.46594)
+ )
+bbox <- sf::st_as_sf(bbox, coords = c("x", "y"), crs = 4326)
+bbox <- sf::st_bbox(bbox)
+
+flowlines <- utilMWRgetnhd(
+  id = 6,
+  bbox = bbox,
+  dLevel = 'high',
+  quiet = FALSE
+)
+#> Querying NHD layer ID streams/flowlines with detail level 'high'...
+#>  Retrieved 850 features (offset: 0)
+#>  Total features retrieved: 850
+
+area <- utilMWRgetnhd(
+  id = 9,
+  bbox = bbox,
+  dLevel = 'high', 
+  quiet = FALSE
+)
+#> Querying NHD layer ID rivers/areas with detail level 'high'...
+#>  Retrieved 13 features (offset: 0)
+#>  Total features retrieved: 13
+
+waterbody <- utilMWRgetnhd(
+  id = 12,
+  bbox = bbox,
+  dLevel = 'high',
+  quiet = FALSE
+)
+#> Querying NHD layer ID ponds/waterbodies with detail level 'high'...
+#>  Retrieved 153 features (offset: 0)
+#>  Total features retrieved: 153
+
+# plot the output using the sf package
+plot(flowlines, col = "blue", main = "Flowlines")
+```
+
+![](utility_files/figure-html/unnamed-chunk-8-1.png)
+
+``` r
+plot(area, col = "green", main = "Area")
+```
+
+![](utility_files/figure-html/unnamed-chunk-8-2.png)
+
+``` r
+plot(waterbody, col = "red", main = "Waterbody")
+```
+
+![](utility_files/figure-html/unnamed-chunk-8-3.png)

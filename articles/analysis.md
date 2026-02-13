@@ -525,12 +525,46 @@ anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "m
 
 ![](analysis_files/figure-html/unnamed-chunk-35-1.png)
 
-By default, lines and polygons of natural water bodies defined using the
-National Hydrography Dataset (NHD) are plotted. Using
+Lines and polygons of natural water bodies are also shown. By default,
+layers hosted on GitHub developed specifically for Massachusetts are
+downloaded and shown. This option is used if the argument `useapi` is
+set to `FALSE`. This does not need to be set explicitly since this is
+the default behavior (i.e., adding `useapi = FALSE` or omitting it from
+the function call does the same thing).
+
+Alternatively, water bodies from anywhere in the United States
+(including Massachusetts) can be plotted by setting `useapi` to `TRUE`.
+This option is useful if you have stations outside of Massachusetts or
+you are plotting an area near the border. This will retrieve layers from
+the NHD ArcGIS REST service
+<https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer>.
+Because download time may be longer for large areas, download progress
+can be shown by setting `quiet = FALSE` (this argument has no effect is
+`useapi = FALSE`). The example below shows this option (for the same
+area in Massachusetts as above).
+
+``` r
+anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "medium", warn = F, useapi = TRUE, quiet = FALSE)
+#> Querying NHD layer ID streams/flowlines with detail level 'medium'...
+#>  Retrieved 860 features (offset: 0)
+#>  Total features retrieved: 860
+#> Querying NHD layer ID rivers/areas with detail level 'medium'...
+#>  Retrieved 23 features (offset: 0)
+#>  Total features retrieved: 23
+#> Querying NHD layer ID ponds/waterbodies with detail level 'medium'...
+#>  Retrieved 59 features (offset: 0)
+#>  Total features retrieved: 59
+```
+
+![](analysis_files/figure-html/unnamed-chunk-36-1.png)
+
+For both options (`useapi = TRUE` or `FALSE`), the level of detail for
+the water bodies can be changed with the `addwater` argument. Using
 `addwater = "medium"` (default) will plot water bodies at medium detail.
 The level of detail can be changed to low or high using
 `addwater = "low"` or `addwater = "high"`, respectively. Use
-`addwater = NULL` to not show any water features.
+`addwater = NULL` to not show any water features, regardless of whether
+`useapi = TRUE` or `FALSE`.
 
 Water body detail as low:
 
@@ -538,38 +572,12 @@ Water body detail as low:
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "low", warn = F)
 ```
 
-![](analysis_files/figure-html/unnamed-chunk-36-1.png)
+![](analysis_files/figure-html/unnamed-chunk-37-1.png)
 
 Water body detail as high:
 
 ``` r
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "high", warn = F)
-```
-
-![](analysis_files/figure-html/unnamed-chunk-37-1.png)
-
-The default setting for
-[`anlzMWRmap()`](https://massbays-tech.github.io/MassWateR/reference/anlzMWRmap.md)
-for the flowlines and water bodies is to use data specific to
-Massachusetts obtained from pre-processed data files on GitHub. Features
-from anywhere in the United States can be shown if stations are outside
-of Massachusetts by using `useapi = TRUE` (here, Massachusetts stations
-are shown for the example). This will retrieve layers from the NHD
-ArcGIS REST service
-<https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer>.
-Download progress can be shown by setting `quiet = FALSE`.
-
-``` r
-anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "high", warn = F, useapi = TRUE, quiet = FALSE)
-#> Querying NHD layer ID streams/flowlines with detail level 'high'...
-#>  Retrieved 1292 features (offset: 0)
-#>  Total features retrieved: 1292
-#> Querying NHD layer ID rivers/areas with detail level 'high'...
-#>  Retrieved 23 features (offset: 0)
-#>  Total features retrieved: 23
-#> Querying NHD layer ID ponds/waterbodies with detail level 'high'...
-#>  Retrieved 212 features (offset: 0)
-#>  Total features retrieved: 212
 ```
 
 ![](analysis_files/figure-html/unnamed-chunk-38-1.png)

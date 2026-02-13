@@ -23,10 +23,12 @@ is a list of the MassWateR elements that are specific to Massachusetts:
     there is an option to add a waterbody layer
     (`addwater = "high"/"medium"/"low"`). The default setting for this
     function is to retrieve pre-processed waterbody data for
-    Massachusetts from GitHub. If you are outside of Massachusetts, you
-    can retrieve data from anywhere in the United States using the
-    `useapi = TRUE` option. This will retrieve layers from the National
-    Hydrography Dataset ArcGIS REST service
+    Massachusetts from GitHub (i.e., `useapi = FALSE`). If you are
+    outside of Massachusetts, you can retrieve data from anywhere in the
+    United States using the `useapi = TRUE` option. The `addwater`
+    argument can again be used to set the level of detail. This will
+    retrieve layers from the National Hydrography Dataset ArcGIS REST
+    service
     <https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer>.
     Download progress can be shown by setting `quiet = FALSE`. You can
     also add your own waterbody layer following the instructions in the

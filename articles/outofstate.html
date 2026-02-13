@@ -67,7 +67,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Out of state?</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/massbays-tech/MassWateR/blob/v2.2.1/vignettes/outofstate.Rmd" class="external-link"><code>vignettes/outofstate.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/massbays-tech/MassWateR/blob/main/vignettes/outofstate.Rmd" class="external-link"><code>vignettes/outofstate.Rmd</code></a></small>
       <div class="d-none name"><code>outofstate.Rmd</code></div>
     </div>
 
@@ -96,10 +96,12 @@ plots</a> vignette.</li>
 <code><a href="../reference/anlzMWRmap.html">anlzMWRmap()</a></code>, there is an option to add a waterbody layer
 (<code>addwater = "high"/"medium"/"low"</code>). The default setting for
 this function is to retrieve pre-processed waterbody data for
-Massachusetts from GitHub. If you are outside of Massachusetts, you can
-retrieve data from anywhere in the United States using the
-<code>useapi = TRUE</code> option. This will retrieve layers from the
-National Hydrography Dataset ArcGIS REST service <a href="https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer" class="external-link uri">https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer</a>.
+Massachusetts from GitHub (i.e., <code>useapi = FALSE</code>). If you
+are outside of Massachusetts, you can retrieve data from anywhere in the
+United States using the <code>useapi = TRUE</code> option. The
+<code>addwater</code> argument can again be used to set the level of
+detail. This will retrieve layers from the National Hydrography Dataset
+ArcGIS REST service <a href="https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer" class="external-link uri">https://hydro.nationalmap.gov/arcgis/rest/services/nhd/MapServer</a>.
 Download progress can be shown by setting <code>quiet = FALSE</code>.
 You can also add your own waterbody layer following the instructions in
 the <a href="https://massbays-tech.github.io/MassWateR/articles/modifying.html">modifying
