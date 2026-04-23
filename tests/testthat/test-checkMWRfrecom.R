@@ -12,13 +12,15 @@ test_that("Checking required column names are present", {
 
 test_that("Checking non-numeric values", {
   chk <- tst$frecomdatchk
-  chk$`Lab Duplicate` <- as.character(chk$`Lab Duplicate`)
-  chk$`Lab Blank` <- as.character(chk$`Lab Blank`)
+  chk$`Lab Duplicate`[1] <- 'abc'
+  chk$`Lab Blank`[1] <- 'abc'
   expect_error(checkMWRfrecom(chk), 'Non-numeric values found in columns: Lab Duplicate, Lab Blank', fixed = T)
 })
 
 test_that("Checking values outside of 0 - 100", {
   chk <- tst$frecomdatchk
+  chk <- chk %>%
+    dplyr::mutate(dplyr::across(-`Parameter`, as.numeric))
   chk[2, 4] <- -10
   chk[2, 6] <- 101
   expect_error(checkMWRfrecom(chk), 'Values less than 0 or greater than 100 found in columns: Field Blank, Spike/Check Accuracy', fixed = T)

@@ -203,6 +203,7 @@ Minor formatting of the input files is also done to address a few minor issues f
 -   **Convert parameter names**: All parameters in `Parameter` are converted to `Simple Parameter` in `paramsMWR` as needed.
 -   **Remove unicode**: Remove or replace unicode characters with those that can be used in logical expressions in `qcMWRacc()`, e.g., replace $\geq$ with $>=$.
 -   **Convert limits to numeric**: Convert `MDL` and `UQL` columns in the accuracy file to numeric
+-   **Convert columns to numeric**: For the frequency and completeness file, all columns except `Parameter` are converted to numeric.
 
 ### Site metadata
 

@@ -38,7 +38,7 @@ frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx',
 
 frecomdat <- suppressMessages(readxl::read_excel(frecompth, 
       skip = 1, na = c('NA', 'na', ''), 
-      col_types = c('text', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric')
+      col_types = 'text'
     )) \%>\% 
     rename(`\% Completeness` = `...7`)
     

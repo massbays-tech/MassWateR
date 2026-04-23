@@ -6,6 +6,7 @@
 #' 
 #' \itemize{
 #'   \item Convert Parameter: All parameters are converted to \code{Simple Parameter} in \code{\link{paramsMWR}} as needed
+#'   \item Convert all columns except Parameter to numeric
 #' }
 #' 
 #' @return A formatted data frame of the data quality objectives file for frequency and completeness
@@ -20,7 +21,7 @@
 #' 
 #' frecomdat <- suppressMessages(readxl::read_excel(frecompth, 
 #'       skip = 1, na = c('NA', 'na', ''), 
-#'       col_types = c('text', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric')
+#'       col_types = 'text'
 #'     )) %>% 
 #'     rename(`% Completeness` = `...7`)
 #'     
@@ -34,7 +35,8 @@ formMWRfrecom <- function(frecomdat){
               paramsMWR$`Simple Parameter`[match(`Parameter`, paramsMWR$`WQX Parameter`)], 
               `Parameter`
             )
-          )
+          ) %>%
+    dplyr::mutate(dplyr::across(-`Parameter`, as.numeric)) # convert all columns except Parameter to numeric
   
   return(out)
   

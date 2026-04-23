@@ -7,3 +7,11 @@ test_that("Checking form results", {
   result <- any(!result)
   expect_false(result)
 })
+
+test_that("Checking numeric columns after formatting", {
+  frmchk <- formMWRfrecom(tst$frecomdatchk)
+  result <- frmchk %>%
+    dplyr::select(-`Parameter`) %>%
+    sapply(is.numeric)
+  expect_true(all(result))
+})

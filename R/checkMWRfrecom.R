@@ -27,7 +27,7 @@
 #' 
 #' frecomdat <- suppressMessages(readxl::read_excel(frecompth, 
 #'       skip = 1, na = c('NA', 'na', ''), 
-#'       col_types = c('text', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric')
+#'       col_types = 'text'
 #'     )) %>% 
 #'     rename(`% Completeness` = `...7`)
 #'     
@@ -65,14 +65,16 @@ checkMWRfrecom <- function(frecomdat, warn = TRUE){
   
   # check for any non-numeric columns
   msg <- '\tChecking for non-numeric values...'
-  typ <- frecomdat %>% 
-    dplyr::select(-Parameter) %>% 
-    lapply(class) %>% 
+  chk <- frecomdat %>%
+    dplyr::select(-Parameter) %>%
+    lapply(function(x) {
+      non_na <- x[!is.na(x)]
+      if(length(non_na) == 0) return(TRUE)
+      all(!is.na(suppressWarnings(as.numeric(non_na))))
+    }) %>%
     unlist
-  typ <- typ[typ != 'logical']
-  chk <- typ %in% 'numeric'
   if(any(!chk)){
-    tochk <- names(typ)[!chk]
+    tochk <- names(chk)[!chk]
     stop(msg, '\n\tNon-numeric values found in columns: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
@@ -85,7 +87,7 @@ checkMWRfrecom <- function(frecomdat, warn = TRUE){
       if(all(is.na(x)))
         c(NA, NA)
       else
-        range(x, na.rm = T)
+        range(as.numeric(x), na.rm = T)
       }
     )
   chk <- lapply(typ, function(x) x < 0 | x > 100) %>%

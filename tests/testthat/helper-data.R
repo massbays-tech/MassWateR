@@ -18,10 +18,10 @@ tst <- list(
   
   # dqo completeness data
   frecompth = system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', package = 'MassWateR'),
-  frecomdatchk = suppressMessages(readxl::read_excel(system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', package = 'MassWateR'), 
-                            skip = 1, na = c('NA', 'na', ''), 
-                            col_types = c('text', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric')
-  )) %>% 
+  frecomdatchk = suppressMessages(readxl::read_excel(system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', package = 'MassWateR'),
+                            skip = 1, na = c('NA', 'na', ''),
+                            col_types = 'text'
+  )) %>%
     rename(`% Completeness` = `...7`),
   frecomdat = readMWRfrecom(system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx', package = 'MassWateR'), runchk = F, warn = F),
   
