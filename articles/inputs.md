@@ -495,6 +495,8 @@ issues for downstream analysis. This formatting includes:
   e.g., replace $\geq$ with $> =$.
 - **Convert limits to numeric**: Convert `MDL` and `UQL` columns in the
   accuracy file to numeric
+- **Convert columns to numeric**: For the frequency and completeness
+  file, all columns except `Parameter` are converted to numeric.
 
 ### Site metadata
 

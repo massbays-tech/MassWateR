@@ -31,6 +31,8 @@ includes:
   [`paramsMWR`](https://massbays-tech.github.io/MassWateR/reference/paramsMWR.md)
   as needed
 
+- Convert all columns except Parameter to numeric
+
 ## Examples
 
 ``` r
@@ -41,7 +43,7 @@ frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx',
 
 frecomdat <- suppressMessages(readxl::read_excel(frecompth, 
       skip = 1, na = c('NA', 'na', ''), 
-      col_types = c('text', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric')
+      col_types = 'text'
     )) %>% 
     rename(`% Completeness` = `...7`)
     

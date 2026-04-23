@@ -71,7 +71,7 @@ frecompth <- system.file('extdata/ExampleDQOFrequencyCompleteness.xlsx',
 
 frecomdat <- suppressMessages(readxl::read_excel(frecompth, 
       skip = 1, na = c('NA', 'na', ''), 
-      col_types = c('text', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric', 'numeric')
+      col_types = 'text'
     )) %>% 
     rename(`% Completeness` = `...7`)
     
@@ -87,14 +87,14 @@ checkMWRfrecom(frecomdat)
 #> All checks passed!
 #> # A tibble: 8 × 7
 #>   Parameter      `Field Duplicate` `Lab Duplicate` `Field Blank` `Lab Blank`
-#>   <chr>                      <dbl>           <dbl>         <dbl>       <dbl>
-#> 1 Water Temp                    10              10            NA          NA
-#> 2 pH                            10              10            NA          NA
-#> 3 DO                            10              NA            NA          NA
-#> 4 Sp Conductance                10              10            NA          10
-#> 5 TP                            10               5            10           5
-#> 6 Nitrate                       10               5            10           5
-#> 7 Ammonia                       10               5            10           5
-#> 8 E.coli                        10               5            10           5
-#> # ℹ 2 more variables: `Spike/Check Accuracy` <dbl>, `% Completeness` <dbl>
+#>   <chr>          <chr>             <chr>           <chr>         <chr>      
+#> 1 Water Temp     10                10              NA            NA         
+#> 2 pH             10                10              NA            NA         
+#> 3 DO             10                NA              NA            NA         
+#> 4 Sp Conductance 10                10              NA            10         
+#> 5 TP             10                5               10            5          
+#> 6 Nitrate        10                5               10            5          
+#> 7 Ammonia        10                5               10            5          
+#> 8 E.coli         10                5               10            5          
+#> # ℹ 2 more variables: `Spike/Check Accuracy` <chr>, `% Completeness` <chr>
 ```
