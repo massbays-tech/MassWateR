@@ -41,11 +41,13 @@ jobs:
 
       - uses: r-lib/actions/setup-tinytex@v2
       
-      - name: Install gdal for macOS
+      - name: Install geospatial libs for macOS
         if: runner.os == 'macOS'
         run: |
-          brew install gdal
-          brew install udunits
+          brew update
+          brew install proj gdal udunits
+          echo "PROJ_LIB=$(brew --prefix proj)/share/proj" >> $GITHUB_ENV
+          echo "GDAL_DATA=$(brew --prefix gdal)/share/gdal" >> $GITHUB_ENV
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
