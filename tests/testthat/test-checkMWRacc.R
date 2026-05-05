@@ -1,7 +1,7 @@
 test_that("Checking column name spelling", {
   chk <- tst$accdatchk
   names(chk)[c(1, 4)] <- c('Variables', 'AQL')
-  expect_error(checkMWRacc(chk), 'Please correct the column names or remove: Variables, AQL', fixed = T)
+  expect_error(checkMWRacc(chk), 'Please correct the column names or remove: Variables (column 1), AQL (column 4)', fixed = T)
 })
 
 test_that("Checking required column names are present", {
@@ -16,7 +16,7 @@ test_that("Checking column types, including NA", {
   chk$`MDL` <- 'a'
   chk$`Spike/Check Accuracy` <- 5
   chk$`Lab Duplicate` <- NA
-  expect_error(checkMWRacc(chk), regexp = '\tChecking column types...\n\tIncorrect column type found in columns: MDL-should be numeric, Spike/Check Accuracy-should be character', fixed = T)
+  expect_error(checkMWRacc(chk), regexp = '\tChecking column types...\n\tIncorrect column type found in columns: MDL (column 3) - should be numeric, Spike/Check Accuracy (column 10) - should be character', fixed = T)
 })
 
 test_that("Checking column types with NA values", {
@@ -31,7 +31,7 @@ test_that("Checking for text other than <=, \u2264, <, >=, \u2265, >, \u00b1, %,
   chk <- tst$accdatchk
   chk$`Value Range`[4] <- 'b'
   chk$`Field Duplicate` <- 'alll'
-  expect_error(checkMWRacc(chk), regexp = 'Unrecognized text in columns: Value Range, Field Duplicate', fixed = T)
+  expect_error(checkMWRacc(chk), regexp = 'Unrecognized text in columns: Value Range (row(s) 4), Field Duplicate (row(s) 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)', fixed = T)
 })
 
 test_that("Checking overlap in value range", {

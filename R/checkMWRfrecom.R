@@ -44,12 +44,13 @@ checkMWRfrecom <- function(frecomdat, warn = TRUE){
   
   # check field names
   msg <- '\tChecking column names...'
-  nms <- names(frecomdat) 
+  nms <- names(frecomdat)
   chk <- nms %in% colnms
   if(any(!chk)){
     tochk <- nms[!chk]
-    stop(msg, '\n\tPlease correct the column names or remove: ', paste(tochk, collapse = ', '), call. = FALSE)
-    
+    tochk_idx <- which(!chk)
+    tochk_labeled <- paste0(tochk, ' (column ', tochk_idx, ')')
+    stop(msg, '\n\tPlease correct the column names or remove: ', paste(tochk_labeled, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
 
@@ -59,7 +60,9 @@ checkMWRfrecom <- function(frecomdat, warn = TRUE){
   chk <- colnms %in% nms
   if(any(!chk)){
     tochk <- colnms[!chk]
-    stop(msg, '\n\tMissing the following columns: ', paste(tochk, collapse = ', '), call. = FALSE)
+    tochk_idx <- which(!chk)
+    tochk_labeled <- paste0(tochk, ' (expected column ', tochk_idx, ')')
+    stop(msg, '\n\tMissing the following columns: ', paste(tochk_labeled, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
   
@@ -74,16 +77,23 @@ checkMWRfrecom <- function(frecomdat, warn = TRUE){
     }) %>%
     unlist
   if(any(!chk)){
-    tochk <- names(chk)[!chk]
-    stop(msg, '\n\tNon-numeric values found in columns: ', paste(tochk, collapse = ', '), call. = FALSE)
+    bad_cols <- names(chk)[!chk]
+    row_info <- lapply(bad_cols, function(col) {
+      bad_rows <- which(!is.na(frecomdat[[col]]) & is.na(suppressWarnings(as.numeric(frecomdat[[col]]))))
+      if (length(bad_rows) > 0)
+        paste0(col, ' (row(s) ', paste(bad_rows, collapse = ', '), ')')
+      else
+        col
+    })
+    stop(msg, '\n\tNon-numeric values found in columns: ', paste(unlist(row_info), collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
 
   # check for values not between 0 and 100
   msg <- '\tChecking for values outside of 0 and 100...'
-  typ <- frecomdat %>% 
-    dplyr::select(-Parameter) %>% 
-    lapply(function(x){ 
+  typ <- frecomdat %>%
+    dplyr::select(-Parameter) %>%
+    lapply(function(x){
       if(all(is.na(x)))
         c(NA, NA)
       else
@@ -91,11 +101,19 @@ checkMWRfrecom <- function(frecomdat, warn = TRUE){
       }
     )
   chk <- lapply(typ, function(x) x < 0 | x > 100) %>%
-    lapply(any) %>% 
+    lapply(any) %>%
     unlist
   if(any(chk, na.rm = T)){
-    tochk <- names(chk)[chk]
-    stop(msg, '\n\tValues less than 0 or greater than 100 found in columns: ', paste(tochk, collapse = ', '), call. = FALSE)
+    bad_cols <- names(chk)[chk]
+    row_info <- lapply(bad_cols, function(col) {
+      vals <- suppressWarnings(as.numeric(frecomdat[[col]]))
+      bad_rows <- which(!is.na(vals) & (vals < 0 | vals > 100))
+      if (length(bad_rows) > 0)
+        paste0(col, ' (row(s) ', paste(bad_rows, collapse = ', '), ')')
+      else
+        col
+    })
+    stop(msg, '\n\tValues less than 0 or greater than 100 found in columns: ', paste(unlist(row_info), collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
   

@@ -1,7 +1,7 @@
 test_that("Checking column name spelling", {
   chk <- tst$censdatchk
   names(chk)[c(1, 2)] <- c('Parm', 'Num')
-  expect_error(checkMWRcens(chk), 'Please correct the column names or remove: Parm, Num', fixed = T)
+  expect_error(checkMWRcens(chk), 'Please correct the column names or remove: Parm (column 1), Num (column 2)', fixed = T)
 })
 
 test_that("Checking required column names are present", {

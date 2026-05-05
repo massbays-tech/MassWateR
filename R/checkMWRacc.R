@@ -53,11 +53,13 @@ checkMWRacc <- function(accdat, warn = TRUE){
   
   # check field names
   msg <- '\tChecking column names...'
-  nms <- names(accdat) 
+  nms <- names(accdat)
   chk <- nms %in% colnms
   if(any(!chk)){
     tochk <- nms[!chk]
-    stop(msg, '\n\tPlease correct the column names or remove: ', paste(tochk, collapse = ', '), call. = FALSE)
+    tochk_idx <- which(!chk)
+    tochk_labeled <- paste0(tochk, ' (column ', tochk_idx, ')')
+    stop(msg, '\n\tPlease correct the column names or remove: ', paste(tochk_labeled, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
 
@@ -67,7 +69,9 @@ checkMWRacc <- function(accdat, warn = TRUE){
   chk <- colnms %in% nms
   if(any(!chk)){
     tochk <- colnms[!chk]
-    stop(msg, '\n\tMissing the following columns: ', paste(tochk, collapse = ', '), call. = FALSE)
+    tochk_idx <- which(!chk)
+    tochk_labeled <- paste0(tochk, ' (expected column ', tochk_idx, ')')
+    stop(msg, '\n\tMissing the following columns: ', paste(tochk_labeled, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
 
@@ -87,9 +91,10 @@ checkMWRacc <- function(accdat, warn = TRUE){
   })
   chk <- c(chknum, chkchr)[names(accdat)]
   if(any(!chk)){
-    tochk <- names(chk[!chk])
+    tochk_nms <- names(chk[!chk])
+    tochk_idx <- match(tochk_nms, names(accdat))
     totyp <- coltyp[!chk]
-    tochk <- paste(tochk, paste('should be', totyp), sep = '-')
+    tochk <- paste0(tochk_nms, ' (column ', tochk_idx, ') - should be ', totyp)
     stop(msg, '\n\tIncorrect column type found in columns: ', paste(tochk, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
@@ -114,8 +119,16 @@ checkMWRacc <- function(accdat, warn = TRUE){
     unlist
   chk <- !typ
   if(any(!chk)){
-    tochk <- names(typ[!chk])
-    stop(msg, '\n\tUnrecognized text in columns: ', paste0(tochk, collapse = ', '), call. = FALSE)
+    bad_cols <- names(typ[!chk])
+    row_info <- lapply(bad_cols, function(col) {
+      cleaned <- gsub(paste(colsym, collapse = '|'), '', accdat[[col]])
+      bad_rows <- which(!is.na(accdat[[col]]) & is.na(suppressWarnings(as.numeric(cleaned))) & nchar(trimws(cleaned)) > 0)
+      if (length(bad_rows) > 0)
+        paste0(col, ' (row(s) ', paste(bad_rows, collapse = ', '), ')')
+      else
+        col
+    })
+    stop(msg, '\n\tUnrecognized text in columns: ', paste0(unlist(row_info), collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'), domain = NA)
 
@@ -124,19 +137,21 @@ checkMWRacc <- function(accdat, warn = TRUE){
   typ <- utilMWRvaluerange(accdat)
   chk <- !typ %in% 'overlap'
   if(any(!chk)){
-    nms <- names(typ)[!chk]
-    stop(msg, '\n\tOverlap in value range: ', paste(nms, collapse = ', '), call. = FALSE)
+    bad_params <- names(typ)[!chk]
+    rws <- which(accdat$Parameter %in% bad_params)
+    stop(msg, '\n\tOverlap in value range: ', paste(bad_params, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
-  
+
   # check gap in value range
   msg <- '\tChecking gaps in Value Range...'
   typ <- utilMWRvaluerange(accdat)
   chk <- !typ %in% 'gap'
   if(any(!chk)){
-    nms <- names(typ)[!chk]
+    bad_params <- names(typ)[!chk]
+    rws <- which(accdat$Parameter %in% bad_params)
     if(warn)
-      warning(msg, '\n\tGap in value range in DQO accuracy file: ', paste(nms, collapse = ', '), call. = FALSE)
+      warning(msg, '\n\tGap in value range in DQO accuracy file: ', paste(bad_params, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
     wrn <- wrn + 1
     message(paste(msg, 'WARNING'))
   } else {
@@ -171,14 +186,15 @@ checkMWRacc <- function(accdat, warn = TRUE){
   typ <- unique(typ)
   chk <- !duplicated(typ$`Parameter`)
   if(any(!chk)){
-    tochk <- typ[!chk, 'Parameter', drop = TRUE]
-    tochk <- typ[typ$`Parameter` %in% tochk, ]
+    bad_params <- typ[!chk, 'Parameter', drop = TRUE]
+    rws <- which(accdat$Parameter %in% bad_params)
+    tochk <- typ[typ$`Parameter` %in% bad_params, ]
     tochk <- dplyr::group_by(tochk, `Parameter`)
     tochk <- tidyr::nest(tochk)
     tochk$data <- lapply(tochk$data, function(x) paste(x[[1]], collapse = ', '))
     tochk <- tidyr::unnest(tochk, cols = 'data')
     tochk <- tidyr::unite(tochk, 'res', sep = ': ')[[1]]
-    stop(msg, '\n\tMore than one unit (uom) found for Parameter: ', paste(tochk, collapse = ', '), call. = FALSE)
+    stop(msg, '\n\tMore than one unit (uom) found for Parameter: ', paste(tochk, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
   
@@ -203,9 +219,11 @@ checkMWRacc <- function(accdat, warn = TRUE){
     fnd = grepl(`uom`, `Units of measure`, fixed = TRUE)
   )
   if(any(!chk$fnd)){
+    bad_params <- chk[!chk$fnd, 'Parameter', drop = TRUE]
+    rws <- which(accdat$Parameter %in% bad_params)
     tochk <- chk[!chk$fnd, c('Parameter', 'uom')]
     tochk <- tidyr::unite(tochk, 'res', sep = ': ')[[1]]
-    stop(msg, '\n\tIncorrect units (uom) found for Parameters: ', paste(tochk, collapse = ', '), call. = FALSE)
+    stop(msg, '\n\tIncorrect units (uom) found for Parameters: ', paste(tochk, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
   

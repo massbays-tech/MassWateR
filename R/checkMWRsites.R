@@ -37,21 +37,25 @@ checkMWRsites <- function(sitdat){
   
   # check field names
   msg <- '\tChecking column names...'
-  nms <- names(sitdat) 
+  nms <- names(sitdat)
   chk <- nms %in% colnms
   if(any(!chk)){
     tochk <- nms[!chk]
-    stop(msg, '\n\tPlease correct the column names or remove: ', paste(tochk, collapse = ', '), call. = FALSE)
+    tochk_idx <- which(!chk)
+    tochk_labeled <- paste0(tochk, ' (column ', tochk_idx, ')')
+    stop(msg, '\n\tPlease correct the column names or remove: ', paste(tochk_labeled, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
-  
+
   # check all fields are present
   msg <- '\tChecking all required columns are present...'
   nms <- names(sitdat)
   chk <- colnms %in% nms
   if(any(!chk)){
     tochk <- colnms[!chk]
-    stop(msg, '\n\tMissing the following columns: ', paste(tochk, collapse = ', '), call. = FALSE)
+    tochk_idx <- which(!chk)
+    tochk_labeled <- paste0(tochk, ' (expected column ', tochk_idx, ')')
+    stop(msg, '\n\tMissing the following columns: ', paste(tochk_labeled, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
   

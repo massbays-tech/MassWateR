@@ -39,17 +39,21 @@ checkMWRcens <- function(censdat, warn = TRUE){
   chk <- nms %in% colnms
   if(any(!chk)){
     tochk <- nms[!chk]
-    stop(msg, '\n\tPlease correct the column names or remove: ', paste(tochk, collapse = ', '), call. = FALSE)
+    tochk_idx <- which(!chk)
+    tochk_labeled <- paste0(tochk, ' (column ', tochk_idx, ')')
+    stop(msg, '\n\tPlease correct the column names or remove: ', paste(tochk_labeled, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
-  
+
   # check all fields are present
   msg <- '\tChecking all required columns are present...'
   nms <- names(censdat)
   chk <- colnms %in% nms
   if(any(!chk)){
     tochk <- colnms[!chk]
-    stop(msg, '\n\tMissing the following columns: ', paste(tochk, collapse = ', '), call. = FALSE)
+    tochk_idx <- which(!chk)
+    tochk_labeled <- paste0(tochk, ' (expected column ', tochk_idx, ')')
+    stop(msg, '\n\tMissing the following columns: ', paste(tochk_labeled, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
 
@@ -80,9 +84,10 @@ checkMWRcens <- function(censdat, warn = TRUE){
   typ <- censdat$`Parameter`
   chk <- typ %in% chntyp
   if(any(!chk)){
+    rws <- which(!chk)
     tochk <- unique(typ[!chk])
     if(warn)
-      warning(msg, '\n\tParameter not included in approved parameters: ', paste(tochk, collapse = ', '), call. = FALSE)
+      warning(msg, '\n\tParameter not included in approved parameters: ', paste(tochk, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
     wrn <- wrn + 1
     message(paste(msg, 'WARNING'))
   } else {

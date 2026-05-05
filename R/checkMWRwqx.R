@@ -41,7 +41,9 @@ checkMWRwqx <- function(wqxdat, warn = TRUE){
   chk <- nms %in% colnms
   if(any(!chk)){
     tochk <- nms[!chk]
-    stop(msg, '\n\tPlease correct the column names or remove: ', paste(tochk, collapse = ', '), call. = FALSE)
+    tochk_idx <- which(!chk)
+    tochk_labeled <- paste0(tochk, ' (column ', tochk_idx, ')')
+    stop(msg, '\n\tPlease correct the column names or remove: ', paste(tochk_labeled, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
 
@@ -51,7 +53,9 @@ checkMWRwqx <- function(wqxdat, warn = TRUE){
   chk <- colnms %in% nms
   if(any(!chk)){
     tochk <- colnms[!chk]
-    stop(msg, '\n\tMissing the following columns: ', paste(tochk, collapse = ', '), call. = FALSE)
+    tochk_idx <- which(!chk)
+    tochk_labeled <- paste0(tochk, ' (expected column ', tochk_idx, ')')
+    stop(msg, '\n\tMissing the following columns: ', paste(tochk_labeled, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
 
@@ -61,18 +65,20 @@ checkMWRwqx <- function(wqxdat, warn = TRUE){
   chk <- !duplicated(typ)
   if(any(!chk)){
     tochk <- sort(typ[!chk])
-    stop(msg, '\n\tDuplicate parameters found in the Parameter column: ', paste(tochk, collapse = ', '), call. = FALSE)
+    rws <- which(typ %in% tochk)
+    stop(msg, '\n\tDuplicate parameters found in the Parameter column: ', paste(tochk, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
-  
+
   # check parameters
   msg <- '\tChecking Parameter formats...'
   typ <- wqxdat$Parameter
   chk <- typ %in% chntyp
   if(any(!chk)){
+    rws <- which(!chk)
     tochk <- unique(typ[!chk])
     if(warn)
-      warning(msg, '\n\tParameter not included in approved parameters: ', paste(tochk, collapse = ', '), call. = FALSE)
+      warning(msg, '\n\tParameter not included in approved parameters: ', paste(tochk, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
     wrn <- wrn + 1
     message(paste(msg, 'WARNING'))
   } else {

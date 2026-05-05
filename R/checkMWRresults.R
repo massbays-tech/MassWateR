@@ -65,17 +65,21 @@ checkMWRresults <- function(resdat, warn = TRUE){
   chk <- nms %in% colnms
   if(any(!chk)){
     tochk <- nms[!chk]
-    stop(msg, '\n\tPlease correct the column names or remove: ', paste(tochk, collapse = ', '), call. = FALSE)
+    tochk_idx <- which(!chk)
+    tochk_labeled <- paste0(tochk, ' (column ', tochk_idx, ')')
+    stop(msg, '\n\tPlease correct the column names or remove: ', paste(tochk_labeled, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
-  
+
   # check all fields are present
   msg <- '\tChecking all required columns are present...'
   nms <- names(resdat)
   chk <- colnms %in% nms
   if(any(!chk)){
     tochk <- colnms[!chk]
-    stop(msg, '\n\tMissing the following columns: ', paste(tochk, collapse = ', '), call. = FALSE)
+    tochk_idx <- which(!chk)
+    tochk_labeled <- paste0(tochk, ' (expected column ', tochk_idx, ')')
+    stop(msg, '\n\tMissing the following columns: ', paste(tochk_labeled, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
   
@@ -178,9 +182,10 @@ checkMWRresults <- function(resdat, warn = TRUE){
   typ <- resdat$`Characteristic Name`
   chk <- typ %in% chntyp
   if(any(!chk)){
+    rws <- which(!chk)
     tochk <- unique(typ[!chk])
     if(warn)
-      warning(msg, '\n\tCharacteristic Name not included in approved parameters: ', paste(tochk, collapse = ', '), call. = FALSE)
+      warning(msg, '\n\tCharacteristic Name not included in approved parameters: ', paste(tochk, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
     wrn <- wrn + 1
     message(paste(msg, 'WARNING'))
   } else {
@@ -235,20 +240,21 @@ checkMWRresults <- function(resdat, warn = TRUE){
 
   # check different units for each parameter
   msg <- '\tChecking if more than one unit per Characteristic Name...'
-  typ <- resdat[, c('Characteristic Name', 'Result Unit', 'Activity Type')] %>% 
-    dplyr::filter(!(`Activity Type` %in% 'Quality Control Sample-Lab Spike' & `Result Unit` %in% c('%', '% recovery'))) %>% 
+  typ <- resdat[, c('Characteristic Name', 'Result Unit', 'Activity Type')] %>%
+    dplyr::filter(!(`Activity Type` %in% 'Quality Control Sample-Lab Spike' & `Result Unit` %in% c('%', '% recovery'))) %>%
     dplyr::select(-`Activity Type`)
   typ <- unique(typ)
   chk <- !duplicated(typ$`Characteristic Name`)
   if(any(!chk)){
-    tochk <- typ[!chk, 'Characteristic Name', drop = TRUE]
-    tochk <- typ[typ$`Characteristic Name` %in% tochk, ]
+    bad_nms <- typ[!chk, 'Characteristic Name', drop = TRUE]
+    rws <- which(resdat$`Characteristic Name` %in% bad_nms)
+    tochk <- typ[typ$`Characteristic Name` %in% bad_nms, ]
     tochk <- dplyr::group_by(tochk, `Characteristic Name`)
     tochk <- tidyr::nest(tochk)
     tochk$data <- lapply(tochk$data, function(x) paste(x[[1]], collapse = ', '))
     tochk <- tidyr::unnest(tochk, cols = 'data')
     tochk <- tidyr::unite(tochk, 'res', sep = ': ')[[1]]
-    stop(msg, '\n\tMore than one Result Unit found for Characteristic Names: ', paste(tochk, collapse = ', '), call. = FALSE)
+    stop(msg, '\n\tMore than one Result Unit found for Characteristic Names: ', paste(tochk, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
 
@@ -275,9 +281,11 @@ checkMWRresults <- function(resdat, warn = TRUE){
     fnd = grepl(`Result Unit`, `Units of measure`, fixed = TRUE)
   )
   if(any(!chk$fnd)){
+    bad_nms <- chk[!chk$fnd, 'Characteristic Name', drop = TRUE]
+    rws <- which(resdat$`Characteristic Name` %in% bad_nms)
     tochk <- chk[!chk$fnd, c('Characteristic Name', 'Result Unit')]
     tochk <- tidyr::unite(tochk, 'res', sep = ': ')[[1]]
-    stop(msg, '\n\tIncorrect Result Unit found for Characteristic Names: ', paste(tochk, collapse = ', '), call. = FALSE)
+    stop(msg, '\n\tIncorrect Result Unit found for Characteristic Names: ', paste(tochk, collapse = ', '), ' in row(s) ', paste(rws, collapse = ', '), call. = FALSE)
   }
   message(paste(msg, 'OK'))
 
