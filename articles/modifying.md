@@ -22,6 +22,7 @@ simple rules.
 First, ggplot2 is loaded.
 
 ``` r
+
 library(ggplot2)
 ```
 
@@ -33,6 +34,7 @@ the dataset to use in the graph. The following creates an empty base
 graph for the `mpg` dataset included with ggplot2.
 
 ``` r
+
 ggplot(data = mpg)
 ```
 
@@ -46,6 +48,7 @@ the use of the `+` syntax to build the plot - this is a distinct style
 of coding that is only used with ggplot2.
 
 ``` r
+
 ggplot(data = mpg) +
   geom_point()
 ```
@@ -62,6 +65,7 @@ function looks for the mapped variable in the `data` argument, in this
 case, `mpg`.
 
 ``` r
+
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point()
 ```
@@ -102,6 +106,7 @@ the package for the examples. The checks and warnings are suppressed
 because we know the files are formatted correctly.
 
 ``` r
+
 library(MassWateR)
 
 # import results data
@@ -125,12 +130,14 @@ for demonstration. A single plot object for the original plot is created
 as `p` and is modified differently in each example.
 
 ``` r
+
 p <- anlzMWRseason(fset = fsetls, param = "DO", thresh = "fresh", group = "month")
 ```
 
 Modify plot labels:
 
 ``` r
+
 p +
   labs(
     x = "Month", 
@@ -144,6 +151,7 @@ p +
 Modify the theme:
 
 ``` r
+
 p + theme_grey()
 ```
 
@@ -158,6 +166,7 @@ with additional
 elements.
 
 ``` r
+
 p + 
   theme_bw() +
   theme(
@@ -174,6 +183,7 @@ Changing the y-axis requires only the numeric range using the `ylim`
 argument.
 
 ``` r
+
 p + coord_cartesian(ylim = c(0, 8))
 ```
 
@@ -182,6 +192,7 @@ p + coord_cartesian(ylim = c(0, 8))
 A plot with facets for each site:
 
 ``` r
+
 p + facet_wrap(~`Monitoring Location ID`)
 ```
 
@@ -190,6 +201,7 @@ p + facet_wrap(~`Monitoring Location ID`)
 Switch the axes:
 
 ``` r
+
 p + coord_flip()
 ```
 
@@ -199,6 +211,7 @@ Add a custom reference line (although the `thresh` argument can also be
 used with a numeric value):
 
 ``` r
+
 p +
   geom_hline(yintercept = 10, linetype = 'solid', color = 'green', linewidth = 2)
 ```
@@ -218,6 +231,7 @@ the map box (with
 [`coord_sf()`](https://ggplot2.tidyverse.org/reference/ggsf.html)).
 
 ``` r
+
 library(sf)
 library(ggplot2)
 
@@ -239,6 +253,7 @@ first created and then combined using the `+` syntax followed by the
 plot layout (e.g., plots in two columns using `ncol = 2`).
 
 ``` r
+
 library(patchwork)
 
 p1 <- anlzMWRseason(fset = fsetls, param = "DO", thresh = "fresh", group = "month")

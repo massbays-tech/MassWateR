@@ -13,6 +13,7 @@ package are imported here to demonstrate how to use the analysis
 functions:
 
 ``` r
+
 library(MassWateR)
 
 # import results data
@@ -119,8 +120,9 @@ message indicating success and where the file is located is returned.
 The Excel file can be further edited by hand as needed.
 
 ``` r
+
 tabMWRwqx(res = resdat, acc = accdat, sit = sitdat, wqx = wqxdat, output_dir = tempdir())
-#> Excel workbook created successfully! File located at /tmp/RtmpqAueVa/wqxtab.xlsx
+#> Excel workbook created successfully! File located at /tmp/RtmpI0Svm5/wqxtab.xlsx
 ```
 
 As a convenience, the input files can also be passed to the
@@ -129,6 +131,7 @@ function as a named list using the `fset` argument. This eliminates the
 need to individually specify the input arguments.
 
 ``` r
+
 # names list of inputs
 fsetls <- list(
   res = resdat, 
@@ -138,7 +141,7 @@ fsetls <- list(
 )
 
 tabMWRwqx(fset = fsetls, output_dir = tempdir())
-#> Excel workbook created successfully! File located at /tmp/RtmpqAueVa/wqxtab.xlsx
+#> Excel workbook created successfully! File located at /tmp/RtmpI0Svm5/wqxtab.xlsx
 ```
 
 The name of the output file can also be changed using the `output_file`
@@ -150,6 +153,7 @@ If preferred, the data frames that are saved as separate sheets in the
 workbook can be returned as a list by setting `listout = T`.
 
 ``` r
+
 tabMWRwqx(fset = fsetls, listout = T)
 #> $Projects
 #> # A tibble: 2 × 6

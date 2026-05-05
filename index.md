@@ -16,6 +16,7 @@ Control, Analysis, and Sharing of Water Quality Data. PLOS ONE.
 The package can be installed as follows:
 
 ``` r
+
 # Install the package
 install.packages("MassWateR")
 ```

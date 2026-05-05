@@ -15,6 +15,7 @@ the primary MassWateR functions can accept a file path or the data. The
 `fset` argument also does not apply to the utility functions.
 
 ``` r
+
 library(MassWateR)
 
 # import results data
@@ -90,6 +91,7 @@ can be useful for analysis because the measurements are returned as
 numeric values (e.g., for plotting).
 
 ``` r
+
 utilMWRlimits(resdat = resdat, accdat = accdat, param = 'TP')
 #> # A tibble: 48 × 18
 #>    `Monitoring Location ID` `Activity Type` `Activity Start Date`
@@ -126,6 +128,7 @@ provided is invalid. Filtering by location group requires the site
 metadata file.
 
 ``` r
+
 # filter by parameter, date range
 utilMWRfilter(resdat = resdat, param = 'DO', dtrng = c('2022-06-01', '2022-06-30'))
 #> # A tibble: 11 × 18
@@ -237,6 +240,7 @@ MassWateR). The default is to summarize as the mean or geometric mean
 based on information in the data quality objective file for accuracy.
 
 ``` r
+
 library(dplyr)
 
 # fill BDL, AQL
@@ -289,6 +293,7 @@ file. Additionally, confidence intervals can only be returned if
 returned.
 
 ``` r
+
 # median E. coli
 utilMWRsummary(dat = dat, accdat = accdat, param = "E.coli", confint = FALSE, sumfun = 'median')
 #> # A tibble: 11 × 4
@@ -318,6 +323,7 @@ is less than or equal to 1 meter or 3.3 feet or the
 precedent.
 
 ``` r
+
 utilMWRfiltersurface(resdat = resdat)
 #> # A tibble: 49 × 18
 #>    `Monitoring Location ID` `Activity Type` `Activity Start Date`
@@ -361,6 +367,7 @@ the data. This is the same argument as the `addwater` argument in
 Finally, download progress can be shown by setting `quiet = FALSE`.
 
 ``` r
+
 # define bounding box (EPSG:4326)
 bbox <- data.frame(
    x = c(-71.65734, -71.39113),
@@ -406,12 +413,14 @@ plot(flowlines, col = "blue", main = "Flowlines")
 ![](utility_files/figure-html/unnamed-chunk-8-1.png)
 
 ``` r
+
 plot(area, col = "green", main = "Area")
 ```
 
 ![](utility_files/figure-html/unnamed-chunk-8-2.png)
 
 ``` r
+
 plot(waterbody, col = "red", main = "Waterbody")
 ```
 

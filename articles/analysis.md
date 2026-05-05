@@ -13,6 +13,7 @@ example data included with the package are imported here to demonstrate
 how to use the analysis functions:
 
 ``` r
+
 library(MassWateR)
 
 # import results data
@@ -99,6 +100,7 @@ vignette. The relevant threshold lines for freshwater environments are
 shown using `thresh = "fresh"`.
 
 ``` r
+
 anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "month", type = "box")
 ```
 
@@ -108,6 +110,7 @@ Jittered points over the boxplots can be shown by setting
 `type = "jitterbox"`.
 
 ``` r
+
 anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "month", type = "jitterbox")
 ```
 
@@ -120,6 +123,7 @@ and an integer is the only way to compare summaries if the results data
 span multiple years.
 
 ``` r
+
 anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "week", type = "box")
 ```
 
@@ -129,6 +133,7 @@ Barplots can be shown using `type = "bar"`. The barplots show the
 average estimate for the results defined by the `group` argument.
 
 ``` r
+
 anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "month", type = "bar")
 ```
 
@@ -138,6 +143,7 @@ Confidence intervals at 95% for the barplots can be shown by setting
 `confint = TRUE`.
 
 ``` r
+
 anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "month", type = "bar", confint = TRUE)
 ```
 
@@ -147,6 +153,7 @@ Jittered points over the barplots can be shown by setting
 `type = "jitterbar"`.
 
 ``` r
+
 anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "month", type = "jitterbar")
 ```
 
@@ -155,6 +162,7 @@ anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group 
 Setting `type = "jitter"` will show only the jittered points.
 
 ``` r
+
 anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "month", type = "jitter")
 ```
 
@@ -173,6 +181,7 @@ not be plotted. Threshold lines can be suppressed by setting
 oxygen using the barplot option grouped by month.
 
 ``` r
+
 anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = "marine", group = "month", type = "bar")
 ```
 
@@ -183,6 +192,7 @@ argument. The `threshlab` argument must also be used to label the custom
 threshold in the plot legend.
 
 ``` r
+
 anlzMWRseason(res = resdat, param = "DO", acc = accdat, thresh = 8, threshlab = "Custom threshold", group = "month", type = "bar")
 ```
 
@@ -200,6 +210,7 @@ automatically. The y-axis scaling does not need to specified explicitly
 in the function call because the default setting is `yscl = "auto"`.
 
 ``` r
+
 anlzMWRseason(res = resdat, param = "E.coli", acc = accdat, thresh = "fresh", group = "month", type = "bar")
 ```
 
@@ -211,6 +222,7 @@ determined automatically. The means and confidence intervals will also
 vary between arithmetic and log-scaling if `type = "bar"`.
 
 ``` r
+
 anlzMWRseason(res = resdat, param = "E.coli", acc = accdat, thresh = "fresh", group = "month", type = "bar", yscl = "linear")
 ```
 
@@ -229,6 +241,7 @@ or geometric mean is used to override the automatic summary. Below, the
 median summary is shown for E. coli.
 
 ``` r
+
 anlzMWRseason(res = resdat, param = "E.coli", acc = accdat, thresh = "fresh", group = "month", type = "bar", sumfun = "median")
 ```
 
@@ -238,6 +251,7 @@ Results can also be filtered by dates using the `dtrng` argument. The
 date format must be `YYYY-MM-DD` and include two entries.
 
 ``` r
+
 anlzMWRseason(res = resdat, param = "E.coli", acc = accdat, thresh = "fresh", group = "month", type = "bar", dtrng = c("2022-05-01", "2022-07-31"))
 ```
 
@@ -251,6 +265,7 @@ file and by the `Location Group` column in the site metadata file, which
 must be provided to the `sit` argument if `locgroup` is used.
 
 ``` r
+
 anlzMWRseason(res = resdat, param = "DO", acc = accdat, sit = sitdat, thresh = "fresh", group = "month", site = "ABT-077", resultatt = "DRY", locgroup = "Assabet")
 ```
 
@@ -279,6 +294,7 @@ which can be difficult to visualize. Selecting specific sites with the
 `site` argument is recommended.
 
 ``` r
+
 anlzMWRdate(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "site", site = c("ABT-026", "ABT-077"))
 ```
 
@@ -287,6 +303,7 @@ anlzMWRdate(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = 
 A color legend for the sites can be included by setting `colleg = TRUE`.
 
 ``` r
+
 anlzMWRdate(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "site", site = c("ABT-026", "ABT-077"),
             colleg = T)
 ```
@@ -304,6 +321,7 @@ are difficult to distinguish. The `palcol` argument does not apply if
 palette is used.
 
 ``` r
+
 anlzMWRdate(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "site", site = c("ABT-026", "ABT-077"), palcol = "Set1")
 ```
 
@@ -313,6 +331,7 @@ The results averaged across the selected sites can be plotted using
 `group = "all"`. The point and line color defaults to black.
 
 ``` r
+
 anlzMWRdate(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "all", site = c("ABT-026", "ABT-077"))
 ```
 
@@ -322,6 +341,7 @@ The results averaged across all sites in the results file can be plotted
 by omitting the `site` argument.
 
 ``` r
+
 anlzMWRdate(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "all")
 ```
 
@@ -331,6 +351,7 @@ Confidence intervals at 95% for the points can be shown when
 `group = "all"` or `"locgroup"` by setting `confint = TRUE`.
 
 ``` r
+
 anlzMWRdate(res = resdat, param = "DO", acc = accdat, thresh = "fresh", group = "all", confint = TRUE)
 ```
 
@@ -343,6 +364,7 @@ passed to the `locgroup` argument that match values in the
 `Location Group` column of the site metadata file.
 
 ``` r
+
 anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'locgroup', 
       thresh = 'fresh', locgroup = 'Assabet')
 ```
@@ -352,6 +374,7 @@ anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'loc
 All location groups can be used if the `locgroup` argument is omitted.
 
 ``` r
+
 anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'locgroup', 
       thresh = 'fresh')
 ```
@@ -372,6 +395,7 @@ for accuracy), `"mean"`, `"geomean"`, `"median"`, `"min"`, or `"max"`.
 Below, the median is used to summarize results by location group.
 
 ``` r
+
 anlzMWRdate(res = resdat, param = 'DO', acc = accdat, sit = sitdat, group = 'locgroup', 
       thresh = 'fresh', sumfun = 'median')
 ```
@@ -399,6 +423,7 @@ will show boxplots of results for each site and y-axis scaling
 determined automatically from the data quality objectives file.
 
 ``` r
+
 anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "box")
 ```
 
@@ -408,6 +433,7 @@ Jittered points over the boxplots can be shown by setting
 `type = "jitterbox"`.
 
 ``` r
+
 anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "jitterbox")
 ```
 
@@ -416,6 +442,7 @@ anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "
 Results as barplots can be shown using `type = "bar"`.
 
 ``` r
+
 anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "bar")
 ```
 
@@ -425,6 +452,7 @@ Confidence intervals at 95% for the barplots can be shown by setting
 `confint = TRUE`.
 
 ``` r
+
 anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "bar", confint = TRUE)
 ```
 
@@ -434,6 +462,7 @@ Jittered points over the barplots can be shown by setting
 `type = "jitterbar"`.
 
 ``` r
+
 anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "jitterbar")
 ```
 
@@ -442,6 +471,7 @@ anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "
 Setting `type = "jitter"` will show only the jittered points.
 
 ``` r
+
 anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "jitter")
 ```
 
@@ -458,6 +488,7 @@ information in the data quality objective file for accuracy), `"mean"`,
 is shown.
 
 ``` r
+
 anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "jitterbar", 
             sumfun = 'median')
 ```
@@ -475,6 +506,7 @@ Note that specifying result attributes with `resultatt` and setting
 but will not plot the results separately.
 
 ``` r
+
 anlzMWRsite(res = resdat, param = "DO", acc = accdat, thresh = "fresh", type = "box", 
                         site = c("ABT-026", "ABT-062", "ABT-077", "ABT-144", "ABT-237", "ABT-301"),
                         resultatt = c('DRY', 'WET'), byresultatt = TRUE)
@@ -502,6 +534,7 @@ locations. These can be passed to the function with the separate
 arguments or as a named list using the `fset` argument.
 
 ``` r
+
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "medium")
 ```
 
@@ -519,6 +552,7 @@ accuracy. Below, the minimum dissolved oxygen is shown. The color
 palette is also reversed.
 
 ``` r
+
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "medium", 
            sumfun = "min", palcolrev = TRUE)
 ```
@@ -544,6 +578,7 @@ can be shown by setting `quiet = FALSE` (this argument has no effect is
 area in Massachusetts as above).
 
 ``` r
+
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "medium", warn = F, useapi = TRUE, quiet = FALSE)
 #> Querying NHD layer ID streams/flowlines with detail level 'medium'...
 #>  Retrieved 860 features (offset: 0)
@@ -569,6 +604,7 @@ The level of detail can be changed to low or high using
 Water body detail as low:
 
 ``` r
+
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "low", warn = F)
 ```
 
@@ -577,6 +613,7 @@ anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "l
 Water body detail as high:
 
 ``` r
+
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, addwater = "high", warn = F)
 ```
 
@@ -586,6 +623,7 @@ A north arrow, scale bar, and labels are also plotted. These can be
 suppressed by setting the appropriate arguments to `NULL`.
 
 ``` r
+
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, northloc = NULL, scaleloc = NULL, labsize = NULL, warn = F)
 ```
 
@@ -596,6 +634,7 @@ arguments by specifying `"tl"`, `"tr"`, `"bl"`, or `"br"` for top-left,
 top-right, bottom-left, or bottom-right.
 
 ``` r
+
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, northloc = "br", scaleloc = "tl", warn = F)
 ```
 
@@ -605,6 +644,7 @@ The latitude and longitude text on the plot axes can be suppressed using
 `latlon = FALSE`.
 
 ``` r
+
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, latlon = F, warn = F)
 ```
 
@@ -619,6 +659,7 @@ will also work, but may return uninterpretable color scales. In the
 following example, the diverging `"Spectral"` palette is used.
 
 ``` r
+
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, palcol = "Spectral", warn = F)
 ```
 
@@ -628,6 +669,7 @@ The buffered distance around the points can be increased using the
 `buffdist` argument (in kilometers).
 
 ``` r
+
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, buffdist = 20, warn = F)
 ```
 
@@ -652,6 +694,7 @@ areas.
 A `"CartoDB.Positron"` base map:
 
 ``` r
+
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "CartoDB.Positron", warn = F, addwater = NULL)
 ```
 
@@ -660,6 +703,7 @@ anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "Ca
 A `"Esri.WorldImagery"` base map:
 
 ``` r
+
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "Esri.WorldImagery", warn = F, addwater = NULL)
 ```
 
@@ -668,6 +712,7 @@ anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "Es
 A map with no base map or water bodies:
 
 ``` r
+
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = NULL, warn = F, addwater = NULL)
 ```
 

@@ -26,6 +26,7 @@ package to demonstrate and test the functions.
 Load the package in an R session after installation:
 
 ``` r
+
 library(MassWateR)
 ```
 
@@ -34,6 +35,7 @@ file. These are hypothetical files and the path will need to be changed
 to where your data are located on your computer.
 
 ``` r
+
 # import results data
 respth <- "C:/Documents/MassWateR/MyResults.xlsx"
 resdat <- readMWRresults(respth)
@@ -90,54 +92,54 @@ entries are case-sensitive. This file is also available in the
 [Resources
 tab](https://massbays-tech.github.io/MassWateR/RESOURCES.html).
 
-| Simple Parameter      | WQX Parameter                                                  | Units of measure                                             |
-|:----------------------|:---------------------------------------------------------------|:-------------------------------------------------------------|
-| Air Temp              | Temperature, air                                               | deg C, deg F                                                 |
-| Ammonia               | Ammonia                                                        | mg/l, ug/l, umol/l, ppm                                      |
-| Ammonium              | Ammonium                                                       | mg/l, ug/l, umol/l, ppm                                      |
-| Chl a                 | Chlorophyll a                                                  | mg/l, ug/l, umol/l, ppm                                      |
-| Chl a (probe)         | Chlorophyll a (probe)                                          | mg/l, ug/l, umol/l, ppm, RFU                                 |
-| Chloride              | Chloride                                                       | mg/l, ug/l, umol/l, ppm                                      |
-| Conductivity          | Conductivity                                                   | uS/cm, mS/cm, S/m                                            |
-| Cyanobacteria         | Algae, blue-green (phylum cyanophyta) density                  | mg/l, ug/l, umol/l, ppm                                      |
-| Cyanobacteria (probe) | Chlorophyll a (probe) concentration, Cyanobacteria (bluegreen) | mg/l, ug/l, umol/l, ppm, RFU                                 |
-| Depth                 | Depth                                                          | m, cm, ft                                                    |
-| DO                    | Dissolved oxygen (DO)                                          | mg/l, ug/l                                                   |
-| DO saturation         | Dissolved oxygen saturation                                    | %                                                            |
-| E.coli                | Escherichia coli                                               | cfu/100ml, MPN/100ml, \#/100ml                               |
-| Enterococcus          | Enterococcus                                                   | cfu/100ml, MPN/100ml, \#/100ml                               |
-| Fecal Coliform        | Fecal Coliform                                                 | cfu/100ml, MPN/100ml, \#/100ml                               |
-| Flow                  | Flow                                                           | cfs, cfm, mgd, l/sec, l/min,                                 |
-| Gage                  | Height, gage                                                   | m, cm, ft                                                    |
-| Metals                | Metals                                                         | mg/l, ug/l, umol/l, ppm                                      |
-| Microcystins          | Microcystins                                                   | mg/l, ug/l, umol/l, ppm                                      |
-| Nitrate               | Nitrate                                                        | mg/l, ug/l, umol/l, ppm                                      |
-| Nitrate + Nitrite     | Nitrate + Nitrite                                              | mg/l, ug/l, umol/l, ppm                                      |
-| Nitrite               | Nitrite                                                        | mg/l, ug/l, umol/l, ppm                                      |
-| Ortho P               | Orthophosphate                                                 | mg/l, ug/l, umol/l, ppm                                      |
-| pH                    | pH                                                             | blank, s.u., None                                            |
-| Pheophytin            | Pheophytin a                                                   | mg/l, ug/l, umol/l, ppm                                      |
-| Phycocyanin           | Phycocyanin                                                    | mg/l, ug/l, umol/l, ppm                                      |
-| Phycocyanin (probe)   | Phycocyanin (probe)                                            | mg/l, ug/l, umol/l, ppm, RFU                                 |
-| Phycoerythrin         | Phycoerythrin                                                  | mg/l, ug/l, umol/l, ppm, RFU                                 |
-| POC                   | Particulate organic carbon                                     | mg/l, ug/l, umol/l, ppm                                      |
-| PON                   | Total Nitrogen, mixed forms                                    | mg/l, ug/l, umol/l, ppm                                      |
-| POP                   | Phosphorus, Particulate Organic                                | mg/l, ug/l, umol/l, ppm                                      |
-| Salinity              | Salinity                                                       | ppth, PSU, PSS, g/kg, ppt                                    |
-| Secchi Depth          | Depth, Secchi disk depth                                       | m, cm, ft                                                    |
-| Silicate              | Silicate                                                       | mg/l, ug/l, umol/l, ppm                                      |
-| Sp Conductance        | Specific conductance                                           | uS/cm, mS/cm, S/m                                            |
-| Sulfate               | Sulfate                                                        | mg/l, ug/l, umol/l, ppm                                      |
-| Surfactants           | Surfactants                                                    | mg/l, ug/l, umol/l, ppm                                      |
-| TDN                   | Total Nitrogen, mixed forms                                    | mg/l, ug/l, umol/l, ppm                                      |
-| TDP                   | Total Phosphorus, mixed forms                                  | mg/l, ug/l, umol/l, ppm                                      |
-| TDS                   | Total dissolved solids                                         | mg/l, ug/l, umol/l, ppm                                      |
-| TKN                   | Total Kjeldahl nitrogen                                        | mg/l, ug/l, umol/l, ppm                                      |
-| TN                    | Total Nitrogen, mixed forms                                    | mg/l, ug/l, umol/l, ppm                                      |
-| TP                    | Total Phosphorus, mixed forms                                  | mg/l, ug/l, umol/l, ppm                                      |
-| TSS                   | Total suspended solids                                         | mg/l, ug/l, umol/l, ppm                                      |
-| Turbidity             | Turbidity                                                      | FTU, FNU, JTU, NTU, AU, BU, FAU, FBU, FNMU, FNRU, NTMU, NTRU |
-| Water Temp            | Temperature, water                                             | deg C, deg F                                                 |
+| Simple Parameter | WQX Parameter | Units of measure |
+|:---|:---|:---|
+| Air Temp | Temperature, air | deg C, deg F |
+| Ammonia | Ammonia | mg/l, ug/l, umol/l, ppm |
+| Ammonium | Ammonium | mg/l, ug/l, umol/l, ppm |
+| Chl a | Chlorophyll a | mg/l, ug/l, umol/l, ppm |
+| Chl a (probe) | Chlorophyll a (probe) | mg/l, ug/l, umol/l, ppm, RFU |
+| Chloride | Chloride | mg/l, ug/l, umol/l, ppm |
+| Conductivity | Conductivity | uS/cm, mS/cm, S/m |
+| Cyanobacteria | Algae, blue-green (phylum cyanophyta) density | mg/l, ug/l, umol/l, ppm |
+| Cyanobacteria (probe) | Chlorophyll a (probe) concentration, Cyanobacteria (bluegreen) | mg/l, ug/l, umol/l, ppm, RFU |
+| Depth | Depth | m, cm, ft |
+| DO | Dissolved oxygen (DO) | mg/l, ug/l |
+| DO saturation | Dissolved oxygen saturation | % |
+| E.coli | Escherichia coli | cfu/100ml, MPN/100ml, \#/100ml |
+| Enterococcus | Enterococcus | cfu/100ml, MPN/100ml, \#/100ml |
+| Fecal Coliform | Fecal Coliform | cfu/100ml, MPN/100ml, \#/100ml |
+| Flow | Flow | cfs, cfm, mgd, l/sec, l/min, |
+| Gage | Height, gage | m, cm, ft |
+| Metals | Metals | mg/l, ug/l, umol/l, ppm |
+| Microcystins | Microcystins | mg/l, ug/l, umol/l, ppm |
+| Nitrate | Nitrate | mg/l, ug/l, umol/l, ppm |
+| Nitrate + Nitrite | Nitrate + Nitrite | mg/l, ug/l, umol/l, ppm |
+| Nitrite | Nitrite | mg/l, ug/l, umol/l, ppm |
+| Ortho P | Orthophosphate | mg/l, ug/l, umol/l, ppm |
+| pH | pH | blank, s.u., None |
+| Pheophytin | Pheophytin a | mg/l, ug/l, umol/l, ppm |
+| Phycocyanin | Phycocyanin | mg/l, ug/l, umol/l, ppm |
+| Phycocyanin (probe) | Phycocyanin (probe) | mg/l, ug/l, umol/l, ppm, RFU |
+| Phycoerythrin | Phycoerythrin | mg/l, ug/l, umol/l, ppm, RFU |
+| POC | Particulate organic carbon | mg/l, ug/l, umol/l, ppm |
+| PON | Total Nitrogen, mixed forms | mg/l, ug/l, umol/l, ppm |
+| POP | Phosphorus, Particulate Organic | mg/l, ug/l, umol/l, ppm |
+| Salinity | Salinity | ppth, PSU, PSS, g/kg, ppt |
+| Secchi Depth | Depth, Secchi disk depth | m, cm, ft |
+| Silicate | Silicate | mg/l, ug/l, umol/l, ppm |
+| Sp Conductance | Specific conductance | uS/cm, mS/cm, S/m |
+| Sulfate | Sulfate | mg/l, ug/l, umol/l, ppm |
+| Surfactants | Surfactants | mg/l, ug/l, umol/l, ppm |
+| TDN | Total Nitrogen, mixed forms | mg/l, ug/l, umol/l, ppm |
+| TDP | Total Phosphorus, mixed forms | mg/l, ug/l, umol/l, ppm |
+| TDS | Total dissolved solids | mg/l, ug/l, umol/l, ppm |
+| TKN | Total Kjeldahl nitrogen | mg/l, ug/l, umol/l, ppm |
+| TN | Total Nitrogen, mixed forms | mg/l, ug/l, umol/l, ppm |
+| TP | Total Phosphorus, mixed forms | mg/l, ug/l, umol/l, ppm |
+| TSS | Total suspended solids | mg/l, ug/l, umol/l, ppm |
+| Turbidity | Turbidity | FTU, FNU, JTU, NTU, AU, BU, FAU, FBU, FNMU, FNRU, NTMU, NTRU |
+| Water Temp | Temperature, water | deg C, deg F |
 
 The
 [`readMWRresultsview()`](https://massbays-tech.github.io/MassWateR/reference/readMWRresultsview.md)
@@ -156,6 +158,7 @@ package requirements and manually editing the input file can help with
 the import checks, described below.
 
 ``` r
+
 # find path to the file included with the package, replace with a path to your file as needed
 respth <- system.file("extdata/ExampleResults.xlsx", package = "MassWateR")
 
@@ -179,6 +182,7 @@ checks on data import. This is the default setting and it is not
 necessary to explicitly set this argument on import.
 
 ``` r
+
 respth <- system.file("extdata/ExampleResults.xlsx", package = "MassWateR")
 resdat <- readMWRresults(respth, runchk = TRUE)
 #> Running checks on results data...
@@ -286,6 +290,7 @@ This must be done in the original Excel file. Import the data again in R
 to verify the data are corrected.
 
 ``` r
+
 chk <- resdat
 chk[4, 2] <- "Sample"
 chk[135, 2] <- "Field"
@@ -327,17 +332,17 @@ output](https://massbays-tech.github.io/MassWateR/articles/wqx.html)
 vignette for a complete description of creating output for WQX upload
 with MassWateR.
 
-| Input Activity Type                  | WQX output new row Activity Type         |
-|--------------------------------------|------------------------------------------|
-| Sample-Routine                       | Quality Control Sample-Field Replicate   |
-| Quality Control Sample-Field Blank   | NA                                       |
-| Quality Control Sample-Lab Duplicate | Quality Control Sample-Lab Duplicate 2   |
-| Quality Control Sample-Lab Blank     | NA                                       |
-| Quality Control Sample-Lab Spike     | Quality Control Sample-Lab Spike Target  |
-| Field Msr/Obs                        | Quality Control Field Replicate Msr/Obs  |
-| Quality Control-Meter Lab Duplicate  | Quality Control-Meter Lab Duplicate 2    |
-| Quality Control-Meter Lab Blank      | NA                                       |
-| Quality Control-Calibration Check    | Quality Control-Calibration Check Buffer |
+| Input Activity Type | WQX output new row Activity Type |
+|----|----|
+| Sample-Routine | Quality Control Sample-Field Replicate |
+| Quality Control Sample-Field Blank | NA |
+| Quality Control Sample-Lab Duplicate | Quality Control Sample-Lab Duplicate 2 |
+| Quality Control Sample-Lab Blank | NA |
+| Quality Control Sample-Lab Spike | Quality Control Sample-Lab Spike Target |
+| Field Msr/Obs | Quality Control Field Replicate Msr/Obs |
+| Quality Control-Meter Lab Duplicate | Quality Control-Meter Lab Duplicate 2 |
+| Quality Control-Meter Lab Blank | NA |
+| Quality Control-Calibration Check | Quality Control-Calibration Check Buffer |
 
 ### Data quality objectives
 
@@ -358,6 +363,7 @@ instructions worksheet). As above, the system files included with the
 package are used for the examples.
 
 ``` r
+
 # import data quality objectives for accuracy
 accpth <- system.file("extdata/ExampleDQOAccuracy.xlsx", package = "MassWateR")
 accdat <- readMWRacc(accpth)
@@ -391,6 +397,7 @@ head(accdat)
 ```
 
 ``` r
+
 # import data quality objectives for frequency and completeness
 frecompth <- system.file("extdata/ExampleDQOFrequencyCompleteness.xlsx", package = "MassWateR")
 frecomdat <- readMWRfrecom(frecompth)
@@ -445,8 +452,9 @@ File checks for accuracy:
   not be in the `Value Range` column, `"all"` should be used if the
   entire range applies
 - **Unrecognized characters**: Fields describing accuracy checks should
-  not include symbols or text other than $< =$, $\leq$, $<$, $> =$,
-  $\geq$, $>$, $\pm$`"\%"`, `"BDL"`, `"AQL"`, `"log"`, or `"all"`
+  not include symbols or text other than $`<=`$, $`\leq`$, $`<`$,
+  $`>=`$, $`\geq`$, $`>`$, $`\pm`$`"\%"`, `"BDL"`, `"AQL"`, `"log"`, or
+  `"all"`
 - **Overlap in `Value Range` column**: Entries in `Value Range` should
   not overlap for a parameter (excludes ascending ranges)
 - **Gap in `Value Range` column**: Entries in `Value Range` should not
@@ -492,7 +500,7 @@ issues for downstream analysis. This formatting includes:
 - **Remove unicode**: Remove or replace unicode characters with those
   that can be used in logical expressions in
   [`qcMWRacc()`](https://massbays-tech.github.io/MassWateR/reference/qcMWRacc.md),
-  e.g., replace $\geq$ with $> =$.
+  e.g., replace $`\geq`$ with $`>=`$.
 - **Convert limits to numeric**: Convert `MDL` and `UQL` columns in the
   accuracy file to numeric
 - **Convert columns to numeric**: For the frequency and completeness
@@ -513,6 +521,7 @@ Excel file template. As above, the system file included with the package
 is used for the example.
 
 ``` r
+
 # import site metadata
 sitpth <- system.file("extdata/ExampleSites.xlsx", package = "MassWateR")
 sitdat <- readMWRsites(sitpth)
@@ -581,6 +590,7 @@ instructions worksheet). As above, the system file included with the
 package is used for the example.
 
 ``` r
+
 # import wqx metadata
 wqxpth <- system.file("extdata/ExampleWQX.xlsx", package = "MassWateR")
 wqxdat <- readMWRwqx(wqxpth)
@@ -649,6 +659,7 @@ instructions worksheet). As above, the system file included with the
 package is used for the example.
 
 ``` r
+
 # import cens metadata
 censpth <- system.file("extdata/ExampleCensored.xlsx", package = "MassWateR")
 censdat <- readMWRcens(censpth)
@@ -728,6 +739,7 @@ import functions. Examples in the vignettes show how this list can be
 used as alternative input using the `fset` argument.
 
 ``` r
+
 # a list of input file paths
 fsetls <- list(
   res = respth, 

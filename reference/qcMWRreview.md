@@ -230,6 +230,6 @@ censdat <- readMWRcens(censpth)
 # \donttest{
 # create report
 qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat, cens = censdat, output_dir = tempdir())
-#> Report created successfully! File located at /tmp/RtmpMEksnG/qcreview.docx
+#> Report created successfully! File located at /tmp/RtmptbP8w0/qcreview.docx
 # }
 ```

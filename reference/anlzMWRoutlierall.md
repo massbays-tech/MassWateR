@@ -206,14 +206,14 @@ accdat <- readMWRacc(accpth)
 # \donttest{
 # create word output
 anlzMWRoutlierall(resdat, accdat, group = 'month', format = 'word', output_dir = tempdir())
-#> Word document created successfully! File located at /tmp/RtmpMEksnG/outlierall.docx
+#> Word document created successfully! File located at /tmp/RtmptbP8w0/outlierall.docx
 
 # create png output
 anlzMWRoutlierall(resdat, accdat, group = 'month', format = 'png', output_dir = tempdir())
-#> PNG files created successfully! Files located at /tmp/RtmpMEksnG
+#> PNG files created successfully! Files located at /tmp/RtmptbP8w0
 
 # create zipped png output
 anlzMWRoutlierall(resdat, accdat, group = 'month', format = 'zip', output_dir = tempdir())
-#> PNG files created successfully! Zipped files located at /tmp/RtmpMEksnG
+#> PNG files created successfully! Zipped files located at /tmp/RtmptbP8w0
 # }
 ```

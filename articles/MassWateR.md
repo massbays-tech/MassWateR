@@ -40,6 +40,7 @@ tab.
 Install the package as follows:
 
 ``` r
+
 # Install the package
 install.packages("MassWateR")
 ```
@@ -58,6 +59,7 @@ following the instructions
 Load the package in an R session after installation:
 
 ``` r
+
 library(MassWateR)
 ```
 
@@ -80,6 +82,7 @@ download in the [Resources
 tab](https://massbays-tech.github.io/MassWateR/RESOURCES.html).
 
 ``` r
+
 # import results data
 respth <- "C:/Documents/MassWateR/MyResults.xlsx"
 resdat <- readMWRresults(respth)
@@ -109,6 +112,7 @@ After data are imported, a single data object can be created that can be
 used with all MassWateR functions.
 
 ``` r
+
 # a list of input data frames
 fsetls <- list(res = resdat, acc = accdat, frecom = frecomdat, sit = sitdat, wqx = wqxdat, 
                cens = censdat)
@@ -123,6 +127,7 @@ the results file. This information can be used to verify if the values
 in each conform to the requirements for the data import checks.
 
 ``` r
+
 readMWRresultsview(respth = respth, output_dir = getwd())
 ```
 
@@ -139,6 +144,7 @@ function can identify outliers for a selected parameter using boxplots,
 with the outliers labelled accordingly.
 
 ``` r
+
 anlzMWRoutlier(fset = fsetls, param = "DO", group = "month")
 ```
 
@@ -153,6 +159,7 @@ directory. Once the function is done running, a message indicating
 success and where the file(s) is located is returned.
 
 ``` r
+
 anlzMWRoutlierall(fset = fsetls, group = "month", output_dir = getwd())
 ```
 
@@ -179,6 +186,7 @@ the tables can also be created by adding `savesheet = TRUE` to the
 function call.
 
 ``` r
+
 qcMWRreview(fset = fsetls, output_dir = getwd())
 ```
 
@@ -195,6 +203,7 @@ summaries, and maps.
 Analyze results by season:
 
 ``` r
+
 anlzMWRseason(fset = fsetls, param = "DO", thresh = "fresh")
 ```
 
@@ -203,6 +212,7 @@ anlzMWRseason(fset = fsetls, param = "DO", thresh = "fresh")
 Analyze results by date:
 
 ``` r
+
 anlzMWRdate(fset = fsetls, param = "DO", thresh = "fresh", site = c("ABT-026", "ABT-077"))
 ```
 
@@ -211,6 +221,7 @@ anlzMWRdate(fset = fsetls, param = "DO", thresh = "fresh", site = c("ABT-026", "
 Analyze data by site:
 
 ``` r
+
 anlzMWRsite(fset = fsetls, param = "DO", thresh = "fresh")
 ```
 
@@ -219,6 +230,7 @@ anlzMWRsite(fset = fsetls, param = "DO", thresh = "fresh")
 Analyze results with maps:
 
 ``` r
+
 anlzMWRmap(fset = fsetls, param = "DO")
 ```
 
@@ -253,6 +265,7 @@ function is done running, a message indicating success and where the
 file is located is returned.
 
 ``` r
+
 tabMWRwqx(fset = fsetls, output_dir = getwd())
 ```
 

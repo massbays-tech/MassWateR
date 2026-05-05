@@ -11,6 +11,7 @@ limits. The example data included with the package are imported here to
 demonstrate how to use the analysis functions:
 
 ``` r
+
 library(MassWateR)
 
 # import results data
@@ -89,6 +90,7 @@ but a named list with the same arguments can also be used with the
 are shown as boxplots, with the outliers labelled accordingly.
 
 ``` r
+
 anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, group = "month")
 ```
 
@@ -100,6 +102,7 @@ outliers are shown for dissolved oxygen grouped by month. The same data
 can also grouped by site.
 
 ``` r
+
 anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, group = "site")
 ```
 
@@ -112,6 +115,7 @@ and an integer is the only way to compare summaries if the results data
 span multiple years.
 
 ``` r
+
 anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, group = "week")
 ```
 
@@ -121,6 +125,7 @@ Results can also be filtered by dates using the `dtrng` argument. The
 date format must be `YYYY-MM-DD` and include two entries.
 
 ``` r
+
 anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, group = "week", dtrng = c("2022-05-01", "2022-07-31"))
 ```
 
@@ -132,6 +137,7 @@ that overlap are also offset by default. This can be suppressed using
 `repel = FALSE`.
 
 ``` r
+
 anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, type = "jitterbox", group = "month", repel = FALSE)
 ```
 
@@ -140,6 +146,7 @@ anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, type = "jitterbox", gro
 Specifying `type = "jitter` will suppress the boxplots.
 
 ``` r
+
 anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, type = "jitter", group = "month")
 ```
 
@@ -157,6 +164,7 @@ automatically. The y-axis scaling does not need to specified explicitly
 in the function call because the default setting is `yscl = "auto"`.
 
 ``` r
+
 anlzMWRoutlier(res = resdat, param = "E.coli", acc = accdat, group = "site")
 ```
 
@@ -167,6 +175,7 @@ used. Note that the default linear scaling for dissolved oxygen above is
 determined automatically.
 
 ``` r
+
 anlzMWRoutlier(res = resdat, param = "E.coli", acc = accdat, group = "site", yscl = "linear")
 ```
 
@@ -177,6 +186,7 @@ setting `outliers = TRUE`. This table can be used to identify the
 outliers in the original data for removal or additional follow-up.
 
 ``` r
+
 anlzMWRoutlier(res = resdat, param = "DO", acc = accdat, group = "month", outliers = TRUE)
 #> # A tibble: 3 × 6
 #>   `Monitoring Location ID` `Activity Start Date` `Activity Start Time`
@@ -208,12 +218,14 @@ in the output.
 Create a word document for all outlier plots in a temporary directory:
 
 ``` r
+
 anlzMWRoutlierall(res = resdat, acc = accdat, group = 'month', format = 'word', output_dir = tempdir())
 ```
 
 Create the same output but as separate png plots for each parameter:
 
 ``` r
+
 anlzMWRoutlierall(res = resdat, acc = accdat, group = 'month', format = 'png', output_dir = tempdir())
 ```
 
@@ -221,6 +233,7 @@ The inputs can also be passed to the `fset` argument as a named list for
 convenience.
 
 ``` r
+
 # names list of inputs
 fsetls <- list(
   res = resdat, 

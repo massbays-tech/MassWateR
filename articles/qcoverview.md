@@ -11,6 +11,7 @@ example data files included with the package are imported here to
 demonstrate how to use the quality control functions:
 
 ``` r
+
 library(MassWateR)
 
 # import results data
@@ -120,8 +121,9 @@ message indicating success and where the file is located is returned.
 The Word file can be further edited by hand as needed.
 
 ``` r
+
 qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat, cens = censdat, warn = FALSE, output_dir = tempdir())
-#> Report created successfully! File located at /tmp/RtmpW6xT2R/qcreview.docx
+#> Report created successfully! File located at /tmp/RtmpBEr3bI/qcreview.docx
 ```
 
 As a convenience, the input files can also be passed to the
@@ -130,6 +132,7 @@ function as a named list using the `fset` argument. This eliminates the
 need to individually specify the input arguments.
 
 ``` r
+
 # names list of inputs
 fsetls <- list(
   res = resdat, 
@@ -210,6 +213,7 @@ objectives file for accuracy. The warnings are suppressed with
 `warn = FALSE`.
 
 ``` r
+
 tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = "individual", accchk = "Field Blanks", warn = FALSE)
 ```
 
@@ -249,9 +253,10 @@ tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = "individual", a
 |           | 2022-09-11 |      | BDL       | 0.01 mg/l   |          |
 |           | 2022-09-11 |      | BDL       | 0.01 mg/l   |          |
 
-Field Blanks
+Field Blanks {.table .cl-f30dfb80 quarto-disable-processing="true"}
 
 ``` r
+
 tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat,type = "individual", accchk = "Lab Blanks", warn = FALSE)
 ```
 
@@ -300,297 +305,301 @@ tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat,type = "individual", ac
 |                | 2022-08-14 |           | BDL        | 0.01 mg/l |          |
 |                | 2022-09-11 |           | BDL        | 0.01 mg/l |          |
 
-Lab Blanks
+Lab Blanks {.table .cl-f34b9580 quarto-disable-processing="true"}
 
 ``` r
+
 tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = "individual", accchk = "Field Duplicates", warn = FALSE)
 ```
 
-| Parameter      | Date       | Site    | Initial Result | Dup. Result   | Diff./RPD | Hit/Miss |
-|----------------|------------|---------|----------------|---------------|-----------|----------|
-| Ammonia        |            |         |                |               |           |          |
-|                | 2022-05-15 | ABT-312 | BDL            | BDL           | 0% RPD    |          |
-|                | 2022-05-15 | DAN-013 | BDL            | BDL           | 0% RPD    |          |
-|                | 2022-06-12 | ABT-301 | BDL            | 0.2 mg/l      | 67% RPD   | MISS     |
-|                | 2022-09-11 | ABT-301 | BDL            | BDL           | 0% RPD    |          |
-| DO             |            |         |                |               |           |          |
-|                | 2022-05-15 | ABT-026 | 7.58 mg/l      | 7.6 mg/l      | 0% RPD    |          |
-|                | 2022-05-15 | ELZ-004 | 5.81 mg/l      | 5.94 mg/l     | 2% RPD    |          |
-|                | 2022-05-15 | NSH-002 | 8.32 mg/l      | 8.33 mg/l     | 0% RPD    |          |
-|                | 2022-06-12 | ABT-062 | 8.56 mg/l      | 8.56 mg/l     | 0% RPD    |          |
-|                | 2022-06-12 | ABT-237 | 7.81 mg/l      | 8.1 mg/l      | 4% RPD    |          |
-|                | 2022-06-12 | HOP-011 | 7.8 mg/l       | 7.79 mg/l     | 0% RPD    |          |
-|                | 2022-07-17 | ABT-062 | 7.59 mg/l      | 7.59 mg/l     | 0% RPD    |          |
-|                | 2022-07-17 | ABT-237 | 5.92 mg/l      | 5.92 mg/l     | 0% RPD    |          |
-|                | 2022-08-14 | ABT-237 | 5.89 mg/l      | 5.9 mg/l      | 0% RPD    |          |
-|                | 2022-09-11 | ABT-026 | 7.7 mg/l       | 7.7 mg/l      | 0% RPD    |          |
-|                | 2022-09-11 | HOP-011 | 8.36 mg/l      | 8.35 mg/l     | 0% RPD    |          |
-| E.coli         |            |         |                |               |           |          |
-|                | 2022-07-18 | ABT-162 | 276 MPN/100ml  | 276 MPN/100ml | 0% logRPD |          |
-|                | 2022-08-15 | ABT-077 | 231 MPN/100ml  | 276 MPN/100ml | 3% logRPD |          |
-| Nitrate        |            |         |                |               |           |          |
-|                | 2022-06-12 | ABT-301 | 3.65 mg/l      | 3.35 mg/l     | 9% RPD    |          |
-|                | 2022-07-17 | ABT-077 | 0.72 mg/l      | 0.73 mg/l     | 1% RPD    |          |
-| pH             |            |         |                |               |           |          |
-|                | 2022-05-15 | ABT-026 | 7.19 s.u.      | 7.2 s.u.      | 0.01 s.u. |          |
-|                | 2022-05-15 | ELZ-004 | 6.95 s.u.      | 7.08 s.u.     | 0.13 s.u. |          |
-|                | 2022-05-15 | NSH-002 | 7.23 s.u.      | 7.25 s.u.     | 0.02 s.u. |          |
-|                | 2022-06-12 | ABT-062 | 7.26 s.u.      | 7.26 s.u.     | 0 s.u.    |          |
-|                | 2022-06-12 | ABT-237 | 7.1 s.u.       | 7.11 s.u.     | 0.01 s.u. |          |
-|                | 2022-06-12 | HOP-011 | 6.86 s.u.      | 6.82 s.u.     | 0.04 s.u. |          |
-|                | 2022-07-17 | ABT-062 | 8.02 s.u.      | 8.01 s.u.     | 0.01 s.u. |          |
-|                | 2022-07-17 | ABT-237 | 7.28 s.u.      | 7.28 s.u.     | 0 s.u.    |          |
-|                | 2022-08-14 | ABT-237 | 7.28 s.u.      | 7.28 s.u.     | 0 s.u.    |          |
-|                | 2022-09-11 | ABT-026 | 7.13 s.u.      | 7.14 s.u.     | 0.01 s.u. |          |
-|                | 2022-09-11 | HOP-011 | 6.92 s.u.      | 6.84 s.u.     | 0.08 s.u. |          |
-| Sp Conductance |            |         |                |               |           |          |
-|                | 2022-05-15 | ABT-026 | 585 uS/cm      | 586 uS/cm     | 0% RPD    |          |
-|                | 2022-05-15 | ELZ-004 | 375 uS/cm      | 375 uS/cm     | 0% RPD    |          |
-|                | 2022-05-15 | NSH-002 | 524 uS/cm      | 525 uS/cm     | 0% RPD    |          |
-|                | 2022-06-12 | ABT-062 | 579 uS/cm      | 579 uS/cm     | 0% RPD    |          |
-|                | 2022-06-12 | ABT-237 | 740 uS/cm      | 740 uS/cm     | 0% RPD    |          |
-|                | 2022-06-12 | HOP-011 | 731 uS/cm      | 731 uS/cm     | 0% RPD    |          |
-|                | 2022-07-17 | ABT-062 | 831 uS/cm      | 831 uS/cm     | 0% RPD    |          |
-|                | 2022-07-17 | ABT-237 | 1222 uS/cm     | 1221 uS/cm    | 0% RPD    |          |
-|                | 2022-08-14 | ABT-237 | 1497 uS/cm     | 1489 uS/cm    | 1% RPD    |          |
-|                | 2022-09-11 | ABT-026 | 738 uS/cm      | 675 uS/cm     | 9% RPD    |          |
-|                | 2022-09-11 | HOP-011 | 865 uS/cm      | 865 uS/cm     | 0% RPD    |          |
-| TP             |            |         |                |               |           |          |
-|                | 2022-05-15 | ABT-312 | 0.03 mg/l      | 0.03 mg/l     | 0 mg/l    |          |
-|                | 2022-05-15 | DAN-013 | 0.04 mg/l      | 0.04 mg/l     | 0 mg/l    |          |
-|                | 2022-06-12 | ABT-301 | 0.03 mg/l      | 0.03 mg/l     | 0 mg/l    |          |
-|                | 2022-07-17 | ABT-077 | 0.04 mg/l      | 0.02 mg/l     | 0.02 mg/l | MISS     |
-|                | 2022-09-11 | ABT-301 | 0.03 mg/l      | 0.03 mg/l     | 0 mg/l    |          |
-| Water Temp     |            |         |                |               |           |          |
-|                | 2022-05-15 | ABT-026 | 22.4 deg C     | 22.4 deg C    | 0 deg C   |          |
-|                | 2022-05-15 | ELZ-004 | 22.2 deg C     | 22.2 deg C    | 0 deg C   |          |
-|                | 2022-05-15 | NSH-002 | 23.3 deg C     | 23.3 deg C    | 0 deg C   |          |
-|                | 2022-06-12 | ABT-062 | 21.1 deg C     | 21.1 deg C    | 0 deg C   |          |
-|                | 2022-06-12 | ABT-237 | 18.7 deg C     | 18.7 deg C    | 0 deg C   |          |
-|                | 2022-06-12 | HOP-011 | 18.4 deg C     | 18.4 deg C    | 0 deg C   |          |
-|                | 2022-07-17 | ABT-062 | 25.6 deg C     | 25.6 deg C    | 0 deg C   |          |
-|                | 2022-07-17 | ABT-237 | 20.8 deg C     | 20.8 deg C    | 0 deg C   |          |
-|                | 2022-08-14 | ABT-237 | 18.8 deg C     | 18.8 deg C    | 0 deg C   |          |
-|                | 2022-09-11 | ABT-026 | 20.5 deg C     | 20.5 deg C    | 0 deg C   |          |
-|                | 2022-09-11 | HOP-011 | 19.3 deg C     | 19.3 deg C    | 0 deg C   |          |
+| Parameter | Date | Site | Initial Result | Dup. Result | Diff./RPD | Hit/Miss |
+|----|----|----|----|----|----|----|
+| Ammonia |  |  |  |  |  |  |
+|  | 2022-05-15 | ABT-312 | BDL | BDL | 0% RPD |  |
+|  | 2022-05-15 | DAN-013 | BDL | BDL | 0% RPD |  |
+|  | 2022-06-12 | ABT-301 | BDL | 0.2 mg/l | 67% RPD | MISS |
+|  | 2022-09-11 | ABT-301 | BDL | BDL | 0% RPD |  |
+| DO |  |  |  |  |  |  |
+|  | 2022-05-15 | ABT-026 | 7.58 mg/l | 7.6 mg/l | 0% RPD |  |
+|  | 2022-05-15 | ELZ-004 | 5.81 mg/l | 5.94 mg/l | 2% RPD |  |
+|  | 2022-05-15 | NSH-002 | 8.32 mg/l | 8.33 mg/l | 0% RPD |  |
+|  | 2022-06-12 | ABT-062 | 8.56 mg/l | 8.56 mg/l | 0% RPD |  |
+|  | 2022-06-12 | ABT-237 | 7.81 mg/l | 8.1 mg/l | 4% RPD |  |
+|  | 2022-06-12 | HOP-011 | 7.8 mg/l | 7.79 mg/l | 0% RPD |  |
+|  | 2022-07-17 | ABT-062 | 7.59 mg/l | 7.59 mg/l | 0% RPD |  |
+|  | 2022-07-17 | ABT-237 | 5.92 mg/l | 5.92 mg/l | 0% RPD |  |
+|  | 2022-08-14 | ABT-237 | 5.89 mg/l | 5.9 mg/l | 0% RPD |  |
+|  | 2022-09-11 | ABT-026 | 7.7 mg/l | 7.7 mg/l | 0% RPD |  |
+|  | 2022-09-11 | HOP-011 | 8.36 mg/l | 8.35 mg/l | 0% RPD |  |
+| E.coli |  |  |  |  |  |  |
+|  | 2022-07-18 | ABT-162 | 276 MPN/100ml | 276 MPN/100ml | 0% logRPD |  |
+|  | 2022-08-15 | ABT-077 | 231 MPN/100ml | 276 MPN/100ml | 3% logRPD |  |
+| Nitrate |  |  |  |  |  |  |
+|  | 2022-06-12 | ABT-301 | 3.65 mg/l | 3.35 mg/l | 9% RPD |  |
+|  | 2022-07-17 | ABT-077 | 0.72 mg/l | 0.73 mg/l | 1% RPD |  |
+| pH |  |  |  |  |  |  |
+|  | 2022-05-15 | ABT-026 | 7.19 s.u. | 7.2 s.u. | 0.01 s.u. |  |
+|  | 2022-05-15 | ELZ-004 | 6.95 s.u. | 7.08 s.u. | 0.13 s.u. |  |
+|  | 2022-05-15 | NSH-002 | 7.23 s.u. | 7.25 s.u. | 0.02 s.u. |  |
+|  | 2022-06-12 | ABT-062 | 7.26 s.u. | 7.26 s.u. | 0 s.u. |  |
+|  | 2022-06-12 | ABT-237 | 7.1 s.u. | 7.11 s.u. | 0.01 s.u. |  |
+|  | 2022-06-12 | HOP-011 | 6.86 s.u. | 6.82 s.u. | 0.04 s.u. |  |
+|  | 2022-07-17 | ABT-062 | 8.02 s.u. | 8.01 s.u. | 0.01 s.u. |  |
+|  | 2022-07-17 | ABT-237 | 7.28 s.u. | 7.28 s.u. | 0 s.u. |  |
+|  | 2022-08-14 | ABT-237 | 7.28 s.u. | 7.28 s.u. | 0 s.u. |  |
+|  | 2022-09-11 | ABT-026 | 7.13 s.u. | 7.14 s.u. | 0.01 s.u. |  |
+|  | 2022-09-11 | HOP-011 | 6.92 s.u. | 6.84 s.u. | 0.08 s.u. |  |
+| Sp Conductance |  |  |  |  |  |  |
+|  | 2022-05-15 | ABT-026 | 585 uS/cm | 586 uS/cm | 0% RPD |  |
+|  | 2022-05-15 | ELZ-004 | 375 uS/cm | 375 uS/cm | 0% RPD |  |
+|  | 2022-05-15 | NSH-002 | 524 uS/cm | 525 uS/cm | 0% RPD |  |
+|  | 2022-06-12 | ABT-062 | 579 uS/cm | 579 uS/cm | 0% RPD |  |
+|  | 2022-06-12 | ABT-237 | 740 uS/cm | 740 uS/cm | 0% RPD |  |
+|  | 2022-06-12 | HOP-011 | 731 uS/cm | 731 uS/cm | 0% RPD |  |
+|  | 2022-07-17 | ABT-062 | 831 uS/cm | 831 uS/cm | 0% RPD |  |
+|  | 2022-07-17 | ABT-237 | 1222 uS/cm | 1221 uS/cm | 0% RPD |  |
+|  | 2022-08-14 | ABT-237 | 1497 uS/cm | 1489 uS/cm | 1% RPD |  |
+|  | 2022-09-11 | ABT-026 | 738 uS/cm | 675 uS/cm | 9% RPD |  |
+|  | 2022-09-11 | HOP-011 | 865 uS/cm | 865 uS/cm | 0% RPD |  |
+| TP |  |  |  |  |  |  |
+|  | 2022-05-15 | ABT-312 | 0.03 mg/l | 0.03 mg/l | 0 mg/l |  |
+|  | 2022-05-15 | DAN-013 | 0.04 mg/l | 0.04 mg/l | 0 mg/l |  |
+|  | 2022-06-12 | ABT-301 | 0.03 mg/l | 0.03 mg/l | 0 mg/l |  |
+|  | 2022-07-17 | ABT-077 | 0.04 mg/l | 0.02 mg/l | 0.02 mg/l | MISS |
+|  | 2022-09-11 | ABT-301 | 0.03 mg/l | 0.03 mg/l | 0 mg/l |  |
+| Water Temp |  |  |  |  |  |  |
+|  | 2022-05-15 | ABT-026 | 22.4 deg C | 22.4 deg C | 0 deg C |  |
+|  | 2022-05-15 | ELZ-004 | 22.2 deg C | 22.2 deg C | 0 deg C |  |
+|  | 2022-05-15 | NSH-002 | 23.3 deg C | 23.3 deg C | 0 deg C |  |
+|  | 2022-06-12 | ABT-062 | 21.1 deg C | 21.1 deg C | 0 deg C |  |
+|  | 2022-06-12 | ABT-237 | 18.7 deg C | 18.7 deg C | 0 deg C |  |
+|  | 2022-06-12 | HOP-011 | 18.4 deg C | 18.4 deg C | 0 deg C |  |
+|  | 2022-07-17 | ABT-062 | 25.6 deg C | 25.6 deg C | 0 deg C |  |
+|  | 2022-07-17 | ABT-237 | 20.8 deg C | 20.8 deg C | 0 deg C |  |
+|  | 2022-08-14 | ABT-237 | 18.8 deg C | 18.8 deg C | 0 deg C |  |
+|  | 2022-09-11 | ABT-026 | 20.5 deg C | 20.5 deg C | 0 deg C |  |
+|  | 2022-09-11 | HOP-011 | 19.3 deg C | 19.3 deg C | 0 deg C |  |
 
-Field Duplicates
+Field Duplicates {.table .cl-f39d35a2 quarto-disable-processing="true"}
 
 ``` r
+
 tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = "individual", accchk = "Lab Duplicates", warn = FALSE)
 ```
 
-| Parameter      | Date       | Sample ID | Initial Result  | Dup. Result     | Diff./RPD  | Hit/Miss |
-|----------------|------------|-----------|-----------------|-----------------|------------|----------|
-| Ammonia        |            |           |                 |                 |            |          |
-|                | 2022-05-15 |           | 0.21 mg/l       | 0.21 mg/l       | 0% RPD     |          |
-|                | 2022-05-15 |           | BDL             | BDL             | 0% RPD     |          |
-|                | 2022-06-12 |           | 0.1 mg/l        | 0.1 mg/l        | 0% RPD     |          |
-|                | 2022-06-12 |           | 0.19 mg/l       | 0.19 mg/l       | 0% RPD     |          |
-|                | 2022-07-17 |           | BDL             | BDL             | 0% RPD     |          |
-|                | 2022-07-17 |           | BDL             | BDL             | 0% RPD     |          |
-|                | 2022-08-14 |           | BDL             | BDL             | 0% RPD     |          |
-|                | 2022-08-14 |           | BDL             | BDL             | 0% RPD     |          |
-|                | 2022-09-11 |           | BDL             | BDL             | 0% RPD     |          |
-|                | 2022-09-11 |           | BDL             | BDL             | 0% RPD     |          |
-| E.coli         |            |           |                 |                 |            |          |
-|                | 2022-06-13 |           | 547.5 MPN/100ml | 579.4 MPN/100ml | 1% logRPD  |          |
-|                | 2022-07-18 |           | 88 MPN/100ml    | 167 MPN/100ml   | 13% logRPD |          |
-|                | 2022-08-01 |           | 114.5 MPN/100ml | 160.7 MPN/100ml | 7% logRPD  |          |
-|                | 2022-08-29 |           | 42.8 MPN/100ml  | 40.4 MPN/100ml  | 2% logRPD  |          |
-| Nitrate        |            |           |                 |                 |            |          |
-|                | 2022-05-15 |           | 0.37 mg/l       | 0.38 mg/l       | 3% RPD     |          |
-|                | 2022-06-12 |           | 0.17 mg/l       | 0.17 mg/l       | 0% RPD     |          |
-|                | 2022-06-12 |           | 3.65 mg/l       | 3.63 mg/l       | 1% RPD     |          |
-|                | 2022-06-12 |           | BDL             | BDL             | 0% RPD     |          |
-|                | 2022-07-17 |           | 1.29 mg/l       | 1.29 mg/l       | 0% RPD     |          |
-|                | 2022-07-17 |           | BDL             | BDL             | 0% RPD     |          |
-|                | 2022-07-17 |           | BDL             | BDL             | 0% RPD     |          |
-|                | 2022-08-14 |           | 2.69 mg/l       | 2.69 mg/l       | 0% RPD     |          |
-|                | 2022-08-14 |           | 5.22 mg/l       | 5.24 mg/l       | 0% RPD     |          |
-|                | 2022-09-11 |           | 1.51 mg/l       | 1.5 mg/l        | 1% RPD     |          |
-| pH             |            |           |                 |                 |            |          |
-|                | 2022-05-15 |           | 7.11 s.u.       | 7.09 s.u.       | 0.02 s.u.  |          |
-|                | 2022-05-15 |           | 7.18 s.u.       | 7.09 s.u.       | 0.09 s.u.  |          |
-|                | 2022-05-15 |           | 7.19 s.u.       | 7.09 s.u.       | 0.1 s.u.   |          |
-|                | 2022-06-12 |           | 7.12 s.u.       | 7.19 s.u.       | 0.07 s.u.  |          |
-|                | 2022-06-12 |           | 7.13 s.u.       | 7.19 s.u.       | 0.06 s.u.  |          |
-|                | 2022-06-12 |           | 7.21 s.u.       | 7.19 s.u.       | 0.02 s.u.  |          |
-|                | 2022-06-12 |           | 7.27 s.u.       | 7.19 s.u.       | 0.08 s.u.  |          |
-|                | 2022-07-17 |           | 7.48 s.u.       | 7.37 s.u.       | 0.11 s.u.  |          |
-|                | 2022-07-17 |           | 7.54 s.u.       | 7.37 s.u.       | 0.17 s.u.  |          |
-|                | 2022-07-17 |           | 7.54 s.u.       | 7.37 s.u.       | 0.17 s.u.  |          |
-|                | 2022-07-17 |           | 7.54 s.u.       | 7.37 s.u.       | 0.17 s.u.  |          |
-|                | 2022-08-14 |           | 7.64 s.u.       | 7.32 s.u.       | 0.32 s.u.  |          |
-|                | 2022-08-14 |           | 7.65 s.u.       | 7.32 s.u.       | 0.33 s.u.  |          |
-|                | 2022-08-14 |           | 7.68 s.u.       | 7.32 s.u.       | 0.36 s.u.  |          |
-|                | 2022-09-11 |           | 7.07 s.u.       | 6.74 s.u.       | 0.33 s.u.  |          |
-|                | 2022-09-11 |           | 7.16 s.u.       | 6.74 s.u.       | 0.42 s.u.  |          |
-|                | 2022-09-11 |           | 7.34 s.u.       | 6.74 s.u.       | 0.6 s.u.   | MISS     |
-| Sp Conductance |            |           |                 |                 |            |          |
-|                | 2022-05-15 |           | 599 uS/cm       | 609 uS/cm       | 2% RPD     |          |
-|                | 2022-05-15 |           | 605 uS/cm       | 609 uS/cm       | 1% RPD     |          |
-|                | 2022-05-15 |           | 606 uS/cm       | 609 uS/cm       | 0% RPD     |          |
-|                | 2022-06-12 |           | 600 uS/cm       | 608 uS/cm       | 1% RPD     |          |
-|                | 2022-06-12 |           | 602 uS/cm       | 608 uS/cm       | 1% RPD     |          |
-|                | 2022-06-12 |           | 606 uS/cm       | 608 uS/cm       | 0% RPD     |          |
-|                | 2022-07-17 |           | 793 uS/cm       | 802 uS/cm       | 1% RPD     |          |
-|                | 2022-07-17 |           | 900 uS/cm       | 802 uS/cm       | 12% RPD    |          |
-|                | 2022-07-17 |           | 796 uS/cm       | 802 uS/cm       | 1% RPD     |          |
-|                | 2022-07-17 |           | 801 uS/cm       | 802 uS/cm       | 0% RPD     |          |
-|                | 2022-08-14 |           | 1062 uS/cm      | 1066 uS/cm      | 0% RPD     |          |
-|                | 2022-08-14 |           | 1062 uS/cm      | 1066 uS/cm      | 0% RPD     |          |
-|                | 2022-08-14 |           | 1063 uS/cm      | 1066 uS/cm      | 0% RPD     |          |
-|                | 2022-08-14 |           | 1065 uS/cm      | 1066 uS/cm      | 0% RPD     |          |
-|                | 2022-09-11 |           | 761 uS/cm       | 766 uS/cm       | 1% RPD     |          |
-|                | 2022-09-11 |           | 765 uS/cm       | 766 uS/cm       | 0% RPD     |          |
-|                | 2022-09-11 |           | 774 uS/cm       | 766 uS/cm       | 1% RPD     |          |
-| TP             |            |           |                 |                 |            |          |
-|                | 2022-05-15 |           | 0.01 mg/l       | 0.01 mg/l       | 0 mg/l     |          |
-|                | 2022-05-15 |           | 0.03 mg/l       | 0.02 mg/l       | 0.01 mg/l  |          |
-|                | 2022-05-15 |           | 0.06 mg/l       | 0.06 mg/l       | 0% RPD     |          |
-|                | 2022-06-12 |           | 0.04 mg/l       | 0.04 mg/l       | 0 mg/l     |          |
-|                | 2022-06-12 |           | 0.04 mg/l       | 0.04 mg/l       | 0 mg/l     |          |
-|                | 2022-06-12 |           | 0.06 mg/l       | 0.06 mg/l       | 0% RPD     |          |
-|                | 2022-06-12 |           | BDL             | BDL             | 0 mg/l     |          |
-|                | 2022-07-17 |           | 0.04 mg/l       | 0.04 mg/l       | 0 mg/l     |          |
-|                | 2022-07-17 |           | 0.05 mg/l       | 0.05 mg/l       | 0% RPD     |          |
-|                | 2022-07-17 |           | BDL             | BDL             | 0 mg/l     |          |
-|                | 2022-08-14 |           | 0.03 mg/l       | 0.03 mg/l       | 0 mg/l     |          |
-|                | 2022-08-14 |           | 0.05 mg/l       | 0.05 mg/l       | 0% RPD     |          |
-|                | 2022-08-14 |           | 0.09 mg/l       | 0.09 mg/l       | 0% RPD     |          |
-|                | 2022-09-11 |           | 0.04 mg/l       | 0.04 mg/l       | 0 mg/l     |          |
-|                | 2022-09-11 |           | 0.04 mg/l       | 0.04 mg/l       | 0 mg/l     |          |
-|                | 2022-09-11 |           | 0.05 mg/l       | 0.05 mg/l       | 0% RPD     |          |
-| Water Temp     |            |           |                 |                 |            |          |
-|                | 2022-05-15 |           | 21.7 deg C      | 21.8 deg C      | 0.1 deg C  |          |
-|                | 2022-05-15 |           | 21.8 deg C      | 21.8 deg C      | 0 deg C    |          |
-|                | 2022-05-15 |           | 21.8 deg C      | 21.8 deg C      | 0 deg C    |          |
-|                | 2022-06-12 |           | 20.2 deg C      | 20.2 deg C      | 0 deg C    |          |
-|                | 2022-06-12 |           | 20.2 deg C      | 20.2 deg C      | 0 deg C    |          |
-|                | 2022-06-12 |           | 20.3 deg C      | 20.2 deg C      | 0.1 deg C  |          |
-|                | 2022-06-12 |           | 20.3 deg C      | 20.2 deg C      | 0.1 deg C  |          |
-|                | 2022-07-17 |           | 23 deg C        | 22.9 deg C      | 0.1 deg C  |          |
-|                | 2022-07-17 |           | 23 deg C        | 22.9 deg C      | 0.1 deg C  |          |
-|                | 2022-07-17 |           | 23.1 deg C      | 22.9 deg C      | 0.2 deg C  |          |
-|                | 2022-08-14 |           | 20.8 deg C      | 20.7 deg C      | 0.1 deg C  |          |
-|                | 2022-08-14 |           | 20.8 deg C      | 20.7 deg C      | 0.1 deg C  |          |
-|                | 2022-08-14 |           | 20.9 deg C      | 20.7 deg C      | 0.2 deg C  |          |
-|                | 2022-08-14 |           | 20.9 deg C      | 20.7 deg C      | 0.2 deg C  |          |
-|                | 2022-09-11 |           | 20.6 deg C      | 20.5 deg C      | 0.1 deg C  |          |
-|                | 2022-09-11 |           | 20.7 deg C      | 20.5 deg C      | 0.2 deg C  |          |
-|                | 2022-09-11 |           | 20.7 deg C      | 20.5 deg C      | 0.2 deg C  |          |
+| Parameter | Date | Sample ID | Initial Result | Dup. Result | Diff./RPD | Hit/Miss |
+|----|----|----|----|----|----|----|
+| Ammonia |  |  |  |  |  |  |
+|  | 2022-05-15 |  | 0.21 mg/l | 0.21 mg/l | 0% RPD |  |
+|  | 2022-05-15 |  | BDL | BDL | 0% RPD |  |
+|  | 2022-06-12 |  | 0.1 mg/l | 0.1 mg/l | 0% RPD |  |
+|  | 2022-06-12 |  | 0.19 mg/l | 0.19 mg/l | 0% RPD |  |
+|  | 2022-07-17 |  | BDL | BDL | 0% RPD |  |
+|  | 2022-07-17 |  | BDL | BDL | 0% RPD |  |
+|  | 2022-08-14 |  | BDL | BDL | 0% RPD |  |
+|  | 2022-08-14 |  | BDL | BDL | 0% RPD |  |
+|  | 2022-09-11 |  | BDL | BDL | 0% RPD |  |
+|  | 2022-09-11 |  | BDL | BDL | 0% RPD |  |
+| E.coli |  |  |  |  |  |  |
+|  | 2022-06-13 |  | 547.5 MPN/100ml | 579.4 MPN/100ml | 1% logRPD |  |
+|  | 2022-07-18 |  | 88 MPN/100ml | 167 MPN/100ml | 13% logRPD |  |
+|  | 2022-08-01 |  | 114.5 MPN/100ml | 160.7 MPN/100ml | 7% logRPD |  |
+|  | 2022-08-29 |  | 42.8 MPN/100ml | 40.4 MPN/100ml | 2% logRPD |  |
+| Nitrate |  |  |  |  |  |  |
+|  | 2022-05-15 |  | 0.37 mg/l | 0.38 mg/l | 3% RPD |  |
+|  | 2022-06-12 |  | 0.17 mg/l | 0.17 mg/l | 0% RPD |  |
+|  | 2022-06-12 |  | 3.65 mg/l | 3.63 mg/l | 1% RPD |  |
+|  | 2022-06-12 |  | BDL | BDL | 0% RPD |  |
+|  | 2022-07-17 |  | 1.29 mg/l | 1.29 mg/l | 0% RPD |  |
+|  | 2022-07-17 |  | BDL | BDL | 0% RPD |  |
+|  | 2022-07-17 |  | BDL | BDL | 0% RPD |  |
+|  | 2022-08-14 |  | 2.69 mg/l | 2.69 mg/l | 0% RPD |  |
+|  | 2022-08-14 |  | 5.22 mg/l | 5.24 mg/l | 0% RPD |  |
+|  | 2022-09-11 |  | 1.51 mg/l | 1.5 mg/l | 1% RPD |  |
+| pH |  |  |  |  |  |  |
+|  | 2022-05-15 |  | 7.11 s.u. | 7.09 s.u. | 0.02 s.u. |  |
+|  | 2022-05-15 |  | 7.18 s.u. | 7.09 s.u. | 0.09 s.u. |  |
+|  | 2022-05-15 |  | 7.19 s.u. | 7.09 s.u. | 0.1 s.u. |  |
+|  | 2022-06-12 |  | 7.12 s.u. | 7.19 s.u. | 0.07 s.u. |  |
+|  | 2022-06-12 |  | 7.13 s.u. | 7.19 s.u. | 0.06 s.u. |  |
+|  | 2022-06-12 |  | 7.21 s.u. | 7.19 s.u. | 0.02 s.u. |  |
+|  | 2022-06-12 |  | 7.27 s.u. | 7.19 s.u. | 0.08 s.u. |  |
+|  | 2022-07-17 |  | 7.48 s.u. | 7.37 s.u. | 0.11 s.u. |  |
+|  | 2022-07-17 |  | 7.54 s.u. | 7.37 s.u. | 0.17 s.u. |  |
+|  | 2022-07-17 |  | 7.54 s.u. | 7.37 s.u. | 0.17 s.u. |  |
+|  | 2022-07-17 |  | 7.54 s.u. | 7.37 s.u. | 0.17 s.u. |  |
+|  | 2022-08-14 |  | 7.64 s.u. | 7.32 s.u. | 0.32 s.u. |  |
+|  | 2022-08-14 |  | 7.65 s.u. | 7.32 s.u. | 0.33 s.u. |  |
+|  | 2022-08-14 |  | 7.68 s.u. | 7.32 s.u. | 0.36 s.u. |  |
+|  | 2022-09-11 |  | 7.07 s.u. | 6.74 s.u. | 0.33 s.u. |  |
+|  | 2022-09-11 |  | 7.16 s.u. | 6.74 s.u. | 0.42 s.u. |  |
+|  | 2022-09-11 |  | 7.34 s.u. | 6.74 s.u. | 0.6 s.u. | MISS |
+| Sp Conductance |  |  |  |  |  |  |
+|  | 2022-05-15 |  | 599 uS/cm | 609 uS/cm | 2% RPD |  |
+|  | 2022-05-15 |  | 605 uS/cm | 609 uS/cm | 1% RPD |  |
+|  | 2022-05-15 |  | 606 uS/cm | 609 uS/cm | 0% RPD |  |
+|  | 2022-06-12 |  | 600 uS/cm | 608 uS/cm | 1% RPD |  |
+|  | 2022-06-12 |  | 602 uS/cm | 608 uS/cm | 1% RPD |  |
+|  | 2022-06-12 |  | 606 uS/cm | 608 uS/cm | 0% RPD |  |
+|  | 2022-07-17 |  | 793 uS/cm | 802 uS/cm | 1% RPD |  |
+|  | 2022-07-17 |  | 900 uS/cm | 802 uS/cm | 12% RPD |  |
+|  | 2022-07-17 |  | 796 uS/cm | 802 uS/cm | 1% RPD |  |
+|  | 2022-07-17 |  | 801 uS/cm | 802 uS/cm | 0% RPD |  |
+|  | 2022-08-14 |  | 1062 uS/cm | 1066 uS/cm | 0% RPD |  |
+|  | 2022-08-14 |  | 1062 uS/cm | 1066 uS/cm | 0% RPD |  |
+|  | 2022-08-14 |  | 1063 uS/cm | 1066 uS/cm | 0% RPD |  |
+|  | 2022-08-14 |  | 1065 uS/cm | 1066 uS/cm | 0% RPD |  |
+|  | 2022-09-11 |  | 761 uS/cm | 766 uS/cm | 1% RPD |  |
+|  | 2022-09-11 |  | 765 uS/cm | 766 uS/cm | 0% RPD |  |
+|  | 2022-09-11 |  | 774 uS/cm | 766 uS/cm | 1% RPD |  |
+| TP |  |  |  |  |  |  |
+|  | 2022-05-15 |  | 0.01 mg/l | 0.01 mg/l | 0 mg/l |  |
+|  | 2022-05-15 |  | 0.03 mg/l | 0.02 mg/l | 0.01 mg/l |  |
+|  | 2022-05-15 |  | 0.06 mg/l | 0.06 mg/l | 0% RPD |  |
+|  | 2022-06-12 |  | 0.04 mg/l | 0.04 mg/l | 0 mg/l |  |
+|  | 2022-06-12 |  | 0.04 mg/l | 0.04 mg/l | 0 mg/l |  |
+|  | 2022-06-12 |  | 0.06 mg/l | 0.06 mg/l | 0% RPD |  |
+|  | 2022-06-12 |  | BDL | BDL | 0 mg/l |  |
+|  | 2022-07-17 |  | 0.04 mg/l | 0.04 mg/l | 0 mg/l |  |
+|  | 2022-07-17 |  | 0.05 mg/l | 0.05 mg/l | 0% RPD |  |
+|  | 2022-07-17 |  | BDL | BDL | 0 mg/l |  |
+|  | 2022-08-14 |  | 0.03 mg/l | 0.03 mg/l | 0 mg/l |  |
+|  | 2022-08-14 |  | 0.05 mg/l | 0.05 mg/l | 0% RPD |  |
+|  | 2022-08-14 |  | 0.09 mg/l | 0.09 mg/l | 0% RPD |  |
+|  | 2022-09-11 |  | 0.04 mg/l | 0.04 mg/l | 0 mg/l |  |
+|  | 2022-09-11 |  | 0.04 mg/l | 0.04 mg/l | 0 mg/l |  |
+|  | 2022-09-11 |  | 0.05 mg/l | 0.05 mg/l | 0% RPD |  |
+| Water Temp |  |  |  |  |  |  |
+|  | 2022-05-15 |  | 21.7 deg C | 21.8 deg C | 0.1 deg C |  |
+|  | 2022-05-15 |  | 21.8 deg C | 21.8 deg C | 0 deg C |  |
+|  | 2022-05-15 |  | 21.8 deg C | 21.8 deg C | 0 deg C |  |
+|  | 2022-06-12 |  | 20.2 deg C | 20.2 deg C | 0 deg C |  |
+|  | 2022-06-12 |  | 20.2 deg C | 20.2 deg C | 0 deg C |  |
+|  | 2022-06-12 |  | 20.3 deg C | 20.2 deg C | 0.1 deg C |  |
+|  | 2022-06-12 |  | 20.3 deg C | 20.2 deg C | 0.1 deg C |  |
+|  | 2022-07-17 |  | 23 deg C | 22.9 deg C | 0.1 deg C |  |
+|  | 2022-07-17 |  | 23 deg C | 22.9 deg C | 0.1 deg C |  |
+|  | 2022-07-17 |  | 23.1 deg C | 22.9 deg C | 0.2 deg C |  |
+|  | 2022-08-14 |  | 20.8 deg C | 20.7 deg C | 0.1 deg C |  |
+|  | 2022-08-14 |  | 20.8 deg C | 20.7 deg C | 0.1 deg C |  |
+|  | 2022-08-14 |  | 20.9 deg C | 20.7 deg C | 0.2 deg C |  |
+|  | 2022-08-14 |  | 20.9 deg C | 20.7 deg C | 0.2 deg C |  |
+|  | 2022-09-11 |  | 20.6 deg C | 20.5 deg C | 0.1 deg C |  |
+|  | 2022-09-11 |  | 20.7 deg C | 20.5 deg C | 0.2 deg C |  |
+|  | 2022-09-11 |  | 20.7 deg C | 20.5 deg C | 0.2 deg C |  |
 
-Lab Duplicates
+Lab Duplicates {.table .cl-f3fef8aa quarto-disable-processing="true"}
 
 ``` r
+
 tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = "individual", accchk = "Lab Spikes / Instrument Checks", warn = FALSE)
 ```
 
-| Parameter      | Date       | Sample ID | Spike/Standard | Result         | Diff./Accuracy | Hit/Miss |
-|----------------|------------|-----------|----------------|----------------|----------------|----------|
-| Ammonia        |            |           |                |                |                |          |
-|                | 2022-05-15 |           | 100 % recovery | 86 % recovery  | 86%            |          |
-|                | 2022-06-12 |           | 100 % recovery | 94 % recovery  | 94%            |          |
-|                | 2022-06-12 |           | 100 % recovery | 106 % recovery | 106%           |          |
-|                | 2022-07-17 |           | 100 % recovery | 92 % recovery  | 92%            |          |
-|                | 2022-07-17 |           | 100 % recovery | 108 % recovery | 108%           |          |
-|                | 2022-08-14 |           | 100 % recovery | 96 % recovery  | 96%            |          |
-|                | 2022-08-14 |           | 100 % recovery | 102 % recovery | 102%           |          |
-|                | 2022-09-11 |           | 100 % recovery | 88 % recovery  | 88%            |          |
-|                | 2022-09-11 |           | 100 % recovery | 89 % recovery  | 89%            |          |
-| Nitrate        |            |           |                |                |                |          |
-|                | 2022-05-15 |           | 100 % recovery | 99 % recovery  | 99%            |          |
-|                | 2022-06-12 |           | 100 % recovery | 95 % recovery  | 95%            |          |
-|                | 2022-06-12 |           | 100 % recovery | 97 % recovery  | 97%            |          |
-|                | 2022-06-12 |           | 100 % recovery | 105 % recovery | 105%           |          |
-|                | 2022-07-17 |           | 100 % recovery | 99 % recovery  | 99%            |          |
-|                | 2022-07-17 |           | 100 % recovery | 101 % recovery | 101%           |          |
-|                | 2022-07-17 |           | 100 % recovery | 125 % recovery | 125%           | MISS     |
-|                | 2022-08-14 |           | 100 % recovery | 103 % recovery | 103%           |          |
-|                | 2022-08-14 |           | 100 % recovery | 109 % recovery | 109%           |          |
-|                | 2022-09-11 |           | 100 % recovery | 101 % recovery | 101%           |          |
-| pH             |            |           |                |                |                |          |
-|                | 2022-05-15 |           | 7.02 s.u.      | 7 s.u.         | -0.02 s.u.     |          |
-|                | 2022-05-15 |           | 7.02 s.u.      | 7.03 s.u.      | +0.01 s.u.     |          |
-|                | 2022-05-15 |           | 7.02 s.u.      | 7.09 s.u.      | +0.07 s.u.     |          |
-|                | 2022-05-15 |           | 7.02 s.u.      | 7.11 s.u.      | +0.09 s.u.     |          |
-|                | 2022-06-12 |           | 7 s.u.         | 7.01 s.u.      | +0.01 s.u.     |          |
-|                | 2022-06-12 |           | 7 s.u.         | 7.05 s.u.      | +0.05 s.u.     |          |
-|                | 2022-06-12 |           | 7 s.u.         | 7.06 s.u.      | +0.06 s.u.     |          |
-|                | 2022-06-12 |           | 7 s.u.         | 7.06 s.u.      | +0.06 s.u.     |          |
-|                | 2022-06-12 |           | 7 s.u.         | 7.07 s.u.      | +0.07 s.u.     |          |
-|                | 2022-07-17 |           | 7 s.u.         | 7.05 s.u.      | +0.05 s.u.     |          |
-|                | 2022-07-17 |           | 7 s.u.         | 7.06 s.u.      | +0.06 s.u.     |          |
-|                | 2022-07-17 |           | 7 s.u.         | 7.06 s.u.      | +0.06 s.u.     |          |
-|                | 2022-07-17 |           | 7 s.u.         | 7.06 s.u.      | +0.06 s.u.     |          |
-|                | 2022-07-17 |           | 7 s.u.         | 7.4 s.u.       | +0.4 s.u.      | MISS     |
-|                | 2022-08-14 |           | 7 s.u.         | 6.99 s.u.      | -0.01 s.u.     |          |
-|                | 2022-08-14 |           | 7 s.u.         | 7.07 s.u.      | +0.07 s.u.     |          |
-|                | 2022-08-14 |           | 7 s.u.         | 7.09 s.u.      | +0.09 s.u.     |          |
-|                | 2022-09-11 |           | 7 s.u.         | 7.01 s.u.      | +0.01 s.u.     |          |
-|                | 2022-09-11 |           | 7 s.u.         | 7.06 s.u.      | +0.06 s.u.     |          |
-|                | 2022-09-11 |           | 7 s.u.         | 7.06 s.u.      | +0.06 s.u.     |          |
-| Sp Conductance |            |           |                |                |                |          |
-|                | 2022-05-15 |           | 1000 uS/cm     | 975 uS/cm      | -25 uS/cm      |          |
-|                | 2022-05-15 |           | 1000 uS/cm     | 977 uS/cm      | -23 uS/cm      |          |
-|                | 2022-05-15 |           | 1000 uS/cm     | 985 uS/cm      | -15 uS/cm      |          |
-|                | 2022-05-15 |           | 1000 uS/cm     | 991 uS/cm      | -9 uS/cm       |          |
-|                | 2022-06-12 |           | 1000 uS/cm     | 978 uS/cm      | -22 uS/cm      |          |
-|                | 2022-06-12 |           | 1000 uS/cm     | 979 uS/cm      | -21 uS/cm      |          |
-|                | 2022-06-12 |           | 1000 uS/cm     | 979 uS/cm      | -21 uS/cm      |          |
-|                | 2022-06-12 |           | 1000 uS/cm     | 983 uS/cm      | -17 uS/cm      |          |
-|                | 2022-06-12 |           | 1000 uS/cm     | 987 uS/cm      | -13 uS/cm      |          |
-|                | 2022-07-17 |           | 1000 uS/cm     | 984 uS/cm      | -16 uS/cm      |          |
-|                | 2022-07-17 |           | 1000 uS/cm     | 988 uS/cm      | -12 uS/cm      |          |
-|                | 2022-07-17 |           | 1000 uS/cm     | 997 uS/cm      | -3 uS/cm       |          |
-|                | 2022-08-14 |           | 1000 uS/cm     | 991 uS/cm      | -9 uS/cm       |          |
-|                | 2022-08-14 |           | 1000 uS/cm     | 991 uS/cm      | -9 uS/cm       |          |
-|                | 2022-08-14 |           | 1000 uS/cm     | 992 uS/cm      | -8 uS/cm       |          |
-|                | 2022-08-14 |           | 1000 uS/cm     | 992 uS/cm      | -8 uS/cm       |          |
-|                | 2022-08-14 |           | 1000 uS/cm     | 996 uS/cm      | -4 uS/cm       |          |
-|                | 2022-09-11 |           | 1000 uS/cm     | 986 uS/cm      | -14 uS/cm      |          |
-|                | 2022-09-11 |           | 1000 uS/cm     | 989 uS/cm      | -11 uS/cm      |          |
-|                | 2022-09-11 |           | 1000 uS/cm     | 990 uS/cm      | -10 uS/cm      |          |
-|                | 2022-09-11 |           | 1000 uS/cm     | 993 uS/cm      | -7 uS/cm       |          |
-| TP             |            |           |                |                |                |          |
-|                | 2022-05-15 |           | 100 % recovery | 100 % recovery | 100%           |          |
-|                | 2022-05-15 |           | 100 % recovery | 101 % recovery | 101%           |          |
-|                | 2022-05-15 |           | 100 % recovery | 103 % recovery | 103%           |          |
-|                | 2022-06-12 |           | 100 % recovery | 100 % recovery | 100%           |          |
-|                | 2022-06-12 |           | 100 % recovery | 104 % recovery | 104%           |          |
-|                | 2022-06-12 |           | 100 % recovery | 104 % recovery | 104%           |          |
-|                | 2022-07-17 |           | 100 % recovery | 105 % recovery | 105%           |          |
-|                | 2022-07-17 |           | 100 % recovery | 105 % recovery | 105%           |          |
-|                | 2022-07-17 |           | 100 % recovery | 110 % recovery | 110%           |          |
-|                | 2022-08-14 |           | 100 % recovery | 99 % recovery  | 99%            |          |
-|                | 2022-08-14 |           | 100 % recovery | 99 % recovery  | 99%            |          |
-|                | 2022-08-14 |           | 100 % recovery | 101 % recovery | 101%           |          |
-|                | 2022-09-11 |           | 100 % recovery | 97 % recovery  | 97%            |          |
-|                | 2022-09-11 |           | 100 % recovery | 99 % recovery  | 99%            |          |
-|                | 2022-09-11 |           | 100 % recovery | 99 % recovery  | 99%            |          |
-| Water Temp     |            |           |                |                |                |          |
-|                | 2022-05-15 |           | 21.8 deg C     | 21.8 deg C     | +0 deg C       |          |
-|                | 2022-05-15 |           | 21.8 deg C     | 21.8 deg C     | +0 deg C       |          |
-|                | 2022-05-15 |           | 21.8 deg C     | 21.9 deg C     | +0.1 deg C     |          |
-|                | 2022-05-15 |           | 21.8 deg C     | 21.9 deg C     | +0.1 deg C     |          |
-|                | 2022-06-12 |           | 22.5 deg C     | 22.6 deg C     | +0.1 deg C     |          |
-|                | 2022-06-12 |           | 22.5 deg C     | 22.6 deg C     | +0.1 deg C     |          |
-|                | 2022-06-12 |           | 22.5 deg C     | 22.7 deg C     | +0.2 deg C     |          |
-|                | 2022-07-17 |           | 22.7 deg C     | 22.6 deg C     | -0.1 deg C     |          |
-|                | 2022-07-17 |           | 22.7 deg C     | 22.7 deg C     | +0 deg C       |          |
-|                | 2022-07-17 |           | 22.7 deg C     | 22.7 deg C     | +0 deg C       |          |
-|                | 2022-07-17 |           | 22.7 deg C     | 25 deg C       | +2.3 deg C     | MISS     |
-|                | 2022-07-17 |           | 22.7 deg C     | 22.9 deg C     | +0.2 deg C     |          |
-|                | 2022-08-14 |           | 23.1 deg C     | 23.1 deg C     | +0 deg C       |          |
-|                | 2022-08-14 |           | 23.1 deg C     | 23.4 deg C     | +0.3 deg C     |          |
-|                | 2022-08-14 |           | 23.1 deg C     | 23.4 deg C     | +0.3 deg C     |          |
-|                | 2022-09-11 |           | 22.8 deg C     | 22.8 deg C     | +0 deg C       |          |
-|                | 2022-09-11 |           | 22.8 deg C     | 22.8 deg C     | +0 deg C       |          |
-|                | 2022-09-11 |           | 22.8 deg C     | 22.9 deg C     | +0.1 deg C     |          |
-|                | 2022-09-11 |           | 22.8 deg C     | 23 deg C       | +0.2 deg C     |          |
+| Parameter | Date | Sample ID | Spike/Standard | Result | Diff./Accuracy | Hit/Miss |
+|----|----|----|----|----|----|----|
+| Ammonia |  |  |  |  |  |  |
+|  | 2022-05-15 |  | 100 % recovery | 86 % recovery | 86% |  |
+|  | 2022-06-12 |  | 100 % recovery | 94 % recovery | 94% |  |
+|  | 2022-06-12 |  | 100 % recovery | 106 % recovery | 106% |  |
+|  | 2022-07-17 |  | 100 % recovery | 92 % recovery | 92% |  |
+|  | 2022-07-17 |  | 100 % recovery | 108 % recovery | 108% |  |
+|  | 2022-08-14 |  | 100 % recovery | 96 % recovery | 96% |  |
+|  | 2022-08-14 |  | 100 % recovery | 102 % recovery | 102% |  |
+|  | 2022-09-11 |  | 100 % recovery | 88 % recovery | 88% |  |
+|  | 2022-09-11 |  | 100 % recovery | 89 % recovery | 89% |  |
+| Nitrate |  |  |  |  |  |  |
+|  | 2022-05-15 |  | 100 % recovery | 99 % recovery | 99% |  |
+|  | 2022-06-12 |  | 100 % recovery | 95 % recovery | 95% |  |
+|  | 2022-06-12 |  | 100 % recovery | 97 % recovery | 97% |  |
+|  | 2022-06-12 |  | 100 % recovery | 105 % recovery | 105% |  |
+|  | 2022-07-17 |  | 100 % recovery | 99 % recovery | 99% |  |
+|  | 2022-07-17 |  | 100 % recovery | 101 % recovery | 101% |  |
+|  | 2022-07-17 |  | 100 % recovery | 125 % recovery | 125% | MISS |
+|  | 2022-08-14 |  | 100 % recovery | 103 % recovery | 103% |  |
+|  | 2022-08-14 |  | 100 % recovery | 109 % recovery | 109% |  |
+|  | 2022-09-11 |  | 100 % recovery | 101 % recovery | 101% |  |
+| pH |  |  |  |  |  |  |
+|  | 2022-05-15 |  | 7.02 s.u. | 7 s.u. | -0.02 s.u. |  |
+|  | 2022-05-15 |  | 7.02 s.u. | 7.03 s.u. | +0.01 s.u. |  |
+|  | 2022-05-15 |  | 7.02 s.u. | 7.09 s.u. | +0.07 s.u. |  |
+|  | 2022-05-15 |  | 7.02 s.u. | 7.11 s.u. | +0.09 s.u. |  |
+|  | 2022-06-12 |  | 7 s.u. | 7.01 s.u. | +0.01 s.u. |  |
+|  | 2022-06-12 |  | 7 s.u. | 7.05 s.u. | +0.05 s.u. |  |
+|  | 2022-06-12 |  | 7 s.u. | 7.06 s.u. | +0.06 s.u. |  |
+|  | 2022-06-12 |  | 7 s.u. | 7.06 s.u. | +0.06 s.u. |  |
+|  | 2022-06-12 |  | 7 s.u. | 7.07 s.u. | +0.07 s.u. |  |
+|  | 2022-07-17 |  | 7 s.u. | 7.05 s.u. | +0.05 s.u. |  |
+|  | 2022-07-17 |  | 7 s.u. | 7.06 s.u. | +0.06 s.u. |  |
+|  | 2022-07-17 |  | 7 s.u. | 7.06 s.u. | +0.06 s.u. |  |
+|  | 2022-07-17 |  | 7 s.u. | 7.06 s.u. | +0.06 s.u. |  |
+|  | 2022-07-17 |  | 7 s.u. | 7.4 s.u. | +0.4 s.u. | MISS |
+|  | 2022-08-14 |  | 7 s.u. | 6.99 s.u. | -0.01 s.u. |  |
+|  | 2022-08-14 |  | 7 s.u. | 7.07 s.u. | +0.07 s.u. |  |
+|  | 2022-08-14 |  | 7 s.u. | 7.09 s.u. | +0.09 s.u. |  |
+|  | 2022-09-11 |  | 7 s.u. | 7.01 s.u. | +0.01 s.u. |  |
+|  | 2022-09-11 |  | 7 s.u. | 7.06 s.u. | +0.06 s.u. |  |
+|  | 2022-09-11 |  | 7 s.u. | 7.06 s.u. | +0.06 s.u. |  |
+| Sp Conductance |  |  |  |  |  |  |
+|  | 2022-05-15 |  | 1000 uS/cm | 975 uS/cm | -25 uS/cm |  |
+|  | 2022-05-15 |  | 1000 uS/cm | 977 uS/cm | -23 uS/cm |  |
+|  | 2022-05-15 |  | 1000 uS/cm | 985 uS/cm | -15 uS/cm |  |
+|  | 2022-05-15 |  | 1000 uS/cm | 991 uS/cm | -9 uS/cm |  |
+|  | 2022-06-12 |  | 1000 uS/cm | 978 uS/cm | -22 uS/cm |  |
+|  | 2022-06-12 |  | 1000 uS/cm | 979 uS/cm | -21 uS/cm |  |
+|  | 2022-06-12 |  | 1000 uS/cm | 979 uS/cm | -21 uS/cm |  |
+|  | 2022-06-12 |  | 1000 uS/cm | 983 uS/cm | -17 uS/cm |  |
+|  | 2022-06-12 |  | 1000 uS/cm | 987 uS/cm | -13 uS/cm |  |
+|  | 2022-07-17 |  | 1000 uS/cm | 984 uS/cm | -16 uS/cm |  |
+|  | 2022-07-17 |  | 1000 uS/cm | 988 uS/cm | -12 uS/cm |  |
+|  | 2022-07-17 |  | 1000 uS/cm | 997 uS/cm | -3 uS/cm |  |
+|  | 2022-08-14 |  | 1000 uS/cm | 991 uS/cm | -9 uS/cm |  |
+|  | 2022-08-14 |  | 1000 uS/cm | 991 uS/cm | -9 uS/cm |  |
+|  | 2022-08-14 |  | 1000 uS/cm | 992 uS/cm | -8 uS/cm |  |
+|  | 2022-08-14 |  | 1000 uS/cm | 992 uS/cm | -8 uS/cm |  |
+|  | 2022-08-14 |  | 1000 uS/cm | 996 uS/cm | -4 uS/cm |  |
+|  | 2022-09-11 |  | 1000 uS/cm | 986 uS/cm | -14 uS/cm |  |
+|  | 2022-09-11 |  | 1000 uS/cm | 989 uS/cm | -11 uS/cm |  |
+|  | 2022-09-11 |  | 1000 uS/cm | 990 uS/cm | -10 uS/cm |  |
+|  | 2022-09-11 |  | 1000 uS/cm | 993 uS/cm | -7 uS/cm |  |
+| TP |  |  |  |  |  |  |
+|  | 2022-05-15 |  | 100 % recovery | 100 % recovery | 100% |  |
+|  | 2022-05-15 |  | 100 % recovery | 101 % recovery | 101% |  |
+|  | 2022-05-15 |  | 100 % recovery | 103 % recovery | 103% |  |
+|  | 2022-06-12 |  | 100 % recovery | 100 % recovery | 100% |  |
+|  | 2022-06-12 |  | 100 % recovery | 104 % recovery | 104% |  |
+|  | 2022-06-12 |  | 100 % recovery | 104 % recovery | 104% |  |
+|  | 2022-07-17 |  | 100 % recovery | 105 % recovery | 105% |  |
+|  | 2022-07-17 |  | 100 % recovery | 105 % recovery | 105% |  |
+|  | 2022-07-17 |  | 100 % recovery | 110 % recovery | 110% |  |
+|  | 2022-08-14 |  | 100 % recovery | 99 % recovery | 99% |  |
+|  | 2022-08-14 |  | 100 % recovery | 99 % recovery | 99% |  |
+|  | 2022-08-14 |  | 100 % recovery | 101 % recovery | 101% |  |
+|  | 2022-09-11 |  | 100 % recovery | 97 % recovery | 97% |  |
+|  | 2022-09-11 |  | 100 % recovery | 99 % recovery | 99% |  |
+|  | 2022-09-11 |  | 100 % recovery | 99 % recovery | 99% |  |
+| Water Temp |  |  |  |  |  |  |
+|  | 2022-05-15 |  | 21.8 deg C | 21.8 deg C | +0 deg C |  |
+|  | 2022-05-15 |  | 21.8 deg C | 21.8 deg C | +0 deg C |  |
+|  | 2022-05-15 |  | 21.8 deg C | 21.9 deg C | +0.1 deg C |  |
+|  | 2022-05-15 |  | 21.8 deg C | 21.9 deg C | +0.1 deg C |  |
+|  | 2022-06-12 |  | 22.5 deg C | 22.6 deg C | +0.1 deg C |  |
+|  | 2022-06-12 |  | 22.5 deg C | 22.6 deg C | +0.1 deg C |  |
+|  | 2022-06-12 |  | 22.5 deg C | 22.7 deg C | +0.2 deg C |  |
+|  | 2022-07-17 |  | 22.7 deg C | 22.6 deg C | -0.1 deg C |  |
+|  | 2022-07-17 |  | 22.7 deg C | 22.7 deg C | +0 deg C |  |
+|  | 2022-07-17 |  | 22.7 deg C | 22.7 deg C | +0 deg C |  |
+|  | 2022-07-17 |  | 22.7 deg C | 25 deg C | +2.3 deg C | MISS |
+|  | 2022-07-17 |  | 22.7 deg C | 22.9 deg C | +0.2 deg C |  |
+|  | 2022-08-14 |  | 23.1 deg C | 23.1 deg C | +0 deg C |  |
+|  | 2022-08-14 |  | 23.1 deg C | 23.4 deg C | +0.3 deg C |  |
+|  | 2022-08-14 |  | 23.1 deg C | 23.4 deg C | +0.3 deg C |  |
+|  | 2022-09-11 |  | 22.8 deg C | 22.8 deg C | +0 deg C |  |
+|  | 2022-09-11 |  | 22.8 deg C | 22.8 deg C | +0 deg C |  |
+|  | 2022-09-11 |  | 22.8 deg C | 22.9 deg C | +0.1 deg C |  |
+|  | 2022-09-11 |  | 22.8 deg C | 23 deg C | +0.2 deg C |  |
 
-Lab Spikes / Instrument Checks
+Lab Spikes / Instrument Checks {.table .cl-f46259ea
+quarto-disable-processing="true"}
 
 For `type = "summary"`, the function summarizes all accuracy checks by
 counting the number of quality control checks, number of misses, and
@@ -598,46 +607,47 @@ percent acceptance for each parameter. All accuracy checks are used and
 the `accchk` argument does not apply.
 
 ``` r
+
 tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = "summary", warn = FALSE)
 ```
 
-| Type                           | Parameter      | Number of QC Checks | Number of Misses | % Acceptance |
-|--------------------------------|----------------|---------------------|------------------|--------------|
-| Field Duplicates               |                |                     |                  |              |
-|                                | Ammonia        | 4                   | 1                | 75 %         |
-|                                | DO             | 11                  | 0                | 100 %        |
-|                                | E.coli         | 2                   | 0                | 100 %        |
-|                                | Nitrate        | 2                   | 0                | 100 %        |
-|                                | pH             | 11                  | 0                | 100 %        |
-|                                | Sp Conductance | 11                  | 0                | 100 %        |
-|                                | TP             | 5                   | 1                | 80 %         |
-|                                | Water Temp     | 11                  | 0                | 100 %        |
-| Lab Duplicates                 |                |                     |                  |              |
-|                                | Ammonia        | 10                  | 0                | 100 %        |
-|                                | E.coli         | 4                   | 0                | 100 %        |
-|                                | Nitrate        | 10                  | 0                | 100 %        |
-|                                | pH             | 17                  | 1                | 94 %         |
-|                                | Sp Conductance | 17                  | 0                | 100 %        |
-|                                | TP             | 16                  | 0                | 100 %        |
-|                                | Water Temp     | 17                  | 0                | 100 %        |
-| Field Blanks                   |                |                     |                  |              |
-|                                | Ammonia        | 7                   | 0                | 100 %        |
-|                                | E.coli         | 4                   | 0                | 100 %        |
-|                                | Nitrate        | 7                   | 0                | 100 %        |
-|                                | TP             | 11                  | 1                | 91 %         |
-| Lab Blanks                     |                |                     |                  |              |
-|                                | Ammonia        | 7                   | 1                | 86 %         |
-|                                | E.coli         | 0                   | -                | -            |
-|                                | Nitrate        | 5                   | 0                | 100 %        |
-|                                | Sp Conductance | 21                  | 1                | 95 %         |
-|                                | TP             | 5                   | 0                | 100 %        |
-| Lab Spikes / Instrument Checks |                |                     |                  |              |
-|                                | Ammonia        | 9                   | 0                | 100 %        |
-|                                | Nitrate        | 10                  | 1                | 90 %         |
-|                                | pH             | 20                  | 1                | 95 %         |
-|                                | Sp Conductance | 21                  | 0                | 100 %        |
-|                                | TP             | 15                  | 0                | 100 %        |
-|                                | Water Temp     | 19                  | 1                | 95 %         |
+| Type | Parameter | Number of QC Checks | Number of Misses | % Acceptance |
+|----|----|----|----|----|
+| Field Duplicates |  |  |  |  |
+|  | Ammonia | 4 | 1 | 75 % |
+|  | DO | 11 | 0 | 100 % |
+|  | E.coli | 2 | 0 | 100 % |
+|  | Nitrate | 2 | 0 | 100 % |
+|  | pH | 11 | 0 | 100 % |
+|  | Sp Conductance | 11 | 0 | 100 % |
+|  | TP | 5 | 1 | 80 % |
+|  | Water Temp | 11 | 0 | 100 % |
+| Lab Duplicates |  |  |  |  |
+|  | Ammonia | 10 | 0 | 100 % |
+|  | E.coli | 4 | 0 | 100 % |
+|  | Nitrate | 10 | 0 | 100 % |
+|  | pH | 17 | 1 | 94 % |
+|  | Sp Conductance | 17 | 0 | 100 % |
+|  | TP | 16 | 0 | 100 % |
+|  | Water Temp | 17 | 0 | 100 % |
+| Field Blanks |  |  |  |  |
+|  | Ammonia | 7 | 0 | 100 % |
+|  | E.coli | 4 | 0 | 100 % |
+|  | Nitrate | 7 | 0 | 100 % |
+|  | TP | 11 | 1 | 91 % |
+| Lab Blanks |  |  |  |  |
+|  | Ammonia | 7 | 1 | 86 % |
+|  | E.coli | 0 | - | - |
+|  | Nitrate | 5 | 0 | 100 % |
+|  | Sp Conductance | 21 | 1 | 95 % |
+|  | TP | 5 | 0 | 100 % |
+| Lab Spikes / Instrument Checks |  |  |  |  |
+|  | Ammonia | 9 | 0 | 100 % |
+|  | Nitrate | 10 | 1 | 90 % |
+|  | pH | 20 | 1 | 95 % |
+|  | Sp Conductance | 21 | 0 | 100 % |
+|  | TP | 15 | 0 | 100 % |
+|  | Water Temp | 19 | 1 | 95 % |
 
 For `type = "percent"`, the function returns a similar table as for the
 summary option, except only the percentage of checks that pass for each
@@ -650,19 +660,20 @@ returned. All accuracy checks are used and the `accchk` argument does
 not apply.
 
 ``` r
+
 tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = "percent", warn = FALSE)
 ```
 
-| Parameter      | Field Duplicate | Lab Duplicate | Field Blank | Lab Blank | Spike/Check Accuracy |
-|----------------|-----------------|---------------|-------------|-----------|----------------------|
-| Ammonia        | 75%             | 100%          | 100%        | 86%       | 100%                 |
-| DO             | 100%            | -             | -           | -         | -                    |
-| E.coli         | 100%            | 100%          | 100%        | -         | -                    |
-| Nitrate        | 100%            | 100%          | 100%        | 100%      | 90%                  |
-| pH             | 100%            | 94%           | -           | -         | 95%                  |
-| Sp Conductance | 100%            | 100%          | -           | 95%       | 100%                 |
-| TP             | 80%             | 100%          | 91%         | 100%      | 100%                 |
-| Water Temp     | 100%            | 100%          | -           | -         | 95%                  |
+| Parameter | Field Duplicate | Lab Duplicate | Field Blank | Lab Blank | Spike/Check Accuracy |
+|----|----|----|----|----|----|
+| Ammonia | 75% | 100% | 100% | 86% | 100% |
+| DO | 100% | - | - | - | - |
+| E.coli | 100% | 100% | 100% | - | - |
+| Nitrate | 100% | 100% | 100% | 100% | 90% |
+| pH | 100% | 94% | - | - | 95% |
+| Sp Conductance | 100% | 100% | - | 95% | 100% |
+| TP | 80% | 100% | 91% | 100% | 100% |
+| Water Temp | 100% | 100% | - | - | 95% |
 
 The
 [`tabMWRacc()`](https://massbays-tech.github.io/MassWateR/reference/tabMWRacc.md)
@@ -684,6 +695,7 @@ accuracy check. Here, the lab duplicate checks are returned. The
 warnings are also suppressed.
 
 ``` r
+
 qcMWRacc(res = resdat, acc = accdat, frecom = frecomdat, accchk = "Lab Duplicates", warn = FALSE)
 #> $`Lab Duplicates`
 #> # A tibble: 91 × 7
@@ -741,46 +753,47 @@ is provided if `type = "summary"`. The function is executed with the
 data frames for the results and quality objectives file for frequency.
 
 ``` r
+
 tabMWRfre(res = resdat, acc = accdat, frecom = frecomdat, type = "summary", warn = FALSE)
 ```
 
-| Type                           | Parameter      | Number of Data Records | Number of Dups/Blanks/Spikes | Frequency % | Hit/Miss |
-|--------------------------------|----------------|------------------------|------------------------------|-------------|----------|
-| Field Duplicates               |                |                        |                              |             |          |
-|                                | Ammonia        | 43                     | 4                            | 9%          | MISS     |
-|                                | DO             | 49                     | 11                           | 22%         |          |
-|                                | E.coli         | 12                     | 2                            | 17%         |          |
-|                                | Nitrate        | 20                     | 2                            | 10%         |          |
-|                                | pH             | 49                     | 11                           | 22%         |          |
-|                                | Sp Conductance | 49                     | 11                           | 22%         |          |
-|                                | TP             | 48                     | 5                            | 10%         |          |
-|                                | Water Temp     | 49                     | 11                           | 22%         |          |
-| Lab Duplicates                 |                |                        |                              |             |          |
-|                                | Ammonia        | 43                     | 10                           | 23%         |          |
-|                                | E.coli         | 12                     | 4                            | 33%         |          |
-|                                | Nitrate        | 20                     | 10                           | 50%         |          |
-|                                | pH             | 49                     | 17                           | 35%         |          |
-|                                | Sp Conductance | 49                     | 17                           | 35%         |          |
-|                                | TP             | 48                     | 16                           | 33%         |          |
-|                                | Water Temp     | 49                     | 17                           | 35%         |          |
-| Field Blanks                   |                |                        |                              |             |          |
-|                                | Ammonia        | 43                     | 7                            | 16%         |          |
-|                                | E.coli         | 12                     | 4                            | 33%         |          |
-|                                | Nitrate        | 20                     | 7                            | 35%         |          |
-|                                | TP             | 48                     | 11                           | 23%         |          |
-| Lab Blanks                     |                |                        |                              |             |          |
-|                                | Ammonia        | 43                     | 7                            | 16%         |          |
-|                                | E.coli         | 12                     | 0                            | 0%          | MISS     |
-|                                | Nitrate        | 20                     | 5                            | 25%         |          |
-|                                | Sp Conductance | 49                     | 21                           | 43%         |          |
-|                                | TP             | 48                     | 5                            | 10%         |          |
-| Lab Spikes / Instrument Checks |                |                        |                              |             |          |
-|                                | Ammonia        | 43                     | 9                            | 21%         |          |
-|                                | Nitrate        | 20                     | 10                           | 50%         |          |
-|                                | pH             | 49                     | 20                           | 41%         |          |
-|                                | Sp Conductance | 49                     | 21                           | 43%         |          |
-|                                | TP             | 48                     | 15                           | 31%         |          |
-|                                | Water Temp     | 49                     | 19                           | 39%         |          |
+| Type | Parameter | Number of Data Records | Number of Dups/Blanks/Spikes | Frequency % | Hit/Miss |
+|----|----|----|----|----|----|
+| Field Duplicates |  |  |  |  |  |
+|  | Ammonia | 43 | 4 | 9% | MISS |
+|  | DO | 49 | 11 | 22% |  |
+|  | E.coli | 12 | 2 | 17% |  |
+|  | Nitrate | 20 | 2 | 10% |  |
+|  | pH | 49 | 11 | 22% |  |
+|  | Sp Conductance | 49 | 11 | 22% |  |
+|  | TP | 48 | 5 | 10% |  |
+|  | Water Temp | 49 | 11 | 22% |  |
+| Lab Duplicates |  |  |  |  |  |
+|  | Ammonia | 43 | 10 | 23% |  |
+|  | E.coli | 12 | 4 | 33% |  |
+|  | Nitrate | 20 | 10 | 50% |  |
+|  | pH | 49 | 17 | 35% |  |
+|  | Sp Conductance | 49 | 17 | 35% |  |
+|  | TP | 48 | 16 | 33% |  |
+|  | Water Temp | 49 | 17 | 35% |  |
+| Field Blanks |  |  |  |  |  |
+|  | Ammonia | 43 | 7 | 16% |  |
+|  | E.coli | 12 | 4 | 33% |  |
+|  | Nitrate | 20 | 7 | 35% |  |
+|  | TP | 48 | 11 | 23% |  |
+| Lab Blanks |  |  |  |  |  |
+|  | Ammonia | 43 | 7 | 16% |  |
+|  | E.coli | 12 | 0 | 0% | MISS |
+|  | Nitrate | 20 | 5 | 25% |  |
+|  | Sp Conductance | 49 | 21 | 43% |  |
+|  | TP | 48 | 5 | 10% |  |
+| Lab Spikes / Instrument Checks |  |  |  |  |  |
+|  | Ammonia | 43 | 9 | 21% |  |
+|  | Nitrate | 20 | 10 | 50% |  |
+|  | pH | 49 | 20 | 41% |  |
+|  | Sp Conductance | 49 | 21 | 43% |  |
+|  | TP | 48 | 15 | 31% |  |
+|  | Water Temp | 49 | 19 | 39% |  |
 
 A color-coded table showing similar information as percentages for each
 parameter is provided if `type = "percent"`. Cells are shown as green or
@@ -788,19 +801,20 @@ red if the required frequency checks are met as specified in the data
 quality objectives file.
 
 ``` r
+
 tabMWRfre(res = resdat, acc = accdat, frecom = frecomdat, type = "percent", warn = FALSE)
 ```
 
-| Parameter      | Field Duplicate | Lab Duplicate | Field Blank | Lab Blank | Spike/Check Accuracy |
-|----------------|-----------------|---------------|-------------|-----------|----------------------|
-| Ammonia        | 9%              | 23%           | 16%         | 16%       | 21%                  |
-| DO             | 22%             | -             | -           | -         | -                    |
-| E.coli         | 17%             | 33%           | 33%         | 0%        | -                    |
-| Nitrate        | 10%             | 50%           | 35%         | 25%       | 50%                  |
-| pH             | 22%             | 35%           | -           | -         | 41%                  |
-| Sp Conductance | 22%             | 35%           | -           | 43%       | 43%                  |
-| TP             | 10%             | 33%           | 23%         | 10%       | 31%                  |
-| Water Temp     | 22%             | 35%           | -           | -         | 39%                  |
+| Parameter | Field Duplicate | Lab Duplicate | Field Blank | Lab Blank | Spike/Check Accuracy |
+|----|----|----|----|----|----|
+| Ammonia | 9% | 23% | 16% | 16% | 21% |
+| DO | 22% | - | - | - | - |
+| E.coli | 17% | 33% | 33% | 0% | - |
+| Nitrate | 10% | 50% | 35% | 25% | 50% |
+| pH | 22% | 35% | - | - | 41% |
+| Sp Conductance | 22% | 35% | - | 43% | 43% |
+| TP | 10% | 33% | 23% | 10% | 31% |
+| Water Temp | 22% | 35% | - | - | 39% |
 
 The
 [`tabMWRfre()`](https://massbays-tech.github.io/MassWateR/reference/tabMWRfre.md)
@@ -819,6 +833,7 @@ objectives file for frequency and completeness. The warnings are
 suppressed.
 
 ``` r
+
 qcMWRfre(res = resdat, acc = accdat, frecom = frecomdat, warn = FALSE)
 #> # A tibble: 40 × 7
 #>    Parameter   obs check                count standard percent met  
@@ -883,19 +898,20 @@ executed with the data frames from above, since they have already passed
 the internal checks.
 
 ``` r
+
 tabMWRcom(res = resdat, frecom = frecomdat, cens = censdat, warn = FALSE)
 ```
 
-| Parameter      | Number of Data Records | Number of Qualified Records | Number of Missed/ Censored Records | % Completeness | Hit/ Miss | Notes |
-|----------------|------------------------|-----------------------------|------------------------------------|----------------|-----------|-------|
-| Ammonia        | 43                     | 0                           | 0                                  | 100%           |           |       |
-| DO             | 49                     | 0                           | 1                                  | 98%            |           |       |
-| E.coli         | 12                     | 0                           | 0                                  | 100%           |           |       |
-| Nitrate        | 20                     | 0                           | 0                                  | 100%           |           |       |
-| pH             | 49                     | 0                           | 12                                 | 80%            | MISS      |       |
-| Sp Conductance | 49                     | 0                           | 0                                  | 100%           |           |       |
-| TP             | 48                     | 5                           | 0                                  | 90%            | MISS      |       |
-| Water Temp     | 49                     | 0                           | 0                                  | 100%           |           |       |
+| Parameter | Number of Data Records | Number of Qualified Records | Number of Missed/ Censored Records | % Completeness | Hit/ Miss | Notes |
+|----|----|----|----|----|----|----|
+| Ammonia | 43 | 0 | 0 | 100% |  |  |
+| DO | 49 | 0 | 1 | 98% |  |  |
+| E.coli | 12 | 0 | 0 | 100% |  |  |
+| Nitrate | 20 | 0 | 0 | 100% |  |  |
+| pH | 49 | 0 | 12 | 80% | MISS |  |
+| Sp Conductance | 49 | 0 | 0 | 100% |  |  |
+| TP | 48 | 5 | 0 | 90% | MISS |  |
+| Water Temp | 49 | 0 | 0 | 100% |  |  |
 
 The
 [`tabMWRcom()`](https://massbays-tech.github.io/MassWateR/reference/tabMWRcom.md)
@@ -914,6 +930,7 @@ objectives file for frequency and completeness, and censored data. The
 warnings are suppressed.
 
 ``` r
+
 qcMWRcom(res = resdat, frecom = frecomdat, cens = censdat, warn = FALSE)
 #> # A tibble: 8 × 7
 #>   Parameter      datarec qualrec standard Missed and Censored R…¹ complete met  
