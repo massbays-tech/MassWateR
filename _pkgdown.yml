@@ -22,7 +22,7 @@ articles:
   - MassWateR
 - title: Articles
   navbar: ~
-  contents: 
+  contents:
   - inputs
   - outlierchecks
   - qcoverview
@@ -30,6 +30,7 @@ articles:
   - utility
   - modifying
   - wqx
+  - dashboard
   - outofstate
 
 reference:

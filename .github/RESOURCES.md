@@ -23,3 +23,7 @@ Below are links to resources for using or learning about MassWateR.
 
 -   Parameter list and units: [link](https://github.com/massbays-tech/MassWateR/raw/refs/heads/main/inst/extdata/ParameterMapping.xlsx)
 -   Parameter thresholds: [link](https://github.com/massbays-tech/MassWateR/raw/refs/heads/main/inst/extdata/ThresholdMapping.xlsx)
+
+## Dashboard
+
+-   A MassWateR dashboard is available to use the package entirely through a web browser.  See the [dashboard vignette](https://massbays-tech.github.io/MassWateR/articles/dashboard.html) for additional information.
