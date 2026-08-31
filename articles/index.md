@@ -22,6 +22,6 @@
 - [Water Quality Exchange
   output](https://massbays-tech.github.io/MassWateR/articles/wqx.md):
 - [MassWateR
-  Dashboard](https://massbays-tech.github.io/MassWateR/articles/dashboard.md):
+  dashboard](https://massbays-tech.github.io/MassWateR/articles/dashboard.md):
 - [Out of
   state?](https://massbays-tech.github.io/MassWateR/articles/outofstate.md):

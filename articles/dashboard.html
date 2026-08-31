@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>MassWateR Dashboard • MassWateR</title>
+<title>MassWateR dashboard • MassWateR</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="MassWateR Dashboard">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="MassWateR dashboard">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">MassWateR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.2.1.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,7 @@
     <li><a class="dropdown-item" href="../articles/utility.html">MassWateR utility functions</a></li>
     <li><a class="dropdown-item" href="../articles/modifying.html">Modifying plots</a></li>
     <li><a class="dropdown-item" href="../articles/wqx.html">Water Quality Exchange output</a></li>
-    <li><a class="dropdown-item" href="../articles/dashboard.html">MassWateR Dashboard</a></li>
+    <li><a class="dropdown-item" href="../articles/dashboard.html">MassWateR dashboard</a></li>
     <li><a class="dropdown-item" href="../articles/outofstate.html">Out of state?</a></li>
   </ul>
 </li>
@@ -65,7 +65,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>MassWateR Dashboard</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>MassWateR dashboard</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/massbays-tech/MassWateR/blob/main/vignettes/dashboard.Rmd" class="external-link"><code>vignettes/dashboard.Rmd</code></a></small>
@@ -131,6 +131,11 @@ uploaded and validated on the Upload &amp; Validate page.</p>
 <div class="section level3">
 <h3 id="upload-validate">1. Upload &amp; Validate<a class="anchor" aria-label="anchor" href="#upload-validate"></a>
 </h3>
+<div class="figure" style="text-align: center">
+<img src="dashboard_upload.png" class="r-plt" alt="The Upload &amp; Validate tab." width="100%"><p class="caption">
+The Upload &amp; Validate tab.
+</p>
+</div>
 <p>This page is used to upload and format data used for the rest of the
 dashboard. Five types of data (six files) are used with the MassWateR
 package, described in the <a href="inputs.html">Data input and
@@ -168,15 +173,15 @@ again” to load the corrected data from within the app.</p>
 <p>Input data can be downloaded in a zipped folder once uploaded by
 clicking the <strong>Download data</strong> button. The button is only
 visible after data are uploaded.</p>
-<div class="figure" style="text-align: center">
-<img src="dashboard_upload.png" class="r-plt" alt="The Upload &amp; Validate tab." width="100%"><p class="caption">
-The Upload &amp; Validate tab.
-</p>
-</div>
 </div>
 <div class="section level3">
 <h3 id="outlier-assessment">2. Outlier Assessment<a class="anchor" aria-label="anchor" href="#outlier-assessment"></a>
 </h3>
+<div class="figure" style="text-align: center">
+<img src="dashboard_outlier.png" class="r-plt" alt="The Outlier Assessment tab." width="100%"><p class="caption">
+The Outlier Assessment tab.
+</p>
+</div>
 <p>This page is used to view potential outliers in the results data
 file, described in more detail in the <a href="outlierchecks.html">Outlier checks</a> article.</p>
 <p>The controls on the left sidebar can be used to select the parameter,
@@ -188,15 +193,15 @@ displayed separately in a <strong>table</strong>. The third
 <strong>report</strong> sub-tab can be used to download a complete
 outlier report. The report can be downloaded as a Word file with all
 plots included or as a zipped file with images for all plots.</p>
-<div class="figure" style="text-align: center">
-<img src="dashboard_outlier.png" class="r-plt" alt="The Outlier Assessment tab." width="100%"><p class="caption">
-The Outlier Assessment tab.
-</p>
-</div>
 </div>
 <div class="section level3">
 <h3 id="qc-reporting">3. QC Reporting<a class="anchor" aria-label="anchor" href="#qc-reporting"></a>
 </h3>
+<div class="figure" style="text-align: center">
+<img src="dashboard_qc.png" class="r-plt" alt="The QC Reporting tab." width="100%"><p class="caption">
+The QC Reporting tab.
+</p>
+</div>
 <p>This page is used to view the quality control information for the
 results data file, using information from the data quality objectives
 that describe quality control accuracy, frequency, and completeness. See
@@ -243,15 +248,15 @@ checks</strong>.</li>
 <strong>Report</strong>: Download a complete quality control report
 as a Word document. This report includes all tables in this page.</li>
 </ol>
-<div class="figure" style="text-align: center">
-<img src="dashboard_qc.png" class="r-plt" alt="The QC Reporting tab." width="100%"><p class="caption">
-The QC Reporting tab.
-</p>
-</div>
 </div>
 <div class="section level3">
 <h3 id="wqx-output">4. WQX Output<a class="anchor" aria-label="anchor" href="#wqx-output"></a>
 </h3>
+<div class="figure" style="text-align: center">
+<img src="dashboard_wqx.png" class="r-plt" alt="The WQX Output tab." width="100%"><p class="caption">
+The WQX Output tab.
+</p>
+</div>
 <p>This page is used to view your data formatted for upload to the Water
 Quality Exchange (WQX) portal. See the <a href="wqx.html">Water Quality
 Exchange output</a> article for detailed information on the results and
@@ -278,15 +283,15 @@ the data to WQX. All required columns are present, but individual rows
 will need to be verified for completeness. It is the responsibility of
 the user to verify this information is complete and correct before
 uploading the data.</p>
-<div class="figure" style="text-align: center">
-<img src="dashboard_wqx.png" class="r-plt" alt="The WQX Output tab." width="100%"><p class="caption">
-The WQX Output tab.
-</p>
-</div>
 </div>
 <div class="section level3">
 <h3 id="visualize">5. Visualize<a class="anchor" aria-label="anchor" href="#visualize"></a>
 </h3>
+<div class="figure" style="text-align: center">
+<img src="dashboard_visualize.png" class="r-plt" alt="The Visualize tab." width="100%"><p class="caption">
+The Visualize tab.
+</p>
+</div>
 <p>This page is used to visualize results from your input data files.
 See the <a href="analysis.html">Analyses</a> article for detailed
 information on the plots and methods used to create them.</p>
@@ -313,11 +318,6 @@ the mean or geometric mean based on information in the data quality
 objective file for accuracy. Additional options for the map can be used
 to change the complexity of the water features and type of basemap.</li>
 </ol>
-<div class="figure" style="text-align: center">
-<img src="dashboard_visualize.png" class="r-plt" alt="The Visualize tab." width="100%"><p class="caption">
-The Visualize tab.
-</p>
-</div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

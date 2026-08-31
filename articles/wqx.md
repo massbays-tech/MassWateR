@@ -122,7 +122,7 @@ The Excel file can be further edited by hand as needed.
 ``` r
 
 tabMWRwqx(res = resdat, acc = accdat, sit = sitdat, wqx = wqxdat, output_dir = tempdir())
-#> Excel workbook created successfully! File located at /tmp/Rtmp9vYFoa/wqxtab.xlsx
+#> Excel workbook created successfully! File located at /tmp/RtmpBxJapn/wqxtab.xlsx
 ```
 
 As a convenience, the input files can also be passed to the
@@ -141,7 +141,7 @@ fsetls <- list(
 )
 
 tabMWRwqx(fset = fsetls, output_dir = tempdir())
-#> Excel workbook created successfully! File located at /tmp/Rtmp9vYFoa/wqxtab.xlsx
+#> Excel workbook created successfully! File located at /tmp/RtmpBxJapn/wqxtab.xlsx
 ```
 
 The name of the output file can also be changed using the `output_file`

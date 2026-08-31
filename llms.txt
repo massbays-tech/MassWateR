@@ -69,7 +69,11 @@ follows:
 - [Water Quality Exchange
   output](https://massbays-tech.github.io/MassWateR/articles/wqx.html):
   Information on generating output that will facilitate upload of data
-  to the EPA Water Quality Exchange
+  to the EPA Water Quality Exchange.
+- [MassWateR
+  dashboard](https://massbays-tech.github.io/MassWateR/articles/dashboard.html):
+  Information on using a MassWateR dashboard to perform the entire
+  workflow through a web browser.
 - [Out of
   state?](https://massbays-tech.github.io/MassWateR/articles/outofstate.html):
   MassWateR can be used anywhere and this article describes some tips
@@ -287,6 +291,6 @@ functions.
 - [Water Quality Exchange
   output](https://massbays-tech.github.io/MassWateR/articles/wqx.md):
 - [MassWateR
-  Dashboard](https://massbays-tech.github.io/MassWateR/articles/dashboard.md):
+  dashboard](https://massbays-tech.github.io/MassWateR/articles/dashboard.md):
 - [Out of
   state?](https://massbays-tech.github.io/MassWateR/articles/outofstate.md):

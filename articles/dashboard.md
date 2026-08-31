@@ -1,4 +1,4 @@
-# MassWateR Dashboard
+# MassWateR dashboard
 
 ## Overview
 
@@ -56,6 +56,10 @@ uploaded and validated on the Upload & Validate page.
 
 ### 1. Upload & Validate
 
+![The Upload & Validate tab.](dashboard_upload.png)
+
+The Upload & Validate tab.
+
 This page is used to upload and format data used for the rest of the
 dashboard. Five types of data (six files) are used with the MassWateR
 package, described in the [Data input and
@@ -94,11 +98,11 @@ Input data can be downloaded in a zipped folder once uploaded by
 clicking the **Download data** button. The button is only visible after
 data are uploaded.
 
-![The Upload & Validate tab.](dashboard_upload.png)
-
-The Upload & Validate tab.
-
 ### 2. Outlier Assessment
+
+![The Outlier Assessment tab.](dashboard_outlier.png)
+
+The Outlier Assessment tab.
 
 This page is used to view potential outliers in the results data file,
 described in more detail in the [Outlier
@@ -116,11 +120,11 @@ download a complete outlier report. The report can be downloaded as a
 Word file with all plots included or as a zipped file with images for
 all plots.
 
-![The Outlier Assessment tab.](dashboard_outlier.png)
-
-The Outlier Assessment tab.
-
 ### 3. QC Reporting
+
+![The QC Reporting tab.](dashboard_qc.png)
+
+The QC Reporting tab.
 
 This page is used to view the quality control information for the
 results data file, using information from the data quality objectives
@@ -163,11 +167,11 @@ The page includes six sub-tabs:
 6.  **Report**: Download a complete quality control report as a Word
     document. This report includes all tables in this page.
 
-![The QC Reporting tab.](dashboard_qc.png)
-
-The QC Reporting tab.
-
 ### 4. WQX Output
+
+![The WQX Output tab.](dashboard_wqx.png)
+
+The WQX Output tab.
 
 This page is used to view your data formatted for upload to the Water
 Quality Exchange (WQX) portal. See the [Water Quality Exchange
@@ -194,11 +198,11 @@ will need to be verified for completeness. It is the responsibility of
 the user to verify this information is complete and correct before
 uploading the data.
 
-![The WQX Output tab.](dashboard_wqx.png)
-
-The WQX Output tab.
-
 ### 5. Visualize
+
+![The Visualize tab.](dashboard_visualize.png)
+
+The Visualize tab.
 
 This page is used to visualize results from your input data files. See
 the
@@ -225,7 +229,3 @@ Four types of plots can be viewed with the right sub-tabs:
     geometric mean based on information in the data quality objective
     file for accuracy. Additional options for the map can be used to
     change the complexity of the water features and type of basemap.
-
-![The Visualize tab.](dashboard_visualize.png)
-
-The Visualize tab.
