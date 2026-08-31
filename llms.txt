@@ -286,5 +286,7 @@ functions.
   plots](https://massbays-tech.github.io/MassWateR/articles/modifying.md):
 - [Water Quality Exchange
   output](https://massbays-tech.github.io/MassWateR/articles/wqx.md):
+- [MassWateR
+  Dashboard](https://massbays-tech.github.io/MassWateR/articles/dashboard.md):
 - [Out of
   state?](https://massbays-tech.github.io/MassWateR/articles/outofstate.md):

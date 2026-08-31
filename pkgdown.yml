@@ -1,8 +1,9 @@
 pandoc: 3.8.3
-pkgdown: 2.2.0
+pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
   analysis: analysis.html
+  dashboard: dashboard.html
   inputs: inputs.html
   MassWateR: MassWateR.html
   modifying: modifying.html
@@ -11,7 +12,7 @@ articles:
   qcoverview: qcoverview.html
   utility: utility.html
   wqx: wqx.html
-last_built: 2026-05-05T14:20Z
+last_built: 2026-08-31T12:29Z
 urls:
   reference: https://massbays-tech.github.io/MassWateR/reference
   article: https://massbays-tech.github.io/MassWateR/articles

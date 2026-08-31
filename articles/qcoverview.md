@@ -123,7 +123,7 @@ The Word file can be further edited by hand as needed.
 ``` r
 
 qcMWRreview(res = resdat, acc = accdat, frecom = frecomdat, cens = censdat, warn = FALSE, output_dir = tempdir())
-#> Report created successfully! File located at /tmp/RtmpBEr3bI/qcreview.docx
+#> Report created successfully! File located at /tmp/RtmpzjxdD7/qcreview.docx
 ```
 
 As a convenience, the input files can also be passed to the
@@ -253,7 +253,7 @@ tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = "individual", a
 |           | 2022-09-11 |      | BDL       | 0.01 mg/l   |          |
 |           | 2022-09-11 |      | BDL       | 0.01 mg/l   |          |
 
-Field Blanks {.table .cl-f30dfb80 quarto-disable-processing="true"}
+Field Blanks {.table .cl-f9a24706 quarto-disable-processing="true"}
 
 ``` r
 
@@ -305,7 +305,7 @@ tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat,type = "individual", ac
 |                | 2022-08-14 |           | BDL        | 0.01 mg/l |          |
 |                | 2022-09-11 |           | BDL        | 0.01 mg/l |          |
 
-Lab Blanks {.table .cl-f34b9580 quarto-disable-processing="true"}
+Lab Blanks {.table .cl-f9e298e2 quarto-disable-processing="true"}
 
 ``` r
 
@@ -380,7 +380,7 @@ tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = "individual", a
 |  | 2022-09-11 | ABT-026 | 20.5 deg C | 20.5 deg C | 0 deg C |  |
 |  | 2022-09-11 | HOP-011 | 19.3 deg C | 19.3 deg C | 0 deg C |  |
 
-Field Duplicates {.table .cl-f39d35a2 quarto-disable-processing="true"}
+Field Duplicates {.table .cl-fa3b9ea6 quarto-disable-processing="true"}
 
 ``` r
 
@@ -488,7 +488,7 @@ tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = "individual", a
 |  | 2022-09-11 |  | 20.7 deg C | 20.5 deg C | 0.2 deg C |  |
 |  | 2022-09-11 |  | 20.7 deg C | 20.5 deg C | 0.2 deg C |  |
 
-Lab Duplicates {.table .cl-f3fef8aa quarto-disable-processing="true"}
+Lab Duplicates {.table .cl-faa48100 quarto-disable-processing="true"}
 
 ``` r
 
@@ -598,7 +598,7 @@ tabMWRacc(res = resdat, acc = accdat, frecom = frecomdat, type = "individual", a
 |  | 2022-09-11 |  | 22.8 deg C | 22.9 deg C | +0.1 deg C |  |
 |  | 2022-09-11 |  | 22.8 deg C | 23 deg C | +0.2 deg C |  |
 
-Lab Spikes / Instrument Checks {.table .cl-f46259ea
+Lab Spikes / Instrument Checks {.table .cl-fb1082ba
 quarto-disable-processing="true"}
 
 For `type = "summary"`, the function summarizes all accuracy checks by
