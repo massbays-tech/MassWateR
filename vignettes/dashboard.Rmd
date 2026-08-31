@@ -1,8 +1,8 @@
 ---
-title: "MassWateR Dashboard"
+title: "MassWateR dashboard"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{MassWateR Dashboard}
+  %\VignetteIndexEntry{MassWateR dashboard}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -53,6 +53,10 @@ The dashboard includes five pages, accessible from the navigation bar at the top
 
 ### 1. Upload & Validate
 
+```{r uploadimg, out.width = '100%', echo = F, fig.cap = 'The Upload & Validate tab.'}
+knitr::include_graphics("dashboard_upload.png")
+```
+
 This page is used to upload and format data used for the rest of the dashboard. Five types of data (six files) are used with the MassWateR package, described in the [Data input and checks](inputs.html) article.
 
 1. Water quality **results** organized by sample location and date.
@@ -69,11 +73,11 @@ Uploading data files will run the standard suite of checks used by MassWateR tha
 
 Input data can be downloaded in a zipped folder once uploaded by clicking the **Download data** button. The button is only visible after data are uploaded.
 
-```{r uploadimg, out.width = '100%', echo = F, fig.cap = 'The Upload & Validate tab.'}
-knitr::include_graphics("dashboard_upload.png")
-```
-
 ### 2. Outlier Assessment
+
+```{r outlierimg, out.width = '100%', echo = F, fig.cap = 'The Outlier Assessment tab.'}
+knitr::include_graphics("dashboard_outlier.png")
+```
 
 This page is used to view potential outliers in the results data file, described in more detail in the [Outlier checks](outlierchecks.html) article.
 
@@ -81,11 +85,11 @@ The controls on the left sidebar can be used to select the parameter, date range
 
 The right side shows the outliers for the selected options. Cycle through the sub-tabs to view the results as a **plot** or displayed separately in a **table**. The third **report** sub-tab can be used to download a complete outlier report. The report can be downloaded as a Word file with all plots included or as a zipped file with images for all plots.
 
-```{r outlierimg, out.width = '100%', echo = F, fig.cap = 'The Outlier Assessment tab.'}
-knitr::include_graphics("dashboard_outlier.png")
-```
-
 ### 3. QC Reporting
+
+```{r qcimg, out.width = '100%', echo = F, fig.cap = 'The QC Reporting tab.'}
+knitr::include_graphics("dashboard_qc.png")
+```
 
 This page is used to view the quality control information for the results data file, using information from the data quality objectives that describe quality control accuracy, frequency, and completeness. See the [Quality control](qcoverview.html) article for detailed information on the quality control methods and results.
 
@@ -98,11 +102,11 @@ The page includes six sub-tabs:
 5. **Raw Data**: Individual quality control checks for every parameter and observation can be viewed on this sub-tab. Results can be viewed for **field duplicates**, **lab duplicates**, **field blanks**, **lab blanks**, and **lab spikes / instrument checks**.
 6. **Report**: Download a complete quality control report as a Word document. This report includes all tables in this page.
 
-```{r qcimg, out.width = '100%', echo = F, fig.cap = 'The QC Reporting tab.'}
-knitr::include_graphics("dashboard_qc.png")
-```
-
 ### 4. WQX Output
+
+```{r wqximg, out.width = '100%', echo = F, fig.cap = 'The WQX Output tab.'}
+knitr::include_graphics("dashboard_wqx.png")
+```
 
 This page is used to view your data formatted for upload to the Water Quality Exchange (WQX) portal. See the [Water Quality Exchange output](wqx.html) article for detailed information on the results and how to upload to WQX.
 
@@ -115,11 +119,11 @@ The page includes four sub-tabs:
 
 The output is populated with as much content as possible based on information in the input files. The remainder of the information not included in the output will need to be manually entered before uploading the data to WQX. All required columns are present, but individual rows will need to be verified for completeness. It is the responsibility of the user to verify this information is complete and correct before uploading the data.
 
-```{r wqximg, out.width = '100%', echo = F, fig.cap = 'The WQX Output tab.'}
-knitr::include_graphics("dashboard_wqx.png")
-```
-
 ### 5. Visualize
+
+```{r visualizeimg, out.width = '100%', echo = F, fig.cap = 'The Visualize tab.'}
+knitr::include_graphics("dashboard_visualize.png")
+```
 
 This page is used to visualize results from your input data files. See the [Analyses](analysis.html) article for detailed information on the plots and methods used to create them.
 
@@ -131,7 +135,3 @@ Four types of plots can be viewed with the right sub-tabs:
 2. **Date**: View results continuously over time for a single parameter as line plots, with the lines separated by site.
 3. **Site**: View results for a single parameter using boxplots or barplots separately for each site on the x-axis.
 4. **Map**: View a map of summarized results for a selected parameter at each monitoring site. Results are summarized as the mean or geometric mean based on information in the data quality objective file for accuracy. Additional options for the map can be used to change the complexity of the water features and type of basemap.
-
-```{r visualizeimg, out.width = '100%', echo = F, fig.cap = 'The Visualize tab.'}
-knitr::include_graphics("dashboard_visualize.png")
-```
