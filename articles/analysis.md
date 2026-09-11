@@ -681,24 +681,11 @@ include `"OpenStreetMap"`, `"OpenStreetMap.DE"`,
 `"Esri.WorldStreetMap"`, `"Esri.DeLorme"`, `"Esri.WorldTopoMap"`,
 `"Esri.WorldImagery"`, `"Esri.WorldTerrain"`,
 `"Esri.WorldShadedRelief"`, `"Esri.OceanBasemap"`,
-`"Esri.NatGeoWorldMap"`, `"Esri.WorldGrayCanvas"`, `"CartoDB.Positron"`,
-`"CartoDB.PositronNoLabels"`, `"CartoDB.PositronOnlyLabels"`,
-`"CartoDB.DarkMatter"`, `"CartoDB.DarkMatterNoLabels"`,
-`"CartoDB.DarkMatterOnlyLabels"`, `"CartoDB.Voyager"`,
-`"CartoDB.VoyagerNoLabels"`, or `"CartoDB.VoyagerOnlyLabels"`. The
-`zoom` argument can be helpful when using a basemap. The default `zoom`
+`"Esri.NatGeoWorldMap"`, or `"Esri.WorldGrayCanvas"`. The `zoom`
+argument can be helpful when using a basemap. The default `zoom`
 argument is set to 11 and decreasing the number will download a base map
 with lower resolution. This can decrease map processing times for large
 areas.
-
-A `"CartoDB.Positron"` base map:
-
-``` r
-
-anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "CartoDB.Positron", warn = F, addwater = NULL)
-```
-
-![](analysis_files/figure-html/unnamed-chunk-44-1.png)
 
 A `"Esri.WorldImagery"` base map:
 
@@ -707,7 +694,7 @@ A `"Esri.WorldImagery"` base map:
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = "Esri.WorldImagery", warn = F, addwater = NULL)
 ```
 
-![](analysis_files/figure-html/unnamed-chunk-45-1.png)
+![](analysis_files/figure-html/unnamed-chunk-44-1.png)
 
 A map with no base map or water bodies:
 
@@ -716,4 +703,4 @@ A map with no base map or water bodies:
 anlzMWRmap(res = resdat, param = "DO", acc = accdat, sit = sitdat, maptype = NULL, warn = F, addwater = NULL)
 ```
 
-![](analysis_files/figure-html/unnamed-chunk-46-1.png)
+![](analysis_files/figure-html/unnamed-chunk-45-1.png)

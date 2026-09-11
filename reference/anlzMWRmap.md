@@ -258,11 +258,7 @@ Acceptable options include `"OpenStreetMap"`, `"OpenStreetMap.DE"`,
 `"Esri.WorldStreetMap"`, `"Esri.DeLorme"`, `"Esri.WorldTopoMap"`,
 `"Esri.WorldImagery"`, `"Esri.WorldTerrain"`,
 `"Esri.WorldShadedRelief"`, `"Esri.OceanBasemap"`,
-`"Esri.NatGeoWorldMap"`, `"Esri.WorldGrayCanvas"`, `"CartoDB.Positron"`,
-`"CartoDB.PositronNoLabels"`, `"CartoDB.PositronOnlyLabels"`,
-`"CartoDB.DarkMatter"`, `"CartoDB.DarkMatterNoLabels"`,
-`"CartoDB.DarkMatterOnlyLabels"`, `"CartoDB.Voyager"`,
-`"CartoDB.VoyagerNoLabels"`, or `"CartoDB.VoyagerOnlyLabels"`. Use
+`"Esri.NatGeoWorldMap"`, or `"Esri.WorldGrayCanvas"`. Use
 `maptype = NULL` to suppress the base map.
 
 The area around the summarized points can be increased or decreased

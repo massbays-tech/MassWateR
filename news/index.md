@@ -1,5 +1,11 @@
 # Changelog
 
+## MassWateR 2.2.1.9000
+
+- Removed the `"CartoDB.*"` base map options from
+  [`anlzMWRmap()`](https://massbays-tech.github.io/MassWateR/reference/anlzMWRmap.md)
+  because the tiles now render with an API key watermark
+
 ## MassWateR 2.2.1
 
 CRAN release: 2026-02-09
