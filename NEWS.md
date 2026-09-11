@@ -1,3 +1,7 @@
+# MassWateR 2.2.1.9000
+
+* Removed the `"CartoDB.*"` base map options from `anlzMWRmap()` because the tiles now render with an API key watermark
+
 # MassWateR 2.2.1
 
 * Added the argument `useapi` to `anlzMWRmap()` to retrieve water features (if `TRUE`) from the National Hydrography Dataset (NHD) ArcGIS REST API.  This option can retrieve water features from anywhere in the United States. Default `FALSE` will return data for Massachusetts from GitHub as before.

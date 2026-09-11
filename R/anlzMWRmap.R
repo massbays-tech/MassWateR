@@ -46,7 +46,7 @@
 #' 
 #' Using \code{addwater = "medium"} (default) will include lines and polygons of natural water bodies defined using the National Hydrography Dataset (NHD). The level of detail can be changed to low or high using \code{addwater = "low"} or \code{addwater = "high"}, respectively.  Use \code{addwater = NULL} to not show any water features. If \code{useapi = FALSE}, data layers are retrieved from GitHub from the \code{MassWateRdata} repository (Massachusetts only).  If \code{useapi = TRUE}, data layers are retrieved from the NHD ArcGIS REST service using the \code{utilMWRgetnhd} function for any location in the United States.  Note that processing time may be longer using the NHD ArcGIS REST service depending on the size of the area being queried.  Set \code{quiet = FALSE} to see progress messages when using the NHD ArcGIS REST service.
 #' 
-#' A base map can be plotted using the \code{maptype} argument.  The \code{zoom} value specifies the resolution of the map.  Use higher values to download map tiles with greater resolution, although this increases the download time.  The \code{maptype} argument describes the type of base map to download. Acceptable options include \code{"OpenStreetMap"}, \code{"OpenStreetMap.DE"}, \code{"OpenStreetMap.France"}, \code{"OpenStreetMap.HOT"}, \code{"OpenTopoMap"}, \code{"Esri.WorldStreetMap"}, \code{"Esri.DeLorme"}, \code{"Esri.WorldTopoMap"}, \code{"Esri.WorldImagery"}, \code{"Esri.WorldTerrain"}, \code{"Esri.WorldShadedRelief"}, \code{"Esri.OceanBasemap"}, \code{"Esri.NatGeoWorldMap"}, \code{"Esri.WorldGrayCanvas"}, \code{"CartoDB.Positron"}, \code{"CartoDB.PositronNoLabels"}, \code{"CartoDB.PositronOnlyLabels"}, \code{"CartoDB.DarkMatter"}, \code{"CartoDB.DarkMatterNoLabels"}, \code{"CartoDB.DarkMatterOnlyLabels"}, \code{"CartoDB.Voyager"}, \code{"CartoDB.VoyagerNoLabels"}, or \code{"CartoDB.VoyagerOnlyLabels"}. Use \code{maptype = NULL} to suppress the base map.
+#' A base map can be plotted using the \code{maptype} argument.  The \code{zoom} value specifies the resolution of the map.  Use higher values to download map tiles with greater resolution, although this increases the download time.  The \code{maptype} argument describes the type of base map to download. Acceptable options include \code{"OpenStreetMap"}, \code{"OpenStreetMap.DE"}, \code{"OpenStreetMap.France"}, \code{"OpenStreetMap.HOT"}, \code{"OpenTopoMap"}, \code{"Esri.WorldStreetMap"}, \code{"Esri.DeLorme"}, \code{"Esri.WorldTopoMap"}, \code{"Esri.WorldImagery"}, \code{"Esri.WorldTerrain"}, \code{"Esri.WorldShadedRelief"}, \code{"Esri.OceanBasemap"}, \code{"Esri.NatGeoWorldMap"}, or \code{"Esri.WorldGrayCanvas"}. Use \code{maptype = NULL} to suppress the base map.
 #' 
 #' The area around the summarized points can be increased or decreased using the \code{buffdist} argument.  This creates a buffered area around the bounding box for the points, where the units are kilometers.  
 #' 
@@ -155,15 +155,11 @@ anlzMWRmap<- function(res = NULL, param, acc = NULL, sit = NULL, fset = NULL, si
 
   if(!is.null(maptype)){
     
-    maptype <- match.arg(maptype, c("OpenStreetMap", "OpenStreetMap.DE", "OpenStreetMap.France", 
+    maptype <- match.arg(maptype, c("OpenStreetMap", "OpenStreetMap.DE", "OpenStreetMap.France",
                                     "OpenStreetMap.HOT", "OpenTopoMap",
-                                    "Esri.WorldStreetMap", "Esri.DeLorme", "Esri.WorldTopoMap", 
-                                    "Esri.WorldImagery", "Esri.WorldTerrain", "Esri.WorldShadedRelief", 
-                                    "Esri.OceanBasemap", "Esri.NatGeoWorldMap", "Esri.WorldGrayCanvas", 
-                                    "CartoDB.Positron", "CartoDB.PositronNoLabels", 
-                                    "CartoDB.PositronOnlyLabels", "CartoDB.DarkMatter", 
-                                    "CartoDB.DarkMatterNoLabels", "CartoDB.DarkMatterOnlyLabels", 
-                                    "CartoDB.Voyager", "CartoDB.VoyagerNoLabels", "CartoDB.VoyagerOnlyLabels"))
+                                    "Esri.WorldStreetMap", "Esri.DeLorme", "Esri.WorldTopoMap",
+                                    "Esri.WorldImagery", "Esri.WorldTerrain", "Esri.WorldShadedRelief",
+                                    "Esri.OceanBasemap", "Esri.NatGeoWorldMap", "Esri.WorldGrayCanvas"))
     
     tls <- maptiles::get_tiles(dat_ext, provider = maptype, zoom = zoom, )
     
