@@ -255,11 +255,10 @@ tiles with greater resolution, although this increases the download
 time. The `maptype` argument describes the type of base map to download.
 Acceptable options include `"OpenStreetMap"`, `"OpenStreetMap.DE"`,
 `"OpenStreetMap.France"`, `"OpenStreetMap.HOT"`, `"OpenTopoMap"`,
-`"Esri.WorldStreetMap"`, `"Esri.DeLorme"`, `"Esri.WorldTopoMap"`,
-`"Esri.WorldImagery"`, `"Esri.WorldTerrain"`,
-`"Esri.WorldShadedRelief"`, `"Esri.OceanBasemap"`,
-`"Esri.NatGeoWorldMap"`, or `"Esri.WorldGrayCanvas"`. Use
-`maptype = NULL` to suppress the base map.
+`"Esri.WorldStreetMap"`, `"Esri.WorldTopoMap"`, `"Esri.WorldImagery"`,
+`"Esri.WorldTerrain"`, `"Esri.WorldShadedRelief"`,
+`"Esri.OceanBasemap"`, `"Esri.NatGeoWorldMap"`, or
+`"Esri.WorldGrayCanvas"`. Use `maptype = NULL` to suppress the base map.
 
 The area around the summarized points can be increased or decreased
 using the `buffdist` argument. This creates a buffered area around the
