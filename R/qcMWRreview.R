@@ -167,8 +167,9 @@ qcMWRreview <- function(res = NULL, acc = NULL, frecom = NULL, cens = NULL, fset
 
   suppressMessages(rmarkdown::render(
     input = qcreview,
-    output_dir = output_dir, 
-    output_file = output_file, 
+    output_dir = output_dir,
+    output_file = output_file,
+    intermediates_dir = output_dir,
     params = list(
       resdatdt = resdatdt,
       accdat = accdat, 

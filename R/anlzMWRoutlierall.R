@@ -90,8 +90,9 @@ anlzMWRoutlierall <- function(res = NULL, acc = NULL, fset = NULL, fig_height = 
 
     suppressMessages(rmarkdown::render(
       input = outlierall,
-      output_dir = output_dir, 
-      output_file = output_file, 
+      output_dir = output_dir,
+      output_file = output_file,
+      intermediates_dir = output_dir,
       params = list(
         pall = pall,
         fig_width = fig_width, 
