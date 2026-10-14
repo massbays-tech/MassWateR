@@ -46,6 +46,7 @@ jobs:
         run: |
           brew update
           brew install proj gdal udunits
+          brew install --cask xquartz
           echo "PROJ_LIB=$(brew --prefix proj)/share/proj" >> $GITHUB_ENV
           echo "GDAL_DATA=$(brew --prefix gdal)/share/gdal" >> $GITHUB_ENV
 
