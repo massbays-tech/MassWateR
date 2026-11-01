@@ -14,6 +14,11 @@ quality control reports, preparing output for the Water Quality Exchange
 
 The dashboard can be accessed two ways.
 
+### Use the dashboard from a web browser
+
+A hosted instance of the dashboard is also available directly in a
+browser at [https://masswater.app](https://masswater.app).
+
 ### Install as an R package
 
 The dashboard is available as a companion R package,
@@ -37,13 +42,6 @@ run_app()
 
 This opens the dashboard in your default web browser. Data are uploaded
 from your computer and all processing happens locally in your R session.
-
-### Use the dashboard from a web browser
-
-A hosted instance of the dashboard is also available directly in a
-browser:
-
-    http://<server-ip>:3838/
 
 ## Using the dashboard
 
