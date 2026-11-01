@@ -25,6 +25,10 @@ A Shiny dashboard is available to use the MassWateR workflow entirely within a w
 
 The dashboard can be accessed two ways.
 
+### Use the dashboard from a web browser
+
+A hosted instance of the dashboard is also available directly in a browser at <a href="https://masswater.app" target="_blank">https://masswater.app</a>.
+
 ### Install as an R package
 
 The dashboard is available as a companion R package, <a href="https://github.com/massbays-tech/MassWateRdash" target="_blank">MassWateRdash</a>.  Issues directly related to the dashboard and its use can be reported on that repository's <a href="https://github.com/massbays-tech/MassWateRdash/issues" target="_blank">issues page</a> (issues related to core features of the MassWateR package can be reported on the <a href="https://github.com/massbays-tech/MassWateR/issues" target="_blank">MassWateR issues page</a>). 
@@ -38,14 +42,6 @@ run_app()
 ```
 
 This opens the dashboard in your default web browser. Data are uploaded from your computer and all processing happens locally in your R session.
-
-### Use the dashboard from a web browser
-
-A hosted instance of the dashboard is also available directly in a browser:
-
-```
-http://<server-ip>:3838/
-```
 
 ## Using the dashboard
 
