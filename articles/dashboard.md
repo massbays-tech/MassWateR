@@ -2,26 +2,19 @@
 
 ## Overview
 
-A Shiny dashboard is available to use the MassWateR workflow entirely
-within a web browser. The dashboard walks through the same steps
-described elsewhere in the vignette articles without requiring any R
-code. This includes uploading and validating your data files, reviewing
-potential outliers, assessing data quality objectives and creating
-quality control reports, preparing output for the Water Quality Exchange
-(WQX), and visualizing your results.
+A dashboard is available to use the MassWateR workflow. The dashboard
+walks through the same steps described elsewhere in the vignette
+articles without requiring any R code (unless you’re installing it first
+as an R package,see below). This includes uploading and validating your
+data files, reviewing potential outliers, assessing data quality
+objectives and creating quality control reports, preparing output for
+the Water Quality Exchange (WQX), and visualizing your results. The
+dashboard can be accessed two ways.
 
-## Accessing the dashboard
+A hosted instance of the dashboard is available directly in a browser at
+[https://masswater.app](https://masswater.app).
 
-The dashboard can be accessed two ways.
-
-### Use the dashboard from a web browser
-
-A hosted instance of the dashboard is also available directly in a
-browser at [https://masswater.app](https://masswater.app).
-
-### Install as an R package
-
-The dashboard is available as a companion R package,
+Alternatively, the dashboard is available as a companion R package,
 [MassWateRdash](https://github.com/massbays-tech/MassWateRdash). Issues
 directly related to the dashboard and its use can be reported on that
 repository’s [issues
@@ -30,8 +23,8 @@ related to core features of the MassWateR package can be reported on the
 [MassWateR issues
 page](https://github.com/massbays-tech/MassWateR/issues)).
 
-Install the MassWateRdash repository directly from GitHub and launch it
-from an R session:
+Follow the steps below to install the MassWateRdash package and launch
+it directly from an R session:
 
 ``` r
 
@@ -76,8 +69,9 @@ article.
 5.  Optional information on the number of **censored** or missing
     observations by parameter, used only in the quality control report.
 
-The dashboard can be run in **test mode** by flipping the switch in the
-top left. This loads pre-existing files to use with the package.
+The dashboard can be run in **test mode** by flipping the switch at the
+very bottom of the sidebar, below the file inputs. This loads
+pre-existing files to use with the package.
 
 Choosing the option to **convert from another format** opens up a box to
 convert existing data into the format required by MassWateR. This option
@@ -91,6 +85,13 @@ available on the package’s
 page. An interactive popup will appear if the data require correction.
 Follow the on-screen prompts to correct the data, then click “Try upload
 again” to load the corrected data from within the app.
+
+Once the results data are uploaded, a spreadsheet showing the unique
+values in each column can be downloaded by clicking the **Review Results
+values** button in the status box for the results file. See the help
+file for
+[`readMWRresultsview()`](https://massbays-tech.github.io/MassWateR/reference/readMWRresultsview.md)
+for more information.
 
 Input data can be downloaded in a zipped folder once uploaded by
 clicking the **Download data** button. The button is only visible after
@@ -137,21 +138,21 @@ The page includes six sub-tabs:
 1.  **DQO tables**: View tables for the **frequency & completeness** and
     **accuracy** data quality objectives. These are the same files
     imported on the first page.
-2.  **Accuracy**: The quality control checks for accuracy assess several
+2.  **Frequency**: The quality control checks for frequency are used to
+    verify an appropriate number of quality control samples have been
+    collected or analyzed for each parameter. These are checks on the
+    quantity of samples and not the values, unlike the accuracy checks.
+    View a table showing the **percent** of observations by parameter
+    that fulfill data quality objectives for frequency. A **summary**
+    table showing all results by parameter and quality control check can
+    also be viewed.
+3.  **Accuracy**: The quality control checks for accuracy assess several
     characteristics of the data in the results file by referencing
     appropriate values in the data quality objectives file for accuracy.
     In short, the accuracy checks evaluate field blanks, lab blanks,
     field duplicates, lab duplicates, lab spikes, and instrument checks.
     View a table showing the **percent** of observations by parameter
     that fulfill data quality objectives for accuracy. A **summary**
-    table showing all results by parameter and quality control check can
-    also be viewed.
-3.  **Frequency**: The quality control checks for frequency are used to
-    verify an appropriate number of quality control samples have been
-    collected or analyzed for each parameter. These are checks on the
-    quantity of samples and not the values, as for the accuracy checks.
-    View a table showing the **percent** of observations by parameter
-    that fulfill data quality objectives for frequency. A **summary**
     table showing all results by parameter and quality control check can
     also be viewed.
 4.  **Completeness**: The quality control checks for completeness are
@@ -209,17 +210,33 @@ article for detailed information on the plots and methods used to create
 them.
 
 The controls on the left sidebar can be used to select the parameter,
-date range, sites, threshold type (as a line on the plot), and plot type
-(e.g., boxplot, barplot, etc.). These options will change based on the
-selected sub-tab on the right. A download button can be used to download
-an image of the visible plot.
+date range, sites, location group, result attributes, threshold type (as
+a line on the plot), and plot type (e.g., boxplot, barplot, etc.). These
+options will change based on the selected sub-tab on the right. A
+download button can be used to download an image of the visible plot.
+
+The location group and result attribute dropdowns only appear if values
+are available for the selected parameter and date range, i.e., location
+groups in the site metadata file or entries in the Result Attribute
+column of the results file. Each includes a “None” option if some
+results have no entry. Select or deselect “None” to include or exclude
+these results. Sites and location groups are linked, so changing one
+updates the other.
+
+The threshold type includes built-in freshwater or marine thresholds
+from MassWateR if available for the selected parameter. Choose “custom”
+to enter your own thresholds instead. Separate multiple values and
+labels with semicolons (e.g., values “5; 8.5” and labels “Low; High”),
+then click **Apply thresholds** to add them to the plot. Custom
+thresholds are cleared when a new parameter is selected.
 
 Four types of plots can be viewed with the right sub-tabs:
 
 1.  **Season**: View monthly results for a single parameter using
     boxplots or barplots.
 2.  **Date**: View results continuously over time for a single parameter
-    as line plots, with the lines separated by site.
+    as line plots, with the lines grouped by site or location group or
+    combined for all sites.
 3.  **Site**: View results for a single parameter using boxplots or
     barplots separately for each site on the x-axis.
 4.  **Map**: View a map of summarized results for a selected parameter
