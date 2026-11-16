@@ -53,11 +53,13 @@ This page is used to upload and format data used for the rest of the dashboard. 
 4. A **WQX metadata** file required for generating output to facilitate data upload to WQX.
 5. Optional information on the number of **censored** or missing observations by parameter, used only in the quality control report.
 
-The dashboard can be run in **test mode** by flipping the switch in the top left. This loads pre-existing files to use with the package.
+The dashboard can be run in **test mode** by flipping the switch at the very bottom of the sidebar, below the file inputs. This loads pre-existing files to use with the package.
 
 Choosing the option to **convert from another format** opens up a box to convert existing data into the format required by MassWateR. This option makes use of the <a href="https://github.com/massbays-tech/wqformat" target="_blank">wqformat</a> package.
 
 Uploading data files will run the standard suite of checks used by MassWateR that ensure the data are the correct format. Templates are available on the package's [Resources](https://massbays-tech.github.io/MassWateR/RESOURCES.html) page. An interactive popup will appear if the data require correction. Follow the on-screen prompts to correct the data, then click "Try upload again" to load the corrected data from within the app.
+
+Once the results data are uploaded, a spreadsheet showing the unique values in each column can be downloaded by clicking the **Review Results values** button in the status box for the results file. See the help file for `readMWRresultsview()` for more information.
 
 Input data can be downloaded in a zipped folder once uploaded by clicking the **Download data** button. The button is only visible after data are uploaded.
 
@@ -84,8 +86,8 @@ This page is used to view the quality control information for the results data f
 The page includes six sub-tabs:
 
 1. **DQO tables**: View tables for the **frequency & completeness** and **accuracy** data quality objectives. These are the same files imported on the first page.
-2. **Accuracy**: The quality control checks for accuracy assess several characteristics of the data in the results file by referencing appropriate values in the data quality objectives file for accuracy. In short, the accuracy checks evaluate field blanks, lab blanks, field duplicates, lab duplicates, lab spikes, and instrument checks. View a table showing the **percent** of observations by parameter that fulfill data quality objectives for accuracy. A **summary** table showing all results by parameter and quality control check can also be viewed.
-3. **Frequency**: The quality control checks for frequency are used to verify an appropriate number of quality control samples have been collected or analyzed for each parameter. These are checks on the quantity of samples and not the values, as for the accuracy checks. View a table showing the **percent** of observations by parameter that fulfill data quality objectives for frequency. A **summary** table showing all results by parameter and quality control check can also be viewed.
+2. **Frequency**: The quality control checks for frequency are used to verify an appropriate number of quality control samples have been collected or analyzed for each parameter. These are checks on the quantity of samples and not the values, unlike the accuracy checks. View a table showing the **percent** of observations by parameter that fulfill data quality objectives for frequency. A **summary** table showing all results by parameter and quality control check can also be viewed.
+3. **Accuracy**: The quality control checks for accuracy assess several characteristics of the data in the results file by referencing appropriate values in the data quality objectives file for accuracy. In short, the accuracy checks evaluate field blanks, lab blanks, field duplicates, lab duplicates, lab spikes, and instrument checks. View a table showing the **percent** of observations by parameter that fulfill data quality objectives for accuracy. A **summary** table showing all results by parameter and quality control check can also be viewed.
 4. **Completeness**: The quality control checks for completeness are used to assess the number of regular samples relative to qualified samples that apply to each parameter. A single table shows the outcome of these checks.
 5. **Raw Data**: Individual quality control checks for every parameter and observation can be viewed on this sub-tab. Results can be viewed for **field duplicates**, **lab duplicates**, **field blanks**, **lab blanks**, and **lab spikes / instrument checks**.
 6. **Report**: Download a complete quality control report as a Word document. This report includes all tables in this page.
@@ -115,11 +117,15 @@ knitr::include_graphics("dashboard_visualize.png")
 
 This page is used to visualize results from your input data files. See the [Analyses](analysis.html) article for detailed information on the plots and methods used to create them.
 
-The controls on the left sidebar can be used to select the parameter, date range, sites, threshold type (as a line on the plot), and plot type (e.g., boxplot, barplot, etc.). These options will change based on the selected sub-tab on the right. A download button can be used to download an image of the visible plot.
+The controls on the left sidebar can be used to select the parameter, date range, sites, location group, result attributes, threshold type (as a line on the plot), and plot type (e.g., boxplot, barplot, etc.). These options will change based on the selected sub-tab on the right. A download button can be used to download an image of the visible plot.
+
+The location group and result attribute dropdowns only appear if values are available for the selected parameter and date range, i.e., location groups in the site metadata file or entries in the Result Attribute column of the results file. Each includes a "None" option if some results have no entry. Select or deselect "None" to include or exclude these results. Sites and location groups are linked, so changing one updates the other.
+
+The threshold type includes built-in freshwater or marine thresholds from MassWateR if available for the selected parameter. Choose "custom" to enter your own thresholds instead. Separate multiple values and labels with semicolons (e.g., values "5; 8.5" and labels "Low; High"), then click **Apply thresholds** to add them to the plot. Custom thresholds are cleared when a new parameter is selected.
 
 Four types of plots can be viewed with the right sub-tabs:
 
 1. **Season**: View monthly results for a single parameter using boxplots or barplots.
-2. **Date**: View results continuously over time for a single parameter as line plots, with the lines separated by site.
+2. **Date**: View results continuously over time for a single parameter as line plots, with the lines grouped by site or location group or combined for all sites.
 3. **Site**: View results for a single parameter using boxplots or barplots separately for each site on the x-axis.
 4. **Map**: View a map of summarized results for a selected parameter at each monitoring site. Results are summarized as the mean or geometric mean based on information in the data quality objective file for accuracy. Additional options for the map can be used to change the complexity of the water features and type of basemap.
