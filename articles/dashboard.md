@@ -67,7 +67,8 @@ article.
 4.  A **WQX metadata** file required for generating output to facilitate
     data upload to WQX.
 5.  Optional information on the number of **censored** or missing
-    observations by parameter, used only in the quality control report.
+    observations by parameter, used only for the completeness checks on
+    the QC reporting tab and in the quality control report.
 
 The dashboard can be run in **test mode** by flipping the switch at the
 very bottom of the sidebar, below the file inputs. This loads
@@ -95,7 +96,11 @@ for more information.
 
 Input data can be downloaded in a zipped folder once uploaded by
 clicking the **Download data** button. The button is only visible after
-data are uploaded.
+data are uploaded. The folder contains one .xlsx file for each uploaded
+data type, including any corrections made in the app, and the files can
+be uploaded again. Some values may differ from the original files
+because MassWateR standardizes them when the data are read (e.g., WQX
+parameter names are converted to simple names).
 
 ### 2. Outlier Assessment
 

@@ -140,8 +140,8 @@ latitude, longitude, and additional grouping factors for sites.</li>
 <li>A <strong>WQX metadata</strong> file required for generating output
 to facilitate data upload to WQX.</li>
 <li>Optional information on the number of <strong>censored</strong> or
-missing observations by parameter, used only in the quality control
-report.</li>
+missing observations by parameter, used only for the completeness checks
+on the QC reporting tab and in the quality control report.</li>
 </ol>
 <p>The dashboard can be run in <strong>test mode</strong> by flipping
 the switch at the very bottom of the sidebar, below the file inputs.
@@ -164,7 +164,11 @@ See the help file for <code><a href="../reference/readMWRresultsview.html">readM
 information.</p>
 <p>Input data can be downloaded in a zipped folder once uploaded by
 clicking the <strong>Download data</strong> button. The button is only
-visible after data are uploaded.</p>
+visible after data are uploaded. The folder contains one .xlsx file for
+each uploaded data type, including any corrections made in the app, and
+the files can be uploaded again. Some values may differ from the
+original files because MassWateR standardizes them when the data are
+read (e.g., WQX parameter names are converted to simple names).</p>
 </div>
 <div class="section level3">
 <h3 id="outlier-assessment">2. Outlier Assessment<a class="anchor" aria-label="anchor" href="#outlier-assessment"></a>
